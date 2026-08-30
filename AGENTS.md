@@ -14,7 +14,15 @@ root/
 ├── 2-JavaScript/
 ├── 3-Laravel/
 ├── 4-Vue/
-└── 5-Docker/
+├── 5-Docker/
+├── 6-Java/
+├── 7-SpringBoot/
+├── 8-React/
+├── 9-Nuxt/
+├── 10-PostgreSQL/
+├── 11-TypeScript/
+├── 12-NGINX/
+└── 13-Git/
 ```
 
 Topik dan status file saat ini:
@@ -38,8 +46,37 @@ Topik dan status file saat ini:
 | 15 | Docker Dasar | `5-Docker/` | `docker-dasar-cheatsheet.md` | `docker-dasar-cheatsheet-revised.md` |
 | 16 | Docker Compose | `5-Docker/` | `docker-compose-dasar-cheatsheet.md` | `docker-compose-dasar-cheatsheet-revised.md` |
 | 17 | Dockerfile | `5-Docker/` | `dockerfile-dasar-cheatsheet.md` | `dockerfile-dasar-cheatsheet-revised.md` |
+| 18 | Java Dasar | `6-Java/` | `java-dasar-cheatsheet.md` | `java-dasar-cheatsheet-revised.md` |
+| 19 | Java OOP | `6-Java/` | `java-oop-cheatsheet.md` | `java-oop-cheatsheet-revised.md` |
+| 20 | Java Generic | `6-Java/` | `java-generic-cheatsheet.md` | `java-generic-cheatsheet-revised.md` |
+| 21 | Java Collection | `6-Java/` | `java-collection-cheatsheet.md` | `java-collection-cheatsheet-revised.md` |
+| 22 | Java Lambda & Stream API | `6-Java/` | `java-lambda-stream-cheatsheet.md` | `java-lambda-stream-cheatsheet-revised.md` |
+| 23 | Java Database (JDBC) | `6-Java/` | `java-database-cheatsheet.md` | `java-database-cheatsheet-revised.md` |
+| 24 | Spring Boot Dasar | `7-SpringBoot/` | `springboot-dasar-cheatsheet.md` | `springboot-dasar-cheatsheet-revised.md` |
+| 25 | Spring Boot Web | `7-SpringBoot/` | `springboot-web-cheatsheet.md` | `springboot-web-cheatsheet-revised.md` |
+| 26 | Spring Data JPA | `7-SpringBoot/` | `springboot-jpa-cheatsheet.md` | `springboot-jpa-cheatsheet-revised.md` |
+| 27 | Spring Security & JWT | `7-SpringBoot/` | `springboot-security-cheatsheet.md` | `springboot-security-cheatsheet-revised.md` |
+| 28 | Spring Boot Testing | `7-SpringBoot/` | `springboot-testing-cheatsheet.md` | `springboot-testing-cheatsheet-revised.md` |
+| 29 | React Dasar | `8-React/` | `react-dasar-cheatsheet.md` | `react-dasar-cheatsheet-revised.md` |
+| 30 | React Router | `8-React/` | `react-router-cheatsheet.md` | `react-router-cheatsheet-revised.md` |
+| 31 | React Zustand | `8-React/` | `react-zustand-cheatsheet.md` | `react-zustand-cheatsheet-revised.md` |
+| 32 | Nuxt Dasar | `9-Nuxt/` | `nuxt-dasar-cheatsheet.md` | `nuxt-dasar-cheatsheet-revised.md` |
+| 33 | Nuxt Data Fetching | `9-Nuxt/` | `nuxt-data-fetching-cheatsheet.md` | `nuxt-data-fetching-cheatsheet-revised.md` |
+| 34 | Nuxt State & Middleware | `9-Nuxt/` | `nuxt-state-middleware-cheatsheet.md` | `nuxt-state-middleware-cheatsheet-revised.md` |
+| 35 | PostgreSQL Dasar | `10-PostgreSQL/` | `postgresql-dasar-cheatsheet.md` | `postgresql-dasar-cheatsheet-revised.md` |
+| 36 | PostgreSQL Lanjutan | `10-PostgreSQL/` | `postgresql-lanjutan-cheatsheet.md` | `postgresql-lanjutan-cheatsheet-revised.md` |
+| 37 | PostgreSQL Fungsi & Administrasi | `10-PostgreSQL/` | `postgresql-fungsi-administrasi-cheatsheet.md` | `postgresql-fungsi-administrasi-cheatsheet-revised.md` |
+| 38 | TypeScript Dasar | `11-TypeScript/` | `typescript-dasar-cheatsheet.md` | `typescript-dasar-cheatsheet-revised.md` |
+| 39 | TypeScript OOP & Generics | `11-TypeScript/` | `typescript-oop-generics-cheatsheet.md` | `typescript-oop-generics-cheatsheet-revised.md` |
+| 40 | TypeScript Advanced | `11-TypeScript/` | `typescript-advanced-cheatsheet.md` | `typescript-advanced-cheatsheet-revised.md` |
+| 41 | NGINX Dasar | `12-NGINX/` | `nginx-dasar-cheatsheet.md` | `nginx-dasar-cheatsheet-revised.md` |
+| 42 | NGINX Reverse Proxy & Load Balancing | `12-NGINX/` | `nginx-reverse-proxy-cheatsheet.md` | `nginx-reverse-proxy-cheatsheet-revised.md` |
+| 43 | NGINX Keamanan, SSL & Optimasi Performa | `12-NGINX/` | `nginx-security-ssl-cheatsheet.md` | `nginx-security-ssl-cheatsheet-revised.md` |
+| 44 | Git Dasar | `13-Git/` | `git-dasar-cheatsheet.md` | `git-dasar-cheatsheet-revised.md` |
+| 45 | Git Lanjutan & Resolusi Konflik | `13-Git/` | `git-lanjutan-cheatsheet.md` | `git-lanjutan-cheatsheet-revised.md` |
+| 46 | Git Workflow & Kolaborasi Tim | `13-Git/` | `git-workflow-kolaborasi-cheatsheet.md` | `git-workflow-kolaborasi-cheatsheet-revised.md` |
 
-> **Semua 17 topik sudah memiliki file `-revised.md`.** Jika topik baru ditambahkan, ikuti Prosedur Membuat Materi Baru (lihat #25).
+> **Semua 46 topik sudah memiliki file `-revised.md`.** Jika topik baru ditambahkan, ikuti Prosedur Membuat Materi Baru (lihat #25).
 
 Repository ini **tidak memiliki source code aplikasi, package manifest, build process, test suite, atau CI/CD**. Fokus utama repository adalah kualitas, struktur, dan kemudahan memahami materi.
 
