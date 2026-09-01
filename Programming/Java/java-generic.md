@@ -12,10 +12,9 @@ tags:
 # Java Generic
 
 > **Target:** Pemula yang telah menguasai konsep dasar Java dan OOP, serta ingin memahami **Java Generic** secara mendalam dan type-safe untuk persiapan Collection Framework & Spring Boot.
->
-> Fokus cheatsheet ini: **mental model type safety → generic class, pair & response → generic method & interface → bounded type parameters → invariant vs covariant → wildcards (?, extends, super) → prinsip PECS → generic records → type erasure & batasan generic → comparable/comparator → mini project generic repository**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Java 17 / 21 (LTS)
+> **Prasyarat:** [[java-oop|Java OOP]]
+> Fokus modul pembelajaran ini: **mental model type safety → generic class, pair & response → generic method & interface → bounded type parameters → invariant vs covariant → wildcards (?, extends, super) → prinsip PECS → generic records → type erasure & batasan generic → comparable/comparator → mini project generic repository**.
 
 ---
 

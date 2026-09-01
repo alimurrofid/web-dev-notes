@@ -12,10 +12,9 @@ tags:
 # Git Lanjutan
 
 > **Target:** Pemula yang telah menguasai dasar-dasar Git dan ingin melangkah ke tingkat mahir (**Mental Model Directed Acyclic Graph (DAG), Three-Way Merge vs Rebase, The Golden Rule of Rebase, Interactive Rebase `git rebase -i` (Squashing, Rewording, Dropping), Anatomi & Resolusi Manual Merge Conflict, Manajemen Draft Stashing `git stash`, Strategi Undo Aman `git revert`, Time Travel `git reset` 3 Mode (`--soft`, `--mixed`, `--hard`), Pemindahan Commit Spesifik `git cherry-pick`, Penyelamat Commit Terhapus `git reflog`, Pelacak Bug Otomatis `git bisect` Binary Search, dan Release Tagging `git tag -a`**) menggunakan **Git 2.40+**.
->
-> Fokus cheatsheet ini: **mental model Graph DAG & Immutability → Three-Way Merge vs Rebase → The Golden Rule of Rebase → Interactive Rebase (`rebase -i`) → Resolusi Merge Conflict (`<<<<<<< HEAD`) → Abort Trapped Merges → Stash Management (`push`, `pop`, `apply`, `-u`) → Undo Aman `git revert` di branch bersama → Time Travel `git reset` (Soft vs Mixed vs Hard) → Pemindahan `git cherry-pick` → Penyelamat Terakhir `git reflog` → Debugging Otomatis `git bisect` → Release Tagging → mini project Advanced Git Scenario Simulation**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Git 2.40+
+> **Prasyarat:** [[git-dasar|Git Dasar]]
+> Fokus modul pembelajaran ini: **mental model Graph DAG & Immutability → Three-Way Merge vs Rebase → The Golden Rule of Rebase → Interactive Rebase (`rebase -i`) → Resolusi Merge Conflict (`<<<<<<< HEAD`) → Abort Trapped Merges → Stash Management (`push`, `pop`, `apply`, `-u`) → Undo Aman `git revert` di branch bersama → Time Travel `git reset` (Soft vs Mixed vs Hard) → Pemindahan `git cherry-pick` → Penyelamat Terakhir `git reflog` → Debugging Otomatis `git bisect` → Release Tagging → mini project Advanced Git Scenario Simulation**.
 
 ---
 

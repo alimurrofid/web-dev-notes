@@ -13,10 +13,9 @@ tags:
 # TypeScript Dasar
 
 > **Target:** Pemula yang telah memahami JavaScript modern (ES6+) dan ingin menguasai **Sistem Tipe Statis TypeScript 5.5+ (Kompilator `tsc`, `tsconfig.json` Strict Mode, Tipe Primitif & Khusus `unknown`/`never`/`any`, Arrays & Tuples, Object Modifiers `readonly`/`?`, `type` vs `interface`, Union & Intersection `|`/`&`, Literal Types & `as const`, Discriminated Unions, Function Overloading, Type Assertions, dan Type Narrowing / Custom Type Guards `val is Type`)**.
->
-> Fokus cheatsheet ini: **mental model Static Typing & Type Erasure → `tsc` & `tsconfig.json` → Tipe Primitif → `unknown` vs `any` vs `never` (Exhaustiveness checking) → Inference vs Annotation → Arrays & Tuples → Object Types → `type` vs `interface` (Declaration Merging) → Unions & Intersections → `as const` → Discriminated Unions → Functions & Overloading → Type Assertions → Narrowing (`typeof`, `instanceof`, `in`) → Custom Type Guards (`val is Type`) → Assertion Functions (`asserts val is Type`) → mini project Type-Safe User Management & Order Processing Engine**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** TypeScript 5.x
+> **Prasyarat:** [[javascript-dasar|JavaScript Dasar]]
+> Fokus modul pembelajaran ini: **mental model Static Typing & Type Erasure → `tsc` & `tsconfig.json` → Tipe Primitif → `unknown` vs `any` vs `never` (Exhaustiveness checking) → Inference vs Annotation → Arrays & Tuples → Object Types → `type` vs `interface` (Declaration Merging) → Unions & Intersections → `as const` → Discriminated Unions → Functions & Overloading → Type Assertions → Narrowing (`typeof`, `instanceof`, `in`) → Custom Type Guards (`val is Type`) → Assertion Functions (`asserts val is Type`) → mini project Type-Safe User Management & Order Processing Engine**.
 
 ---
 

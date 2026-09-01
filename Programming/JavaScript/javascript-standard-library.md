@@ -12,10 +12,9 @@ tags:
 # JavaScript Standard Library
 
 > **Target:** Pemula yang sudah memahami dasar JavaScript (tipe data, variabel, fungsi, array, dan object) serta ingin menguasai built-in standard objects dan utility API resmi JavaScript (ES2020+).
->
-> Fokus cheatsheet ini: **Number & Math → BigInt → String & RegExp → Array & Object API → JSON → Date & Intl API → Map & Set → URL & Encoding → Proxy & Reflect → structuredClone → mini project**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** ES2022+ Built-in Objects
+> **Prasyarat:** [[javascript-dasar|JavaScript Dasar]]
+> Fokus modul pembelajaran ini: **Number & Math → BigInt → String & RegExp → Array & Object API → JSON → Date & Intl API → Map & Set → URL & Encoding → Proxy & Reflect → structuredClone → mini project**.
 
 ---
 

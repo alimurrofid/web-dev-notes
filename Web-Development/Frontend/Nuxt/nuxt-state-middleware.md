@@ -13,10 +13,9 @@ tags:
 # Nuxt State & Middleware
 
 > **Target:** Pemula yang telah memahami Nuxt Dasar dan Universal Data Fetching, serta ingin menguasai **Global State Management SSR-friendly (`useState`), Session Cookies (`useCookie`), Route Middleware (Navigation Guards), Pinia Nuxt, Runtime Config, Plugins System, dan Hybrid Rendering / Route Rules** pada **Nuxt 3.12+ (Nuxt 4 Ready)**.
->
-> Fokus cheatsheet ini: **masalah Cross-Request State Pollution di SSR → `useState()` → custom state composables → integrasi `@pinia/nuxt` → Route Middleware (Global, Named, Inline) → `navigateTo()` & `abortNavigation()` → `definePageMeta` guards → `useCookie()` synchronizer → Runtime Config (`useRuntimeConfig`) → Plugins (`.client.ts` vs `.server.ts`) → Nuxt Modules ecosystem → Hybrid Rendering `routeRules` (SPA, SSG, SWR) → mini project Role-Based Auth & Protected Dashboard SPA**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Nuxt 3.x
+> **Prasyarat:** [[nuxt-dasar|Nuxt Dasar]]
+> Fokus modul pembelajaran ini: **masalah Cross-Request State Pollution di SSR → `useState()` → custom state composables → integrasi `@pinia/nuxt` → Route Middleware (Global, Named, Inline) → `navigateTo()` & `abortNavigation()` → `definePageMeta` guards → `useCookie()` synchronizer → Runtime Config (`useRuntimeConfig`) → Plugins (`.client.ts` vs `.server.ts`) → Nuxt Modules ecosystem → Hybrid Rendering `routeRules` (SPA, SSG, SWR) → mini project Role-Based Auth & Protected Dashboard SPA**.
 
 ---
 

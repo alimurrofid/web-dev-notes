@@ -12,10 +12,8 @@ tags:
 # NGINX Dasar
 
 > **Target:** Pemula yang ingin menguasai **Web Server NGINX 1.24+ / 1.26+ (Arsitektur Event-Driven Asynchronous, Master & Worker Processes, CLI `nginx -t` & `nginx -s reload`, Hierarki Context `main`/`events`/`http`/`server`/`location`, Server Blocks Virtual Hosts Multi-Domain, Serving Static Files `root` vs `alias`, SPA Client Routing `try_files`, Location Matching Priority Rules `=`/`^~`/`~`/`~*`, Custom Error Pages, Logging `access_log`/`error_log`, IP Access Control, dan Variabel Bawaan NGINX)**.
->
-> Fokus cheatsheet ini: **mental model Event-Driven vs Process-Based → Master & Worker Processes → CLI Syntax Testing & Zero-Downtime Reload → Anatomi `nginx.conf` & Context Hierarchies → `conf.d/` vs `sites-available/` → Direktif HTTP Core → Server Blocks (Virtual Hosts) → Serving Static Files (`root` vs `alias`) → SPA Vue/React Routing (`try_files`) → Location Priority Flowchart → Regex Matching → Custom Error Pages & Internal Locations → Logging & Format → Access Control `allow`/`deny` → Headers & 301 Redirects → Upload Limits → Variabel Bawaan → mini project Multi-Site Static & SPA Web Server**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** NGINX 1.24+ / 1.26+
+> Fokus modul pembelajaran ini: **mental model Event-Driven vs Process-Based → Master & Worker Processes → CLI Syntax Testing & Zero-Downtime Reload → Anatomi `nginx.conf` & Context Hierarchies → `conf.d/` vs `sites-available/` → Direktif HTTP Core → Server Blocks (Virtual Hosts) → Serving Static Files (`root` vs `alias`) → SPA Vue/React Routing (`try_files`) → Location Priority Flowchart → Regex Matching → Custom Error Pages & Internal Locations → Logging & Format → Access Control `allow`/`deny` → Headers & 301 Redirects → Upload Limits → Variabel Bawaan → mini project Multi-Site Static & SPA Web Server**.
 
 ---
 

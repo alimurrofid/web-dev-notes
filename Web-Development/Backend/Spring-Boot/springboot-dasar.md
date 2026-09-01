@@ -13,10 +13,9 @@ tags:
 # Spring Boot Dasar
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Generic, Collection, dan Database (JDBC), serta ingin menguasai fondasi arsitektur enterprise modern menggunakan **Spring Boot 3.3+ (Spring Framework 6.x & Java 21 LTS)**.
->
-> Fokus cheatsheet ini: **Inversion of Control (IoC) mental model → `@SpringBootApplication` & Component Scanning → IoC Container & ApplicationContext → Stereotypes (`@Component`, `@Service`, `@Repository`) → `@Configuration` & `@Bean` → Constructor Dependency Injection (Best Practice) → `@Primary` & `@Qualifier` → Bean Lifecycle (`@PostConstruct`, `@PreDestroy`) → Scopes & `@Lazy` → `@Value` & `@ConfigurationProperties` → Multi-Environment Profiles → Event Listener → Logging SLF4J → mini project engine notifikasi & diskon modular CLI**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Spring Boot 3.x (Java 17+)
+> **Prasyarat:** [[java-oop|Java OOP]]
+> Fokus modul pembelajaran ini: **Inversion of Control (IoC) mental model → `@SpringBootApplication` & Component Scanning → IoC Container & ApplicationContext → Stereotypes (`@Component`, `@Service`, `@Repository`) → `@Configuration` & `@Bean` → Constructor Dependency Injection (Best Practice) → `@Primary` & `@Qualifier` → Bean Lifecycle (`@PostConstruct`, `@PreDestroy`) → Scopes & `@Lazy` → `@Value` & `@ConfigurationProperties` → Multi-Environment Profiles → Event Listener → Logging SLF4J → mini project engine notifikasi & diskon modular CLI**.
 
 ---
 

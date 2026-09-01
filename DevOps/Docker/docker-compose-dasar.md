@@ -12,10 +12,9 @@ tags:
 # Docker Compose Dasar
 
 > **Target:** Pemula yang sudah memahami dasar Docker (image, container, volume, network) dan ingin menguasai Docker Compose untuk mendefinisikan, mengonfigurasi, dan menjalankan aplikasi multi-kontainer secara deklaratif dan terorkestrasi.
->
-> Fokus cheatsheet ini: **konsep orkestrasi multi-kontainer → Compose V2 (`docker compose`) → compose.yaml & sintaks YAML → siklus hidup (up/down/stop/start/restart) → pemantauan (ps/logs/top) → exec & run → project name & isolasi → services & ports → environment & env_file → persistent volumes & bind mounts → custom networks & DNS → depends_on & healthcheck sync → restart policy & resource limits → build Dockerfile → extends & overrides → variable interpolation → service scaling → mini project microservices**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Konfigurasi YAML & CLI Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Docker Compose v2.x (Compose Spec)
+> **Prasyarat:** [[dockerfile-dasar|Dockerfile Dasar]]
+> Fokus modul pembelajaran ini: **konsep orkestrasi multi-kontainer → Compose V2 (`docker compose`) → compose.yaml & sintaks YAML → siklus hidup (up/down/stop/start/restart) → pemantauan (ps/logs/top) → exec & run → project name & isolasi → services & ports → environment & env_file → persistent volumes & bind mounts → custom networks & DNS → depends_on & healthcheck sync → restart policy & resource limits → build Dockerfile → extends & overrides → variable interpolation → service scaling → mini project microservices**.
 
 ---
 

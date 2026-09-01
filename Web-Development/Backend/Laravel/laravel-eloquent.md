@@ -13,10 +13,9 @@ tags:
 # Laravel Eloquent ORM
 
 > **Target:** pemula yang sudah memahami Laravel Dasar, konsep database/migration, dan dasar Collection, lalu ingin menguasai Eloquent ORM secara mendalam dari nol hingga mahir.
->
-> Fokus cheatsheet ini: **Model & konvensi tabel → CRUD lengkap → Mass Assignment → Timestamps → Default attributes → Query Builder dari Model → Eloquent Collection → Soft Deletes → Global & Local Scopes → Seluruh tipe Relasi (1-to-1, 1-to-Many, Many-to-Many, Intermediate Table, Custom Pivot Model) → Querying & Aggregating Relations → Eager Loading (solusi N+1) → UUID & ULID → Casting Modern (`casts()` method) → Modern Accessors & Mutators → Model Events & Observers → Serialization → Model Factories & Seeding → Has One of Many → Has Through → Polymorphic Relations lengkap → Morph Map → Custom Casts → Model Pruning → Mini Project E-Commerce**.
->
-> **Prinsip penting:** Eloquent bukan sekadar "SQL versi PHP", melainkan *Object-Relational Mapping (ORM)* yang memetakan setiap baris data tabel menjadi objek PHP yang cerdas, memiliki lifecycle, relasi, mutasi tipe otomatis, serta aturan bisnis terpadu.
+> **Versi:** Laravel 11 / 12
+> **Prasyarat:** [[laravel-database|Laravel Database]]
+> Fokus modul pembelajaran ini: **Model & konvensi tabel → CRUD lengkap → Mass Assignment → Timestamps → Default attributes → Query Builder dari Model → Eloquent Collection → Soft Deletes → Global & Local Scopes → Seluruh tipe Relasi (1-to-1, 1-to-Many, Many-to-Many, Intermediate Table, Custom Pivot Model) → Querying & Aggregating Relations → Eager Loading (solusi N+1) → UUID & ULID → Casting Modern (`casts()` method) → Modern Accessors & Mutators → Model Events & Observers → Serialization → Model Factories & Seeding → Has One of Many → Has Through → Polymorphic Relations lengkap → Morph Map → Custom Casts → Model Pruning → Mini Project E-Commerce**.
 
 ---
 

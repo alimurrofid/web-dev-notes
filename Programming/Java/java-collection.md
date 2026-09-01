@@ -12,10 +12,9 @@ tags:
 # Java Collection Framework
 
 > **Target:** Pemula yang telah memahami dasar Java, OOP, dan Generic, serta ingin menguasai arsitektur **Java Collection Framework** secara mendalam dan efisien untuk kebutuhan backend & Spring Boot (Java 21 LTS).
->
-> Fokus cheatsheet ini: **mental model hierarki Collection vs Map → Iterable & Iterator → List (ArrayList vs LinkedList) → Set (HashSet, LinkedHashSet, TreeSet, EnumSet) → Queue & Deque (ArrayDeque, PriorityQueue) → Java 21 Sequenced Collections → Map (HashMap, LinkedHashMap, TreeMap, EnumMap) → Immutable Factory Methods → Collections Utilities → Big-O Complexity → mini project keranjang belanja & antrian pesanan**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Java 17 / 21 (LTS)
+> **Prasyarat:** [[java-generic|Java Generic]]
+> Fokus modul pembelajaran ini: **mental model hierarki Collection vs Map → Iterable & Iterator → List (ArrayList vs LinkedList) → Set (HashSet, LinkedHashSet, TreeSet, EnumSet) → Queue & Deque (ArrayDeque, PriorityQueue) → Java 21 Sequenced Collections → Map (HashMap, LinkedHashMap, TreeMap, EnumMap) → Immutable Factory Methods → Collections Utilities → Big-O Complexity → mini project keranjang belanja & antrian pesanan**.
 
 ---
 

@@ -13,10 +13,9 @@ tags:
 # Spring Boot Testing
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Spring Boot Core, Web RESTful API, JPA, dan Security, serta ingin menguasai **pengujian otomatis perangkat lunak (Automated Software Testing), Unit Testing dengan Mockito, Web Slice Testing dengan MockMvc, Database Testing dengan `@DataJpaTest`, Security Testing dengan `@WithMockUser`, dan End-to-End Testing** (Spring Boot 3.3+ & Java 21 LTS).
->
-> Fokus cheatsheet ini: **Piramida Testing mental model → JUnit 5 lifecycle & AssertJ fluent assertions → Unit Testing murni Service Layer via Mockito (`@Mock`, `@InjectMocks`, `when().thenReturn()`, `verify()`) → Parameterized Tests (`@CsvSource`) → Web Slice Testing (`@WebMvcTest` + `MockMvc` + `jsonPath`) → `@MockBean` injection → testing validasi `@Valid` & Exception Advice → Repository Testing (`@DataJpaTest` & auto-rollback) → testing Spring Security (`@WithMockUser`) → full E2E (`@SpringBootTest`) → Testcontainers overview → mini project e-commerce test suite**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** JUnit 5 / Mockito / Spring Boot 3.x
+> **Prasyarat:** [[springboot-web|Spring Boot Web (REST API)]]
+> Fokus modul pembelajaran ini: **Piramida Testing mental model → JUnit 5 lifecycle & AssertJ fluent assertions → Unit Testing murni Service Layer via Mockito (`@Mock`, `@InjectMocks`, `when().thenReturn()`, `verify()`) → Parameterized Tests (`@CsvSource`) → Web Slice Testing (`@WebMvcTest` + `MockMvc` + `jsonPath`) → `@MockBean` injection → testing validasi `@Valid` & Exception Advice → Repository Testing (`@DataJpaTest` & auto-rollback) → testing Spring Security (`@WithMockUser`) → full E2E (`@SpringBootTest`) → Testcontainers overview → mini project e-commerce test suite**.
 
 ---
 

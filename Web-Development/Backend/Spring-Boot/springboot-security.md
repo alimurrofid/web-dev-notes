@@ -13,10 +13,9 @@ tags:
 # Spring Security & JWT
 
 > **Target:** Pemula yang telah memahami dasar Spring Boot Core, Web RESTful API, dan Spring Data JPA, serta ingin menguasai **arsitektur keamanan enterprise, autentikasi stateless berbasis JSON Web Token (JWT), password hashing BCrypt, dan Role-Based Access Control (RBAC)** menggunakan **Spring Boot 3.3+ (Spring Security 6.x & Java 21 LTS)**.
->
-> Fokus cheatsheet ini: **Security Filter Chain mental model → Lambda DSL di Spring Security 6 → `BCryptPasswordEncoder` → `UserDetails` & `UserDetailsService` → `AuthenticationManager` → anatomi JWT (JJWT 0.12+) → `JwtService` → `JwtAuthenticationFilter` (`OncePerRequestFilter`) → `SessionCreationPolicy.STATELESS` → RBAC URL Mappings (`hasRole`, `hasAuthority`) → Method Security (`@PreAuthorize`) → `SecurityContextHolder` → custom 401 & 403 JSON handlers → Refresh Token → CSRF vs CORS → mini project Auth & RBAC API**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Spring Security 6.x / Spring Boot 3.x
+> **Prasyarat:** [[springboot-web|Spring Boot Web (REST API)]]
+> Fokus modul pembelajaran ini: **Security Filter Chain mental model → Lambda DSL di Spring Security 6 → `BCryptPasswordEncoder` → `UserDetails` & `UserDetailsService` → `AuthenticationManager` → anatomi JWT (JJWT 0.12+) → `JwtService` → `JwtAuthenticationFilter` (`OncePerRequestFilter`) → `SessionCreationPolicy.STATELESS` → RBAC URL Mappings (`hasRole`, `hasAuthority`) → Method Security (`@PreAuthorize`) → `SecurityContextHolder` → custom 401 & 403 JSON handlers → Refresh Token → CSRF vs CORS → mini project Auth & RBAC API**.
 
 ---
 

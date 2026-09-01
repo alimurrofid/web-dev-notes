@@ -13,10 +13,9 @@ tags:
 # Nuxt Dasar
 
 > **Target:** Pemula yang telah memahami Vue 3 (Composition API & `<script setup>`), serta ingin menguasai **pengembangan web full-stack, Server-Side Rendering (SSR), Static Site Generation (SSG), File-Based Routing, Auto-Imports, Layouts, dan SEO modern menggunakan Nuxt 3.12+ (Nuxt 4 Ready)**.
->
-> Fokus cheatsheet ini: **mental model SSR vs CSR vs SSG → Nuxi CLI → struktur direktori standar Nuxt 3 → Auto-Imports (Vue Reactivity, Components, Composables) → File-Based Routing (`pages/`) → Dynamic Routes (`[id].vue`, `[...slug].vue`) → `<NuxtLink>` prefetching → `app.vue` & `<NuxtPage>` → Layouts System (`layouts/` & `definePageMeta`) → `<ClientOnly>` → Assets (`public/` vs `assets/`) → SEO `useHead()` & `useSeoMeta()` → `nuxt.config.ts` → Nested Pages → Custom `error.vue` & `clearError()` → Page Transitions → mini project Corporate Blog & Product Showcase**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Nuxt 3.x (Vue 3 / Nitro)
+> **Prasyarat:** [[vue-dasar|Vue Dasar]]
+> Fokus modul pembelajaran ini: **mental model SSR vs CSR vs SSG → Nuxi CLI → struktur direktori standar Nuxt 3 → Auto-Imports (Vue Reactivity, Components, Composables) → File-Based Routing (`pages/`) → Dynamic Routes (`[id].vue`, `[...slug].vue`) → `<NuxtLink>` prefetching → `app.vue` & `<NuxtPage>` → Layouts System (`layouts/` & `definePageMeta`) → `<ClientOnly>` → Assets (`public/` vs `assets/`) → SEO `useHead()` & `useSeoMeta()` → `nuxt.config.ts` → Nested Pages → Custom `error.vue` & `clearError()` → Page Transitions → mini project Corporate Blog & Product Showcase**.
 
 ---
 

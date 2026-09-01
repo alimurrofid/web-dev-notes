@@ -12,10 +12,8 @@ tags:
 # JavaScript Dasar
 
 > **Target:** Pemula yang baru mulai belajar pemrograman modern dengan JavaScript (ES2020+).
->
-> Fokus cheatsheet ini: **mental model engine → sintaks & tag dasar → tipe data & variabel → operator & perbandingan → control flow & loop → array & object → functions & advanced functions → closure & this → modern ES syntax & best practice**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** ES6+ / Modern JavaScript (ES2024)
+> Fokus modul pembelajaran ini: **mental model engine → sintaks & tag dasar → tipe data & variabel → operator & perbandingan → control flow & loop → array & object → functions & advanced functions → closure & this → modern ES syntax & best practice**.
 
 ---
 

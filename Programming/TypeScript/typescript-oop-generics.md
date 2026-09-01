@@ -13,10 +13,9 @@ tags:
 # TypeScript OOP & Generics
 
 > **Target:** Pemula yang telah memahami TypeScript Dasar dan ingin menguasai **Pemrograman Berorientasi Objek di TypeScript (Classes, Access Modifiers `public`/`private`/`protected`/`readonly`, Parameter Properties shorthand, Getters/Setters, Static Members, Abstract Classes, Multiple Interface Implementation), Generics Komprehensif (`<T>`, Generic Functions, Generic Interfaces, Generic Classes, Generic Constraints `extends keyof`, Default Type Parameters), dan Utility Types Inti (`Partial`, `Required`, `Readonly`, `Record`, `Pick`, `Omit`)** menggunakan **TypeScript 5.5+**.
->
-> Fokus cheatsheet ini: **mental model OOP & Encapsulation → Class & Access Modifiers → Parameter Properties → Abstract Classes & Interfaces → Generics `<T>` mental model → Generic Functions & Classes → Generic Constraints (`extends`) → `keyof` lookup constraints → Default Type Parameters → Utility Types Inti (`Partial`, `Required`, `Readonly`, `Record`, `Pick`, `Omit`) → Constructor Signatures → mini project Enterprise Generic In-Memory Repository & Polymorphic Event Bus**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** TypeScript 5.x
+> **Prasyarat:** [[typescript-dasar|TypeScript Dasar]]
+> Fokus modul pembelajaran ini: **mental model OOP & Encapsulation → Class & Access Modifiers → Parameter Properties → Abstract Classes & Interfaces → Generics `<T>` mental model → Generic Functions & Classes → Generic Constraints (`extends`) → `keyof` lookup constraints → Default Type Parameters → Utility Types Inti (`Partial`, `Required`, `Readonly`, `Record`, `Pick`, `Omit`) → Constructor Signatures → mini project Enterprise Generic In-Memory Repository & Polymorphic Event Bus**.
 
 ---
 

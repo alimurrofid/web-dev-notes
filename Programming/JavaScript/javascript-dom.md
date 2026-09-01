@@ -12,10 +12,9 @@ tags:
 # JavaScript DOM
 
 > **Target:** Pemula yang sudah memahami dasar JavaScript (variabel, fungsi, array, dan object) serta ingin menguasai manipulasi halaman web secara dinamis menggunakan Document Object Model (DOM API).
->
-> Fokus cheatsheet ini: **mental model DOM tree → document & node → modern selectors → manipulasi teks, atribut, & style → event handling & bubbling → event delegation → form & table manipulation → performa DocumentFragment → keamanan XSS → mini project**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Modern DOM API / HTML5
+> **Prasyarat:** [[javascript-dasar|JavaScript Dasar]]
+> Fokus modul pembelajaran ini: **mental model DOM tree → document & node → modern selectors → manipulasi teks, atribut, & style → event handling & bubbling → event delegation → form & table manipulation → performa DocumentFragment → keamanan XSS → mini project**.
 
 ---
 

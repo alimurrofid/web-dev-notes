@@ -12,10 +12,9 @@ tags:
 # NGINX Reverse Proxy & Load Balancing
 
 > **Target:** Pemula yang telah memahami NGINX Dasar dan ingin menguasai **Reverse Proxy (`proxy_pass`), Preserving Client Headers (`Host`, `X-Real-IP`, `X-Forwarded-*`), WebSocket Real-Time Proxying, FastCGI PHP-FPM, Upstream Load Balancing (`round-robin`, `least_conn`, `ip_hash`, `weight`, `backup`, `down`), Passive Health Checks & Failover (`proxy_next_upstream`), Proxy Timeouts & Buffering, serta High-Performance Proxy Caching (`proxy_cache_path`, `proxy_cache_valid`, `$upstream_cache_status`)** menggunakan **NGINX 1.24+ / 1.26+**.
->
-> Fokus cheatsheet ini: **mental model Reverse Proxy vs Forward Proxy → `proxy_pass` & Trailing Slash gotcha → Client Identity Headers → WebSocket & Socket.io Upgrade → FastCGI PHP-FPM → Upstream Cluster & Load Balancing Algorithms → Weight & Server Parameters → Failover & Timeouts (504 Prevention) → Buffering → Proxy Caching Path & Memory Zones → Cache Bypass & Revalidation → Cache HIT/MISS Tracking → HTTP/1.1 Upstream Keepalive → mini project High-Availability Microservices API Gateway**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** NGINX 1.24+ / 1.26+
+> **Prasyarat:** [[nginx-dasar|NGINX Dasar]]
+> Fokus modul pembelajaran ini: **mental model Reverse Proxy vs Forward Proxy → `proxy_pass` & Trailing Slash gotcha → Client Identity Headers → WebSocket & Socket.io Upgrade → FastCGI PHP-FPM → Upstream Cluster & Load Balancing Algorithms → Weight & Server Parameters → Failover & Timeouts (504 Prevention) → Buffering → Proxy Caching Path & Memory Zones → Cache Bypass & Revalidation → Cache HIT/MISS Tracking → HTTP/1.1 Upstream Keepalive → mini project High-Availability Microservices API Gateway**.
 
 ---
 

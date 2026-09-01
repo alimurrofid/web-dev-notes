@@ -12,10 +12,9 @@ tags:
 # PostgreSQL Fungsi & Administrasi
 
 > **Target:** Pemula yang telah menguasai SQL dasar dan PostgreSQL Lanjutan, serta ingin menguasai **Database Programmability di level engine (Views, Materialized Views `REFRESH CONCURRENTLY`, Bahasa Prosedural PL/pgSQL, Stored Functions & Stored Procedures `CALL`), Otomatisasi Event via Database Triggers (`NEW`, `OLD`, Audit Logging), Real-Time Pub/Sub (`LISTEN`/`NOTIFY`), Full-Text Search (`tsvector`, `tsquery`, GIN ranking), Foreign Data Wrapper (`postgres_fdw`), Query Profiling (`pg_stat_statements`), Connection Pooling (`PgBouncer`), Row Level Security (RLS Policies multi-tenancy), serta Administrasi Database (Maintenance `VACUUM ANALYZE`, Pemantauan `pg_stat_activity`, dan Backup/Restore `pg_dump`/`pg_restore`)** menggunakan **PostgreSQL 16+**.
->
-> Fokus cheatsheet ini: **mental model Database Programmability → Virtual Views vs Materialized Views → PL/pgSQL Syntax & Blok Anonim (`DO $$`) → Stored Functions (`RETURNS TABLE`) → Kontrol Alur Logika & Error Handling (`RAISE EXCEPTION`) → Stored Procedures (`CALL`) → Event-Driven Triggers (`BEFORE`/`AFTER`) → Audit Logging Otomatis → Real-Time Pub/Sub (`LISTEN`/`NOTIFY`) → Full-Text Search & GIN ranking → Foreign Data Wrapper (`postgres_fdw`) → Query Profiling (`pg_stat_statements`) → Connection Pooling (`PgBouncer`) → User Roles & Privileges → Row Level Security (RLS) untuk Multi-Tenant → Database Maintenance (`VACUUM`, `ANALYZE`, `pg_stat_activity`) → Backup & Disaster Recovery (`pg_dump`, `pg_restore`) → mini project Multi-Tenant Enterprise E-Commerce Suite**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** PostgreSQL 15 / 16
+> **Prasyarat:** [[postgresql-lanjutan|PostgreSQL Lanjutan]]
+> Fokus modul pembelajaran ini: **mental model Database Programmability → Virtual Views vs Materialized Views → PL/pgSQL Syntax & Blok Anonim (`DO $$`) → Stored Functions (`RETURNS TABLE`) → Kontrol Alur Logika & Error Handling (`RAISE EXCEPTION`) → Stored Procedures (`CALL`) → Event-Driven Triggers (`BEFORE`/`AFTER`) → Audit Logging Otomatis → Real-Time Pub/Sub (`LISTEN`/`NOTIFY`) → Full-Text Search & GIN ranking → Foreign Data Wrapper (`postgres_fdw`) → Query Profiling (`pg_stat_statements`) → Connection Pooling (`PgBouncer`) → User Roles & Privileges → Row Level Security (RLS) untuk Multi-Tenant → Database Maintenance (`VACUUM`, `ANALYZE`, `pg_stat_activity`) → Backup & Disaster Recovery (`pg_dump`, `pg_restore`) → mini project Multi-Tenant Enterprise E-Commerce Suite**.
 
 ---
 

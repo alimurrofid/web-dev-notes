@@ -12,10 +12,9 @@ tags:
 # PostgreSQL Lanjutan
 
 > **Target:** Pemula yang telah menguasai dasar-dasar SQL dan PostgreSQL Dasar, serta ingin melangkah ke tingkat menengah-mahir (**Query Tuning `EXPLAIN (ANALYZE, BUFFERS)`, B-Tree & GIN Indexing, Fuzzy Search `pg_trgm` Trigram, Manipulasi Dokumen JSONB, Advanced Upsert `ON CONFLICT` & `MERGE`, Common Table Expressions (CTE) & Recursive CTE, Window Functions analitik (`ROW_NUMBER`, `LEAD`/`LAG`), dan Transaksi ACID dengan Row-Level Locking `SELECT ... FOR UPDATE`**) menggunakan **PostgreSQL 16+**.
->
-> Fokus cheatsheet ini: **mental model Query Cost Optimizer → `EXPLAIN ANALYZE` execution plan → B-Tree & GIN Indexing → Partial & Expression Index → Fuzzy Search & Typo Tolerance `pg_trgm` → JSON vs JSONB (Binary JSON) → Operator JSONB (`->`, `->>`, `@>`, `?`) → Advanced Upsert (`ON CONFLICT` & `MERGE`) → CTE `WITH` & Hierarki Pohon `WITH RECURSIVE` → Window Functions vs `GROUP BY` → `OVER (PARTITION BY ...)` → Ranking (`ROW_NUMBER`, `RANK`, `DENSE_RANK`) → Value (`LEAD`, `LAG`, Running Totals) → Transaksi ACID & `SAVEPOINT` → Isolation Levels → Row Locking `SELECT ... FOR UPDATE` pencegah Race Condition & Deadlock → mini project Financial Analytics & High-Concurrency Inventory System**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** PostgreSQL 15 / 16
+> **Prasyarat:** [[postgresql-dasar|PostgreSQL Dasar]]
+> Fokus modul pembelajaran ini: **mental model Query Cost Optimizer → `EXPLAIN ANALYZE` execution plan → B-Tree & GIN Indexing → Partial & Expression Index → Fuzzy Search & Typo Tolerance `pg_trgm` → JSON vs JSONB (Binary JSON) → Operator JSONB (`->`, `->>`, `@>`, `?`) → Advanced Upsert (`ON CONFLICT` & `MERGE`) → CTE `WITH` & Hierarki Pohon `WITH RECURSIVE` → Window Functions vs `GROUP BY` → `OVER (PARTITION BY ...)` → Ranking (`ROW_NUMBER`, `RANK`, `DENSE_RANK`) → Value (`LEAD`, `LAG`, Running Totals) → Transaksi ACID & `SAVEPOINT` → Isolation Levels → Row Locking `SELECT ... FOR UPDATE` pencegah Race Condition & Deadlock → mini project Financial Analytics & High-Concurrency Inventory System**.
 
 ---
 

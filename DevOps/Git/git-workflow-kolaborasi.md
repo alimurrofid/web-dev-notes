@@ -12,10 +12,9 @@ tags:
 # Git Workflow & Kolaborasi
 
 > **Target:** Pemula yang ingin menguasai **Standar Rekayasa Perangkat Lunak & Kolaborasi Tim Skala Enterprise (Branching Strategies *Git Flow vs GitHub Flow vs Trunk-Based*, Standar Pesan *Conventional Commits*, *Semantic Versioning SemVer 2.0.0*, Siklus Hidup *Pull Request (PR) & Code Review Best Practices*, Strategi Merge *Create Merge Commit vs Squash and Merge vs Rebase and Merge*, *Forking Workflow & Upstream Sync*, Otomatisasi *Git Hooks Native & Husky / lint-staged / commitlint*, Keamanan *GitHub Protected Branches & Rule Sets*, Manajemen Multi-Repo *Git Submodules*, Penyimpanan Aset Biner *Git LFS*, serta Forensik Kode *`git blame` & `git log -S`*)** menggunakan **Git 2.40+**.
->
-> Fokus cheatsheet ini: **mental model Enterprise Team Collaboration → Git Flow vs GitHub Flow vs Trunk-Based → Conventional Commits Specification → SemVer Versioning (MAJOR.MINOR.PATCH) → PR Lifecycle & Review Guidelines → Merge Strategies Matrix → Forking & Upstream Synchronization → Git Hooks Automation (Husky + lint-staged) → Commit Linting Validation → Branch Protection Rules → Multi-Repository Git Submodules → Git LFS Large Binary Storage → Audit Forensik Kode (`git blame`, `git log -S`) → mini project Enterprise Team Git Workflow Simulation**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Git 2.40+ / GitHub / GitLab Workflow
+> **Prasyarat:** [[git-lanjutan|Git Lanjutan]]
+> Fokus modul pembelajaran ini: **mental model Enterprise Team Collaboration → Git Flow vs GitHub Flow vs Trunk-Based → Conventional Commits Specification → SemVer Versioning (MAJOR.MINOR.PATCH) → PR Lifecycle & Review Guidelines → Merge Strategies Matrix → Forking & Upstream Synchronization → Git Hooks Automation (Husky + lint-staged) → Commit Linting Validation → Branch Protection Rules → Multi-Repository Git Submodules → Git LFS Large Binary Storage → Audit Forensik Kode (`git blame`, `git log -S`) → mini project Enterprise Team Git Workflow Simulation**.
 
 ---
 

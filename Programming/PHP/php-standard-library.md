@@ -12,10 +12,9 @@ tags:
 # PHP Standard Library
 
 > **Target:** Pemula yang sudah memahami dasar bahasa PHP dan OOP, lalu ingin menguasai fungsi dan class bawaan (*PHP Standard Library*) untuk produktivitas pengembangan web harian di PHP 8+.
->
-> Fokus cheatsheet ini: **string functions & multibyte → array operations & callbacks → number & math → date & time (DateTimeImmutable) → JSON parsing & validation → regular expressions (PCRE2) → file stream & I/O → directory & path → data filtering & URL → hashing & password security → cryptographic random → SPL iterators & generators → exceptions & reflection → internationalization (intl) → mini project data processor**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** PHP 8.x
+> **Prasyarat:** [[php-dasar|PHP Dasar]]
+> Fokus modul pembelajaran ini: **string functions & multibyte → array operations & callbacks → number & math → date & time (DateTimeImmutable) → JSON parsing & validation → regular expressions (PCRE2) → file stream & I/O → directory & path → data filtering & URL → hashing & password security → cryptographic random → SPL iterators & generators → exceptions & reflection → internationalization (intl) → mini project data processor**.
 
 ---
 

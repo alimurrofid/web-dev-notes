@@ -13,9 +13,9 @@ tags:
 # Vue Router
 
 > **Target:** pemula yang sudah memahami dasar Vue 3 (component, template, props, emit, Composition API), lalu ingin belajar routing multi-halaman dengan Vue Router.
->
-> Fokus cheatsheet ini: **pengenalan SPA → setup & instalasi → RouterLink & RouterView → routes dasar → route params → matching syntax → query params → programmatic navigation → nested routes → named routes → named views → redirect & alias → props → history modes → lazy loading → meta → navigation guards → router view slot → scroll behavior → dynamic routing → mini project**.
->
+> **Versi:** Vue Router 4.x / Vue 3.x
+> **Prasyarat:** [[vue-dasar|Vue Dasar]]
+> Fokus modul pembelajaran ini: **pengenalan SPA → setup & instalasi → RouterLink & RouterView → routes dasar → route params → matching syntax → query params → programmatic navigation → nested routes → named routes → named views → redirect & alias → props → history modes → lazy loading → meta → navigation guards → router view slot → scroll behavior → dynamic routing → mini project**.
 > Semua contoh utama menggunakan **Vue 3 + Composition API (`<script setup>`)** dan **Vue Router 4**. API Vue Router 4 menggunakan `createRouter()` dan opsi `history`, bukan sintaks `new Router()` / `mode` lama milik Vue Router 3.
 
 ---

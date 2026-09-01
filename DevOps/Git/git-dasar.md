@@ -12,10 +12,8 @@ tags:
 # Git Dasar
 
 > **Target:** Pemula yang ingin menguasai **Sistem Kontrol Versi Terdistribusi Git 2.40+ (Mental Model Distributed VCS, Arsitektur 3 Pohon Git *Working Tree / Staging Area / Repository*, Konfigurasi `git config`, Inisialisasi `git init` & `git clone`, Status Berkas `git status`, Staging `git add` & patch `add -p`, Snapshot Commit `git commit` & `--amend`, Aturan `.gitignore` & `.gitkeep`, Visualisasi Riwayat `git log --oneline --graph`, Inspeksi `git diff`, Branching Modern `git switch` & `git switch -c`, Fast-Forward Merge `git merge`, Pembersihan `git rm --cached` & `git mv`, Integrasi Remote GitHub/GitLab `git remote`, `git push -u`, `git fetch` vs `git pull`, serta Pembatalan Aman via `git restore`)**.
->
-> Fokus cheatsheet ini: **mental model Distributed Snapshots vs Centralized Deltas → Arsitektur 3 Pohon Git → Setup Identitas & Config → Inisialisasi & Kloning → Status Berkas & Staging Area → Commit & Hash SHA → Konfigurasi `.gitignore` Bersih → Visualisasi Riwayat Log → Inspeksi Diff Kode → Branching Ringan & Pointer HEAD → Perintah Modern `git switch` → Fast-Forward Merge → Remote Repositories GitHub → Push Upstream `-u` → Fetch vs Pull → Pembatalan Aman dengan `git restore` → mini project Full-Cycle Git Workflow Simulation**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Git 2.40+
+> Fokus modul pembelajaran ini: **mental model Distributed Snapshots vs Centralized Deltas → Arsitektur 3 Pohon Git → Setup Identitas & Config → Inisialisasi & Kloning → Status Berkas & Staging Area → Commit & Hash SHA → Konfigurasi `.gitignore` Bersih → Visualisasi Riwayat Log → Inspeksi Diff Kode → Branching Ringan & Pointer HEAD → Perintah Modern `git switch` → Fast-Forward Merge → Remote Repositories GitHub → Push Upstream `-u` → Fetch vs Pull → Pembatalan Aman dengan `git restore` → mini project Full-Cycle Git Workflow Simulation**.
 
 ---
 

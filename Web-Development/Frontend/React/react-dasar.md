@@ -13,10 +13,9 @@ tags:
 # React Dasar
 
 > **Target:** Pemula yang telah memahami JavaScript dasar, DOM, dan ES6+ (Arrow Functions, Destructuring, Spread Operator, Modules), serta ingin menguasai **arsitektur antarmuka pengguna modern berbasis komponen menggunakan React 18 / 19 & Vite**.
->
-> Fokus cheatsheet ini: **mental model deklaratif vs imperatif → Virtual DOM & Reconciliation → Tooling Vite → Aturan Emas JSX → Functional Components → Props & `children` → `useState` & State Immutability (Array & Object) → Synthetic Events → Conditional Rendering → List Rendering & `key` prop → Controlled Forms → `useEffect` Lifecycle & Cleanup Function → `useRef` → Lifting State Up → Custom Hooks → React Strict Mode → mini project Interactive Task & Expense Manager**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** React 18 / 19 (Hooks)
+> **Prasyarat:** [[javascript-dasar|JavaScript Dasar]] · [[javascript-dom|JavaScript DOM]]
+> Fokus modul pembelajaran ini: **mental model deklaratif vs imperatif → Virtual DOM & Reconciliation → Tooling Vite → Aturan Emas JSX → Functional Components → Props & `children` → `useState` & State Immutability (Array & Object) → Synthetic Events → Conditional Rendering → List Rendering & `key` prop → Controlled Forms → `useEffect` Lifecycle & Cleanup Function → `useRef` → Lifting State Up → Custom Hooks → React Strict Mode → mini project Interactive Task & Expense Manager**.
 
 ---
 

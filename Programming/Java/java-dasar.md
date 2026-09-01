@@ -12,10 +12,8 @@ tags:
 # Java Dasar
 
 > **Target:** Pemula yang baru mulai belajar pemrograman modern dengan Java (Java 21 LTS).
->
-> Fokus cheatsheet ini: **mental model JVM → sintaks & class anatomi → tipe data & variabel → casting & wrapper class → operator & formatting → input scanner & array → control flow & loop → method & overloading → modern features (records, text blocks) → exception handling dasar & mini project konsol**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Java 17 / 21 (LTS)
+> Fokus modul pembelajaran ini: **mental model JVM → sintaks & class anatomi → tipe data & variabel → casting & wrapper class → operator & formatting → input scanner & array → control flow & loop → method & overloading → modern features (records, text blocks) → exception handling dasar & mini project konsol**.
 
 ---
 

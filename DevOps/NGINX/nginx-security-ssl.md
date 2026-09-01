@@ -13,10 +13,9 @@ tags:
 # NGINX Keamanan & SSL
 
 > **Target:** Pemula yang ingin menguasai **Hardening Keamanan Server Web NGINX 1.24+ / 1.26+ (Enkripsi HTTPS, SSL/TLS 1.2 & TLS 1.3, SSL Session Cache, Certbot Let's Encrypt, HTTP $\rightarrow$ HTTPS 301 Redirect, Strict HSTS Preload, Essential Security Headers `CSP`/`X-Frame-Options`, `server_tokens off`, Proteksi File `.env`/`.git`, Rate Limiting Leaky Bucket `limit_req_zone`, Connection Limiting `limit_conn_zone`, Kompresi Gzip & Brotli, Kernel Zero-Copy `sendfile`/`tcp_nopush`/`tcp_nodelay`, Worker Tuning, dan Audit Keamanan Skor A+ Qualys SSL Labs)**.
->
-> Fokus cheatsheet ini: **mental model Defense in Depth → Konfigurasi HTTPS Dasar → 301 HTTPS Redirect → TLS 1.3 & Modern Ciphers → SSL Session Caching → Certbot ACME Challenges → Strict-Transport-Security (HSTS) → Anti-Clickjacking & Anti-XSS Headers → Menyembunyikan Identitas NGINX → Memblokir File Rahasia (`.env`) → Rate Limiting Leaky Bucket (`burst`, `nodelay`, HTTP 429) → Connection Limiting (Anti-Slowloris) → Gzip & Brotli Compression → Kernel Zero-Copy File Transfer → Worker Limits & Timeouts → mini project Bank-Grade Hardened NGINX Security Gateway**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** NGINX 1.24+ / 1.26+ / OpenSSL 3.x
+> **Prasyarat:** [[nginx-reverse-proxy|NGINX Reverse Proxy]]
+> Fokus modul pembelajaran ini: **mental model Defense in Depth → Konfigurasi HTTPS Dasar → 301 HTTPS Redirect → TLS 1.3 & Modern Ciphers → SSL Session Caching → Certbot ACME Challenges → Strict-Transport-Security (HSTS) → Anti-Clickjacking & Anti-XSS Headers → Menyembunyikan Identitas NGINX → Memblokir File Rahasia (`.env`) → Rate Limiting Leaky Bucket (`burst`, `nodelay`, HTTP 429) → Connection Limiting (Anti-Slowloris) → Gzip & Brotli Compression → Kernel Zero-Copy File Transfer → Worker Limits & Timeouts → mini project Bank-Grade Hardened NGINX Security Gateway**.
 
 ---
 

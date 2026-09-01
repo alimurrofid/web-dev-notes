@@ -13,11 +13,10 @@ tags:
 # Vue Pinia
 
 > **Target:** pemula yang sudah memahami dasar Vue 3 + Composition API (component, props, emit, `ref`, `computed`), lalu ingin mengenal state management dengan Pinia.
->
-> Fokus cheatsheet ini: **pengenalan → setup → store → state → $patch/$reset → storeToRefs → getter → action → global state → setup store → store composition → $subscribe/$onAction → typescript → ssr → plugins → mini project**.
->
+> **Versi:** Pinia 2.x / Vue 3.x
+> **Prasyarat:** [[vue-dasar|Vue Dasar]]
+> Fokus modul pembelajaran ini: **pengenalan → setup → store → state → $patch/$reset → storeToRefs → getter → action → global state → setup store → store composition → $subscribe/$onAction → typescript → ssr → plugins → mini project**.
 > Semua contoh utama menggunakan `<script setup>` dan **Option Store**, lalu diperdalam dengan **Setup Store** agar mudah membandingkan keduanya.
-> Cheatsheet ini mengikuti dokumentasi **Pinia 3.x**.
 
 ---
 

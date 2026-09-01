@@ -12,10 +12,9 @@ tags:
 # PHP OOP
 
 > **Target:** Pemula yang sudah memahami PHP Dasar, lalu ingin menguasai Object-Oriented Programming (OOP) modern di PHP 8+.
->
-> Fokus cheatsheet ini: **mental model OOP → class & object → properties & methods → constructor & promotion → visibility & encapsulation → inheritance & overriding → abstract & interface → polymorphism → namespaces & autoloading → static & self → traits → magic methods & cloning → generators & reflection → error & exception handling → mini project e-commerce OOP**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** PHP 8.x
+> **Prasyarat:** [[php-dasar|PHP Dasar]]
+> Fokus modul pembelajaran ini: **mental model OOP → class & object → properties & methods → constructor & promotion → visibility & encapsulation → inheritance & overriding → abstract & interface → polymorphism → namespaces & autoloading → static & self → traits → magic methods & cloning → generators & reflection → error & exception handling → mini project e-commerce OOP**.
 
 ---
 

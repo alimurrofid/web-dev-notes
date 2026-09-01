@@ -13,10 +13,9 @@ tags:
 # Java Lambda & Stream API
 
 > **Target:** Pemula yang telah memahami dasar Java, OOP, Generic, dan Collection Framework, serta ingin menguasai paradigma **Functional Programming, Lambda Expressions, Method References, Optional, dan Stream API** di Java (Java 21 LTS).
->
-> Fokus cheatsheet ini: **mental model functional vs imperative → Functional Interfaces (Consumer, Supplier, Function, Predicate) → sintaks Lambda & Variable Capture → Method Reference (::) → Optional<T> pipeline → Stream API Lifecycle (Source, Intermediate, Terminal) → flatMap & Slicing → Reduce & Aggregations → Collectors (toList, toMap, groupingBy, partitioningBy, downstream) → Lazy Evaluation & Parallel Stream → mini project analitik penjualan e-commerce**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Java 17 / 21 (LTS)
+> **Prasyarat:** [[java-collection|Java Collection]]
+> Fokus modul pembelajaran ini: **mental model functional vs imperative → Functional Interfaces (Consumer, Supplier, Function, Predicate) → sintaks Lambda & Variable Capture → Method Reference (::) → Optional<T> pipeline → Stream API Lifecycle (Source, Intermediate, Terminal) → flatMap & Slicing → Reduce & Aggregations → Collectors (toList, toMap, groupingBy, partitioningBy, downstream) → Lazy Evaluation & Parallel Stream → mini project analitik penjualan e-commerce**.
 
 ---
 

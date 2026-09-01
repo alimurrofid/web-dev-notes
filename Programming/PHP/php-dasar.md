@@ -12,10 +12,8 @@ tags:
 # PHP Dasar
 
 > **Target:** Pemula yang baru mulai belajar pemrograman web dengan PHP modern (PHP 8.x).
->
-> Fokus cheatsheet ini: **mental model server-side → CLI server → sintaks & tag dasar → variable & data types → operator & control flow → loop → string & array functions → function & type declarations → variable scope → closures & callbacks → file inclusion (`require`/`include`) → references → mini project interaktif**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** PHP 8.x (Modern PHP)
+> Fokus modul pembelajaran ini: **mental model server-side → CLI server → sintaks & tag dasar → variable & data types → operator & control flow → loop → string & array functions → function & type declarations → variable scope → closures & callbacks → file inclusion (`require`/`include`) → references → mini project interaktif**.
 
 ---
 

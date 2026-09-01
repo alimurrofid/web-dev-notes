@@ -12,10 +12,9 @@ tags:
 # JavaScript OOP
 
 > **Target:** Pemula yang sudah memahami dasar JavaScript (object, function, array) dan ingin menguasai Object-Oriented Programming (OOP) modern di JavaScript (ES6 / ES2022+).
->
-> Fokus cheatsheet ini: **mental model prototype → constructor function → prototype chain → ES6 class → inheritance (extends & super) → encapsulation (private fields #) → static fields/methods → error handling & custom errors → iterable protocol → mini project OOP**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** ES6+ Class & Prototype
+> **Prasyarat:** [[javascript-dasar|JavaScript Dasar]]
+> Fokus modul pembelajaran ini: **mental model prototype → constructor function → prototype chain → ES6 class → inheritance (extends & super) → encapsulation (private fields #) → static fields/methods → error handling & custom errors → iterable protocol → mini project OOP**.
 
 ---
 

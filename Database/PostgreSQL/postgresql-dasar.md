@@ -12,10 +12,8 @@ tags:
 # PostgreSQL Dasar
 
 > **Target:** Pemula yang ingin menguasai **basis data relasional modern (RDBMS / ORDBMS), perintah `psql` CLI, DDL & DML, tipe data modern (UUID `gen_random_uuid()`, ENUM, `TIMESTAMPTZ`, `NUMERIC`), integritas data Constraints (`CHECK`, `UNIQUE`), fitur unggulan `RETURNING` & UPSERT (`ON CONFLICT`), pencarian `ILIKE`, agregasi `GROUP BY` / `HAVING`, dan Multi-Table `JOINs`** menggunakan **PostgreSQL 16+**.
->
-> Fokus cheatsheet ini: **mental model Object-Relational Database → `psql` meta commands → tipe data modern & ENUM → DDL (`CREATE TABLE`, `ALTER TABLE`, `TRUNCATE`) → Constraints (`CHECK`, `PRIMARY KEY`, `FOREIGN KEY ON DELETE CASCADE`) → DML (`INSERT`, `UPDATE`, `DELETE`) + `RETURNING *` → UPSERT (`ON CONFLICT DO UPDATE`) → `SELECT` filtering & `ILIKE` → Paginasi `LIMIT` & `OFFSET` → Agregasi `GROUP BY` & `HAVING` → Relasi & `INNER`/`LEFT`/`RIGHT`/`FULL OUTER JOIN` → Set Operations (`UNION`, `INTERSECT`, `EXCEPT`) → mini project E-Commerce Relational Schema & Reporting Suite**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** PostgreSQL 15 / 16
+> Fokus modul pembelajaran ini: **mental model Object-Relational Database → `psql` meta commands → tipe data modern & ENUM → DDL (`CREATE TABLE`, `ALTER TABLE`, `TRUNCATE`) → Constraints (`CHECK`, `PRIMARY KEY`, `FOREIGN KEY ON DELETE CASCADE`) → DML (`INSERT`, `UPDATE`, `DELETE`) + `RETURNING *` → UPSERT (`ON CONFLICT DO UPDATE`) → `SELECT` filtering & `ILIKE` → Paginasi `LIMIT` & `OFFSET` → Agregasi `GROUP BY` & `HAVING` → Relasi & `INNER`/`LEFT`/`RIGHT`/`FULL OUTER JOIN` → Set Operations (`UNION`, `INTERSECT`, `EXCEPT`) → mini project E-Commerce Relational Schema & Reporting Suite**.
 
 ---
 

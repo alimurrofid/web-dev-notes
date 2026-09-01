@@ -13,10 +13,9 @@ tags:
 # Laravel Dasar
 
 > **Target:** pemula yang sudah memahami dasar PHP dan ingin belajar Laravel secara bertahap dari fondasi HTTP hingga arsitektur aplikasi.
->
-> Fokus cheatsheet ini: **instalasi → Artisan → routing → Blade view → controller → request & input → validation → response & redirect → session & cookies → middleware → CSRF → route groups → storage & file upload → error handling → testing → environment & config → dependency injection → service container & provider → facades → maintenance mode → mini project**.
->
-> **Catatan versi:** contoh diarahkan ke **Laravel modern (Laravel 11 / 12)**, termasuk konfigurasi middleware dan routing pada `bootstrap/app.php`.
+> **Versi:** Laravel 11 / 12 (PHP 8.2+)
+> **Prasyarat:** [[php-dasar|PHP Dasar]] · [[php-oop|PHP OOP]]
+> Fokus modul pembelajaran ini: **instalasi → Artisan → routing → Blade view → controller → request & input → validation → response & redirect → session & cookies → middleware → CSRF → route groups → storage & file upload → error handling → testing → environment & config → dependency injection → service container & provider → facades → maintenance mode → mini project**.
 
 ---
 

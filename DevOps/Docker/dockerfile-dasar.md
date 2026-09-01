@@ -12,10 +12,9 @@ tags:
 # Dockerfile Dasar
 
 > **Target:** Pemula yang sudah memahami dasar Docker (image, container, CLI `docker run`) dan ingin menguasai penulisan Dockerfile untuk merakit custom Docker Image yang optimal, aman, dan berstandar industri.
->
-> Fokus cheatsheet ini: **analogi resep & blueprint → format sintaks → FROM → RUN & layer caching → CMD vs ENTRYPOINT → LABEL & metadata → COPY vs ADD → .dockerignore → EXPOSE & ENV → WORKDIR & USER non-root → ARG vs ENV → VOLUME → HEALTHCHECK → Multi-Stage Build → BuildKit optimization → Registry publishing → mini project**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Kode Dockerfile Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Docker BuildKit / Docker Engine 24+
+> **Prasyarat:** [[docker-dasar|Docker Dasar]]
+> Fokus modul pembelajaran ini: **analogi resep & blueprint → format sintaks → FROM → RUN & layer caching → CMD vs ENTRYPOINT → LABEL & metadata → COPY vs ADD → .dockerignore → EXPOSE & ENV → WORKDIR & USER non-root → ARG vs ENV → VOLUME → HEALTHCHECK → Multi-Stage Build → BuildKit optimization → Registry publishing → mini project**.
 
 ---
 

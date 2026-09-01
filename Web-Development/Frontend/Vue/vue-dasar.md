@@ -13,17 +13,10 @@ tags:
 # Vue Dasar
 
 > **Target:** pemula yang sudah memahami JavaScript dasar, lalu ingin
-> memahami Vue 3 + Composition API secara bertahap sebelum masuk lebih dalam
-> ke component architecture.
->
-> Fokus cheatsheet ini: **template → state → reactive → computed →
-> event/input → component → props/emit → slot → provide/inject**.
->
+> **Versi:** Vue 3.x (Composition API)
+> **Prasyarat:** [[javascript-dasar|JavaScript Dasar]] · [[javascript-dom|JavaScript DOM]]
+> Fokus modul pembelajaran ini: **template → state → reactive → computed →
 > Semua contoh utama menggunakan `<script setup>` agar cocok dengan gaya Vue
-> modern.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **penjelasan → contoh →
-> output/diagram → Kunci**.
 
 
 ## Cara Belajar

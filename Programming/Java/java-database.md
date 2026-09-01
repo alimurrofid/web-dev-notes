@@ -12,10 +12,9 @@ tags:
 # Java Database (JDBC)
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Generic, dan Collection, serta ingin menguasai koneksi dan transaksi database relasional (**RDBMS**) menggunakan **Java Database Connectivity (JDBC 4.3+)** dan **HikariCP Connection Pool** (Java 21 LTS).
->
-> Fokus cheatsheet ini: **arsitektur driver JDBC → DriverManager vs DataSource → Try-with-Resources resource safety → PreparedStatement & SQL Injection → ResultSet mapping ke Records → Auto-Generated Keys → Batch Updates → ACID Transactions & Savepoints → Isolation Levels → HikariCP Connection Pooling → Repository Pattern DAO → mini project sistem reservasi & transaksi**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** JDBC 4.x / Java 17+
+> **Prasyarat:** [[java-oop|Java OOP]]
+> Fokus modul pembelajaran ini: **arsitektur driver JDBC → DriverManager vs DataSource → Try-with-Resources resource safety → PreparedStatement & SQL Injection → ResultSet mapping ke Records → Auto-Generated Keys → Batch Updates → ACID Transactions & Savepoints → Isolation Levels → HikariCP Connection Pooling → Repository Pattern DAO → mini project sistem reservasi & transaksi**.
 
 ---
 

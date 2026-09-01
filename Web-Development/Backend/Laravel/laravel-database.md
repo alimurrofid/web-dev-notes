@@ -13,10 +13,9 @@ tags:
 # Laravel Database
 
 > **Target:** pemula yang sudah memahami PHP dan Laravel Dasar, lalu ingin memahami database Laravel dan Query Builder sebelum masuk lebih dalam ke Eloquent.
->
-> Fokus cheatsheet ini: **database connection & SQLite default → DB Facade → Query Builder CRUD → conditional query → pagination → joins → transactions → query debugging → raw expressions → locking → dataset besar (chunk/lazy/cursor) → migrations → seeding → mini project**.
->
-> **Batasan penting:** Eloquent Model adalah topik terpisah. Cheatsheet ini berfokus mendalam pada fondasi database dan Query Builder (`DB::table()`).
+> **Versi:** Laravel 11 / 12
+> **Prasyarat:** [[laravel-dasar|Laravel Dasar]]
+> Fokus modul pembelajaran ini: **database connection & SQLite default → DB Facade → Query Builder CRUD → conditional query → pagination → joins → transactions → query debugging → raw expressions → locking → dataset besar (chunk/lazy/cursor) → migrations → seeding → mini project**.
 
 ---
 

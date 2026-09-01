@@ -13,10 +13,9 @@ tags:
 # Laravel Collection
 
 > **Target:** pemula sampai menengah yang sudah memahami dasar PHP, array, foreach, dan dasar Laravel, lalu ingin menguasai `Illuminate\Support\Collection` secara mendalam dari nol hingga mahir.
->
-> Fokus cheatsheet ini: **Pembuatan Collection → Iterasi (`each`) → Transformasi (`map`, `flatMap`, `mapToGroups`) → Penyaringan (`filter`, `reject`, `where`) → Pengambilan (`first`, `pluck`, `value`) → Pengujian & Eksistensi (`contains`, `every`, `has`) → Pengurutan (`sortBy`, `sortKeys`) → Pengelompokan (`groupBy`, `keyBy`, `countBy`) → Agregasi (`sum`, `avg`, `percentage`) → Manipulasi array mutatif & imutatif → Partisi & Slicing → Chunking & Sliding → Operasi Himpunan (`diff`, `intersect`, `merge`, `combine`) → Utility & Conditional (`when`, `tap`, `pipe`) → Collection Macros → Lazy Collection (Pengolahan Dataset Besar & Memory Streaming via Generator) → Mini Project Analitik Transaksi E-Commerce**.
->
-> **Prinsip penting:** Collection adalah *Fluent Object Wrapper* di atas array PHP native yang menyediakan ratusan method berantai (*method chaining*). Berbeda dengan Eloquent Model yang berfokus pada query SQL database, Laravel Collection memproses data di dalam memori (RAM) aplikasi.
+> **Versi:** Laravel 11 / 12
+> **Prasyarat:** [[laravel-dasar|Laravel Dasar]]
+> Fokus modul pembelajaran ini: **Pembuatan Collection → Iterasi (`each`) → Transformasi (`map`, `flatMap`, `mapToGroups`) → Penyaringan (`filter`, `reject`, `where`) → Pengambilan (`first`, `pluck`, `value`) → Pengujian & Eksistensi (`contains`, `every`, `has`) → Pengurutan (`sortBy`, `sortKeys`) → Pengelompokan (`groupBy`, `keyBy`, `countBy`) → Agregasi (`sum`, `avg`, `percentage`) → Manipulasi array mutatif & imutatif → Partisi & Slicing → Chunking & Sliding → Operasi Himpunan (`diff`, `intersect`, `merge`, `combine`) → Utility & Conditional (`when`, `tap`, `pipe`) → Collection Macros → Lazy Collection (Pengolahan Dataset Besar & Memory Streaming via Generator) → Mini Project Analitik Transaksi E-Commerce**.
 
 ---
 

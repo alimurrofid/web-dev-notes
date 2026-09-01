@@ -13,10 +13,9 @@ tags:
 # React Zustand
 
 > **Target:** Pemula yang telah memahami React Dasar dan React Router, serta ingin menguasai **Global State Management modern, ringan, berkinerja tinggi, dan tanpa Provider boilerplate menggunakan Zustand v4 / v5** (React 18 / 19 & Vite).
->
-> Fokus cheatsheet ini: **masalah Props Drilling → kelemahan React Context API → mental model Zustand → fungsi `create()` → State & Actions → Selector-based Subscriptions (performa render optimal) → Immutability Array & Object → parameter `get` → Async Actions & API fetch → `persist` LocalStorage middleware → Redux `devtools` middleware → Store Slices Pattern → `useStore.getState()` di luar React → `useShallow` → Client State vs Server State → mini project E-Commerce Shopping Cart & Auth Manager**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Zustand 4.x / 5.x
+> **Prasyarat:** [[react-dasar|React Dasar]]
+> Fokus modul pembelajaran ini: **masalah Props Drilling → kelemahan React Context API → mental model Zustand → fungsi `create()` → State & Actions → Selector-based Subscriptions (performa render optimal) → Immutability Array & Object → parameter `get` → Async Actions & API fetch → `persist` LocalStorage middleware → Redux `devtools` middleware → Store Slices Pattern → `useStore.getState()` di luar React → `useShallow` → Client State vs Server State → mini project E-Commerce Shopping Cart & Auth Manager**.
 
 ---
 

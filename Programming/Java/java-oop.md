@@ -12,10 +12,9 @@ tags:
 # Java OOP
 
 > **Target:** Pemula yang sudah memahami dasar-dasar Java (tipe data, control flow, method) dan ingin menguasai konsep **Object-Oriented Programming (OOP)** modern dengan Java (Java 21 LTS).
->
-> Fokus cheatsheet ini: **mental model objek & heap → class, field & constructor → encapsulation & access modifiers → inheritance & super → polymorphism & pattern matching instanceof → abstract class & interface → inner & anonymous class → static, final & sealed classes → records & enum → exception hierarchy & custom exception → mini project payment gateway**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Java 17 / 21 (LTS)
+> **Prasyarat:** [[java-dasar|Java Dasar]]
+> Fokus modul pembelajaran ini: **mental model objek & heap → class, field & constructor → encapsulation & access modifiers → inheritance & super → polymorphism & pattern matching instanceof → abstract class & interface → inner & anonymous class → static, final & sealed classes → records & enum → exception hierarchy & custom exception → mini project payment gateway**.
 
 ---
 

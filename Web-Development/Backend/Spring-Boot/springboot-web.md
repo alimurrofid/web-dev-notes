@@ -13,10 +13,9 @@ tags:
 # Spring Boot Web & REST API
 
 > **Target:** Pemula yang telah memahami dasar Spring Boot Core (IoC, DI, Bean, Configuration), serta ingin membangun **RESTful API backend kelas industri** yang cepat, aman, terstruktur, dan tervalidasi menggunakan **Spring Boot 3.3+ (Spring Web MVC & Java 21 LTS)**.
->
-> Fokus cheatsheet ini: **DispatcherServlet mental model → `@RestController` vs `@Controller` → Request Mapping (`@GetMapping`, `@PostMapping`, `@PutMapping`, `@PatchMapping`, `@DeleteMapping`) → `@PathVariable` & `@RequestParam` → `@RequestBody` & Java Record DTO → `ResponseEntity<T>` & Standar Envelope `ApiResponse<T>` → Jakarta Bean Validation (`@Valid`, `@NotBlank`, `@Size`, `@Email`) → Custom Validator → Global Exception Handling (`@RestControllerAdvice`, RFC 7807 Problem Details) → CORS Configuration → Multipart File Upload → HandlerInterceptor → Jackson Customization → mini project e-commerce RESTful API**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Spring Boot 3.x / Spring Framework 6.x
+> **Prasyarat:** [[springboot-dasar|Spring Boot Dasar]]
+> Fokus modul pembelajaran ini: **DispatcherServlet mental model → `@RestController` vs `@Controller` → Request Mapping (`@GetMapping`, `@PostMapping`, `@PutMapping`, `@PatchMapping`, `@DeleteMapping`) → `@PathVariable` & `@RequestParam` → `@RequestBody` & Java Record DTO → `ResponseEntity<T>` & Standar Envelope `ApiResponse<T>` → Jakarta Bean Validation (`@Valid`, `@NotBlank`, `@Size`, `@Email`) → Custom Validator → Global Exception Handling (`@RestControllerAdvice`, RFC 7807 Problem Details) → CORS Configuration → Multipart File Upload → HandlerInterceptor → Jackson Customization → mini project e-commerce RESTful API**.
 
 ---
 

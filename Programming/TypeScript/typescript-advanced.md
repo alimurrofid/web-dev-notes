@@ -12,10 +12,9 @@ tags:
 # TypeScript Advanced
 
 > **Target:** Pemula yang telah menguasai TypeScript Dasar dan OOP/Generics, serta ingin melangkah ke level mahir (**Type-Level Metaprogramming, Indexed Access Types `T[K]`, Mapped Types `[K in keyof T]`, Mapping Modifiers `+`/`-`, Key Remapping via `as`, Conditional Types `T extends U ? X : Y`, Keyword `infer`, Template Literal Types & Intrinsic String Manipulation, Advanced Utility Types `Awaited`/`ReturnType`/`Parameters`/`Exclude`, Recursive Types, Declaration Files `.d.ts`, Global Augmentation, dan Stage 3 Decorators**) menggunakan **TypeScript 5.5+**.
->
-> Fokus cheatsheet ini: **mental model Type-Level Computation → Indexed Access `T[K]` → `typeof` pada tipe → Index Signatures → Mapped Types & Modifiers (`-readonly`, `-?`) → Key Remapping `as` → Conditional Types & Distributive Unions → Keyword `infer` → Template Literal Types (`Capitalize`, `Uppercase`) → Advanced Utility Types (`Awaited`, `ReturnType`, `Parameters`, `Exclude`, `Extract`) → Recursive Types (DeepReadonly & JSON Tree) → `.d.ts` & Ambient Declarations → Global Augmentation (`Window`, `ProcessEnv`) → Stage 3 Decorators TS 5.0+ → mini project Type-Safe Query Builder & Deep Immutable Store**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** TypeScript 5.x
+> **Prasyarat:** [[typescript-oop-generics|TypeScript OOP & Generics]]
+> Fokus modul pembelajaran ini: **mental model Type-Level Computation → Indexed Access `T[K]` → `typeof` pada tipe → Index Signatures → Mapped Types & Modifiers (`-readonly`, `-?`) → Key Remapping `as` → Conditional Types & Distributive Unions → Keyword `infer` → Template Literal Types (`Capitalize`, `Uppercase`) → Advanced Utility Types (`Awaited`, `ReturnType`, `Parameters`, `Exclude`, `Extract`) → Recursive Types (DeepReadonly & JSON Tree) → `.d.ts` & Ambient Declarations → Global Augmentation (`Window`, `ProcessEnv`) → Stage 3 Decorators TS 5.0+ → mini project Type-Safe Query Builder & Deep Immutable Store**.
 
 ---
 

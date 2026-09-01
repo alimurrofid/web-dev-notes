@@ -13,10 +13,9 @@ tags:
 # Nuxt Data Fetching & Server API
 
 > **Target:** Pemula yang telah memahami Nuxt Dasar dan Vue 3, serta ingin menguasai **Universal Data Fetching (`useFetch`, `useAsyncData`, `$fetch`), pencegahan double-fetching saat SSR, dan pembuatan backend RESTful API menggunakan Nitro Server Engine (`server/api/`)** pada **Nuxt 3.12+ (Nuxt 4 Ready)**.
->
-> Fokus cheatsheet ini: **SSR Data Hydration & Double Fetching mental model → `useFetch` vs `useAsyncData` vs `$fetch` → opsi lanjutan (`lazy`, `pick`, `transform`, `query`, `watch`) → key deduplication caching → Nitro Server Engine → `defineEventHandler` → HTTP Method matching (`.get.ts`, `.post.ts`, `.delete.ts`) → H3 utilities (`getQuery`, `readBody`, `getRouterParam`) → server error `createError` → server middleware → server caching `defineCachedEventHandler` → mini project Full-Stack Product Management & Search API**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Nuxt 3.x / Nitro Engine
+> **Prasyarat:** [[nuxt-dasar|Nuxt Dasar]]
+> Fokus modul pembelajaran ini: **SSR Data Hydration & Double Fetching mental model → `useFetch` vs `useAsyncData` vs `$fetch` → opsi lanjutan (`lazy`, `pick`, `transform`, `query`, `watch`) → key deduplication caching → Nitro Server Engine → `defineEventHandler` → HTTP Method matching (`.get.ts`, `.post.ts`, `.delete.ts`) → H3 utilities (`getQuery`, `readBody`, `getRouterParam`) → server error `createError` → server middleware → server caching `defineCachedEventHandler` → mini project Full-Stack Product Management & Search API**.
 
 ---
 

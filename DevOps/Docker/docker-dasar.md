@@ -12,10 +12,8 @@ tags:
 # Docker Dasar
 
 > **Target:** Pemula yang baru mengenal Docker dan container, serta ingin menguasai perintah Docker CLI untuk deployment dan operasional kontainer aplikasi.
->
-> Fokus cheatsheet ini: **konsep container vs VM → arsitektur Docker → image & container lifecycle → logs & exec → port mapping & env → stats & resource limit → bind mounts & volume → backup/restore volume → custom bridge network & DNS → inspect & prune → restart policy & health check → mini project multi-container**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Perintah CLI Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Docker Engine 24+ / 26+
+> Fokus modul pembelajaran ini: **konsep container vs VM → arsitektur Docker → image & container lifecycle → logs & exec → port mapping & env → stats & resource limit → bind mounts & volume → backup/restore volume → custom bridge network & DNS → inspect & prune → restart policy & health check → mini project multi-container**.
 
 ---
 

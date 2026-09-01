@@ -13,10 +13,9 @@ tags:
 # React Router
 
 > **Target:** Pemula yang telah memahami dasar React (Components, JSX, Props, State, Effects), serta ingin membangun **Single Page Application (SPA) multi-halaman berkinerja tinggi menggunakan React Router v6.20+ / v7** (React 18 / 19 & Vite).
->
-> Fokus cheatsheet ini: **Client-Side Routing mental model → `<BrowserRouter>`, `<Routes>`, `<Route>` → `<Link>` vs `<NavLink>` (active class styling) → Dynamic Routes & `useParams()` → Query Search Params (`useSearchParams()`) → Programmatic Navigation (`useNavigate()`) → `useLocation` & state passing → Nested Routes & `<Outlet>` Layouts → Protected Routes (Auth Guards) → Multi-Layouts → Data Loaders & Actions (v6.4+) → Route Error Handling (`errorElement`) → Code Splitting (`React.lazy` & `<Suspense>`) → mini project E-Commerce & Dashboard SPA**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** React Router v6+ / Data API
+> **Prasyarat:** [[react-dasar|React Dasar]]
+> Fokus modul pembelajaran ini: **Client-Side Routing mental model → `<BrowserRouter>`, `<Routes>`, `<Route>` → `<Link>` vs `<NavLink>` (active class styling) → Dynamic Routes & `useParams()` → Query Search Params (`useSearchParams()`) → Programmatic Navigation (`useNavigate()`) → `useLocation` & state passing → Nested Routes & `<Outlet>` Layouts → Protected Routes (Auth Guards) → Multi-Layouts → Data Loaders & Actions (v6.4+) → Route Error Handling (`errorElement`) → Code Splitting (`React.lazy` & `<Suspense>`) → mini project E-Commerce & Dashboard SPA**.
 
 ---
 

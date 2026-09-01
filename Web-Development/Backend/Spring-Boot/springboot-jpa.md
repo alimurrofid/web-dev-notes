@@ -13,10 +13,9 @@ tags:
 # Spring Data JPA & Hibernate
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Generic, Database (JDBC), dan Spring Boot Core/Web, serta ingin menguasai **Object-Relational Mapping (ORM), Hibernate 6.x, Spring Data JPA, Relasi Antar Tabel, Optimasi Kinerja Query, dan Database Transactions** (Spring Boot 3.3+ & Java 21 LTS).
->
-> Fokus cheatsheet ini: **mental model ORM & Hibernate → Entity Mapping (`@Entity`, `@Table`, `@Id`) → `JpaRepository<T, ID>` → Derived Queries → JPQL & Native Query → Paging & Sorting (`Pageable`) → Relasi Tabel (`@ManyToOne`, `@OneToMany`, `@ManyToMany`) → FetchType LAZY vs EAGER → Solusi N+1 Problem (`JOIN FETCH`, `@EntityGraph`) → `@Transactional` & ACID → Flyway Migrations → Soft Delete (`@SQLRestriction`) → Optimistic Locking (`@Version`) → mini project e-commerce data layer**.
->
-> **Pola belajar:** setiap konsep dibaca dengan urutan **Konsep → Contoh Modern → Output / Hasil → Cara Kerja (Diagram Alur) → Hafalan (Non-Blockquote) → Best Practice & Kesalahan Umum**.
+> **Versi:** Spring Data JPA 3.x / Hibernate 6.x
+> **Prasyarat:** [[springboot-dasar|Spring Boot Dasar]]
+> Fokus modul pembelajaran ini: **mental model ORM & Hibernate → Entity Mapping (`@Entity`, `@Table`, `@Id`) → `JpaRepository<T, ID>` → Derived Queries → JPQL & Native Query → Paging & Sorting (`Pageable`) → Relasi Tabel (`@ManyToOne`, `@OneToMany`, `@ManyToMany`) → FetchType LAZY vs EAGER → Solusi N+1 Problem (`JOIN FETCH`, `@EntityGraph`) → `@Transactional` & ACID → Flyway Migrations → Soft Delete (`@SQLRestriction`) → Optimistic Locking (`@Version`) → mini project e-commerce data layer**.
 
 ---
 
