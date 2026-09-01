@@ -1,289 +1,474 @@
 # AGENTS.md
 
-## Tujuan Repo
+# 1. Tujuan Repository
 
-Repository ini adalah kumpulan **cheatsheet Markdown untuk pembelajaran pemula** dalam Bahasa Indonesia.
+Repository ini adalah **knowledge base pembelajaran teknologi pemrograman** dalam Bahasa Indonesia.
 
-Struktur folder:
+Materi ditulis sebagai **learning notes yang terstruktur, mudah dipahami pemula, praktis, dan siap dipublikasikan sebagai website menggunakan Obsidian + Quartz**.
+
+Tujuan utama repository:
+
+* membantu pembaca belajar dari fundamental hingga advanced
+* menjelaskan konsep dengan bahasa yang sederhana
+* memberikan contoh kode yang relevan dan modern
+* menjelaskan alasan dan cara kerja suatu konsep
+* memberikan best practice dan kesalahan umum
+* menyediakan jalur belajar yang jelas
+* dapat dibaca langsung sebagai Markdown di Obsidian
+* dapat dipublikasikan sebagai dokumentasi/website menggunakan Quartz
+* dapat dibagikan kepada orang lain sebagai referensi belajar
+
+Repository **bukan sekadar kumpulan cheatsheet**.
+
+Prioritas penulisan:
+
+```text
+Akurasi
+  ↓
+Kelengkapan
+  ↓
+Kejelasan
+  ↓
+Logical Flow
+  ↓
+Praktikalitas
+  ↓
+Best Practice
+  ↓
+Konsistensi
+```
+
+---
+
+# 2. Struktur Repository
+
+Struktur repository menggunakan kategori teknologi.
+
+Contoh:
 
 ```text
 root/
-├── 1-PHP/
-│   ├── original/     (file READ-ONLY)
-│   └── revised/      (file yang boleh dibuat / diperbarui)
-├── 2-JavaScript/
-├── 3-Laravel/
-├── 4-Vue/
-├── 5-Docker/
-├── 6-Java/
-├── 7-SpringBoot/
-├── 8-React/
-├── 9-Nuxt/
-├── 10-PostgreSQL/
-├── 11-TypeScript/
-├── 12-NGINX/
-└── 13-Git/
+│
+├── Programming/
+│   ├── PHP/
+│   ├── JavaScript/
+│   ├── TypeScript/
+│   └── Java/
+│
+├── Web-Development/
+│   ├── Backend/
+│   │   ├── Laravel/
+│   │   └── Spring-Boot/
+│   │
+│   └── Frontend/
+│       ├── Vue/
+│       ├── React/
+│       └── Nuxt/
+│
+├── Database/
+│   ├── Database-Fundamental/
+│   ├── PostgreSQL/
+│   ├── MySQL/
+│   └── PostGIS/
+│
+└── DevOps/
+    ├── Git/
+    ├── Linux/
+    ├── Docker/
+    ├── NGINX/
+    └── CI-CD/
 ```
 
-Topik dan status file saat ini:
-
-| # | Topik | Lokasi | File Original (READ-ONLY) | File Revised |
-|---|-------|--------|---------------------------|--------------|
-| 1 | PHP Dasar | `1-PHP/` | `php-dasar-cheatsheet.md` | `php-dasar-cheatsheet-revised.md` |
-| 2 | PHP OOP | `1-PHP/` | `php-oop-cheatsheet.md` | `php-oop-cheatsheet-revised.md` |
-| 3 | PHP Standard Library | `1-PHP/` | `php-standard-library-cheatsheet.md` | `php-standard-library-cheatsheet-revised.md` |
-| 4 | JavaScript Dasar | `2-JavaScript/` | `javascript-dasar-cheatsheet.md` | `javascript-dasar-cheatsheet-revised.md` |
-| 5 | JavaScript DOM | `2-JavaScript/` | `javascript-dom-cheatsheet.md` | `javascript-dom-cheatsheet-revised.md` |
-| 6 | JavaScript OOP | `2-JavaScript/` | `javascript-oop-cheatsheet.md` | `javascript-oop-cheatsheet-revised.md` |
-| 7 | JavaScript Standard Library | `2-JavaScript/` | `javascript-standard-library-cheatsheet.md` | `javascript-standard-library-cheatsheet-revised.md` |
-| 8 | Laravel Dasar | `3-Laravel/` | `laravel-dasar-cheatsheet.md` | `laravel-dasar-cheatsheet-revised.md` |
-| 9 | Laravel Database | `3-Laravel/` | `laravel-database-cheatsheet.md` | `laravel-database-cheatsheet-revised.md` |
-| 10 | Laravel Eloquent | `3-Laravel/` | `laravel-eloquent-cheatsheet.md` | `laravel-eloquent-cheatsheet-revised.md` |
-| 11 | Laravel Collection | `3-Laravel/` | `laravel-collection-cheatsheet.md` | `laravel-collection-cheatsheet-revised.md` |
-| 12 | Vue Dasar | `4-Vue/` | `vue-dasar-cheatsheet.md` | `vue-dasar-cheatsheet-revised.md` |
-| 13 | Vue Router | `4-Vue/` | `vue-router-cheatsheet.md` | `vue-router-cheatsheet-revised.md` |
-| 14 | Vue Pinia | `4-Vue/` | `vue-pinia-cheatsheet.md` | `vue-pinia-cheatsheet-revised.md` |
-| 15 | Docker Dasar | `5-Docker/` | `docker-dasar-cheatsheet.md` | `docker-dasar-cheatsheet-revised.md` |
-| 16 | Docker Compose | `5-Docker/` | `docker-compose-dasar-cheatsheet.md` | `docker-compose-dasar-cheatsheet-revised.md` |
-| 17 | Dockerfile | `5-Docker/` | `dockerfile-dasar-cheatsheet.md` | `dockerfile-dasar-cheatsheet-revised.md` |
-| 18 | Java Dasar | `6-Java/` | `java-dasar-cheatsheet.md` | `java-dasar-cheatsheet-revised.md` |
-| 19 | Java OOP | `6-Java/` | `java-oop-cheatsheet.md` | `java-oop-cheatsheet-revised.md` |
-| 20 | Java Generic | `6-Java/` | `java-generic-cheatsheet.md` | `java-generic-cheatsheet-revised.md` |
-| 21 | Java Collection | `6-Java/` | `java-collection-cheatsheet.md` | `java-collection-cheatsheet-revised.md` |
-| 22 | Java Lambda & Stream API | `6-Java/` | `java-lambda-stream-cheatsheet.md` | `java-lambda-stream-cheatsheet-revised.md` |
-| 23 | Java Database (JDBC) | `6-Java/` | `java-database-cheatsheet.md` | `java-database-cheatsheet-revised.md` |
-| 24 | Spring Boot Dasar | `7-SpringBoot/` | `springboot-dasar-cheatsheet.md` | `springboot-dasar-cheatsheet-revised.md` |
-| 25 | Spring Boot Web | `7-SpringBoot/` | `springboot-web-cheatsheet.md` | `springboot-web-cheatsheet-revised.md` |
-| 26 | Spring Data JPA | `7-SpringBoot/` | `springboot-jpa-cheatsheet.md` | `springboot-jpa-cheatsheet-revised.md` |
-| 27 | Spring Security & JWT | `7-SpringBoot/` | `springboot-security-cheatsheet.md` | `springboot-security-cheatsheet-revised.md` |
-| 28 | Spring Boot Testing | `7-SpringBoot/` | `springboot-testing-cheatsheet.md` | `springboot-testing-cheatsheet-revised.md` |
-| 29 | React Dasar | `8-React/` | `react-dasar-cheatsheet.md` | `react-dasar-cheatsheet-revised.md` |
-| 30 | React Router | `8-React/` | `react-router-cheatsheet.md` | `react-router-cheatsheet-revised.md` |
-| 31 | React Zustand | `8-React/` | `react-zustand-cheatsheet.md` | `react-zustand-cheatsheet-revised.md` |
-| 32 | Nuxt Dasar | `9-Nuxt/` | `nuxt-dasar-cheatsheet.md` | `nuxt-dasar-cheatsheet-revised.md` |
-| 33 | Nuxt Data Fetching | `9-Nuxt/` | `nuxt-data-fetching-cheatsheet.md` | `nuxt-data-fetching-cheatsheet-revised.md` |
-| 34 | Nuxt State & Middleware | `9-Nuxt/` | `nuxt-state-middleware-cheatsheet.md` | `nuxt-state-middleware-cheatsheet-revised.md` |
-| 35 | PostgreSQL Dasar | `10-PostgreSQL/` | `postgresql-dasar-cheatsheet.md` | `postgresql-dasar-cheatsheet-revised.md` |
-| 36 | PostgreSQL Lanjutan | `10-PostgreSQL/` | `postgresql-lanjutan-cheatsheet.md` | `postgresql-lanjutan-cheatsheet-revised.md` |
-| 37 | PostgreSQL Fungsi & Administrasi | `10-PostgreSQL/` | `postgresql-fungsi-administrasi-cheatsheet.md` | `postgresql-fungsi-administrasi-cheatsheet-revised.md` |
-| 38 | TypeScript Dasar | `11-TypeScript/` | `typescript-dasar-cheatsheet.md` | `typescript-dasar-cheatsheet-revised.md` |
-| 39 | TypeScript OOP & Generics | `11-TypeScript/` | `typescript-oop-generics-cheatsheet.md` | `typescript-oop-generics-cheatsheet-revised.md` |
-| 40 | TypeScript Advanced | `11-TypeScript/` | `typescript-advanced-cheatsheet.md` | `typescript-advanced-cheatsheet-revised.md` |
-| 41 | NGINX Dasar | `12-NGINX/` | `nginx-dasar-cheatsheet.md` | `nginx-dasar-cheatsheet-revised.md` |
-| 42 | NGINX Reverse Proxy & Load Balancing | `12-NGINX/` | `nginx-reverse-proxy-cheatsheet.md` | `nginx-reverse-proxy-cheatsheet-revised.md` |
-| 43 | NGINX Keamanan, SSL & Optimasi Performa | `12-NGINX/` | `nginx-security-ssl-cheatsheet.md` | `nginx-security-ssl-cheatsheet-revised.md` |
-| 44 | Git Dasar | `13-Git/` | `git-dasar-cheatsheet.md` | `git-dasar-cheatsheet-revised.md` |
-| 45 | Git Lanjutan & Resolusi Konflik | `13-Git/` | `git-lanjutan-cheatsheet.md` | `git-lanjutan-cheatsheet-revised.md` |
-| 46 | Git Workflow & Kolaborasi Tim | `13-Git/` | `git-workflow-kolaborasi-cheatsheet.md` | `git-workflow-kolaborasi-cheatsheet-revised.md` |
-
-> **Semua 46 topik sudah memiliki file `-revised.md`.** Jika topik baru ditambahkan, ikuti Prosedur Membuat Materi Baru (lihat #25).
-
-Repository ini **tidak memiliki source code aplikasi, package manifest, build process, test suite, atau CI/CD**. Fokus utama repository adalah kualitas, struktur, dan kemudahan memahami materi.
-
----
-
-# 1. Aturan Paling Penting: Original = READ-ONLY
-
-**AI DILARANG mengubah, menimpa, menghapus, atau merename file tanpa akhiran `-revised.md`.**
-
-- File tanpa akhiran `-revised.md` adalah **SOURCE ORIGINAL / READ-ONLY** → hanya boleh dibaca sebagai referensi.
-- File original dikelompokkan dalam folder `original/` per kategori (mis. `1-PHP/original/`). Lokasi folder boleh berubah, tetapi **isi file original tidak boleh diubah**.
-- File `-revised.md` (dalam folder `revised/`) adalah satu-satunya file yang boleh dibuat atau diperbarui.
-- Jika `-revised.md` belum ada → **buat file baru** dari original, tanpa mengubah original.
-- Original tidak boleh dihapus, direname, dioverwrite, atau direfactor.
-- Dilarang membuat file pendamping seperti `topic-backup.md`, `topic-old.md`, `topic-final.md`, `topic-final-2.md`, `topic-new.md`, `topic-v2.md`. Hanya dua bentuk yang diizinkan: `topic-cheatsheet.md` (di `original/`) dan `topic-cheatsheet-revised.md` (di `revised/`).
-
-Contoh yang benar:
+Tidak ada lagi struktur:
 
 ```text
-1-PHP/original/php-dasar-cheatsheet.md         → READ-ONLY
-1-PHP/revised/php-dasar-cheatsheet-revised.md  → boleh dibuat / diperbarui
+original/
+revised/
 ```
 
----
-
-# 2. Master Style
-
-Semua file `-revised.md` harus mengikuti gaya **`laravel-database-cheatsheet-revised.md`** — file ini adalah **MASTER STYLE REFERENCE**.
-
-Yang ditiru bukan isi atau topiknya, melainkan:
-
-- struktur pembelajaran dan urutan konsep
-- gaya penjelasan dan tingkat kedalaman
-- penggunaan emoji level (🟢🟡🔴)
-- format contoh, output, dan diagram
-- bagian Kunci / Hafalan / Best Practice / Kesalahan Umum
-- tabel ringkasan, peta ingatan cepat, cheat code, mini project, referensi resmi
-- pola Daftar Isi dan anchor
-- gaya bahasa dan cara menjelaskan kepada pemula
-
----
-
-# 3. Bahasa & Penamaan Parameter
-
-- Semua penjelasan (prose) menggunakan **Bahasa Indonesia**.
-- Technical terms tetap memakai istilah English yang umum di dokumentasi resmi: `state`, `component`, `props`, `event`, `query`, `migration`, `database`, `request`, `response`, `middleware`, `dependency injection`, `reactive`, `computed`, `watcher`, dst.
-- **Nama Parameter di Blok Hafalan / Kunci WAJIB Bahasa Inggris Lengkap:**
-  - Tulis nama parameter secara eksplisit dalam bahasa Inggris (best practice): `key`, `message`, `column`, `value`, `operator`, `amount`, `relation`, `attributes`, `values`, `condition`, `minutes`.
-  - **DILARANG** menggunakan singkatan ambigu seperti `k`, `v`, `n`, `a`, `b` atau campuran terjemahan bahasa Indonesia yang rancu seperti `kunci`, `pesan`.
+Tidak ada konsep:
 
 ```text
-✅ session()->flash('key', 'message')
-❌ session()->flash('k', 'v')
-❌ session()->flash('kunci', 'pesan')
-
-✅ where('column', 'operator', 'value')
-❌ where('k', '>', 'v')
-❌ where('kolom', 'operator', 'nilai')
+-original.md
+-revised.md
 ```
 
----
+File yang dibuat agent adalah **file final**.
 
-# 4. Target Pembaca
-
-Setiap cheatsheet harus dapat dipahami oleh **pemula yang baru belajar teknologi tersebut**. Jangan mengasumsikan pembaca sudah memahami konsep lanjutan.
-
-Jika sebuah konsep membutuhkan pengetahuan sebelumnya:
-
-1. jelaskan konsep dasarnya terlebih dahulu
-2. berikan contoh sederhana
-3. tunjukkan output atau alur
-4. baru masuk ke penggunaan lanjutan
-
----
-
-# 5. Prinsip Penulisan & Kelengkapan Materi
-
-Setiap konsep harus menjawab minimal:
-
-1. Apa ini?
-2. Untuk apa?
-3. Bagaimana cara menggunakannya?
-4. Apa hasilnya?
-5. Kapan sebaiknya digunakan?
-
-Pola setiap konsep:
+Contoh:
 
 ```text
-Konsep
-  ↓
-Penjelasan sederhana
-  ↓
-Contoh paling sederhana & variasi method penting
-  ↓
-Output / hasil
-  ↓
-Contoh penggunaan nyata
-  ↓
-Hafalan / Kunci
-  ↓
-Best Practice / Kesalahan Umum
+Web-Development/Backend/Laravel/
+├── laravel-dasar.md
+├── laravel-database.md
+├── laravel-eloquent.md
+└── laravel-collection.md
 ```
 
-> [!IMPORTANT]
-> **DILARANG MENGURANGI MATERI YANG SUDAH ADA:** Saat merevisi, jangan menghapus atau menyederhanakan penjelasan yang sudah lengkap. Method-method esensial yang sering digunakan pemula (seperti `query()`, `first()`, `count()`, `exists()`, `latest()`, dll.), alur langkah, dan formula hafalan lama yang mudah dipahami harus **tetap dipertahankan dan diperkaya**.
+Jika materi perlu diperbaiki, agent memperbarui file yang sama.
+
+Jangan membuat:
+
+```text
+laravel-dasar-revised.md
+laravel-dasar-v2.md
+laravel-dasar-final.md
+laravel-dasar-new.md
+laravel-dasar-backup.md
+```
+
+Gunakan satu sumber kebenaran untuk setiap materi.
 
 ---
 
-# 6. Struktur Standar Cheatsheet
+# 3. Peran AI Agent
+
+AI Agent bertindak sebagai:
+
+1. **Researcher**
+2. **Technical Writer**
+3. **Teacher**
+4. **Reviewer**
+5. **Editor**
+6. **Documentation Engineer**
+
+Agent tidak hanya mengubah teks menjadi lebih rapi.
+
+Jika user meminta membuat materi baru, agent harus:
+
+```text
+Memahami topik
+      ↓
+Menentukan scope
+      ↓
+Menyusun learning path
+      ↓
+Melakukan research
+      ↓
+Memverifikasi informasi
+      ↓
+Menulis materi
+      ↓
+Review teknis
+      ↓
+Review pedagogis
+      ↓
+Review Markdown
+      ↓
+Hasil akhir
+```
+
+---
+
+# 4. Prinsip Utama: Jangan Mengarang
+
+Akurasi lebih penting daripada terlihat pintar.
+
+Agent DILARANG:
+
+* mengarang API
+* mengarang syntax
+* mengarang behavior framework
+* mengarang output kode
+* mengarang konfigurasi
+* mengarang versi
+* mengarang best practice
+* mengarang URL dokumentasi
+* menyatakan sesuatu sebagai fakta jika tidak yakin
+
+Jika informasi tidak diketahui dengan cukup yakin:
+
+```text
+Jangan menebak.
+Lakukan research atau nyatakan bahwa informasi tersebut perlu diverifikasi.
+```
+
+Untuk teknologi yang terus berkembang, prioritaskan dokumentasi resmi.
+
+Urutan sumber:
+
+```text
+1. Official Documentation
+2. Official Repository
+3. Official RFC / Specification
+4. Dokumentasi resmi vendor
+5. Sumber teknis terpercaya
+6. Community discussion sebagai pelengkap
+```
+
+Blog, forum, dan AI-generated content **tidak boleh menjadi sumber utama untuk klaim teknis penting**.
+
+---
+
+# 5. Version Awareness
+
+Teknologi memiliki versi yang berbeda.
+
+Jika materi berkaitan dengan framework, library, runtime, database, atau tool yang memiliki perubahan antar versi:
+
+* identifikasi versi yang digunakan
+* gunakan syntax yang sesuai dengan versi tersebut
+* jangan mencampurkan API antar versi
+* jelaskan jika terdapat perbedaan versi yang signifikan
+
+Contoh:
 
 ```markdown
-# [Topic] Cheatsheet Revised
+> Materi ini menggunakan Laravel 12.
+```
 
-> Target: Pemula
-> Versi: [versi teknologi jika relevan]
+atau:
 
-## Cara Belajar
+```markdown
+> Contoh pada materi ini menggunakan Vue 3 dengan Composition API.
+```
+
+Jika user tidak menentukan versi dan versi sangat memengaruhi materi, agent harus melakukan research terhadap versi terbaru/stabil yang relevan atau meminta klarifikasi jika keputusan versi akan mengubah struktur materi secara signifikan.
+
+---
+
+# 6. Target Pembaca
+
+Target utama adalah:
+
+**Pemula yang ingin memahami teknologi dari dasar.**
+
+Jangan mengasumsikan pembaca sudah memahami konsep advanced.
+
+Jika konsep membutuhkan pengetahuan sebelumnya:
+
+```text
+Konsep dasar
+    ↓
+Contoh sederhana
+    ↓
+Cara kerja
+    ↓
+Contoh nyata
+    ↓
+Variasi
+    ↓
+Best Practice
+    ↓
+Advanced
+```
+
+Hindari langsung memberikan syntax tanpa menjelaskan konsep.
+
+---
+
+# 7. Prinsip Pengajaran
+
+Setiap konsep penting sebisa mungkin menjawab:
+
+1. Apa itu?
+2. Mengapa diperlukan?
+3. Untuk apa digunakan?
+4. Bagaimana cara menggunakannya?
+5. Bagaimana cara kerjanya?
+6. Kapan digunakan?
+7. Kapan tidak sebaiknya digunakan?
+8. Apa kesalahan umum?
+9. Apa best practice?
+10. Apa hubungan konsep ini dengan konsep lain?
+
+Tidak semua pertanyaan harus dibuat sebagai heading terpisah.
+
+Gunakan hanya bagian yang memang membantu pemahaman.
+
+---
+
+# 8. Learning Path
+
+Materi harus memiliki alur pembelajaran.
+
+Gunakan tiga level:
 
 ```text
 🟢 Fundamental
-→ wajib untuk mulai ...
+Konsep yang wajib dipahami.
 
-🟡 Lanjutan
-→ pelajari setelah fundamental nyaman
+🟡 Intermediate
+Konsep yang membutuhkan pemahaman fundamental.
 
-🔴 Advanced / Operasional
-→ penting ketika kebutuhan aplikasi meningkat
+🔴 Advanced
+Konsep kompleks, edge case, optimasi,
+arsitektur, keamanan, dan operasional.
 ```
 
-Mental model alur utama topik:
+Gunakan marker secara konsisten.
 
-```text
-[diagram alur ke bawah]
-```
+Jangan memasukkan konsep advanced terlalu awal hanya karena konsep tersebut penting.
+
+---
+
+# 9. Struktur Materi
+
+Setiap materi sebaiknya memiliki struktur standar:
+
+```markdown
+---
+title: "Nama Materi"
+description: "Penjelasan ringkas materi untuk preview, search, dan SEO Quartz."
+order: 1
+tags:
+  - kategori
+  - teknologi
+---
+
+# [Nama Materi]
+
+> Target: Pemula
+> Versi: [versi jika relevan]
+
+## Gambaran Umum
+
+Penjelasan singkat tentang materi.
+
+## Cara Belajar
+
+Penjelasan urutan pembelajaran.
 
 ## Daftar Isi
 
-### 🟢 Fundamental
+...
 
-1. [Konsep 1](#bagian-1)
-2. [Konsep 2](#bagian-2)
+---
 
-### 🟡 Lanjutan
+## 1. 🟢 Konsep Fundamental
 
-N. [Konsep Lanjutan](#bagian-N)
+### Konsep
 
-### 🔴 Advanced / Operasional
+...
 
-M. [Konsep Advanced](#bagian-M)
+### Contoh
 
-### 🛠️ Referensi & Praktik
+...
 
-X. [Peta Ingatan Cepat](#bagian-X)
-Y. [Tabel Ringkasan](#bagian-Y)
-Z. [Cheat Code 10 Detik](#bagian-Z)
-A. [Urutan Belajar yang Disarankan](#bagian-A)
-B. [Mini Project](#bagian-B)
-C. [Referensi Resmi](#bagian-C)
+### Cara Kerja
+
+...
+
+### Hasil
+
+...
+
+### Best Practice
+
+...
+
+### Kesalahan Umum
+
+...
+
+---
+
+## 2. 🟢 Konsep Berikutnya
+
+...
+
+---
+
+## N. 🟡 Konsep Intermediate
+
+...
+
+---
+
+## N. 🔴 Konsep Advanced
+
+...
+
+---
+
+## N. 🛠️ Praktik
+
+...
+
+---
+
+## N. 📚 Ringkasan
+
+...
+
+---
+
+## N. 🧭 Urutan Belajar
+
+...
+
+---
+
+## N. 🏗️ Mini Project
+
+...
+
+---
+
+## N. 🔗 Referensi
+
+...
 ```
 
----
+Struktur boleh disesuaikan dengan topik.
 
-# 7. Level Pembelajaran
-
-Gunakan marker berikut secara konsisten dan jangan digunakan secara acak:
-
-| Marker | Level | Isi |
-|---|---|---|
-| 🟢 | Fundamental / Wajib | konsep yang wajib dipahami sebelum lanjut |
-| 🟡 | Intermediate / Lanjutan | konsep yang mulai membutuhkan pemahaman fundamental |
-| 🔴 | Advanced / Operasional | edge case, arsitektur, operasional, atau reference |
-
-Angka pada heading tetap harus sequential 1 s.d. N tanpa loncatan.
+**Jangan memaksakan section yang tidak relevan.**
 
 ---
 
-# 8. Nomor Heading
+# 10. Heading
 
-- Nomor heading **wajib sequential dari 1 sampai akhir, tanpa loncatan**.
-- Nomor pada heading dan Daftar Isi harus selalu konsisten 1:1.
+Setiap dokumen hanya memiliki **satu H1** (`# [Nama Materi]`) sebagai judul dokumen.
+
+Heading bab utama materi menggunakan H2 (`##`) dengan nomor sequential.
+
+Contoh:
 
 ```markdown
-✅ # 1. 🟢 Pengenalan
-   # 2. 🟢 Konfigurasi
-   # 3. 🟡 Advanced Query
+# [Nama Materi]
 
-❌ # 1. ...
-   # 2. ...
-   # 7. ...
-   # 12. ...
+## 1. 🟢 Pengenalan
+## 2. 🟢 Konsep Dasar
+## 3. 🟢 Syntax Dasar
+## 4. 🟡 Konsep Intermediate
+## 5. 🔴 Konsep Advanced
+## 6. 🛠️ Mini Project
+## 7. 📚 Ringkasan
+## 8. 🔗 Referensi
 ```
+
+Nomor harus:
+
+```text
+1
+2
+3
+4
+5
+...
+N
+```
+
+Tidak boleh:
+
+```text
+1
+2
+5
+8
+```
+
+Sub-bab di bawah bab utama menggunakan H3 (`###`), dan rincian di bawahnya menggunakan H4 (`####`).
+
+Heading harus konsisten dengan Daftar Isi.
 
 ---
 
-# 9. Daftar Isi dan Anchor
+# 11. Daftar Isi
 
-Setiap `-revised.md` **WAJIB memiliki Daftar Isi yang dapat diklik**.
+Setiap materi panjang WAJIB memiliki Daftar Isi.
 
-Karena emoji di heading membuat anchor otomatis tidak konsisten antar renderer, **WAJIB menggunakan explicit HTML anchor** untuk setiap section bernomor:
-
-```markdown
-<a id="bagian-1"></a>
-
-# 1. 🟢 Pengenalan
-```
-
-TOC mengacu ke anchor tersebut:
+Contoh:
 
 ```markdown
 ## Daftar Isi
@@ -291,261 +476,1062 @@ TOC mengacu ke anchor tersebut:
 ### 🟢 Fundamental
 
 1. [Pengenalan](#bagian-1)
-2. [Konfigurasi](#bagian-2)
+2. [Konsep Dasar](#bagian-2)
+3. [Syntax Dasar](#bagian-3)
 
-### 🛠️ Referensi & Praktik
+### 🟡 Intermediate
 
-3. [Peta Ingatan Cepat](#bagian-3)
+4. [Konsep Intermediate](#bagian-4)
+
+### 🔴 Advanced
+
+5. [Konsep Advanced](#bagian-5)
+
+### 🛠️ Praktik
+
+6. [Mini Project](#bagian-6)
+
+### 📚 Referensi
+
+7. [Ringkasan](#bagian-7)
+8. [Referensi Resmi](#bagian-8)
+```
+
+Gunakan explicit anchor jika renderer membutuhkan anchor yang stabil:
+
+```markdown
+<a id="bagian-1"></a>
+
+## 1. 🟢 Pengenalan
 ```
 
 ---
 
-# 10. Format Per Section
+# 12. Obsidian Compatibility
 
-````markdown
-<a id="bagian-5"></a>
+Materi harus nyaman dibaca di Obsidian.
 
-# 5. 🟢 Query Builder Insert
+Gunakan Markdown standar sebanyak mungkin.
 
-## Konsep
+Diperbolehkan menggunakan fitur Obsidian yang memang membantu knowledge base, seperti:
 
-...
+```markdown
+[[php-dasar|PHP Dasar]]
+[[laravel-dasar|Laravel Dasar]]
+[[postgresql-dasar|PostgreSQL Dasar]]
+```
 
-## Contoh
+Gunakan internal links jika file tujuan memang tersedia.
+
+Jangan membuat link ke file yang belum ada hanya untuk terlihat lengkap.
+
+Gunakan callout Obsidian jika memang memberikan nilai tambah.
+
+Contoh:
+
+```markdown
+> [!TIP]
+> Gunakan `first()` ketika hanya membutuhkan satu record.
+
+> [!WARNING]
+> Jangan menyimpan secret langsung di source code.
+
+> [!IMPORTANT]
+> Migration digunakan untuk mendefinisikan perubahan struktur database.
+```
+
+Jangan menggunakan callout secara berlebihan.
+
+---
+
+# 13. Quartz Compatibility
+
+Materi harus dapat diproses oleh Quartz.
+
+Hindari:
+
+* HTML yang tidak diperlukan
+* Markdown non-standard tanpa alasan
+* syntax yang bergantung pada renderer tertentu
+* link yang rusak
+* anchor yang tidak valid
+* code fence yang tidak tertutup
+* struktur heading yang kacau
+
+Prioritaskan:
+
+```text
+Markdown standar
++
+Obsidian-compatible Markdown
++
+Quartz-compatible structure
+```
+
+---
+
+# 14. Internal Linking
+
+Knowledge base harus membentuk hubungan antar materi.
+
+Jika konsep memiliki hubungan langsung dengan materi lain dan file tersebut tersedia, gunakan format wikilink dengan slug file target:
+
+```markdown
+[[php-dasar|PHP Dasar]]
+[[javascript-dasar|JavaScript Dasar]]
+[[laravel-database|Laravel Database]]
+[[postgresql-dasar|PostgreSQL Dasar]]
+```
+
+Gunakan format `[[nama-file-kebab-case|Display Text]]` atau `[[nama-file-kebab-case]]` agar Quartz dapat me-resolve slug halaman dengan tepat tanpa menghasilkan broken links.
+
+Gunakan internal link secara natural.
+
+Jangan membuat link untuk setiap istilah teknis.
+
+Tujuannya adalah membangun **knowledge graph**, bukan memenuhi dokumen dengan hyperlink.
+
+---
+
+# 15. Contoh Kode
+
+Contoh kode harus:
+
+* sederhana
+* runnable secara konsep
+* modern
+* relevan dengan versi teknologi
+* fokus pada satu konsep
+* mudah dipahami pemula
+
+Hindari contoh yang terlalu kompleks ketika menjelaskan konsep dasar.
+
+Contoh buruk:
+
+```text
+Menjelaskan variable tetapi contoh menggunakan
+authentication + database + API + dependency injection.
+```
+
+Contoh baik:
+
+```text
+Konsep
+↓
+Kode minimal
+↓
+Output
+↓
+Penjelasan
+↓
+Contoh penggunaan nyata
+```
+
+---
+
+# 16. Output Kode
+
+Jika kode memiliki output yang jelas, tampilkan output.
+
+Contoh:
 
 ```php
-DB::table('users')->insert([
-    'name' => 'Budi',
-]);
+$name = "Budi";
+
+echo $name;
 ```
 
-## Output
+Output:
 
 ```text
-Data user berhasil disimpan ke database.
+Budi
 ```
 
-## Cara Kerja
+Jika tidak ada output literal, gunakan:
 
-```text
-Input Form
-  ↓
-Query Builder
-  ↓
-Database Engine
-  ↓
-Hasil
+```markdown
+## Hasil
+
+Kode tersebut menghasilkan ...
 ```
 
-**Hafalan:**
+Jangan mengklaim output tertentu jika kode belum diverifikasi secara logis.
 
-```text
-insert(['column' => 'value']) → simpan data baru ke database
-```
-
-## Best Practice
-
-- Selalu gunakan Mass Assignment protection...
-````
+Jika memungkinkan, lakukan validasi terhadap contoh kode.
 
 ---
 
-# 11. Diagram Alur (Downward / Boxed Flow)
+# 17. Cara Kerja
 
-Gunakan diagram ASCII/Markdown yang rapi untuk menjelaskan alur waktu, proses, lifecycle, dan relasi:
+Untuk konsep yang memiliki alur internal, gunakan diagram.
 
-- **Wajib menggunakan Alur ke Bawah (*Downward Flow*)** dengan panah vertikal `│`, `▼`.
-- **Gunakan Diagram Kotak Berpanah (*Boxed Flow*)** untuk entitas bertingkat atau percabangan yang jelas.
-- **DILARANG menggunakan format pohon folder (`├──`, `└──`) untuk alur proses waktu/eksekusi.** Format pohon folder hanya boleh digunakan untuk menampilkan struktur direktori/file.
-
-Contoh yang benar:
+Gunakan alur vertikal:
 
 ```text
-       Browser HTTP Request
-               │
-               ▼
-       routes/web.php
-               │
-               ▼
-       Controller Action
-               │
-               ▼
-       ┌───────────────────────────────────────────────┐
-       │            Pilihan Eksekutor Akhir            │
-       └───────┬───────────────┬───────────────┬───────┘
-               │               │               │
-               ▼               ▼               ▼
-             get()        paginate()        count()
-               │               │               │
-               ▼               ▼               ▼
-          Collection        Paginasi         Nilai
-         (Banyak Row)    (Navigasi Blade)   Tunggal
+Input
+  │
+  ▼
+Process
+  │
+  ▼
+Validation
+  │
+  ▼
+Output
 ```
 
+Untuk percabangan gunakan boxed flow:
+
+```text
+              Request
+                 │
+                 ▼
+        ┌─────────────────┐
+        │    Validation   │
+        └────────┬────────┘
+                 │
+          ┌──────┴──────┐
+          ▼             ▼
+        Valid         Invalid
+          │             │
+          ▼             ▼
+       Process         Error
+```
+
+Jangan menggunakan diagram tree folder untuk menjelaskan execution flow.
+
+Diagram folder hanya untuk struktur direktori.
+
 ---
 
-# 12. Contoh Kode
+# 18. Hafalan / Kunci
 
-Contoh harus:
+Gunakan bagian Hafalan untuk hal yang memang penting diingat.
 
-- sederhana dan runnable secara konsep
-- fokus pada satu konsep
-- tidak terlalu panjang
-- menggunakan syntax modern (misal: method `casts(): array`, `Attribute::make()`, Vite `@vite`)
-- menghindari *over-wrapping* (pemecahan baris kode yang terlalu sempit 1 token per baris)
-
----
-
-# 13. Output / Hasil
-
-- Jika contoh menghasilkan output yang bisa ditunjukkan → tampilkan di blok ` ```text `.
-- Jika tidak ada output literal → jelaskan hasilnya dengan subheading `## Hasil`.
-
----
-
-# 14. Format Kunci / Hafalan (NON-BLOCKQUOTE)
-
-- **DILARANG MENGGUNAKAN BLOCKQUOTE (`>`) PADA BAGIAN HAFALAN/KUNCI.**
-- Format baku: Gunakan `**Hafalan:**` diikuti blok ` ```text ` atau teks tebal inline (`**Kunci:** ...`).
-- Seluruh parameter di dalam hafalan **wajib menggunakan bahasa Inggris lengkap**:
+Format:
 
 ````markdown
 **Hafalan:**
 
 ```text
-session(['key' => 'value'])        → simpan permanen di sesi
-session()->flash('key', 'message') → simpan sementara untuk 1 request berikutnya
-where('column', 'value')           → filter kolom = nilai
-withCount('relation')              → hitung jumlah relasi
+where('column', 'operator', 'value')
+→ filter data berdasarkan kondisi
+
+first()
+→ mengambil satu record pertama
+
+count()
+→ menghitung jumlah record
 ```
 ````
 
+Parameter dalam contoh hafalan harus menggunakan nama yang jelas:
+
+```text
+key
+value
+column
+operator
+condition
+relation
+attributes
+options
+````
+
+Hindari:
+
+```text
+k
+v
+x
+a
+b
+```
+
+kecuali memang konteks matematis atau algoritmik membutuhkan nama tersebut.
+
 ---
 
-# 15. Best Practice & Kesalahan Umum
+# 19. Best Practice
+
+Setiap konsep penting harus memiliki best practice jika memang relevan.
+
+Format:
+
+```markdown
+## Best Practice
+
+- Gunakan ...
+- Hindari ...
+- Pisahkan ...
+- Validasi ...
+```
+
+Jangan membuat best practice hanya untuk memenuhi struktur.
+
+Best practice harus mempunyai alasan teknis yang jelas.
+
+---
+
+# 20. Kesalahan Umum
+
+Jelaskan kesalahan yang kemungkinan dilakukan pemula.
+
+Contoh:
 
 ```markdown
 ## Kesalahan Umum
 
-❌ Jangan memanggil env() di Controller...
+❌ Menggunakan ...
 
-✅ Gunakan config('app.name')...
+Karena ...
+
+✅ Gunakan ...
+
+Alasannya ...
 ```
+
+Fokus pada kesalahan yang benar-benar umum dan relevan.
 
 ---
 
-# 16. Tabel Ringkasan (Standard Markdown Pipe Table)
+# 21. Perbandingan
 
-Setiap `-revised.md` **wajib memiliki Tabel Ringkasan** dengan format tabel Markdown standar bergaris pipa `|`:
+Jika terdapat beberapa konsep yang sering membingungkan, gunakan tabel.
+
+Contoh:
+
+| Konsep    | Digunakan Untuk         | Hasil        |
+| --------- | ----------------------- | ------------ |
+| `first()` | Mengambil satu record   | Model / null |
+| `get()`   | Mengambil banyak record | Collection   |
+| `count()` | Menghitung record       | Integer      |
+
+Gunakan tabel untuk perbandingan yang memang lebih mudah dipahami dalam bentuk tabel.
+
+Jangan memaksakan semua informasi menjadi tabel.
+
+---
+
+# 22. Mental Model
+
+Materi yang kompleks sebaiknya memiliki mental model.
+
+Contoh:
+
+```text
+Database
+    ↓
+Query
+    ↓
+Model
+    ↓
+Business Logic
+    ↓
+Response
+```
+
+Tujuannya agar pembaca memahami hubungan antar konsep, bukan hanya menghafal API.
+
+---
+
+# 23. Mini Project
+
+Materi utama sebaiknya memiliki mini project jika konsep memungkinkan untuk dipraktikkan.
+
+Mini project harus:
+
+* sederhana
+* realistis
+* menggabungkan konsep yang telah dipelajari
+* memiliki tujuan jelas
+* dapat dikerjakan pemula
+* tidak memperkenalkan terlalu banyak konsep baru
+* menyediakan kode yang lengkap, valid, dan dapat dijalankan (hindari pseudocode kosong)
+
+Format:
 
 ```markdown
-| Konsep / Fitur | API Utama | Fungsi & Kegunaan |
-|---|---|---|
-| Model Baru | `make:model` | Membuat class model |
-| Filter Data | `where('column', 'value')` | Menyaring baris data |
+## Mini Project
+
+### Tujuan
+
+...
+
+### Fitur
+
+...
+
+### Konsep yang Digunakan
+
+...
+
+### Langkah Implementasi
+
+...
+
+### Hasil Akhir
+
+...
 ```
 
-> **Dilarang** menggunakan format *pandoc table* tanpa border pipa.
+Mini project tidak harus selalu berupa aplikasi besar.
 
 ---
 
-# 17. Urutan Bagian Akhir yang Baku
+# 24. Ringkasan
 
-Bagian penutup cheatsheet harus disusun secara berurutan dan terstruktur di bawah kelompok TOC `### 🛠️ Referensi & Praktik`:
+Setiap materi harus memiliki ringkasan yang membantu pembaca mengingat kembali materi.
+
+Gunakan:
+
+````markdown
+## Peta Ingatan
 
 ```text
-# N-5. 🛠️ Peta Ingatan Cepat
-# N-4. 📚 Tabel Ringkasan
-# N-3. ⚡ Cheat Code [Topic] 10 Detik
-# N-2. 🧭 Urutan Belajar yang Disarankan
-# N-1. 🏗️ Mini Project
-# N.   🔗 Referensi Resmi
+Topik
+├── Fundamental
+│   ├── Konsep A
+│   └── Konsep B
+├── Intermediate
+│   └── Konsep C
+└── Advanced
+    └── Konsep D
 ```
+````
 
-- **Peta Ingatan Cepat** — diagram mental model hubungan antar konsep utama.
-- **Tabel Ringkasan** — tabel Markdown standar API dan fungsinya.
-- **Cheat Code [Topic] 10 Detik** — contekan cepat sintaks terpenting yang sering dicari.
-- **Urutan Belajar yang Disarankan** — panduan belajar bertahap dari fundamental sampai project.
-- **Mini Project** — project nyata sederhana yang menggabungkan seluruh konsep inti + output tampilan.
-- **Referensi Resmi** — tautan langsung ke dokumentasi resmi teknologi tersebut.
+Struktur tree diperbolehkan pada **mental map / struktur konsep**.
+
+Larangan penggunaan tree hanya berlaku untuk **alur proses/execution flow**.
 
 ---
 
-# 18. Kedalaman Dokumen
+# 25. Cheat Code
 
-- Target umum ±2.000–3.700 baris.
-- Prioritas: **Kelengkapan > Kejelasan > Logical flow > Best practice > Panjang dokumen**.
-- Jangan menghapus method-method penting demi memendekkan dokumen.
+Jika topik memiliki syntax/API yang sering digunakan, sediakan bagian quick reference.
 
----
+Contoh:
 
-# 19. Proses Revisi
-
-Saat user meminta revisi, ikuti langkah berikut:
-
-1. **Analisis & Rencana:** Identifikasi bagian yang kurang lengkap/rancu, susun rencana di artifact `implementation_plan.md`, dan tunggu persetujuan user sebelum mengubah file.
-2. **Update Hanya Revised:** Lakukan pengeditan HANYA pada file `revised/*-revised.md`. File `original/*` adalah **READ-ONLY**.
-3. **Verifikasi Integritas:** Jalankan script verifikasi otomatis untuk memastikan sequential heading, explicit anchor, TOC, code fence genap, dan 0 blockquote pada hafalan.
-
----
-
-# 20. Larangan
-
-- Tidak boleh mengubah atau menimpa file di folder `original/`.
-- Tidak boleh membuat file backup liar (`topic-backup.md`, `topic-v2.md`).
-- Tidak boleh menggunakan blockquote (`>`) untuk bagian Hafalan/Kunci di luar metadata pembuka dokumen.
-- Tidak boleh menggunakan diagram nested tree (`├──`, `└──`) untuk alur proses waktu/eksekusi.
-- Tidak boleh menggunakan singkatan parameter (`k`, `v`, `n`, `a`, `b`) pada blok Hafalan.
-- Tidak boleh menggunakan tabel tanpa garis pipa `|`.
-- Tidak boleh menghilangkan materi yang sudah ada sebelumnya.
-
----
-
-# 21. Konsistensi Antar Cheatsheet
-
-Semua cheatsheet `-revised.md` di repo ini harus terasa ditulis oleh satu penulis dengan pola yang konsisten:
+````markdown
+### Cheat Code 10 Detik
 
 ```text
-Konsep
-  ↓
-Contoh Modern & Runnable
-  ↓
-Output / Hasil
-  ↓
-Penjelasan Cara Kerja
-  ↓
-Hafalan (Bahasa Inggris Lengkap & Non-Blockquote)
-  ↓
-Best Practice / Kesalahan Umum
-  ↓
-Tabel Ringkasan & Peta Ingatan
-  ↓
-Mini Project Nyata
+create()   → membuat data
+find()     → mencari berdasarkan ID
+where()    → filtering
+first()    → satu record pertama
+get()      → banyak record
+count()    → jumlah record
+exists()   → mengecek keberadaan
+```
+````
+
+Cheat Code tidak menggantikan penjelasan utama.
+
+---
+
+# 26. Urutan Belajar
+
+Materi harus memberikan arahan:
+
+```markdown
+## Urutan Belajar
+
+1. Pahami konsep A
+2. Pelajari konsep B
+3. Praktikkan konsep C
+4. Lanjut ke konsep D
+5. Kerjakan mini project
+6. Pelajari advanced topic
+````
+
+Tujuannya agar pembaca mengetahui:
+
+> "Setelah membaca ini, saya harus belajar apa?"
+
+---
+
+# 27. Referensi
+
+Setiap materi teknis sebaiknya memiliki referensi.
+
+Prioritaskan dokumentasi resmi.
+
+Contoh:
+
+```markdown
+## Referensi
+
+- Dokumentasi resmi
+- Official Repository
+- Specification / RFC jika relevan
+```
+
+Jangan memasukkan referensi yang tidak benar-benar digunakan.
+
+Jangan membuat URL secara tebakan.
+
+Jika URL resmi tidak diketahui, lakukan research terlebih dahulu.
+
+---
+
+# 28. Bahasa
+
+Semua penjelasan menggunakan Bahasa Indonesia.
+
+Technical terms tetap menggunakan istilah English yang umum.
+
+Contoh:
+
+```text
+request
+response
+middleware
+component
+state
+props
+event
+query
+migration
+database
+dependency injection
+reactive
+computed
+watcher
+```
+
+Jangan menerjemahkan technical term menjadi istilah Indonesia yang tidak lazim.
+
+Gunakan bahasa yang:
+
+* natural
+* jelas
+* tidak terlalu formal
+* tidak terlalu conversational
+* mudah dipahami mahasiswa/pemula
+* tidak bertele-tele
+
+Hindari kalimat seperti:
+
+```text
+Pada era digital yang semakin berkembang...
+```
+
+Langsung masuk ke konsep.
+
+---
+
+# 29. Kedalaman Materi
+
+Tidak ada target jumlah baris wajib.
+
+Gunakan prinsip:
+
+> **Cukup lengkap untuk memahami konsep, tetapi jangan menambahkan informasi hanya untuk membuat dokumen panjang.**
+
+Materi harus berhenti ketika scope sudah tercakup dengan baik.
+
+Prioritas:
+
+```text
+Completeness
+>
+Clarity
+>
+Accuracy
+>
+Practicality
+>
+Length
 ```
 
 ---
 
-# 22. Verifikasi Sebelum Selesai
+# 30. Research Sebelum Menulis
 
-Sebelum menyelesaikan tugas, jalankan pemeriksaan script dan pastikan:
+Untuk materi baru, agent harus melakukan research jika:
 
-- [ ] **File Safety:** File original tidak tersentuh; file revised dibuat/diperbarui.
-- [ ] **TOC & Anchor:** Jumlah heading `# N.` = jumlah anchor `<a id="bagian-N">` = jumlah item TOC (100% sinkron).
-- [ ] **Heading:** Sequential 1..N tanpa loncatan angka.
-- [ ] **Code Fence:** Jumlah backtick ` ``` ` genap dan tidak ada code block yang menggantung.
-- [ ] **Hafalan Format:** Format `**Hafalan:**` non-blockquote dengan nama parameter bahasa Inggris lengkap.
-- [ ] **Diagram:** Diagram proses menggunakan alur ke bawah (`│`, `▼`) atau kotak berpanah.
-- [ ] **Tabel:** Menggunakan tabel Markdown standar (`|`).
-- [ ] **Bagian Akhir Lengkap:** Memiliki Peta Ingatan, Tabel Ringkasan, Cheat Code, Urutan Belajar, Mini Project, dan Referensi Resmi.
+* teknologi memiliki versi aktif
+* API dapat berubah
+* informasi tidak cukup diketahui
+* terdapat beberapa pendekatan
+* terdapat potensi perbedaan versi
+* user meminta best practice
+* user meminta rekomendasi teknis
+
+Research minimal harus memverifikasi:
+
+```text
+Nama API
+Syntax
+Behavior
+Version
+Best Practice
+Official Documentation
+```
+
+Jangan melakukan research hanya untuk menambahkan informasi yang tidak diperlukan.
 
 ---
 
-# 23. Prosedur Membuat Materi Baru
+# 31. Pisahkan Fakta dan Opini
 
-1. Buat file `original/<topik>-cheatsheet.md` (READ-ONLY) dan `revised/<topik>-cheatsheet-revised.md`.
-2. Terapkan seluruh aturan Master Style di atas.
-3. Jalankan verifikasi otomatis sebelum menyerahkan hasil ke user.
+Bedakan:
+
+```text
+Fakta teknis
+```
+
+dengan:
+
+```text
+Rekomendasi / opinionated practice
+```
+
+Contoh:
+
+```markdown
+Laravel menyediakan ...
+
+```
+
+berbeda dengan:
+
+```markdown
+Untuk project baru, pendekatan yang saya rekomendasikan adalah ...
+```
+
+Jangan menyampaikan preference sebagai fakta resmi.
 
 ---
 
-Catatan: AGENTS.md sendiri hanya boleh diubah atas permintaan eksplisit dari user.
+# 32. Jangan Overengineering Materi
+
+Materi untuk pemula tidak boleh dibuat terlalu kompleks.
+
+Jika ada 3 cara melakukan sesuatu:
+
+```text
+Cara paling sederhana
+      ↓
+Cara yang umum digunakan
+      ↓
+Cara advanced
+```
+
+Jangan langsung menggunakan pendekatan advanced jika tidak diperlukan.
+
+---
+
+# 33. Konsistensi Antar Materi
+
+Semua notes harus terasa dibuat oleh satu penulis.
+
+Pertahankan konsistensi:
+
+* gaya bahasa
+* level marker
+* format heading
+* format code block
+* diagram
+* tabel
+* Hafalan
+* Best Practice
+* Kesalahan Umum
+* Mini Project
+* Referensi
+
+Namun:
+
+> Konsistensi tidak boleh mengalahkan relevansi.
+
+Tidak semua materi harus memiliki struktur yang identik.
+
+---
+
+# 34. Naming Convention
+
+### Konvensi Nama File
+Nama file materi menggunakan nama bersih (*clean kebab-case*) tanpa awalan nomor:
+
+```text
+lowercase-kebab-case.md
+```
+
+Urutan pembelajaran diatur melalui atribut `order: N` di dalam YAML Frontmatter, bukan melalui nama file.
+
+Contoh:
+
+```text
+php-dasar.md
+php-oop.md
+laravel-database.md
+vue-router.md
+postgresql-lanjutan.md
+```
+
+Jangan menggunakan:
+
+```text
+01-php-dasar.md
+PHP Dasar.md
+php_dasar.md
+phpDasar.md
+php-dasar-final.md
+```
+
+### Konvensi Nama Folder
+Folder kategori dan topik menggunakan format PascalCase / kebab-case yang bersih tanpa awalan nomor:
+
+```text
+root/
+├── Programming/
+│   ├── PHP/
+│   └── JavaScript/
+├── Web-Development/
+│   ├── Backend/
+│   │   └── Laravel/
+│   └── Frontend/
+│       └── Vue/
+├── Database/
+│   ├── PostgreSQL/
+│   └── MySQL/
+└── DevOps/
+    ├── Git/
+    └── Docker/
+```
+
+---
+
+# 35. Satu File = Satu Materi
+
+Satu file harus memiliki scope yang jelas.
+
+Contoh:
+
+```text
+laravel-database.md
+```
+
+berisi materi database Laravel secara terstruktur.
+
+Jangan membuat satu file berisi seluruh Laravel jika topiknya sudah terlalu besar.
+
+Sebaliknya, jangan memecah materi terlalu kecil hanya menjadi satu konsep sederhana kecuali memang berguna sebagai atomic note.
+
+---
+
+# 36. Atomic Knowledge
+
+Jika sebuah konsep cukup besar dan dapat berdiri sendiri, pertimbangkan untuk membuat note terpisah.
+
+Contoh:
+
+```text
+Laravel
+├── laravel-dasar.md
+├── laravel-database.md
+├── laravel-eloquent.md
+└── laravel-collection.md
+```
+
+Hubungkan menggunakan internal links:
+
+```markdown
+Untuk memahami Eloquent lebih lanjut, lihat [[laravel-eloquent|Laravel Eloquent]].
+```
+
+Tujuan akhirnya adalah membangun **knowledge base yang saling terhubung**.
+
+---
+
+# 37. Update Existing Notes
+
+Ketika user meminta memperbaiki materi yang sudah ada:
+
+1. baca materi saat ini
+2. identifikasi kekurangan
+3. verifikasi informasi
+4. perbaiki langsung file tersebut
+5. pertahankan informasi yang masih valid
+6. hapus informasi yang terbukti salah
+7. tambahkan informasi yang diperlukan
+8. pastikan struktur tetap konsisten
+
+Tidak perlu membuat file:
+
+```text
+-revised
+-v2
+-final
+-backup
+```
+
+---
+
+# 38. Prosedur Membuat Materi Baru
+
+Ketika user meminta:
+
+> "Buat materi tentang X"
+
+ikuti workflow:
+
+### Step 1 — Understand
+
+Tentukan:
+
+* target pembaca
+* scope
+* prerequisite
+* teknologi/versi
+* konsep fundamental
+* konsep intermediate
+* konsep advanced
+* praktik
+
+### Step 2 — Plan
+
+Buat outline internal:
+
+```text
+Fundamental
+↓
+Intermediate
+↓
+Advanced
+↓
+Practice
+↓
+Summary
+```
+
+### Step 3 — Research
+
+Verifikasi informasi penting menggunakan sumber terpercaya, terutama dokumentasi resmi.
+
+### Step 4 — Write
+
+Tulis langsung ke file final:
+
+```text
+<topic>.md
+```
+
+### Step 5 — Review Technical
+
+Periksa:
+
+* syntax
+* API
+* behavior
+* terminology
+* version
+* example
+* output
+* best practice
+
+### Step 6 — Review Pedagogical
+
+Tanyakan:
+
+```text
+Apakah pemula dapat memahami materi ini
+tanpa harus menebak konteks?
+```
+
+Periksa:
+
+* logical flow
+* prerequisite
+* contoh
+* penjelasan
+* transisi antar konsep
+
+### Step 7 — Review Markdown
+
+Periksa:
+
+* heading
+* TOC
+* anchor
+* code fence
+* tabel
+* internal link
+* callout
+* Quartz compatibility
+
+### Step 8 — Final Check
+
+Pastikan tidak ada:
+
+* placeholder
+* TODO
+* syntax yang meragukan
+* link rusak
+* section kosong
+* duplicate section
+* file backup
+* informasi yang dibuat-buat
+
+---
+
+# 39. Prosedur Revisi Existing Note
+
+Ketika user meminta:
+
+> "Perbaiki materi X"
+
+jangan hanya melakukan proofreading.
+
+Lakukan:
+
+```text
+Existing Note
+     ↓
+Technical Audit
+     ↓
+Content Gap Analysis
+     ↓
+Research
+     ↓
+Structural Improvement
+     ↓
+Rewrite
+     ↓
+Technical Review
+     ↓
+Final Validation
+```
+
+Tujuan revisi:
+
+> Membuat note lebih baik sebagai materi pembelajaran, bukan hanya memperbaiki grammar.
+
+---
+
+# 40. Verifikasi Otomatis
+
+Sebelum menyelesaikan pekerjaan, lakukan pemeriksaan jika tooling memungkinkan.
+
+Minimal periksa:
+
+```text
+[ ] YAML Frontmatter lengkap (title, description, tags, order)
+[ ] File menggunakan ekstensi .md
+[ ] Tepat 1 H1 (judul dokumen) & bab utama sequential H2
+[ ] TOC sesuai dengan heading
+[ ] Anchor tidak duplicate
+[ ] Code fence berpasangan & valid
+[ ] Wikilinks menggunakan format slug [[nama-file|Label]]
+[ ] Tidak ada broken Markdown
+[ ] Tidak ada placeholder TODO
+[ ] Tidak ada file -revised / -v2 / -backup
+[ ] Internal link mengarah ke note yang tersedia
+[ ] Tabel valid
+[ ] Tidak ada blockquote yang tidak diperlukan
+```
+
+Jika terdapat script lint/validation di repository, gunakan script tersebut.
+
+Jika tidak ada script, lakukan pemeriksaan manual.
+
+---
+
+# 41. Larangan
+
+AI Agent DILARANG:
+
+* mengarang informasi teknis
+* mengarang API
+* mengarang URL
+* mencampur syntax antar versi tanpa penjelasan
+* membuat file `-revised.md`
+* membuat file `-final.md`
+* membuat file `-v2.md`
+* membuat backup file tanpa diminta
+* membuat materi panjang hanya demi jumlah baris
+* menghapus informasi valid hanya demi memperpendek materi
+* menggunakan jargon tanpa penjelasan
+* menggunakan technical term yang tidak umum tanpa konteks
+* membuat diagram hanya sebagai dekorasi
+* memasukkan referensi yang tidak digunakan
+* membuat internal link ke file yang tidak tersedia
+* menyampaikan opini sebagai fakta
+* memberikan best practice tanpa alasan teknis
+
+---
+
+# 42. Definition of Done
+
+Sebuah materi dianggap selesai jika:
+
+```text
+✓ YAML Frontmatter lengkap dan valid (title, description, tags, order)
+✓ Scope jelas
+✓ Learning path jelas
+✓ Hirarki heading semantik (1 H1, bab H2, sub H3)
+✓ Fundamental dijelaskan
+✓ Konsep penting tercakup
+✓ Contoh kode relevan
+✓ Cara kerja dijelaskan
+✓ Best practice tersedia jika relevan
+✓ Kesalahan umum tersedia jika relevan
+✓ Ada ringkasan & peta ingatan
+✓ Ada quick reference jika relevan
+✓ Ada mini project jika relevan
+✓ Referensi resmi tersedia
+✓ Wikilinks valid dan mengarah ke file yang ada
+✓ Informasi teknis telah diverifikasi
+✓ Markdown valid
+✓ Obsidian-friendly
+✓ Quartz-compatible
+✓ Tidak ada placeholder
+✓ Tidak ada informasi yang sengaja dibuat-buat
+```
+
+---
+
+# 43. Filosofi Repository
+
+Repository ini bukan bertujuan menjadi:
+
+```text
+Dump informasi
+```
+
+tetapi menjadi:
+
+```text
+Knowledge Base
+     ↓
+Learning Path
+     ↓
+Practical Examples
+     ↓
+Mental Model
+     ↓
+Best Practice
+     ↓
+Practical Reference
+```
+
+Pembaca harus dapat:
+
+```text
+Belum tahu
+    ↓
+Memahami konsep
+    ↓
+Mengikuti contoh
+    ↓
+Mencoba sendiri
+    ↓
+Memahami kapan digunakan
+    ↓
+Mampu menggunakannya dalam project
+```
+
+Target akhirnya adalah:
+
+> **Orang lain dapat belajar dari repository ini tanpa membutuhkan penjelasan tambahan dari penulis.**
