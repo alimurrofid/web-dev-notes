@@ -1,4 +1,16 @@
-# Laravel Dasar Cheatsheet Revised
+---
+title: "Laravel Dasar"
+description: "Fundamental Laravel: routing, request/response, controller, Blade templating, middleware, validation, CSRF, session, dan project structure."
+order: 1
+tags:
+  - web-development
+  - backend
+  - laravel
+  - php
+  - fundamental
+---
+
+# Laravel Dasar
 
 > **Target:** pemula yang sudah memahami dasar PHP dan ingin belajar Laravel secara bertahap dari fondasi HTTP hingga arsitektur aplikasi.
 >
@@ -125,13 +137,13 @@ Response   → hasil akhir yang dikirim ke browser
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Laravel
+## 1. 🟢 Pengenalan Laravel
 
-## Konsep
+#### Konsep
 
 **Laravel** adalah web application framework berbasis PHP dengan sintaks yang ekspresif, elegan, dan terstruktur. Laravel menangani kebutuhan umum aplikasi web seperti routing, otentikasi, validasi, sesi, caching, dan interaksi basis data.
 
-## Diagram Alur Eksekusi
+#### Diagram Alur Eksekusi
 
 ```text
        Browser User
@@ -153,7 +165,7 @@ Response   → hasil akhir yang dikirim ke browser
        HTTP Response (HTML / JSON)
 ```
 
-## Route Paling Sederhana
+#### Route Paling Sederhana
 
 ```php
 use Illuminate\Support\Facades\Route;
@@ -173,13 +185,13 @@ Laravel → framework PHP modern untuk membangun aplikasi web & REST API
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Membuat Project & Instalasi
+## 2. 🟢 Membuat Project & Instalasi
 
-## Konsep
+#### Konsep
 
 Laravel membutuhkan PHP (versi 8.2+) dan dependency manager **Composer**.
 
-## 1. Membuat Project dengan Composer
+### 1. Membuat Project dengan Composer
 
 ```bash
 composer create-project laravel/laravel belajar-laravel
@@ -191,13 +203,13 @@ Masuk ke direktori:
 cd belajar-laravel
 ```
 
-## 2. Alternatif: Menggunakan Laravel Installer
+### 2. Alternatif: Menggunakan Laravel Installer
 
 ```bash
 laravel new belajar-laravel
 ```
 
-## 3. Menyiapkan Dependensi Frontend
+### 3. Menyiapkan Dependensi Frontend
 
 ```bash
 npm install
@@ -215,13 +227,13 @@ npm install               → install dependensi frontend / Vite
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Menjalankan Server & Vite
+## 3. 🟢 Menjalankan Server & Vite
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan built-in web server melalui Artisan untuk proses development lokal.
 
-## 1. Menjalankan Server PHP
+### 1. Menjalankan Server PHP
 
 ```bash
 php artisan serve
@@ -233,7 +245,7 @@ Aplikasi dapat dibuka di browser pada alamat:
 http://127.0.0.1:8000
 ```
 
-## 2. Menjalankan Asset Server Vite (Frontend)
+### 2. Menjalankan Asset Server Vite (Frontend)
 
 ```bash
 npm run dev
@@ -245,7 +257,7 @@ Untuk build production asset (CSS/JS minified):
 npm run build
 ```
 
-## Diagram Alur Server Development
+#### Diagram Alur Server Development
 
 ```text
 php artisan serve  ──> Melayani backend PHP (Port 8000)
@@ -263,9 +275,9 @@ npm run dev       → jalankan asset server frontend
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Struktur Direktori Project
+## 4. 🟢 Struktur Direktori Project
 
-## Konsep
+#### Konsep
 
 Laravel memiliki struktur folder yang rapi dan terstandarisasi:
 
@@ -291,7 +303,7 @@ belajar-laravel/
 └── composer.json         <── Dependensi PHP
 ```
 
-## Ringkasan Fungsi Direktori Utama
+#### Ringkasan Fungsi Direktori Utama
 
 | Direktori | Fungsi Utama |
 |---|---|
@@ -316,13 +328,13 @@ config/    → setting aplikasi
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Mengenal Artisan CLI
+## 5. 🟢 Mengenal Artisan CLI
 
-## Konsep
+#### Konsep
 
 **Artisan** adalah antarmuka baris perintah (*Command Line Interface*) bawaan Laravel yang menyediakan perintah pembantu (*generator*) dan utilitas maintenance.
 
-## Perintah Penting Artisan
+#### Perintah Penting Artisan
 
 ```bash
 # Menampilkan semua daftar command
@@ -365,13 +377,13 @@ php artisan test            → jalankan testing
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Route Pertama & Closure
+## 6. 🟢 Route Pertama & Closure
 
-## Konsep
+#### Konsep
 
 Route menghubungkan metode HTTP dan URL yang diminta browser ke sebuah aksi (*handler*).
 
-## Menulis Route di `routes/web.php`
+#### Menulis Route di `routes/web.php`
 
 ```php
 use Illuminate\Support\Facades\Route;
@@ -385,7 +397,7 @@ Route::get('/tentang-kami', function () {
 });
 ```
 
-## Diagram Alur
+#### Diagram Alur
 
 ```text
        Browser: GET /tentang-kami
@@ -407,13 +419,13 @@ Route::get('url', handler) → tangani request GET pada URL tertentu
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 HTTP Routing Methods
+## 7. 🟢 HTTP Routing Methods
 
-## Konsep
+#### Konsep
 
 Laravel mendukung seluruh kata kerja metode standar HTTP (RESTful verbs).
 
-## Contoh Method Routing
+#### Contoh Method Routing
 
 ```php
 use Illuminate\Support\Facades\Route;
@@ -446,13 +458,13 @@ DELETE → menghapus data
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 View & Blade Templating Dasar
+## 8. 🟢 View & Blade Templating Dasar
 
-## Konsep
+#### Konsep
 
 **Blade** adalah template engine bawaan Laravel yang sangat cepat dan berekstensi `.blade.php`.
 
-## 1. Membuat View (`resources/views/greeting.blade.php`)
+### 1. Membuat View (`resources/views/greeting.blade.php`)
 
 ```html
 <!DOCTYPE html>
@@ -484,7 +496,7 @@ DELETE → menghapus data
 </html>
 ```
 
-## 2. Mengembalikan View dari Route / Controller
+### 2. Mengembalikan View dari Route / Controller
 
 ```php
 Route::get('/greeting', function () {
@@ -509,13 +521,13 @@ Route::get('/greeting', function () {
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Layout Blade & Asset Vite
+## 9. 🟢 Layout Blade & Asset Vite
 
-## Konsep
+#### Konsep
 
 Agar tidak menulis struktur HTML (`<html>`, `<head>`, `<nav>`) berulang kali di setiap halaman, gunakan pola **Blade Layout Inheritance**.
 
-## 1. Master Layout (`resources/views/layouts/app.blade.php`)
+### 1. Master Layout (`resources/views/layouts/app.blade.php`)
 
 ```html
 <!DOCTYPE html>
@@ -540,7 +552,7 @@ Agar tidak menulis struktur HTML (`<html>`, `<head>`, `<nav>`) berulang kali di 
 </html>
 ```
 
-## 2. Halaman Anak (`resources/views/about.blade.php`)
+### 2. Halaman Anak (`resources/views/about.blade.php`)
 
 ```html
 @extends('layouts.app')
@@ -553,7 +565,7 @@ Agar tidak menulis struktur HTML (`<html>`, `<head>`, `<nav>`) berulang kali di 
 @endsection
 ```
 
-## Diagram Alur Layout
+#### Diagram Alur Layout
 
 ```text
        Master Layout (app.blade.php)
@@ -578,13 +590,13 @@ Agar tidak menulis struktur HTML (`<html>`, `<head>`, `<nav>`) berulang kali di 
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Route Parameters
+## 10. 🟢 Route Parameters
 
-## Konsep
+#### Konsep
 
 Bagian URL yang dinamis didefinisikan menggunakan kurung kurawal `{param}`.
 
-## 1. Required Parameter
+### 1. Required Parameter
 
 ```php
 Route::get('/users/{id}', function (string $id) {
@@ -592,7 +604,7 @@ Route::get('/users/{id}', function (string $id) {
 });
 ```
 
-## 2. Multiple Parameters
+### 2. Multiple Parameters
 
 ```php
 Route::get('/posts/{postId}/comments/{commentId}', function (string $postId, string $commentId) {
@@ -600,7 +612,7 @@ Route::get('/posts/{postId}/comments/{commentId}', function (string $postId, str
 });
 ```
 
-## 3. Optional Parameter (`{param?}`)
+### 3. Optional Parameter (`{param?}`)
 
 ```php
 Route::get('/users/{name?}', function (?string $name = 'Tamu') {
@@ -608,7 +620,7 @@ Route::get('/users/{name?}', function (?string $name = 'Tamu') {
 });
 ```
 
-## 4. Parameter Constraints (Validasi Regex)
+### 4. Parameter Constraints (Validasi Regex)
 
 Gunakan `where` untuk membatasi format parameter:
 
@@ -635,21 +647,21 @@ Route::get('/category/{slug}', function (string $slug) { ... })->whereAlphaNumer
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Named Routes & URL Generator
+## 11. 🟢 Named Routes & URL Generator
 
-## Konsep
+#### Konsep
 
 Memberikan nama unik pada rute menggunakan `->name()` mempermudah pembuatan URL dan redirect tanpa terikat pada *hardcoded string*.
 
-## Definisi Named Route
+#### Definisi Named Route
 
 ```php
 Route::get('/pengguna/profil/akun/{id}', [UserProfileController::class, 'show'])->name('profile.show');
 ```
 
-## Membuat URL dari Nama Rute
+#### Membuat URL dari Nama Rute
 
-### Di Controller / PHP:
+##### Di Controller / PHP:
 
 ```php
 // Menghasilkan: http://127.0.0.1:8000/pengguna/profil/akun/42
@@ -659,7 +671,7 @@ $url = route('profile.show', ['id' => 42]);
 return redirect()->route('profile.show', ['id' => 42]);
 ```
 
-### Di Blade View:
+##### Di Blade View:
 
 ```html
 <a href="{{ route('profile.show', ['id' => 42]) }}">Lihat Profil</a>
@@ -675,19 +687,19 @@ return redirect()->route('profile.show', ['id' => 42]);
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Controller
+## 12. 🟢 Controller
 
-## Konsep
+#### Konsep
 
 Controller bertugas mengelompokkan logika penanganan HTTP request yang berkaitan ke dalam satu class tersendiri.
 
-## 1. Membuat Controller via Artisan
+### 1. Membuat Controller via Artisan
 
 ```bash
 php artisan make:controller UserController
 ```
 
-## 2. Struktur Class Controller (`app/Http/Controllers/UserController.php`)
+### 2. Struktur Class Controller (`app/Http/Controllers/UserController.php`)
 
 ```php
 namespace App\Http\Controllers;
@@ -710,7 +722,7 @@ class UserController extends Controller
 }
 ```
 
-## 3. Menghubungkan Route dengan Controller
+### 3. Menghubungkan Route dengan Controller
 
 ```php
 use App\Http\Controllers\UserController;
@@ -719,7 +731,7 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 ```
 
-## Diagram Alur Request ke Controller
+#### Diagram Alur Request ke Controller
 
 ```text
        Browser: GET /users
@@ -743,13 +755,13 @@ Route::get('/path', [NamaController::class, 'namaMethod'])
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 HTTP Request Object
+## 13. 🟢 HTTP Request Object
 
-## Konsep
+#### Konsep
 
 Objek `Illuminate\Http\Request` menyediakan representasi lengkap dari HTTP request yang masuk ke server (headers, URL, method, IP, input).
 
-## Injeksi Request ke Controller Method
+#### Injeksi Request ke Controller Method
 
 ```php
 namespace App\Http\Controllers;
@@ -788,13 +800,13 @@ Request $request → otomatis diinjeksi ke controller method oleh service contai
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 Mengambil Data Input Request
+## 14. 🟢 Mengambil Data Input Request
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan beragam helper untuk membaca input form maupun query string secara aman.
 
-## Berbagai Cara Mengambil Input
+#### Berbagai Cara Mengambil Input
 
 ```php
 use Illuminate\Http\Request;
@@ -841,13 +853,13 @@ $request->filled('field')                → cek jika ada dan tidak kosong
 
 <a id="bagian-15"></a>
 
-# 15. 🟢 Form Validation Dasar
+## 15. 🟢 Form Validation Dasar
 
-## Konsep
+#### Konsep
 
 Validasi memastikan seluruh data yang dikirimkan user memenuhi aturan tipe, ukuran, dan format sebelum diproses oleh database.
 
-## Contoh Validasi di Controller
+#### Contoh Validasi di Controller
 
 ```php
 use Illuminate\Http\Request;
@@ -867,7 +879,7 @@ public function store(Request $request)
 }
 ```
 
-## Menampilkan Error di Blade View (`create.blade.php`)
+#### Menampilkan Error di Blade View (`create.blade.php`)
 
 ```html
 <!-- Menampilkan semua error di bagian atas jika ada -->
@@ -897,7 +909,7 @@ public function store(Request $request)
 </form>
 ```
 
-## Diagram Alur Validasi
+#### Diagram Alur Validasi
 
 ```text
        User Submit Form
@@ -923,19 +935,19 @@ $request->validate([...]) ──> validasi input
 
 <a id="bagian-16"></a>
 
-# 16. 🟢 Form Request Validation
+## 16. 🟢 Form Request Validation
 
-## Konsep
+#### Konsep
 
 Untuk menjaga Controller tetap ramping (*Skinny Controller*), aturan validasi yang panjang atau kompleks sebaiknya dipindahkan ke class **Form Request**.
 
-## 1. Membuat Form Request
+### 1. Membuat Form Request
 
 ```bash
 php artisan make:request StoreUserRequest
 ```
 
-## 2. Mengisi Aturan di `app/Http/Requests/StoreUserRequest.php`
+### 2. Mengisi Aturan di `app/Http/Requests/StoreUserRequest.php`
 
 ```php
 namespace App\Http\Requests;
@@ -959,7 +971,7 @@ class StoreUserRequest extends FormRequest
 }
 ```
 
-## 3. Injeksi ke Controller Method
+### 3. Injeksi ke Controller Method
 
 ```php
 use App\Http\Requests\StoreUserRequest;
@@ -984,13 +996,13 @@ $request->validated()    → ambil data hasil validasi Form Request
 
 <a id="bagian-17"></a>
 
-# 17. 🟢 HTTP Responses
+## 17. 🟢 HTTP Responses
 
-## Konsep
+#### Konsep
 
 Laravel mendukung beragam jenis response: string, Blade view, JSON data, download file, dan kustom status code.
 
-## Ragam Response
+#### Ragam Response
 
 ```php
 use Illuminate\Http\Response;
@@ -1027,13 +1039,13 @@ response('Text', 201)  → kirim status code HTTP kustom
 
 <a id="bagian-18"></a>
 
-# 18. 🟢 HTTP Redirects
+## 18. 🟢 HTTP Redirects
 
-## Konsep
+#### Konsep
 
 Redirect menginstruksikan browser untuk berpindah ke URL lain setelah suatu aksi selesai diproses (misal: setelah berhasil menyimpan data form).
 
-## Ragam Sintaks Redirect
+#### Ragam Sintaks Redirect
 
 ```php
 // 1. Redirect ke URL path tertentu
@@ -1067,13 +1079,13 @@ redirect()->back()        → kembali ke halaman sebelumnya
 
 <a id="bagian-19"></a>
 
-# 19. 🟢 Session & Flash Data
+## 19. 🟢 Session & Flash Data
 
-## Konsep
+#### Konsep
 
 HTTP bersifat *stateless*. **Session** digunakan untuk menyimpan data pengguna lintas request (seperti user login atau keranjang belanja).
 
-## Mengelola Session
+#### Mengelola Session
 
 ```php
 use Illuminate\Http\Request;
@@ -1097,7 +1109,7 @@ $request->session()->flush(); // Hapus seluruh isi session
 $request->session()->flash('status', 'Profil berhasil diperbarui!');
 ```
 
-## Membaca Flash Message di Blade
+#### Membaca Flash Message di Blade
 
 ```html
 @if (session('status'))
@@ -1118,13 +1130,13 @@ session()->flash('key', 'message') → simpan sementara untuk 1 request berikutn
 
 <a id="bagian-20"></a>
 
-# 20. 🟢 Cookies
+## 20. 🟢 Cookies
 
-## Konsep
+#### Konsep
 
 Cookie adalah potongan data kecil yang disimpan di browser client dan otomatis dikirimkan kembali ke server pada setiap request berikutnya.
 
-## Membaca dan Menulis Cookie
+#### Membaca dan Menulis Cookie
 
 ```php
 use Illuminate\Http\Request;
@@ -1165,19 +1177,19 @@ response()->cookie('name', 'value', $minutes) → kirim cookie ke browser
 
 <a id="bagian-21"></a>
 
-# 21. 🟢 Middleware Dasar
+## 21. 🟢 Middleware Dasar
 
-## Konsep
+#### Konsep
 
 **Middleware** bertindak sebagai penyaring (*filter/pipeline*) HTTP request yang masuk sebelum mencapai Controller, atau memeriksa response sebelum dikirim ke browser.
 
-## 1. Membuat Middleware via Artisan
+### 1. Membuat Middleware via Artisan
 
 ```bash
 php artisan make:middleware EnsureTokenIsValid
 ```
 
-## 2. Struktur Middleware (`app/Http/Middleware/EnsureTokenIsValid.php`)
+### 2. Struktur Middleware (`app/Http/Middleware/EnsureTokenIsValid.php`)
 
 ```php
 namespace App\Http\Middleware;
@@ -1204,7 +1216,7 @@ class EnsureTokenIsValid
 }
 ```
 
-## Diagram Pipeline Middleware
+#### Diagram Pipeline Middleware
 
 ```text
        HTTP Request Masuk
@@ -1233,13 +1245,13 @@ return $next($request); ──> izinkan request lanjut ke controller
 
 <a id="bagian-22"></a>
 
-# 22. 🟢 Mendaftarkan Middleware
+## 22. 🟢 Mendaftarkan Middleware
 
-## Konsep
+#### Konsep
 
 Pada **Laravel modern (Laravel 11 / 12)**, middleware didaftarkan secara elegan melalui file **`bootstrap/app.php`** (menggantikan file `Kernel.php` lama).
 
-## Konfigurasi di `bootstrap/app.php`
+#### Konfigurasi di `bootstrap/app.php`
 
 ```php
 use Illuminate\Foundation\Application;
@@ -1264,7 +1276,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->create();
 ```
 
-## Memasang Middleware pada Rute (`routes/web.php`)
+#### Memasang Middleware pada Rute (`routes/web.php`)
 
 ```php
 Route::get('/admin/dashboard', [AdminController::class, 'index'])
@@ -1282,13 +1294,13 @@ bootstrap/app.php ->withMiddleware() ──> daftarkan alias middleware
 
 <a id="bagian-23"></a>
 
-# 23. 🟢 CSRF Protection
+## 23. 🟢 CSRF Protection
 
-## Konsep
+#### Konsep
 
 **CSRF (Cross-Site Request Forgery)** adalah serangan di mana situs jahat mengeksekusi aksi berbahaya atas nama pengguna yang sedang terautentikasi. Laravel otomatis melindungi seluruh request `POST`, `PUT`, `PATCH`, dan `DELETE` dengan token CSRF.
 
-## 1. Menyertakan CSRF Token di Form Blade
+### 1. Menyertakan CSRF Token di Form Blade
 
 Setiap form HTML dengan method pengubah state **wajib menyertakan `@csrf`**:
 
@@ -1301,7 +1313,7 @@ Setiap form HTML dengan method pengubah state **wajib menyertakan `@csrf`**:
 </form>
 ```
 
-## 2. Form Method Spoofing (`@method`)
+### 2. Form Method Spoofing (`@method`)
 
 Karena tag HTML `<form>` hanya mendukung method `GET` dan `POST`, gunakan direktif `@method` untuk mensimulasikan method `PUT` atau `DELETE`:
 
@@ -1331,13 +1343,13 @@ Akibat: Laravel akan melempar error **`419 Page Expired`**.
 
 <a id="bagian-24"></a>
 
-# 24. 🟢 Route Groups & Prefixes
+## 24. 🟢 Route Groups & Prefixes
 
-## Konsep
+#### Konsep
 
 Route Groups memungkinkan kita berbagi atribut rute (seperti middleware, prefix URL, atau namespace nama rute) ke banyak rute sekaligus tanpa menulisnya berulang-ulang.
 
-## Contoh Route Group Lengkap
+#### Contoh Route Group Lengkap
 
 ```php
 use App\Http\Controllers\Admin\DashboardController;
@@ -1356,7 +1368,7 @@ Route::middleware(['auth', 'is-admin'])
     });
 ```
 
-## Grouping Berdasarkan Controller
+#### Grouping Berdasarkan Controller
 
 ```php
 Route::controller(OrderController::class)->group(function () {
@@ -1377,18 +1389,18 @@ Route::name('admin.')->group(...)   ──> grup nama rute admin....
 
 <a id="bagian-25"></a>
 
-# 25. 🟢 File Storage Disk
+## 25. 🟢 File Storage Disk
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan abstraksi filesystem yang fleksibel (`Illuminate\Support\Facades\Storage`) untuk mengelola file lokal maupun cloud (Amazon S3) dengan sintaks yang sama.
 
-## Konfigurasi Disk (`config/filesystems.php`)
+#### Konfigurasi Disk (`config/filesystems.php`)
 
 - **`local`**: File disimpan di `storage/app/private` (tidak bisa diakses publik browser).
 - **`public`**: File disimpan di `storage/app/public` (bisa diakses publik setelah membuat symbolic link).
 
-## Perintah Symbolic Link
+#### Perintah Symbolic Link
 
 Agar file di disk `public` dapat diakses langsung oleh browser:
 
@@ -1398,7 +1410,7 @@ php artisan storage:link
 
 Perintah ini membuat shortcut dari `public/storage` mengarah ke `storage/app/public`.
 
-## Mengelola File dengan Facade `Storage`
+#### Mengelola File dengan Facade `Storage`
 
 ```php
 use Illuminate\Support\Facades\Storage;
@@ -1430,13 +1442,13 @@ Storage::disk('public')->put() ──> simpan file
 
 <a id="bagian-26"></a>
 
-# 26. 🟢 File Upload Handling
+## 26. 🟢 File Upload Handling
 
-## Konsep
+#### Konsep
 
 Laravel mempermudah validasi dan penyimpanan file yang diunggah (*file upload*) oleh pengguna.
 
-## 1. Form Upload di Blade
+### 1. Form Upload di Blade
 
 Pastikan form memiliki atribut **`enctype="multipart/form-data"`**:
 
@@ -1448,7 +1460,7 @@ Pastikan form memiliki atribut **`enctype="multipart/form-data"`**:
 </form>
 ```
 
-## 2. Memproses Upload di Controller
+### 2. Memproses Upload di Controller
 
 ```php
 use Illuminate\Http\Request;
@@ -1482,13 +1494,13 @@ $request->file('avatar')->store('folder', 'public') ──> simpan file aman
 
 <a id="bagian-27"></a>
 
-# 27. 🟢 Error Handling & Custom Error Pages
+## 27. 🟢 Error Handling & Custom Error Pages
 
-## Konsep
+#### Konsep
 
 Laravel otomatis menangani exception dan menampilkan halaman error detail saat development (`APP_DEBUG=true`). Di server production (`APP_DEBUG=false`), Laravel menampilkan halaman error HTTP yang ramah.
 
-## Membuat Custom Error Page
+#### Membuat Custom Error Page
 
 Cukup buat file Blade di dalam folder `resources/views/errors/` sesuai kode status HTTP:
 
@@ -1525,13 +1537,13 @@ resources/views/errors/404.blade.php ──> kustomisasi tampilan error 404
 
 <a id="bagian-28"></a>
 
-# 28. 🟢 HTTP Exceptions
+## 28. 🟢 HTTP Exceptions
 
-## Konsep
+#### Konsep
 
 Fungsi helper `abort()` digunakan untuk langsung menghentikan eksekusi kode dan melempar HTTP exception dengan kode status tertentu.
 
-## Penggunaan `abort()`
+#### Penggunaan `abort()`
 
 ```php
 public function show(string $id)
@@ -1565,19 +1577,19 @@ abort_if(condition) → abort jika condition bernilai true
 
 <a id="bagian-29"></a>
 
-# 29. 🟢 Testing Dasar
+## 29. 🟢 Testing Dasar
 
-## Konsep
+#### Konsep
 
 Laravel dirancang dengan dukungan testing bawaan menggunakan **PHPUnit** atau **Pest**. Testing memastikan aplikasi berfungsi dengan benar setelah ada perubahan kode.
 
-## 1. Membuat Feature Test
+### 1. Membuat Feature Test
 
 ```bash
 php artisan make:test UserPageTest
 ```
 
-## 2. Menulis Test (`tests/Feature/UserPageTest.php`)
+### 2. Menulis Test (`tests/Feature/UserPageTest.php`)
 
 ```php
 namespace Tests\Feature;
@@ -1609,7 +1621,7 @@ class UserPageTest extends TestCase
 }
 ```
 
-## 3. Menjalankan Test
+### 3. Menjalankan Test
 
 ```bash
 php artisan test
@@ -1625,13 +1637,13 @@ php artisan test ──> jalankan seluruh test otomatis aplikasi
 
 <a id="bagian-30"></a>
 
-# 30. 🟢 Environment Configuration (.env)
+## 30. 🟢 Environment Configuration (.env)
 
-## Konsep
+#### Konsep
 
 File `.env` di root project menyimpan variabel konfigurasi lingkungan lokal yang berbeda-beda di setiap komputer pengembang atau server (seperti koneksi database dan kredensial API).
 
-## Contoh File `.env`
+#### Contoh File `.env`
 
 ```env
 APP_NAME=LaravelApp
@@ -1643,7 +1655,7 @@ APP_URL=http://localhost:8000
 DB_CONNECTION=sqlite
 ```
 
-## Membaca Nilai `.env` via `env()`
+#### Membaca Nilai `.env` via `env()`
 
 ```php
 // env('KEY', 'DEFAULT_FALLBACK')
@@ -1663,15 +1675,15 @@ $appName = env('APP_NAME', 'DefaultApp');
 
 <a id="bagian-31"></a>
 
-# 31. 🟢 Application Environment & Debug Mode
+## 31. 🟢 Application Environment & Debug Mode
 
-## Konsep
+#### Konsep
 
 Dua variabel terpenting di dalam `.env`:
 1. **`APP_ENV`**: Menentukan lingkungan kerja (`local`, `staging`, `production`).
 2. **`APP_DEBUG`**: Menentukan apakah pesan error detail ditampilkan atau disembunyikan.
 
-## Panduan Pengaturan Environment
+#### Panduan Pengaturan Environment
 
 ```text
 Komputer Pengembang (Lokal):
@@ -1683,7 +1695,7 @@ APP_ENV=production
 APP_DEBUG=false  <── WAJIB false agar kredensial/database tidak bocor ke publik!
 ```
 
-## Memeriksa Status Environment di Kode
+#### Memeriksa Status Environment di Kode
 
 ```php
 use Illuminate\Support\Facades\App;
@@ -1707,13 +1719,13 @@ APP_DEBUG=false ──> WAJIB di server production demi keamanan!
 
 <a id="bagian-32"></a>
 
-# 32. 🟢 File Konfigurasi Laravel
+## 32. 🟢 File Konfigurasi Laravel
 
-## Konsep
+#### Konsep
 
 Seluruh setting resmi aplikasi tersimpan di dalam direktori **`config/`** (seperti `config/app.php`, `config/database.php`, `config/filesystems.php`).
 
-## Membaca Nilai Konfigurasi dengan `config()`
+#### Membaca Nilai Konfigurasi dengan `config()`
 
 Gunakan notasi titik (*dot notation*) `nama_file.nama_kunci`:
 
@@ -1728,7 +1740,7 @@ $timezone = config('app.timezone', 'UTC');
 config(['app.locale' => 'id']);
 ```
 
-## Mengapa `config()` > `env()`?
+#### Mengapa `config()` > `env()`?
 
 Ketika konfigurasi di-cache di server production (`php artisan config:cache`), seluruh pemanggilan `env()` di luar file `config/` akan mengembalikan `null`!
 
@@ -1746,13 +1758,13 @@ config('file.key') ──> cara standar & aman membaca konfigurasi aplikasi
 
 <a id="bagian-33"></a>
 
-# 33. 🟢 Configuration Caching
+## 33. 🟢 Configuration Caching
 
-## Konsep
+#### Konsep
 
 Di server production, menggabungkan seluruh file konfigurasi menjadi satu file cache meningkatkan performa boot Laravel secara signifikan.
 
-## Perintah Artisan Config Cache
+#### Perintah Artisan Config Cache
 
 ```bash
 # Membuat cache konfigurasi (jalankan di server production saat deploy)
@@ -1776,13 +1788,13 @@ php artisan config:clear → bersihkan cache konfigurasi
 
 <a id="bagian-34"></a>
 
-# 34. 🟡 Dependency Injection
+## 34. 🟡 Dependency Injection
 
-## Konsep
+#### Konsep
 
 **Dependency Injection (DI)** adalah teknik di mana sebuah class tidak membuat objek dependensinya sendiri secara manual (`new Service()`), melainkan "disuntikkan" (*injected*) dari luar melalui constructor atau method parameter.
 
-## Contoh Constructor Injection
+#### Contoh Constructor Injection
 
 ```php
 namespace App\Http\Controllers;
@@ -1805,7 +1817,7 @@ class CheckoutController extends Controller
 }
 ```
 
-## Diagram Alur Dependency Injection
+#### Diagram Alur Dependency Injection
 
 ```text
        Request Masuk ke CheckoutController
@@ -1829,13 +1841,13 @@ Type-hint class pada constructor/method ──> Laravel sediakan objeknya otomat
 
 <a id="bagian-35"></a>
 
-# 35. 🟡 Service Container
+## 35. 🟡 Service Container
 
-## Konsep
+#### Konsep
 
 **Service Container** adalah kotak peralatan (*IoC Container*) milik Laravel yang bertugas mengelola pembuatan objek (*instantiation*) dan menyelesaikan dependensi class secara otomatis.
 
-## 1. Binding (Mendaftarkan Pembuatan Objek)
+### 1. Binding (Mendaftarkan Pembuatan Objek)
 
 ```php
 // Bind biasa (Instance baru dibuat setiap kali dipanggil)
@@ -1849,7 +1861,7 @@ app()->singleton(ReportGenerator::class, function ($app) {
 });
 ```
 
-## 2. Resolving (Mengambil Objek dari Container)
+### 2. Resolving (Mengambil Objek dari Container)
 
 ```php
 // Mengambil objek yang sudah siap pakai beserta dependensinya
@@ -1868,13 +1880,13 @@ app(NamaClass::class) → ambil instance dari container
 
 <a id="bagian-36"></a>
 
-# 36. 🟡 Service Providers
+## 36. 🟡 Service Providers
 
-## Konsep
+#### Konsep
 
 **Service Providers** adalah tempat sentral untuk mendaftarkan (*register*) binding Service Container dan menginisialisasi (*boot*) konfigurasi paket/service.
 
-## Struktur Service Provider (`app/Providers/AppServiceProvider.php`)
+#### Struktur Service Provider (`app/Providers/AppServiceProvider.php`)
 
 ```php
 namespace App\Providers;
@@ -1911,13 +1923,13 @@ boot()     → tempat menjalankan aksi setelah semua provider terdaftar
 
 <a id="bagian-37"></a>
 
-# 37. 🟡 Facades
+## 37. 🟡 Facades
 
-## Konsep
+#### Konsep
 
 **Facades** menyediakan antarmuka statis (*static proxy*) yang mudah dibaca ke class-class yang tersimpan di dalam Service Container.
 
-## Contoh Facade vs Underlying Service
+#### Contoh Facade vs Underlying Service
 
 ```php
 // Menggunakan Facade statis
@@ -1937,7 +1949,7 @@ Di balik layar, `Cache::get()` diteruskan ke objek sebenarnya di dalam Service C
        app('cache')->get('key')
 ```
 
-## Daftar Facade yang Sering Digunakan
+#### Daftar Facade yang Sering Digunakan
 
 ```text
 Route::...   ──> Mengatur rute aplikasi
@@ -1959,14 +1971,14 @@ Facade = sintaks statis ringkas untuk mengakses service di Service Container
 
 <a id="bagian-38"></a>
 
-# 38. 🟡 Encryption vs Hashing
+## 38. 🟡 Encryption vs Hashing
 
-## Konsep
+#### Konsep
 
 - **Encryption (Dua Arah)**: Data diacak menjadi ciphertext dan **dapat dikembalikan (didekripsi)** ke bentuk aslinya menggunakan APP_KEY.
 - **Hashing (Satu Arah)**: Data diubah menjadi hash matematis dan **tidak bisa dikembalikan**. Digunakan khusus untuk password.
 
-## 1. Encryption (Data Sensitif Rahasia)
+### 1. Encryption (Data Sensitif Rahasia)
 
 ```php
 use Illuminate\Support\Facades\Crypt;
@@ -1978,7 +1990,7 @@ $encrypted = Crypt::encryptString('Data Rahasia NIK');
 $original = Crypt::decryptString($encrypted);
 ```
 
-## 2. Hashing (Password User)
+### 2. Hashing (Password User)
 
 ```php
 use Illuminate\Support\Facades\Hash;
@@ -2003,13 +2015,13 @@ Hash::make()          → khusus password (satu arah, tidak bisa didekripsi)
 
 <a id="bagian-39"></a>
 
-# 39. 🔴 Maintenance Mode
+## 39. 🔴 Maintenance Mode
 
-## Konsep
+#### Konsep
 
 Saat melakukan pembaruan besar di server produksi, Anda dapat mengaktifkan **Maintenance Mode** agar pengguna menerima halaman informasi ramah (HTTP status 503) alih-alih error aplikasi.
 
-## Perintah Maintenance Mode
+#### Perintah Maintenance Mode
 
 ```bash
 # Aktifkan maintenance mode
@@ -2038,9 +2050,9 @@ php artisan up   → aplikasi normal online kembali
 
 <a id="bagian-40"></a>
 
-# 40. 🧠 Peta Ingatan Cepat
+## 40. 🧠 Peta Ingatan Cepat
 
-## A. Alur Lengkap HTTP Request-Response
+#### A. Alur Lengkap HTTP Request-Response
 
 ```text
        Browser: HTTP Request
@@ -2067,7 +2079,7 @@ php artisan up   → aplikasi normal online kembali
        Browser: Render HTML / JSON
 ```
 
-## B. Anatomi Route
+#### B. Anatomi Route
 
 ```text
 Route::get('/users/{id}', [UserController::class, 'show'])
@@ -2078,7 +2090,7 @@ Route::get('/users/{id}', [UserController::class, 'show'])
   └─────────────────────────────────────────────── HTTP Verb
 ```
 
-## C. Alur Form Submission & Validasi
+#### C. Alur Form Submission & Validasi
 
 ```text
        Blade Form (@csrf) ──(POST)──> Route ──> Controller@store
@@ -2097,7 +2109,7 @@ Route::get('/users/{id}', [UserController::class, 'show'])
 
 <a id="bagian-41"></a>
 
-# 41. 📚 Tabel Ringkasan
+## 41. 📚 Tabel Ringkasan
 
 | Materi | Konsep / API Utama | Fungsi & Kegunaan |
 |---|---|---|
@@ -2128,7 +2140,7 @@ Route::get('/users/{id}', [UserController::class, 'show'])
 
 <a id="bagian-42"></a>
 
-# 42. ⚡ Cheat Code Laravel Dasar 10 Detik
+## 42. ⚡ Cheat Code Laravel Dasar 10 Detik
 
 ```text
 php artisan serve          → Jalankan server lokal
@@ -2164,7 +2176,7 @@ public function store(Request $request) {
 
 <a id="bagian-43"></a>
 
-# 43. 🧭 Urutan Belajar yang Disarankan
+## 43. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 1. 🟢 Fondasi Aplikasi
@@ -2195,11 +2207,11 @@ public function store(Request $request) {
 
 <a id="bagian-44"></a>
 
-# 44. 🏗️ Mini Project: CRUD Sederhana User Portal
+## 44. 🏗️ Mini Project: CRUD Sederhana User Portal
 
 Contoh proyek mini yang menggabungkan: **Routing, Controller, Form Request Validation, Blade Layout, CSRF, dan Flash Session**.
 
-## 1. Controller (`app/Http/Controllers/UserController.php`)
+### 1. Controller (`app/Http/Controllers/UserController.php`)
 
 ```php
 namespace App\Http\Controllers;
@@ -2231,7 +2243,7 @@ class UserController extends Controller
 }
 ```
 
-## 2. Rute (`routes/web.php`)
+### 2. Rute (`routes/web.php`)
 
 ```php
 use App\Http\Controllers\UserController;
@@ -2240,7 +2252,7 @@ Route::get('/users/create', [UserController::class, 'create'])->name('users.crea
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 ```
 
-## 3. Template View (`resources/views/users/create.blade.php`)
+### 3. Template View (`resources/views/users/create.blade.php`)
 
 ```html
 <!DOCTYPE html>
@@ -2293,7 +2305,7 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 </html>
 ```
 
-## Output Tampilan Mini Project
+#### Output Tampilan Mini Project
 
 ```text
 Form Pendaftaran Pengguna
@@ -2309,7 +2321,7 @@ Alamat Email:
 [ Daftarkan Pengguna ]
 ```
 
-## Diagram Alur Mini Project
+#### Diagram Alur Mini Project
 
 ```text
        GET /users/create ──> UserController@create ──> users/create.blade.php
@@ -2329,7 +2341,7 @@ Alamat Email:
 
 <a id="bagian-45"></a>
 
-# 45. 🔗 Referensi Resmi
+## 45. 🔗 Referensi Resmi
 
 - [Laravel Documentation](https://laravel.com/docs/)
 - [Installation Guide](https://laravel.com/docs/installation)

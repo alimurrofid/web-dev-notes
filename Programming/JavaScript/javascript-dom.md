@@ -1,4 +1,15 @@
-# JavaScript DOM Cheatsheet Revised
+---
+title: "JavaScript DOM"
+description: "Manipulasi Document Object Model (DOM) dengan JavaScript modern: element selection, traversal, event handling, style manipulation, dan dynamic rendering."
+order: 2
+tags:
+  - programming
+  - javascript
+  - dom
+  - frontend
+---
+
+# JavaScript DOM
 
 > **Target:** Pemula yang sudah memahami dasar JavaScript (variabel, fungsi, array, dan object) serta ingin menguasai manipulasi halaman web secara dinamis menggunakan Document Object Model (DOM API).
 >
@@ -104,9 +115,9 @@ Event        → Sinyal kejadian interaksi pengguna (klik, ketik, submit, scroll
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan DOM & Mental Model Pohon Dokumen
+## 1. 🟢 Pengenalan DOM & Mental Model Pohon Dokumen
 
-## Konsep
+#### Konsep
 
 **DOM (Document Object Model)** adalah antarmuka pemrograman (*API*) standar yang disediakan oleh browser untuk merepresentasikan dokumen HTML sebagai struktur pohon objek (*Tree Structure*).
 
@@ -116,7 +127,7 @@ Melalui DOM, bahasa pemrograman JavaScript dapat:
 - Menambah atau menghapus elemen (*nodes*) dari dokumen secara real-time.
 - Merespons aksi interaksi dari pengguna (*User Events* seperti klik, scroll, ketikan keyboard).
 
-### Mental Model Pohon DOM (DOM Tree):
+##### Mental Model Pohon DOM (DOM Tree):
 Ketika browser membaca file HTML, browser tidak sekadar menampilkan teks mentah, melainkan mengonversinya menjadi pohon node bertingkat di memori:
 
 ```text
@@ -136,7 +147,7 @@ Ketika browser membaca file HTML, browser tidak sekadar menampilkan teks mentah,
         "Belajar DOM"           "Judul Web"   "Paragraf..."
 ```
 
-## Contoh
+#### Contoh
 
 ```html
 <!DOCTYPE html>
@@ -164,14 +175,14 @@ Ketika browser membaca file HTML, browser tidak sekadar menampilkan teks mentah,
 </html>
 ```
 
-## Output
+#### Output
 
 Setelah tombol "Ubah Judul" diklik oleh user di browser:
 ```text
 [Tampilan Web]: Teks Berhasil Diubah oleh JavaScript! (Warna Biru)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Browser mem-parsing HTML ──► Membangun DOM Tree di RAM
@@ -191,7 +202,7 @@ Node     → Titik entitas penyusun DOM (Elemen, Teks, Atribut, Komentar)
 document → Objek akar (root entry point) untuk mengakses seluruh halaman web
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pahami bahwa DOM adalah Web API browser, bukan bagian dari inti bahasa ECMAScript (Node.js murni tidak memiliki DOM bawaan).
 - ❌ Jangan mencoba mengakses elemen DOM sebelum dokumen selesai dimuat (gunakan tag `<script>` di akhir body atau gunakan atribut `defer`).
@@ -200,9 +211,9 @@ document → Objek akar (root entry point) untuk mengakses seluruh halaman web
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Menyiapkan Struktur HTML & File Script
+## 2. 🟢 Menyiapkan Struktur HTML & File Script
 
-## Konsep
+#### Konsep
 
 Untuk menghubungkan kode JavaScript dengan dokumen HTML, kita memiliki beberapa strategi penempatan script:
 
@@ -210,7 +221,7 @@ Untuk menghubungkan kode JavaScript dengan dokumen HTML, kita memiliki beberapa 
 2. **Tag `<script src="..." defer>` di dalam `<head>` (Standar Modern / Best Practice):** Browser mengunduh file JavaScript di latar belakang tanpa menghambat rendering HTML, dan baru mengeksekusi script setelah seluruh DOM selesai dibangun.
 3. **Tag `<script src="..." async>`:** Mengunduh dan mengeksekusi script secepat mungkin (cocok untuk skrip analitik independen seperti Google Analytics).
 
-## Contoh
+#### Contoh
 
 **Struktur Proyek Standar Modern:**
 ```html
@@ -244,7 +255,7 @@ statusText.textContent = "Sistem Online & Siap Digunakan!";
 console.log("DOM Berhasil Dimanipulasi dari file app.js eksternal");
 ```
 
-## Output
+#### Output
 
 Di jendela browser & Console:
 ```text
@@ -252,7 +263,7 @@ Di jendela browser & Console:
 [Console]: DOM Berhasil Dimanipulasi dari file app.js eksternal
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Browser membaca <head>
@@ -274,7 +285,7 @@ Di jendela browser & Console:
 <script src="app.js" async> → Mengunduh JS paralel dan langsung mengeksekusi seketika
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan `defer` untuk skrip aplikasi utama yang perlu berinteraksi dengan elemen DOM.
 - ❌ Jangan meletakkan script tanpa `defer` di dalam `<head>`, karena akan menghentikan parsing HTML dan menyebabkan elemen bernilai `null`.
@@ -283,13 +294,13 @@ Di jendela browser & Console:
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Tipe Data DOM (Document, Element, Node, NodeList, Event)
+## 3. 🟢 Tipe Data DOM (Document, Element, Node, NodeList, Event)
 
-## Konsep
+#### Konsep
 
 Di dalam DOM, setiap bagian dari halaman web diwakili oleh tipe objek (*Interface*) tertentu yang saling mewarisi hierarki:
 
-### Hierarki Pewarisan Tipe Data DOM:
+##### Hierarki Pewarisan Tipe Data DOM:
 ```text
                  EventTarget (Mewarisi addEventListener)
                        │
@@ -312,7 +323,7 @@ Penjelasan Tipe Data Utama:
 5. **`HTMLCollection`:** Kumpulan elemen HTML yang bersifat *live* (hasil dari `getElementsByClassName()`).
 6. **`Event`:** Objek yang membawa informasi ketika interaksi terjadi (klik mouse, input keyboard).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Memeriksa tipe data interface objek DOM
@@ -328,7 +339,7 @@ console.log("Apakah textNode adalah Node?", textNode instanceof Node);       // 
 console.log("Apakah document adalah Node?", document instanceof Node);       // true
 ```
 
-## Output
+#### Output
 
 ```text
 Apakah heading adalah instance of Element? true
@@ -339,7 +350,7 @@ Apakah textNode adalah Node? true
 Apakah document adalah Node? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      HTMLElement ──► Mewarisi Element ──► Mewarisi Node ──► Mewarisi EventTarget
@@ -355,7 +366,7 @@ NodeList    → Deret koleksi beberapa Node
 HTMLCollection → Deret koleksi beberapa Element HTML aktif
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pahami bahwa semua `Element` adalah `Node`, tetapi tidak semua `Node` adalah `Element` (teks dan spasi enter adalah Node, bukan Element).
 - ❌ Jangan tertukar antara `NodeList` dan `HTMLCollection` saat melakukan perulangan (*looping*).
@@ -364,9 +375,9 @@ HTMLCollection → Deret koleksi beberapa Element HTML aktif
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Document Object (Pintu Masuk Utama DOM)
+## 4. 🟢 Document Object (Pintu Masuk Utama DOM)
 
-## Konsep
+#### Konsep
 
 Objek global **`document`** adalah representasi dari halaman web yang sedang dimuat di browser dan menjadi **pintu masuk utama (*root gateway*)** bagi JavaScript untuk mengakses seluruh node dan elemen di halaman tersebut.
 
@@ -383,7 +394,7 @@ Method Pembuat Node:
 - `document.createTextNode(text)`: Membuat node teks baru.
 - `document.createDocumentFragment()`: Membuat wadah penampung node sementara yang sangat efisien.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Membaca dan Mengubah Properti Dokumen
@@ -403,7 +414,7 @@ document.body.style.backgroundColor = "#f8fafc";
 document.body.style.fontFamily = "sans-serif";
 ```
 
-## Output
+#### Output
 
 ```text
 Judul Dokumen Awal: Proyek DOM Modern
@@ -413,7 +424,7 @@ Tag Root: HTML
 Tag Body: BODY
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           window (Browser Context)
@@ -434,7 +445,7 @@ document.body                    → Referensi langsung ke tag <body>
 document.createElement(tagName)  → Menciptakan elemen HTML baru di memori
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan `document.title` untuk memberikan notifikasi visual dinamis pada tab browser pengguna.
 - ❌ Jangan mencoba memanipulasi `document.body` sebelum tag `<body>` selesai di-parse oleh browser.
@@ -443,9 +454,9 @@ document.createElement(tagName)  → Menciptakan elemen HTML baru di memori
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Node & Hubungan Keluarga Node (Parent, Child, Sibling)
+## 5. 🟢 Node & Hubungan Keluarga Node (Parent, Child, Sibling)
 
-## Konsep
+#### Konsep
 
 Setiap elemen dan teks di dalam DOM memiliki hubungan kekeluargaan (*Node Relationships*) yang memungkinkan kita menelusuri (*traverse*) pohon DOM ke atas, ke bawah, maupun ke samping.
 
@@ -461,7 +472,7 @@ Dua Cara Navigasi DOM:
    - `.firstElementChild` & `.lastElementChild`: Tag elemen anak pertama & terakhir.
    - `.nextElementSibling` & `.previousElementSibling`: Tag elemen saudara berikutnya & sebelumnya.
 
-## Contoh
+#### Contoh
 
 ```html
 <ul id="menu-list">
@@ -486,7 +497,7 @@ Dua Cara Navigasi DOM:
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 Parent Tag: UL
@@ -496,7 +507,7 @@ Item Berikutnya: About
 Total Tag Anak di UL: 3
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                              parentElement (<ul>)
@@ -516,7 +527,7 @@ element.firstElementChild   → Mengambil elemen anak pertama
 element.nextElementSibling  → Mengambil elemen saudara kandung berikutnya
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan properti berakhiran `ElementSibling` (`children`, `nextElementSibling`, dll.) untuk menghindari kesalahan membaca spasi enter (*whitespace text node*).
 - ❌ Hindari penggunaan `childNodes` atau `nextSibling` jika Anda hanya berniat memanipulasi tag HTML.
@@ -525,9 +536,9 @@ element.nextElementSibling  → Mengambil elemen saudara kandung berikutnya
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Node Type & Node Constants
+## 6. 🟢 Node Type & Node Constants
 
-## Konsep
+#### Konsep
 
 Setiap node di dalam pohon DOM memiliki tipe yang dapat diidentifikasi melalui properti numerik **`node.nodeType`**.
 
@@ -541,7 +552,7 @@ Properti Identifikasi Lainnya:
 - `node.nodeName`: Nama tag dalam huruf kapital (misal: `"DIV"`, `"#text"`, `"#comment"`).
 - `node.nodeValue`: Isi teks dari text node atau komentar (bernilai `null` pada element node).
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="box"><!-- Ini komentar -->Halo DOM</div>
@@ -564,7 +575,7 @@ Properti Identifikasi Lainnya:
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 === Memeriksa Tipe Node ===
@@ -574,7 +585,7 @@ Child #0 adalah KOMENTAR: " Ini komentar "
 Child #1 adalah TEXT NODE: "Halo DOM"
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Pemeriksaan: node.nodeType
@@ -594,7 +605,7 @@ node.nodeType === Node.TEXT_NODE (3)    → Memastikan apakah node merupakan tek
 node.nodeName                           → Mengembalikan nama tag (DIV, P, #text)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan konstanta bernama `Node.ELEMENT_NODE` atau `Node.TEXT_NODE` daripada angka *magic number* `1` atau `3` agar kode lebih deskriptif.
 - ❌ Jangan mencoba membaca `node.nodeValue` pada Element node karena akan menghasilkan `null` (gunakan `.textContent` untuk Element).
@@ -603,9 +614,9 @@ node.nodeName                           → Mengembalikan nama tag (DIV, P, #tex
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Element vs Node & Membuat Elemen (createElement, append)
+## 7. 🟢 Element vs Node & Membuat Elemen (createElement, append)
 
-## Konsep
+#### Konsep
 
 Untuk menambahkan elemen baru ke dalam halaman web secara dinamis, kita melakukan 3 langkah utama:
 1. **Membuat Elemen (`document.createElement(tagName)`):** Menciptakan elemen baru di memori browser (belum menempel di halaman).
@@ -616,7 +627,7 @@ Untuk menambahkan elemen baru ke dalam halaman web secara dinamis, kita melakuka
    - `parent.appendChild(node)`: Cara klasik menambahkan 1 node di akhir.
    - `element.remove()`: Menghapus elemen langsung dari DOM.
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="card-container">
@@ -652,7 +663,7 @@ Untuk menambahkan elemen baru ke dalam halaman web secara dinamis, kita melakuka
 </script>
 ```
 
-## Output
+#### Output
 
 Tampilan list HTML yang dirender:
 ```text
@@ -662,7 +673,7 @@ Daftar Pengguna Aktif
 • Andi Pratama [User] (Hijau)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    document.createElement("li") -> Objek <li> ada di Memori RAM
@@ -683,7 +694,7 @@ parentElement.prepend(...items) → Menempelkan elemen baru di posisi paling dep
 targetElement.remove()          → Menghapus elemen dari dokumen secara permanen
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan method modern `parentElement.append()` karena bisa menerima banyak node sekaligus dan string teks secara langsung.
 - ❌ Jangan membuat elemen HTML berulang-ulang menggunakan penggabungan string `innerHTML += ...` di dalam perulangan loop, karena akan me-render ulang seluruh elemen lama dan merusak event listener yang sudah terpasang.
@@ -692,9 +703,9 @@ targetElement.remove()          → Menghapus elemen dari dokumen secara permane
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Text Node & Text Content
+## 8. 🟢 Text Node & Text Content
 
-## Konsep
+#### Konsep
 
 Di dalam DOM, teks yang berada di dalam tag HTML sebenarnya dibungkus di dalam sebuah **Text Node** tersendiri.
 
@@ -705,7 +716,7 @@ Dua Cara Mengelola Teks:
 2. **`document.createTextNode(textString)`:**
    - Membuat node teks secara manual untuk ditempelkan dengan method `.append()`.
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="content-box">
@@ -729,7 +740,7 @@ Dua Cara Mengelola Teks:
 </script>
 ```
 
-## Output
+#### Output
 
 Tampilan teks di browser:
 ```text
@@ -737,7 +748,7 @@ Tampilan teks di browser:
 (Tag tidak dieksekusi sebagai kode HTML/script, melainkan tampil sebagai teks polos yang aman)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          infoText.textContent = "<b>Teks</b>"
@@ -754,7 +765,7 @@ element.textContent = newText → Mengubah isi teks elemen secara aman (100% keb
 document.createTextNode(text) → Membuat objek Text Node baru di memori
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu jadikan `element.textContent` sebagai pilihan default untuk menampilkan teks masukan dari pengguna (*user inputs*).
 - ❌ Jangan gunakan `innerHTML` jika Anda hanya ingin mengubah teks biasa tanpa tag HTML.
@@ -763,9 +774,9 @@ document.createTextNode(text) → Membuat objek Text Node baru di memori
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Selector Modern (querySelector & querySelectorAll)
+## 9. 🟢 Selector Modern (querySelector & querySelectorAll)
 
-## Konsep
+#### Konsep
 
 Method **`querySelector`** dan **`querySelectorAll`** adalah API selector modern standar (W3C) yang memungkinkan kita mencari elemen DOM menggunakan seluruh kekuatan **CSS Selectors** (tag, class, id, atribut, pseudo-class, kombinator).
 
@@ -776,7 +787,7 @@ Method **`querySelector`** dan **`querySelectorAll`** adalah API selector modern
    - Mengembalikan seluruh elemen yang cocok dalam bentuk **`NodeList`** statis (*snapshot*).
    - Mendukung method perulangan langsung `.forEach()`.
 
-## Contoh
+#### Contoh
 
 ```html
 <div class="product-card" data-category="tech">
@@ -809,7 +820,7 @@ Method **`querySelector`** dan **`querySelectorAll`** adalah API selector modern
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 Judul Produk Pertama: Mouse Gaming
@@ -819,7 +830,7 @@ Tombol #1: Beli (Status Disabled: false)
 Tombol #2: Habis (Status Disabled: true)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          document.querySelectorAll(".product-card .price")
@@ -838,7 +849,7 @@ document.querySelector(cssSelector)    → Mengambil 1 elemen pertama yang cocok
 document.querySelectorAll(cssSelector) → Mengambil seluruh elemen yang cocok sebagai NodeList
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan selector spesifik yang jelas (misal: `.form-group > input[type="email"]`).
 - ❌ Jangan lupa menambahkan tanda titik `.` untuk class (`.my-class`) dan tanda pagar `#` untuk id (`#my-id`) di dalam querySelector.
@@ -847,9 +858,9 @@ document.querySelectorAll(cssSelector) → Mengambil seluruh elemen yang cocok s
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Selector Klasik (getElementById, getElementsByClassName, getElementsByTagName)
+## 10. 🟢 Selector Klasik (getElementById, getElementsByClassName, getElementsByTagName)
 
-## Konsep
+#### Konsep
 
 Sebelum adanya `querySelector`, JavaScript menyediakan method selector klasik yang mencari elemen secara langsung berdasarkan atribut spesifik.
 
@@ -864,7 +875,7 @@ Method Selector Klasik:
    - Mengambil seluruh elemen berdasarkan nama tag (misal: `"p"`, `"li"`, `"div"`).
    - Mengembalikan **`HTMLCollection`** yang bersifat Live.
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="container">
@@ -891,7 +902,7 @@ Method Selector Klasik:
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 Container ID: container
@@ -900,7 +911,7 @@ Total Tag <p>: 2
 Array Teks Paragraf: [ 'Paragraf 1', 'Paragraf 2' ]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          document.getElementById("container")
@@ -917,7 +928,7 @@ document.getElementsByClassName('className')  → Mengambil elemen via Class (HT
 document.getElementsByTagName('tagName')      → Mengambil elemen via Tag Name (HTMLCollection)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `document.getElementById()` jika Anda mencari satu elemen tunggal dengan ID karena performanya paling cepat.
 - ❌ Jangan menyertakan simbol `#` pada `getElementById("header")` atau simbol `.` pada `getElementsByClassName("btn")`.
@@ -926,9 +937,9 @@ document.getElementsByTagName('tagName')      → Mengambil elemen via Tag Name 
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 NodeList vs HTMLCollection (Live vs Static Collection)
+## 11. 🟢 NodeList vs HTMLCollection (Live vs Static Collection)
 
-## Konsep
+#### Konsep
 
 Ketika kita mengambil banyak elemen DOM sekaligus, JavaScript mengembalikan salah satu dari dua jenis koleksi berikut:
 
@@ -942,7 +953,7 @@ Ketika kita mengambil banyak elemen DOM sekaligus, JavaScript mengembalikan sala
    - **Bersifat STATIC:** Menyimpan potret (*snapshot*) elemen saat pemanggilan dilakukan. Jika ada penambahan elemen baru di DOM setelahnya, `NodeList` statis **tidak akan berubah**.
    - Memiliki method perulangan bawaan `.forEach()`.
 
-## Contoh
+#### Contoh
 
 ```html
 <ul id="list-demo">
@@ -972,7 +983,7 @@ Ketika kita mengambil banyak elemen DOM sekaligus, JavaScript mengembalikan sala
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 Panjang Awal Live Collection: 2
@@ -983,7 +994,7 @@ Panjang Live Collection (Otomatis Update!): 3
 Panjang Static NodeList (Tetap Snapshot): 2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Penambahan Elemen Baru ke DOM
@@ -1002,7 +1013,7 @@ NodeList       → Koleksi Static Snapshot (dihasilkan oleh querySelectorAll)
 Array.from(collection) → Mengonversi koleksi DOM menjadi Array murni JavaScript
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `Array.from(collection)` atau spread operator `[...collection]` jika ingin menggunakan method array modern seperti `.map()`, `.filter()`, atau `.reduce()`.
 - ❌ Hati-hati saat melakukan perulangan pada *Live HTMLCollection* sambil menghapus elemen di dalamnya, karena panjang koleksi akan menyusut di tengah perulangan dan menyebabkan loncatan indeks (*index skip bug*).
@@ -1011,9 +1022,9 @@ Array.from(collection) → Mengonversi koleksi DOM menjadi Array murni JavaScrip
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Modifikasi Teks & Konten (textContent, innerText, innerHTML)
+## 12. 🟢 Modifikasi Teks & Konten (textContent, innerText, innerHTML)
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan 3 properti utama untuk membaca dan mengubah isi konten suatu elemen:
 
@@ -1027,7 +1038,7 @@ JavaScript menyediakan 3 properti utama untuk membaca dan mengubah isi konten su
    - Membaca atau menulis struktur tag HTML lengkap di dalam elemen.
    - **Hati-hati:** Berisiko celah keamanan fatal XSS jika digunakan untuk memasukkan data yang belum divalidasi dari pengguna.
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="preview-box">
@@ -1054,7 +1065,7 @@ JavaScript menyediakan 3 properti utama untuk membaca dan mengubah isi konten su
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 textContent: Halo Admin Rahasia Dunia!
@@ -1066,7 +1077,7 @@ Struktur Card Baru: <div class="user-card">
         </div>
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          box.innerHTML = "<h3>Judul</h3>"
@@ -1086,7 +1097,7 @@ element.innerText   → Mengambil teks yang tampak di layar (menghormati styling
 element.innerHTML   → Membaca atau merender tag HTML dinamis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `textContent` untuk mengisi teks variabel dinamis dari pengguna.
 - ❌ Jangan pernah memasukkan input pengguna langsung ke dalam `innerHTML` tanpa proses sanitasi (*Sanitization*).
@@ -1095,9 +1106,9 @@ element.innerHTML   → Membaca atau merender tag HTML dinamis
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 Manipulasi Atribut (getAttribute, setAttribute, dataset)
+## 13. 🟢 Manipulasi Atribut (getAttribute, setAttribute, dataset)
 
-## Konsep
+#### Konsep
 
 Elemen HTML memiliki **Atribut** (seperti `src`, `href`, `id`, `class`, `title`, `disabled`, dan atribut kustom `data-*`).
 
@@ -1107,10 +1118,10 @@ Method Manipulasi Atribut:
 - `element.hasAttribute(name)`: Mengecek apakah atribut tersedia (return boolean).
 - `element.removeAttribute(name)`: Menghapus atribut dari elemen.
 
-### Custom Data Attributes (`data-*` & `element.dataset`):
+##### Custom Data Attributes (`data-*` & `element.dataset`):
 Atribut dengan awalan `data-` dapat dibaca dan dimanipulasi secara mudah dan elegan melalui properti **`element.dataset`** menggunakan format penamaan *camelCase*.
 
-## Contoh
+#### Contoh
 
 ```html
 <img id="avatar-img" src="placeholder.png" alt="Avatar Pengguna" data-user-id="101" data-user-role="admin">
@@ -1141,7 +1152,7 @@ Atribut dengan awalan `data-` dapat dibaca dan dimanipulasi secara mudah dan ele
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 Src Awal: placeholder.png
@@ -1153,7 +1164,7 @@ User Role (dataset): admin
 Role Baru: super_admin
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    HTML: data-user-id="101" ──► JS: element.dataset.userId
@@ -1169,7 +1180,7 @@ element.removeAttribute('attrName')      → Menghapus atribut dari elemen
 element.dataset.customProperty           → Mengakses atribut kustom data-* (camelCase)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan `data-*` attribute dan `element.dataset` untuk menyimpan ID atau metadata backend yang terikat pada elemen UI.
 - ❌ Jangan menyimpan data rahasia/sensitif (seperti token otentikasi) di dalam dataset HTML karena dapat diintip oleh siapa saja melalui *Inspect Element*.
@@ -1178,9 +1189,9 @@ element.dataset.customProperty           → Mengakses atribut kustom data-* (ca
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 NamedNodeMap & Attr Object
+## 14. 🟢 NamedNodeMap & Attr Object
 
-## Konsep
+#### Konsep
 
 Setiap elemen DOM memiliki properti **`element.attributes`** yang mengembalikan koleksi seluruh atribut elemen tersebut dalam bentuk objek **`NamedNodeMap`**.
 
@@ -1189,7 +1200,7 @@ Karakteristik:
 - Objek `Attr` memiliki properti `.name` (nama atribut) dan `.value` (isi atribut).
 - Sangat berguna saat kita ingin menginspeksi atau menyalin seluruh atribut dari satu elemen ke elemen lainnya secara dinamis.
 
-## Contoh
+#### Contoh
 
 ```html
 <input id="username" type="text" name="user_login" class="form-control" required placeholder="Masukkan Username">
@@ -1213,7 +1224,7 @@ Karakteristik:
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 Total Atribut: 6
@@ -1229,7 +1240,7 @@ Atribut #6: placeholder = "Masukkan Username"
 Type Attribute Value: text
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          <input type="text" id="username">
@@ -1250,7 +1261,7 @@ element.attributes                  → Mengambil seluruh atribut elemen sebagai
 element.attributes.getNamedItem(n)  → Mengambil objek Attr tertentu berdasarkan nama
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `element.attributes` saat Anda membangun library utilitas yang perlu menginspeksi atau mengkloning semua atribut elemen secara dinamis.
 - ❌ Untuk pembacaan atribut umum harian, tetap prioritaskan method standar `element.getAttribute("name")`.
@@ -1259,9 +1270,9 @@ element.attributes.getNamedItem(n)  → Mengambil objek Attr tertentu berdasarka
 
 <a id="bagian-15"></a>
 
-# 15. 🟢 Manipulasi Style & Class CSS (style, classList)
+## 15. 🟢 Manipulasi Style & Class CSS (style, classList)
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan 2 cara utama untuk mengontrol tampilan visual elemen:
 
@@ -1277,7 +1288,7 @@ JavaScript menyediakan 2 cara utama untuk mengontrol tampilan visual elemen:
      - `.contains(className)`: Mengecek apakah class aktif pada elemen (return boolean).
      - `.replace(oldClass, newClass)`: Mengganti class lama dengan yang baru.
 
-## Contoh
+#### Contoh
 
 ```html
 <style>
@@ -1312,7 +1323,7 @@ JavaScript menyediakan 2 cara utama untuk mengontrol tampilan visual elemen:
 </script>
 ```
 
-## Output
+#### Output
 
 Setelah tombol diklik:
 ```text
@@ -1320,7 +1331,7 @@ Status Dark Mode Aktif? true
 (Tampilan kartu berubah menjadi latar belakang gelap dan memiliki bayangan shadow)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          btnToggle.click
@@ -1345,7 +1356,7 @@ element.classList.toggle('className')     → Menghidup-matikan (toggle) class C
 element.classList.contains('className')   → Mengecek apakah class sedang aktif (boolean)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Prioritaskan manipulasi class (`element.classList.add/toggle`) daripada mengubah banyak inline style secara manual, agar aturan CSS tetap terpusat di file stylesheet.
 - ❌ Jangan menulis `card.style.background-color` (menggunakan tanda minus); selalu gunakan format camelCase seperti `card.style.backgroundColor`.
@@ -1354,13 +1365,13 @@ element.classList.contains('className')   → Mengecek apakah class sedang aktif
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Event Listener & Handler (addEventListener, removeEventListener)
+## 16. 🟡 Event Listener & Handler (addEventListener, removeEventListener)
 
-## Konsep
+#### Konsep
 
 **Event** adalah sinyal atau kejadian yang dipicu saat terjadi interaksi pada halaman web (seperti klik mouse, tombol keyboard ditekan, form dikirim, atau halaman selesai dimuat).
 
-### 3 Cara Menangani Event di JavaScript:
+##### 3 Cara Menangani Event di JavaScript:
 1. **Inline HTML Attribute (Jadul / Hindari):** `<button onclick="handleClick()` (mencampur HTML dan JS).
 2. **DOM Property Handler (Klasik):** `button.onclick = handleClick` (hanya bisa memasang 1 fungsi handler; handler lama akan tertimpa).
 3. **`addEventListener()` (Standar Modern / W3C Best Practice):**
@@ -1368,7 +1379,7 @@ element.classList.contains('className')   → Mengecek apakah class sedang aktif
    - Mendukung opsi konfigurasi (*options*) seperti `{ once: true }`, `{ capture: true }`, `{ passive: true }`.
    - Listener dapat dicopot kapan saja menggunakan **`removeEventListener()`**.
 
-## Contoh
+#### Contoh
 
 ```html
 <button id="btn-action">Klik Saya</button>
@@ -1404,7 +1415,7 @@ element.classList.contains('className')   → Mengecek apakah class sedang aktif
 </script>
 ```
 
-## Output
+#### Output
 
 Saat tombol diklik pertama kali:
 ```text
@@ -1413,7 +1424,7 @@ Tombol berhasil diklik pada koordinat: 120 45
 Pesan ini hanya muncul 1x seumur hidup!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          User Mengklik Tombol (Hardware Event)
@@ -1434,7 +1445,7 @@ element.addEventListener(type, listener, options)  → Memasang pendengar event 
 element.removeEventListener(type, listener)        → Mencopot pendengar event (wajib named function)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan fungsi bernama (*named function*) jika listener tersebut nantinya perlu dicopot dengan `removeEventListener()`.
 - ❌ Jangan menggunakan fungsi anonim jika berniat mencopotnya dengan `removeEventListener()` (karena referensi memori fungsi anonim tidak sama).
@@ -1443,9 +1454,9 @@ element.removeEventListener(type, listener)        → Mencopot pendengar event 
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Event Object & Event Flow (Capturing, Bubbling, stopPropagation, preventDefault)
+## 17. 🟡 Event Object & Event Flow (Capturing, Bubbling, stopPropagation, preventDefault)
 
-## Konsep
+#### Konsep
 
 Setiap kali event dipicu, browser secara otomatis mengirimkan objek **`Event`** sebagai parameter pertama ke fungsi callback listener.
 
@@ -1455,12 +1466,12 @@ Properti & Method Esensial Objek `Event`:
 - `event.preventDefault()`: Membatalkan aksi bawaan browser (misal: mencegah submit form me-reload halaman, mencegah link `<a>` berpindah halaman).
 - `event.stopPropagation()`: Menghentikan perambatan event ke elemen induk di atasnya (*stop bubbling*).
 
-### Fase Alur Event (Event Flow):
+##### Fase Alur Event (Event Flow):
 1. **Capturing Phase:** Event bergerak turun dari `window` menuju elemen target.
 2. **Target Phase:** Event sampai dan dieksekusi pada elemen target.
 3. **Bubbling Phase (Default):** Event menggelembung naik ke atas dari elemen target menuju `body` dan `window`.
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="parent-box" style="padding: 20px; background: #e2e8f0;">
@@ -1498,7 +1509,7 @@ Properti & Method Esensial Objek `Event`:
 </script>
 ```
 
-## Output
+#### Output
 
 Saat Tombol Anak diklik:
 ```text
@@ -1511,7 +1522,7 @@ Saat Form Login di-submit:
 Form submit dicegah! Memproses data secara Asynchronous via AJAX/Fetch...
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                        Alur Event Bubbling (Default)
@@ -1535,7 +1546,7 @@ event.preventDefault()  → Mencegah perilaku default bawaan browser (misal relo
 event.stopPropagation() → Menghentikan perambatan event ke elemen parent di atasnya
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu panggil `event.preventDefault()` saat menangani submit formulir secara single-page application (SPA).
 - ❌ Jangan menggunakan `event.stopPropagation()` secara sembarangan tanpa alasan kuat karena dapat merusak event listener global (seperti analitik atau modal overlay).
@@ -1544,9 +1555,9 @@ event.stopPropagation() → Menghentikan perambatan event ke elemen parent di at
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Event Delegation (Pola Penanganan Event Skalabel)
+## 18. 🟡 Event Delegation (Pola Penanganan Event Skalabel)
 
-## Konsep
+#### Konsep
 
 **Event Delegation** adalah pola desain (*design pattern*) penanganan event yang sangat populer di mana kita **hanya memasang 1 event listener pada elemen induk (*parent element*)** untuk menangani seluruh aksi dari anak-anak elemennya (*child elements*), memanfaatkan mekanisme alami **Event Bubbling**.
 
@@ -1557,7 +1568,7 @@ Keuntungan Event Delegation:
 Kunci Implementasi:
 Menggunakan method **`event.target.closest(selector)`** atau `event.target.matches(selector)`.
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="todo-container">
@@ -1596,7 +1607,7 @@ Menggunakan method **`event.target.closest(selector)`** atau `event.target.match
 </script>
 ```
 
-## Output
+#### Output
 
 Saat item baru ditambahkan lalu tombol "Hapus" pada item baru tersebut diklik:
 ```text
@@ -1604,7 +1615,7 @@ Menghapus item ID: 3 ("Tugas Baru #3")
 (Elemen baru langsung bisa dihapus tanpa perlu inisialisasi listener baru!)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    User klik tombol .btn-delete
@@ -1626,7 +1637,7 @@ event.target.closest(cssSelector) → Mencari elemen terdekat yang cocok ke arah
 Event Delegation                  → Pola 1 listener pada parent untuk menangani seluruh anak dinamis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan pola Event Delegation untuk daftar koleksi dinamis (tabel data, chat list, feed card, keranjang belanja).
 - ❌ Hindari menggunakan `event.target.classList.contains()` murni jika tombol memiliki ikon/span di dalamnya; gunakan `event.target.closest()` agar tetap akurat.
@@ -1635,9 +1646,9 @@ Event Delegation                  → Pola 1 listener pada parent untuk menangan
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Window Object (Global Browser Context, innerHeight, scrollY, Dialogs)
+## 19. 🟡 Window Object (Global Browser Context, innerHeight, scrollY, Dialogs)
 
-## Konsep
+#### Konsep
 
 Objek **`window`** merepresentasikan jendela browser (*Browser Window / Global Execution Context*) tempat dokumen web ditampilkan. Objek `window` adalah objek teratas dalam hierarki JavaScript di browser (seluruh variabel global dan `document` berada di bawah `window`).
 
@@ -1649,7 +1660,7 @@ Fitur & Properti Utama Objek `window`:
 - **Storage:** `window.localStorage`, `window.sessionStorage`.
 - **Timers:** `window.setTimeout()`, `window.setInterval()`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Memeriksa Dimensi Jendela Browser (Viewport)
@@ -1679,7 +1690,7 @@ console.log("Origin:", window.location.origin);
 console.log("Pathname:", window.location.pathname);
 ```
 
-## Output
+#### Output
 
 ```text
 Lebar Layar Viewport: 1920 px
@@ -1688,7 +1699,7 @@ Origin: http://localhost:3000
 Pathname: /dashboard
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          window (Browser Root Context)
@@ -1707,7 +1718,7 @@ window.scrollY                  → Mengambil jarak scroll vertikal dari paling 
 window.scrollTo({ top, behavior: 'smooth' }) → Menggulung halaman dengan animasi halus
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Karena `window` adalah scope global, Anda bisa langsung memanggil `scrollY` tanpa menuliskan kata `window.`, namun menulis `window.scrollY` membuat kode lebih eksplisit.
 - ❌ Hati-hati saat memasang event listener `window.addEventListener("scroll")`; gunakan teknik *throttling / debounce* jika ada komputasi berat di dalamnya.
@@ -1716,9 +1727,9 @@ window.scrollTo({ top, behavior: 'smooth' }) → Menggulung halaman dengan anima
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 HTML Element & DOM Lifecycle (DOMContentLoaded vs load)
+## 20. 🟡 HTML Element & DOM Lifecycle (DOMContentLoaded vs load)
 
-## Konsep
+#### Konsep
 
 Siklus hidup pemuatan halaman web (*DOM Lifecycle*) memiliki tahapan penting yang perlu dipahami agar script kita berjalan pada waktu yang tepat:
 
@@ -1731,7 +1742,7 @@ Siklus hidup pemuatan halaman web (*DOM Lifecycle*) memiliki tahapan penting yan
 3. **`beforeunload` Event (Pada Objek `window`):**
    - Dipicu saat user hendak menutup tab atau meninggalkan halaman (berguna untuk konfirmasi *"Data formulir Anda belum tersimpan"*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Inisialisasi Aplikasi Saat DOM Siap (Best Practice)
@@ -1758,7 +1769,7 @@ window.addEventListener("beforeunload", (event) => {
 });
 ```
 
-## Output
+#### Output
 
 Urutan log eksekusi di browser:
 ```text
@@ -1766,7 +1777,7 @@ Urutan log eksekusi di browser:
 2. [Window Load]: Seluruh gambar & CSS selesai dimuat 100%. Hilangkan skeleton loader.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Mulai Unduh HTML
@@ -1785,7 +1796,7 @@ document.addEventListener('DOMContentLoaded', fn) → Waktu terbaik inisialisasi
 window.addEventListener('load', fn)               → Waktu ketika semua gambar/CSS selesai dimuat
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Bungkus kode inisialisasi DOM di dalam listener `DOMContentLoaded` jika tidak menggunakan atribut `defer` pada tag script.
 - ❌ Jangan menunda interaktivitas UI hingga event `window.load` karena user akan merasa aplikasi lambat merespons sementara gambar besar masih diunduh.
@@ -1794,9 +1805,9 @@ window.addEventListener('load', fn)               → Waktu ketika semua gambar/
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 HTML Form Element (Input, Select, Checkbox, Radio, FormData, Validation)
+## 21. 🟡 HTML Form Element (Input, Select, Checkbox, Radio, FormData, Validation)
 
-## Konsep
+#### Konsep
 
 Formulir HTML (`<form>`) adalah komponen interaktif utama untuk mengumpulkan data dari pengguna.
 
@@ -1810,7 +1821,7 @@ Properti & Event Elemen Form:
   - Checkbox / Radio: `checkboxElement.checked` (mengembalikan boolean `true`/`false`).
 - **`FormData` Object:** Objek standar untuk mengekstrak seluruh pasangan nama dan nilai dari sebuah formulir secara otomatis.
 
-## Contoh
+#### Contoh
 
 ```html
 <form id="registration-form">
@@ -1866,7 +1877,7 @@ Properti & Event Elemen Form:
 </script>
 ```
 
-## Output
+#### Output
 
 Setelah user mengisi form dan menekan tombol "Daftar Sekarang":
 ```text
@@ -1874,7 +1885,7 @@ Karakter diketik: Budi Santoso
 Payload Form Siap Dikirim ke API: { fullName: 'Budi Santoso', plan: 'pro', agreeTerms: true }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          User klik tombol Submit
@@ -1898,7 +1909,7 @@ new FormData(form)      → Mengekstrak seluruh data input form secara otomatis
 form.reset()            → Mengosongkan kembali seluruh kolom isian formulir
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan atribut validasi HTML5 bawaan (`required`, `minlength`, `type="email"`) bersamaan dengan validasi JavaScript kustom.
 - ❌ Jangan membaca nilai checkbox menggunakan `.value` (karena `.value` selalu menghasilkan `"on"`); selalu periksa properti `.checked`.
@@ -1907,9 +1918,9 @@ form.reset()            → Mengosongkan kembali seluruh kolom isian formulir
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 HTML Table Element & Dinamis Table Manipulation (insertRow, insertCell)
+## 22. 🟡 HTML Table Element & Dinamis Table Manipulation (insertRow, insertCell)
 
-## Konsep
+#### Konsep
 
 Elemen tabel HTML (`<table>`) memiliki sekumpulan method dan properti khusus (*HTMLTableElement API*) yang dirancang khusus untuk memanipulasi baris dan kolom tabel secara cepat tanpa perlu membuat tag `<tr>` dan `<td>` manual.
 
@@ -1919,7 +1930,7 @@ Method Khusus Tabel:
 - `table.deleteRow(index)`: Menghapus baris pada indeks tertentu.
 - `table.rows`: Koleksi seluruh elemen baris di dalam tabel.
 
-## Contoh
+#### Contoh
 
 ```html
 <table id="employee-table" border="1" style="border-collapse: collapse; width: 100%;">
@@ -1977,7 +1988,7 @@ Method Khusus Tabel:
 </script>
 ```
 
-## Output
+#### Output
 
 Tampilan tabel HTML yang ter-render:
 ```text
@@ -1986,7 +1997,7 @@ No  Nama Karyawan    Jabatan             Aksi
 2   Siti Aminah      Product Designer    [Hapus]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        tbody.insertRow(-1) ──► Menghasilkan <tr> baru di posisi paling bawah
@@ -2003,7 +2014,7 @@ row.insertCell(index)  → Menyisipkan kolom <td> baru di dalam baris
 table.deleteRow(index) → Menghapus baris pada indeks tertentu
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Sisipkan baris baru ke dalam elemen `<tbody>`, bukan langsung ke tag `<table>` utama, agar struktur semantik tabel tetap valid.
 - ❌ Gunakan parameter indeks `-1` pada `insertRow(-1)` untuk memastikan baris selalu disisipkan di posisi paling akhir secara konsisten.
@@ -2012,9 +2023,9 @@ table.deleteRow(index) → Menghapus baris pada indeks tertentu
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 HTML Custom Elements & Template Element (<template>, cloneNode)
+## 23. 🟡 HTML Custom Elements & Template Element (<template>, cloneNode)
 
-## Konsep
+#### Konsep
 
 1. **Tag `<template>`:**
    Elemen HTML khusus yang digunakan untuk menyimpan markup kerangka (*blueprint*) yang **tidak dirender dan tidak dieksekusi oleh browser saat halaman dimuat**. Konten di dalamnya hanya menjadi cetak biru yang siap dikloning (*cloned*) kapan pun dibutuhkan.
@@ -2025,7 +2036,7 @@ table.deleteRow(index) → Menghapus baris pada indeks tertentu
 
 Pola `<template>` + `cloneNode(true)` adalah cara paling bersih dan berperforma tinggi untuk membuat komponen UI berulang tanpa menulis string HTML mentah di JavaScript.
 
-## Contoh
+#### Contoh
 
 ```html
 <!-- Template Blueprint (Tidak tampil di layar) -->
@@ -2069,7 +2080,7 @@ Pola `<template>` + `cloneNode(true)` adalah cara paling bersih dan berperforma 
 </script>
 ```
 
-## Output
+#### Output
 
 Tampilan komponen yang dirender dari template:
 ```text
@@ -2086,7 +2097,7 @@ Katalog Produk
 └─────────────────────────────────┘
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          <template id="..."> (Blueprint Tersembunyi di DOM)
@@ -2108,7 +2119,7 @@ Katalog Produk
 template.content.cloneNode(true)       → Menduplikasi isi template secara mendalam (deep copy)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan properti `template.content.cloneNode(true)` dengan argumen `true` agar seluruh elemen anak di dalam template ikut disalin.
 - ❌ Jangan menaruh data sensitif atau id duplikat di dalam template cetak biru tanpa dimodifikasi saat dikloning.
@@ -2117,20 +2128,20 @@ template.content.cloneNode(true)       → Menduplikasi isi template secara mend
 
 <a id="bagian-24"></a>
 
-# 24. 🔴 DOM Mutation & Fragment Performance (DocumentFragment Batching)
+## 24. 🔴 DOM Mutation & Fragment Performance (DocumentFragment Batching)
 
-## Konsep
+#### Konsep
 
 Setiap kali JavaScript memanipulasi elemen yang sudah menempel di dokumen nyata (misal memanggil `parent.append(child)` ribuan kali di dalam perulangan), browser dipaksa melakukan kalkulasi ulang posisi dan tata letak (*Reflow / Layout*) serta menggambar ulang tampilan (*Repaint*). Hal ini menyebabkan penurunan performa rendering yang sangat drastis (*Jank / UI Lag*).
 
-### Solusi: `DocumentFragment` Batching
+##### Solusi: `DocumentFragment` Batching
 **`DocumentFragment`** adalah objek DOM ringan yang bertindak seperti dokumen mini sementara di memori RAM (*in-memory container*):
 - Tidak memiliki elemen induk (*parentless*).
 - Kita bisa memasukkan ribuan elemen ke dalam fragment di memori tanpa memicu Reflow sama sekali.
 - Saat fragment ditempelkan ke DOM nyata (`parent.append(fragment)`), **hanya anak-anak elemen di dalam fragment yang dipindahkan ke halaman**, sedangkan wadah fragment-nya sendiri lenyap seketika.
 - **Hanya memicu 1x Reflow tunggal untuk ribuan elemen!**
 
-## Contoh
+#### Contoh
 
 ```html
 <ul id="massive-list"></ul>
@@ -2169,7 +2180,7 @@ Setiap kali JavaScript memanipulasi elemen yang sudah menempel di dokumen nyata 
 </script>
 ```
 
-## Output
+#### Output
 
 ```text
 DocumentFragmentBenchmark: 3.420ms
@@ -2177,7 +2188,7 @@ Total elemen terpasang di DOM: 5000
 (5.000 elemen berhasil dirender dalam hitungan milidetik secara instan tanpa lag!)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Loop 5000x di Memori: fragment.append(li)
@@ -2199,7 +2210,7 @@ document.createDocumentFragment() → Membuat wadah penampung node di memori tan
 parentElement.append(fragment)    → Memindahkan seluruh isi fragment ke halaman dalam 1 operasi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan `DocumentFragment` saat me-render data tabel besar, daftar produk, atau hasil pencarian API.
 - ❌ Jangan menempelkan elemen ke DOM nyata satu per satu di dalam perulangan loop.
@@ -2208,28 +2219,28 @@ parentElement.append(fragment)    → Memindahkan seluruh isi fragment ke halama
 
 <a id="bagian-25"></a>
 
-# 25. 🔴 DOM Security (Pencegahan XSS / Cross-Site Scripting pada innerHTML)
+## 25. 🔴 DOM Security (Pencegahan XSS / Cross-Site Scripting pada innerHTML)
 
-## Konsep
+#### Konsep
 
 **Cross-Site Scripting (XSS)** adalah salah satu kerentanan keamanan web paling berbahaya di mana penyerang (*hacker*) berhasil menyisipkan skrip berbahaya ke dalam halaman web yang dilihat oleh pengguna lain.
 
 Pintu Masuk Utama XSS di DOM:
 Penggunaan **`element.innerHTML`** yang sembarangan untuk menampilkan data yang berasal dari input pengguna (*untrusted user data*, input form, URL parameter, komentar).
 
-### Contoh Serangan XSS:
+##### Contoh Serangan XSS:
 Jika kita menulis:
 ```javascript
 box.innerHTML = userInput; // Jika userInput = "<img src=x onerror='stealCookies()'>"
 ```
 Browser akan mengeksekusi method `onerror` pada tag img palsu dan mencuri token sesi pengguna!
 
-### 3 Prinsip Pencegahan XSS di DOM:
+##### 3 Prinsip Pencegahan XSS di DOM:
 1. **Gunakan `textContent`:** Secara otomatis memperlakukan input sebagai teks biasa tanpa mengeksekusi tag.
 2. **Sanitasi Data:** Jika memang wajib menggunakan HTML dinamis, gunakan pustaka sanitasi resmi seperti **DOMPurify** (`DOMPurify.sanitize(dirtyHtml)`).
 3. **Hindari URL Dinamis Berbahaya pada `href`:** Waspadai skema `javascript:alert(1)`.
 
-## Contoh
+#### Contoh
 
 ```html
 <div id="comment-section">
@@ -2266,7 +2277,7 @@ Browser akan mengeksekusi method `onerror` pada tag img palsu dan mencuri token 
 </script>
 ```
 
-## Output
+#### Output
 
 Tampilan di layar:
 ```text
@@ -2275,7 +2286,7 @@ Tampilan di layar:
 String Terescape: &lt;img src=&quot;invalid-url&quot; onerror=&quot;console.error(&#039;XSS ATTACK! Cookie Dicuri!&#039;)&quot;&gt;
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Input Jahat: <img src=x onerror=...>
@@ -2297,7 +2308,7 @@ textContent > innerHTML → Aturan emas keamanan DOM: gunakan textContent untuk 
 Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika wajib memakai innerHTML
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Jadikan `element.textContent` sebagai standar utama penulisan konten.
 - ❌ Jangan pernah merender input dari user atau URL query string langsung ke dalam `innerHTML` tanpa sanitasi ketat.
@@ -2306,9 +2317,9 @@ Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika waj
 
 <a id="bagian-26"></a>
 
-# 26. 🛠️ Peta Ingatan Cepat
+## 26. 🛠️ Peta Ingatan Cepat
 
-## Mental Model Pohon Navigasi & Alur Manipulasi DOM
+#### Mental Model Pohon Navigasi & Alur Manipulasi DOM
 
 ```text
                       ┌───────────────────────────────┐
@@ -2334,7 +2345,7 @@ Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika waj
                         - template.content.cloneNode()
 ```
 
-## Pola Keputusan Manipulasi DOM
+#### Pola Keputusan Manipulasi DOM
 
 ```text
                                 Kebutuhan Manipulasi DOM
@@ -2356,7 +2367,7 @@ Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika waj
 
 <a id="bagian-27"></a>
 
-# 27. 📚 Tabel Ringkasan
+## 27. 📚 Tabel Ringkasan
 
 | Kategori | API / Method | Contoh Kode | Penjelasan & Kegunaan |
 |---|---|---|---|
@@ -2383,9 +2394,9 @@ Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika waj
 
 <a id="bagian-28"></a>
 
-# 28. ⚡ Cheat Code JavaScript DOM 10 Detik
+## 28. ⚡ Cheat Code JavaScript DOM 10 Detik
 
-## 1. Seleksi & Event Listener Ringkas
+### 1. Seleksi & Event Listener Ringkas
 ```javascript
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
@@ -2396,7 +2407,7 @@ $("#btn-submit").addEventListener("click", (e) => {
 });
 ```
 
-## 2. Dynamic Element Creation & Append
+### 2. Dynamic Element Creation & Append
 ```javascript
 function createBadge(text, colorClass = "bg-blue") {
     const span = document.createElement("span");
@@ -2407,7 +2418,7 @@ function createBadge(text, colorClass = "bg-blue") {
 $("#container").append(createBadge("Aktif"));
 ```
 
-## 3. Event Delegation Pola Standar
+### 3. Event Delegation Pola Standar
 ```javascript
 $("#item-list").addEventListener("click", (e) => {
     const btn = e.target.closest(".btn-remove");
@@ -2415,7 +2426,7 @@ $("#item-list").addEventListener("click", (e) => {
 });
 ```
 
-## 4. Toggle Class & Dataset
+### 4. Toggle Class & Dataset
 ```javascript
 $("#theme-toggle").addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
@@ -2427,7 +2438,7 @@ $("#theme-toggle").addEventListener("click", () => {
 
 <a id="bagian-29"></a>
 
-# 29. 🧭 Urutan Belajar yang Disarankan
+## 29. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai manipulasi DOM dari tingkat dasar hingga membangun aplikasi web interaktif berperforma tinggi, ikuti 4 fase berikut:
 
@@ -2472,9 +2483,9 @@ Untuk menguasai manipulasi DOM dari tingkat dasar hingga membangun aplikasi web 
 
 <a id="bagian-30"></a>
 
-# 30. 🏗️ Mini Project: Aplikasi Todo List & Data Manager Interaktif (DOM Full-Feature)
+## 30. 🏗️ Mini Project: Aplikasi Todo List & Data Manager Interaktif (DOM Full-Feature)
 
-## Konsep Project
+#### Konsep Project
 
 Project ini menyatukan seluruh fitur dan teknik manipulasi DOM modern ke dalam sebuah aplikasi manajemen tugas (*Todo List App*) yang lengkap dan interaktif:
 - **Selector & Event Listener:** `querySelector` dan event `submit`.
@@ -2484,7 +2495,7 @@ Project ini menyatukan seluruh fitur dan teknik manipulasi DOM modern ke dalam s
 - **DOM Creation & Text Security:** `document.createElement` dan `textContent` untuk mencegah XSS.
 - **DocumentFragment & Empty State:** Manajemen antarmuka dinamis saat daftar tugas kosong atau terisi.
 
-## Kode Lengkap
+#### Kode Lengkap
 
 ```html
 <!DOCTYPE html>
@@ -2638,7 +2649,7 @@ Project ini menyatukan seluruh fitur dan teknik manipulasi DOM modern ke dalam s
 </html>
 ```
 
-## Output
+#### Output
 
 Tampilan Interaktif di Browser:
 ```text
@@ -2653,7 +2664,7 @@ Tampilan Interaktif di Browser:
 └────────────────────────────────────────────────────────┘
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      Submit Form ──► todos.push() ──► renderTodoItem() (createElement + append)
@@ -2675,7 +2686,7 @@ Todo App Architecture → Gabungan Form Submit + createElement + Event Delegatio
 
 <a id="bagian-31"></a>
 
-# 31. 🔗 Referensi Resmi
+## 31. 🔗 Referensi Resmi
 
 Untuk memperdalam dokumentasi standar dan spesifikasi resmi Document Object Model:
 

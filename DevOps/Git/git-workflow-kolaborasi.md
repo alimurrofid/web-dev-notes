@@ -1,4 +1,15 @@
-# Git Workflow & Kolaborasi Tim Cheatsheet Revised
+---
+title: "Git Workflow & Kolaborasi"
+description: "Pola kolaborasi Git: Remote repositories, Pull/Push/Fetch, Forking workflow, Trunk-based vs GitFlow, Pull Request reviews, Git Hooks, dan Conventional Commits."
+order: 3
+tags:
+  - devops
+  - git
+  - workflow
+  - collaboration
+---
+
+# Git Workflow & Kolaborasi
 
 > **Target:** Pemula yang ingin menguasai **Standar Rekayasa Perangkat Lunak & Kolaborasi Tim Skala Enterprise (Branching Strategies *Git Flow vs GitHub Flow vs Trunk-Based*, Standar Pesan *Conventional Commits*, *Semantic Versioning SemVer 2.0.0*, Siklus Hidup *Pull Request (PR) & Code Review Best Practices*, Strategi Merge *Create Merge Commit vs Squash and Merge vs Rebase and Merge*, *Forking Workflow & Upstream Sync*, Otomatisasi *Git Hooks Native & Husky / lint-staged / commitlint*, Keamanan *GitHub Protected Branches & Rule Sets*, Manajemen Multi-Repo *Git Submodules*, Penyimpanan Aset Biner *Git LFS*, serta Forensik Kode *`git blame` & `git log -S`*)** menggunakan **Git 2.40+**.
 >
@@ -108,9 +119,9 @@ git blame            → utilitas forensik untuk melihat nama penulis, tanggal, 
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Git Workflow & Mental Model Kolaborasi Tim Modern
+## 1. 🟢 Pengenalan Git Workflow & Mental Model Kolaborasi Tim Modern
 
-## Konsep
+#### Konsep
 
 Ketika puluhan hingga ratusan software engineer bekerja pada satu repositori aplikasi:
 - Tanpa aturan workflow: Semua orang push langsung ke `main`, kode sering rusak di production, dan riwayat commit menjadi berantakan (*Spaghetti History*).
@@ -129,9 +140,9 @@ Git Workflow → seperangkat aturan baku percabangan, format commit, dan review 
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Branching Strategy 1: Git Flow
+## 2. 🟢 Branching Strategy 1: Git Flow
 
-## Konsep
+#### Konsep
 
 **Git Flow (Vincent Driessen Model)**:
 Model percabangan formal yang sangat cocok untuk aplikasi dengan **Jadwal Rilis Terencana (Scheduled Release Cycles)** (misal: rilis versi sebulan sekali).
@@ -153,9 +164,9 @@ Git Flow -> main (prod) | develop (staging) | feature/* (fitur) | release/* (per
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Branching Strategy 2: GitHub Flow
+## 3. 🟢 Branching Strategy 2: GitHub Flow
 
-## Konsep
+#### Konsep
 
 **GitHub Flow (Rekomendasi Startup & SaaS Modern)**:
 Model percabangan yang sangat ringan, gesit, dan ideal untuk **Continuous Deployment (Deploy berkali-kali setiap hari)**.
@@ -176,9 +187,9 @@ GitHub Flow → branch dari main -> buka Pull Request -> review & test -> merge 
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Branching Strategy 3: Trunk-Based Development
+## 4. 🟢 Branching Strategy 3: Trunk-Based Development
 
-## Konsep
+#### Konsep
 
 **Trunk-Based Development (Standar Tim DevOps & Big Tech: Google / Meta)**:
 - Developer menggabungkan perubahan kecil (*Small Batches*) langsung ke satu branch utama (**`trunk` / `main`**) **setiap hari (1–2x per hari)**.
@@ -196,9 +207,9 @@ Trunk-Based Development → branch pendek berumur < 1 hari yang sering dimerge k
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Standar Format Pesan Commit: Conventional Commits
+## 5. 🟢 Standar Format Pesan Commit: Conventional Commits
 
-## Konsep
+#### Konsep
 
 **Conventional Commits Specification (v1.0.0)**:
 Format baku penulisan pesan commit terstruktur yang mudah dibaca oleh manusia dan dapat diproses otomatis oleh mesin untuk men-generate Changelog & SemVer.
@@ -222,7 +233,7 @@ Daftar Tipe Standar Industri:
 - **`test:`** Menambahkan atau memperbaiki unit/integration tests.
 - **`perf:`** Optimasi performa kode.
 
-## Contoh
+#### Contoh
 
 ```bash
 git commit -m "feat(auth): tambahkan verifikasi 2FA via SMS OTP"
@@ -240,15 +251,15 @@ feat: (fitur baru) | fix: (perbaikan bug) | chore: (tooling/deps) | refactor: (r
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Breaking Changes & Semantic Commit Scope
+## 6. 🟢 Breaking Changes & Semantic Commit Scope
 
-## Konsep
+#### Konsep
 
 Jika sebuah commit memperkenalkan perubahan yang merusak kompatibilitas mundur (*Breaking Changes*):
 1. Tambahkan tanda seru **`!`** setelah tipe/scope: `feat(api)!: ganti format response JSON`.
 2. Cantumkan footer **`BREAKING CHANGE: <penjelasan>`** di bagian bawah pesan commit.
 
-## Contoh
+#### Contoh
 
 ```bash
 git commit -m "feat(api)!: ubah endpoint /v1/users menjadi /v2/customers
@@ -266,9 +277,9 @@ type(scope)!: deskripsi -> tanda seru (!) menandai adanya Breaking Change yang m
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Semantic Versioning (SemVer 2.0.0)
+## 7. 🟢 Semantic Versioning (SemVer 2.0.0)
 
-## Konsep
+#### Konsep
 
 Sistem penomoran rilis resmi perangkat lunak menggunakan format 3 digit:
 
@@ -289,9 +300,9 @@ MAJOR (Breaking Changes) . MINOR (Fitur Baru Kompatibel) . PATCH (Perbaikan Bug 
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Siklus Hidup Pull Request (PR) & Merge Request (MR)
+## 8. 🟡 Siklus Hidup Pull Request (PR) & Merge Request (MR)
 
-## Konsep
+#### Konsep
 
 **Pull Request (GitHub) / Merge Request (GitLab)**:
 Mekanisme resmi bagi developer untuk meminta tim meninjau (*Review*), mendiskusikan, dan menguji kode di branch fitur sebelum digabungkan ke `main`.
@@ -314,9 +325,9 @@ Pull Request = gerbang pengujian otomatis dan review manual rekan tim sebelum ko
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Strategi Penggabungan PR: Create a Merge Commit vs Squash vs Rebase
+## 9. 🟡 Strategi Penggabungan PR: Create a Merge Commit vs Squash vs Rebase
 
-## Konsep
+#### Konsep
 
 Saat tombol merge ditekan di GitHub, ada 3 pilihan strategi:
 
@@ -336,9 +347,9 @@ Squash and Merge → menggabungkan seluruh commit di PR menjadi 1 commit rapi di
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Etika & Best Practice Code Review untuk Software Engineer
+## 10. 🟡 Etika & Best Practice Code Review untuk Software Engineer
 
-## Konsep
+#### Konsep
 
 Panduan Memberikan Feedback Review Berkualitas:
 1. **Fokus pada Kode, Bukan Pribadi:** Katakan *"Fungsi ini berisiko memory leak..."*, bukan *"Kamu membuat kode lambat"*.
@@ -358,9 +369,9 @@ Code Review Etiquette → kritik kode bukan personal; pisahkan saran wajib [bloc
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Menghubungkan Commit dengan Issues & Auto-Closing Keywords
+## 11. 🟡 Menghubungkan Commit dengan Issues & Auto-Closing Keywords
 
-## Konsep
+#### Konsep
 
 GitHub dan GitLab otomatis menutup Issue pelacakan bug ketika PR digabungkan jika Anda menuliskan **Closing Keywords** di dalam deskripsi commit atau PR:
 
@@ -369,7 +380,7 @@ Keywords Resmi:
 - **`Closes #456`**
 - **`Resolves #789`**
 
-## Contoh
+#### Contoh
 
 ```bash
 git commit -m "fix(cart): perbaiki perhitungan pajak diskon ganda
@@ -387,9 +398,9 @@ Fixes #id | Closes #id | Resolves #id → otomatis menutup tiket issue GitHub ke
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Model Kolaborasi Forking Workflow untuk Proyek Open Source
+## 12. 🟡 Model Kolaborasi Forking Workflow untuk Proyek Open Source
 
-## Konsep
+#### Konsep
 
 Pada proyek publik atau Open Source, developer luar **TIDAK memiliki hak akses langsung (*Write Permission*)** ke repositori utama.
 
@@ -409,15 +420,15 @@ Fork (Salin repo ke akun sendiri) -> Edit & Push ke fork -> Buka Pull Request ke
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Mengelola Remote Upstream & Sinkronisasi Fork
+## 13. 🟡 Mengelola Remote Upstream & Sinkronisasi Fork
 
-## Konsep
+#### Konsep
 
 Agar repositori fork Anda di laptop tidak ketinggalan dengan perubahan terbaru di repositori utama (*Upstream*):
 
 Atur remote kedua bernama **`upstream`**.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Daftarkan Repositori Utama Asli sebagai 'upstream'
@@ -445,9 +456,9 @@ git remote add upstream <url> && git fetch upstream && git merge upstream/main �
 
 <a id="bagian-14"></a>
 
-# 14. 🔴 Git Hooks Native: Otomatisasi Skrip di Direktori `.git/hooks/`
+## 14. 🔴 Git Hooks Native: Otomatisasi Skrip di Direktori `.git/hooks/`
 
-## Konsep
+#### Konsep
 
 **Git Hooks**:
 Skrip bash yang dieksekusi otomatis oleh Git saat terjadi aksi tertentu di komputer lokal Anda:
@@ -465,9 +476,9 @@ Skrip bash yang dieksekusi otomatis oleh Git saat terjadi aksi tertentu di kompu
 
 <a id="bagian-15"></a>
 
-# 15. 🔴 Otomatisasi Git Hooks Modern dengan Husky & lint-staged
+## 15. 🔴 Otomatisasi Git Hooks Modern dengan Husky & lint-staged
 
-## Konsep
+#### Konsep
 
 Folder `.git/hooks/` tidak ikut ter-commit ke GitHub, sehingga sulit dibagikan ke rekan tim.
 
@@ -475,7 +486,7 @@ Folder `.git/hooks/` tidak ikut ter-commit ke GitHub, sehingga sulit dibagikan k
 - **Husky:** Mengelola Git Hooks secara otomatis di dalam folder `.husky/` yang ikut ter-commit di repositori.
 - **lint-staged:** Menjalankan linter/formatter **HANYA pada file yang sedang ada di Staging Area** (sehingga proses commit tetap super cepat dalam hitungan detik).
 
-## Contoh Setup di Proyek
+#### Contoh Setup di Proyek
 
 ```bash
 # [1] Inisialisasi Husky
@@ -505,14 +516,14 @@ Husky + lint-staged → otomatis memformat dan mengecek error file staging sebel
 
 <a id="bagian-16"></a>
 
-# 16. 🔴 Menjaga Standar Format Commit dengan `commitlint`
+## 16. 🔴 Menjaga Standar Format Commit dengan `commitlint`
 
-## Konsep
+#### Konsep
 
 **`commitlint`**:
 Tool yang memeriksa pesan commit Anda terhadap aturan Conventional Commits. Jika pesan commit tidak sesuai (misal: hanya menulis `"update"`, `"fix bug"`, atau `"coba coba"`), **commit otomatis DITOLAK seketika**.
 
-## Contoh Setup
+#### Contoh Setup
 
 ```bash
 # [1] Pasang commitlint
@@ -525,7 +536,7 @@ echo "export default { extends: ['@commitlint/config-conventional'] };" > commit
 echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
 ```
 
-## Output Ketika Pesan Salah
+#### Output Ketika Pesan Salah
 
 ```text
 ⧗   input: update navbar
@@ -545,9 +556,9 @@ commitlint → memblokir pesan commit yang tidak mematuhi standar Conventional C
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Mengamankan Cabang Kritis: GitHub Protected Branches & Rule Sets
+## 17. 🔴 Mengamankan Cabang Kritis: GitHub Protected Branches & Rule Sets
 
-## Konsep
+#### Konsep
 
 **Branch Protection Rules (GitHub Repository Settings)**:
 Aturan keamanan wajib untuk branch `main` di lingkungan tim produksi:
@@ -566,14 +577,14 @@ Protected Branches → memblokir direct push ke main dan mewajibkan lolos CI/CD 
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Mengelola Proyek Multi-Repositori dengan `git submodule`
+## 18. 🔴 Mengelola Proyek Multi-Repositori dengan `git submodule`
 
-## Konsep
+#### Konsep
 
 **Git Submodule**:
 Memungkinkan Anda menyematkan repositori Git lain (misal: Design System UI Component Library atau Shared Core Backend) sebagai sub-folder di dalam repositori utama.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Tambahkan Submodule ke Folder 'libs/shared-ui'
@@ -596,9 +607,9 @@ git submodule add <url> <path> → menyematkan repositori Git eksternal sebagai 
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Mengelola File Binary Raksasa dengan Git LFS (Large File Storage)
+## 19. 🔴 Mengelola File Binary Raksasa dengan Git LFS (Large File Storage)
 
-## Konsep
+#### Konsep
 
 Git standar tidak efisien menyimpan file biner besar (video 4K, model AI `.bin`/`.onnx`, aset grafis `.psd`/`.zip`) karena setiap perubahan kecil akan melipatgandakan ukuran folder `.git`.
 
@@ -606,7 +617,7 @@ Git standar tidak efisien menyimpan file biner besar (video 4K, model AI `.bin`/
 - Menggantikan file biner di repositori Git dengan **Pointer Teks Kecil**.
 - File biner fisik yang sesungguhnya disimpan di server storage LFS terpisah.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Inisialisasi Git LFS
@@ -632,15 +643,15 @@ git lfs track "*.ext" → mengelola file biner besar di luar basis data internal
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Audit Keamanan & Investigasi Pembuat Baris Kode: `git blame` dan `git log -S`
+## 20. 🔴 Audit Keamanan & Investigasi Pembuat Baris Kode: `git blame` dan `git log -S`
 
-## Konsep
+#### Konsep
 
 Dua Alat Forensik Kode Terpenting:
 1. **`git blame <file>`** : Menampilkan siapa yang menulis setiap baris kode, kapan diubah, dan hash commit-nya (sangat berguna untuk investigasi bug warisan).
 2. **`git log -S "nama_fungsi"` (Pickaxe Search):** Mencari commit mana dalam sejarah proyek yang **pertama kali menambahkan atau menghapus kata kunci tertentu**.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Periksa Siapa yang Mengubah Baris 15 sampai 30 di auth.js
@@ -660,7 +671,7 @@ git blame -L min,max file (investigasi baris kode) | git log -S "string" (mencar
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                    PETA ARSITEKTUR GIT WORKFLOW & KOLABORASI
@@ -678,7 +689,7 @@ BRANCHING & COMMIT CONVENTIONS    PR & FORKING PIPELINE          AUTOMATION & IN
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Konsep / Perintah | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -699,7 +710,7 @@ BRANCHING & COMMIT CONVENTIONS    PR & FORKING PIPELINE          AUTOMATION & IN
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code Git Workflow & Kolaborasi 10 Detik
+## 23. ⚡ Cheat Code Git Workflow & Kolaborasi 10 Detik
 
 ```bash
 # [1] Template Pesan Conventional Commit Standar:
@@ -720,7 +731,7 @@ git blame -L 1,20 config/database.js
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Terapkan Standar Branching & Conventional Commits
@@ -752,7 +763,7 @@ Langkah 5: Selamat! Anda Telah Menguasai Seluruh Ekosistem Git Enterprise!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Enterprise Team Git Workflow Simulation
+## 25. 🏗️ Mini Project: Production-Ready Enterprise Team Git Workflow Simulation
 
 Simulasi lengkap skenario kolaborasi tim di terminal: **Setup repositori tim, konfigurasi aturan Git Hooks pre-commit via script bash, pembuatan branch fitur dengan format Conventional Commits, penautan issue, hingga simulasi Pull Request merge**.
 
@@ -826,7 +837,7 @@ git branch -d feature/jwt-authentication
 git blame auth.js
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 🔍 [Git Hook] Menjalankan validasi syntax sebelum commit...
@@ -857,7 +868,7 @@ Deleted branch feature/jwt-authentication (was 5e6f7a8).
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [Conventional Commits v1.0.0 Specification](https://www.conventionalcommits.org/)
 - [Semantic Versioning 2.0.0 Specification](https://semver.org/)

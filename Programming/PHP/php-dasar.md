@@ -1,4 +1,15 @@
-# PHP Dasar Cheatsheet Revised
+---
+title: "PHP Dasar"
+description: "Panduan lengkap PHP 8.x modern dari fundamental sintaks, kontrol alur, array, function, type declaration, hingga mental model server-side."
+order: 1
+tags:
+  - programming
+  - php
+  - backend
+  - fundamental
+---
+
+# PHP Dasar
 
 > **Target:** Pemula yang baru mulai belajar pemrograman web dengan PHP modern (PHP 8.x).
 >
@@ -125,9 +136,9 @@ Output Teks  → echo atau print untuk mengirimkan teks ke response buffer
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan PHP & Mental Model Server-Side
+## 1. 🟢 Pengenalan PHP & Mental Model Server-Side
 
-## Konsep
+#### Konsep
 
 **PHP** (*Hypertext Preprocessor*) adalah bahasa pemrograman yang berjalan di sisi server (*server-side*).
 
@@ -141,7 +152,7 @@ Ciri khas utama PHP:
 - **Bisa Disisipkan ke HTML:** Kode PHP bisa langsung dimasukkan ke dalam file HTML.
 - **Ekosistem Sangat Luas:** Menjadi fondasi WordPress, Laravel, dan jutaan website di seluruh dunia.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -152,13 +163,13 @@ $tahun = 2026;
 echo "Selamat datang di $namaAplikasi ($tahun)!";
 ```
 
-## Output
+#### Output
 
 ```text
 Selamat datang di Belajar PHP Modern (2026)!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Browser User
@@ -184,7 +195,7 @@ Server-side  → Kode dijalankan di server sebelum halaman dikirim ke browser
 Dynamic type → Variabel bisa berganti tipe data secara otomatis saat runtime
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Simpan file dengan ekstensi `.php` dan selalu gunakan tag pembuka standar `<?php`.
 - ❌ **Kesalahan Umum:** Mengira kode PHP bisa dilihat langsung melalui fitur *Inspect Element* / *View Page Source* di browser (kode PHP dieksekusi di server, hanya outputnya yang sampai ke client).
@@ -193,15 +204,15 @@ Dynamic type → Variabel bisa berganti tipe data secara otomatis saat runtime
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Menginstall & Menjalankan PHP CLI Server
+## 2. 🟢 Menginstall & Menjalankan PHP CLI Server
 
-## Konsep
+#### Konsep
 
 Untuk menjalankan file PHP di komputer, kita bisa menggunakan terminal (*command line*).
 
 Kabar baiknya, PHP sudah menyediakan **server lokal bawaan (*Built-in Web Server*)**. Artinya, saat baru belajar kita tidak perlu menginstall software web server tambahan yang berat (seperti Apache atau Nginx)—cukup ketik satu perintah di terminal, dan web server lokal langsung siap digunakan.
 
-## Contoh Perintah Terminal
+#### Contoh Perintah Terminal
 
 Cek versi PHP di terminal:
 
@@ -227,7 +238,7 @@ Menjalankan built-in web server:
 php -S localhost:8000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Terminal / Command Prompt
@@ -249,7 +260,7 @@ php script.php       → Jalankan script langsung di terminal
 php -S host:port     → Jalankan development web server lokal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `php -S localhost:8000` untuk uji coba lokal harian yang cepat dan ringan.
 - ❌ **Kesalahan Umum:** Menggunakan built-in development server untuk aplikasi *production* di internet publik.
@@ -258,9 +269,9 @@ php -S host:port     → Jalankan development web server lokal
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Program Hello World & Tag PHP
+## 3. 🟢 Program Hello World & Tag PHP
 
-## Konsep
+#### Konsep
 
 Agar server tahu bahwa suatu baris adalah instruksi PHP, kode wajib diawali dengan tag pembuka `<?php`.
 
@@ -268,7 +279,7 @@ Aturan penting tag PHP:
 - **File PHP Murni:** Jika file hanya berisi kode PHP saja, **jangan tutup dengan `?>` di akhir file**. Ini adalah standar industri untuk mencegah spasi atau baris kosong liar yang bisa merusak response website.
 - **Campur dengan HTML:** Jika menyisipkan PHP di tengah-tengah dokumen HTML, barulah kita wajib menutupnya dengan `?>` atau menggunakan jalan pintas cetak `<?= $variabel ?>`.
 
-## Contoh
+#### Contoh
 
 File murni PHP (`app.php`):
 
@@ -293,13 +304,13 @@ File campuran HTML dan PHP (`view.php`):
 </html>
 ```
 
-## Output
+#### Output
 
 ```text
 Hello, World!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                      File Input
@@ -326,7 +337,7 @@ echo $value        → Mencetak satu atau beberapa nilai ke output buffer
 <?= $value ?>      → Short echo tag (singkatan dari <?php echo $value; ?>)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Hapus tag penutup `?>` di baris terakhir file jika file tersebut hanya berisi kode PHP murni (PSR-12 coding standard).
 - ❌ **Kesalahan Umum:** Lupa titik koma `;` di akhir statement `echo`.
@@ -335,9 +346,9 @@ echo $value        → Mencetak satu atau beberapa nilai ke output buffer
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Komentar & Dokumentasi Kode
+## 4. 🟢 Komentar & Dokumentasi Kode
 
-## Konsep
+#### Konsep
 
 Komentar adalah catatan pengingat di dalam kode yang **tidak akan dijalankan oleh komputer**.
 
@@ -351,7 +362,7 @@ PHP menyediakan 3 cara menulis komentar:
 2. `#` untuk komentar pendek 1 baris (gaya shell/terminal).
 3. `/* ... */` untuk komentar panjang yang terdiri dari banyak baris.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -369,13 +380,13 @@ $total = 100000; // Komentar inline di ujung baris
 echo $total;
 ```
 
-## Output
+#### Output
 
 ```text
 100000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                   PHP Parser Engine
@@ -401,7 +412,7 @@ echo $total;
 /* text */       → Komentar multi-baris
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Tulis komentar yang menjelaskan *alasan* (WHY) di balik sebuah keputusan logika, bukan sekadar mengulang apa yang ditulis kode (WHAT).
 - ❌ **Kesalahan Umum:** Membiarkan blok kode mati (*commented-out code*) berserakan di repository tanpa alasan jelas.
@@ -410,9 +421,9 @@ echo $total;
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Variable & Naming Rules
+## 5. 🟢 Variable & Naming Rules
 
-## Konsep
+#### Konsep
 
 Variabel adalah sebuah wadah untuk menyimpan data sementara di memori komputer. Isi dari wadah ini bisa kita ganti kapan saja sepanjang program berjalan.
 
@@ -424,7 +435,7 @@ Aturan penamaan variabel:
 - Tidak boleh mengandung spasi atau tanda minus (contoh salah: `$user name` ❌, `$user-name` ❌).
 - Standar penulisan modern: gunakan format **camelCase** (contoh: `$totalBelanja`, `$namaLengkap`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -439,13 +450,13 @@ $umur = 26;
 echo "Nama: " . $namaLengkap . ", Umur: " . $umur;
 ```
 
-## Output
+#### Output
 
 ```text
 Nama: Budi Santoso, Umur: 26
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Deklarasi Awal: $umur = 25
@@ -467,7 +478,7 @@ $variableName = $value  → Deklarasi dan inisialisasi variabel di memori
 $userName               → Standar penamaan camelCase yang disarankan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan nama variabel yang deskriptif dan mencerminkan isinya (`$isLoggedIn`, `$productPrice`, `$customerList`).
 - ❌ **Kesalahan Umum:** Menggunakan variabel 1 huruf yang ambigu seperti `$x`, `$a`, `$tmp` untuk data penting aplikasi.
@@ -476,9 +487,9 @@ $userName               → Standar penamaan camelCase yang disarankan
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Constant (`const` & `define`)
+## 6. 🟢 Constant (`const` & `define`)
 
-## Konsep
+#### Konsep
 
 **Constant (Konstanta)** adalah sebuah nilai yang **tidak dapat diubah** setelah didefinisikan. Jika variabel nilainya bisa diganti-ganti, nilai konstanta akan selalu tetap sama di seluruh aplikasi.
 
@@ -488,7 +499,7 @@ Dua cara membuat konstanta di PHP:
 
 Standar penamaan konstanta: selalu gunakan **HURUF_KAPITAL_BESAR** yang dipisah garis bawah (`UPPER_SNAKE_CASE`), dan tidak menggunakan tanda dollar (`$`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -503,13 +514,13 @@ define("DB_PORT", 3306);
 echo APP_NAME . " (Max login: " . MAX_LOGIN_ATTEMPTS . ", Port: " . DB_PORT . ")";
 ```
 
-## Output
+#### Output
 
 ```text
 Toko Online (Max login: 3, Port: 3306)
 ```
 
-## Perbandingan: Variable vs Constant
+#### Perbandingan: Variable vs Constant
 
 ```text
        Variabel ($nama)                  Konstanta (APP_NAME)
@@ -531,7 +542,7 @@ const NAME = $value          → Definisi konstanta compile-time (modern & cepat
 define('NAME', $value)       → Definisi konstanta runtime (bisa di dalam if)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `const` sebagai pilihan utama dan gunakan huruf kapital dengan pemisah garis bawah (`API_KEY`, `BASE_URL`).
 - ❌ **Kesalahan Umum:** Menambahkan tanda `$` saat memanggil konstanta (misal: `$APP_NAME` ❌, seharusnya `APP_NAME` ✅).
@@ -540,9 +551,9 @@ define('NAME', $value)       → Definisi konstanta runtime (bisa di dalam if)
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Data Types (Scalar & Compound)
+## 7. 🟢 Data Types (Scalar & Compound)
 
-## Konsep
+#### Konsep
 
 Tipe data adalah jenis informasi yang bisa disimpan dan diproses oleh PHP. Secara umum dibagi menjadi 3 kelompok:
 
@@ -558,7 +569,7 @@ Tipe data adalah jenis informasi yang bisa disimpan dan diproses oleh PHP. Secar
    - `null` : Variabel kosong yang belum memiliki nilai.
    - `resource` : Penghubung ke sumber daya luar sistem (seperti koneksi database atau file yang sedang dibuka).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -577,7 +588,7 @@ echo gettype($isAktif) . PHP_EOL;
 echo gettype($catatan) . PHP_EOL;
 ```
 
-## Output
+#### Output
 
 ```text
 string
@@ -587,7 +598,7 @@ boolean
 NULL
 ```
 
-## Hirarki Tipe Data PHP
+#### Hirarki Tipe Data PHP
 
 ```text
                       Tipe Data PHP
@@ -611,7 +622,7 @@ string    → Teks diapit petik ("abc", 'abc')
 null      → Representasi nilai kosong tanpa tipe
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Ketahui perbedaan antara integer `0`, string `"0"`, string kosong `""`, dan `null` saat pengecekan kondisi.
 - ❌ **Kesalahan Umum:** Membandingkan angka float dengan `===` secara langsung tanpa toleransi pembulatan (*epsilon*) karena presisi aritmatika biner float.
@@ -620,9 +631,9 @@ null      → Representasi nilai kosong tanpa tipe
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 String Dasar, Heredoc & Nowdoc
+## 8. 🟢 String Dasar, Heredoc & Nowdoc
 
-## Konsep
+#### Konsep
 
 String adalah teks yang diapit tanda petik. PHP menyediakan 4 cara penulisan string sesuai kebutuhan:
 
@@ -631,7 +642,7 @@ String adalah teks yang diapit tanda petik. PHP menyediakan 4 cara penulisan str
 3. **Heredoc (`<<<TAG ... TAG;`):** Untuk menulis teks panjang yang terdiri dari banyak baris dan tetap bisa membaca isi variabel.
 4. **Nowdoc (`<<<'TAG' ... TAG;`):** Untuk menulis teks panjang banyak baris apa adanya secara murni tanpa membaca variabel (seperti petik tunggal versi panjang).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -658,7 +669,7 @@ echo $templateEmail . PHP_EOL;
 echo $rawCode;
 ```
 
-## Output
+#### Output
 
 ```text
 Belajar $bahasa\n
@@ -668,7 +679,7 @@ Selamat belajar PHP di cheatsheet ini!
 Gunakan syntax $bahasa untuk menulis kode.
 ```
 
-## Evaluasi Teks String
+#### Evaluasi Teks String
 
 ```text
        Double Quote / Heredoc            Single Quote / Nowdoc
@@ -692,7 +703,7 @@ Gunakan syntax $bahasa untuk menulis kode.
 <<<'TAG' ... TAG   → Nowdoc: multi-baris literal tanpa interpolasi variabel
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan kurung kurawal `{$variable}` saat interpolasi variabel kompleks di dalam double quote (contoh: `"Total: {$item->price}"`).
 - ❌ **Kesalahan Umum:** Menaruh spasi atau karakter liar setelah tag penutup Heredoc/Nowdoc.
@@ -701,9 +712,9 @@ Gunakan syntax $bahasa untuk menulis kode.
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Array Dasar (Indexed & Associative)
+## 9. 🟢 Array Dasar (Indexed & Associative)
 
-## Konsep
+#### Konsep
 
 Array adalah variabel super yang bisa menyimpan banyak data sekaligus dalam satu wadah (seperti daftar belanja).
 
@@ -713,7 +724,7 @@ Di PHP, ada dua jenis array utama:
 
 Penulisan modern selalu menggunakan tanda kurung siku `[]` yang ringkas dan bersih.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -743,7 +754,7 @@ $daftarProduk = [
 echo "Produk 1: " . $daftarProduk[0]["nama"];
 ```
 
-## Output
+#### Output
 
 ```text
 Buah pertama: Apel
@@ -751,7 +762,7 @@ Role: Admin
 Produk 1: Laptop
 ```
 
-## Struktur Key-Value Array
+#### Struktur Key-Value Array
 
 ```text
        Indexed Array (Key Angka)         Associative Array (Key String)
@@ -770,7 +781,7 @@ $array = ['key' => 'value']  → Associative array (akses: $array['key'])
 $array[] = $value            → Menambahkan elemen baru ke index paling belakang
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan associative array jika kumpulan data memiliki atribut dengan makna jelas (`name`, `price`, `status`).
 - ❌ **Kesalahan Umum:** Mengakses key yang tidak terdefinisi (`$pengguna["alamat"]`) tanpa pengecekan, yang menghasilkan pesan *Warning: Undefined array key*.
@@ -779,16 +790,16 @@ $array[] = $value            → Menambahkan elemen baru ke index paling belakan
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Debugging dengan `var_dump()` & `print_r()`
+## 10. 🟢 Debugging dengan `var_dump()` & `print_r()`
 
-## Konsep
+#### Konsep
 
 Saat membuat program, sering kali ada data yang tidak tampil seperti perkiraan kita. Untuk mencari penyebabnya (*debugging*), PHP menyediakan fungsi "kaca pembesar" bawaan untuk mengintip isi variabel:
 
 - `var_dump($variable)` : Menampilkan isi variabel secara sangat detail, lengkap dengan jenis tipe data dan panjang karakternya (sangat cocok saat mencari bug tipe data).
 - `print_r($variable)` : Menampilkan susunan array atau objek dalam format yang lebih ringkas dan nyaman dibaca manusia.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -806,7 +817,7 @@ echo PHP_EOL . "--- Hasil var_dump ---" . PHP_EOL;
 var_dump($data);
 ```
 
-## Output
+#### Output
 
 ```text
 --- Hasil print_r ---
@@ -828,7 +839,7 @@ array(3) {
 }
 ```
 
-## Cara Kerja Debugging
+#### Cara Kerja Debugging
 
 ```text
                   Variabel Input ($data)
@@ -850,7 +861,7 @@ var_dump($value)   → Debugging mendalam (menampilkan tipe data & ukuran)
 print_r($value)    → Debugging cepat yang mudah dibaca manusia
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `var_dump()` saat mendiagnosis bug tipe data (misal: membedakan boolean `false`, string `"0"`, dan integer `0`).
 - ❌ **Kesalahan Umum:** Lupa menghapus baris `var_dump()` saat kode dirilis ke server production.
@@ -859,9 +870,9 @@ print_r($value)    → Debugging cepat yang mudah dibaca manusia
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Expression, Statement, dan Block
+## 11. 🟢 Expression, Statement, dan Block
 
-## Konsep
+#### Konsep
 
 Memahami 3 istilah dasar ini akan membuat Anda jauh lebih mudah membaca penjelasan kode:
 
@@ -869,7 +880,7 @@ Memahami 3 istilah dasar ini akan membuat Anda jauh lebih mudah membaca penjelas
 2. **Statement (Pernyataan):** Satu baris instruksi utuh yang memerintahkan komputer melakukan sesuatu, selalu diakhiri tanda titik koma `;` (misalnya `$total = 5 + 2;`).
 3. **Block (Blok Kode):** Kumpulan beberapa baris instruksi yang dibungkus bersama di dalam tanda kurung kurawal `{ ... }` untuk dijalankan sebagai satu kesatuan.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -886,13 +897,13 @@ if ($total > 10) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Total bayar: 13
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Expression (10 + 5)
@@ -912,7 +923,7 @@ Statement  → Satu baris instruksi utuh yang diakhiri tanda titik koma (;)
 Block      → Kumpulan statement yang dibungkus kurung kurawal { ... }
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Berikan indentasi 4 spasi yang rapi di dalam setiap blok kurung kurawal untuk kemudahan membaca alur kode.
 - ❌ **Kesalahan Umum:** Meletakkan titik koma `;` langsung setelah tanda kurung kondisi `if ($a > 10); { ... }` yang menyebabkan blok kode selalu tereksekusi.
@@ -921,9 +932,9 @@ Block      → Kumpulan statement yang dibungkus kurung kurawal { ... }
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Operator Aritmatika
+## 12. 🟢 Operator Aritmatika
 
-## Konsep
+#### Konsep
 
 Operator aritmatika adalah simbol-simbol matematika dasar yang kita gunakan untuk melakukan perhitungan angka pada PHP:
 
@@ -934,7 +945,7 @@ Operator aritmatika adalah simbol-simbol matematika dasar yang kita gunakan untu
 - `%` : Modulo (sisa dari hasil pembagian, misalnya `10 % 3` bersisa `1`)
 - `**` : Pangkat (misalnya `2 ** 3` artinya 2 pangkat 3 = 8)
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -950,7 +961,7 @@ echo "Sisa Bagi: " . ($a % $b) . PHP_EOL;
 echo "Pangkat: " . ($a ** $b) . PHP_EOL;
 ```
 
-## Output
+#### Output
 
 ```text
 Tambah: 13
@@ -961,7 +972,7 @@ Sisa Bagi: 1
 Pangkat: 1000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Operasi Modulo: 10 % 3
@@ -984,7 +995,7 @@ $a % $b     → Modulo (sisa pembagian)
 $a ** $b    → Pangkat ($a pangkat $b)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan tanda kurung `(...)` untuk memperjelas urutan prioritas operasi matematika jika ekspresi cukup panjang.
 - ❌ **Kesalahan Umum:** Melakukan operasi pembagian dengan angka 0 (`$a / 0`), yang menghasilkan `DivisionByZeroError` di PHP 8+.
@@ -993,9 +1004,9 @@ $a ** $b    → Pangkat ($a pangkat $b)
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 Operator Penugasan (Assignment)
+## 13. 🟢 Operator Penugasan (Assignment)
 
-## Konsep
+#### Konsep
 
 Operator penugasan (*assignment*) digunakan untuk memasukkan suatu nilai ke dalam variabel.
 
@@ -1003,7 +1014,7 @@ Simbol dasarnya adalah sama dengan (`=`). Selain itu, PHP menyediakan jalan pint
 - `$total += 5000` (artinya: `$total = $total + 5000`)
 - `$teks .= " dunia"` (artinya: menyambung teks baru ke ujung teks lama)
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1021,14 +1032,14 @@ echo "Saldo: " . $saldo . PHP_EOL;
 echo "Pesan: " . $teks;
 ```
 
-## Output
+#### Output
 
 ```text
 Saldo: 260000
 Pesan: Selamat Datang!
 ```
 
-## Alur Eksekusi Assignment
+#### Alur Eksekusi Assignment
 
 ```text
        $saldo += 50000
@@ -1053,7 +1064,7 @@ $a /= $value     → Bagikan $a dengan $value
 $a .= $value     → Gabungkan teks string $value ke $a
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `$string .= "teks"` untuk menyusun teks panjang di dalam perulangan agar kode lebih ringkas.
 - ❌ **Kesalahan Umum:** Tertukar antara penugasan `=` dengan perbandingan kesamaan `==` di dalam kondisi `if`.
@@ -1062,9 +1073,9 @@ $a .= $value     → Gabungkan teks string $value ke $a
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 Operator Perbandingan (Strict vs Loose)
+## 14. 🟢 Operator Perbandingan (Strict vs Loose)
 
-## Konsep
+#### Konsep
 
 Operator perbandingan digunakan untuk membandingkan dua nilai. Hasilnya selalu berupa nilai kebenaran: `true` (benar) atau `false` (salah).
 
@@ -1074,7 +1085,7 @@ Perbedaan paling penting di PHP:
 
 Operator lainnya mencakup `<`, `>`, `<=`, `>=`, serta spaceship operator (`<=>`) untuk perbandingan tiga arah (`-1`, `0`, `1`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1094,7 +1105,7 @@ echo (10 <=> 10) . PHP_EOL; //  0 (sama besar)
 echo (15 <=> 10) . PHP_EOL; //  1 (kiri lebih besar)
 ```
 
-## Output
+#### Output
 
 ```text
 bool(true)
@@ -1104,7 +1115,7 @@ bool(false)
 1
 ```
 
-## Perbandingan Loose vs Strict
+#### Perbandingan Loose vs Strict
 
 ```text
        Operasi           Hasil Loose (==)     Hasil Strict (===)
@@ -1122,7 +1133,7 @@ $a !== $b        → Tidak identik: beda nilai atau beda tipe data
 $a <=> $b        → Spaceship: -1 ($a < $b), 0 ($a == $b), 1 ($a > $b)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** **Selalu gunakan `===` dan `!==` secara default** untuk mencegah bug akibat konversi tipe data otomatis.
 - ❌ **Kesalahan Umum:** Menggunakan `==` untuk membandingkan output fungsi pencarian (seperti `strpos()`), padahal index `0` bisa salah diartikan sebagai `false`.
@@ -1131,9 +1142,9 @@ $a <=> $b        → Spaceship: -1 ($a < $b), 0 ($a == $b), 1 ($a > $b)
 
 <a id="bagian-15"></a>
 
-# 15. 🟢 Operator Logika
+## 15. 🟢 Operator Logika
 
-## Konsep
+#### Konsep
 
 Operator logika digunakan saat kita perlu menggabungkan beberapa syarat/kondisi sekaligus:
 
@@ -1144,7 +1155,7 @@ Operator logika digunakan saat kita perlu menggabungkan beberapa syarat/kondisi 
 
 > Selalu gunakan simbol `&&` dan `||` daripada kata `and` / `or` karena urutan eksekusinya jauh lebih aman dan konsisten.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1170,7 +1181,7 @@ if (!$isBanned) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Akses menu manajemen diizinkan.
@@ -1178,7 +1189,7 @@ Boleh masuk ruangan khusus.
 Akun dalam status aktif.
 ```
 
-## Tabel Kebenaran
+#### Tabel Kebenaran
 
 ```text
        Kondisi A     Kondisi B     A && B (AND)     A || B (OR)
@@ -1197,7 +1208,7 @@ $conditionA || $conditionB   → OR: true jika salah satu kondisi bernilai true
 !$condition                  → NOT: negasi / pembalik nilai kebenaran
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan simbol `&&` dan `||` daripada kata kunci `and` / `or` karena memiliki tingkat prioritas operator (*precedence*) yang lebih aman dan standar.
 - ❌ **Kesalahan Umum:** Mengabaikan evaluasi *short-circuit* (PHP langsung berhenti mengecek kondisi kedua jika kondisi pertama pada `&&` bernilai `false`).
@@ -1206,9 +1217,9 @@ $conditionA || $conditionB   → OR: true jika salah satu kondisi bernilai true
 
 <a id="bagian-16"></a>
 
-# 16. 🟢 Increment dan Decrement
+## 16. 🟢 Increment dan Decrement
 
-## Konsep
+#### Konsep
 
 Operator increment (`++`) adalah jalan pintas untuk menambah angka sebanyak `1`, sedangkan decrement (`--`) untuk mengurangi angka sebanyak `1`.
 
@@ -1216,7 +1227,7 @@ Posisi tanda menentukan kapan penambahan terjadi:
 - **Post-increment (`$a++`):** Ambil nilai lama dulu untuk digunakan sekarang, baru kemudian nilainya ditambah 1.
 - **Pre-increment (`++$a`):** Tambah 1 terlebih dahulu sekarang juga, baru gunakan nilai barunya.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1232,14 +1243,14 @@ $hasilPre = ++$b;  // $b menjadi 6, kemudian $hasilPre = 6
 echo "Pre:  hasil=$hasilPre, b=$b";
 ```
 
-## Output
+#### Output
 
 ```text
 Post: hasil=5, a=6
 Pre:  hasil=6, b=6
 ```
 
-## Alur Eksekusi Post vs Pre Increment
+#### Alur Eksekusi Post vs Pre Increment
 
 ```text
        Post-increment ($a++)             Pre-increment (++$a)
@@ -1263,7 +1274,7 @@ $a--        → Post-decrement: pakai nilai lama dulu, baru kurangi 1
 --$a        → Pre-decrement: kurangi 1 dulu, baru pakai nilai baru
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan post-increment `$i++` sebagai format standar di bagian *step* perulangan `for`.
 - ❌ **Kesalahan Umum:** Menulis ekspresi bertumpuk rumit seperti `$x = $a++ + ++$a;` yang membingungkan alur pembacaan kode.
@@ -1272,15 +1283,15 @@ $a--        → Post-decrement: pakai nilai lama dulu, baru kurangi 1
 
 <a id="bagian-17"></a>
 
-# 17. 🟢 If, Elseif, Else Statement
+## 17. 🟢 If, Elseif, Else Statement
 
-## Konsep
+#### Konsep
 
 Struktur percabangan `if` digunakan untuk membuat keputusan di dalam program: jalankan perintah tertentu **hanya jika syarat/kondisi bernilai benar (`true`)**.
 
 Jika syarat pertama tidak terpenuhi, kita bisa memberikan pilihan syarat lain menggunakan `elseif`, atau memberikan tindakan cadangan terakhir menggunakan `else`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1300,13 +1311,13 @@ if ($nilaiUjian >= 90) {
 echo "Grade Anda: " . $grade;
 ```
 
-## Output
+#### Output
 
 ```text
 Grade Anda: B (Baik)
 ```
 
-## Diagram Percabangan Bersyarat
+#### Diagram Percabangan Bersyarat
 
 ```text
                   Cek ($nilaiUjian >= 90)
@@ -1335,7 +1346,7 @@ elseif ($condition) { ... }       → Cabang alternatif jika kondisi sebelumnya 
 else { ... }                      → Cabang penampung terakhir jika semua kondisi false
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Urutkan kondisi secara logis dari rentang nilai paling spesifik ke yang paling umum.
 - ❌ **Kesalahan Umum:** Menulis `else if` (dengan spasi) yang bisa menimbulkan kerancuan syntax pada template alternatif (`if: ... endif;`). Gunakan `elseif` tanpa spasi.
@@ -1344,15 +1355,15 @@ else { ... }                      → Cabang penampung terakhir jika semua kondi
 
 <a id="bagian-18"></a>
 
-# 18. 🟢 Ternary & Short Ternary Operator
+## 18. 🟢 Ternary & Short Ternary Operator
 
-## Konsep
+#### Konsep
 
 **Ternary Operator (`?:`)** adalah jalan pintas untuk menulis `if-else` sederhana hanya dalam 1 baris kode. Formatnya: `kondisi ? jika_benar : jika_salah`.
 
 PHP juga menyediakan **Short Ternary (`$a ?: $cadangan`)** yang otomatis memakai nilai `$a` jika ada isinya (*truthy*), atau memakai nilai `$cadangan` jika `$a` kosong (*falsy*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1369,14 +1380,14 @@ $namaTampil = $inputPengguna ?: "Anonim";
 echo "Nama: " . $namaTampil;
 ```
 
-## Output
+#### Output
 
 ```text
 Status: Lulus
 Nama: Anonim
 ```
 
-## Cara Kerja Ternary
+#### Cara Kerja Ternary
 
 ```text
                   Evaluasi Kondisi ($skor >= 70)
@@ -1396,7 +1407,7 @@ $condition ? $valueIfTrue : $valueIfFalse  → Ternary standar: if-else satu bar
 $value ?: $fallback                        → Short ternary: pakai $value jika truthy
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan ternary hanya untuk penugasan nilai tunggal sederhana agar kode tetap mudah dibaca.
 - ❌ **Kesalahan Umum:** Menumpuk (*nesting*) beberapa ternary dalam satu baris (misal: `$a ? $b ? 1 : 2 : 3`), yang membuat kode sulit dipahami dan rawan bug.
@@ -1405,15 +1416,15 @@ $value ?: $fallback                        → Short ternary: pakai $value jika 
 
 <a id="bagian-19"></a>
 
-# 19. 🟢 Null Coalescing Operator (`??` & `??=`)
+## 19. 🟢 Null Coalescing Operator (`??` & `??=`)
 
-## Konsep
+#### Konsep
 
 **Null Coalescing Operator (`??`)** adalah cara termudah dan teraman di PHP untuk memberikan nilai cadangan (*default*) jika suatu variabel belum dibuat atau bernilai `null`.
 
 Tersedia juga **Null Coalescing Assignment (`??=`)** untuk langsung mengisi suatu variabel hanya jika variabel tersebut saat ini masih `null` atau belum ada.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1436,14 +1447,14 @@ $profil["role"] ??= "admin";  // Diabaikan karena key "role" sudah ada
 echo "Role: " . $profil["role"];
 ```
 
-## Output
+#### Output
 
 ```text
 Tema: dark, Bahasa: id
 Role: member
 ```
 
-## Cara Kerja Null Coalescing
+#### Cara Kerja Null Coalescing
 
 ```text
                Pemeriksaan Nilai: $pengaturan["bahasa"]
@@ -1463,7 +1474,7 @@ $value ?? $fallback          → Kembalikan $value jika ada dan bukan null, sela
 $variable ??= $value         → Isi $variable dengan $value HANYA JIKA saat ini null
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan `??` saat membaca data input dari array request (seperti `$_GET['page'] ?? 1`) agar aman dari *undefined index warning*.
 - ❌ **Kesalahan Umum:** Mengira `??` mengecek nilai boolean `false` atau string kosong `""`. Operator `??` HANYA mengecek `null` atau *undefined*.
@@ -1472,9 +1483,9 @@ $variable ??= $value         → Isi $variable dengan $value HANYA JIKA saat ini
 
 <a id="bagian-20"></a>
 
-# 20. 🟢 Switch Statement
+## 20. 🟢 Switch Statement
 
-## Konsep
+#### Konsep
 
 `switch` digunakan saat kita ingin mencocokkan satu variabel dengan banyak kemungkinan pilihan nilai (*cases*).
 
@@ -1483,7 +1494,7 @@ Cara kerjanya:
 - Begitu ada pilihan yang cocok, kode akan dijalankan sampai bertemu kata kunci `break;` (untuk keluar dari switch).
 - Jika tidak ada satu pun pilihan yang cocok, bagian `default:` akan dijalankan sebagai cadangan.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1506,13 +1517,13 @@ switch ($opsiMenu) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Menampilkan Data Transaksi
 ```
 
-## Diagram Alur Switch
+#### Diagram Alur Switch
 
 ```text
        ┌───────────────────────────────────────────────┐
@@ -1543,7 +1554,7 @@ break;                    → Menghentikan eksekusi switch (mencegah fall-throug
 default:                  → Blok fallback jika tidak ada case yang cocok
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu akhiri setiap blok `case` dengan `break;` kecuali jika Anda sengaja menginginkan *fall-through* untuk beberapa kondisi sekaligus.
 - ❌ **Kesalahan Umum:** Mengingat bahwa `switch` melakukan perbandingan longgar (*loose comparison* `==`), yang berpotensi menghasilkan perilaku tak terduga jika membandingkan integer `0` dengan string.
@@ -1552,9 +1563,9 @@ default:                  → Blok fallback jika tidak ada case yang cocok
 
 <a id="bagian-21"></a>
 
-# 21. 🟢 Match Expression (PHP 8+)
+## 21. 🟢 Match Expression (PHP 8+)
 
-## Konsep
+#### Konsep
 
 `match` adalah fitur modern (PHP 8+) pengganti `switch` yang jauh lebih ringkas, aman, dan bersih.
 
@@ -1564,7 +1575,7 @@ Kelebihan utama `match`:
 - **Tidak Butuh `break;`:** Otomatis berhenti begitu menemukan kecocokan tanpa risiko bablas.
 - **Bisa Menggabungkan Pilihan:** Beberapa pilihan yang hasilnya sama cukup dipisah tanda koma `,`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1583,13 +1594,13 @@ $pesan = match ($statusCode) {
 echo "Hasil: " . $pesan;
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil: Halaman Tidak Ditemukan
 ```
 
-## Perbandingan: Switch vs Match
+#### Perbandingan: Switch vs Match
 
 ```text
        Fitur                 switch                      match (PHP 8+)
@@ -1606,7 +1617,7 @@ Hasil: Halaman Tidak Ditemukan
 $result = match ($value) { $target => $output, default => $fallback };
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Jadikan `match` sebagai pilihan pertama untuk pemetaan nilai/status di PHP modern.
 - ❌ **Kesalahan Umum:** Lupa menyediakan cabang `default` jika tidak semua kemungkinan nilai tertangani, yang akan melempar `UnhandledMatchError`.
@@ -1615,16 +1626,16 @@ $result = match ($value) { $target => $output, default => $fallback };
 
 <a id="bagian-22"></a>
 
-# 22. 🟢 For Loop
+## 22. 🟢 For Loop
 
-## Konsep
+#### Konsep
 
 `for` loop digunakan saat kita sudah tahu secara pasti **berapa kali perulangan harus berjalan** (misalnya mengulang sebanyak 5 kali atau 100 kali).
 
 Struktur `for` loop terdiri dari 3 bagian penting:
 `for (angka_mulai; syarat_berhenti; langkah_perubahan)`
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1640,7 +1651,7 @@ for ($i = 50; $i >= 10; $i -= 10) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Menghitung maju:
@@ -1654,7 +1665,7 @@ Menghitung mundur kelipatan 10:
 50 40 30 20 10 
 ```
 
-## Diagram Alur For Loop
+#### Diagram Alur For Loop
 
 ```text
        Inisialisasi Counter ($i = 1)
@@ -1679,7 +1690,7 @@ Menghitung mundur kelipatan 10:
 for ($i = 0; $i < $count; $i++) { ... }  → Pola loop standar dengan indeks counter
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Hindari memanggil fungsi penghitung seperti `count($array)` berulang kali di dalam bagian kondisi loop `for`. Hitung panjang array sekali sebelum loop dimulai.
 - ❌ **Kesalahan Umum:** Kesalahan *Off-by-one* (menggunakan `<` alih-alih `<=` atau sebaliknya).
@@ -1688,15 +1699,15 @@ for ($i = 0; $i < $count; $i++) { ... }  → Pola loop standar dengan indeks cou
 
 <a id="bagian-23"></a>
 
-# 23. 🟢 While Loop
+## 23. 🟢 While Loop
 
-## Konsep
+#### Konsep
 
 `while` loop menjalankan perintah secara berulang **selama suatu syarat masih bernilai benar (`true`)**.
 
 Pengecekan syarat dilakukan di **awal**. Jika sejak pertama kali dicek syaratnya sudah salah (`false`), maka baris kode di dalamnya tidak akan pernah dijalankan sama sekali.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1709,7 +1720,7 @@ while ($antrean <= 3) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Melayani nomor antrean: 1
@@ -1717,7 +1728,7 @@ Melayani nomor antrean: 2
 Melayani nomor antrean: 3
 ```
 
-## Diagram Alur While Loop
+#### Diagram Alur While Loop
 
 ```text
        Evaluasi Kondisi ($antrean <= 3) ───[ False ]───> Selesai Loop
@@ -1739,7 +1750,7 @@ Melayani nomor antrean: 3
 while ($condition) { ... }  → Jalankan perulangan selama $condition bernilai true
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Pastikan variabel kondisi selalu diperbarui di dalam blok `while` agar tidak terjadi perulangan tak terhingga (*infinite loop*).
 - ❌ **Kesalahan Umum:** Lupa menambahkan perubahan variabel (`$antrean++`), menyebabkan server hang karena infinite loop.
@@ -1748,15 +1759,15 @@ while ($condition) { ... }  → Jalankan perulangan selama $condition bernilai t
 
 <a id="bagian-24"></a>
 
-# 24. 🟢 Do While Loop
+## 24. 🟢 Do While Loop
 
-## Konsep
+#### Konsep
 
 `do-while` mirip dengan `while`, perbedaannya pengecekan syarat dilakukan di **akhir**.
 
 Artinya, baris kode di dalam `do-while` **pasti dijalankan minimal 1 kali**, meskipun syaratnya sudah salah sejak awal. Ini sangat cocok untuk meminta input user terlebih dahulu sebelum dicek kebenarannya.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1769,13 +1780,13 @@ do {
 } while ($skor < 0); // Kondisi false sejak evaluasi pertama
 ```
 
-## Output
+#### Output
 
 ```text
 Blok ini pasti dieksekusi minimal satu kali. Nilai skor: 0
 ```
 
-## Diagram Alur Do-While Loop
+#### Diagram Alur Do-While Loop
 
 ```text
              Jalankan Isi Blok (Minimal 1x)
@@ -1797,7 +1808,7 @@ Blok ini pasti dieksekusi minimal satu kali. Nilai skor: 0
 do { ... } while ($condition);  → Eksekusi minimal 1 kali, baru cek kondisi di akhir
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `do-while` untuk skenario interaktif yang memerlukan input user terlebih dahulu sebelum divalidasi (misal: *prompt input CLI*).
 - ❌ **Kesalahan Umum:** Lupa tanda titik koma `;` setelah kurung penutup `while ($condition);`.
@@ -1806,15 +1817,15 @@ do { ... } while ($condition);  → Eksekusi minimal 1 kali, baru cek kondisi di
 
 <a id="bagian-25"></a>
 
-# 25. 🟢 Foreach Loop & Destructuring
+## 25. 🟢 Foreach Loop & Destructuring
 
-## Konsep
+#### Konsep
 
 `foreach` adalah cara paling mudah dan paling sering digunakan di PHP untuk membaca seluruh isi `array` satu per satu dari awal sampai habis, tanpa perlu pusing menghitung jumlah data secara manual.
 
 Kita bisa membaca nilainya saja, membaca pasangan kunci dan nilainya (`$key => $value`), atau langsung membongkar isinya (*destructuring*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1845,7 +1856,7 @@ foreach ($koordinat as [$x, $y]) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Bahasa: PHP
@@ -1858,7 +1869,7 @@ X: 10, Y: 20
 X: 30, Y: 40
 ```
 
-## Diagram Alur Foreach Loop
+#### Diagram Alur Foreach Loop
 
 ```text
                     Array Sumber Data
@@ -1884,7 +1895,7 @@ foreach ($array as $key => $value)      → Iterasi pasangan key dan value
 foreach ($matrix as [$col1, $col2])     → Iterasi dengan array destructuring
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu prioritaskan `foreach` daripada `for` konvensional saat membaca data array.
 - ❌ **Kesalahan Umum:** Memberikan variabel referensi `&$item` pada `foreach` tanpa melakukan `unset($item)` setelah loop selesai.
@@ -1893,9 +1904,9 @@ foreach ($matrix as [$col1, $col2])     → Iterasi dengan array destructuring
 
 <a id="bagian-26"></a>
 
-# 26. 🟢 Break dan Continue
+## 26. 🟢 Break dan Continue
 
-## Konsep
+#### Konsep
 
 Dua perintah penting untuk mengendalikan jalannya perulangan (*loop*):
 
@@ -1904,7 +1915,7 @@ Dua perintah penting untuk mengendalikan jalannya perulangan (*loop*):
 
 Keduanya bisa diberi angka opsional (misal: `break 2;`) jika ingin keluar dari perulangan bertingkat (*nested loops*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1926,7 +1937,7 @@ for ($i = 1; $i <= 5; $i++) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Demo break (berhenti di angka 3):
@@ -1935,7 +1946,7 @@ Demo continue (lewati angka 3):
 1 2 4 5 
 ```
 
-## Perbandingan Break vs Continue
+#### Perbandingan Break vs Continue
 
 ```text
                          Loop Berjalan
@@ -1958,7 +1969,7 @@ continue     → Lewati iterasi saat ini, lanjut ke giliran berikutnya
 break $level → Keluar dari sejumlah $level loop bersarang
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `continue` sebagai *guard clause* di awal blok perulangan untuk memangkas *nesting* `if` yang terlalu dalam.
 - ❌ **Kesalahan Umum:** Menggunakan `break` di luar struktur loop atau switch, yang akan menghasilkan pesan *Fatal Error: 'break' not in the 'loop' or 'switch' context*.
@@ -1967,9 +1978,9 @@ break $level → Keluar dari sejumlah $level loop bersarang
 
 <a id="bagian-27"></a>
 
-# 27. 🟢 Manipulasi String
+## 27. 🟢 Manipulasi String
 
-## Konsep
+#### Konsep
 
 Manipulasi string adalah kegiatan mengolah teks, seperti menyambung kalimat, memotong kata, menghapus spasi liar, atau mengubah huruf besar dan kecil.
 
@@ -1977,7 +1988,7 @@ Aturan utama di PHP:
 - Untuk menyambung teks, gunakan tanda titik (`.`), **bukan tanda tambah (`+`)**.
 - Untuk menambahkan teks ke variabel yang sama, gunakan `.=`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1999,7 +2010,7 @@ echo "Upper: " . strtoupper($depan) . PHP_EOL;
 echo "Lower: " . strtolower($belakang) . PHP_EOL;
 ```
 
-## Output
+#### Output
 
 ```text
 Nama: Budi Santoso
@@ -2008,7 +2019,7 @@ Upper: BUDI
 Lower: santoso
 ```
 
-## Cara Kerja Penggabungan String
+#### Cara Kerja Penggabungan String
 
 ```text
        "Budi" . " " . "Santoso"
@@ -2024,7 +2035,7 @@ $a .= $b         → Tambahkan string $b ke ujung $a
 trim($string)    → Menghapus spasi liar di awal dan akhir teks
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan titik `.` untuk menyambung string. Jangan gunakan `+` karena tanda `+` di PHP hanya berlaku untuk operasi matematika numerik.
 - ❌ **Kesalahan Umum:** Menulis `$pesan = "Total: " + $harga;` yang akan memicu *TypeError* di PHP modern.
@@ -2033,9 +2044,9 @@ trim($string)    → Menghapus spasi liar di awal dan akhir teks
 
 <a id="bagian-28"></a>
 
-# 28. 🟢 Array Functions Esensial
+## 28. 🟢 Array Functions Esensial
 
-## Konsep
+#### Konsep
 
 PHP menyediakan banyak fungsi bawaan siap pakai untuk mengolah data array dengan cepat tanpa perlu membuat perulangan manual:
 
@@ -2049,7 +2060,7 @@ PHP menyediakan banyak fungsi bawaan siap pakai untuk mengolah data array dengan
 - `array_merge($array1, $array2)` : Menggabungkan dua atau lebih array menjadi satu.
 - `sort($array)` / `rsort($array)` : Mengurutkan isi array dari kecil ke besar / sebaliknya.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2076,7 +2087,7 @@ echo "Total kategori: " . count($semuaKategori) . PHP_EOL;
 echo "Ada buku? " . ($adaBuku ? "Ya" : "Tidak");
 ```
 
-## Output
+#### Output
 
 ```text
 Genap: 2, 4
@@ -2085,7 +2096,7 @@ Total kategori: 4
 Ada buku? Ya
 ```
 
-## Transformasi Array: Filter vs Map
+#### Transformasi Array: Filter vs Map
 
 ```text
                      Array Input: [1, 2, 3, 4, 5]
@@ -2111,7 +2122,7 @@ implode($separator, $array)       → Gabungkan elemen array menjadi satu string
 explode($separator, $string)      → Pecah string menjadi array berdasarkan pemisah
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu aktifkan parameter strict `$strict = true` saat menggunakan `in_array($needle, $array, true)`.
 - ❌ **Kesalahan Umum:** Lupa bahwa urutan parameter `array_map($callback, $array)` dan `array_filter($array, $callback)` berbeda!
@@ -2120,9 +2131,9 @@ explode($separator, $string)      → Pecah string menjadi array berdasarkan pem
 
 <a id="bagian-29"></a>
 
-# 29. 🟢 String Functions Esensial
+## 29. 🟢 String Functions Esensial
 
-## Konsep
+#### Konsep
 
 Selain menyambung teks, PHP memiliki fungsi bawaan lengkap untuk memeriksa dan membedah isi teks:
 
@@ -2134,7 +2145,7 @@ Selain menyambung teks, PHP memiliki fungsi bawaan lengkap untuk memeriksa dan m
 - `str_ends_with($teks, $akhiran)` : (PHP 8+) Mengecek apakah teks diakhiri kata tertentu.
 - `explode($pemisah, $teks)` : Memecah kalimat menjadi array berdasarkan tanda pemisah (misal spasi atau koma).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2158,7 +2169,7 @@ $daftarKata = explode(" ", $kalimat);
 print_r($daftarKata);
 ```
 
-## Output
+#### Output
 
 ```text
 Panjang teks: 30
@@ -2187,7 +2198,7 @@ str_starts_with($haystack, $needle)            → Cek apakah diawali teks terte
 str_ends_with($haystack, $needle)              → Cek apakah diakhiri teks tertentu
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan helper modern `str_contains()`, `str_starts_with()`, dan `str_ends_with()` pada PHP 8+ daripada fungsi lawas `strpos() !== false`.
 - ❌ **Kesalahan Umum:** Untuk teks yang mengandung karakter multi-byte (seperti huruf beraksen atau emoji), gunakan fungsi multi-byte `mb_strlen()` dan `mb_substr()`.
@@ -2196,14 +2207,14 @@ str_ends_with($haystack, $needle)              → Cek apakah diakhiri teks tert
 
 <a id="bagian-30"></a>
 
-# 30. 🟢 Type Checking (`is_*`) & Type Casting
+## 30. 🟢 Type Checking (`is_*`) & Type Casting
 
-## Konsep
+#### Konsep
 
 - **Type Checking (`is_*`):** Kumpulan fungsi bawaan untuk memeriksa jenis tipe data suatu variabel (menghasilkan `true` atau `false`), misalnya `is_string()`, `is_int()`, atau `is_array()`.
 - **Type Casting:** Cara mengubah tipe data variabel secara paksa dan langsung dengan menuliskan tipe baru di dalam kurung, misalnya `(int) "100"` untuk mengubah teks angka menjadi bilangan bulat murni.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2226,7 +2237,7 @@ var_dump((bool) "");   // bool(false)
 var_dump((bool) "PHP");// bool(true)
 ```
 
-## Output
+#### Output
 
 ```text
 bool(true)
@@ -2239,7 +2250,7 @@ bool(false)
 bool(true)
 ```
 
-## Daftar Helper `is_*`
+#### Daftar Helper `is_*`
 
 ```text
        is_int($value)       ──> Apakah integer?
@@ -2258,7 +2269,7 @@ is_type($value)      → Periksa apakah $value memiliki tipe data tertentu
 (type) $value        → Konversi tipe data $value secara eksplisit (Type Casting)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `is_numeric()` saat memvalidasi input dari query string URL sebelum mengonversinya ke integer.
 - ❌ **Kesalahan Umum:** Melakukan casting array kosong `(bool) []` yang menghasilkan `false`, sering terlewat oleh pemula yang mengira objek/array selalu bernilai truthy.
@@ -2267,15 +2278,15 @@ is_type($value)      → Periksa apakah $value memiliki tipe data tertentu
 
 <a id="bagian-31"></a>
 
-# 31. 🟢 Function Dasar & Deklarasi
+## 31. 🟢 Function Dasar & Deklarasi
 
-## Konsep
+#### Konsep
 
 **Function (Fungsi)** adalah kumpulan baris perintah yang diberi nama agar bisa kita panggil berulang-ulang kapan pun dibutuhkan tanpa harus menulis ulang kode yang sama.
 
 Fungsi membantu membagi program besar yang rumit menjadi potongan-potongan tugas kecil yang rapi dan mudah dikelola. Fungsi dibuat menggunakan kata kunci `function namaFungsi() { ... }`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2291,14 +2302,14 @@ kirimNotifikasi();
 kirimNotifikasi();
 ```
 
-## Output
+#### Output
 
 ```text
 Notifikasi: Pesanan Anda sedang diproses.
 Notifikasi: Pesanan Anda sedang diproses.
 ```
 
-## Cara Kerja Function
+#### Cara Kerja Function
 
 ```text
        Deklarasi: function kirimNotifikasi() { ... }
@@ -2317,7 +2328,7 @@ function functionName() { ... }  → Deklarasi fungsi baru
 functionName()                   → Memanggil dan mengeksekusi fungsi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Berikan nama fungsi yang berupa kata kerja (*verb*) yang jelas mencerminkan aksinya (`calculateTotal()`, `sendEmail()`, `formatDate()`).
 - ❌ **Kesalahan Umum:** Mendeklarasikan dua fungsi dengan nama yang persis sama di file yang sama (*Fatal Error: Cannot redeclare function*).
@@ -2326,16 +2337,16 @@ functionName()                   → Memanggil dan mengeksekusi fungsi
 
 <a id="bagian-32"></a>
 
-# 32. 🟢 Parameter, Default Value & Named Arguments
+## 32. 🟢 Parameter, Default Value & Named Arguments
 
-## Konsep
+#### Konsep
 
 - **Parameter:** Variabel penampung yang kita siapkan saat membuat fungsi untuk menerima data dari luar.
 - **Argument:** Nilai nyata yang kita kirimkan saat memanggil fungsi tersebut.
 - **Default Value:** Nilai cadangan jika pemanggil fungsi tidak mengirimkan nilai apa pun.
 - **Named Arguments (PHP 8+):** Cara mengirim nilai ke fungsi dengan menyebutkan nama parameternya secara langsung, sehingga urutan pengirimannya bebas dan tidak tertukar.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2354,7 +2365,7 @@ buatAkun("Andi", "Admin", true);
 buatAkun(kirimEmail: true, nama: "Siti"); // Melewati parameter $role
 ```
 
-## Output
+#### Output
 
 ```text
 User: Budi | Role: Member | Email Verifikasi: Tidak
@@ -2362,7 +2373,7 @@ User: Andi | Role: Admin | Email Verifikasi: Ya
 User: Siti | Role: Member | Email Verifikasi: Ya
 ```
 
-## Posisi vs Named Arguments
+#### Posisi vs Named Arguments
 
 ```text
        Pemanggilan Berdasarkan Posisi:
@@ -2385,7 +2396,7 @@ function name($param = $defaultValue)    → Parameter dengan nilai cadangan
 name(paramName: $value)                 → Named arguments: kirim argument sesuai nama
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Letakkan parameter wajib (tanpa default value) di posisi paling awal sebelum parameter opsional.
 - ❌ **Kesalahan Umum:** Meletakkan parameter wajib setelah parameter yang memiliki default value (deprecated di PHP 8.0+).
@@ -2394,15 +2405,15 @@ name(paramName: $value)                 → Named arguments: kirim argument sesu
 
 <a id="bagian-33"></a>
 
-# 33. 🟢 Return Value & Early Return
+## 33. 🟢 Return Value & Early Return
 
-## Konsep
+#### Konsep
 
 Fungsi dapat mengirimkan kembali hasil perhitungannya kepada pemanggil menggunakan perintah `return`. Begitu perintah `return` dijalankan, fungsi akan **langsung berhenti seketika**.
 
 **Early Return** adalah pola penulisan terbaik di mana kita menghentikan fungsi dan mengembalikan hasil secepat mungkin begitu ada syarat yang tidak terpenuhi, sehingga kode kita tetap rapi dan tidak memiliki percabangan `if-else` bersarang yang rumit.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2430,7 +2441,7 @@ echo "Diskon 2: Rp " . $diskon2 . PHP_EOL;
 echo "Diskon 3: Rp " . $diskon3;
 ```
 
-## Output
+#### Output
 
 ```text
 Diskon 1: Rp 0
@@ -2438,7 +2449,7 @@ Diskon 2: Rp 20000
 Diskon 3: Rp 120000
 ```
 
-## Alur Pola Early Return
+#### Alur Pola Early Return
 
 ```text
        hitungDiskon($totalBelanja)
@@ -2460,7 +2471,7 @@ return $value   → Mengembalikan nilai ke pemanggil dan menghentikan fungsi
 return;         → Menghentikan fungsi tanpa mengembalikan nilai (void)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Terapkan pola *Early Return* untuk memeriksa kondisi *edge cases* di baris-baris pertama fungsi.
 - ❌ **Kesalahan Umum:** Menulis kode logika di bawah statement `return` tanpa menyadari bahwa baris tersebut tidak akan pernah dieksekusi (*unreachable code*).
@@ -2469,9 +2480,9 @@ return;         → Menghentikan fungsi tanpa mengembalikan nilai (void)
 
 <a id="bagian-34"></a>
 
-# 34. 🟢 Type Declaration (Scalar, Return, & Union)
+## 34. 🟢 Type Declaration (Scalar, Return, & Union)
 
-## Konsep
+#### Konsep
 
 **Type Declaration (Type Hinting)** adalah cara kita menentukan jenis tipe data apa yang wajib dikirim ke parameter fungsi, serta tipe data apa yang wajib dihasilkan saat fungsi selesai (*return type*).
 
@@ -2482,7 +2493,7 @@ Manfaat Type Declaration:
 
 Di PHP modern kita bisa menentukan tipe tunggal (`string`, `int`), tipe kosong (`void`), tipe boleh null (`?string`), maupun gabungan beberapa tipe sekaligus menggunakan **Union Type** (`int|float`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2507,7 +2518,7 @@ cetakProfil("Budi", "Surabaya");
 cetakProfil("Andi", null);
 ```
 
-## Output
+#### Output
 
 ```text
 Pajak: Rp 11000
@@ -2515,7 +2526,7 @@ Nama: Budi, Kota: Surabaya
 Nama: Andi, Kota: Tidak Diketahui
 ```
 
-## Cara Membaca Type Declaration
+#### Cara Membaca Type Declaration
 
 ```text
        function hitungPajak(int|float $harga): float
@@ -2532,7 +2543,7 @@ function name(type $param): returnType { ... }   → Deklarasi tipe parameter & 
 typeA|typeB $param                               → Union type (PHP 8+): boleh salah satu tipe
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Tambahkan deklarasi tipe data pada seluruh parameter dan return type di kode PHP modern.
 - ❌ **Kesalahan Umum:** Mengaktifkan `declare(strict_types=1);` tetapi mengirimkan data string angka `"10"` ke fungsi yang mengharapkan `int`.
@@ -2541,9 +2552,9 @@ typeA|typeB $param                               → Union type (PHP 8+): boleh 
 
 <a id="bagian-35"></a>
 
-# 35. 🟢 Variable Scope (Local, Global, Static)
+## 35. 🟢 Variable Scope (Local, Global, Static)
 
-## Konsep
+#### Konsep
 
 **Scope (Jangkauan Variabel)** menentukan di area mana saja sebuah variabel bisa dibaca atau digunakan:
 
@@ -2551,7 +2562,7 @@ typeA|typeB $param                               → Union type (PHP 8+): boleh 
 2. **Global Scope:** Variabel yang dibuat di luar fungsi. Variabel ini tidak bisa langsung dibaca di dalam fungsi kecuali kita mengimpornya dengan kata kunci `global`.
 3. **Static Scope:** Variabel lokal di dalam fungsi yang **nilainya tetap diingat dan dipertahankan** meskipun fungsi tersebut dipanggil berkali-kali.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2576,7 +2587,7 @@ hitungTransaksi();
 hitungTransaksi();
 ```
 
-## Output
+#### Output
 
 ```text
 [Toko App] Transaksi ke: 1
@@ -2584,7 +2595,7 @@ hitungTransaksi();
 [Toko App] Transaksi ke: 3
 ```
 
-## Peta Lingkup Memori Scope
+#### Peta Lingkup Memori Scope
 
 ```text
        ┌────────────────────────────────────────────────────────────┐
@@ -2608,7 +2619,7 @@ global $var      → Mengimpor variabel dari global scope ke dalam fungsi
 static $var      → Variabel lokal yang mempertahankan nilainya antar panggilan fungsi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Hindari ketergantungan pada keyword `global`. Kirimkan data yang dibutuhkan fungsi secara eksplisit melalui **parameter**.
 - ❌ **Kesalahan Umum:** Mengakses variabel luar langsung di dalam fungsi tanpa deklarasi `global` yang akan memicu *Warning: Undefined variable*.
@@ -2617,15 +2628,15 @@ static $var      → Variabel lokal yang mempertahankan nilainya antar panggilan
 
 <a id="bagian-36"></a>
 
-# 36. 🟡 Anonymous Function (Closure) & `use` Keyword
+## 36. 🟡 Anonymous Function (Closure) & `use` Keyword
 
-## Konsep
+#### Konsep
 
 **Anonymous Function** (atau biasa disebut **Closure**) adalah fungsi yang tidak memiliki nama. Fungsi ini bisa disimpan ke dalam variabel atau dikirim langsung sebagai argumen ke fungsi lain.
 
 Jika ingin membaca variabel dari luar ke dalam Anonymous Function, kita wajib "menjinjingnya" menggunakan kata kunci `use ($namaVariabel)`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2648,7 +2659,7 @@ $hasil = array_map(function (int $n): int {
 print_r($hasil);
 ```
 
-## Output
+#### Output
 
 ```text
 Total Bayar: Rp 45000
@@ -2660,7 +2671,7 @@ Array
 )
 ```
 
-## Cara Kerja `use`
+#### Cara Kerja `use`
 
 ```text
        Parent Scope ($diskon = 5000)
@@ -2677,7 +2688,7 @@ Array
 $closure = function ($param) use ($outerVar) { ... };  → Anonymous function dengan binding use
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan closure saat membutuhkan fungsi singkat untuk satu kali pakai (seperti pada callback `array_map` atau middleware routing).
 - ❌ **Kesalahan Umum:** Mengira `use ($diskon)` melakukan *pass-by-reference* secara default. Nilai di-copy secara *by-value* kecuali Anda menuliskan `use (&$diskon)`.
@@ -2686,9 +2697,9 @@ $closure = function ($param) use ($outerVar) { ... };  → Anonymous function de
 
 <a id="bagian-37"></a>
 
-# 37. 🟡 Arrow Function (`fn() =>`)
+## 37. 🟡 Arrow Function (`fn() =>`)
 
-## Konsep
+#### Konsep
 
 **Arrow Function** (fitur modern sejak PHP 7.4) adalah versi mini 1 baris dari Anonymous Function.
 
@@ -2697,7 +2708,7 @@ Keunggulan Arrow Function:
 - **Otomatis membaca variabel dari luar** tanpa perlu menulis kata kunci `use`.
 - Hasil perhitungannya otomatis dikembalikan (*implicit return*) tanpa perlu menulis `return`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2711,13 +2722,13 @@ $hasil = array_map(fn(int $n): int => $n * $faktorPengali, $daftarAngka);
 echo "Hasil: " . implode(", ", $hasil);
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil: 5, 10, 15, 20
 ```
 
-## Perbandingan: Closure vs Arrow Function
+#### Perbandingan: Closure vs Arrow Function
 
 ```text
        Anonymous Function Biasa                  Arrow Function (PHP 7.4+)
@@ -2733,7 +2744,7 @@ Hasil: 5, 10, 15, 20
 fn($param) => $expression   → Arrow function: ringkas, auto-capture variabel luar, implicit return
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan arrow function untuk operasi transformasi atau filter sederhana satu baris.
 - ❌ **Kesalahan Umum:** Mencoba memasukkan multi-statement atau blok kurung kurawal `{ ... }` ke dalam arrow function (arrow function hanya mendukung 1 single expression).
@@ -2742,15 +2753,15 @@ fn($param) => $expression   → Arrow function: ringkas, auto-capture variabel l
 
 <a id="bagian-38"></a>
 
-# 38. 🟡 Callback Function & `callable`
+## 38. 🟡 Callback Function & `callable`
 
-## Konsep
+#### Konsep
 
 **Callback** adalah sebuah fungsi yang kita kirimkan sebagai "titipan" ke fungsi lain, untuk dijalankan nanti ketika proses tertentu sudah selesai.
 
 Pada parameter fungsi penerima, tipe data callback ditulis menggunakan tipe `callable` atau `Closure`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2775,14 +2786,14 @@ function hitungPajakKhusus(int $n): float {
 prosesTransaksi(100000, "hitungPajakKhusus");
 ```
 
-## Output
+#### Output
 
 ```text
 Nominal: Rp 100000 | Pajak: Rp 11000 | Total: Rp 111000
 Nominal: Rp 100000 | Pajak: Rp 5000 | Total: Rp 105000
 ```
 
-## Alur Pemanggilan Callback
+#### Alur Pemanggilan Callback
 
 ```text
        Pemanggil: prosesTransaksi(100000, $callback)
@@ -2804,7 +2815,7 @@ callable $callback   → Type hint parameter yang menerima fungsi sebagai argume
 $callback($args)     → Mengeksekusi callback yang dikirimkan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan type hint `callable` saat membuat fungsi utility umum yang membutuhkan kustomisasi logic dari pemanggil.
 - ❌ **Kesalahan Umum:** Mengirim nama fungsi berupa string yang salah eja atau tidak terdefinisi, yang memicu *TypeError*.
@@ -2813,15 +2824,15 @@ $callback($args)     → Mengeksekusi callback yang dikirimkan
 
 <a id="bagian-39"></a>
 
-# 39. 🟡 Variable Function
+## 39. 🟡 Variable Function
 
-## Konsep
+#### Konsep
 
 **Variable Function** adalah keunikan PHP yang memungkinkan kita memanggil suatu fungsi menggunakan teks nama fungsi yang tersimpan di dalam variabel.
 
 Jika sebuah variabel bernilai teks nama fungsi dan diikuti tanda kurung `()`, PHP akan otomatis mencari dan mengeksekusi fungsi yang namanya sesuai dengan isi variabel tersebut.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2845,14 +2856,14 @@ $namaFungsi = "sapa" . $waktu; // Menghasilkan string "sapaMalam"
 echo $namaFungsi("Andi");
 ```
 
-## Output
+#### Output
 
 ```text
 Selamat Pagi, Budi!
 Selamat Malam, Andi!
 ```
 
-## Cara Kerja Variable Function
+#### Cara Kerja Variable Function
 
 ```text
        $namaFungsi = "sapaPagi";
@@ -2874,7 +2885,7 @@ $functionName = "sayHello";
 $functionName();             → Menjalankan fungsi sayHello() secara dinamis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `function_exists($namaFungsi)` terlebih dahulu sebelum mengeksekusi variable function untuk memastikan fungsi tersebut ada.
 - ❌ **Kesalahan Umum:** Memanggil variable function dari input pengguna langsung tanpa sanitasi/whitelist (potensi celah keamanan eksekusi kode liar).
@@ -2883,9 +2894,9 @@ $functionName();             → Menjalankan fungsi sayHello() secara dinamis
 
 <a id="bagian-40"></a>
 
-# 40. 🟡 Recursive Function
+## 40. 🟡 Recursive Function
 
-## Konsep
+#### Konsep
 
 **Recursive Function** adalah fungsi yang **memanggil dirinya sendiri** secara berulang untuk menyelesaikan masalah bertingkat (seperti membuka boneka bersarang / Matryoshka).
 
@@ -2893,7 +2904,7 @@ Dua syarat wajib fungsi rekursif:
 1. **Base Case (Kondisi Berhenti):** Syarat mutlak kapan fungsi harus berhenti memanggil dirinya sendiri.
 2. **Recursive Step:** Pemanggilan fungsi kembali dengan nilai yang semakin mengecil mendekati kondisi berhenti.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2913,13 +2924,13 @@ function faktorial(int $n): int
 echo "5! = " . faktorial(5);
 ```
 
-## Output
+#### Output
 
 ```text
 5! = 120
 ```
 
-## Alur Eksekusi Rekursif Faktorial
+#### Alur Eksekusi Rekursif Faktorial
 
 ```text
        faktorial(5)
@@ -2950,7 +2961,7 @@ Base Case       → Kondisi penghenti agar fungsi tidak memanggil dirinya selama
 Recursive Step  → Pemanggilan fungsi kembali dengan nilai parameter yang mengecil
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu pastikan *Base Case* ditulis di baris paling awal fungsi rekursif.
 - ❌ **Kesalahan Umum:** Lupa mendefinisikan *Base Case*, yang menyebabkan memori habis akibat *infinite recursion / Maximum function nesting level reached*.
@@ -2959,9 +2970,9 @@ Recursive Step  → Pemanggilan fungsi kembali dengan nilai parameter yang menge
 
 <a id="bagian-41"></a>
 
-# 41. 🟡 File Inclusion (`require`, `include`, `require_once`)
+## 41. 🟡 File Inclusion (`require`, `include`, `require_once`)
 
-## Konsep
+#### Konsep
 
 File inclusion adalah cara membagi kode program kita ke dalam beberapa file terpisah agar rapi dan mudah dikelola, lalu memanggilnya kembali saat dibutuhkan.
 
@@ -2971,7 +2982,7 @@ Perbedaan 4 perintah pemanggilan file:
 - `include_once` : Sama seperti `include`, namun memastikan file hanya dimuat tepat 1 kali saja.
 - `require_once` : Sama seperti `require`, namun memastikan file hanya dimuat tepat 1 kali saja (**standar industri yang paling sering digunakan** untuk mencegah error fungsi ganda).
 
-## Contoh
+#### Contoh
 
 File `config.php`:
 
@@ -2991,13 +3002,13 @@ require_once __DIR__ . "/config.php";
 echo "Aplikasi: " . APP_TITLE . " (v$appVersion)";
 ```
 
-## Output
+#### Output
 
 ```text
 Aplikasi: Sistem Kasir (v2.1.0)
 ```
 
-## Matriks Perbandingan File Inclusion
+#### Matriks Perbandingan File Inclusion
 
 ```text
        Perintah             Jika File Hilang       Cegah Duplikasi Ganda?
@@ -3015,7 +3026,7 @@ require_once __DIR__ . '/file.php'   → Muat file wajib tepat 1 kali (standar i
 __DIR__                             → Magic constant: direktori file saat ini berada
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan path absolut dengan bantuan magic constant `__DIR__` (contoh: `require_once __DIR__ . '/helper.php'`).
 - ❌ **Kesalahan Umum:** Menggunakan `include` biasa untuk file konfigurasi database atau fungsi inti yang fatal jika hilang.
@@ -3024,16 +3035,16 @@ __DIR__                             → Magic constant: direktori file saat ini 
 
 <a id="bagian-42"></a>
 
-# 42. 🔴 Operator Array & Spread Operator (`...`)
+## 42. 🔴 Operator Array & Spread Operator (`...`)
 
-## Konsep
+#### Konsep
 
 Selain fungsi biasa, PHP memiliki operator khusus untuk mengolah array dengan cepat:
 
 1. **Array Union Operator (`+`):** Menggabungkan dua array. Jika ada kunci yang sama, data dari array sisi kiri yang akan dipertahankan.
 2. **Spread Operator (`...`):** (Fitur modern sejak PHP 7.4) Membongkar dan menuangkan seluruh isi array ke dalam array baru secara instan dan bersih.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -3054,7 +3065,7 @@ $semuaBuah = [...$buah1, "Melon", ...$buah2];
 print_r($semuaBuah);
 ```
 
-## Output
+#### Output
 
 ```text
 Array
@@ -3081,7 +3092,7 @@ $arrayA + $arrayB    → Array union: pertahankan key dari $arrayA jika ada dupl
 [...$array1, ...$array2]  → Spread operator: membongkar dan menggabungkan array modern
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan spread operator `[...$a, ...$b]` untuk menggabungkan array terindeks numerik pada PHP 8+.
 - ❌ **Kesalahan Umum:** Mengharapkan operator union `+` menimpa elemen array indexed seperti halnya `array_merge()`.
@@ -3090,15 +3101,15 @@ $arrayA + $arrayB    → Array union: pertahankan key dari $arrayA jika ada dupl
 
 <a id="bagian-43"></a>
 
-# 43. 🔴 Reference (`&`) pada Variable & Parameter
+## 43. 🔴 Reference (`&`) pada Variable & Parameter
 
-## Konsep
+#### Konsep
 
 Secara default di PHP, saat kita menyalin variabel atau mengirimnya ke fungsi, nilainya akan diduplikasi (*Pass by Value*).
 
 Dengan menambahkan simbol ampersand (`&`), kita membuat **Reference (Alamat Bersama)**. Dua variabel akan menunjuk ke lokasi memori yang sama persis (seperti dua remote pengendali untuk satu televisi). Jika isi salah satu variabel diganti, variabel pasangannya akan otomatis ikut berubah.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -3121,14 +3132,14 @@ tambahkanBonus($dompet, 25000);
 echo "Isi dompet setelah bonus: Rp " . $dompet;
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Asli: Andi
 Isi dompet setelah bonus: Rp 75000
 ```
 
-## Visualisasi Memori: By Value vs By Reference
+#### Visualisasi Memori: By Value vs By Reference
 
 ```text
        Pass By Value ($b = $a)           Pass By Reference ($b = &$a)
@@ -3146,7 +3157,7 @@ $alias = &$original           → Membuat variabel alias yang menunjuk ke memori
 function modify(type &$param) → Parameter by-reference: modifikasi langsung data asal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan *Passing by Reference* secara hati-hati dan hemat, terutama saat memodifikasi data array berukuran sangat besar di tempat.
 - ❌ **Kesalahan Umum:** Terlalu banyak menggunakan reference hingga menimbulkan *side-effect* tak terduga di mana variabel luar berubah tanpa disadari.
@@ -3155,9 +3166,9 @@ function modify(type &$param) → Parameter by-reference: modifikasi langsung da
 
 <a id="bagian-44"></a>
 
-# 44. 🔴 `goto` Operator
+## 44. 🔴 `goto` Operator
 
-## Konsep
+#### Konsep
 
 Operator `goto` digunakan untuk memerintahkan komputer melompat langsung ke baris kode tertentu yang diberi label (`label:`).
 
@@ -3166,7 +3177,7 @@ Aturan `goto` di PHP:
 - Tidak bisa melompat masuk ke dalam fungsi atau ke dalam perulangan loop.
 - Umumnya dihindari di aplikasi modern karena bisa membuat alur kode melompat-lompat dan membingungkan (*spaghetti code*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -3184,7 +3195,7 @@ if ($counter <= 3) {
 echo "Perulangan selesai!";
 ```
 
-## Output
+#### Output
 
 ```text
 Counter: 1
@@ -3200,7 +3211,7 @@ targetLabel:     → Deklarasi titik tujuan lompatan label
 goto targetLabel → Perintahkan interpreter langsung melompat ke label tujuan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Hindari penggunaan `goto` dalam alur program aplikasi modern. Gunakan struktur standar (`while`, `for`, `function`, `try-catch`).
 - ❌ **Kesalahan Umum:** Menggunakan `goto` secara berlebihan sehingga menciptakan *Spaghetti Code* yang mustahil untuk di-debug dan dipelihara.
@@ -3209,7 +3220,7 @@ goto targetLabel → Perintahkan interpreter langsung melompat ke label tujuan
 
 <a id="bagian-45"></a>
 
-# 45. 🛠️ Peta Ingatan Cepat
+## 45. 🛠️ Peta Ingatan Cepat
 
 Mental model komprehensif hubungan seluruh konsep fundamental PHP:
 
@@ -3252,7 +3263,7 @@ Modularitas      → Function, Type Hinting, Early Return, require_once
 
 <a id="bagian-46"></a>
 
-# 46. 📚 Tabel Ringkasan
+## 46. 📚 Tabel Ringkasan
 
 | Fitur / Konsep | Sintaks / API Utama | Fungsi & Kegunaan |
 |---|---|---|
@@ -3276,7 +3287,7 @@ Modularitas      → Function, Type Hinting, Early Return, require_once
 
 <a id="bagian-47"></a>
 
-# 47. ⚡ Cheat Code PHP 10 Detik
+## 47. ⚡ Cheat Code PHP 10 Detik
 
 ```php
 <?php
@@ -3319,7 +3330,7 @@ echo "Total Transaksi: Rp $total | Hak Akses: $akses";
 
 <a id="bagian-48"></a>
 
-# 48. 🧭 Urutan Belajar yang Disarankan
+## 48. 🧭 Urutan Belajar yang Disarankan
 
 ```text
        ┌────────────────────────────────────────────────────────────┐
@@ -3356,11 +3367,11 @@ echo "Total Transaksi: Rp $total | Hak Akses: $akses";
 
 <a id="bagian-49"></a>
 
-# 49. 🏗️ Mini Project: Aplikasi Kasir & Inventaris CLI Interaktif
+## 49. 🏗️ Mini Project: Aplikasi Kasir & Inventaris CLI Interaktif
 
 Mini project ini menggabungkan seluruh konsep dasar PHP: **Type Declarations**, **Associative Array**, **Arrow Functions**, **Array Functions (`array_map`, `array_filter`, `array_sum`)**, **Control Flow (Match & If-Else)**, dan **Modular Functions**.
 
-### Kode Program (`kasir.php`)
+##### Kode Program (`kasir.php`)
 
 ```php
 <?php
@@ -3475,7 +3486,7 @@ echo "==================================================" . PHP_EOL;
 echo "Status: Pembayaran Berhasil Disimpan!" . PHP_EOL;
 ```
 
-### Output Eksekusi Program
+##### Output Eksekusi Program
 
 ```text
 ==================================================
@@ -3507,7 +3518,7 @@ Status: Pembayaran Berhasil Disimpan!
 
 <a id="bagian-50"></a>
 
-# 50. 🔗 Referensi Resmi
+## 50. 🔗 Referensi Resmi
 
 - [Dokumentasi Resmi PHP (PHP Manual)](https://www.php.net/manual/en/)
 

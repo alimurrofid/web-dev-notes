@@ -1,4 +1,16 @@
-# Spring Security & JWT Cheatsheet Revised
+---
+title: "Spring Security & JWT"
+description: "Keamanan aplikasi Spring Boot: SecurityFilterChain, Authentication & Authorization, UserDetailsService, Password Encoding, dan implementasi Stateless JWT."
+order: 4
+tags:
+  - web-development
+  - backend
+  - spring-boot
+  - security
+  - jwt
+---
+
+# Spring Security & JWT
 
 > **Target:** Pemula yang telah memahami dasar Spring Boot Core, Web RESTful API, dan Spring Data JPA, serta ingin menguasai **arsitektur keamanan enterprise, autentikasi stateless berbasis JSON Web Token (JWT), password hashing BCrypt, dan Role-Based Access Control (RBAC)** menggunakan **Spring Boot 3.3+ (Spring Security 6.x & Java 21 LTS)**.
 >
@@ -104,9 +116,9 @@ OncePerRequestFilter  → base class filter yang menjamin eksekusi tepat satu ka
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Spring Security 6 & Mental Model Security Filter Chain
+## 1. 🟢 Pengenalan Spring Security 6 & Mental Model Security Filter Chain
 
-## Konsep
+#### Konsep
 
 Spring Security bekerja sebagai **lapisan dinding pertahanan (*Security Filter Chain*)** yang berdiri di depan `DispatcherServlet`. Sebelum sebuah HTTP request mencapai Controller Anda, request tersebut harus melewati serangkaian filter keamanan yang memeriksa:
 1. **Autentikasi (*Who are you?*):** Memvalidasi apakah kredensial (username/password atau token JWT) valid.
@@ -114,7 +126,7 @@ Spring Security bekerja sebagai **lapisan dinding pertahanan (*Security Filter C
 
 Jika salah satu filter menolak, request langsung diputus seketika dan mengembalikan status HTTP `401 Unauthorized` atau `403 Forbidden`.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 HTTP Request
@@ -147,9 +159,9 @@ Authorization  → proses pengecekan izin akses pengguna ke resource tertentu (H
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Perubahan Fundamental di Spring Security 6
+## 2. 🟢 Perubahan Fundamental di Spring Security 6
 
-## Konsep
+#### Konsep
 
 Di Spring Security 6 (Spring Boot 3+), seluruh pendekatan konfigurasi lama telah **DIROMBAK TOTAL**:
 
@@ -158,7 +170,7 @@ Di Spring Security 6 (Spring Boot 3+), seluruh pendekatan konfigurasi lama telah
 3. **`authorizeRequests()` digantikan oleh `authorizeHttpRequests()`**.
 4. **`antMatchers()` digantikan oleh `requestMatchers()`**.
 
-## Perbandingan Sintaks Lama vs Modern
+#### Perbandingan Sintaks Lama vs Modern
 
 ```java
 // ❌ SINTAKS LAMA (SPRING SECURITY 5 - JANGAN DIGUNAKAN DI SPRING BOOT 3)
@@ -197,9 +209,9 @@ SecurityFilterChain Bean → pola modern mendefinisikan konfigurasi keamanan men
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Anatomi `SecurityFilterChain` Bean Dasar
+## 3. 🟢 Anatomi `SecurityFilterChain` Bean Dasar
 
-## Konsep
+#### Konsep
 
 Class konfigurasi keamanan ditandai dengan **`@Configuration`** dan **`@EnableWebSecurity`**.
 
@@ -210,7 +222,7 @@ Aturan Dasar Konfigurasi REST API:
 2. `sessionManagement(...)` : Ubah menjadi stateless.
 3. `authorizeHttpRequests(...)` : Tentukan endpoint publik (`permitAll()`) dan endpoint terkunci (`authenticated()`).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.config;
@@ -252,9 +264,9 @@ http.authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll(
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Password Hashing Aman dengan `BCryptPasswordEncoder`
+## 4. 🟢 Password Hashing Aman dengan `BCryptPasswordEncoder`
 
-## Konsep
+#### Konsep
 
 Menyimpan password pengguna dalam bentuk teks mentah (*Plain Text*) atau algoritma hashing usang (seperti MD5 / SHA-1) adalah pelanggaran fatal keamanan.
 
@@ -263,7 +275,7 @@ Menyimpan password pengguna dalam bentuk teks mentah (*Plain Text*) atau algorit
 2. Mengikutsertakan **Salt Acak Unik** secara otomatis pada setiap hasil hash, sehingga 2 password yang sama persis ("rahasia") akan menghasilkan string hash yang sama sekali berbeda (kebal terhadap serangan *Rainbow Table Attack*).
 3. Mendukung komputasi *Work Factor* yang dapat ditingkatkan seiring bertambahnya kecepatan hardware CPU peretas.
 
-## Contoh
+#### Contoh
 
 Konfigurasi Bean:
 ```java
@@ -303,7 +315,7 @@ public class UserService {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Hash BCrypt: $2a$10$wN9cZ6v1Y8M3G... (60 Karakter Acak)
@@ -321,16 +333,16 @@ passwordEncoder.matches(rawPassword, hash)→ memverifikasi apakah password ment
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Implementasi `UserDetails` & `UserDetailsService`
+## 5. 🟢 Implementasi `UserDetails` & `UserDetailsService`
 
-## Konsep
+#### Konsep
 
 Spring Security tidak mengetahui struktur tabel user spesifik Anda. Oleh karena itu, kita harus menyediakan adapter jembatan:
 
 1. **`UserDetails`:** Antarmuka yang merepresentasikan profil user untuk Spring Security (mengembalikan `getUsername()`, `getPassword()`, dan daftar role `getAuthorities()`).
 2. **`UserDetailsService`:** Antarmuka dengan tepat 1 method: `UserDetails loadUserByUsername(String username)`. Method ini bertugas mengambil data user dari database melalui Repository Anda.
 
-## Contoh
+#### Contoh
 
 1. Implementasi `UserDetails`:
 ```java
@@ -411,9 +423,9 @@ UserDetailsService.loadUserByUsername(username) → method jembatan mengambil ak
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Mekanisme Otentikasi: `AuthenticationManager` & `DaoAuthenticationProvider`
+## 6. 🟢 Mekanisme Otentikasi: `AuthenticationManager` & `DaoAuthenticationProvider`
 
-## Konsep
+#### Konsep
 
 Saat user mengirim request login berisi username dan password mentah, kita menggunakan **`AuthenticationManager`** untuk memvalidasi kredensial tersebut secara otomatis:
 1. `AuthenticationManager` memanggil `DaoAuthenticationProvider`.
@@ -422,7 +434,7 @@ Saat user mengirim request login berisi username dan password mentah, kita mengg
 4. Jika cocok $\rightarrow$ mengembalikan objek `Authentication` yang terverifikasi.
 5. Jika salah $\rightarrow$ melempar `BadCredentialsException`.
 
-## Contoh
+#### Contoh
 
 Mendaftarkan Bean AuthenticationManager:
 ```java
@@ -465,9 +477,9 @@ authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user,
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Pengenalan JSON Web Token (JWT) & Mental Model Stateless Auth
+## 7. 🟢 Pengenalan JSON Web Token (JWT) & Mental Model Stateless Auth
 
-## Konsep
+#### Konsep
 
 Pada aplikasi monolitik tradisional, server menyimpan sesi user di memori RAM (*Stateful Session via JSESSIONID Cookie*). Ini tidak dapat diskalakan (*not scalable*) di arsitektur microservices atau multi-instance server.
 
@@ -477,7 +489,7 @@ Pada aplikasi monolitik tradisional, server menyimpan sesi user di memori RAM (*
 - Client menyimpan token ini (di localStorage/secure cookie) dan menyertakannya di setiap request pada header:
   `Authorization: Bearer <token_jwt>`
 
-## Anatomi String JWT
+#### Anatomi String JWT
 
 String JWT terdiri dari 3 bagian yang dipisahkan oleh tanda titik (`.`):
 `xxxxx.yyyyy.zzzzz`
@@ -496,9 +508,9 @@ Header.Payload.Signature → 3 bagian penyusun string token JWT yang dipisahkan 
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Membangun `JwtService` Utility (JJWT 0.12+)
+## 8. 🟢 Membangun `JwtService` Utility (JJWT 0.12+)
 
-## Konsep
+#### Konsep
 
 Kita membuat class **`JwtService`** menggunakan library standar **JJWT (`io.jsonwebtoken`)**:
 1. Menghasilkan Access Token baru (`generateToken`).
@@ -506,7 +518,7 @@ Kita membuat class **`JwtService`** menggunakan library standar **JJWT (`io.json
 3. Memeriksa apakah token sudah kadaluarsa (`isTokenExpired`).
 4. Memvalidasi tanda tangan kriptografi token.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.security;
@@ -593,9 +605,9 @@ jwtService.isTokenValid(token, userDetails)    → memvalidasi integritas tanda 
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Membangun `JwtAuthenticationFilter` (`OncePerRequestFilter`)
+## 9. 🟡 Membangun `JwtAuthenticationFilter` (`OncePerRequestFilter`)
 
-## Konsep
+#### Konsep
 
 Filter ini adalah **jantung keamanan JWT di Spring Security**.
 
@@ -606,7 +618,7 @@ Tugas `JwtAuthenticationFilter`:
 4. Jika valid $\rightarrow$ buat objek `UsernamePasswordAuthenticationToken` dan daftarkan ke **`SecurityContextHolder`**.
 5. Meneruskan request ke filter berikutnya (`filterChain.doFilter()`).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.security;
@@ -688,15 +700,15 @@ SecurityContextHolder.getContext().setAuthentication(authToken) → mendaftarkan
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Menghubungkan JWT Filter ke Security Filter Chain
+## 10. 🟡 Menghubungkan JWT Filter ke Security Filter Chain
 
-## Konsep
+#### Konsep
 
 Setelah membuat `JwtAuthenticationFilter`, kita harus memasangkannya ke dalam urutan rantai filter Spring Security:
 - Pasang filter JWT **tepat sebelum** filter login form bawaan Spring menggunakan:
   **`http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)`**.
 
-## Contoh
+#### Contoh
 
 ```java
 @Configuration
@@ -736,9 +748,9 @@ http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) 
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Konfigurasi Stateless Session Management
+## 11. 🟡 Konfigurasi Stateless Session Management
 
-## Konsep
+#### Konsep
 
 Secara default, Spring Security akan membuat `HttpSession` di memori server.
 
@@ -746,7 +758,7 @@ Untuk arsitektur REST API murni berbasis JWT, kita **WAJIB menonaktifkan pembuat
 - Spring Security tidak akan pernah membuat atau menggunakan session HTTP.
 - Setiap request diperlakukan independen dan wajib membawa token JWT sendiri.
 
-## Contoh
+#### Contoh
 
 ```java
 http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -762,16 +774,16 @@ SessionCreationPolicy.STATELESS → memastikan server tidak menyimpan state sesi
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Role-Based Access Control (RBAC) pada URL Mappings
+## 12. 🟡 Role-Based Access Control (RBAC) pada URL Mappings
 
-## Konsep
+#### Konsep
 
 Kita dapat membatasi akses endpoint berdasarkan Role atau Authority pengguna:
 - **`hasRole("ADMIN")`:** Memeriksa apakah user memiliki authority `ROLE_ADMIN` (Spring otomatis menambahkan prefix `ROLE_`).
 - **`hasAnyRole("ADMIN", "MANAGER")`:** Mengizinkan salah satu dari beberapa role.
 - **`hasAuthority("product:write")`:** Memeriksa hak akses granular tanpa prefix `ROLE_`.
 
-## Contoh
+#### Contoh
 
 ```java
 http.authorizeHttpRequests(auth -> auth
@@ -802,9 +814,9 @@ http.authorizeHttpRequests(auth -> auth
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Method-Level Security dengan `@PreAuthorize`
+## 13. 🟡 Method-Level Security dengan `@PreAuthorize`
 
-## Konsep
+#### Konsep
 
 Selain mengamankan URL di level konfigurasi, kita dapat mengamankan method secara presisi langsung di level Controller atau Service menggunakan anotasi **`@PreAuthorize`**.
 
@@ -815,7 +827,7 @@ Ekspresi SpEL (*Spring Expression Language*) Populer:
 - `@PreAuthorize("hasAnyRole('ADMIN', 'SUPERVISOR')")`
 - `@PreAuthorize("#userId == authentication.principal.id or hasRole('ADMIN')")` (User hanya boleh mengedit profil miliknya sendiri, kecuali Admin).
 
-## Contoh
+#### Contoh
 
 Aktifkan Fitur:
 ```java
@@ -866,16 +878,16 @@ public class ProductSecurityController {
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Mendapatkan User yang Sedang Login
+## 14. 🟡 Mendapatkan User yang Sedang Login
 
-## Konsep
+#### Konsep
 
 Dua cara mudah mengambil data user yang sedang aktif melakukan request di dalam Controller / Service:
 
 1. **Menggunakan Anotasi `@AuthenticationPrincipal`:** Menyuntikkan objek `UserDetails` langsung ke parameter method Controller.
 2. **Menggunakan `SecurityContextHolder`:** Mengambil context dari mana saja di kode program.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -921,9 +933,9 @@ public class UserProfileController {
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Custom Error Handlers (401 Unauthorized & 403 Forbidden)
+## 15. 🟡 Custom Error Handlers (401 Unauthorized & 403 Forbidden)
 
-## Konsep
+#### Konsep
 
 Secara default, jika request tidak terotentikasi atau ditolak izinnya, Spring Security akan mengembalikan halaman HTML kosong atau respons teks mentah.
 
@@ -931,7 +943,7 @@ Untuk RESTful API, kita **wajib mengembalikan response JSON seragam**:
 1. **`AuthenticationEntryPoint` (HTTP 401 Unauthorized):** Dipanggil saat request tidak menyertakan token atau token tidak valid.
 2. **`AccessDeniedHandler` (HTTP 403 Forbidden):** Dipanggil saat user sudah login, tetapi tidak memiliki Role yang cukup untuk mengakses endpoint.
 
-## Contoh
+#### Contoh
 
 1. Custom AuthenticationEntryPoint (401):
 ```java
@@ -1008,9 +1020,9 @@ AccessDeniedHandler      → menangani respons error 403 Forbidden dalam format 
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Refresh Token Mechanism
+## 16. 🟡 Refresh Token Mechanism
 
-## Konsep
+#### Konsep
 
 Jika Access Token memiliki masa berlaku terlalu panjang (misal: 30 hari), peretas yang berhasil mencuri token dapat menyalahgunakannya dalam waktu lama.
 
@@ -1019,7 +1031,7 @@ Jika Access Token memiliki masa berlaku terlalu panjang (misal: 30 hari), pereta
 2. **Refresh Token:** Masa berlaku panjang (**7 s.d. 30 hari**), disimpan di database.
 3. Saat Access Token expired, frontend memanggil endpoint `POST /api/auth/refresh-token` membawa Refresh Token untuk mendapatkan Access Token baru tanpa memaksa user login ulang.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Frontend                        Backend
@@ -1041,9 +1053,9 @@ Refresh Token → token berumur panjang untuk memperbarui Access Token tanpa mem
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Mengapa CSRF Dinonaktifkan pada REST API Stateless
+## 17. 🔴 Mengapa CSRF Dinonaktifkan pada REST API Stateless
 
-## Konsep
+#### Konsep
 
 **Cross-Site Request Forgery (CSRF)** adalah serangan di mana situs jahat memanfaatkan cookie sesi browser yang otomatis terkirim untuk mengeksekusi aksi ilegal atas nama korban.
 
@@ -1061,9 +1073,9 @@ http.csrf(AbstractHttpConfigurer::disable) → menonaktifkan proteksi CSRF karen
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Integrasi CORS dengan Spring Security
+## 18. 🔴 Integrasi CORS dengan Spring Security
 
-## Konsep
+#### Konsep
 
 Jika aplikasi Anda menggunakan CORS (misal: Frontend Vue/React di port berbeda), browser akan mengirimkan request uji coba bernama **`OPTIONS Preflight Request`** sebelum request utama dikirim.
 
@@ -1072,7 +1084,7 @@ Jika Spring Security tidak dikonfigurasi untuk CORS, filter keamanan akan memblo
 Solusi:
 Tambahkan **`http.cors(Customizer.withDefaults())`** di dalam `SecurityFilterChain` agar Spring Security menggunakan aturan `CorsConfigurationSource` yang telah Anda definisikan.
 
-## Contoh
+#### Contoh
 
 ```java
 @Bean
@@ -1095,7 +1107,7 @@ http.cors(Customizer.withDefaults()) → mengintegrasikan izin CORS ke dalam Sec
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                      PETA ARSITEKTUR SPRING SECURITY & JWT
@@ -1113,7 +1125,7 @@ AUTENTIKASI & PASSWORD         JWT FILTER PIPELINE             OTORISASI & RBAC
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Komponen / Anotasi | Tipe | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -1134,7 +1146,7 @@ AUTENTIKASI & PASSWORD         JWT FILTER PIPELINE             OTORISASI & RBAC
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Spring Security & JWT 10 Detik
+## 21. ⚡ Cheat Code Spring Security & JWT 10 Detik
 
 ```java
 // 1. Template SecurityFilterChain Lengkap
@@ -1163,7 +1175,7 @@ public ResponseEntity<Void> deleteUser(@PathVariable Long id) { ... }
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Fundamental Password & UserDetails
@@ -1193,7 +1205,7 @@ Langkah 5: Siap Melangkah ke Automated Testing (MockMvc & Mockito)!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready Auth & Role-Based Access Control (RBAC) RESTful API
+## 23. 🏗️ Mini Project: Production-Ready Auth & Role-Based Access Control (RBAC) RESTful API
 
 Aplikasi backend lengkap dan runnable yang mengintegrasikan: **Registrasi User, Hashing BCrypt, Login Otentikasi, Penerbitan JWT Token, Custom `JwtAuthenticationFilter`, Role-Based Access Control (Public vs User vs Admin), `@PreAuthorize`, dan Custom 401/403 JSON Handlers**.
 
@@ -1475,7 +1487,7 @@ public class SecurityApplication {
 }
 ```
 
-## Contoh Demonstrasi Endpoint & JSON Output
+#### Contoh Demonstrasi Endpoint & JSON Output
 
 1. **Request Login Sukses `POST /api/v1/auth/login` (Status 200 OK):**
 ```json
@@ -1509,7 +1521,7 @@ public class SecurityApplication {
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Spring Security 6 Reference Documentation](https://docs.spring.io/spring-security/reference/index.html)
 - [Spring Security Architecture Guide](https://spring.io/guides/topicals/spring-security-architecture)

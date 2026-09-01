@@ -1,4 +1,16 @@
-# React Router Cheatsheet Revised
+---
+title: "React Router"
+description: "Routing modern dengan React Router (v6+): createBrowserRouter, RouterProvider, Outlet, Loaders, Actions, Nested Routes, dan Protected Routes."
+order: 2
+tags:
+  - web-development
+  - frontend
+  - react
+  - router
+  - spa
+---
+
+# React Router
 
 > **Target:** Pemula yang telah memahami dasar React (Components, JSX, Props, State, Effects), serta ingin membangun **Single Page Application (SPA) multi-halaman berkinerja tinggi menggunakan React Router v6.20+ / v7** (React 18 / 19 & Vite).
 >
@@ -99,9 +111,9 @@ BrowserRouter       → komponen konteks pembungkus utama yang menghubungkan Rea
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Client-Side Routing & Mental Model SPA
+## 1. 🟢 Pengenalan Client-Side Routing & Mental Model SPA
 
-## Konsep
+#### Konsep
 
 Pada website tradisional (Multi-Page Application / MPA), setiap kali pengguna mengklik menu navigasi, browser mengirimkan HTTP request baru ke server, layar berkedip putih (*Full Page Reload*), dan server mengirim ulang file HTML lengkap.
 
@@ -109,7 +121,7 @@ Pada **Single Page Application (SPA)** dengan **React Router**:
 - Server hanya mengirimkan satu file `index.html` dan bundle JavaScript di awal.
 - Saat pengguna berpindah halaman, **React Router mengubah URL browser menggunakan HTML5 History API** dan **langsung menukar komponen tampilan di layar secara instan tanpa reload browser sama sekali**.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Website Tradisional (MPA):
@@ -129,9 +141,9 @@ SPA (Single Page Application) → arsitektur web modern yang memuat satu halaman
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Instalasi & Setup Dasar `react-router-dom`
+## 2. 🟢 Instalasi & Setup Dasar `react-router-dom`
 
-## Konsep
+#### Konsep
 
 Untuk menggunakan React Router di aplikasi web React (Vite):
 ```bash
@@ -143,7 +155,7 @@ Tiga Komponen Fundamental:
 2. **`<Routes>`:** Mengevaluasi path URL saat ini dan memilih satu `<Route>` yang paling spesifik.
 3. **`<Route path="..." element={<Component />} />`:** Memetakan URL path ke komponen JSX.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import React from 'react';
@@ -183,9 +195,9 @@ export default function App() {
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Navigasi Antar Halaman: Komponen `<Link>` vs Tag `<a>` Standar
+## 3. 🟢 Navigasi Antar Halaman: Komponen `<Link>` vs Tag `<a>` Standar
 
-## Konsep
+#### Konsep
 
 > [!WARNING]
 > **DILARANG MENGGUNAKAN TAG `<a href="/about">` UNTUK NAVIGASI INTERNAL DI REACT!** Tag `<a>` standar akan memaksa browser melakukan refresh halaman penuh, yang merusak state aplikasi React di memori.
@@ -194,7 +206,7 @@ Gunakan komponen **`<Link to="/about">`**:
 - Mencegah browser melakukan reload halaman.
 - Mengubah URL secara mulus dan memicu pembaruan komponen secara instan (*Client-Side Navigation*).
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -226,15 +238,15 @@ export function NavigationBar() {
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Navigasi Aktif dengan `<NavLink>`
+## 4. 🟢 Navigasi Aktif dengan `<NavLink>`
 
-## Konsep
+#### Konsep
 
 Komponen **`<NavLink>`** adalah versi pintar dari `<Link>` yang dirancang khusus untuk **Menu Navigasi (Navbar / Sidebar)**.
 
 `<NavLink>` otomatis mengetahui apakah URL saat ini sedang aktif dan menyediakan parameter boolean **`isActive`** untuk memberikan styling CSS class atau inline style khusus (misal: menebalkan teks menu yang sedang aktif).
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { NavLink } from 'react-router-dom';
@@ -276,15 +288,15 @@ export function ActiveNavbar() {
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Halaman Not Found (404 Page) dengan Catch-All Route
+## 5. 🟢 Halaman Not Found (404 Page) dengan Catch-All Route
 
-## Konsep
+#### Konsep
 
 Jika pengguna mengetik URL yang tidak terdaftar di aplikasi (misal: `/halaman-acak-123`), kita harus menampilkan **Halaman 404 (Not Found)** yang informatif dan ramah.
 
 Gunakan **Catch-All Route: `path="*"`** yang diletakkan di **paling bawah** deklarasi `<Routes>`. Rute ini akan menangkap seluruh URL yang tidak cocok dengan rute di atasnya.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { Link } from 'react-router-dom';
@@ -320,9 +332,9 @@ function NotFoundPage() {
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Dynamic Routing & URL Params dengan `useParams()`
+## 6. 🟢 Dynamic Routing & URL Params dengan `useParams()`
 
-## Konsep
+#### Konsep
 
 Ketika membuat halaman detail (misal: detail produk `/products/101` atau profil user `/users/budi`), kita tidak mungkin membuat ratusan tag `<Route>` satu per satu.
 
@@ -331,7 +343,7 @@ Kita menggunakan **Dynamic Route** dengan menyematkan titik dua (`:`) pada segme
 
 Di dalam komponen target, kita mengekstrak nilai parameter dinamis tersebut menggunakan Hook **`useParams()`**.
 
-## Contoh
+#### Contoh
 
 Deklarasi Route:
 ```jsx
@@ -356,7 +368,7 @@ export default function ProductDetail() {
 }
 ```
 
-## Output
+#### Output
 
 Navigasi URL: `http://localhost:5173/products/PROD-99`
 ```text
@@ -375,9 +387,9 @@ const { paramName } = useParams() → mengekstrak nilai parameter dinamis dari U
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Query String & Search Params dengan `useSearchParams()`
+## 7. 🟢 Query String & Search Params dengan `useSearchParams()`
 
-## Konsep
+#### Konsep
 
 Query parameters berada di ujung URL setelah tanda tanya (contoh: `/search?keyword=laptop&sort=asc`).
 
@@ -386,7 +398,7 @@ Hook **`useSearchParams()`** bekerja sangat mirip dengan `useState`:
 - `searchParams.get("keyword")` : Membaca nilai query parameter.
 - `setSearchParams({ keyword: "mouse" })` : Memperbarui query parameter di URL secara reaktif.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useSearchParams } from 'react-router-dom';
@@ -434,9 +446,9 @@ searchParams.get("keyName")                                → membaca nilai que
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Navigasi Terprogram (*Programmatic Navigation*) dengan `useNavigate()`
+## 8. 🟢 Navigasi Terprogram (*Programmatic Navigation*) dengan `useNavigate()`
 
-## Konsep
+#### Konsep
 
 Seringkali kita perlu memindahkan halaman **secara otomatis melalui kode JavaScript** (misal: setelah user berhasil submit form login, setelah timer countdown selesai, atau tombol "Kembali ke Halaman Sebelumnya").
 
@@ -446,7 +458,7 @@ Gunakan Hook **`useNavigate()`**:
 - `navigate(-1)` : Mundur 1 langkah ke halaman sebelumnya (*Browser Back Button*).
 - `navigate(1)` : Maju 1 langkah ke halaman berikutnya (*Browser Forward Button*).
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useNavigate } from 'react-router-dom';
@@ -483,9 +495,9 @@ navigate(-1)                              → kembali ke halaman sebelumnya (Bac
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Mengoper State Antar Halaman dengan `useLocation()`
+## 9. 🟡 Mengoper State Antar Halaman dengan `useLocation()`
 
-## Konsep
+#### Konsep
 
 Terkadang kita ingin mengirim data sementara dari Halaman A ke Halaman B **tanpa menampilkan data tersebut di URL bar** (misal: mengirim pesan notifikasi sukses *"Registrasi berhasil, silakan login"* atau data checkout sementara).
 
@@ -493,7 +505,7 @@ Caranya:
 1. Saat navigasi, sertakan opsi `state`: `navigate("/login", { state: { flashMessage: "Akun siap!" } })`.
 2. Di halaman tujuan, baca data via Hook **`useLocation().state`**.
 
-## Contoh
+#### Contoh
 
 Halaman Pengirim (RegisterPage):
 ```jsx
@@ -539,9 +551,9 @@ const { state } = useLocation()             → membaca payload state di halaman
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Nested Routes & Komponen `<Outlet>`
+## 10. 🟡 Nested Routes & Komponen `<Outlet>`
 
-## Konsep
+#### Konsep
 
 Dalam aplikasi profesional, banyak halaman berbagi tata letak yang sama (misal: Header Navbar di atas, Sidebar di kiri, dan Footer di bawah). Hanya area konten tengah yang berganti-ganti.
 
@@ -549,7 +561,7 @@ Dalam aplikasi profesional, banyak halaman berbagi tata letak yang sama (misal: 
 1. Buat Komponen Layout yang meletakkan tag **`<Outlet />`** di area konten dinamisnya.
 2. Di deklarasi route, bungkus rute-rute anak (*Child Routes*) di dalam rute induk (*Parent Layout Route*).
 
-## Contoh
+#### Contoh
 
 1. Komponen Layout Bersama (RootLayout):
 ```jsx
@@ -594,7 +606,7 @@ export function RootLayout() {
 </Routes>
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                         RootLayout
@@ -621,9 +633,9 @@ export function RootLayout() {
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Index Route (`<Route index />`)
+## 11. 🟡 Index Route (`<Route index />`)
 
-## Konsep
+#### Konsep
 
 Ketika kita memiliki Nested Route (misal: parent path `/dashboard`), rute apa yang harus ditampilkan jika pengguna membuka URL tepat di `/dashboard` (tanpa sub-path tambahan)?
 
@@ -641,9 +653,9 @@ Gunakan **Index Route: `<Route index element={<DefaultComponent />} />`**:
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Protected Routes / Route Guards
+## 12. 🟡 Protected Routes / Route Guards
 
-## Konsep
+#### Konsep
 
 Halaman sensitif (seperti Dashboard Pengguna atau Panel Admin) **tidak boleh dapat diakses oleh pengunjung yang belum login**.
 
@@ -653,7 +665,7 @@ Halaman sensitif (seperti Dashboard Pengguna atau Panel Admin) **tidak boleh dap
 3. Jika belum login $\rightarrow$ redirect paksa menggunakan **`<Navigate to="/login" replace />`**.
 4. Jika sudah login $\rightarrow$ render konten menggunakan **`<Outlet />`** atau `{children}`.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
@@ -698,9 +710,9 @@ Penerapan di Deklarasi Routes:
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Multiple Layouts (Layout Publik vs Layout Admin Berbeda)
+## 13. 🟡 Multiple Layouts (Layout Publik vs Layout Admin Berbeda)
 
-## Konsep
+#### Konsep
 
 Aplikasi nyata seringkali membutuhkan tata letak yang berbeda drastis:
 - **Halaman Publik:** Memiliki Navbar umum dan Footer besar.
@@ -709,7 +721,7 @@ Aplikasi nyata seringkali membutuhkan tata letak yang berbeda drastis:
 
 Kita dapat membuat banyak layout bersarang di dalam `<Routes>` secara modular.
 
-## Contoh
+#### Contoh
 
 ```jsx
 <Routes>
@@ -743,9 +755,9 @@ Multiple Layouts → mengelompokkan rute-rute ke dalam parent layout wrapper yan
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Data Fetching Modern dengan Router Loaders (v6.4+)
+## 14. 🟡 Data Fetching Modern dengan Router Loaders (v6.4+)
 
-## Konsep
+#### Konsep
 
 Di React Router v6.4+, diperkenalkan arsitektur **Data Routers (`createBrowserRouter`)**.
 
@@ -753,7 +765,7 @@ Alih-alih melakukan fetching data di dalam `useEffect` di dalam komponen (yang m
 - React Router akan **memulai fetching data secara paralel sebelum komponen dirender**.
 - Komponen membaca data hasil fetch menggunakan Hook **`useLoaderData()`**.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { createBrowserRouter, RouterProvider, useLoaderData } from 'react-router-dom';
@@ -804,16 +816,16 @@ const data = useLoaderData() → membaca data hasil loader di dalam komponen
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Form Actions & Mutasi Data (v6.4+)
+## 15. 🟡 Form Actions & Mutasi Data (v6.4+)
 
-## Konsep
+#### Konsep
 
 React Router v6.4+ menyediakan komponen **`<Form method="post">`** dan fungsi **`action`** untuk menyederhanakan pengiriman form data (mutasi data) ala framework web modern:
 - Saat form disubmit, React Router otomatis memanggil fungsi `action`.
 - Anda membaca form data via `await request.formData()`.
 - Setelah mutasi sukses, router otomatis melakukan revalidasi dan memuat ulang seluruh data `loader` yang aktif secara otomatis.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { Form, redirect } from 'react-router-dom';
@@ -854,9 +866,9 @@ export function NewProductForm() {
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Error Handling Terisolasi pada Route (`errorElement` & `useRouteError`)
+## 16. 🟡 Error Handling Terisolasi pada Route (`errorElement` & `useRouteError`)
 
-## Konsep
+#### Konsep
 
 Jika terjadi error saat fetching API di fungsi `loader` atau error crash JavaScript pada halaman tertentu, secara default seluruh aplikasi React akan crash dan menampilkan layar kosong (*White Screen of Death*).
 
@@ -865,7 +877,7 @@ Properti **`errorElement`**:
 - Navbar dan bagian lain aplikasi tetap utuh dan berfungsi.
 - Hook **`useRouteError()`** dapat digunakan untuk membaca detail pesan error.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useRouteError, Link } from 'react-router-dom';
@@ -901,9 +913,9 @@ errorElement={<ErrorComponent />} → menangkap runtime error terisolasi pada le
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Code Splitting & Lazy Loading Halaman
+## 17. 🔴 Code Splitting & Lazy Loading Halaman
 
-## Konsep
+#### Konsep
 
 Pada aplikasi besar dengan puluhan halaman, mendownload seluruh kode halaman di awal membuat loading pertama aplikasi menjadi lambat (*Bundle Size Bengkak*).
 
@@ -911,7 +923,7 @@ Pada aplikasi besar dengan puluhan halaman, mendownload seluruh kode halaman di 
 - Halaman hanya didownload dari server saat pengguna benar-benar menavigasi ke halaman tersebut.
 - Menggunakan kombinasi **`React.lazy()`** dan **`<Suspense fallback={<Loading />}>`**.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import React, { lazy, Suspense } from 'react';
@@ -948,9 +960,9 @@ const Page = lazy(() => import('./Page')); <Suspense fallback={<Loader />}> ... 
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Scroll Restoration Otomatis
+## 18. 🔴 Scroll Restoration Otomatis
 
-## Konsep
+#### Konsep
 
 Pada navigasi Single Page Application, saat pengguna scroll ke bawah di Halaman A lalu mengklik link ke Halaman B, browser terkadang mempertahankan posisi scroll di tengah halaman.
 
@@ -966,7 +978,7 @@ Komponen **`<ScrollRestoration />`** di Data Routers (`createBrowserRouter`) oto
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                         PETA ARSITEKTUR REACT ROUTER
@@ -985,7 +997,7 @@ SETUP & NAVIGASI              DYNAMIC & QUERY PARAMS         LAYOUTS & GUARDS
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Komponen / Hook | Tipe | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -1005,7 +1017,7 @@ SETUP & NAVIGASI              DYNAMIC & QUERY PARAMS         LAYOUTS & GUARDS
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code React Router 10 Detik
+## 21. ⚡ Cheat Code React Router 10 Detik
 
 ```jsx
 // 1. Template Rute Dinamis & Parameter
@@ -1026,7 +1038,7 @@ function ProtectedGuard({ isAuth }) {
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Setup Routing Dasar & Navigasi
@@ -1056,7 +1068,7 @@ Langkah 5: Siap Mengintegrasikan Global State Management dengan Zustand!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready E-Commerce & Admin Dashboard SPA Web App
+## 23. 🏗️ Mini Project: Production-Ready E-Commerce & Admin Dashboard SPA Web App
 
 Aplikasi SPA e-commerce lengkap dan runnable yang mengintegrasikan: **`BrowserRouter`, Nested Layouts dengan `<Outlet>`, Dynamic Routes (`/products/:productId`), Query Search Params (`useSearchParams`), Programmatic Navigation (`useNavigate`), Protected Route Guard, Auth State, dan 404 Catch-All Page**.
 
@@ -1299,7 +1311,7 @@ export default function App() {
 }
 ```
 
-## Hasil Output Alur Demonstrasi SPA
+#### Hasil Output Alur Demonstrasi SPA
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -1323,7 +1335,7 @@ export default function App() {
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [React Router Official Documentation (reactrouter.com)](https://reactrouter.com/)
 - [React Router GitHub Repository](https://github.com/remix-run/react-router)

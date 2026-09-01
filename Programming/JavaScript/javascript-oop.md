@@ -1,4 +1,15 @@
-# JavaScript OOP Cheatsheet Revised
+---
+title: "JavaScript OOP"
+description: "Object-Oriented Programming di JavaScript: prototype chain, constructor function, ES6 classes, inheritance, encapsulation (#private), dan polymorphism."
+order: 3
+tags:
+  - programming
+  - javascript
+  - oop
+  - intermediate
+---
+
+# JavaScript OOP
 
 > **Target:** Pemula yang sudah memahami dasar JavaScript (object, function, array) dan ingin menguasai Object-Oriented Programming (OOP) modern di JavaScript (ES6 / ES2022+).
 >
@@ -107,24 +118,24 @@ Inheritance → Pewarisan fitur dari parent class ke child class via extends
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan OOP & 4 Pilar Utama
+## 1. 🟢 Pengenalan OOP & 4 Pilar Utama
 
-## Konsep
+#### Konsep
 
 **Object-Oriented Programming (OOP)** adalah paradigma pemrograman yang berpusat pada pembuatan **Object**—sebuah entitas mandiri yang menggabungkan data (**Property / State**) dan fungsi pengolah data tersebut (**Method / Behavior**).
 
 OOP memudahkan kita dalam mengorganisasi kode aplikasi skala besar agar lebih terstruktur, mudah dirawat (*maintainable*), dan dapat digunakan kembali (*reusable*).
 
-### 4 Pilar Utama OOP:
+##### 4 Pilar Utama OOP:
 1. **Encapsulation (Enkapsulasi):** Membungkus data dan method ke dalam satu unit objek serta menyembunyikan detail internal yang sensitif dari akses luar.
 2. **Inheritance (Pewarisan):** Kemampuan sebuah class anak (*child class*) untuk mewarisi property dan method dari class induk (*parent class*).
 3. **Polymorphism (Polimorfisme):** Kemampuan berbagai objek untuk merespons method dengan nama yang sama dengan cara/perilaku yang berbeda sesuai tipe objeknya.
 4. **Abstraction (Abstraksi):** Menyembunyikan kompleksitas implementasi internal dan hanya mengekspos antarmuka (*interface*) penting yang dibutuhkan pengguna.
 
-### Mental Model OOP di JavaScript:
+##### Mental Model OOP di JavaScript:
 JavaScript pada intinya adalah bahasa berbasis **Prototype** (*Prototype-based Object Orientation*). Sintaks `class` yang diperkenalkan pada ES6 (2015) adalah *Syntactic Sugar* (pemanis sintaks) di atas sistem prototype untuk membuat penulisan kode OOP terasa familiar seperti di Java, C#, atau PHP.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Konsep Objek: Menggabungkan Data (Property) dan Perilaku (Method)
@@ -146,14 +157,14 @@ console.log(bankAccount.checkBalance());
 console.log(bankAccount.deposit(1500000));
 ```
 
-## Output
+#### Output
 
 ```text
 Pemilik: Budi Santoso | Saldo: Rp5.000.000
 Setor Rp1.500.000 berhasil. Saldo saat ini: Rp6.500.000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Konsep Objek dalam Memori
@@ -182,7 +193,7 @@ Method   → Fungsi di dalam objek yang mendefinisikan aksi atau perilaku
 Class    → Blueprint / cetak biru untuk menciptakan banyak objek sejenis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Kelompokkan fungsi-fungsi yang bekerja pada sekumpulan data yang sama menjadi satu unit objek/class.
 - ❌ Jangan membuat objek dengan properti yang tersebar dan diolah oleh fungsi-fungsi global yang terpisah secara acak (gaya prosedural murni).
@@ -191,9 +202,9 @@ Class    → Blueprint / cetak biru untuk menciptakan banyak objek sejenis
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Constructor Function
+## 2. 🟢 Constructor Function
 
-## Konsep
+#### Konsep
 
 Sebelum adanya sintaks `class` di ES6, cara standar untuk membuat *blueprint* objek di JavaScript adalah menggunakan **Constructor Function**.
 
@@ -206,7 +217,7 @@ Karakteristik Constructor Function:
   3. Mengarahkan prototype objek baru ke prototype Constructor Function.
   4. Mengembalikan (*return*) objek baru tersebut secara implisit.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Mendefinisikan Constructor Function
@@ -225,7 +236,7 @@ console.log("User 2:", user2);
 console.log("Apakah user1 adalah instance dari User?", user1 instanceof User);
 ```
 
-## Output
+#### Output
 
 ```text
 User 1: User { username: 'budisantoso', email: 'budi@example.com' }
@@ -233,7 +244,7 @@ User 2: User { username: 'sitirahma', email: 'siti@example.com' }
 Apakah user1 adalah instance dari User? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             Pemanggilan: new User("budisantoso", "budi@...")
@@ -258,7 +269,7 @@ function Identifier(parameters) { this.property = value; } → Pola Constructor 
 const instance = new Identifier(arguments)                 → Instansiasi objek baru dari constructor
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu awali nama constructor function dengan huruf besar (*PascalCase*) sebagai penanda bahwa fungsi tersebut wajib dipanggil dengan `new`.
 - ❌ Jangan memanggil constructor function tanpa kata kunci `new`, karena tanpa `new`, `this` akan merujuk ke Global Object / undefined (di strict mode) dan tidak akan menghasilkan objek baru.
@@ -267,15 +278,15 @@ const instance = new Identifier(arguments)                 → Instansiasi objek
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Property di Constructor Function
+## 3. 🟢 Property di Constructor Function
 
-## Konsep
+#### Konsep
 
 **Property** di dalam constructor function adalah variabel yang ditempelkan ke objek melalui kata kunci **`this`** (`this.propertyName = value`).
 
 Setiap kali objek baru dibuat dengan kata kunci `new`, objek tersebut akan memiliki salinan (*copy*) independen dari seluruh properti yang didefinisikan di dalam constructor. Nilai properti satu objek tidak akan memengaruhi nilai properti objek lainnya.
 
-## Contoh
+#### Contoh
 
 ```javascript
 function Product(code, name, price, stock = 0) {
@@ -296,14 +307,14 @@ console.log("Stok Produk A:", productA.stock); // 8
 console.log("Stok Produk B:", productB.stock); // 25 (Tetap tidak terpengaruh!)
 ```
 
-## Output
+#### Output
 
 ```text
 Stok Produk A: 8
 Stok Produk B: 25
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        new Product("PRD-01", ...)           new Product("PRD-02", ...)
@@ -322,7 +333,7 @@ Stok Produk B: 25
 this.propertyName = value → Menetapkan nilai properti unik pada instance objek
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Berikan nilai default pada parameter constructor untuk menghindari properti bernilai `undefined` jika argumen tidak lengkap.
 - ❌ Hindari menaruh data yang seharusnya dipakai bersama (*shared data*) langsung di dalam `this` constructor jika data tersebut tidak pernah berubah nilainya (gunakan prototype atau static).
@@ -331,18 +342,18 @@ this.propertyName = value → Menetapkan nilai properti unik pada instance objek
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Method di Constructor Function & Masalah Duplikasi Memori
+## 4. 🟢 Method di Constructor Function & Masalah Duplikasi Memori
 
-## Konsep
+#### Konsep
 
 Kita dapat menambahkan **Method** (fungsi aksi) langsung ke dalam constructor function dengan menempelkannya pada `this` (`this.methodName = function() { ... }`).
 
-### Masalah Duplikasi Memori:
+##### Masalah Duplikasi Memori:
 Jika sebuah method didefinisikan langsung di dalam body constructor function menggunakan `this.methodName`, maka **setiap kali objek baru di-instansiasi (`new`), fungsi method tersebut akan diduplikasi dan dialokasikan ulang di memori**.
 
 Jika kita membuat 10.000 objek, maka akan ada 10.000 salinan fungsi yang persis sama di dalam RAM. Inilah alasan mengapa penempatan method dianjurkan menggunakan **Prototype**.
 
-## Contoh
+#### Contoh
 
 ```javascript
 function Driver(name, vehicle) {
@@ -366,7 +377,7 @@ console.log(driver2.drive());
 console.log("Apakah referensi method sama?", driver1.drive === driver2.drive); // false
 ```
 
-## Output
+#### Output
 
 ```text
 Andi sedang mengemudikan Truk
@@ -374,7 +385,7 @@ Bambang sedang mengemudikan Bus
 Apakah referensi method sama? false
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
            driver1                               driver2
@@ -392,7 +403,7 @@ this.methodName = function() { ... } → Menempelkan method langsung pada setiap
 instance1.method === instance2.method → Bernilai false (menandakan fungsi diduplikasi di memori)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Ketahui bahwa mendefinisikan method langsung di dalam constructor hanya tepat jika method tersebut membutuhkan akses ke variabel lokal tertutup (*closure*).
 - ❌ Untuk method umum yang logikanya identik pada seluruh instance, gunakan mekanisme **Prototype** agar memori digunakan bersama (*shared memory*).
@@ -401,9 +412,9 @@ instance1.method === instance2.method → Bernilai false (menandakan fungsi didu
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Parameter di Constructor Function
+## 5. 🟢 Parameter di Constructor Function
 
-## Konsep
+#### Konsep
 
 Constructor function dapat menerima sejumlah **Parameter** layaknya fungsi biasa di JavaScript. Parameter ini digunakan untuk menginisialisasi nilai awal properti saat objek diciptakan.
 
@@ -411,7 +422,7 @@ Teknik Penanganan Parameter:
 1. **Positional Arguments:** Menerima argumen berdasarkan urutan posisi (`new User(name, email, age)`).
 2. **Options Object (Destructuring):** Menerima satu objek konfigurasi (`new User({ name, email, age })`). Sangat direkomendasikan jika parameter berjumlah banyak (lebih dari 3) atau memiliki banyak nilai opsional.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menggunakan Positional Parameters standar
@@ -441,7 +452,7 @@ const prodServer = new ServerConfig({
 console.log("Server Config:", prodServer);
 ```
 
-## Output
+#### Output
 
 ```text
 Course 1: Course { title: 'Mastering JS OOP', instructor: 'Fajar Pratama', durationHours: 25 }
@@ -453,7 +464,7 @@ Server Config: ServerConfig {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         new ServerConfig({ host: "api...", ssl: true })
@@ -471,7 +482,7 @@ Server Config: ServerConfig {
 function Identifier({ param1 = def1, param2 = def2 } = {}) → Pola inisialisasi object options
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan pola *Options Object* jika constructor memiliki lebih dari 3 parameter agar pemanggil tidak perlu mengingat urutan posisi argumen.
 - ❌ Jangan membuat constructor dengan belasan parameter bertipe sama berurutan tanpa nama objek pembungkus.
@@ -480,9 +491,9 @@ function Identifier({ param1 = def1, param2 = def2 } = {}) → Pola inisialisasi
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Constructor Inheritance (Parent.call(this))
+## 6. 🟢 Constructor Inheritance (Parent.call(this))
 
-## Konsep
+#### Konsep
 
 Sebelum adanya kata kunci `class` dan `extends`, pewarisan antar constructor function dilakukan dengan meminjam constructor induk menggunakan method **`Parent.call(this, ...arguments)`**.
 
@@ -490,7 +501,7 @@ Cara Kerja:
 - Method `.call()` mengeksekusi constructor induk (`Parent`) dengan memaksa kata kunci `this` di dalamnya mengarah ke instance objek milik anak (`Child`).
 - Dengan demikian, semua inisialisasi properti yang ada di `Parent` akan otomatis diterapkan ke objek `Child`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Constructor Induk (Parent)
@@ -518,7 +529,7 @@ console.log("Allowance:", techManager.allowance);
 console.log("Objek Manager:", techManager);
 ```
 
-## Output
+#### Output
 
 ```text
 Manager Name: Hendra
@@ -533,7 +544,7 @@ Objek Manager: Manager {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          new Manager("Hendra", 15000000, "Engineering", 5000000)
@@ -554,7 +565,7 @@ Objek Manager: Manager {
 ParentConstructor.call(this, ...args) → Meminjam constructor parent untuk mengisi properti
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pahami mekanisme `Parent.call(this)` untuk mengerti fondasi bagaimana cara kerja kata kunci modern `super()` di balik layar.
 - ❌ Ingat bahwa `Parent.call(this)` hanya mewarisi **properti instance**, belum mewarisi method yang ada di `Parent.prototype` (memerlukan prototype chaining).
@@ -563,9 +574,9 @@ ParentConstructor.call(this, ...args) → Meminjam constructor parent untuk meng
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Prototype (prototype & __proto__)
+## 7. 🟢 Prototype (prototype & __proto__)
 
-## Konsep
+#### Konsep
 
 Setiap fungsi di JavaScript secara otomatis memiliki properti khusus bernama **`prototype`**. Objek prototype ini berfungsi sebagai **wadah bersama (*shared storage*)** untuk seluruh method dan data yang ingin diwariskan ke semua instance objek yang diciptakan dari fungsi tersebut.
 
@@ -574,7 +585,7 @@ Karakteristik Prototype:
 - Setiap objek hasil `new Constructor()` memiliki tautan internal internal (**`[[Prototype]]`** atau dapat diakses via **`__proto__`**) yang mengarah ke `Constructor.prototype`.
 - **Property Lookup:** Ketika kita memanggil `instance.methodName()`, JavaScript pertama-tama mencari di objek itu sendiri. Jika tidak ditemukan, JavaScript otomatis mencari ke atas melalui tautan prototype.
 
-## Contoh
+#### Contoh
 
 ```javascript
 function Student(id, name) {
@@ -602,7 +613,7 @@ console.log("Apakah method identik?", student1.study === student2.study); // tru
 console.log("Prototype check:", Object.getPrototypeOf(student1) === Student.prototype); // true
 ```
 
-## Output
+#### Output
 
 ```text
 Mahasiswa Ahmad (NIM: 101) sedang belajar Struktur Data
@@ -611,7 +622,7 @@ Apakah method identik? true
 Prototype check: true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           student1.study("Struktur Data")
@@ -636,7 +647,7 @@ Constructor.prototype.methodName = function() { ... } → Menambahkan method sha
 Object.getPrototypeOf(instance)                       → Cara standar membaca prototype dari suatu objek
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu letakkan method umum di `prototype` alih-alih di dalam body constructor function.
 - ❌ Gunakan `Object.getPrototypeOf(obj)` alih-alih properti non-standar `obj.__proto__` untuk membaca prototype objek.
@@ -645,9 +656,9 @@ Object.getPrototypeOf(instance)                       → Cara standar membaca p
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Prototype Inheritance & Prototype Chain
+## 8. 🟢 Prototype Inheritance & Prototype Chain
 
-## Konsep
+#### Konsep
 
 **Prototype Chain** (Rantai Prototype) adalah mekanisme bagaimana objek di JavaScript saling mewarisi fitur satu sama lain.
 
@@ -660,7 +671,7 @@ Jika sebuah method/properti dipanggil pada suatu objek:
 
 Untuk menghubungkan prototype `Child` agar mewarisi `Parent.prototype`, digunakan **`Object.setPrototypeOf(Child.prototype, Parent.prototype)`** atau `Object.create()`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Parent Constructor & Prototype
@@ -693,7 +704,7 @@ console.log(myDog.eat());  // Mewarisi dari Animal.prototype
 console.log(myDog.toString()); // Mewarisi dari puncak Object.prototype
 ```
 
-## Output
+#### Output
 
 ```text
 Milo (Golden Retriever) menggonggong: Guk Guk!
@@ -701,7 +712,7 @@ Milo sedang makan.
 [object Object]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                             Rantai Prototype (Lookup)
@@ -738,7 +749,7 @@ Object.setPrototypeOf(Child.prototype, Parent.prototype) → Menyambungkan ranta
 Object.prototype                                         → Akar teratas dari semua objek di JavaScript
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pahami alur rantai prototype untuk memahami cara kerja inheritance di JavaScript.
 - ❌ Jangan pernah memodifikasi prototype bawaan global seperti `Object.prototype` atau `Array.prototype` (*Monkey Patching*), karena dapat merusak library lain dan menimbulkan celah keamanan.
@@ -747,9 +758,9 @@ Object.prototype                                         → Akar teratas dari s
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Class Declaration & Expression (ES6)
+## 9. 🟢 Class Declaration & Expression (ES6)
 
-## Konsep
+#### Konsep
 
 Mulai standar ECMAScript 2015 (ES6), JavaScript memperkenalkan kata kunci **`class`**. Sintaks ini menyediakan cara yang jauh lebih bersih, modern, dan ekspresif untuk membangun aplikasi berorientasi objek tanpa harus memanipulasi `prototype` secara manual.
 
@@ -759,7 +770,7 @@ Karakteristik Penting `class` di JavaScript:
 - **Strict Mode Otomatis:** Seluruh kode di dalam body `class` secara otomatis dieksekusi dalam mode ketat (*Strict Mode*).
 - Dapat dideklarasikan sebagai **Class Declaration** (`class Name {}`) atau **Class Expression** (`const Name = class {}`).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Class Declaration
@@ -787,7 +798,7 @@ console.log(gateway.process(250000));
 console.log("typeof Member:", typeof Member); // "function"
 ```
 
-## Output
+#### Output
 
 ```text
 Selamat datang di platform komunitas!
@@ -795,7 +806,7 @@ Memproses transaksi senilai Rp250.000
 typeof Member: function
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           class Member { sayWelcome() {} }
@@ -814,7 +825,7 @@ class ClassName { ... }         → Mendeklarasikan class blueprint modern (ES6)
 const ClassName = class { ... } → Mendeklarasikan class expression ke dalam variabel
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan sintaks modern `class` untuk seluruh pengembangan aplikasi baru alih-alih constructor function jadul.
 - ❌ Jangan mencoba memanggil class tanpa kata kunci `new`, karena engine JavaScript akan langsung melempar `TypeError: Class constructor cannot be invoked without 'new'`.
@@ -823,9 +834,9 @@ const ClassName = class { ... } → Mendeklarasikan class expression ke dalam va
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Constructor di Class
+## 10. 🟢 Constructor di Class
 
-## Konsep
+#### Konsep
 
 Method **`constructor`** adalah method khusus di dalam sebuah `class` yang otomatis dieksekusi pertama kali setiap kali objek baru dibuat melalui kata kunci `new`.
 
@@ -834,7 +845,7 @@ Karakteristik Method Constructor:
 - Digunakan untuk menerima parameter inisialisasi dan menyiapkan nilai awal properti objek (`this.propertyName = value`).
 - Jika kita tidak menuliskan method `constructor`, JavaScript akan otomatis menyediakan constructor kosong default (`constructor() {}`).
 
-## Contoh
+#### Contoh
 
 ```javascript
 class Laptop {
@@ -860,7 +871,7 @@ console.log(myLaptop.turnOn());
 console.log("Status Daya Sekarang:", myLaptop.isPowerOn);
 ```
 
-## Output
+#### Output
 
 ```text
 [Constructor]: Menginisialisasi laptop ThinkPad...
@@ -869,7 +880,7 @@ ThinkPad (Intel Core i7, 16GB RAM) berhasil dinyalakan.
 Status Daya Sekarang: true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             new Laptop("ThinkPad", "Intel Core i7", 16)
@@ -893,7 +904,7 @@ Status Daya Sekarang: true
 constructor(...parameters) { ... } → Method inisialisasi wajib yang otomatis dipanggil saat 'new'
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Lakukan validasi tipe data awal di dalam constructor untuk menjamin integritas data objek sejak awal diciptakan.
 - ❌ Jangan pernah menulis lebih dari satu method `constructor` dalam satu class yang sama karena akan menghasilkan `SyntaxError`.
@@ -902,9 +913,9 @@ constructor(...parameters) { ... } → Method inisialisasi wajib yang otomatis d
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Property di Class
+## 11. 🟢 Property di Class
 
-## Konsep
+#### Konsep
 
 Property pada class merepresentasikan data atau status (*state*) dari suatu instance objek.
 
@@ -912,7 +923,7 @@ Di JavaScript modern, terdapat dua cara mendeklarasikan properti:
 1. **Di Dalam Constructor (`this.prop = val`):** Cara paling umum saat nilai properti bergantung pada argumen yang dikirim saat instansiasi.
 2. **Public Field Declaration (Di Luar Constructor):** Mendeklarasikan properti langsung di body class (didukung sejak ES2022). Sangat bersih untuk nilai default yang tidak memerlukan parameter constructor.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class Article {
@@ -948,7 +959,7 @@ console.log(article1.read());
 console.log(article1.read());
 ```
 
-## Output
+#### Output
 
 ```text
 Status Publikasi Awal: false
@@ -957,7 +968,7 @@ Membaca "Panduan Lengkap JavaScript OOP" oleh Rian Hidayat. Total tayangan: 1
 Membaca "Panduan Lengkap JavaScript OOP" oleh Rian Hidayat. Total tayangan: 2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Instansiasi: new Article("Panduan...", "Rian...")
@@ -976,7 +987,7 @@ propertyName = defaultValue; → Public field langsung di body class
 this.propertyName = value;   → Properti yang didefinisikan di dalam method/constructor
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan deklarasi *public field* untuk properti yang memiliki nilai awal tetap agar struktur data class terlihat jelas di bagian atas class body.
 - ❌ Jangan biarkan properti dibiarkan tanpa inisialisasi awal jika berpotensi menyebabkan nilai `undefined` saat diakses method.
@@ -985,9 +996,9 @@ this.propertyName = value;   → Properti yang didefinisikan di dalam method/con
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Method di Class & Prototype Method
+## 12. 🟢 Method di Class & Prototype Method
 
-## Konsep
+#### Konsep
 
 Method di dalam class adalah fungsi yang mendefinisikan aksi atau kemampuan yang dapat dilakukan oleh objek tersebut.
 
@@ -997,7 +1008,7 @@ Karakteristik Method di Class:
 - Di dalam method, kata kunci **`this`** secara otomatis merujuk ke instance objek yang sedang memanggil method tersebut.
 - Penulisan method menggunakan format ringkas (*method shorthand*), tanpa kata kunci `function`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class BankCustomer {
@@ -1036,7 +1047,7 @@ console.log(customerB.withdraw(700000)); // Gagal
 console.log("Apakah method shared di prototype?", customerA.deposit === customerB.deposit); // true
 ```
 
-## Output
+#### Output
 
 ```text
 Setor Rp500.000 berhasil. Saldo: Rp1.500.000
@@ -1045,7 +1056,7 @@ Penarikan gagal! Saldo tidak cukup (Sisa: Rp500.000)
 Apakah method shared di prototype? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      customerA.deposit(500000)
@@ -1067,7 +1078,7 @@ methodName(parameters) { ... } → Mendefinisikan prototype method di dalam clas
 this.propertyName               → Mengakses data milik instance pemanggil saat ini
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pisahkan logika operasi data yang kompleks menjadi method-method kecil yang fokus (*Single Responsibility*).
 - ❌ Jangan menambahkan tanda koma `,` di antara definisi method di dalam class (berbeda dengan object literal biasa yang memerlukan koma).
@@ -1076,9 +1087,9 @@ this.propertyName               → Mengakses data milik instance pemanggil saat
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Class Inheritance (extends)
+## 13. 🟡 Class Inheritance (extends)
 
-## Konsep
+#### Konsep
 
 **Class Inheritance** (Pewarisan Kelas) adalah konsep di mana sebuah class turunan (**Child Class / Subclass**) dapat mewarisi seluruh properti dan method dari class induk (**Parent Class / Superclass**) menggunakan kata kunci **`extends`**.
 
@@ -1086,7 +1097,7 @@ Manfaat Utama Inheritance:
 - **Code Reusability:** Menghindari penulisan kode berulang dengan menaruh properti dan logika umum di class parent.
 - **Hierarki Model:** Membangun relasi *is-a* (misal: *Manager is an Employee*, *ElectricCar is a Vehicle*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Parent Class (Superclass)
@@ -1117,7 +1128,7 @@ console.log(myEV.chargeBattery()); // Milik class ElectricCar
 console.log("Kapasitas Baterai:", myEV.batteryCapacity);
 ```
 
-## Output
+#### Output
 
 ```text
 Mesin Hyundai Ioniq (2024) berhasil dihidupkan.
@@ -1125,7 +1136,7 @@ Mengisi daya baterai Hyundai Ioniq (75 kWh)...
 Kapasitas Baterai: 75 kWh
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          myEV.startEngine()
@@ -1146,7 +1157,7 @@ Kapasitas Baterai: 75 kWh
 class SubClass extends SuperClass { ... } → Mewarisi seluruh method dan properti dari SuperClass
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Buat parent class untuk hal-hal yang bersifat umum dan abstrak, lalu gunakan subclass untuk hal-hal yang spesifik.
 - ❌ Jangan membuat pohon pewarisan yang terlalu dalam bertingkat-tingkat (misal lebih dari 3-4 tingkat) karena membuat alur kode sulit dilacak.
@@ -1155,9 +1166,9 @@ class SubClass extends SuperClass { ... } → Mewarisi seluruh method dan proper
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Super Constructor (super())
+## 14. 🟡 Super Constructor (super())
 
-## Konsep
+#### Konsep
 
 Ketika sebuah subclass memiliki method `constructor`-nya sendiri, kita **WAJIB memanggil `super()`** di baris pertama sebelum mengakses kata kunci `this`.
 
@@ -1165,7 +1176,7 @@ Fungsi `super()`:
 - Memanggil method constructor milik parent class untuk menginisialisasi properti warisan.
 - Menyiapkan konteks `this` untuk subclass. Jika `super()` tidak dipanggil, engine JavaScript akan melempar `ReferenceError: Must call super constructor in derived class before accessing 'this'`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Parent Class
@@ -1202,14 +1213,14 @@ console.log(teacher1.getDetails()); // Dari Parent
 console.log(teacher1.teach());      // Dari Child
 ```
 
-## Output
+#### Output
 
 ```text
 Nama: Dra. Siti Aminah, Usia: 45 tahun
 Guru Dra. Siti Aminah sedang mengajar mata pelajaran Fisika Modern
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      new Teacher("Dra. Siti Aminah", 45, "Fisika Modern", "CERT-8899")
@@ -1233,7 +1244,7 @@ Guru Dra. Siti Aminah sedang mengajar mata pelajaran Fisika Modern
 super(...arguments) → Memanggil constructor parent class (wajib sebelum mengakses 'this')
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu letakkan panggilan `super()` di baris pertama constructor subclass.
 - ❌ Jangan pernah mencoba membaca atau menulis properti `this.something` sebelum memanggil `super()`.
@@ -1242,16 +1253,16 @@ super(...arguments) → Memanggil constructor parent class (wajib sebelum mengak
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Super Method (super.method()) & Method Overriding
+## 15. 🟡 Super Method (super.method()) & Method Overriding
 
-## Konsep
+#### Konsep
 
 1. **Method Overriding (Penimpaan Method):**
    Subclass dapat mendefinisikan ulang method yang namanya sama persis dengan yang ada di parent class untuk memberikan perilaku baru yang lebih spesifik.
 2. **Super Method (`super.methodName()`):**
    Subclass dapat memanggil method asli milik parent class dari dalam method yang di-override menggunakan sintaks `super.methodName()`, sehingga kita bisa memperkaya (*extend*) perilaku parent tanpa harus menulis ulang kodenya dari nol.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class NotificationService {
@@ -1280,14 +1291,14 @@ console.log(plainService.send("user@mail.com", "Halo Dunia"));
 console.log(secureService.send("ceo@corp.com", "Laporan Rahasia Perusahaan"));
 ```
 
-## Output
+#### Output
 
 ```text
 [Standard Log]: Mengirim pesan ke "user@mail.com": "Halo Dunia"
 [Standard Log]: Mengirim pesan ke "ceo@corp.com": "TGFwb3JhbiBSYWhhc2lhIFBlcnVzYWhhYW4=" (Status: Terenkripsi End-to-End)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          secureService.send(...)
@@ -1311,7 +1322,7 @@ console.log(secureService.send("ceo@corp.com", "Laporan Rahasia Perusahaan"));
 super.methodName(...args) → Memanggil method milik parent class dari dalam subclass
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan `super.method()` saat ingin memperkaya fitur parent tanpa menghilangkan alur kerja validasi atau logging yang sudah ada di parent.
 - ❌ Hati-hati saat meng-override method; pastikan tipe nilai kembalian (*return type*) tetap konsisten dengan kontrak parent agar tidak merusak kode pemanggil (*Liskov Substitution Principle*).
@@ -1320,9 +1331,9 @@ super.methodName(...args) → Memanggil method milik parent class dari dalam sub
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Getter dan Setter di Class
+## 16. 🟡 Getter dan Setter di Class
 
-## Konsep
+#### Konsep
 
 Kata kunci **`get`** dan **`set`** pada class memungkinkan kita mendefinisikan method yang bertindak seolah-olah sebagai properti biasa (*Accessor Properties*).
 
@@ -1330,7 +1341,7 @@ Manfaat Getter & Setter di Class:
 - **Getter (`get propertyName()`):** Menghitung nilai dinamis (*computed property*) saat properti dibaca.
 - **Setter (`set propertyName(value)`):** Memvalidasi atau memformat data sebelum nilai disimpan ke dalam properti internal.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class UserAccount {
@@ -1387,7 +1398,7 @@ account.balance = 3000000; // Berhasil
 console.log("Saldo Akhir: Rp", account.balance);
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Lengkap: Ahmad Dahlan
@@ -1397,7 +1408,7 @@ Error: Saldo tidak boleh negatif atau non-angka!
 Saldo Akhir: Rp 3000000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        account.fullName = "Muhammad Ahmad Dahlan"
@@ -1416,7 +1427,7 @@ get propertyName() { return value; } → Mendefinisikan properti baca dinamis (t
 set propertyName(value) { ... }      → Mendefinisikan properti tulis dengan validasi otomatis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan getter untuk kalkulasi data turunan (seperti usia dari tanggal lahir, total harga dari subtotal+pajak).
 - ❌ Jangan menamai getter/setter persis sama dengan nama properti penyimpan internalnya tanpa pembeda (misal `_balance`), karena akan memicu *infinite loop recursion*.
@@ -1425,9 +1436,9 @@ set propertyName(value) { ... }      → Mendefinisikan properti tulis dengan va
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Public Class Field
+## 17. 🟡 Public Class Field
 
-## Konsep
+#### Konsep
 
 **Public Class Field** (fitur resmi ECMAScript 2022) memungkinkan kita mendeklarasikan properti publik langsung di dalam body class tanpa perlu menuliskannya di dalam constructor.
 
@@ -1436,7 +1447,7 @@ Karakteristik:
 - Dapat diakses dan diubah secara bebas dari luar objek.
 - Membuat definisi atribut class terlihat sangat rapi dan terdokumentasi di bagian paling atas class.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class SmartDevice {
@@ -1463,7 +1474,7 @@ console.log("Status Online:", lamp.isOnline);
 console.log("Firmware:", lamp.firmwareVersion);
 ```
 
-## Output
+#### Output
 
 ```text
 Smart Lamp Ruang Tamu (192.168.1.50) berhasil terhubung ke jaringan.
@@ -1471,7 +1482,7 @@ Status Online: true
 Firmware: v1.0.0
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             class SmartDevice { field = val; }
@@ -1487,7 +1498,7 @@ Firmware: v1.0.0
 class ClassName { fieldName = defaultValue; } → Deklarasi public field modern di body class
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan public field untuk mendefinisikan seluruh variabel status default instance agar class mudah dibaca.
 - ❌ Jangan gunakan public field jika data tersebut bersifat rahasia dan tidak boleh dimodifikasi langsung dari luar (gunakan *Private Field* `#`).
@@ -1496,9 +1507,9 @@ class ClassName { fieldName = defaultValue; } → Deklarasi public field modern 
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Private Class Field (#field) & Enkapsulasi Asli
+## 18. 🟡 Private Class Field (#field) & Enkapsulasi Asli
 
-## Konsep
+#### Konsep
 
 Sebelum standar ES2022, JavaScript tidak memiliki fitur enkapsulasi privat murni (developer hanya menggunakan konvensi underscore `_property` yang tetap bisa diakses dari luar).
 
@@ -1509,7 +1520,7 @@ Karakteristik Private Field:
 - **Tidak Dapat Diakses dari Luar:** Mencoba membaca atau mengubah `obj.#property` dari luar class akan langsung menghasilkan **`SyntaxError`**.
 - **Hanya Dapat Diakses dari Dalam Class Pemiliknya:** Method di dalam class tersebut yang boleh membaca dan memutasi nilai `#field`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class DigitalWallet {
@@ -1562,7 +1573,7 @@ console.log(myWallet.getBalance("123456"));
 // console.log(myWallet.#balance); // SyntaxError: Private field '#balance' must be declared in an enclosing class
 ```
 
-## Output
+#### Output
 
 ```text
 Setor Rp250.000 berhasil.
@@ -1571,7 +1582,7 @@ Setor Rp250.000 berhasil.
 Saldo Dompet (Budi Pratama): Rp650.000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                       myWallet (Instance)
@@ -1595,7 +1606,7 @@ Saldo Dompet (Budi Pratama): Rp650.000
 this.#fieldName            → Mengakses private field dari dalam method internal class
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan private field (`#field`) untuk data krusial (seperti saldo, token, credential, state mesin internal).
 - ❌ Private field wajib dideklarasikan di body class terlebih dahulu sebelum digunakan di dalam constructor.
@@ -1604,9 +1615,9 @@ this.#fieldName            → Mengakses private field dari dalam method interna
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Private Method (#method())
+## 19. 🟡 Private Method (#method())
 
-## Konsep
+#### Konsep
 
 Sama seperti properti privat, kita juga dapat membuat **Private Method** dengan menambahkan simbol pagar (**`#`**) di depan nama method (`#methodName() {}`).
 
@@ -1614,7 +1625,7 @@ Karakteristik:
 - Hanya dapat dipanggil oleh method lain di dalam class yang sama.
 - Sangat ideal untuk fungsi-fungsi bantuan internal (*internal helper functions*) atau algoritma validasi sensitif yang tidak boleh diekspos ke publik.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class PaymentProcessor {
@@ -1651,14 +1662,14 @@ console.log(payment.processPayment("123", 500000)); // Gagal
 // payment.#validateCard("1234"); // SyntaxError!
 ```
 
-## Output
+#### Output
 
 ```text
 Pembayaran Rp500.000 SUKSES (Signature: 313233343536)
 Pembayaran Gagal: Nomor kartu tidak valid!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          payment.processPayment(...)
@@ -1678,7 +1689,7 @@ Pembayaran Gagal: Nomor kartu tidak valid!
 this.#methodName(...)           → Memanggil method privat dari dalam class
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Sembunyikan detail komputasi rumit dan logika bisnis internal ke dalam private methods agar API publik class tetap ringkas dan bersih.
 - ❌ Subclass tidak dapat mengakses private method milik parent class secara langsung.
@@ -1687,9 +1698,9 @@ this.#methodName(...)           → Memanggil method privat dari dalam class
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Operator instanceof & Type Checking
+## 20. 🟡 Operator instanceof & Type Checking
 
-## Konsep
+#### Konsep
 
 Operator **`instanceof`** digunakan untuk menguji apakah suatu instance objek diciptakan dari suatu **Class** (atau Constructor Function) tertentu, atau apakah class tersebut ada di dalam rantai prototype (*prototype chain*) objek tersebut.
 
@@ -1699,7 +1710,7 @@ Hasil Operator:
 
 Sangat bermanfaat dalam penerapan **Polymorphism** dan pemeriksaan tipe data objek (*runtime type guard*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 class Employee {}
@@ -1736,7 +1747,7 @@ console.log(calculateBonus(budi));
 console.log(calculateBonus(siti));
 ```
 
-## Output
+#### Output
 
 ```text
 Apakah budi instanceof Director? true
@@ -1749,7 +1760,7 @@ Bonus Direktur: Rp50.000.000
 Bukan karyawan resmi!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                Pengecekan: budi instanceof Employee
@@ -1768,7 +1779,7 @@ Bukan karyawan resmi!
 objectInstance instanceof TargetClass → Mengecek apakah objek merupakan instance dari TargetClass
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Urutkan pengecekan `instanceof` dari class yang paling spesifik (turunan terbawah) ke class yang paling umum (induk teratas).
 - ❌ Hati-hati bahwa tipe primitif (seperti `"halo" instanceof String`) bernilai `false`; gunakan `typeof` untuk tipe data primitif.
@@ -1777,9 +1788,9 @@ objectInstance instanceof TargetClass → Mengecek apakah objek merupakan instan
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Static Field (static property)
+## 21. 🟡 Static Field (static property)
 
-## Konsep
+#### Konsep
 
 Kata kunci **`static`** pada properti class digunakan untuk mendefinisikan field yang **menempel langsung pada Class itu sendiri**, bukan pada instance objek hasil instansiasi (`new`).
 
@@ -1789,7 +1800,7 @@ Karakteristik Static Field:
 - **TIDAK BISA** diakses melalui instance objek (`instance.propertyName` akan menghasilkan `undefined`).
 - Sangat cocok untuk: Menyimpan konstanta konfigurasi, cache global, atau menghitung total instance yang pernah dibuat (*counter*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 class AppConfig {
@@ -1823,7 +1834,7 @@ console.log("Total Instance yang Dibuat:", AppConfig.totalInstancesCreated); // 
 console.log("Akses dari instance:", session1.APP_NAME); // undefined
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Aplikasi: Portal Akademik Mahasiswa
@@ -1833,7 +1844,7 @@ Total Instance yang Dibuat: 3
 Akses dari instance: undefined
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
       AppConfig (Class Object di Memori)
@@ -1852,7 +1863,7 @@ static fieldName = value; → Mendefinisikan properti milik Class (bukan instanc
 ClassName.fieldName       → Mengakses nilai static field
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan static field berhuruf kapital (*UPPER_SNAKE_CASE*) untuk mendefinisikan nilai konstan aplikasi.
 - ❌ Jangan mencoba membaca static field menggunakan `this.staticProp` di dalam method instance biasa; gunakan `ClassName.staticProp`.
@@ -1861,9 +1872,9 @@ ClassName.fieldName       → Mengakses nilai static field
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Static Method (static method()) & Utility Class
+## 22. 🟡 Static Method (static method()) & Utility Class
 
-## Konsep
+#### Konsep
 
 **Static Method** adalah fungsi aksi yang menempel langsung pada class dan dipanggil langsung melalui nama class: **`ClassName.methodName()`**.
 
@@ -1874,7 +1885,7 @@ Karakteristik Static Method:
   1. **Utility Functions:** Fungsi pembantu umum (seperti `Math.max()`, `Object.keys()`, `Date.now()`).
   2. **Factory Method:** Method alternatif untuk menciptakan objek baru dengan konfigurasi khusus.
 
-## Contoh
+#### Contoh
 
 ```javascript
 class MathUtil {
@@ -1918,7 +1929,7 @@ console.log("Admin User:", adminUser);
 console.log("Guest User:", guestUser);
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Jumlah: 100
@@ -1927,7 +1938,7 @@ Admin User: User { username: 'root_system', role: 'SUPER_ADMIN' }
 Guest User: User { username: 'guest_834', role: 'GUEST' }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          MathUtil.formatRupiah(100000)
@@ -1944,7 +1955,7 @@ static methodName(parameters) { ... } → Mendefinisikan method milik Class
 ClassName.methodName(...args)         → Memanggil static method secara langsung
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Buat Static Factory Method (seperti `User.fromJSON(json)`) untuk mempermudah instansiasi objek dari berbagai format data masukan.
 - ❌ Jangan mencoba mengakses properti instance (`this.instanceProp`) di dalam static method karena static method tidak memiliki konteks instance objek.
@@ -1953,9 +1964,9 @@ ClassName.methodName(...args)         → Memanggil static method secara langsun
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 Standard Error di JavaScript (Error, TypeError, RangeError)
+## 23. 🟡 Standard Error di JavaScript (Error, TypeError, RangeError)
 
-## Konsep
+#### Konsep
 
 Di JavaScript, ketika terjadi kesalahan pada saat program berjalan (*runtime error*), engine akan menciptakan dan melempar objek **Error**.
 
@@ -1971,7 +1982,7 @@ Struktur Objek Error:
 - `error.message`: Deskripsi teks penjelasan kesalahan.
 - `error.stack`: Jejak tumpukan fungsi (*stack trace*) baris kode tempat terjadinya error.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menciptakan objek error standar
@@ -2000,7 +2011,7 @@ try {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Error Name: Error
@@ -2009,7 +2020,7 @@ Usia valid: 25 tahun
 [TypeError]: Usia wajib bertipe Number!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          throw new TypeError("...")
@@ -2029,7 +2040,7 @@ error.name               → Mengambil nama kategori error
 error.message            → Mengambil isi pesan kesalahan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu lempar (*throw*) objek turunan `Error` (misal `throw new Error("...")`), jangan melempar string primitif (`throw "error"`) karena string tidak memiliki informasi *stack trace*.
 - ❌ Pilih jenis error bawaan yang tepat (`TypeError` untuk kesalahan tipe data, `RangeError` untuk batas angka).
@@ -2038,9 +2049,9 @@ error.message            → Mengambil isi pesan kesalahan
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Error Handling (try, catch, finally, throw)
+## 24. 🟡 Error Handling (try, catch, finally, throw)
 
-## Konsep
+#### Konsep
 
 **Error Handling** adalah mekanisme untuk mengantisipasi dan menangani kesalahan runtime agar aplikasi tidak berhenti mendadak (*crash*) saat menghadapi kondisi tak terduga.
 
@@ -2049,7 +2060,7 @@ Blok Penanganan Error:
 - **`catch (error) { ... }`:** Menangkap dan memproses objek error jika ada kegagalan yang dilempar dari dalam blok `try`.
 - **`finally { ... }`:** Blok yang **pasti selalu dieksekusi**, baik blok `try` berhasil maupun gagal melempar error. Sangat ideal untuk operasi pembersihan sumber daya (*cleanup*, menutup koneksi, mematikan status loading).
 
-## Contoh
+#### Contoh
 
 ```javascript
 function parseUserJSON(jsonString) {
@@ -2082,7 +2093,7 @@ parseUserJSON('{ JSON_TIDAK_VALID }');
 parseUserJSON('{"role": "Guest"}');
 ```
 
-## Output
+#### Output
 
 ```text
 1. Memulai proses parsing data...
@@ -2098,7 +2109,7 @@ parseUserJSON('{"role": "Guest"}');
 4. [Finally]: Pembersihan memori & proses selesai.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                Masuk ke Blok try { ... }
@@ -2121,7 +2132,7 @@ parseUserJSON('{"role": "Guest"}');
 try { ... } catch (error) { ... } finally { ... } → Struktur lengkap penanganan error runtime
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan blok `finally` untuk mereset state loading pada antarmuka pengguna (UI) atau menutup koneksi file/database.
 - ❌ Jangan membuat blok `catch` yang kosong tanpa aksi apa pun (*silent fail*), karena hal itu akan menyembunyikan bug penting yang seharusnya diperbaiki.
@@ -2130,9 +2141,9 @@ try { ... } catch (error) { ... } finally { ... } → Struktur lengkap penangana
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 Custom Error Class (class CustomError extends Error)
+## 25. 🟡 Custom Error Class (class CustomError extends Error)
 
-## Konsep
+#### Konsep
 
 Dalam pengembangan aplikasi nyata yang kompleks, sering kali objek `Error` standar bawaan tidak cukup spesifik untuk mendeskripsikan kesalahan domain bisnis (misal: *ValidationError*, *DatabaseConnectionError*, *InsufficientFundsError*).
 
@@ -2142,7 +2153,7 @@ Keuntungan Custom Error:
 - Menambahkan metadata tambahan (seperti kode error HTTP `statusCode`, daftar field yang gagal validasi).
 - Membedakan jenis penanganan error di blok `catch` menggunakan operator `instanceof`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Membuat Custom Error Class untuk Validasi Form
@@ -2197,7 +2208,7 @@ handleTransaction(1000000, "lima");   // ValidationError
 handleTransaction(500000, 750000);   // InsufficientFundsError
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Transaksi Berhasil! Sisa Saldo: Rp750.000
@@ -2205,7 +2216,7 @@ handleTransaction(500000, 750000);   // InsufficientFundsError
 🛑 [Finansial Error]: Saldo tidak cukup (Saldo: Rp500.000, Diminta: Rp750.000)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          throw new InsufficientFundsError(...)
@@ -2230,7 +2241,7 @@ class CustomError extends Error { ... } → Membuat tipe error domain aplikasi k
 if (error instanceof CustomError) { ... }→ Membedakan penanganan error secara spesifik
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu set `this.name = "CustomErrorName"` di dalam constructor custom error agar nama class tampil akurat di stack trace log.
 - ❌ Jangan membuat puluhan custom error class untuk kasus yang terlalu sepele; kelompokkan error berdasarkan kategori penanganannya.
@@ -2239,9 +2250,9 @@ if (error instanceof CustomError) { ... }→ Membedakan penanganan error secara 
 
 <a id="bagian-26"></a>
 
-# 26. 🔴 Iterable dan Iterator Protocol ([Symbol.iterator])
+## 26. 🔴 Iterable dan Iterator Protocol ([Symbol.iterator])
 
-## Konsep
+#### Konsep
 
 Di JavaScript, objek dapat dibuat agar bisa diulang menggunakan perulangan **`for...of`** dan spread operator (**`...`**) dengan mengimplementasikan **Iterable Protocol**.
 
@@ -2253,7 +2264,7 @@ Saat `for...of` dijalankan:
 - Engine memanggil `obj[Symbol.iterator]()`.
 - Engine berulang kali memanggil `.next()` sampai properti `done: true` tercapai.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Membuat Custom Collection Class yang mendukung perulangan for...of
@@ -2307,7 +2318,7 @@ const allMembersArray = [...devTeam];
 console.log("Total Anggota (via Spread):", allMembersArray.length);
 ```
 
-## Output
+#### Output
 
 ```text
 === Anggota Tim: Alpha Engineering ===
@@ -2317,7 +2328,7 @@ console.log("Total Anggota (via Spread):", allMembersArray.length);
 Total Anggota (via Spread): 3
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          for (const member of devTeam)
@@ -2341,7 +2352,7 @@ Total Anggota (via Spread): 3
 [Symbol.iterator]() { return { next() { return { value, done }; } }; } → Protokol iterasi objek
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Terapkan Iterable Protocol pada class penampung data koleksi (*Collection / Repository*) agar konsumen class dapat mengonsumsinya secara alami dengan `for...of`.
 - ❌ Jangan lupa mengembalikan `done: true` saat iterasi selesai, jika tidak perulangan `for...of` akan menjadi infinite loop.
@@ -2350,20 +2361,20 @@ Total Anggota (via Spread): 3
 
 <a id="bagian-27"></a>
 
-# 27. 🔴 Object Composition vs Class Inheritance
+## 27. 🔴 Object Composition vs Class Inheritance
 
-## Konsep
+#### Konsep
 
 Dalam arsitektur perangkat lunak berorientasi objek modern, terdapat prinsip terkenal:
 > **"Favor Object Composition over Class Inheritance"** (Pilihlah Komposisi Objek daripada Pewarisan Kelas).
 
-### Masalah Inheritance yang Kaku:
+##### Masalah Inheritance yang Kaku:
 Inheritance mendefinisikan apa suatu objek itu (*what an object **IS*** - hubungan *is-a*). Jika kebutuhan aplikasi berkembang dan memerlukan kombinasi kemampuan silang, hierarki pewarisan akan menjadi sangat rumit (*Gorilla/Banana Problem* atau *Diamond Problem*).
 
-### Kekuatan Composition:
+##### Kekuatan Composition:
 Composition mendefinisikan apa yang bisa dilakukan suatu objek (*what an object **CAN DO*** - hubungan *has-a*). Kita membuat fungsi-fungsi kemampuan kecil (*composable behaviors*) lalu menggabungkannya ke dalam objek sesuai kebutuhan menggunakan `Object.assign()` atau Factory Functions.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Mendefinisikan Kemampuan-Kemampuan Terpisah (Behaviors)
@@ -2406,7 +2417,7 @@ console.log(pingu.quack());
 console.log("Bisa terbang?", pingu.fly ? "Ya" : "Tidak (Aman tanpa inheritance salah)");
 ```
 
-## Output
+#### Output
 
 ```text
 === Kemampuan Bebek ===
@@ -2420,7 +2431,7 @@ Pingu si Penguin bersuara: Kwek kwek!
 Bisa terbang? Tidak (Aman tanpa inheritance salah)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          canFly()       canSwim()       canQuack()
@@ -2442,7 +2453,7 @@ Composition → Relasi "has-a" (Penyusunan kemampuan fleksibel dari modul-modul 
 Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke satu target
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Class Inheritance jika relasi data benar-benar hierarkis dan stabil. Gunakan Object Composition jika objek membutuhkan kombinasi kemampuan yang bervariasi.
 - ❌ Jangan memaksa membuat subclass dengan inheritance bertingkat hanya untuk meminjam 1 fungsi kecil dari parent.
@@ -2451,9 +2462,9 @@ Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke sat
 
 <a id="bagian-28"></a>
 
-# 28. 🛠️ Peta Ingatan Cepat
+## 28. 🛠️ Peta Ingatan Cepat
 
-## Mental Model Arsitektur OOP JavaScript
+#### Mental Model Arsitektur OOP JavaScript
 
 ```text
                       ┌───────────────────────────────┐
@@ -2478,7 +2489,7 @@ Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke sat
                         - Object Composition (Mixins / Behaviors)
 ```
 
-## Pola Pengambilan Keputusan OOP
+#### Pola Pengambilan Keputusan OOP
 
 ```text
                                 Kebutuhan Fitur Class
@@ -2515,7 +2526,7 @@ Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke sat
 
 <a id="bagian-29"></a>
 
-# 29. 📚 Tabel Ringkasan
+## 29. 📚 Tabel Ringkasan
 
 | Kategori | Fitur / Sintaks | Contoh Kode | Penjelasan & Kegunaan |
 |---|---|---|---|
@@ -2540,9 +2551,9 @@ Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke sat
 
 <a id="bagian-30"></a>
 
-# 30. ⚡ Cheat Code JavaScript OOP 10 Detik
+## 30. ⚡ Cheat Code JavaScript OOP 10 Detik
 
-## 1. Definisi Class Lengkap (ES6+)
+### 1. Definisi Class Lengkap (ES6+)
 ```javascript
 class Product {
     #stock = 0; // Private
@@ -2563,7 +2574,7 @@ class Product {
 }
 ```
 
-## 2. Inheritance & Super
+### 2. Inheritance & Super
 ```javascript
 class DigitalProduct extends Product {
     constructor(name, price, downloadUrl) {
@@ -2573,7 +2584,7 @@ class DigitalProduct extends Product {
 }
 ```
 
-## 3. Static Utility & Factory
+### 3. Static Utility & Factory
 ```javascript
 class Formatter {
     static toRupiah(amount) {
@@ -2583,7 +2594,7 @@ class Formatter {
 console.log(Formatter.toRupiah(50000));
 ```
 
-## 4. Custom Error & Try-Catch
+### 4. Custom Error & Try-Catch
 ```javascript
 class PaymentError extends Error {
     constructor(msg) { super(msg); this.name = "PaymentError"; }
@@ -2600,7 +2611,7 @@ try {
 
 <a id="bagian-31"></a>
 
-# 31. 🧭 Urutan Belajar yang Disarankan
+## 31. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai Object-Oriented Programming di JavaScript secara mendalam dan terstruktur, ikuti 4 tahapan belajar berikut:
 
@@ -2642,9 +2653,9 @@ Untuk menguasai Object-Oriented Programming di JavaScript secara mendalam dan te
 
 <a id="bagian-32"></a>
 
-# 32. 🏗️ Mini Project: Sistem Manajemen Reservasi Kamar & Layanan Hotel OOP
+## 32. 🏗️ Mini Project: Sistem Manajemen Reservasi Kamar & Layanan Hotel OOP
 
-## Konsep Project
+#### Konsep Project
 
 Project ini menyatukan seluruh pilar dan fitur OOP JavaScript modern:
 - **Class Hierarchy & Inheritance:** Parent `Room` diwarisi oleh `DeluxeRoom` dan `SuiteRoom`.
@@ -2655,7 +2666,7 @@ Project ini menyatukan seluruh pilar dan fitur OOP JavaScript modern:
 - **Static Utilities & Factory:** `HotelConfig` dan factory generator nomor reservasi.
 - **Iterable Protocol:** Class `HotelBookingManager` dapat langsung di-loop dengan `for...of`.
 
-## Kode Lengkap
+#### Kode Lengkap
 
 ```javascript
 /**
@@ -2849,7 +2860,7 @@ try {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Check-In Berhasil: Kamar 101 untuk Tamu "Budi Santoso"
@@ -2870,7 +2881,7 @@ No. Kamar  Tipe Kamar     Tarif/Malam   Status    Tamu
 =======================================================
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          new SuiteRoom("301-VIP")
@@ -2895,7 +2906,7 @@ Polymorphism in Action → Method calculateDailyRate() dipanggil seragam tapi ha
 
 <a id="bagian-33"></a>
 
-# 33. 🔗 Referensi Resmi
+## 33. 🔗 Referensi Resmi
 
 Untuk mempelajari dokumentasi resmi dan spesifikasi mendalam mengenai Object-Oriented Programming di JavaScript:
 

@@ -1,4 +1,15 @@
-# JavaScript Dasar Cheatsheet Revised
+---
+title: "JavaScript Dasar"
+description: "Fundamental JavaScript modern (ES6+): variable, tipe data, operator, control flow, function, scope, closure, dan mental model runtime."
+order: 1
+tags:
+  - programming
+  - javascript
+  - frontend
+  - fundamental
+---
+
+# JavaScript Dasar
 
 > **Target:** Pemula yang baru mulai belajar pemrograman modern dengan JavaScript (ES2020+).
 >
@@ -129,9 +140,9 @@ First-Class  → Function diperlakukan seperti nilai biasa (bisa disimpan di var
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan JavaScript & Mental Model Engine
+## 1. 🟢 Pengenalan JavaScript & Mental Model Engine
 
-## Konsep
+#### Konsep
 
 **JavaScript** adalah bahasa pemrograman tingkat tinggi (*high-level*), dinamis (*dynamically typed*), dan interpreted/JIT-compiled yang awalnya dibuat untuk menghidupkan halaman web di sisi peramban (*browser*).
 
@@ -147,7 +158,7 @@ Ciri khas JavaScript:
 - **Single-Threaded Non-Blocking:** Mengeksekusi satu instruksi utama dalam satu waktu dengan bantuan *Event Loop* untuk operasi asynchronous.
 - **First-Class Functions:** Fungsi dianggap sebagai nilai biasa yang bisa disimpan di variabel, dikirim sebagai argumen, atau dikembalikan dari fungsi lain.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Menampilkan pesan selamat datang di console
@@ -160,7 +171,7 @@ console.log("Tahun Rilis:", releaseYear);
 console.log("Menyenangkan?", isAwesome);
 ```
 
-## Output
+#### Output
 
 ```text
 Bahasa: JavaScript Modern
@@ -168,7 +179,7 @@ Tahun Rilis: 1995
 Menyenangkan? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           Browser / Node.js Engine
@@ -195,7 +206,7 @@ JavaScript  → Logika, interaksi, dan manipulasi data
 Console     → Tempat melihat log, informasi, dan debugging runtime
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pahami bahwa JavaScript berjalan di runtime environment (Browser memiliki API DOM/Window, Node.js memiliki API File System/Process).
 - ❌ Jangan menganggap JavaScript sama dengan Java; keduanya adalah bahasa yang sangat berbeda dari segi arsitektur maupun filosofi desain.
@@ -204,9 +215,9 @@ Console     → Tempat melihat log, informasi, dan debugging runtime
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Program Hello World & Tag `<script>`
+## 2. 🟢 Program Hello World & Tag `<script>`
 
-## Konsep
+#### Konsep
 
 Untuk menjalankan JavaScript di browser, kita menyematkan kode di dalam elemen HTML menggunakan tag `<script>`. Terdapat dua cara utama:
 1. **Inline Script:** Kode JavaScript ditulis langsung di antara tag `<script> ... </script>`.
@@ -214,7 +225,7 @@ Untuk menjalankan JavaScript di browser, kita menyematkan kode di dalam elemen H
 
 External script sangat direkomendasikan karena memisahkan antara struktur halaman (HTML) dengan logika aplikasi (JS), sehingga kode lebih bersih dan mudah dirawat.
 
-## Contoh
+#### Contoh
 
 **Cara 1: Inline Script di dalam HTML**
 
@@ -258,14 +269,14 @@ File `main.js`:
 console.log("Hello, World dari file External!");
 ```
 
-## Output
+#### Output
 
 Di browser Developer Tools (Console tab):
 ```text
 Hello, World dari file External!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Browser memuat index.html
@@ -288,7 +299,7 @@ Hello, World dari file External!
 console.log(message)         → Mencetak pesan/data ke jendela konsol pengembang
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Letakkan tag `<script>` di bagian akhir tag `<body>` atau gunakan atribut `defer` di dalam `<head>` agar proses rendering tampilan HTML tidak terhalang.
 - ❌ Jangan menuliskan kode JavaScript yang panjang secara inline di dalam file HTML.
@@ -297,9 +308,9 @@ console.log(message)         → Mencetak pesan/data ke jendela konsol pengemban
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Komentar & Dokumentasi Kode
+## 3. 🟢 Komentar & Dokumentasi Kode
 
-## Konsep
+#### Konsep
 
 **Komentar** adalah baris teks di dalam kode program yang diabaikan oleh engine JavaScript saat eksekusi berlangsung. Komentar berfungsi untuk:
 - Memberikan penjelasan alur logika yang rumit bagi pengembang lain atau diri sendiri di masa depan.
@@ -310,7 +321,7 @@ Jenis komentar di JavaScript:
 1. **Single-line Comment:** Dimulai dengan tanda `//` (berlaku sampai akhir baris).
 2. **Multi-line Comment:** Dibungkus dengan `/* ... */` (bisa mencakup beberapa baris).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Ini adalah komentar satu baris (single-line)
@@ -336,13 +347,13 @@ function calculateTotal(price, tax) {
 console.log("Total:", calculateTotal(basePrice, taxRate));
 ```
 
-## Output
+#### Output
 
 ```text
 Total: 55500
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         Kode Sumber JavaScript
@@ -366,7 +377,7 @@ Total: 55500
 /** JSDoc */     → Komentar dokumentasi fungsi, tipe data, dan parameter
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Tulis komentar yang menjelaskan **MENGAPA** (*Why*) sebuah kode dibuat seperti itu, bukan sekadar mengulang apa yang sudah jelas terbaca dari kode (*What*).
 - ❌ Hindari membiarkan kode lama yang sudah usang menumpuk sebagai komentar di repositori; manfaatkan Git version control untuk melacak history kode.
@@ -375,9 +386,9 @@ Total: 55500
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Tipe Data Number & BigInt
+## 4. 🟢 Tipe Data Number & BigInt
 
-## Konsep
+#### Konsep
 
 Di JavaScript, angka bulat (*integer*) dan angka desimal (*floating point*) berada di bawah satu tipe data yang sama, yaitu **Number** (berbasis standar IEEE 754 64-bit float).
 
@@ -390,7 +401,7 @@ Karakteristik Tipe Number:
 
 Untuk bilangan bulat raksasa yang melampaui batas aman Number (`Number.MAX_SAFE_INTEGER` = `9007199254740991`), JavaScript menyediakan tipe data **BigInt** dengan menambahkan akhiran huruf `n` di belakang angka.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Tipe data Number standar
@@ -416,7 +427,7 @@ const bigNumber = 9007199254740991n + 10n;
 console.log("BigInt Value:", bigNumber);
 ```
 
-## Output
+#### Output
 
 ```text
 Integer: 100
@@ -428,7 +439,7 @@ Operasi Tidak Valid: NaN
 BigInt Value: 9007199254741001n
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                   Nilai Angka di JavaScript
@@ -449,7 +460,7 @@ Number.isNaN(value)     → Mengecek apakah nilai bernilai NaN secara pasti
 123n                    → Bilangan BigInt untuk angka di atas 9 kuadriliun
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `Number.isNaN(value)` untuk memvalidasi apakah suatu variabel menghasilkan `NaN` (jangan gunakan perbandingan `value === NaN` karena `NaN === NaN` bernilai `false`).
 - ❌ Jangan mencampur operasi matematika langsung antara tipe `Number` biasa dan `BigInt` tanpa konversi tipe terlebih dahulu (akan menghasilkan `TypeError`).
@@ -458,9 +469,9 @@ Number.isNaN(value)     → Mengecek apakah nilai bernilai NaN secara pasti
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Tipe Data Boolean
+## 5. 🟢 Tipe Data Boolean
 
-## Konsep
+#### Konsep
 
 Tipe data **Boolean** adalah tipe data logika yang paling sederhana karena hanya memiliki tepat dua kemungkinan nilai:
 1. `true` (Benar / Aktif / Mengiyakan)
@@ -468,7 +479,7 @@ Tipe data **Boolean** adalah tipe data logika yang paling sederhana karena hanya
 
 Tipe data Boolean menjadi pondasi dari seluruh logika percabangan (*if/else*), perulangan (*looping*), serta evaluasi kondisi dalam program. Nilai boolean biasanya dihasilkan dari operator perbandingan atau ekspresi logika.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const isUserLoggedIn = true;
@@ -484,7 +495,7 @@ const isAdult = age >= 17;
 console.log("Apakah sudah dewasa (>= 17)?", isAdult);
 ```
 
-## Output
+#### Output
 
 ```text
 Status Login: true
@@ -492,7 +503,7 @@ Status Admin: false
 Apakah sudah dewasa (>= 17)? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
            Ekspresi / Kondisi: (age >= 17)
@@ -514,7 +525,7 @@ false  → Merepresentasikan nilai ketidakbenaran (mati / gagal seleksi)
 Boolean(value) → Mengonversi nilai apa pun menjadi tipe boolean
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Beri nama variabel boolean dengan awalan kata kerja predikat yang jelas seperti `is`, `has`, `can`, `should` (misal: `isActive`, `hasPermission`, `canDelete`).
 - ❌ Hindari membungkus boolean dengan tanda petik (misal: `"false"`), karena string `"false"` bukan boolean dan akan dianggap *truthy* dalam evaluasi kondisi.
@@ -523,16 +534,16 @@ Boolean(value) → Mengonversi nilai apa pun menjadi tipe boolean
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Tipe Data String & Escape Character
+## 6. 🟢 Tipe Data String & Escape Character
 
-## Konsep
+#### Konsep
 
 **String** adalah tipe data yang digunakan untuk menampung teks, huruf, kata, atau kalimat. Di JavaScript, string dapat dideklarasikan menggunakan tiga jenis tanda petik:
 1. **Petik Tunggal (`'...`):** Standar string sederhana.
 2. **Petik Ganda (`"..."`):** Standar string sederhana (tidak ada perbedaan fungsional dengan petik tunggal).
 3. **Backtick (``...``):** Template literals (mendukung multi-baris dan interpolasi variabel).
 
-### Escape Sequence Character
+##### Escape Sequence Character
 Jika ingin memasukkan karakter khusus (seperti enter, tab, atau tanda petik di dalam string), gunakan tanda backslash (`\`):
 - `\n`: Baris baru (*New line / Enter*).
 - `\t`: Tabulasi (*Tab indent*).
@@ -540,7 +551,7 @@ Jika ingin memasukkan karakter khusus (seperti enter, tab, atau tanda petik di d
 - `\"`: Karakter tanda petik ganda.
 - `\\`: Karakter backslash itu sendiri.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const singleQuote = 'Halo Dunia';
@@ -565,7 +576,7 @@ const fullName = firstName + " " + lastName;
 console.log("Nama Lengkap:", fullName);
 ```
 
-## Output
+#### Output
 
 ```text
 Halo Dunia
@@ -578,7 +589,7 @@ Nama:	Budi Santoso
 Nama Lengkap: John Doe
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      Karakter String: "Baris 1\nBaris 2"
@@ -599,7 +610,7 @@ string1 + string2       → Menggabungkan dua atau lebih string (concatenation)
 \t                     → Escape character untuk tabulasi indent
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Konsisten gunakan satu jenis kutipan dalam project (biasanya petik ganda `""` atau tunggal `''` sesuai panduan linter ESLint/Prettier).
 - ❌ Jangan membuat string multi-baris secara manual menggunakan konkatenasi `+` yang berulang jika bisa menggunakan template literals dengan backtick.
@@ -608,9 +619,9 @@ string1 + string2       → Menggabungkan dua atau lebih string (concatenation)
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Variable (let, const, var)
+## 7. 🟢 Variable (let, const, var)
 
-## Konsep
+#### Konsep
 
 **Variable** adalah wadah di memori komputer yang diberi nama untuk menyimpan data sehingga nilainya dapat digunakan dan diolah berulang kali.
 
@@ -619,7 +630,7 @@ JavaScript modern memiliki 3 kata kunci untuk membuat variabel:
 2. **`let` (Direkomendasikan jika nilainya berubah):** Digunakan untuk variabel yang nilainya akan dimutasi atau diisi ulang di kemudian hari.
 3. **`var` (Legacy / Tinggalkan):** Cara lama sebelum standar ES6 (2015). Memiliki masalah kebocoran scope (*function scope*, bukan *block scope*) dan rawan menyebabkan bug.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menggunakan const (Nilai tetap)
@@ -645,7 +656,7 @@ console.log("Score baru:", currentScore);
 // console.log(secretKey); // ReferenceError: secretKey is not defined (Aman di dalam block)
 ```
 
-## Output
+#### Output
 
 ```text
 Score awal: 10
@@ -653,7 +664,7 @@ Score baru: 25
 Di dalam block: RAHASIA_123 5
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             Pilihan Deklarasi Variabel
@@ -676,7 +687,7 @@ let identifier = value   → Deklarasi variabel yang nilainya bisa diubah kapan 
 var identifier = value   → Deklarasi model lama (jangan digunakan di kode modern)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu jadikan `const` sebagai pilihan utama secara default; hanya ganti menjadi `let` jika memang variabel tersebut nilainya perlu dimutasi (misal penghitung perulangan).
 - ❌ Jangan pernah menggunakan `var` di JavaScript modern untuk menghindari bug *hoisting* dan *variable shadowing* yang tidak terduga.
@@ -685,13 +696,13 @@ var identifier = value   → Deklarasi model lama (jangan digunakan di kode mode
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Operator Matematika & Penugasan
+## 8. 🟢 Operator Matematika & Penugasan
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan sekumpulan operator matematika standar (*Arithmetic Operators*) dan operator penugasan (*Assignment Operators*) untuk memproses perhitungan angka.
 
-### Operator Aritmatika:
+##### Operator Aritmatika:
 - Penjumlahan: `+`
 - Pengurangan: `-`
 - Perkalian: `*`
@@ -699,7 +710,7 @@ JavaScript menyediakan sekumpulan operator matematika standar (*Arithmetic Opera
 - Sisa Bagi (Modulus): `%`
 - Perpangkatan (Exponentiation): `**`
 
-### Operator Augmented Assignment (Penugasan Singkat):
+##### Operator Augmented Assignment (Penugasan Singkat):
 Memodifikasi variabel sekaligus menyimpannya kembali:
 - `a += b` sama dengan `a = a + b`
 - `a -= b` sama dengan `a = a - b`
@@ -707,11 +718,11 @@ Memodifikasi variabel sekaligus menyimpannya kembali:
 - `a /= b` sama dengan `a = a / b`
 - `a %= b` sama dengan `a = a % b`
 
-### Increment & Decrement:
+##### Increment & Decrement:
 - `++a` / `a++`: Menambah nilai sebanyak 1.
 - `--a` / `a--`: Mengurangi nilai sebanyak 1.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const numA = 10;
@@ -738,7 +749,7 @@ counter++; // counter menjadi 2
 console.log("Counter:", counter);
 ```
 
-## Output
+#### Output
 
 ```text
 Penjumlahan (10 + 3): 13
@@ -752,7 +763,7 @@ Saldo setelah belanja: 130000
 Counter: 2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           Nilai: 10 Modulus 3 (10 % 3)
@@ -773,7 +784,7 @@ leftOperand ** rightOperand → Perpangkatan angka
 variable += amount          → Menambahkan nilai amount ke variable saat ini
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan tanda kurung `( ... )` untuk memperjelas urutan prioritas eksekusi operasi matematika yang kompleks (misal: `(a + b) * c`).
 - ❌ Hati-hati saat menggunakan operator `+` pada data yang belum tentu bertipe number, karena jika salah satu operand bertipe string, `+` akan melakukan penyambungan teks (*string concatenation*) bukan penjumlahan angka.
@@ -782,27 +793,27 @@ variable += amount          → Menambahkan nilai amount ke variable saat ini
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Operator Perbandingan (Strict vs Loose)
+## 9. 🟢 Operator Perbandingan (Strict vs Loose)
 
-## Konsep
+#### Konsep
 
 **Operator Perbandingan** digunakan untuk membandingkan dua buah nilai dan selalu menghasilkan nilai bertipe **Boolean** (`true` atau `false`).
 
-### Strict Comparison (Wajib Digunakan):
+##### Strict Comparison (Wajib Digunakan):
 - `===` (Strict Equal): Bernilai `true` hanya jika **Nilai SAMA dan Tipe Data SAMA**.
 - `!==` (Strict Not Equal): Bernilai `true` jika **Nilai BEDA atau Tipe Data BEDA**.
 
-### Loose Comparison (Hindari):
+##### Loose Comparison (Hindari):
 - `==` (Loose Equal): Memaksa konversi tipe data otomatis (*Type Coercion*) sebelum membandingkan.
 - `!=` (Loose Not Equal): Memaksa konversi tipe data sebelum membandingkan ketidaksamaan.
 
-### Operator Relasional Lainnya:
+##### Operator Relasional Lainnya:
 - `>` (Lebih besar dari)
 - `<` (Lebih kecil dari)
 - `>=` (Lebih besar atau sama dengan)
 - `<=` (Lebih kecil atau sama dengan)
 
-## Contoh
+#### Contoh
 
 ```javascript
 const scoreNumber = 100;
@@ -821,7 +832,7 @@ console.log("Apakah 18 >= 17?", userAge >= 17); // true
 console.log("Apakah 18 < 12?", userAge < 12); // false
 ```
 
-## Output
+#### Output
 
 ```text
 Loose Equal (100 == '100'): true
@@ -832,7 +843,7 @@ Apakah 18 >= 17? true
 Apakah 18 < 12? false
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          leftValue === rightValue
@@ -858,7 +869,7 @@ leftOperand >= rightOperand  → Lebih besar dari atau sama dengan
 leftOperand <= rightOperand  → Lebih kecil dari atau sama dengan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan operator perbandingan identik (`===` dan `!==`) untuk menghindari bug tak terduga akibat konversi otomatis tipe data (*type coercion*).
 - ❌ Jangan pernah menggunakan `==` atau `!=` kecuali Anda memiliki alasan teknis yang sangat spesifik dan terkendali.
@@ -867,9 +878,9 @@ leftOperand <= rightOperand  → Lebih kecil dari atau sama dengan
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Operator Logika (&&, ||, !)
+## 10. 🟢 Operator Logika (&&, ||, !)
 
-## Konsep
+#### Konsep
 
 **Operator Logika** digunakan untuk mengombinasikan atau membalik nilai-nilai boolean. Operator logika sangat esensial dalam pengambilan keputusan (*decision making*).
 
@@ -878,7 +889,7 @@ Tiga operator logika utama:
 2. **`||` (Logical OR):** Menghasilkan `true` jika **SALAH SATU ATAU KEDUA** operand bernilai `true`. Hanya menghasilkan `false` jika seluruh operand bernilai `false`.
 3. **`!` (Logical NOT):** Membalik nilai boolean (`true` menjadi `false`, dan sebaliknya).
 
-## Contoh
+#### Contoh
 
 ```javascript
 const hasExamPassed = true;
@@ -897,7 +908,7 @@ const isBanned = false;
 console.log("Boleh Masuk (!isBanned):", !isBanned); // true
 ```
 
-## Output
+#### Output
 
 ```text
 Bisa Lulus (AND): false
@@ -905,7 +916,7 @@ Bisa Remedial (OR): true
 Boleh Masuk (!isBanned): true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Tabel Kebenaran Logika
@@ -927,7 +938,7 @@ firstCondition || secondCondition → OR: Cukup salah satu kondisi bernilai true
 !condition                        → NOT: Membalikkan nilai kebenaran boolean
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan operator logika untuk membuat ekspresi kondisi yang deskriptif dan ekspresif.
 - ❌ Jangan membuat rantai logika yang terlalu panjang dan bertingkat tanpa pengelompokan tanda kurung `(...)`, karena hal itu membingungkan urutan pembacaan kode.
@@ -936,9 +947,9 @@ firstCondition || secondCondition → OR: Cukup salah satu kondisi bernilai true
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Console & Debug Output
+## 11. 🟢 Console & Debug Output
 
-## Konsep
+#### Konsep
 
 Objek **`console`** menyediakan akses ke konsol debugging browser atau terminal Node.js. Console adalah alat utama programmer untuk memeriksa data, melacak alur eksekusi, serta menemukan sumber kesalahan (*debugging*).
 
@@ -950,7 +961,7 @@ Method `console` yang paling sering digunakan:
 - `console.table(data)`: Menampilkan data array atau objek dalam format tabel yang rapi.
 - `console.time(label)` & `console.timeEnd(label)`: Mengukur durasi waktu eksekusi kode.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Pesan umum
@@ -974,7 +985,7 @@ for (let i = 0; i < 1000000; i++) {
 console.timeEnd("LoopSpeed");
 ```
 
-## Output
+#### Output
 
 ```text
 Ini adalah pesan log standar
@@ -990,7 +1001,7 @@ Error: Database gagal merespons!
 LoopSpeed: 2.150ms
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         Pemanggilan: console.table(userList)
@@ -1011,7 +1022,7 @@ console.error(message)    → Menampilkan pesan error warna merah
 console.table(collection) → Menampilkan array/objek dalam bentuk tabel kolom & baris
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan `console.table()` untuk mempermudah membaca isi array of objects saat debugging.
 - ❌ Hapus atau bersihkan seluruh pemanggilan `console.log` sebelum merilis (*deploy*) aplikasi ke lingkungan produksi (*production*).
@@ -1020,9 +1031,9 @@ console.table(collection) → Menampilkan array/objek dalam bentuk tabel kolom &
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 String Template (Template Literals)
+## 12. 🟢 String Template (Template Literals)
 
-## Konsep
+#### Konsep
 
 **String Template** (atau *Template Literals*) adalah fitur modern JavaScript (ES6) yang memungkinkan pembuatan string menggunakan karakter **backtick (``...``)**.
 
@@ -1031,7 +1042,7 @@ Keunggulan String Template:
 2. **Multi-line String:** Membuat teks multi-baris secara alami tanpa perlu menulis karakter `\n`.
 3. **Expression Evaluation:** Mengeksekusi ekspresi logika atau pemanggilan fungsi langsung di dalam `${...}`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const itemName = "Keyboard Mechanical";
@@ -1060,7 +1071,7 @@ Status : ${quantity > 1 ? "Diskon Khusus" : "Harga Normal"}
 console.log(invoiceReceipt);
 ```
 
-## Output
+#### Output
 
 ```text
 Cara Lama: Barang: Keyboard Mechanical, Total: Rp900000
@@ -1075,7 +1086,7 @@ Status : Diskon Khusus
 =======================
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             Template Literal: `Total: ${price * quantity}`
@@ -1094,7 +1105,7 @@ Status : Diskon Khusus
 `line 1\nline 2`          → Membuat teks banyak baris secara natural dengan backtick
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu prioritaskan template literals (``...``) untuk setiap penggabungan string dinamis karena jauh lebih mudah dibaca dan minim kesalahan spasi.
 - ❌ Jangan lupa menggunakan karakter backtick (``), bukan petik tunggal biasa (`'`), karena sintaks `${...}` tidak akan dievaluasi pada petik tunggal.
@@ -1103,9 +1114,9 @@ Status : Diskon Khusus
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 Konversi String dan Number
+## 13. 🟢 Konversi String dan Number
 
-## Konsep
+#### Konsep
 
 Dalam pembuatan aplikasi web, data yang diterima dari formulir HTML (*form input*) atau URL query selalu berformat **String**. Jika kita ingin melakukan operasi matematika, data string tersebut wajib dikonversi menjadi **Number**.
 
@@ -1115,7 +1126,7 @@ Fungsi Konversi yang Sering Digunakan:
 - **`parseFloat(string)`:** Mengurai string menjadi bilangan desimal (*float*).
 - **`String(number)`** atau **`number.toString()`:** Mengonversi angka kembali menjadi string.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. String ke Number
@@ -1143,7 +1154,7 @@ console.log("Sebelum konversi ('10' + 5):", num1 + num2); // "105" (salah!)
 console.log("Setelah konversi (Number('10') + 5):", Number(num1) + num2); // 15 (benar!)
 ```
 
-## Output
+#### Output
 
 ```text
 Number('25'): 25
@@ -1156,7 +1167,7 @@ Sebelum konversi ('10' + 5): 105
 Setelah konversi (Number('10') + 5): 15
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Input String: "250"
@@ -1177,7 +1188,7 @@ parseFloat(string)   → Mengambil bilangan desimal dari teks pembuka
 String(number)       → Mengonversi angka menjadi teks biasa
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `Number(value)` untuk konversi ketat (strict), atau `parseInt(value, 10)` dengan selalu menyertakan basis desimal (radix 10).
 - ❌ Hati-hati terhadap `NaN`; periksa hasil konversi dengan `Number.isNaN()` sebelum memprosesnya dalam kalkulasi krusial (misal pembayaran).
@@ -1186,9 +1197,9 @@ String(number)       → Mengonversi angka menjadi teks biasa
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 Tipe Data Array Dasar
+## 14. 🟢 Tipe Data Array Dasar
 
-## Konsep
+#### Konsep
 
 **Array** adalah struktur data terurut (*ordered collection*) yang digunakan untuk menampung sekumpulan nilai dalam satu variabel. Nilai di dalam array disebut elemen, dan setiap elemen memiliki posisi angka urut yang disebut **index** (dimulai dari angka **0**).
 
@@ -1204,7 +1215,7 @@ Method Manipulasi Array Esensial:
 - `.shift()`: Menghapus dan mengambil elemen pertama.
 - `.length`: Menghitung total elemen yang ada.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Membuat array
@@ -1228,7 +1239,7 @@ console.log("Elemen yang di-pop:", removedItem);
 console.log("Array sekarang:", fruits);
 ```
 
-## Output
+#### Output
 
 ```text
 Array awal: [ 'Apel', 'Jeruk', 'Mangga' ]
@@ -1240,7 +1251,7 @@ Elemen yang di-pop: Pisang
 Array sekarang: [ 'Apel', 'Alpukat', 'Mangga' ]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
              Indeks Array (Mulai dari 0)
@@ -1262,7 +1273,7 @@ array.shift()         → Mengambil dan menghapus data dari posisi paling depan
 array.length          → Mendapatkan jumlah total elemen di dalam array
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Buat variabel array menggunakan kata benda jamak (*plural*), contoh: `users`, `products`, `items`.
 - ❌ Ingat bahwa indeks array selalu berawal dari **0**, sehingga elemen terakhir berada di posisi `array.length - 1`.
@@ -1271,9 +1282,9 @@ array.length          → Mendapatkan jumlah total elemen di dalam array
 
 <a id="bagian-15"></a>
 
-# 15. 🟢 Tipe Data Object Dasar
+## 15. 🟢 Tipe Data Object Dasar
 
-## Konsep
+#### Konsep
 
 **Object** adalah struktur data yang menampung kumpulan pasangan kunci dan nilai (*key-value pairs*). Jika array menggunakan nomor indeks angka terurut, maka object menggunakan nama atribut (*property*) berupa teks string untuk mengidentifikasi nilainya.
 
@@ -1283,7 +1294,7 @@ Cara Mengakses Properti Object:
 1. **Dot Notation (`object.property`):** Cara paling umum, bersih, dan ringkas.
 2. **Bracket Notation (`object["property"]`):** Digunakan jika nama key mengandung karakter khusus, spasi, atau berasal dari variabel dinamis.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Membuat objek dengan object literal {}
@@ -1315,7 +1326,7 @@ delete user.isMember;
 console.log("Object akhir:", user);
 ```
 
-## Output
+#### Output
 
 ```text
 Nama: Budi Santoso
@@ -1330,7 +1341,7 @@ Object akhir: {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                 Objek Pengguna
@@ -1355,7 +1366,7 @@ object.newKey = value → Menambahkan atau memperbarui nilai properti
 delete object.key     → Menghapus properti dari objek
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan dot notation (`object.name`) secara konsisten, dan gunakan bracket notation (`object[key]`) hanya jika key ditentukan secara dinamis saat runtime.
 - ❌ Mendeklarasikan object dengan `const` bukan berarti propertinya tidak bisa diubah; kita tetap bisa menambah, mengubah, dan menghapus properti di dalamnya (hanya variabel objeknya yang tidak bisa di-reassign ke objek lain).
@@ -1364,9 +1375,9 @@ delete object.key     → Menghapus properti dari objek
 
 <a id="bagian-16"></a>
 
-# 16. 🟢 Undefined dan Null
+## 16. 🟢 Undefined dan Null
 
-## Konsep
+#### Konsep
 
 JavaScript memiliki dua tipe nilai khusus untuk menggambarkan "ketiadaan nilai", namun keduanya memiliki filosofi dan tujuan yang berbeda:
 
@@ -1379,7 +1390,7 @@ JavaScript memiliki dua tipe nilai khusus untuk menggambarkan "ketiadaan nilai",
 2. **`null` (Ketiadaan Nilai Secara Sengaja):**
    - Nilai yang diberikan secara sengaja (*explicit*) oleh programmer untuk menandakan bahwa variabel tersebut saat ini kosong atau belum memiliki data.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Kasus undefined
@@ -1403,7 +1414,7 @@ console.log("undefined == null:", undefined == null); // true (loose)
 console.log("undefined === null:", undefined === null); // false (strict)
 ```
 
-## Output
+#### Output
 
 ```text
 Variabel tanpa nilai: undefined
@@ -1416,7 +1427,7 @@ undefined == null: true
 undefined === null: false
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Ketiadaan Nilai di JavaScript
@@ -1438,7 +1449,7 @@ typeof undefined === 'undefined'
 typeof null === 'object'
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Berikan nilai awal `null` jika variabel objek/data Anda memang belum memiliki data saat inisialisasi awal.
 - ❌ Jangan pernah mengisi variabel secara manual dengan `undefined` (misal: `let a = undefined`); gunakan `null` jika ingin mengosongkan nilai secara eksplisit.
@@ -1447,9 +1458,9 @@ typeof null === 'object'
 
 <a id="bagian-17"></a>
 
-# 17. 🟢 If, Else If, dan Else Statement
+## 17. 🟢 If, Else If, dan Else Statement
 
-## Konsep
+#### Konsep
 
 **If Expression** adalah struktur kontrol utama untuk mengeksekusi blok kode tertentu berdasarkan suatu kondisi bernilai boolean (*true* atau *false*).
 
@@ -1458,7 +1469,7 @@ Struktur Percabangan:
 - **`else if (condition)`:** Dijalankan jika kondisi sebelumnya `false` dan kondisi ini bernilai `true`.
 - **`else`:** Dijalankan sebagai jalan terakhir jika seluruh kondisi di atas bernilai `false`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const examScore = 85;
@@ -1486,14 +1497,14 @@ if (isMember) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Grade: B (Memuaskan)
 Selamat! Anda mendapatkan diskon member 10%.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Evaluasi Kondisi: (examScore >= 90)
@@ -1519,7 +1530,7 @@ else if (condition) { ... } → Kondisi alternatif jika kondisi sebelumnya false
 else { ... }                → Blok penampung jika semua kondisi sebelumnya false
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Urutkan kondisi `else if` dari nilai yang paling ketat/tinggi ke yang paling rendah agar evaluasi percabangan berjalan akurat.
 - ❌ Hindari percabangan bertingkat (*deeply nested if*) yang terlalu dalam karena merusak keterbacaan kode; gunakan teknik *guard clauses* (early return).
@@ -1528,9 +1539,9 @@ else { ... }                → Blok penampung jika semua kondisi sebelumnya fal
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Popup Dialog (alert, prompt, confirm)
+## 18. 🟡 Popup Dialog (alert, prompt, confirm)
 
-## Konsep
+#### Konsep
 
 Pada lingkungan browser (*Browser Runtime*), objek `window` menyediakan 3 fungsi dialog interaktif modal sederhana:
 
@@ -1538,7 +1549,7 @@ Pada lingkungan browser (*Browser Runtime*), objek `window` menyediakan 3 fungsi
 2. **`prompt(message, defaultValue)`:** Menampilkan kotak dialog input teks. Mengembalikan string isi ketikan user jika menekan "OK", atau `null` jika menekan "Cancel".
 3. **`confirm(message)`:** Menampilkan kotak dialog konfirmasi dengan pilihan tombol "OK" dan "Cancel". Mengembalikan `true` jika user klik "OK", dan `false` jika user klik "Cancel".
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menampilkan notifikasi pemberitahuan
@@ -1561,7 +1572,7 @@ if (userName !== null && userName.trim() !== "") {
 }
 ```
 
-## Output
+#### Output
 
 Contoh interaksi di browser:
 ```text
@@ -1570,7 +1581,7 @@ Contoh interaksi di browser:
 [Pop-up Alert] -> "Bagus! Kuis akan segera dimulai."
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Pemanggilan confirm(message)
@@ -1595,7 +1606,7 @@ prompt(message, defaultText) → Meminta input teks dari user (return string / n
 confirm(message)             → Meminta persetujuan Ya/Tidak (return true / false)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan fungsi pop-up bawaan ini hanya untuk keperluan belajar, prototype cepat, atau debugging sederhana.
 - ❌ Jangan gunakan `alert` / `prompt` di aplikasi web modern skala produksi karena bersifat memblokir (*blocking thread*) dan tampilannya tidak bisa dikustomisasi secara leluasa dengan CSS.
@@ -1604,9 +1615,9 @@ confirm(message)             → Meminta persetujuan Ya/Tidak (return true / fal
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Switch Statement
+## 19. 🟡 Switch Statement
 
-## Konsep
+#### Konsep
 
 **Switch Statement** adalah struktur percabangan yang digunakan untuk membandingkan satu nilai terhadap banyak kemungkinan nilai target secara langsung (*equality matching*).
 
@@ -1616,7 +1627,7 @@ Karakteristik Switch:
 - Menggunakan **`default`** sebagai fallback jika tidak ada satu pun `case` yang sesuai.
 - Jika `break` diabaikan, program akan terus mengeksekusi case di bawahnya tanpa pengecekan (*fall-through*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 const userRole = "EDITOR";
@@ -1641,13 +1652,13 @@ switch (userRole) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Akses Terbatas: Boleh menulis dan mengedit artikel.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Nilai Evaluasi: switch (userRole)
@@ -1677,7 +1688,7 @@ break;                      → Menghentikan proses switch agar tidak tembus ke 
 default:                    → Jalur fallback jika tidak ada case yang cocok
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan teknik *grouped cases* (menumpuk beberapa label case tanpa break) jika beberapa nilai menghasilkan aksi yang persis sama.
 - ❌ Jangan sampai lupa menuliskan `break;` di setiap blok case, karena program akan otomatis mengeksekusi baris case di bawahnya (*fall-through bug*).
@@ -1686,16 +1697,16 @@ default:                    → Jalur fallback jika tidak ada case yang cocok
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Operator typeof dan in
+## 20. 🟡 Operator typeof dan in
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan operator khusus untuk memeriksa tipe data variabel dan mengecek keberadaan atribut pada objek:
 
 1. **`typeof operand`:** Menghasilkan string yang merepresentasikan tipe data dari suatu nilai/variabel (misal: `"number"`, `"string"`, `"boolean"`, `"object"`, `"function"`, `"undefined"`, `"bigint"`, `"symbol"`).
 2. **`"propertyName" in object`:** Operator boolean untuk mengecek apakah sebuah nama properti tersedia di dalam objek (termasuk properti bawaan di rantai prototype).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menggunakan typeof
@@ -1723,7 +1734,7 @@ console.log("Apakah 'color' ada di car?", "color" in car); // true
 console.log("Apakah 'price' ada di car?", "price" in car); // false
 ```
 
-## Output
+#### Output
 
 ```text
 typeof price: number
@@ -1736,7 +1747,7 @@ Apakah 'color' ada di car? true
 Apakah 'price' ada di car? false
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Pengecekan: "brand" in car
@@ -1759,7 +1770,7 @@ typeof value          → Mengembalikan tipe data dalam bentuk string teks
 propertyName in object→ Mengecek apakah nama properti terdaftar di dalam objek
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan operator `in` jika ingin memastikan apakah properti benar-benar didefinisikan di objek, meskipun properti tersebut sengaja diisi bernilai `undefined`.
 - ❌ Ingat bahwa `typeof null` menghasilkan `"object"` (ini adalah bug warisan sejarah JavaScript), jadi jangan gunakan `typeof` untuk memeriksa nilai `null`; gunakan `value === null`.
@@ -1768,9 +1779,9 @@ propertyName in object→ Mengecek apakah nama properti terdaftar di dalam objek
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Ternary Operator (?:)
+## 21. 🟡 Ternary Operator (?:)
 
-## Konsep
+#### Konsep
 
 **Ternary Operator** (`condition ? valueIfTrue : valueIfFalse`) adalah operator kondisional satu baris yang merupakan bentuk ringkas dari struktur `if...else`.
 
@@ -1781,7 +1792,7 @@ Struktur:
 kondisi ? nilai_jika_benar : nilai_jika_salah
 ```
 
-## Contoh
+#### Contoh
 
 ```javascript
 const score = 80;
@@ -1804,7 +1815,7 @@ const user = { name: "Rina", isPremium: true };
 console.log(`Selamat datang, ${user.name} (${user.isPremium ? "Member VIP" : "Member Reguler"})`);
 ```
 
-## Output
+#### Output
 
 ```text
 Status (If-Else): Lulus
@@ -1812,7 +1823,7 @@ Status (Ternary): Lulus
 Selamat datang, Rina (Member VIP)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
            Evaluasi Kondisi: (score >= 75)
@@ -1831,7 +1842,7 @@ Selamat datang, Rina (Member VIP)
 condition ? valueIfTrue : valueIfFalse → Memilih nilai berdasarkan evaluasi boolean
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan ternary operator hanya untuk evaluasi kondisi sederhana (satu baris); hal ini memungkinkan variabel dideklarasikan langsung dengan `const`.
 - ❌ Hindari menumpuk ternary bersarang (*nested ternary*) terlalu dalam (misal `a ? b : c ? d : e`) karena sangat sulit dibaca dan dipahami; gunakan `if-else` biasa untuk logika bercabang banyak.
@@ -1840,9 +1851,9 @@ condition ? valueIfTrue : valueIfFalse → Memilih nilai berdasarkan evaluasi bo
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Nullish Coalescing Operator (??)
+## 22. 🟡 Nullish Coalescing Operator (??)
 
-## Konsep
+#### Konsep
 
 **Nullish Coalescing Operator (`??`)** adalah operator modern JavaScript (ES2020) yang digunakan untuk memberikan nilai default (*fallback value*) hanya jika nilai di sisi kiri bernilai **`null`** atau **`undefined`** (*Nullish values*).
 
@@ -1850,7 +1861,7 @@ Perbedaan Krusial dengan Logical OR (`||`):
 - Operator `||` akan mengganti nilai sisi kiri jika bernilai **falsy** apa pun (termasuk angka `0`, boolean `false`, dan string kosong `""`).
 - Operator `??` hanya mengganti nilai sisi kiri jika nilainya benar-benar **`null`** atau **`undefined`**. Angka `0`, boolean `false`, dan string `""` dianggap sebagai data yang valid.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Kasus 1: Pengaturan kuota (angka 0 adalah nilai valid)
@@ -1873,7 +1884,7 @@ userBio ??= "Bio belum diisi oleh pengguna";
 console.log("Bio User:", userBio);
 ```
 
-## Output
+#### Output
 
 ```text
 Limit dengan OR (||): 10
@@ -1882,7 +1893,7 @@ Display Name: Anonim
 Bio User: Bio belum diisi oleh pengguna
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  leftOperand ?? rightOperand
@@ -1903,7 +1914,7 @@ leftOperand ?? fallbackValue  → Menggunakan fallback jika sisi kiri null atau 
 variable ??= defaultValue     → Mengisi variabel hanya jika saat ini bernilai null/undefined
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan operator `??` saat memproses data angka, boolean, atau input teks yang boleh bernilai `0`, `false`, atau `""`.
 - ❌ Jangan gunakan `||` untuk memberi nilai default pada variabel numerik atau boolean, karena angka `0` dan boolean `false` akan tertimpa oleh nilai default secara tidak sengaja.
@@ -1912,16 +1923,16 @@ variable ??= defaultValue     → Mengisi variabel hanya jika saat ini bernilai 
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 Optional Chaining Operator (?.)
+## 23. 🟡 Optional Chaining Operator (?.)
 
-## Konsep
+#### Konsep
 
 **Optional Chaining (`?.`)** adalah fitur modern JavaScript (ES2020) yang memungkinkan kita membaca nilai properti yang bersarang (*deeply nested properties*) atau memanggil method tanpa perlu khawatir program melempar pesan error fatal `TypeError: Cannot read properties of undefined/null`.
 
 Cara Kerja:
 Jika nilai di sebelah kiri `?.` bernilai `null` atau `undefined`, ekspresi langsung berhenti dan secara aman mengembalikan nilai `undefined` (*short-circuit*), alih-alih melempar error yang menghentikan aplikasi.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const userWithoutAddress = {
@@ -1951,14 +1962,14 @@ const service = {
 service.sendNotification?.("Pesan penting"); // Aman, tidak error!
 ```
 
-## Output
+#### Output
 
 ```text
 Kota (Cara Lama): Kota tidak diketahui
 Kota (Cara Modern): Kota tidak diketahui
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Akses: user.address?.city
@@ -1979,7 +1990,7 @@ object?.[expression]     → Mengakses properti dinamis/array index dengan aman
 object.method?.(...args) → Memanggil method hanya jika method tersebut berupa function
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gabungkan Optional Chaining (`?.`) dengan Nullish Coalescing (`??`) untuk membaca data JSON / API eksternal yang strukturnya belum pasti lengkap.
 - ❌ Jangan gunakan `?.` di sisi kiri penugasan nilai (misal: `user?.address?.city = "Bandung"`), karena optional chaining hanya untuk membaca data (*read-only*), bukan untuk menulis (*write*).
@@ -1988,15 +1999,15 @@ object.method?.(...args) → Memanggil method hanya jika method tersebut berupa 
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Falsy dan Truthy
+## 24. 🟡 Falsy dan Truthy
 
-## Konsep
+#### Konsep
 
 Di JavaScript, setiap nilai ketika dievaluasi dalam konteks kondisi logika (seperti di dalam blok `if`) akan otomatis dikonversi menjadi salah satu dari dua kelompok:
 1. **Falsy:** Nilai yang dianggap sebagai `false`.
 2. **Truthy:** Semua nilai di luar daftar nilai falsy dianggap sebagai `true`.
 
-### Daftar Lengkap 8 Nilai Falsy di JavaScript:
+##### Daftar Lengkap 8 Nilai Falsy di JavaScript:
 1. `false` (Boolean false)
 2. `0`, `-0`, `0n` (Angka nol & BigInt nol)
 3. `""`, `''`, string template kosong (String kosong)
@@ -2005,12 +2016,12 @@ Di JavaScript, setiap nilai ketika dievaluasi dalam konteks kondisi logika (sepe
 6. `NaN` (Not a Number)
 7. `document.all` (Hanya di browser untuk kompatibilitas legacy)
 
-### Contoh Nilai Truthy (Penting Diingat!):
+##### Contoh Nilai Truthy (Penting Diingat!):
 - Semua string yang ada isinya (termasuk `"0"`, `"false"`, `" "` spasi).
 - Semua angka bukan nol (termasuk angka negatif `-1`, `3.14`).
 - Array kosong (`[]`) dan Objek kosong (`{}`) bernilai **TRUTHY**!
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Memeriksa nilai falsy
@@ -2032,7 +2043,7 @@ if (emptyArray) console.log("Array kosong [] adalah TRUTHY!");
 if (emptyObject) console.log("Objek kosong {} adalah TRUTHY!");
 ```
 
-## Output
+#### Output
 
 ```text
 String kosong adalah FALSY
@@ -2043,7 +2054,7 @@ Array kosong [] adalah TRUTHY!
 Objek kosong {} adalah TRUTHY!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
            Evaluasi Nilai dalam Kondisi If
@@ -2067,7 +2078,7 @@ Falsy list     → false, 0, "", null, undefined, NaN
 Truthy list    → Segala nilai lainnya (termasuk array kosong [] dan object kosong {})
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Jika ingin mengecek apakah sebuah array memiliki data atau kosong, periksa panjangnya menggunakan `array.length === 0`, jangan mengecek `if (array)` karena array kosong tetap bernilai *truthy*.
 - ❌ Jangan mengecek isi string dengan asumsi `"0"` bernilai false; gunakan konversi tipe yang eksplisit.
@@ -2076,9 +2087,9 @@ Truthy list    → Segala nilai lainnya (termasuk array kosong [] dan object kos
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 Operator Logika di Non-Boolean (Short-Circuit Evaluation)
+## 25. 🟡 Operator Logika di Non-Boolean (Short-Circuit Evaluation)
 
-## Konsep
+#### Konsep
 
 Di JavaScript, operator logika `||` (OR) dan `&&` (AND) tidak selalu mengembalikan nilai boolean `true` atau `false`. Saat digunakan pada nilai non-boolean, operator ini mengembalikan **salah satu nilai asli dari operand** berdasarkan mekanisme **Short-Circuit Evaluation**:
 
@@ -2092,7 +2103,7 @@ Di JavaScript, operator logika `||` (OR) dan `&&` (AND) tidak selalu mengembalik
    - Jika `A` adalah **falsy**, evaluasi langsung berhenti dan mengembalikan nilai **`A`**.
    - Jika `A` adalah **truthy**, evaluasi dilanjutkan dan mengembalikan nilai **`B`**.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Short-Circuit pada Operator OR (||)
@@ -2114,7 +2125,7 @@ const logAccess = () => console.log("Aktivitas user berhasil dicatat!");
 isLoggedIn && logAccess(); // Fungsi dijalankan hanya jika isLoggedIn true
 ```
 
-## Output
+#### Output
 
 ```text
 hello
@@ -2128,7 +2139,7 @@ null
 Aktivitas user berhasil dicatat!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Evaluasi: ("hello" || "world")
@@ -2151,7 +2162,7 @@ leftValue || rightValue → Mengambil nilai truthy pertama yang ditemukan
 leftValue && rightValue → Mengambil nilai falsy pertama, atau nilai paling kanan jika semua truthy
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan pola `isValid && executeAction()` sebagai cara ekspresif satu baris dalam memanggil fungsi saat kondisi terpenuhi.
 - ❌ Hati-hati saat menggunakan `||` untuk nilai default, karena jika nilai aslinya adalah `0` atau `""`, nilai tersebut akan dianggap *falsy* dan tertimpa nilai kanan secara tidak sengaja (gunakan `??` untuk skenario ini).
@@ -2160,9 +2171,9 @@ leftValue && rightValue → Mengambil nilai falsy pertama, atau nilai paling kan
 
 <a id="bagian-26"></a>
 
-# 26. 🟡 For Loop
+## 26. 🟡 For Loop
 
-## Konsep
+#### Konsep
 
 **For Loop** adalah struktur perulangan yang paling umum digunakan ketika kita sudah mengetahui secara pasti berapa kali sebuah blok kode harus dieksekusi.
 
@@ -2176,7 +2187,7 @@ for (inisialisasi; kondisi_terminasi; perubahan_nilai) {
 2. **Kondisi (`i < limit`):** Dievaluasi sebelum setiap putaran dimulai. Jika bernilai `true`, blok dieksekusi; jika `false`, perulangan berhenti.
 3. **Perubahan Nilai (`i++`):** Dijalankan setiap kali setelah satu putaran blok kode selesai dieksekusi.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Perulangan menaik (Ascending)
@@ -2199,7 +2210,7 @@ for (let i = 0; i < tools.length; i++) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 === Perulangan Naik ===
@@ -2219,7 +2230,7 @@ Tool #3: Git
 Tool #4: Browser
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Inisialisasi: let i = 0
@@ -2245,7 +2256,7 @@ Tool #4: Browser
 for (initialization; condition; increment) { ... } → Struktur standar perulangan terkontrol
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu deklarasikan variabel iterator menggunakan `let` di dalam tanda kurung loop agar variabel memiliki *block scope* yang aman dan terisolasi.
 - ❌ Pastikan kondisi terminasi dan penambahan nilai (*increment*) valid agar program tidak terjebak dalam perulangan tanpa henti (*infinite loop*).
@@ -2254,9 +2265,9 @@ for (initialization; condition; increment) { ... } → Struktur standar perulang
 
 <a id="bagian-27"></a>
 
-# 27. 🟡 While Loop
+## 27. 🟡 While Loop
 
-## Konsep
+#### Konsep
 
 **While Loop** adalah struktur perulangan yang mengeksekusi blok kode secara berulang selama kondisi logika yang ditentukan bernilai **`true`**.
 
@@ -2265,7 +2276,7 @@ Karakteristik While Loop:
 - Jika kondisi bernilai `false` sejak pertama kali, maka blok di dalamnya tidak akan pernah dijalankan sama sekali (0 kali).
 - Sangat cocok digunakan ketika kita tidak tahu secara pasti berapa total putaran yang dibutuhkan (misal: menunggu input tertentu dari user atau memproses antrean data).
 
-## Contoh
+#### Contoh
 
 ```javascript
 let currentEnergy = 3;
@@ -2289,7 +2300,7 @@ while (diceNumber !== 6) {
 console.log(`Selamat! Angka 6 berhasil didapatkan dalam ${attempts} lemparan.`);
 ```
 
-## Output
+#### Output
 
 ```text
 Karakter berjalan... Sisa energi: 3
@@ -2302,7 +2313,7 @@ Lemparan #3: Angka 6
 Selamat! Angka 6 berhasil didapatkan dalam 3 lemparan.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
              Kondisi: while (currentEnergy > 0)
@@ -2325,7 +2336,7 @@ Selamat! Angka 6 berhasil didapatkan dalam 3 lemparan.
 while (condition) { ... } → Mengulang blok kode selama kondisi bernilai true (cek di awal)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pastikan terdapat statement di dalam blok loop yang pada akhirnya akan mengubah kondisi menjadi `false`.
 - ❌ Hati-hati terhadap lupa menuliskan increment/decrement di dalam body loop, karena hal ini akan membekukan aplikasi akibat *infinite loop*.
@@ -2334,9 +2345,9 @@ while (condition) { ... } → Mengulang blok kode selama kondisi bernilai true (
 
 <a id="bagian-28"></a>
 
-# 28. 🟡 Do While Loop
+## 28. 🟡 Do While Loop
 
-## Konsep
+#### Konsep
 
 **Do While Loop** adalah variasi perulangan yang mengeksekusi blok kodenya terlebih dahulu, baru kemudian memeriksa kondisi logikanya di bagian akhir.
 
@@ -2344,7 +2355,7 @@ Perbedaan Utama dengan While Loop:
 - Pada `while`, kondisi dicek di awal (bisa saja blok tidak dijalankan sama sekali jika kondisi awal `false`).
 - Pada `do...while`, blok kode **dijamin pasti dieksekusi minimal 1 kali**, meskipun kondisi logikanya sudah bernilai `false` sejak awal.
 
-## Contoh
+#### Contoh
 
 ```javascript
 let balance = 0;
@@ -2358,14 +2369,14 @@ do {
 console.log("Transaksi ditutup.");
 ```
 
-## Output
+#### Output
 
 ```text
 Saldo saat ini: Rp0 (Menampilkan menu transaksi minimal 1x)
 Transaksi ditutup.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             Masuk ke Blok: do { ... }
@@ -2389,7 +2400,7 @@ Transaksi ditutup.
 do { ... } while (condition); → Menjalankan blok minimal 1x sebelum mengecek kondisi di akhir
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `do...while` ketika sebuah aksi awal wajib ditampilkan terlebih dahulu kepada user sebelum validasi kelanjutan dilakukan (misal form prompt minimal sekali).
 - ❌ Jangan lupa menambahkan tanda titik koma (`;`) di akhir penutup `while (condition);`.
@@ -2398,16 +2409,16 @@ do { ... } while (condition); → Menjalankan blok minimal 1x sebelum mengecek k
 
 <a id="bagian-29"></a>
 
-# 29. 🟡 Break dan Continue
+## 29. 🟡 Break dan Continue
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan dua kata kunci untuk mengontrol alur di dalam perulangan:
 
 1. **`break`:** Menghentikan perulangan secara paksa dan langsung melompat keluar dari seluruh struktur loop saat itu juga.
 2. **`continue`:** Menghentikan putaran iterasi saat ini dan langsung melompat ke putaran (*iterasi*) berikutnya tanpa mengeksekusi sisa baris kode di bawahnya.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menggunakan break untuk menghentikan pencarian data
@@ -2432,7 +2443,7 @@ for (let num = 1; num <= 6; num++) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 === Contoh Break (Pencarian) ===
@@ -2445,7 +2456,7 @@ Angka Ganjil: 3
 Angka Ganjil: 5
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                    Iterasi Perulangan
@@ -2466,7 +2477,7 @@ break    → Menghentikan seluruh proses perulangan seketika
 continue → Melewatkan sisa instruksi di putaran saat ini dan lompat ke iterasi berikutnya
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `break` saat mencari elemen di dalam data besar agar aplikasi tidak membuang resource komputasi setelah data target ditemukan.
 - ❌ Hati-hati saat menggunakan `continue` di dalam `while` loop; pastikan operasi increment/decrement ditulis *sebelum* statement `continue` agar tidak terjadi infinite loop.
@@ -2475,9 +2486,9 @@ continue → Melewatkan sisa instruksi di putaran saat ini dan lompat ke iterasi
 
 <a id="bagian-30"></a>
 
-# 30. 🟡 Label pada Perulangan
+## 30. 🟡 Label pada Perulangan
 
-## Konsep
+#### Konsep
 
 **Label** adalah penanda nama yang diletakkan sebelum struktur perulangan. Label memungkinkan kita mengontrol secara spesifik perulangan terluar (*outer loop*) dari dalam perulangan bersarang (*nested inner loop*) menggunakan kata kunci `break labelName` atau `continue labelName`.
 
@@ -2490,7 +2501,7 @@ namaLabel: for (...) {
 }
 ```
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Perulangan bersarang mencari koordinat target (2, 2)
@@ -2506,7 +2517,7 @@ outerLoop: for (let row = 1; row <= 3; row++) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Cek koordinat: (1, 1)
@@ -2517,7 +2528,7 @@ Cek koordinat: (2, 2)
 Koordinat (2, 2) ditemukan! Menghentikan seluruh perulangan terluar.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         outerLoop: for (row...)
@@ -2540,7 +2551,7 @@ break labelName        → Menghentikan loop yang berlabel labelName dari dalam 
 continue labelName     → Melompat ke iterasi berikutnya dari loop yang berlabel labelName
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan label hanya pada algoritma matriks/grid multi-dimensi yang membutuhkan penghentian loop luar secara efisien.
 - ❌ Jangan menggunakan label secara berlebihan untuk alur kode biasa karena dapat membuat struktur logika menyerupai *spaghetti code*.
@@ -2549,9 +2560,9 @@ continue labelName     → Melompat ke iterasi berikutnya dari loop yang berlabe
 
 <a id="bagian-31"></a>
 
-# 31. 🟡 For In dan For Of
+## 31. 🟡 For In dan For Of
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan dua variasi loop modern untuk menelusuri koleksi data:
 
@@ -2563,7 +2574,7 @@ JavaScript menyediakan dua variasi loop modern untuk menelusuri koleksi data:
    - Digunakan untuk mengulang langsung **nilai elemen** dari objek yang dapat diiterasi (*Iterable*), seperti **Array**, **String**, **Map**, dan **Set**.
    - Menghasilkan: nilai data secara langsung (*value*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menggunakan for...in untuk menelusuri Objek
@@ -2587,7 +2598,7 @@ for (const lang of languages) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 === Menelusuri Objek dengan for...in ===
@@ -2600,7 +2611,7 @@ Bahasa: TypeScript
 Bahasa: Python
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           Pilihan Loop Penelusuran Koleksi
@@ -2621,7 +2632,7 @@ for (const key in object) { ... }  → Mengulang nama key properti pada objek
 for (const value of array) { ... } → Mengulang nilai elemen langsung pada array/iterable
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `for...of` untuk mengulang isi Array, dan `for...in` untuk mengulang properti Objek.
 - ❌ Hindari menggunakan `for...in` pada Array karena urutan index tidak selalu dijamin terurut dan properti prototype bisa ikut terambil.
@@ -2630,9 +2641,9 @@ for (const value of array) { ... } → Mengulang nilai elemen langsung pada arra
 
 <a id="bagian-32"></a>
 
-# 32. 🟡 With Statement (dan Mengapa Ditinggalkan)
+## 32. 🟡 With Statement (dan Mengapa Ditinggalkan)
 
-## Konsep
+#### Konsep
 
 **With Statement** adalah fitur lama JavaScript yang dibuat dengan tujuan memperpendek penulisan properti objek tanpa perlu mengulang nama objek induknya.
 
@@ -2643,13 +2654,13 @@ with (object) {
 }
 ```
 
-### Mengapa Ditinggalkan & Dilarang di Kode Modern?
+##### Mengapa Ditinggalkan & Dilarang di Kode Modern?
 1. **Ambiguitas Variabel:** Tidak jelas apakah sebuah identifier adalah variabel lokal atau properti objek.
 2. **Rawan Bug Fatal:** Jika nama variabel tidak sengaja sama dengan properti bawaan objek, program akan salah memanipulasi data.
 3. **Merusak Optimasi Engine:** Mesin JavaScript tidak bisa mengoptimasi performa kode di dalam blok `with`.
 4. **Dilarang di Strict Mode:** `with` statement akan menghasilkan `SyntaxError` jika dijalankan di bawah mode ketat (*Strict Mode* / ES Modules).
 
-## Contoh
+#### Contoh
 
 ```javascript
 const userProfile = {
@@ -2667,13 +2678,13 @@ const { firstName, lastName } = userProfile;
 console.log(`Nama Lengkap (Destructuring): ${firstName} ${lastName}`);
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Lengkap (Destructuring): Budi Santoso
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        with (userProfile)             const { firstName } = userProfile
@@ -2690,7 +2701,7 @@ with (object) { ... } → Fitur usang berbahaya (hindari dan jangan pernah digun
 const { prop } = obj  → Standar modern pengganti with menggunakan Object Destructuring
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan *Object Destructuring* modern (`const { prop } = object`) untuk mengekstrak properti objek secara aman dan bersih.
 - ❌ Jangan pernah menuliskan keyword `with` di aplikasi modern.
@@ -2699,9 +2710,9 @@ const { prop } = obj  → Standar modern pengganti with menggunakan Object Destr
 
 <a id="bagian-33"></a>
 
-# 33. 🟡 Function Dasar & Deklarasi
+## 33. 🟡 Function Dasar & Deklarasi
 
-## Konsep
+#### Konsep
 
 **Function** (Fungsi) adalah blok kode program yang dirancang untuk melakukan tugas tertentu, dibungkus dalam satu unit bernama, dan dapat dipanggil (*di-invoke*) berulang kali kapan pun dibutuhkan (*reusable code*).
 
@@ -2710,7 +2721,7 @@ Keuntungan Menggunakan Function:
 - **Modularitas:** Membagi program besar menjadi potongan-potongan tugas kecil yang terstruktur.
 - **Hoisting pada Function Declaration:** Fungsi yang dideklarasikan dengan kata kunci `function namaFungsi()` akan dinaikkan (*hoisted*) ke atas oleh engine, sehingga dapat dipanggil bahkan sebelum baris deklarasinya ditulis.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Memanggil fungsi sebelum deklarasi (Bisa karena Hoisting)
@@ -2726,7 +2737,7 @@ greetUser();
 greetUser();
 ```
 
-## Output
+#### Output
 
 ```text
 Halo! Selamat datang di aplikasi kami.
@@ -2734,7 +2745,7 @@ Halo! Selamat datang di aplikasi kami.
 Halo! Selamat datang di aplikasi kami.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
       Mendeklarasikan: function greetUser() { ... }
@@ -2756,7 +2767,7 @@ function functionName() { ... } → Deklarasi fungsi standar (di-hoist otomatis)
 functionName()                  → Memanggil dan mengeksekusi blok kode fungsi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Berikan nama fungsi menggunakan kata kerja yang deskriptif sesuai tindakannya (*verb-noun*), contoh: `calculateTotal`, `fetchUserData`, `validateEmail`.
 - ❌ Hindari membuat satu fungsi yang mengerjakan terlalu banyak hal berbeda sekaligus (*Single Responsibility Principle*).
@@ -2765,9 +2776,9 @@ functionName()                  → Memanggil dan mengeksekusi blok kode fungsi
 
 <a id="bagian-34"></a>
 
-# 34. 🟡 Parameter dan Return Value
+## 34. 🟡 Parameter dan Return Value
 
-## Konsep
+#### Konsep
 
 Function menjadi sangat fleksibel berkat adanya **Parameter** dan **Return Value**:
 
@@ -2779,7 +2790,7 @@ Function menjadi sangat fleksibel berkat adanya **Parameter** dan **Return Value
    - Eksekusi fungsi akan langsung **berhenti seketika** saat baris `return` dijalankan.
    - Jika fungsi tidak memiliki statement `return`, maka fungsi tersebut secara implisit mengembalikan nilai `undefined`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Fungsi dengan 2 parameter (price, discountPercent) dan return value
@@ -2814,7 +2825,7 @@ console.log("Status:", checkMembershipStatus(1200));
 console.log("Status Negatif:", checkMembershipStatus(-5));
 ```
 
-## Output
+#### Output
 
 ```text
 Harga awal: Rp200000
@@ -2824,7 +2835,7 @@ Status: Gold Member
 Status Negatif: Poin tidak valid
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Argumen Dikirim: calculateDiscountPrice(200000, 20)
@@ -2846,7 +2857,7 @@ function name(param1, param2) { return result; } → Fungsi menerima parameter d
 return value;                                    → Mengembalikan hasil dan langsung menghentikan fungsi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Terapkan pola *Early Return* (keluar seawal mungkin jika ada kondisi error/invalid) agar kode tidak bertumpuk di dalam blok else.
 - ❌ Jangan menuliskan kode apa pun tepat di bawah statement `return`, karena kode tersebut tidak akan pernah dieksekusi (*unreachable code*).
@@ -2855,9 +2866,9 @@ return value;                                    → Mengembalikan hasil dan lan
 
 <a id="bagian-35"></a>
 
-# 35. 🟡 Optional Parameter, Default Parameter & Rest Parameter
+## 35. 🟡 Optional Parameter, Default Parameter & Rest Parameter
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan fitur modern untuk menangani fleksibilitas parameter fungsi:
 
@@ -2868,7 +2879,7 @@ JavaScript menyediakan fitur modern untuk menangani fleksibilitas parameter fung
 3. **Rest Parameter (`...args`):**
    Menggabungkan sejumlah argumen tak terbatas menjadi satu array utuh. Wajib diletakkan di posisi paling terakhir dalam daftar parameter.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Default Parameter
@@ -2901,7 +2912,7 @@ function createInvoice(customerName, ...itemPrices) {
 console.log(createInvoice("Andi", 50000, 75000, 25000));
 ```
 
-## Output
+#### Output
 
 ```text
 User: Budi | Role: Reguler | Status Aktif: true
@@ -2911,7 +2922,7 @@ Total (5 angka): 15
 Faktur atas nama Andi: Total Rp150000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      Pemanggilan: sumAllNumbers(10, 20, 30)
@@ -2930,7 +2941,7 @@ function name(param = defaultValue) → Menetapkan nilai bawaan jika argumen kos
 function name(...restParams)        → Menampung seluruh sisa argumen ke dalam sebuah Array
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Rest Parameter (`...args`) alih-alih variabel jadul `arguments`, karena Rest Parameter menghasilkan array JavaScript asli yang memiliki method `.map()`, `.filter()`, dll.
 - ❌ Rest parameter hanya boleh ada satu dan **wajib** diletakkan di posisi paling akhir dalam daftar parameter fungsi.
@@ -2939,9 +2950,9 @@ function name(...restParams)        → Menampung seluruh sisa argumen ke dalam 
 
 <a id="bagian-36"></a>
 
-# 36. 🔴 Function Sebagai Value & Anonymous Function
+## 36. 🔴 Function Sebagai Value & Anonymous Function
 
-## Konsep
+#### Konsep
 
 Di JavaScript, function diperlakukan sebagai **First-Class Citizen** (atau *First-Class Value*). Artinya, function memiliki derajat yang sama seperti tipe data lainnya (seperti string atau number):
 - Bisa disimpan di dalam variabel (*Function Expression*).
@@ -2950,7 +2961,7 @@ Di JavaScript, function diperlakukan sebagai **First-Class Citizen** (atau *Firs
 
 **Anonymous Function** adalah fungsi yang tidak memiliki nama identitas. Biasanya digunakan langsung sebagai nilai variabel atau argumen callback sementara.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menyimpan Anonymous Function ke dalam variabel (Function Expression)
@@ -2974,7 +2985,7 @@ processUserGreeting("Rina", function(name) {
 });
 ```
 
-## Output
+#### Output
 
 ```text
 Halo Dewi, selamat pagi!
@@ -2982,7 +2993,7 @@ Halo Dewi, selamat pagi!
 [LOG SERVER]: Selamat datang, Member VIP Rina!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
       Variabel: const sayHello = function(name) { ... }
@@ -3001,7 +3012,7 @@ const identifier = function(parameters) { ... } → Function expression / anonym
 higherOrderFunction(data, callbackFunction)     → Mengirimkan fungsi sebagai argumen ke fungsi lain
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Sadari bahwa Function Expression yang disimpan di variabel `const` tidak terkena efek *hoisting*; variabel tersebut harus dideklarasikan sebelum dipanggil.
 - ❌ Jangan membuat callback yang terlalu rumit secara inline berulang-ulang (*Callback Hell*); pisahkan menjadi fungsi modular bernama jika logika semakin panjang.
@@ -3010,19 +3021,19 @@ higherOrderFunction(data, callbackFunction)     → Mengirimkan fungsi sebagai a
 
 <a id="bagian-37"></a>
 
-# 37. 🔴 Function dalam Function & Scope
+## 37. 🔴 Function dalam Function & Scope
 
-## Konsep
+#### Konsep
 
 JavaScript mendukung pembuatan fungsi di dalam fungsi lain (**Nested Function** / *Inner Function*).
 
-### Mental Model Scope (Lingkup Akses Variabel):
+##### Mental Model Scope (Lingkup Akses Variabel):
 1. **Global Scope:** Variabel yang dideklarasikan di luar fungsi/blok dapat diakses dari mana saja.
 2. **Function Scope:** Variabel yang dideklarasikan di dalam suatu fungsi hanya bisa diakses di dalam fungsi tersebut.
 3. **Block Scope (`let` / `const`):** Variabel hanya hidup di dalam kurung kurawal `{ ... }`.
 4. **Lexical Scoping (Scope Chain):** Fungsi bagian dalam (*inner function*) memiliki akses penuh ke variabel milik fungsi pembungkusnya (*outer function*), namun fungsi luar **TIDAK** bisa mengakses variabel lokal milik fungsi dalam.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const globalAppName = "Sistem Akademik"; // Global Scope
@@ -3047,7 +3058,7 @@ function outerCourseManager(courseName) {
 outerCourseManager("Algoritma Pemrograman");
 ```
 
-## Output
+#### Output
 
 ```text
 [Sistem Akademik]
@@ -3055,7 +3066,7 @@ Mahasiswa: Fajar Pratama (ID: ENR-824)
 Mendaftar Mata Kuliah: Algoritma Pemrograman [IF-101]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             Global Scope (globalAppName)
@@ -3075,7 +3086,7 @@ Inner Function → Dapat mengakses parameter dan variabel milik Outer Function
 Outer Function → TIDAK DAPAT mengakses variabel privat di dalam Inner Function
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan nested function untuk menyembunyikan fungsi bantuan kecil (*helper functions*) yang hanya relevan bagi satu operasi spesifik.
 - ❌ Hindari mencemari Global Scope (*Global Scope Pollution*) dengan membuat variabel tanpa pembungkus fungsi/modul.
@@ -3084,9 +3095,9 @@ Outer Function → TIDAK DAPAT mengakses variabel privat di dalam Inner Function
 
 <a id="bagian-38"></a>
 
-# 38. 🔴 Recursive Function
+## 38. 🔴 Recursive Function
 
-## Konsep
+#### Konsep
 
 **Recursive Function** (Fungsi Rekursif) adalah fungsi yang **memanggil dirinya sendiri** secara berulang hingga mencapai kondisi pemberhentian tertentu.
 
@@ -3096,7 +3107,7 @@ Dua Bagian Wajib Fungsi Rekursif:
 
 Fungsi rekursif sangat elegan untuk memproses struktur hierarki (seperti pohon folder, menu bersarang, JSON beranak) dan perhitungan matematika rekursif (faktorial, fibonacci).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menghitung Faktorial (5! = 5 * 4 * 3 * 2 * 1)
@@ -3135,7 +3146,7 @@ function printCategoryHierarchy(category, level = 0) {
 printCategoryHierarchy(categoryTree);
 ```
 
-## Output
+#### Output
 
 ```text
 Faktorial 5 (5!): 120
@@ -3145,7 +3156,7 @@ Faktorial 3 (3!): 6
     -> Laptop Gaming
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         factorial(3)
@@ -3170,7 +3181,7 @@ Base Case      → Kondisi berhenti agar fungsi tidak memanggil dirinya sendiri 
 Recursive Step → Memanggil dirinya sendiri dengan parameter yang semakin kecil menuju base case
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu pastikan *Base Case* ditulis di baris paling atas fungsi dan kondisi penghentian dapat tercapai.
 - ❌ Hati-hati terhadap *Stack Overflow* (`Maximum call stack size exceeded`) jika Base Case tidak pernah terpenuhi atau kedalaman rekursi terlalu besar.
@@ -3179,9 +3190,9 @@ Recursive Step → Memanggil dirinya sendiri dengan parameter yang semakin kecil
 
 <a id="bagian-39"></a>
 
-# 39. 🔴 Function Generator (function* & yield)
+## 39. 🔴 Function Generator (function* & yield)
 
-## Konsep
+#### Konsep
 
 **Function Generator** adalah tipe fungsi khusus di JavaScript yang eksekusinya dapat **dihentikan sementara (*pause*)** di tengah jalan dan kemudian **dilanjutkan kembali (*resume*)** di masa mendatang.
 
@@ -3192,7 +3203,7 @@ Karakteristik Generator:
 - Memanggil method **`.next()`** akan melanjutkan eksekusi hingga menemukan kata kunci `yield` berikutnya, dan mengembalikan objek `{ value: ..., done: boolean }`.
 - Bersifat *Lazy Evaluation* (hanya menghitung data saat diminta, sangat hemat memori).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Membuat Generator Penghasil Nomor ID Tiket Otomatis
@@ -3228,7 +3239,7 @@ for (const val of generateNumberSequence(3)) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 [Generator]: Mengambil tiket antrean 1
@@ -3244,7 +3255,7 @@ Nilai: 20
 Nilai: 30
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           ticketBooth.next()
@@ -3265,7 +3276,7 @@ generatorObject.next()             → Melanjutkan eksekusi ke yield berikutnya
 { value: ..., done: boolean }      → Struktur objek return dari iterator generator
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan generator untuk menghasilkan deret data tak terhingga atau membaca streaming file besar tanpa membebani kapasitas RAM.
 - ❌ Ingat bahwa generator bukan array biasa; data di dalamnya di-generate secara *on-demand*, sehingga tidak bisa diakses dengan indeks `gen[0]`.
@@ -3274,9 +3285,9 @@ generatorObject.next()             → Melanjutkan eksekusi ke yield berikutnya
 
 <a id="bagian-40"></a>
 
-# 40. 🔴 Arrow Function (() =>)
+## 40. 🔴 Arrow Function (() =>)
 
-## Konsep
+#### Konsep
 
 **Arrow Function** adalah sintaks ringkas modern (ES6) untuk menuliskan fungsi menggunakan tanda panah gemuk (**`=>`**).
 
@@ -3286,7 +3297,7 @@ Keunggulan & Karakteristik Arrow Function:
 3. **Tidak Memiliki `arguments` Object:** Gunakan Rest Parameter `...args` sebagai gantinya.
 4. **Tidak Bisa Digunakan Sebagai Constructor:** Tidak bisa dipanggil dengan kata kunci `new`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Perbandingan Fungsi Biasa vs Arrow Function
@@ -3318,7 +3329,7 @@ console.log("Doubled:", doubled);
 console.log("Evens:", evens);
 ```
 
-## Output
+#### Output
 
 ```text
 Multiply: 20
@@ -3327,7 +3338,7 @@ Doubled: [ 2, 4, 6, 8, 10 ]
 Evens: [ 2, 4 ]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          const double = x => x * 2;
@@ -3344,7 +3355,7 @@ Evens: [ 2, 4 ]
 (param1, param2) => { return result; } → Arrow function dengan blok kode kurung kurawal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan arrow function sebagai pilihan utama saat menulis fungsi callback (seperti di `.map()`, `.filter()`, `.reduce()`, timer, atau event handler).
 - ❌ Jangan gunakan arrow function sebagai method objek jika method tersebut memerlukan akses ke properti internal objek melalui `this`.
@@ -3353,9 +3364,9 @@ Evens: [ 2, 4 ]
 
 <a id="bagian-41"></a>
 
-# 41. 🔴 Closure & Data Privacy
+## 41. 🔴 Closure & Data Privacy
 
-## Konsep
+#### Konsep
 
 **Closure** adalah kombinasi antara sebuah fungsi dan **lingkungan leksikal (*lexical environment*)** tempat fungsi tersebut pertama kali diciptakan.
 
@@ -3365,7 +3376,7 @@ Kegunaan Utama Closure:
 - **Data Privacy / Encapsulation:** Menyembunyikan variabel agar bersifat privat dan tidak dapat diubah secara langsung dari luar.
 - **Function Factory:** Membuat fungsi-fungsi spesifik berdasarkan konfigurasi awal.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Membuat Counter Mandiri dengan Variabel Privat
@@ -3399,7 +3410,7 @@ console.log(budiAccount.withdraw(30000));
 console.log("Akses balance langsung:", budiAccount.balance); // undefined (AMAN!)
 ```
 
-## Output
+#### Output
 
 ```text
 Saldo Budi: Rp100000
@@ -3408,7 +3419,7 @@ Tarik Rp30000 berhasil. Sisa saldo: Rp120000
 Akses balance langsung: undefined
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      createBankCounter("Budi", 100000) selesai dieksekusi
@@ -3428,7 +3439,7 @@ Closure → Kemampuan fungsi inner untuk mempertahankan akses ke scope fungsi ou
 Privacy → Melindungi variabel dari mutasi liar di scope global
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan closure untuk membuat factory functions dan modul enkapsulasi data tanpa perlu class yang berat.
 - ❌ Hati-hati terhadap penumpukan memori (*memory leaks*) jika closure menahan referensi objek besar yang sudah tidak lagi digunakan.
@@ -3437,15 +3448,15 @@ Privacy → Melindungi variabel dari mutasi liar di scope global
 
 <a id="bagian-42"></a>
 
-# 42. 🔴 Object Method dan Kata Kunci this
+## 42. 🔴 Object Method dan Kata Kunci this
 
-## Konsep
+#### Konsep
 
 Ketika sebuah fungsi disimpan sebagai properti di dalam suatu objek, fungsi tersebut disebut sebagai **Method**.
 
 Kata kunci **`this`** merujuk pada **objek pemilik saat ini (*current context object*)** yang sedang memanggil method tersebut. Nilai `this` ditentukan secara dinamis pada saat fungsi **dipanggil** (*call-site*), bukan saat didefinisikan.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const employee = {
@@ -3470,14 +3481,14 @@ console.log("Nama Karyawan:", employee.getFullName());
 console.log(employee.calculateBonus(15));
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Karyawan: Budi Santoso
 Bonus untuk Budi Santoso: Rp1200000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Pemanggilan: employee.getFullName()
@@ -3497,7 +3508,7 @@ this.propertyName         → Mengakses properti milik objek pemanggil saat ini
 methodName(params) { ... }→ Sintaks ringkas (method shorthand) di dalam object literal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan sintaks *method shorthand* (`methodName() { ... }`) di dalam objek literal untuk penulisan method yang rapi.
 - ❌ Jika method dioper sebagai callback tanpa pengikatan (*binding*), referensi `this` bisa terlepas (*lost context*).
@@ -3506,17 +3517,17 @@ methodName(params) { ... }→ Sintaks ringkas (method shorthand) di dalam object
 
 <a id="bagian-43"></a>
 
-# 43. 🔴 Arrow Function di Object & Perilaku this
+## 43. 🔴 Arrow Function di Object & Perilaku this
 
-## Konsep
+#### Konsep
 
 Salah satu jebakan terbesar bagi pemula di JavaScript adalah menggunakan **Arrow Function** sebagai method objek.
 
-### Perbedaan Fatal Konteks `this`:
+##### Perbedaan Fatal Konteks `this`:
 1. **Regular Function Method:** Mendapatkan konteks `this` dinamis yang menunjuk ke objek yang memanggil method tersebut.
 2. **Arrow Function:** **TIDAK MEMILIKI KONTEKS `this` SENDIRI**. Arrow function mengambil `this` dari lingkungan luar (*lexical scope* tempat objek tersebut dibuat, yang umumnya adalah objek `window` di browser atau `global`/`{}` di Node.js). Akibatnya, `this.property` akan bernilai `undefined`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const userProfile = {
@@ -3539,14 +3550,14 @@ userProfile.showProfileRegular(); // Berfungsi sempurna
 userProfile.showProfileArrow();   // undefined!
 ```
 
-## Output
+#### Output
 
 ```text
 [Regular] User: superbudi, Level: 5
 [Arrow] User: undefined, Level: undefined
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    userProfile.showProfileRegular() ──► 'this' menunjuk ke userProfile (BERHASIL)
@@ -3560,7 +3571,7 @@ Method Objek    → Wajib menggunakan Regular Function / Method Shorthand
 Callback Nested → Sangat ideal menggunakan Arrow Function agar 'this' tidak berubah
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Jangan pernah membuat method utama sebuah objek menggunakan arrow function jika di dalamnya memerlukan akses terhadap `this`.
 - ✅ Gunakan arrow function pada *callback di dalam method* agar ia mewarisi konteks `this` dari method pembungkusnya secara otomatis tanpa perlu trik `const self = this`.
@@ -3569,9 +3580,9 @@ Callback Nested → Sangat ideal menggunakan Arrow Function agar 'this' tidak be
 
 <a id="bagian-44"></a>
 
-# 44. 🔴 Getter dan Setter di Object
+## 44. 🔴 Getter dan Setter di Object
 
-## Konsep
+#### Konsep
 
 JavaScript menyediakan kata kunci khusus **`get`** (Getter) dan **`set`** (Setter) pada objek literal atau class:
 
@@ -3582,7 +3593,7 @@ Manfaat:
 - Enkapsulasi data dengan validasi otomatis sebelum nilai disimpan.
 - Membuat nilai dinamis (*computed*) yang selalu ter-update secara otomatis.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const studentRecord = {
@@ -3631,7 +3642,7 @@ console.log("Score saat ini:", studentRecord.score);
 studentRecord.score = 150; // Ditolak oleh validasi setter
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Lengkap: Ratna Pertiwi
@@ -3640,7 +3651,7 @@ Score saat ini: 95
 Gagal set score: Nilai 150 tidak valid (harus 0 - 100)!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          studentRecord.fullName = "Siti Rahmawati"
@@ -3659,7 +3670,7 @@ get propertyName() { return val; } → Mendefinisikan properti baca dinamis (tan
 set propertyName(value) { ... }    → Mendefinisikan properti tulis dengan validasi otomatis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan getter dan setter untuk menambahkan validasi data tanpa mengubah cara pemanggilan API objek dari sisi luar.
 - ❌ Jangan menamai getter/setter persis sama dengan nama properti penyimpan internalnya tanpa pembeda (misal gunakan `_score`), karena akan menyebabkan pemanggilan rekursif tanpa henti (*infinite recursion crash*).
@@ -3668,9 +3679,9 @@ set propertyName(value) { ... }    → Mendefinisikan properti tulis dengan vali
 
 <a id="bagian-45"></a>
 
-# 45. 🔴 Masalah Variable var (Hoisting & Scope Leak)
+## 45. 🔴 Masalah Variable var (Hoisting & Scope Leak)
 
-## Konsep
+#### Konsep
 
 Sebelum standar ES6 (2015), satu-satunya cara membuat variabel di JavaScript adalah dengan kata kunci **`var`**. Namun, `var` memiliki kelemahan desain fundamental yang sangat rawan memicu bug:
 
@@ -3678,7 +3689,7 @@ Sebelum standar ES6 (2015), satu-satunya cara membuat variabel di JavaScript ada
 2. **Hoisting yang Membingungkan:** Variabel `var` dapat diakses sebelum baris deklarasinya tanpa melempar error, namun bernilai `undefined`.
 3. **Bisa Dideklarasikan Ulang Secara Diam-diam:** Variabel dengan nama yang sama dapat dideklarasikan ulang dengan `var` tanpa ada pesan peringatan error, berpotensi menimpa data penting.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Masalah Kebocoran Scope (No Block Scope)
@@ -3701,7 +3712,7 @@ var userToken = "TOKEN_B"; // Tidak ada pesan error sama sekali, data tertimpa d
 console.log("Token:", userToken);
 ```
 
-## Output
+#### Output
 
 ```text
 Nilai i bocor ke luar loop: 3
@@ -3709,7 +3720,7 @@ Nilai testVar sebelum deklarasi: undefined
 Token: TOKEN_B
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    var testVar = "Halo" ──► Di-hoist ke atas fungsi sebagai: var testVar; (undefined)
@@ -3724,7 +3735,7 @@ let   → Block scoped, TDZ (aman dari hoisting bug), mutable
 const → Block scoped, TDZ, immutable reference (PILIHAN UTAMA)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ 100% tinggalkan kata kunci `var` di seluruh project JavaScript modern.
 - ❌ Jangan pernah mengasumsikan variabel `var` di dalam blok loop terisolasi secara aman.
@@ -3733,9 +3744,9 @@ const → Block scoped, TDZ, immutable reference (PILIHAN UTAMA)
 
 <a id="bagian-46"></a>
 
-# 46. 🔴 Destructuring (Array & Object)
+## 46. 🔴 Destructuring (Array & Object)
 
-## Konsep
+#### Konsep
 
 **Destructuring Assignment** adalah sintaks ekspresif modern (ES6) yang memungkinkan kita membongkar (*unpack*) nilai dari array atau properti dari objek ke dalam variabel-variabel terpisah secara instan.
 
@@ -3746,7 +3757,7 @@ Fitur Destructuring:
 - **Alias Renaming:** Mengubah nama variabel saat destructuring (`{ oldKey: newName }`).
 - **Rest Operator (`...rest`):** Mengumpulkan sisa properti/elemen ke dalam objek/array baru.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Object Destructuring
@@ -3777,7 +3788,7 @@ let b = 2;
 console.log(`Setelah Swap: a=${a}, b=${b}`);
 ```
 
-## Output
+#### Output
 
 ```text
 Nama: Alex
@@ -3788,7 +3799,7 @@ RGB: (255, 128, 0)
 Setelah Swap: a=2, b=1
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Objek Sumber: { name: "Alex", skill: "Fullstack" }
@@ -3810,7 +3821,7 @@ const [item1, item2] = array       → Mengekstrak elemen array berdasarkan urut
 const [item1, ...rest] = array     → Mengekstrak elemen pertama dan mengumpulkan sisa elemen
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Terapkan destructuring langsung pada parameter fungsi (misal: `function render({ title, price })`) untuk memperjelas kebutuhan data input fungsi.
 - ❌ Pastikan objek/array sumber tidak bernilai `null` atau `undefined` sebelum di-destructure agar tidak menghasilkan `TypeError`.
@@ -3819,9 +3830,9 @@ const [item1, ...rest] = array     → Mengekstrak elemen pertama dan mengumpulk
 
 <a id="bagian-47"></a>
 
-# 47. 🔴 Strict Mode ("use strict") & Debugger
+## 47. 🔴 Strict Mode ("use strict") & Debugger
 
-## Konsep
+#### Konsep
 
 1. **Strict Mode (`"use strict";`):**
    Fitur yang diperkenalkan pada ECMAScript 5 untuk mengaktifkan mode ketat pada engine JavaScript.
@@ -3834,7 +3845,7 @@ const [item1, ...rest] = array     → Mengekstrak elemen pertama dan mengumpulk
 2. **Debugger (`debugger;`):**
    Kata kunci instruksi yang memerintahkan browser/runtime untuk **menghentikan eksekusi kode (*breakpoint*)** jika jendela Developer Tools sedang terbuka, memungkinkan kita memeriksa memori, call stack, dan nilai variabel langkah demi langkah (*step-by-step*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Mengaktifkan mode ketat di seluruh file / fungsi
@@ -3865,13 +3876,13 @@ function calculateTaxBreakdown(amount) {
 console.log("Total Kalkulasi:", calculateTaxBreakdown(100000));
 ```
 
-## Output
+#### Output
 
 ```text
 Total Kalkulasi: 111000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Engine mengeksekusi "use strict"
@@ -3894,7 +3905,7 @@ Total Kalkulasi: 111000
 debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbuka
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Tuliskan `"use strict";` di baris paling pertama file script jadul jika belum menggunakan modul ES6 modern.
 - ❌ Pastikan menghapus seluruh keyword `debugger;` sebelum merilis kode ke server produksi (*production*).
@@ -3903,9 +3914,9 @@ debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbu
 
 <a id="bagian-48"></a>
 
-# 48. 🛠️ Peta Ingatan Cepat
+## 48. 🛠️ Peta Ingatan Cepat
 
-## Mental Model Hubungan Konsep JavaScript Dasar
+#### Mental Model Hubungan Konsep JavaScript Dasar
 
 ```text
                       ┌───────────────────────────────┐
@@ -3931,7 +3942,7 @@ debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbu
                         - Object Methods & this
 ```
 
-## Pola Keputusan Sintaks JavaScript Modern
+#### Pola Keputusan Sintaks JavaScript Modern
 
 ```text
                               Kebutuhan Data / Variabel
@@ -3968,7 +3979,7 @@ debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbu
 
 <a id="bagian-49"></a>
 
-# 49. 📚 Tabel Ringkasan
+## 49. 📚 Tabel Ringkasan
 
 | Kategori | Sintaks / Fitur | Contoh Penggunaan | Penjelasan & Kegunaan |
 |---|---|---|---|
@@ -3995,16 +4006,16 @@ debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbu
 
 <a id="bagian-50"></a>
 
-# 50. ⚡ Cheat Code JavaScript Dasar 10 Detik
+## 50. ⚡ Cheat Code JavaScript Dasar 10 Detik
 
-## 1. Deklarasi & Format String
+### 1. Deklarasi & Format String
 ```javascript
 const siteName = "BelajarJS";
 let visitCount = 10;
 const greeting = `Halo Pengunjung ${visitCount} di ${siteName}!`;
 ```
 
-## 2. Array & Object Ringkas
+### 2. Array & Object Ringkas
 ```javascript
 const fruits = ["Apel", "Jeruk", "Mangga"];
 fruits.push("Pisang"); // Tambah akhir
@@ -4014,13 +4025,13 @@ const product = { id: 101, name: "Mouse Gaming", price: 150000 };
 const { name: productName, price } = product;
 ```
 
-## 3. Kondisional Cepat & Fallback Aman
+### 3. Kondisional Cepat & Fallback Aman
 ```javascript
 const isEligible = score >= 75 ? "Lolos" : "Gagal";
 const userCity = profile?.address?.city ?? "Kota Default";
 ```
 
-## 4. Arrow Functions & Iterasi
+### 4. Arrow Functions & Iterasi
 ```javascript
 const multiply = (x, y) => x * y;
 const numbers = [1, 2, 3, 4];
@@ -4035,7 +4046,7 @@ for (const num of numbers) {
 
 <a id="bagian-51"></a>
 
-# 51. 🧭 Urutan Belajar yang Disarankan
+## 51. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai JavaScript dari nol hingga siap memasuki dunia frontend (DOM, React, Vue) atau backend (Node.js, Express), ikuti urutan pembelajaran bertahap berikut:
 
@@ -4077,9 +4088,9 @@ Untuk menguasai JavaScript dari nol hingga siap memasuki dunia frontend (DOM, Re
 
 <a id="bagian-52"></a>
 
-# 52. 🏗️ Mini Project: Sistem Manajemen Kasir & Belanja Interaktif
+## 52. 🏗️ Mini Project: Sistem Manajemen Kasir & Belanja Interaktif
 
-## Konsep Project
+#### Konsep Project
 
 Project ini menggabungkan seluruh konsep inti JavaScript dasar yang telah dipelajari:
 - Variabel (`const`, `let`) dan Tipe Data
@@ -4091,7 +4102,7 @@ Project ini menggabungkan seluruh konsep inti JavaScript dasar yang telah dipela
 - Destructuring dan String Template
 - Format Output Bersih dan Informatif
 
-## Kode Lengkap
+#### Kode Lengkap
 
 ```javascript
 /**
@@ -4201,7 +4212,7 @@ console.log(myCart.addItem("P04", 1)); // 1x Headset Gaming
 console.log(myCart.generateReceipt());
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Ditambahkan: Keyboard Mechanical (2x)
@@ -4228,7 +4239,7 @@ Total Bayar   : Rp2.835.000
 =======================================================
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        createShoppingCart("Budi Santoso", "Gold")
@@ -4256,7 +4267,7 @@ Shopping Cart Pattern → Pola perancangan modular menggunakan Closure untuk mel
 
 <a id="bagian-53"></a>
 
-# 53. 🔗 Referensi Resmi
+## 53. 🔗 Referensi Resmi
 
 Untuk memperdalam dan memvalidasi sintaks JavaScript modern secara resmi, gunakan dokumentasi acuan terpercaya berikut:
 

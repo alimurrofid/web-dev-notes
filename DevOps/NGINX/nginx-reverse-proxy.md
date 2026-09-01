@@ -1,4 +1,15 @@
-# NGINX Reverse Proxy & Load Balancing Cheatsheet Revised
+---
+title: "NGINX Reverse Proxy & Load Balancing"
+description: "Konfigurasi Reverse Proxy NGINX: proxy_pass, Headers forwarding, Upstream block, Load balancing algorithms (Round Robin, Least Conn, IP Hash), dan Healthchecks."
+order: 2
+tags:
+  - devops
+  - nginx
+  - reverse-proxy
+  - load-balancer
+---
+
+# NGINX Reverse Proxy & Load Balancing
 
 > **Target:** Pemula yang telah memahami NGINX Dasar dan ingin menguasai **Reverse Proxy (`proxy_pass`), Preserving Client Headers (`Host`, `X-Real-IP`, `X-Forwarded-*`), WebSocket Real-Time Proxying, FastCGI PHP-FPM, Upstream Load Balancing (`round-robin`, `least_conn`, `ip_hash`, `weight`, `backup`, `down`), Passive Health Checks & Failover (`proxy_next_upstream`), Proxy Timeouts & Buffering, serta High-Performance Proxy Caching (`proxy_cache_path`, `proxy_cache_valid`, `$upstream_cache_status`)** menggunakan **NGINX 1.24+ / 1.26+**.
 >
@@ -101,9 +112,9 @@ $upstream_cache_status  → variabel pemantau status cache (HIT, MISS, BYPASS, E
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Reverse Proxy di NGINX & Perbedaannya dengan Forward Proxy
+## 1. 🟢 Pengenalan Reverse Proxy di NGINX & Perbedaannya dengan Forward Proxy
 
-## Konsep
+#### Konsep
 
 1. **Forward Proxy (Proxy Biasa):**
    - Bertindak atas nama **Client (Pengguna)** untuk mengakses internet luar (misal: VPN atau proxy sensor kantor).
@@ -112,7 +123,7 @@ $upstream_cache_status  → variabel pemantau status cache (HIT, MISS, BYPASS, E
    - Bertindak atas nama **Server (Backend)**.
    - Klien luar hanya tahu domain publik (`api.perusahaan.com`), tanpa tahu bahwa di belakang NGINX terdapat puluhan server Node.js, Spring Boot, atau Python yang berjalan di port internal (`127.0.0.1:3000`).
 
-## Keuntungan Menggunakan NGINX sebagai Reverse Proxy
+#### Keuntungan Menggunakan NGINX sebagai Reverse Proxy
 
 1. **Keamanan & Isolasi:** Port aplikasi internal tidak perlu dibuka ke internet publik.
 2. **SSL Termination:** NGINX menangani enkripsi HTTPS, backend internal cukup memproses HTTP polos yang ringan.
@@ -128,13 +139,13 @@ Forward Proxy melindungi Client | Reverse Proxy melindungi dan membagi beban Ser
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Direktif Dasar `proxy_pass`
+## 2. 🟢 Direktif Dasar `proxy_pass`
 
-## Konsep
+#### Konsep
 
 Direktif **`proxy_pass URL;`** digunakan di dalam blok `location` untuk meneruskan request masuk ke alamat backend tujuan (protokol `http://` atau `https://`).
 
-## Contoh
+#### Contoh
 
 ```nginx
 server {
@@ -148,7 +159,7 @@ server {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Browser: GET http://api.tokokita.com/users
@@ -166,9 +177,9 @@ location / { proxy_pass http://127.0.0.1:3000; } → meneruskan request ke backe
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Perilaku Krusial Trailing Slash pada `proxy_pass`
+## 3. 🟢 Perilaku Krusial Trailing Slash pada `proxy_pass`
 
-## Konsep
+#### Konsep
 
 Perbedaan paling penting dan sering menjadi jebakan developer di NGINX:
 
@@ -177,7 +188,7 @@ Perbedaan paling penting dan sering menjadi jebakan developer di NGINX:
 | **Tanpa Slash:** `http://127.0.0.1:3000` | `/api/v1/users` $\rightarrow$ **`/api/v1/users`** | **Preserve URI:** Path asli dipertahankan apa adanya. |
 | **Dengan Slash:** `http://127.0.0.1:3000/` | `/api/v1/users` $\rightarrow$ **`/users`** | **Strip Location:** Bagian `/api/v1` dipotong dan diganti `/`. |
 
-## Contoh
+#### Contoh
 
 ```nginx
 # [1] Kasus Mempertahankan Path Lengkap (Standard Microservices):
@@ -203,9 +214,9 @@ proxy_pass tanpa slash di akhir -> URI utuh | proxy_pass dengan slash di akhir -
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Proxy Headers Wajib: Menjaga Identitas Asli Client
+## 4. 🟢 Proxy Headers Wajib: Menjaga Identitas Asli Client
 
-## Konsep
+#### Konsep
 
 Saat NGINX meneruskan request ke backend, backend akan melihat bahwa request berasal dari `127.0.0.1` (IP NGINX sendiri), bukan IP asli pengunjung!
 
@@ -215,7 +226,7 @@ Saat NGINX meneruskan request ke backend, backend akan melihat bahwa request ber
 3. **`proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;`** : Menyusun rantai IP jika melewati banyak proxy.
 4. **`proxy_set_header X-Forwarded-Proto $scheme;`** : Memberi tahu backend apakah client menggunakan `http` atau `https`.
 
-## Contoh
+#### Contoh
 
 ```nginx
 server {
@@ -244,9 +255,9 @@ proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; → menjag
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Reverse Proxy untuk WebSocket & Real-Time Connection
+## 5. 🟢 Reverse Proxy untuk WebSocket & Real-Time Connection
 
-## Konsep
+#### Konsep
 
 Protokol WebSocket bekerja dengan melakukan **HTTP Handshake Upgrade** dari HTTP/1.1 biasa menjadi koneksi dua arah persisten (*Full-Duplex TCP*).
 
@@ -257,7 +268,7 @@ Untuk mengaktifkan WebSocket:
 2. `proxy_set_header Upgrade $http_upgrade;`
 3. `proxy_set_header Connection "upgrade";`
 
-## Contoh (Socket.io / ws)
+#### Contoh (Socket.io / ws)
 
 ```nginx
 server {
@@ -290,15 +301,15 @@ proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 FastCGI Proxying untuk Aplikasi PHP (Laravel & WordPress)
+## 6. 🟢 FastCGI Proxying untuk Aplikasi PHP (Laravel & WordPress)
 
-## Konsep
+#### Konsep
 
 Aplikasi PHP dieksekusi via proses terpisah bernama **PHP-FPM (FastCGI Process Manager)**.
 
 NGINX berkomunikasi dengan PHP-FPM menggunakan protokol biner FastCGI (biasanya via UNIX Socket di `/run/php/php8.x-fpm.sock` atau TCP port `127.0.0.1:9000`).
 
-## Contoh (Laravel NGINX Block)
+#### Contoh (Laravel NGINX Block)
 
 ```nginx
 server {
@@ -332,16 +343,16 @@ fastcgi_pass unix:/run/php/php-fpm.sock; fastcgi_param SCRIPT_FILENAME $realpath
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 Upstream Context Dasar & Algoritma Default Round-Robin
+## 7. 🟡 Upstream Context Dasar & Algoritma Default Round-Robin
 
-## Konsep
+#### Konsep
 
 Blok **`upstream name { ... }`** didefinisikan di dalam context `http` untuk mengelompokkan sekumpulan server backend (*Cluster*).
 
 **Algoritma Default: Round-Robin**:
 - Request pertama dikirim ke Server 1, request kedua ke Server 2, request ketiga ke Server 3, lalu kembali ke Server 1 secara bergiliran merata.
 
-## Contoh
+#### Contoh
 
 ```nginx
 http {
@@ -374,16 +385,16 @@ upstream my_cluster { server srv1:3000; server srv2:3000; } → grup server load
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Load Balancing Algoritma 2: Least Connections (`least_conn;`)
+## 8. 🟡 Load Balancing Algoritma 2: Least Connections (`least_conn;`)
 
-## Konsep
+#### Konsep
 
 Algoritma **`least_conn;`**:
 - NGINX memeriksa jumlah koneksi aktif pada setiap backend server.
 - Request baru **selalu diarahkan ke server yang saat itu sedang menangani koneksi paling sedikit**.
 - Sangat ideal untuk API yang durasi prosesnya bervariasi (misal: query database berat atau pemrosesan video).
 
-## Contoh
+#### Contoh
 
 ```nginx
 upstream dynamic_api_cluster {
@@ -405,16 +416,16 @@ least_conn; → mendistribusikan request ke backend yang beban koneksi aktifnya 
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Load Balancing Algoritma 3: IP Hash (`ip_hash;`) untuk Sticky Sessions
+## 9. 🟡 Load Balancing Algoritma 3: IP Hash (`ip_hash;`) untuk Sticky Sessions
 
-## Konsep
+#### Konsep
 
 Algoritma **`ip_hash;`**:
 - Menggunakan 3 oktet pertama alamat IPv4 client sebagai kunci hash untuk menentukan server backend.
 - **Menjamin bahwa pengunjung dengan IP yang sama akan selalu diarahkan ke backend server yang sama** (*Session Stickiness*).
 - Berguna untuk aplikasi monolitik lama yang menyimpan session di memory server lokal.
 
-## Contoh
+#### Contoh
 
 ```nginx
 upstream stateful_app_cluster {
@@ -435,16 +446,16 @@ ip_hash; → mengunci client IP ke server yang sama untuk menjaga sticky session
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Parameter Server Upstream: `weight`
+## 10. 🟡 Parameter Server Upstream: `weight`
 
-## Konsep
+#### Konsep
 
 Jika Anda memiliki server dengan spesifikasi hardware berbeda (misal: Server A memiliki 16 Core CPU dan Server B hanya 4 Core CPU):
 
 Gunakan parameter **`weight=N`**:
 - Menentukan bobot pembagian trafik secara proporsional.
 
-## Contoh
+#### Contoh
 
 ```nginx
 upstream weighted_cluster {
@@ -466,16 +477,16 @@ server 10.0.0.1:3000 weight=3; → mengatur porsi pembagian beban trafik sesuai 
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Parameter Server Upstream: `max_fails`, `fail_timeout`, `backup`, dan `down`
+## 11. 🟡 Parameter Server Upstream: `max_fails`, `fail_timeout`, `backup`, dan `down`
 
-## Konsep
+#### Konsep
 
 Parameter manajemen keandalan server:
 1. **`max_fails=3 fail_timeout=30s;`** : Jika server gagal merespons 3 kali dalam 30 detik, NGINX akan menganggap server mati selama 30 detik berikutnya.
 2. **`backup;`** : Server cadangan yang **HANYA menerima trafik jika seluruh server utama mati total**.
 3. **`down;`** : Menandai server sedang offline/maintenance tanpa perlu menghapus baris konfigurasi.
 
-## Contoh
+#### Contoh
 
 ```nginx
 upstream resilient_cluster {
@@ -500,14 +511,14 @@ backup -> aktif saat semua server mati | down -> tandai offline maintenance
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Mekanisme Health Checks Pasif & Automatic Failover
+## 12. 🟡 Mekanisme Health Checks Pasif & Automatic Failover
 
-## Konsep
+#### Konsep
 
 Direktif **`proxy_next_upstream`**:
 Memberitahu NGINX: jika backend server pertama mengembalikan error atau timeout, **segera oper request tersebut ke backend server berikutnya di cluster sebelum mengirim error ke browser pengguna**.
 
-## Contoh
+#### Contoh
 
 ```nginx
 location / {
@@ -530,9 +541,9 @@ proxy_next_upstream error timeout http_502; → otomatis mengoper request ke ser
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Proxy Buffering: Menjaga Kestabilan Komunikasi Backend
+## 13. 🟡 Proxy Buffering: Menjaga Kestabilan Komunikasi Backend
 
-## Konsep
+#### Konsep
 
 **`proxy_buffering on;` (Default Aktif)**:
 - NGINX membaca seluruh respon dari backend ke dalam memory buffer secepat mungkin, sehingga proses worker backend segera bebas melayani request lain.
@@ -552,16 +563,16 @@ proxy_buffering on; proxy_buffers 4 256k; → mengisolasi backend dari koneksi i
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Proxy Timeouts: Menghindari Error 504 Gateway Timeout
+## 14. 🟡 Proxy Timeouts: Menghindari Error 504 Gateway Timeout
 
-## Konsep
+#### Konsep
 
 Tiga Direktif Timeout Inti:
 1. **`proxy_connect_timeout 60s;`** : Waktu maksimal membangun handshake koneksi TCP ke backend.
 2. **`proxy_send_timeout 60s;`** : Waktu maksimal mengirim data request ke backend.
 3. **`proxy_read_timeout 60s;`** : Waktu maksimal NGINX menunggu balasan respon dari backend sebelum memunculkan **504 Gateway Timeout**.
 
-## Contoh
+#### Contoh
 
 ```nginx
 location /api/heavy-export/ {
@@ -584,9 +595,9 @@ proxy_read_timeout 300s; → durasi maksimal menunggu respon pemrosesan data dar
 
 <a id="bagian-15"></a>
 
-# 15. 🔴 Pengenalan NGINX Proxy Caching & Konfigurasi `proxy_cache_path`
+## 15. 🔴 Pengenalan NGINX Proxy Caching & Konfigurasi `proxy_cache_path`
 
-## Konsep
+#### Konsep
 
 **NGINX Proxy Caching**:
 Menyimpan salinan respons HTTP dari backend server ke disk lokal NGINX. Request berikutnya untuk URL yang sama akan **disajikan langsung oleh NGINX dalam ~1 milidetik tanpa menyentuh database backend**.
@@ -609,16 +620,16 @@ proxy_cache_path /var/cache/nginx keys_zone=api_cache:10m max_size=1g; → membu
 
 <a id="bagian-16"></a>
 
-# 16. 🔴 Mengaktifkan dan Mengatur Cache Respons API
+## 16. 🔴 Mengaktifkan dan Mengatur Cache Respons API
 
-## Konsep
+#### Konsep
 
 Di dalam blok `server` atau `location`:
 1. **`proxy_cache cache_zone_name;`** : Mengaktifkan cache menggunakan zone yang telah didefinisikan.
 2. **`proxy_cache_valid 200 302 10m;`** : Menyimpan respon status 200/302 selama 10 menit.
 3. **`proxy_cache_valid 404 1m;`** : Menyimpan respon 404 selama 1 menit.
 
-## Contoh
+#### Contoh
 
 ```nginx
 location /api/public/products {
@@ -640,9 +651,9 @@ proxy_cache api_cache; proxy_cache_valid 200 10m; → mengaktifkan cache respons
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Cache Bypass & No-Cache Conditions
+## 17. 🔴 Cache Bypass & No-Cache Conditions
 
-## Konsep
+#### Konsep
 
 Tidak semua request boleh di-cache (misal: request pengguna yang sudah login atau request yang menyertakan header `Cache-Control: no-cache`).
 
@@ -650,7 +661,7 @@ Direktif:
 - **`proxy_cache_bypass $variable;`** : Jika variabel bernilai tidak nol/tidak kosong, NGINX akan mengambil data segar langsung dari backend.
 - **`proxy_no_cache $variable;`** : Respons yang diterima tidak akan disimpan ke cache.
 
-## Contoh
+#### Contoh
 
 ```nginx
 location /api/ {
@@ -674,9 +685,9 @@ proxy_cache_bypass $cookie_auth; → melewati cache jika request memiliki cookie
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Status Header Cache: Memeriksa Cache HIT / MISS / EXPIRED
+## 18. 🔴 Status Header Cache: Memeriksa Cache HIT / MISS / EXPIRED
 
-## Konsep
+#### Konsep
 
 Untuk memeriksa apakah request dilayani dari memory cache NGINX atau dari backend server:
 Gunakan variabel **`$upstream_cache_status`** dan kirimkan via header HTTP:
@@ -685,7 +696,7 @@ Gunakan variabel **`$upstream_cache_status`** dan kirimkan via header HTTP:
 - **`BYPASS`** : Cache dilewati secara sengaja.
 - **`EXPIRED`** : Cache sudah kadaluwarsa, data baru sedang diambil dari backend.
 
-## Contoh
+#### Contoh
 
 ```nginx
 location /api/ {
@@ -698,7 +709,7 @@ location /api/ {
 }
 ```
 
-## Hasil Header di Browser Developer Tools
+#### Hasil Header di Browser Developer Tools
 
 ```text
 HTTP/1.1 200 OK
@@ -716,16 +727,16 @@ add_header X-Cache-Status $upstream_cache_status always; → memantau efektivita
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Optimasi Upstream HTTP/1.1 Keepalive & Gzip
+## 19. 🔴 Optimasi Upstream HTTP/1.1 Keepalive & Gzip
 
-## Konsep
+#### Konsep
 
 Secara default, NGINX membuka dan menutup koneksi TCP baru untuk setiap request ke upstream backend (`Connection: close`).
 
 Dengan mengaktifkan **Upstream Keepalive Connection Pools**:
 Koneksi TCP antara NGINX dan backend server tetap terbuka (*Reused*), memangkas *TCP 3-way handshake overhead* hingga 50%.
 
-## Contoh
+#### Contoh
 
 ```nginx
 upstream optimized_backend {
@@ -758,9 +769,9 @@ keepalive 32; proxy_http_version 1.1; proxy_set_header Connection ""; → mengak
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Best Practice & Pola Arsitektur API Gateway Microservices
+## 20. 🔴 Best Practice & Pola Arsitektur API Gateway Microservices
 
-## Konsep
+#### Konsep
 
 Dalam arsitektur Microservices, NGINX bertindak sebagai **Unified API Gateway**:
 - Domain Publik Tunggal: `https://api.perusahaan.com`
@@ -780,7 +791,7 @@ Pola API Gateway Microservices → rute URL publik tunggal yang memetakan path k
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                PETA ARSITEKTUR NGINX REVERSE PROXY & LOAD BALANCER
@@ -798,7 +809,7 @@ REVERSE PROXY & HEADERS       UPSTREAM LOAD BALANCING         PROXY CACHING & PE
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Direktif / Parameter | Context | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -819,7 +830,7 @@ REVERSE PROXY & HEADERS       UPSTREAM LOAD BALANCING         PROXY CACHING & PE
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code NGINX Reverse Proxy 10 Detik
+## 23. ⚡ Cheat Code NGINX Reverse Proxy 10 Detik
 
 ```nginx
 # [1] Template Universal Reverse Proxy Node.js / Nuxt / Go
@@ -847,7 +858,7 @@ upstream app_cluster {
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Dasar Reverse Proxy & 4 Header Wajib
@@ -877,7 +888,7 @@ Langkah 5: Siap Melangkah ke NGINX Keamanan, SSL/TLS & Performance Tuning!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready High-Availability Microservices API Gateway with Upstream Load Balancer, WebSocket Support, and Dynamic Proxy Caching
+## 25. 🏗️ Mini Project: Production-Ready High-Availability Microservices API Gateway with Upstream Load Balancer, WebSocket Support, and Dynamic Proxy Caching
 
 Berkas konfigurasi NGINX enterprise lengkap, modular, dan runnable: **Pola API Gateway Microservices (Upstream Cluster Node.js dengan Weight, Layanan Chat WebSocket Real-Time, Backend Monolith Laravel FastCGI, API Public Proxy Caching dengan Header Status, dan Keepalive Pooling)**.
 
@@ -1000,13 +1011,13 @@ server {
 }
 ```
 
-## Hasil Validasi Sintaks & Pengujian Terminal
+#### Hasil Validasi Sintaks & Pengujian Terminal
 
 ```bash
 sudo nginx -t
 ```
 
-## Output
+#### Output
 
 ```text
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -1017,7 +1028,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [NGINX HTTP Proxy Module Reference](https://nginx.org/en/docs/http/ngx_http_proxy_module.html)
 - [NGINX HTTP Upstream Module Reference](https://nginx.org/en/docs/http/ngx_http_upstream_module.html)

@@ -1,4 +1,16 @@
-# Spring Boot Web (RESTful API) Cheatsheet Revised
+---
+title: "Spring Boot Web & REST API"
+description: "Membangun RESTful API dengan Spring Boot Web: @RestController, Request Mapping, DTO validation, ResponseEntity, Global Exception Handling, dan Content Negotiation."
+order: 2
+tags:
+  - web-development
+  - backend
+  - spring-boot
+  - rest-api
+  - web
+---
+
+# Spring Boot Web & REST API
 
 > **Target:** Pemula yang telah memahami dasar Spring Boot Core (IoC, DI, Bean, Configuration), serta ingin membangun **RESTful API backend kelas industri** yang cepat, aman, terstruktur, dan tervalidasi menggunakan **Spring Boot 3.3+ (Spring Web MVC & Java 21 LTS)**.
 >
@@ -106,9 +118,9 @@ ResponseEntity<T>     → wrapper lengkap response HTTP yang mencakup status cod
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Spring Web MVC & Mental Model `DispatcherServlet`
+## 1. 🟢 Pengenalan Spring Web MVC & Mental Model `DispatcherServlet`
 
-## Konsep
+#### Konsep
 
 Spring Web MVC dibangun di atas pola desain **Front Controller**, di mana satu servlet utama bernama **`DispatcherServlet`** menerima seluruh lalu lintas HTTP request yang masuk ke aplikasi.
 
@@ -119,7 +131,7 @@ Tahapan Siklus Request di Spring Web:
 4. Method Controller memproses request melalui Service Layer dan mengembalikan data (Model / DTO).
 5. `HttpMessageConverter` (Jackson) mengubah Objek Java menjadi teks JSON dan mengirimkannya kembali ke Client.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 HTTP GET /api/users/10
@@ -147,9 +159,9 @@ DispatcherServlet → gerbang utama penerima seluruh HTTP request yang mengoordi
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 `@Controller` vs `@RestController`
+## 2. 🟢 `@Controller` vs `@RestController`
 
-## Konsep
+#### Konsep
 
 Terdapat dua anotasi utama untuk mendefinisikan controller di Spring Web:
 
@@ -160,7 +172,7 @@ Terdapat dua anotasi utama untuk mendefinisikan controller di Spring Web:
    - Gabungan dari `@Controller` + `@ResponseBody`.
    - Seluruh method otomatis mengembalikan data mentah (Java Object yang langsung diserialisasikan ke format JSON oleh Jackson).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -187,7 +199,7 @@ public class SystemStatusController {
 }
 ```
 
-## Output
+#### Output
 
 ```json
 {
@@ -208,9 +220,9 @@ public class SystemStatusController {
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 HTTP Request Mapping Modern (`@GetMapping`, `@PostMapping`, dll.)
+## 3. 🟢 HTTP Request Mapping Modern (`@GetMapping`, `@PostMapping`, dll.)
 
-## Konsep
+#### Konsep
 
 RESTful API menggunakan kata kerja HTTP standar (*HTTP Verbs*) untuk menentukan aksi yang dilakukan pada resource:
 
@@ -224,7 +236,7 @@ RESTful API menggunakan kata kerja HTTP standar (*HTTP Verbs*) untuk menentukan 
 
 Anotasi **`@RequestMapping("/base-path")`** di level class digunakan untuk menetapkan prefix URL bersama untuk seluruh method di dalam controller tersebut.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -267,9 +279,9 @@ public class ProductCrudController {
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Menangkap Path Parameter dengan `@PathVariable`
+## 4. 🟢 Menangkap Path Parameter dengan `@PathVariable`
 
-## Konsep
+#### Konsep
 
 **Path Variable** digunakan untuk menangkap nilai dinamis yang disematkan langsung di dalam segmen URL path (biasanya berupa ID unik resource atau slug).
 
@@ -277,7 +289,7 @@ Format segmen URL diapit kurung kurawal: `{namaVariable}`.
 
 Parameter method controller ditandai dengan **`@PathVariable("namaVariable") T param`**. Jika nama parameter Java sama persis dengan nama di URL, atribut string di dalam anotasi boleh dihilangkan.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -307,7 +319,7 @@ public class CategoryController {
 }
 ```
 
-## Output
+#### Output
 
 Request: `GET /api/categories/elektronik/items/105`
 ```json
@@ -328,9 +340,9 @@ Request: `GET /api/categories/elektronik/items/105`
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Menangkap Query Parameter dengan `@RequestParam`
+## 5. 🟢 Menangkap Query Parameter dengan `@RequestParam`
 
-## Konsep
+#### Konsep
 
 **Query Parameter** digunakan untuk menyaring (*filter*), mengurutkan (*sort*), mencari (*search*), atau membagi halaman (*pagination*) data. Parameter ini berada di akhir URL setelah tanda tanya `?key=value&key2=value2`.
 
@@ -339,7 +351,7 @@ Atribut penting `@RequestParam`:
 - `required` : Menentukan apakah parameter wajib ada (default: `true`).
 - `defaultValue` : Nilai cadangan jika client tidak mengirim query parameter tersebut.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -370,7 +382,7 @@ public class SearchController {
 }
 ```
 
-## Output
+#### Output
 
 Request: `GET /api/search?keyword=laptop&page=2`
 ```json
@@ -391,9 +403,9 @@ Request: `GET /api/search?keyword=laptop&page=2`
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Menerima Payload JSON dengan `@RequestBody` & Java Record DTO
+## 6. 🟢 Menerima Payload JSON dengan `@RequestBody` & Java Record DTO
 
-## Konsep
+#### Konsep
 
 Pada request `POST`, `PUT`, atau `PATCH`, client biasanya mengirimkan data berstruktur kompleks di dalam **HTTP Request Body** berformat JSON.
 
@@ -403,7 +415,7 @@ Di era Java Modern (Java 21 LTS), **Java Record** adalah standar terbaik untuk *
 1. **Immutable:** Bebas dari efek mutasi data liar.
 2. **Ringkas:** Bebas boilerplate getter, setter, `equals`, dan `hashCode`.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.dto;
@@ -445,7 +457,7 @@ public class OrderController {
 }
 ```
 
-## Output
+#### Output
 
 Request: `POST /api/orders`
 ```json
@@ -475,15 +487,15 @@ Response:
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Membaca Request Headers & Cookies
+## 7. 🟢 Membaca Request Headers & Cookies
 
-## Konsep
+#### Konsep
 
 Seringkali kita perlu membaca metadata request seperti token otorisasi, API key, atau tracking cookie:
 - **`@RequestHeader("Header-Name")`:** Membaca header HTTP (misal: `Authorization`, `X-Api-Key`).
 - **`@CookieValue("cookieName")`:** Membaca cookie HTTP tertentu dari browser.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -521,9 +533,9 @@ public class SecureHeaderController {
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Response Formatting dengan `ResponseEntity<T>` & HTTP Status
+## 8. 🟢 Response Formatting dengan `ResponseEntity<T>` & HTTP Status
 
-## Konsep
+#### Konsep
 
 Secara default, jika method controller mengembalikan objek langsung, Spring akan merespons dengan HTTP Status `200 OK`.
 
@@ -536,7 +548,7 @@ Namun, RESTful API yang baik harus mengembalikan **HTTP Status Code yang akurat*
 
 Gunakan **`ResponseEntity<T>`** untuk mengontrol status code, custom headers, dan response body secara fleksibel.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -585,9 +597,9 @@ ResponseEntity.noContent().build()       → menghasilkan response HTTP 204 No C
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Standar Envelope API Response Wrapper (`ApiResponse<T>`)
+## 9. 🟡 Standar Envelope API Response Wrapper (`ApiResponse<T>`)
 
-## Konsep
+#### Konsep
 
 Dalam standar API enterprise, response JSON selalu dibungkus ke dalam format terstandarisasi (**API Envelope Pattern**) agar tim frontend (Vue, React, Flutter) memiliki struktur seragam untuk memproses data maupun error.
 
@@ -602,7 +614,7 @@ Struktur standar ApiResponse:
 }
 ```
 
-## Contoh
+#### Contoh
 
 Definisi Generic Record Wrapper:
 ```java
@@ -651,9 +663,9 @@ ApiResponse<T> → pola wrapper seragam untuk struktur response JSON di seluruh 
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Validasi Request Otomatis dengan Jakarta Bean Validation
+## 10. 🟡 Validasi Request Otomatis dengan Jakarta Bean Validation
 
-## Konsep
+#### Konsep
 
 Alih-alih menulis `if (name == null || name.isBlank())` manual di Controller/Service, gunakan **Jakarta Bean Validation** (starter `spring-boot-starter-validation`).
 
@@ -668,7 +680,7 @@ Anotasi Validasi Populer:
 
 Tambahkan anotasi **`@Valid`** pada parameter `@RequestBody` di Controller untuk memicu validasi. Jika validasi gagal, Spring akan otomatis melempar **`MethodArgumentNotValidException`**.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.dto;
@@ -711,9 +723,9 @@ public ResponseEntity<ApiResponse<String>> createCustomer(@Valid @RequestBody Cr
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Custom Validator Anotasi (`@Constraint` & `ConstraintValidator`)
+## 11. 🟡 Custom Validator Anotasi (`@Constraint` & `ConstraintValidator`)
 
-## Konsep
+#### Konsep
 
 Jika aturan validasi bisnis Anda tidak tersedia di Jakarta Validation bawaan (misal: memvalidasi nomor plat kendaraan Indonesia atau format kode voucher promo khusus), Anda dapat membuat **Custom Validation Annotation**.
 
@@ -721,7 +733,7 @@ Langkah Pembuatan:
 1. Buat anotasi dengan target `FIELD` dan referensikan class validator via `@Constraint(validatedBy = ...)`.
 2. Buat class implementasi yang mengimplementasikan `ConstraintValidator<Annotation, T>`.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.validation;
@@ -765,9 +777,9 @@ class VoucherCodeValidator implements ConstraintValidator<ValidVoucherCode, Stri
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Global Exception Handling dengan `@RestControllerAdvice` & `@ExceptionHandler`
+## 12. 🟡 Global Exception Handling dengan `@RestControllerAdvice` & `@ExceptionHandler`
 
-## Konsep
+#### Konsep
 
 Tanpa penanganan error global, jika terjadi exception yang tidak tertangkap di Service, Spring Boot akan mengembalikan *Whitelabel Error Page* HTML atau stack trace acak yang berbahaya bagi keamanan.
 
@@ -775,7 +787,7 @@ Tanpa penanganan error global, jika terjadi exception yang tidak tertangkap di S
 - Bekerja sebagai interceptor penangkap exception global untuk seluruh Controller di aplikasi.
 - Menggunakan method beranotasi **`@ExceptionHandler(ExceptionClass.class)`** untuk menangkap jenis error spesifik dan mengubahnya menjadi format JSON yang rapi.
 
-## Contoh
+#### Contoh
 
 Custom Business Exception:
 ```java
@@ -826,9 +838,9 @@ public class GlobalErrorAdvice {
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Standar Error Modern RFC 7807 (Problem Details for HTTP APIs)
+## 13. 🟡 Standar Error Modern RFC 7807 (Problem Details for HTTP APIs)
 
-## Konsep
+#### Konsep
 
 Sejak Spring Boot 3 / Spring Framework 6, diadopsi standar resmi IETF **RFC 7807 (Problem Details for HTTP APIs)** untuk menyeragamkan format error REST API di seluruh industri.
 
@@ -839,7 +851,7 @@ Class **`org.springframework.http.ProblemDetail`** bawaan Spring Boot 3 memiliki
 - `detail` : Penjelasan rinci masalah spesifik yang terjadi.
 - `instance` : URI endpoint yang memicu error.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.exception;
@@ -865,7 +877,7 @@ public class ProblemDetailsHandler {
 }
 ```
 
-## Output
+#### Output
 
 ```json
 {
@@ -887,15 +899,15 @@ ProblemDetail.forStatusAndDetail(status, detail) → membuat format error standa
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Validasi Error Handler: Menangkap `MethodArgumentNotValidException`
+## 14. 🟡 Validasi Error Handler: Menangkap `MethodArgumentNotValidException`
 
-## Konsep
+#### Konsep
 
 Ketika payload request gagal memenuhi aturan Jakarta Validation (`@Valid`), Spring melempar exception **`MethodArgumentNotValidException`**.
 
 Kita harus mengekstrak pesan kesalahan dari setiap field yang bermasalah dan merangkumnya menjadi format `Map<String, String>` (Key: Nama Field, Value: Pesan Kesalahan) agar frontend dapat menampilkan error langsung di bawah kotak input form yang bersangkutan.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.exception;
@@ -927,7 +939,7 @@ public class ValidationExceptionHandler {
 }
 ```
 
-## Output
+#### Output
 
 Request tidak valid ke endpoint:
 ```json
@@ -953,9 +965,9 @@ ex.getBindingResult().getFieldErrors() → mengekstrak daftar field-field yang m
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 CORS Configuration (Cross-Origin Resource Sharing)
+## 15. 🟡 CORS Configuration (Cross-Origin Resource Sharing)
 
-## Konsep
+#### Konsep
 
 Ketika aplikasi frontend (misal: Vue.js di `http://localhost:5173`) mencoba memanggil REST API Spring Boot di `http://localhost:8080`, browser akan memblokir request karena kebijakan keamanan **CORS (*Cross-Origin Resource Sharing*)**.
 
@@ -963,7 +975,7 @@ Dua cara mengonfigurasi CORS di Spring Boot:
 1. **Lokal di Level Controller:** `@CrossOrigin(origins = "http://localhost:5173")` di atas class Controller.
 2. **Global (Standar Rekomendasi):** Mengimplementasikan interface **`WebMvcConfigurer`**.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.config;
@@ -997,16 +1009,16 @@ WebMvcConfigurer.addCorsMappings(registry) → konfigurasi global izin domain fr
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 File Upload & Download (`MultipartFile`)
+## 16. 🟡 File Upload & Download (`MultipartFile`)
 
-## Konsep
+#### Konsep
 
 Untuk menerima file dari client (gambar profil, dokumen PDF, spreadsheet Excel):
 1. Endpoint menggunakan method `POST` dengan `consumes = MediaType.MULTIPART_FORM_DATA_VALUE`.
 2. Tangkap file menggunakan tipe parameter **`@RequestParam("file") MultipartFile file`**.
 3. Gunakan method: `file.getOriginalFilename()`, `file.getSize()`, `file.getContentType()`, dan `file.transferTo(Path)`.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -1058,9 +1070,9 @@ public class FileUploadController {
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Custom HTTP Interceptor (`HandlerInterceptor`)
+## 17. 🔴 Custom HTTP Interceptor (`HandlerInterceptor`)
 
-## Konsep
+#### Konsep
 
 **`HandlerInterceptor`** memungkinkan kita mencegat (*intercept*) HTTP Request sebelum sampai ke Controller atau setelah Controller selesai dieksekusi.
 
@@ -1069,7 +1081,7 @@ Tiga lifecycle method:
 2. **`postHandle(request, response, handler, modelAndView)`:** Dijalankan **setelah** controller selesai (sebelum response dikirim ke client).
 3. **`afterCompletion(request, response, handler, ex)`:** Dijalankan **setelah seluruh request selesai** (sangat berguna untuk logging audit dan menghitung total latensi waktu eksekusi).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.interceptor;
@@ -1129,9 +1141,9 @@ WebMvcConfigurer.addInterceptors()  → mendaftarkan interceptor ke pipeline Spr
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Kustomisasi Serialisasi JSON Jackson (`@JsonProperty`, `@JsonIgnore`)
+## 18. 🔴 Kustomisasi Serialisasi JSON Jackson (`@JsonProperty`, `@JsonIgnore`)
 
-## Konsep
+#### Konsep
 
 Spring Boot menggunakan engine **Jackson** untuk mengubah objek Java menjadi string JSON dan sebaliknya.
 
@@ -1141,7 +1153,7 @@ Anotasi Jackson penting:
 - **`@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")`:** Memformat tampilan tanggal dan waktu.
 - **`@JsonInclude(Include.NON_NULL)`:** Menyembunyikan atribut yang bernilai null dari JSON payload.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.dto;
@@ -1168,7 +1180,7 @@ public record UserProfileResponse(
 ) {}
 ```
 
-## Output
+#### Output
 
 ```json
 {
@@ -1190,7 +1202,7 @@ public record UserProfileResponse(
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                       PETA ARSITEKTUR SPRING BOOT WEB
@@ -1208,7 +1220,7 @@ REQUEST CONTROLLERS           DATA VALIDATION               ERROR & EXCEPTIONS
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Anotasi / Komponen | Lokasi Penggunaan | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -1230,7 +1242,7 @@ REQUEST CONTROLLERS           DATA VALIDATION               ERROR & EXCEPTIONS
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Spring Boot Web 10 Detik
+## 21. ⚡ Cheat Code Spring Boot Web 10 Detik
 
 ```java
 // 1. Template Standard REST Controller dengan ResponseEntity
@@ -1264,7 +1276,7 @@ public class GlobalAdvice {
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Fundamental Request Mapping & Controller
@@ -1296,7 +1308,7 @@ Langkah 5: Siap Melangkah ke Database ORM dengan Spring Data JPA & Hibernate!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready E-Commerce Product & Order RESTful API
+## 23. 🏗️ Mini Project: Production-Ready E-Commerce Product & Order RESTful API
 
 RESTful API backend e-commerce lengkap dan terstruktur yang mengintegrasikan: **`@RestController` CRUD, Record DTO, Jakarta Validation (`@Valid`), Custom Validation, Standard `ApiResponse<T>` Envelope Wrapper, Global Exception Handling (`@RestControllerAdvice`), dan CORS Configuration**.
 
@@ -1521,7 +1533,7 @@ public class StoreApiApplication {
 }
 ```
 
-## Contoh Demonstrasi Endpoint & JSON Output
+#### Contoh Demonstrasi Endpoint & JSON Output
 
 1. **Request Sukses `POST /api/v1/products` (Status 201 Created):**
 ```json
@@ -1569,7 +1581,7 @@ Payload Body Salah: `{"sku": "", "name": "A", "price": 500, "stock": -1}`
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Spring Boot Web MVC Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/web.html)
 - [Jakarta Bean Validation 3.0 Specification](https://beanvalidation.org/)

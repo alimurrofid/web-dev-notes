@@ -1,4 +1,15 @@
-# TypeScript Advanced & Type Manipulation Cheatsheet Revised
+---
+title: "TypeScript Advanced"
+description: "Fitur tingkat lanjut TypeScript: mapped types, conditional types, template literal types, keyof & typeof, type guards, utility types, dan declaration merging."
+order: 3
+tags:
+  - programming
+  - typescript
+  - advanced
+  - types
+---
+
+# TypeScript Advanced
 
 > **Target:** Pemula yang telah menguasai TypeScript Dasar dan OOP/Generics, serta ingin melangkah ke level mahir (**Type-Level Metaprogramming, Indexed Access Types `T[K]`, Mapped Types `[K in keyof T]`, Mapping Modifiers `+`/`-`, Key Remapping via `as`, Conditional Types `T extends U ? X : Y`, Keyword `infer`, Template Literal Types & Intrinsic String Manipulation, Advanced Utility Types `Awaited`/`ReturnType`/`Parameters`/`Exclude`, Recursive Types, Declaration Files `.d.ts`, Global Augmentation, dan Stage 3 Decorators**) menggunakan **TypeScript 5.5+**.
 >
@@ -106,15 +117,15 @@ Global Augmentation        → teknik memperluas tipe interface global bawaan (s
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Type-Level Metaprogramming di TypeScript
+## 1. 🟢 Pengenalan Type-Level Metaprogramming di TypeScript
 
-## Konsep
+#### Konsep
 
 TypeScript bukan sekadar validator tipe data pasif. Sistem tipe TypeScript adalah bahasa pemrograman fungsional murni yang **Turing-Complete**:
 - Anda dapat membuat *fungsi di level tipe* yang menerima tipe data sebagai input dan menghasilkan tipe data baru sebagai output.
 - Semua komputasi tipe ini dievaluasi **saat proses kompilasi tanpa runtime overhead apa pun**.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Input Tipe (Model Database User)
@@ -133,13 +144,13 @@ Type-Level Programming → komputasi logika transformasi tipe data yang diekseku
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Indexed Access Types (`T[K]` & `T[keyof T]`)
+## 2. 🟢 Indexed Access Types (`T[K]` & `T[keyof T]`)
 
-## Konsep
+#### Konsep
 
 Sama seperti mengakses properti objek di JavaScript via `obj["prop"]`, kita dapat **mengekstrak tipe data dari suatu properti interface/tipe** menggunakan sintaks **`Type["property"]`**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface UserProfile {
@@ -176,15 +187,15 @@ T[number]   → mengekstrak tipe elemen tunggal dari tipe array T
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Operator `typeof` pada Level Tipe Data
+## 3. 🟢 Operator `typeof` pada Level Tipe Data
 
-## Konsep
+#### Konsep
 
 Di JavaScript, `typeof x` mengembalikan string nama tipe di runtime.
 
 Di TypeScript, jika `typeof` digunakan **di dalam deklarasi tipe (`type X = typeof x`)**, ia akan **mengekstrak struktur tipe data lengkap dari variabel/objek JavaScript yang ada**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Objek Konfigurasi JavaScript Biasa
@@ -220,14 +231,14 @@ type MyType = typeof jsVariable; → mengekstrak struktur tipe data langsung dar
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Index Signatures & Dynamic Key Objects
+## 4. 🟢 Index Signatures & Dynamic Key Objects
 
-## Konsep
+#### Konsep
 
 Jika sebuah objek memiliki nama-nama properti yang dinamis dan tidak diketahui sebelumnya:
 Gunakan **Index Signature: `[key: KeyType]: ValueType`**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface DynamicHeaders {
@@ -254,16 +265,16 @@ const reqHeaders: DynamicHeaders = {
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Mapped Types Dasar (`[K in keyof T]: T[K]`)
+## 5. 🟢 Mapped Types Dasar (`[K in keyof T]: T[K]`)
 
-## Konsep
+#### Konsep
 
 **Mapped Types** memungkinkan kita mengiterasi setiap properti dari suatu tipe `T` untuk menghasilkan tipe baru.
 
 Sintaks Dasar:
 `type MyMappedType<T> = { [K in keyof T]: NewType }`
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface Car {
@@ -298,15 +309,15 @@ Hasil:
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Mapping Modifiers: Menambah atau Menghapus `readonly` dan `?`
+## 6. 🟢 Mapping Modifiers: Menambah atau Menghapus `readonly` dan `?`
 
-## Konsep
+#### Konsep
 
 Saat melakukan mapping, kita dapat menambahkan (`+`) atau menghapus (`-`) modifier `readonly` dan tanda opsional `?`:
 - **`-readonly`:** Menghapus status readonly (membuat properti mutable).
 - **`-?`:** Menghapus status opsional (membuat seluruh properti menjadi wajib / non-nullable).
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface ImmutableProfile {
@@ -344,13 +355,13 @@ Hasil UnlockedProfile:
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 Key Remapping via Klausa `as` pada Mapped Types
+## 7. 🟡 Key Remapping via Klausa `as` pada Mapped Types
 
-## Konsep
+#### Konsep
 
 Dengan klausa **`as` (TS 4.1+)**, kita dapat **mengubah nama key properti** saat melakukan mapping (misal: otomatis membuat nama method Getter/Setter untuk setiap properti).
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface UserModel {
@@ -385,16 +396,16 @@ Hasil:
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Conditional Types (`T extends U ? X : Y`)
+## 8. 🟡 Conditional Types (`T extends U ? X : Y`)
 
-## Konsep
+#### Konsep
 
 **Conditional Types** adalah operator *Ternary if/else* di level tipe:
 Jika tipe `T` dapat di-assign ke tipe `U`, maka kembalikan tipe `X`, jika tidak kembalikan tipe `Y`.
 
 Format: `T extends U ? X : Y`
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Memeriksa Apakah Tipe adalah String
@@ -419,14 +430,14 @@ T extends U ? TrueType : FalseType → percabangan kondisional if/else pada sist
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Distributive Conditional Types pada Union
+## 9. 🟡 Distributive Conditional Types pada Union
 
-## Konsep
+#### Konsep
 
 Ketika Conditional Type menerima **Union Type** (`A | B | C`), TypeScript secara otomatis **mendistribusikan pengecekan ke setiap anggota union satu per satu**:
 `(A | B) extends U ? X : Y` $\rightarrow$ `(A extends U ? X : Y) | (B extends U ? X : Y)`.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Menghilangkan tipe null dan undefined dari Union
@@ -449,16 +460,16 @@ Distributive Conditional Types → evaluasi kondisional yang otomatis diterapkan
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Keyword `infer`: Ekstraksi Tipe Dinamis di dalam Conditional Types
+## 10. 🟡 Keyword `infer`: Ekstraksi Tipe Dinamis di dalam Conditional Types
 
-## Konsep
+#### Konsep
 
 Keyword **`infer`** digunakan untuk **mendeklarasikan variabel tipe penangkap** di dalam klausa `extends`.
 
 Kapan Digunakan:
 Ketika kita ingin *membongkar dan mengekstrak* tipe di dalam struktur generik (misal: mengekstrak tipe elemen array, tipe return Promise, atau tipe argumen fungsi).
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Mengekstrak Tipe Elemen di dalam Array
@@ -484,9 +495,9 @@ T extends Promise<infer U> ? U : T → keyword infer untuk mengekstrak dan menan
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Template Literal Types & String Manipulation Types
+## 11. 🟡 Template Literal Types & String Manipulation Types
 
-## Konsep
+#### Konsep
 
 Template Literal Types memungkinkan pembuatan tipe string berbasis pola interpolasi `` `${A}_${B}` ``.
 
@@ -496,7 +507,7 @@ Empat Intrinsic String Manipulation Types Bawaan:
 3. **`Capitalize<S>`:** Mengubah huruf pertama menjadi kapital (`"user"` $\rightarrow$ `"User"`).
 4. **`Uncapitalize<S>`:** Mengubah huruf pertama menjadi huruf kecil.
 
-## Contoh
+#### Contoh
 
 ```typescript
 type Entity = "user" | "product" | "order"
@@ -522,13 +533,13 @@ const validColor: HexColor = "#00dc82" // ✅ Valid
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Advanced Utility Types 1: `Awaited<T>`
+## 12. 🟡 Advanced Utility Types 1: `Awaited<T>`
 
-## Konsep
+#### Konsep
 
 Utility Type bawaan **`Awaited<T>`** (TS 4.5+) digunakan untuk membongkar tipe payload Promise berulang kali (*Recursive Unwrap*) hingga mendapatkan nilai murni akhirnya.
 
-## Contoh
+#### Contoh
 
 ```typescript
 type DeepPromise = Promise<Promise<Promise<string>>>
@@ -554,14 +565,14 @@ Awaited<Promise<T>> → membongkar tipe data di dalam Promise hingga mendapatkan
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Advanced Utility Types 2: `ReturnType<T>` & `Parameters<T>`
+## 13. 🟡 Advanced Utility Types 2: `ReturnType<T>` & `Parameters<T>`
 
-## Konsep
+#### Konsep
 
 1. **`ReturnType<typeof functionName>`:** Mengekstrak tipe kembalian dari suatu fungsi.
 2. **`Parameters<typeof functionName>`:** Mengekstrak tuple tipe dari seluruh parameter fungsi.
 
-## Contoh
+#### Contoh
 
 ```typescript
 function registerProduct(sku: string, price: number, inStock: boolean) {
@@ -591,16 +602,16 @@ Parameters<typeof fn>  → mengekstrak tuple tipe argumen parameter fungsi
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Advanced Utility Types 3: `Exclude<T, U>`, `Extract<T, U>`, dan `NonNullable<T>`
+## 14. 🟡 Advanced Utility Types 3: `Exclude<T, U>`, `Extract<T, U>`, dan `NonNullable<T>`
 
-## Konsep
+#### Konsep
 
 Operasi Aljabar Himpunan pada Union Types:
 - **`Exclude<UnionType, ExcludedMembers>`:** Membuang anggota tertentu dari Union.
 - **`Extract<UnionType, ExtractedMembers>`:** Hanya mengambil anggota yang cocok dari Union.
 - **`NonNullable<T>`:** Membuang `null` dan `undefined` dari tipe data `T`.
 
-## Contoh
+#### Contoh
 
 ```typescript
 type AllActions = "CLICK" | "HOVER" | "FOCUS" | "SUBMIT" | "RESET"
@@ -630,14 +641,14 @@ NonNullable<T>                 → menghapus null dan undefined dari tipe data T
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Advanced Utility Types 4: `ConstructorParameters<T>` & `InstanceType<T>`
+## 15. 🟡 Advanced Utility Types 4: `ConstructorParameters<T>` & `InstanceType<T>`
 
-## Konsep
+#### Konsep
 
 - **`ConstructorParameters<typeof ClassName>`:** Mengekstrak tuple tipe parameter constructor class.
 - **`InstanceType<typeof ClassName>`:** Mengekstrak tipe instance objek yang dihasilkan oleh class.
 
-## Contoh
+#### Contoh
 
 ```typescript
 class DatabaseConnection {
@@ -658,13 +669,13 @@ InstanceType<typeof ClassName> → mengekstrak tipe instance dari class construc
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Recursive Type Aliases
+## 16. 🟡 Recursive Type Aliases
 
-## Konsep
+#### Konsep
 
 Sebuah tipe data yang **mereferensikan dirinya sendiri secara rekursif** untuk memodelkan struktur data bersarang tak terbatas (seperti JSON tree, navigasi menu hierarkis, atau deeply nested state).
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Tipe JSON Value Universal Lengkap
@@ -696,9 +707,9 @@ DeepReadonly<T> → mapped type rekursif yang mengunci seluruh level kedalaman o
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Declaration Files (`.d.ts`) & Ambient Declarations
+## 17. 🔴 Declaration Files (`.d.ts`) & Ambient Declarations
 
-## Konsep
+#### Konsep
 
 **Declaration Files (`.d.ts`)**:
 Berkas yang **HANYA memuat deklarasi tipe data** tanpa kode implementasi runtime JavaScript.
@@ -707,7 +718,7 @@ Digunakan untuk:
 1. Mendistribusikan tipe library npm.
 2. Menyediakan tipe untuk library JavaScript lama tanpa types via **`declare module "nama-library"`**.
 
-## Contoh
+#### Contoh
 
 File `src/types/legacy-payment.d.ts`:
 ```typescript
@@ -732,13 +743,13 @@ declare module "lib-name" { export ... } → menyediakan anotasi tipe untuk libr
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Global Augmentation & Declaration Merging
+## 18. 🔴 Global Augmentation & Declaration Merging
 
-## Konsep
+#### Konsep
 
 **Global Augmentation** memungkinkan kita memperluas tipe bawaan browser (`Window`) atau runtime (`NodeJS.ProcessEnv`) agar IDE mengenali variabel global kustom kita.
 
-## Contoh
+#### Contoh
 
 File `src/types/global-augmentation.d.ts`:
 ```typescript
@@ -773,9 +784,9 @@ declare global { interface Window { customProp: type } } → memperluas tipe obj
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Stage 3 Decorators Modern di TypeScript 5.0+
+## 19. 🔴 Stage 3 Decorators Modern di TypeScript 5.0+
 
-## Konsep
+#### Konsep
 
 TypeScript 5.0+ mengadopsi standar **ECMAScript Stage 3 Decorators** resmi (tidak lagi membutuhkan opsi legacy `experimentalDecorators: true`).
 
@@ -783,7 +794,7 @@ Jenis Decorator:
 - **Class Decorator:** `(target: Function, context: ClassDecoratorContext)`
 - **Method Decorator:** `(target: Function, context: ClassMethodDecoratorContext)`
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Method Decorator: Pengukur Durasi Eksekusi
@@ -819,9 +830,9 @@ Stage 3 Decorators (TS 5.0+) → standar decorator resmi ECMAScript menggunakan 
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Best Practice & Kinerja Kompilasi Type-Level
+## 20. 🔴 Best Practice & Kinerja Kompilasi Type-Level
 
-## Konsep
+#### Konsep
 
 Kompilasi TypeScript dapat menjadi sangat lambat (*IDE Type Lag*) jika Anda menulis tipe rekursif yang terlalu dalam tanpa *Exit Condition*.
 
@@ -840,7 +851,7 @@ Kinerja Kompilasi → selalu sertakan batas rekursi pada tipe kompleks untuk men
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                  PETA ARSITEKTUR TYPESCRIPT ADVANCED
@@ -858,7 +869,7 @@ MAPPED & CONDITIONAL TYPES INFER & STRING TEMPLATES  DECLARATION & DECORATORS
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Fitur / Keyword | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -878,7 +889,7 @@ MAPPED & CONDITIONAL TYPES INFER & STRING TEMPLATES  DECLARATION & DECORATORS
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code TypeScript Advanced 10 Detik
+## 23. ⚡ Cheat Code TypeScript Advanced 10 Detik
 
 ```typescript
 // 1. Template Deep Readonly
@@ -895,7 +906,7 @@ type Unwrap<T> = T extends Promise<infer U> ? U : T
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Indexed Access & Mapped Types
@@ -925,7 +936,7 @@ Langkah 5: Selamat! Anda Telah Menjadi TypeScript Full-Stack Master 100%!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Type-Safe Query Builder, Event-Driven Schema Validator & Deep Immutable Store with Mapped and Conditional Types
+## 25. 🏗️ Mini Project: Production-Ready Type-Safe Query Builder, Event-Driven Schema Validator & Deep Immutable Store with Mapped and Conditional Types
 
 Aplikasi enterprise TypeScript lengkap, modern, dan runnable yang mengintegrasikan: **DeepReadonly Recursive, Type-Safe Query Builder dengan `keyof` dan `infer`, Auto-generated Getters/Setters Mapped Type via `as`, dan Dynamic Event Name Template Literal**.
 
@@ -1080,7 +1091,7 @@ store.update((prev) => ({
 console.log("Status Store Setelah Update:", store.getState())
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 Hasil Filter Query Builder: [
@@ -1101,7 +1112,7 @@ Status Store Setelah Update: {
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [TypeScript Creating Types from Types](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html)
 - [TypeScript Conditional Types Reference](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)

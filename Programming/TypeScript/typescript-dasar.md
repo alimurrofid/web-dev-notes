@@ -1,4 +1,16 @@
-# TypeScript Dasar Cheatsheet Revised
+---
+title: "TypeScript Dasar"
+description: "Dasar TypeScript: static typing, primitive types, array & tuple, object types, type inference, union & literal types, dan interface dasar."
+order: 1
+tags:
+  - programming
+  - typescript
+  - frontend
+  - backend
+  - fundamental
+---
+
+# TypeScript Dasar
 
 > **Target:** Pemula yang telah memahami JavaScript modern (ES6+) dan ingin menguasai **Sistem Tipe Statis TypeScript 5.5+ (Kompilator `tsc`, `tsconfig.json` Strict Mode, Tipe Primitif & Khusus `unknown`/`never`/`any`, Arrays & Tuples, Object Modifiers `readonly`/`?`, `type` vs `interface`, Union & Intersection `|`/`&`, Literal Types & `as const`, Discriminated Unions, Function Overloading, Type Assertions, dan Type Narrowing / Custom Type Guards `val is Type`)**.
 >
@@ -104,9 +116,9 @@ Custom Type Guard (val is T)  → fungsi predikat boolean yang mengajarkan compi
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan TypeScript 5 & Mental Model Static Typing
+## 1. 🟢 Pengenalan TypeScript 5 & Mental Model Static Typing
 
-## Konsep
+#### Konsep
 
 JavaScript adalah bahasa **Dynamically Typed**: tipe data baru diketahui saat program berjalan di runtime (*Runtime Evaluation*). Ini sering memicu error legendaris `TypeError: Cannot read properties of undefined`.
 
@@ -115,7 +127,7 @@ JavaScript adalah bahasa **Dynamically Typed**: tipe data baru diketahui saat pr
 - Memeriksa kebenaran tipe **saat proses coding / kompilasi (*Compile Time*)**.
 - **Type Erasure:** Seluruh tipe data, interface, dan generic akan dihapus 100% saat di-compile ke `.js`, sehingga **tidak menambah beban ukuran file atau memori di runtime**.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 JavaScript Biasa:
@@ -138,9 +150,9 @@ TypeScript = JavaScript + Static Type System (Di-compile menjadi JavaScript murn
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Tooling Kompilator `tsc` & Konfigurasi `tsconfig.json`
+## 2. 🟢 Tooling Kompilator `tsc` & Konfigurasi `tsconfig.json`
 
-## Konsep
+#### Konsep
 
 Kompilator resmi TypeScript adalah **`tsc` (*TypeScript Compiler*)**.
 
@@ -179,9 +191,9 @@ strict: true     → opsi wajib tsconfig.json untuk mengaktifkan keamanan tipe m
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Tipe Primitif Inti
+## 3. 🟢 Tipe Primitif Inti
 
-## Konsep
+#### Konsep
 
 TypeScript mendukung 7 tipe data primitif bawaan JavaScript:
 
@@ -193,7 +205,7 @@ TypeScript mendukung 7 tipe data primitif bawaan JavaScript:
 6. **`symbol`:** Pengenal unik mutlak (`Symbol("key")`).
 7. **`bigint`:** Angka bilangan bulat sangat besar di atas $2^{53} - 1$ (`100n`).
 
-## Contoh
+#### Contoh
 
 ```typescript
 let username: string = "alimur_dev"
@@ -214,9 +226,9 @@ string, number, boolean, null, undefined, bigint, symbol → 7 tipe data primiti
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Tipe Khusus: `any`, `unknown`, `never`, dan `void`
+## 4. 🟢 Tipe Khusus: `any`, `unknown`, `never`, dan `void`
 
-## Konsep
+#### Konsep
 
 Empat tipe khusus yang paling sering disalahpahami oleh pemula:
 
@@ -227,7 +239,7 @@ Empat tipe khusus yang paling sering disalahpahami oleh pemula:
 | **`void`** | Digunakan sebagai return type fungsi yang **tidak mengembalikan nilai apa pun** (misal: `console.log`). | ✅ Standar Fungsi |
 | **`never`** | Merepresentasikan nilai yang **tidak akan pernah ada** (fungsi melempar error, infinite loop, atau unhandled branch). | ✅ Sangat Berguna |
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. unknown vs any
@@ -260,9 +272,9 @@ never   → tipe data untuk fungsi yang melempar error atau percabangan yang tid
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Type Inference vs Explicit Type Annotation
+## 5. 🟢 Type Inference vs Explicit Type Annotation
 
-## Konsep
+#### Konsep
 
 1. **Type Inference (Penyimpulan Otomatis):**
    - TypeScript cukup pintar untuk menebak tipe data secara otomatis berdasarkan nilai awal yang di-assign.
@@ -270,7 +282,7 @@ never   → tipe data untuk fungsi yang melempar error atau percabangan yang tid
 2. **Explicit Type Annotation (Anotasi Eksplisit):**
    - Wajib digunakan saat: mendeklarasikan parameter fungsi, return type fungsi publik, variabel yang diinisialisasi nanti, atau objek kompleks.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // ✅ Type Inference Otomatis: tipe variabel ini otomatis 'number'
@@ -293,9 +305,9 @@ let x: number = 10 → Explicit Type Annotation (dinyatakan manual)
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Arrays & Tuples
+## 6. 🟢 Arrays & Tuples
 
-## Konsep
+#### Konsep
 
 1. **Typed Array:**
    - Menyimpan kumpulan elemen dengan tipe seragam (`number[]` atau `Array<string>`).
@@ -303,7 +315,7 @@ let x: number = 10 → Explicit Type Annotation (dinyatakan manual)
 2. **Tuples:**
    - Array dengan **jumlah elemen tetap** dan **tipe data pada setiap posisi indeks telah ditentukan secara spesifik**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Arrays
@@ -328,15 +340,15 @@ readonly T[]         → array yang terkunci dari mutasi method push/pop
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Object Types & Properti Modifiers
+## 7. 🟢 Object Types & Properti Modifiers
 
-## Konsep
+#### Konsep
 
 Mendefinisikan bentuk objek (*Shape of Object*) beserta modifiernya:
 - **`readonly prop`:** Nilai properti tidak dapat diubah setelah inisialisasi awal.
 - **`prop?: type`:** Properti opsional (bisa bernilai `type` atau `undefined`).
 
-## Contoh
+#### Contoh
 
 ```typescript
 type Product = {
@@ -365,13 +377,13 @@ const laptop: Product = {
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Type Aliases (`type`)
+## 8. 🟢 Type Aliases (`type`)
 
-## Konsep
+#### Konsep
 
 Keyword **`type`** digunakan untuk memberi nama pada sembarang tipe data (Objek, Primitif, Union, Tuple, atau Function Signature).
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Type Alias untuk Objek
@@ -396,9 +408,9 @@ type TypeName = Definition; → membuat alias nama untuk sembarang tipe data di 
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Interfaces (`interface`) & Pewarisan (`extends`)
+## 9. 🟡 Interfaces (`interface`) & Pewarisan (`extends`)
 
-## Konsep
+#### Konsep
 
 Keyword **`interface`** khusus digunakan untuk mendefinisikan **kontrak bentuk objek**.
 
@@ -406,7 +418,7 @@ Keunggulan Interface:
 - Mendukung pewarisan hierarkis menggunakan keyword **`extends`**.
 - Dapat diimplementasikan oleh Class di OOP (`class MyClass implements MyInterface`).
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface Person {
@@ -440,9 +452,9 @@ interface ChildInterface extends ParentInterface { newProp: type } → mewarisi 
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Perbandingan Mendalam: Kapan Memilih `type` vs `interface`
+## 10. 🟡 Perbandingan Mendalam: Kapan Memilih `type` vs `interface`
 
-## Konsep
+#### Konsep
 
 Keduanya sering kali dapat digunakan bergantian untuk mendefinisikan objek, namun memiliki perbedaan krusial:
 
@@ -458,7 +470,7 @@ Keduanya sering kali dapat digunakan bergantian untuk mendefinisikan objek, namu
 > - Gunakan **`interface`** untuk mendefinisikan struktur data model aplikasi, class, atau saat membuat library (karena mendukung *Declaration Merging*).
 > - Gunakan **`type`** untuk Unions (`|`), Intersections (`&`), Tuples, Primitives, dan manipulasi tipe lanjutan.
 
-## Contoh Declaration Merging pada Interface
+#### Contoh Declaration Merging pada Interface
 
 ```typescript
 // File 1 (Window dasar)
@@ -489,16 +501,16 @@ type      → gunakan untuk union literals, tuples, primitif, dan transformasi t
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Union Types (`|`) & Intersection Types (`&`)
+## 11. 🟡 Union Types (`|`) & Intersection Types (`&`)
 
-## Konsep
+#### Konsep
 
 1. **Union Types (`A | B`):**
    - Nilai variabel boleh berupa tipe A **ATAU** tipe B.
 2. **Intersection Types (`A & B`):**
    - Nilai variabel harus memiliki **SEMUA properti milik tipe A DAN tipe B**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Union: ID bisa berupa String atau Number
@@ -533,16 +545,16 @@ typeA & typeB → Intersection (menggabungkan seluruh properti kedua tipe menjad
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Literal Types & Const Assertions (`as const`)
+## 12. 🟡 Literal Types & Const Assertions (`as const`)
 
-## Konsep
+#### Konsep
 
 1. **Literal Types:**
    - Membatasi nilai variabel bukan sekadar `string` sembarang, melainkan hanya string tertentu (misal: `"GET" | "POST"`).
 2. **Const Assertion (`as const`):**
    - Mengubah seluruh properti objek/array menjadi tipe literal yang **`readonly` secara mendalam (*Deep Readonly*)**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. String Literal Union
@@ -572,15 +584,15 @@ const obj = { k: "v" } as const     → mengunci seluruh nilai properti objek me
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Discriminated Unions (Tagged Unions)
+## 13. 🟡 Discriminated Unions (Tagged Unions)
 
-## Konsep
+#### Konsep
 
 **Discriminated Union** adalah pola pemodelan data paling aman dan elegan di TypeScript:
 - Menggabungkan beberapa interface berbeda yang memiliki **satu properti pembeda bersama (*Discriminant Tag*)** berupa string literal unik (misal: `status` atau `kind`).
 - Memungkinkan TypeScript melakukan **Narrowing otomatis 100% aman** di dalam blok `switch` atau `if`.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface NetworkLoadingState {
@@ -623,15 +635,15 @@ Discriminated Union → union objek yang memiliki satu properti tag pembeda lite
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Anotasi Fungsi: Parameters, Return Types & Optional Params
+## 14. 🟡 Anotasi Fungsi: Parameters, Return Types & Optional Params
 
-## Konsep
+#### Konsep
 
 Menuliskan tipe pada fungsi:
 - Parameter opsional wajib diletakkan **setelah** parameter wajib.
 - Parameter dengan nilai default otomatis bersifat opsional.
 
-## Contoh
+#### Contoh
 
 ```typescript
 function createGreeting(name: string, title?: string, uppercase: boolean = false): string {
@@ -652,14 +664,14 @@ function fn(param1: type, param2?: optType): returnType { return val; }
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Rest Parameters & Function Type Signatures
+## 15. 🟡 Rest Parameters & Function Type Signatures
 
-## Konsep
+#### Konsep
 
 1. **Rest Parameters:** Mengumpulkan sisa argumen tak terbatas ke dalam bentuk array bertipe (`...numbers: number[]`).
 2. **Function Type Signatures:** Mendefinisikan tipe fungsi sebagai variabel callback.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Rest Parameters
@@ -686,9 +698,9 @@ type CallbackType = (arg: string) => void       → signature tipe fungsi callba
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Function Overloading
+## 16. 🟡 Function Overloading
 
-## Konsep
+#### Konsep
 
 **Function Overloading** digunakan saat sebuah fungsi dapat menerima kombinasi parameter yang berbeda dan menghasilkan tipe return yang berbeda tergantung inputnya.
 
@@ -696,7 +708,7 @@ Struktur Overloading:
 1. **Overload Signatures (1 atau lebih):** Deklarasi tipe tanpa body fungsi.
 2. **Implementation Signature:** Body fungsi nyata yang menangani semua variasi parameter.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Overload Signatures:
@@ -729,9 +741,9 @@ function fn(a: string): string; function fn(a: number): number; function fn(a: a
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Type Assertions (`as Type`) & Non-null Assertion Operator (`!`)
+## 17. 🟡 Type Assertions (`as Type`) & Non-null Assertion Operator (`!`)
 
-## Konsep
+#### Konsep
 
 1. **Type Assertion (`as Type`):**
    - Memberi tahu compiler: *"Percayalah, saya tahu tipe variabel ini lebih spesifik daripada perkiraanmu"*.
@@ -742,7 +754,7 @@ function fn(a: string): string; function fn(a: number): number; function fn(a: a
 > [!CAUTION]
 > Gunakan Type Assertion dan `!` sehemat mungkin. Jika salah menebak, aplikasi akan crash di runtime!
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. DOM Element Type Assertion
@@ -765,9 +777,9 @@ val!                → Non-null Assertion (menghilangkan kemungkinan null / und
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Type Narrowing Dasar dengan `typeof`, `instanceof`, dan Operator `in`
+## 18. 🔴 Type Narrowing Dasar dengan `typeof`, `instanceof`, dan Operator `in`
 
-## Konsep
+#### Konsep
 
 **Type Narrowing** adalah proses di mana TypeScript secara otomatis menganalisis alur logika kode Anda (*Control Flow Analysis*) untuk menyempitkan tipe variabel:
 
@@ -775,7 +787,7 @@ val!                → Non-null Assertion (menghilangkan kemungkinan null / und
 2. **`v instanceof Date`:** Untuk memeriksa apakah objek merupakan instance dari Class atau Constructor.
 3. **`"propertyName" in object`:** Untuk memeriksa keberadaan properti spesifik pada objek.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface AdminAccount {
@@ -812,9 +824,9 @@ val instanceof MyClass   → narrowing untuk instance Class objek
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Custom User-Defined Type Guards (`value is Type`)
+## 19. 🔴 Custom User-Defined Type Guards (`value is Type`)
 
-## Konsep
+#### Konsep
 
 Jika logika pemeriksaan tipe Anda sangat kompleks dan ingin dipisahkan ke fungsi terpisah:
 Fungsi JavaScript boolean biasa **tidak akan menyempitkan tipe data** di luar fungsinya.
@@ -823,7 +835,7 @@ Fungsi JavaScript boolean biasa **tidak akan menyempitkan tipe data** di luar fu
 Fungsi yang mengembalikan predikat tipe: **`function isType(val: unknown): val is TargetType`**.
 - Jika fungsi mengembalikan `true`, TypeScript **otomatis mengubah tipe `val` menjadi `TargetType`** pada blok percabangan pemanggilnya!
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface ApiResponseSuccess {
@@ -863,9 +875,9 @@ function isUser(val: unknown): val is User { return ...; } → Custom Type Guard
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Assertion Functions (`asserts value is Type`)
+## 20. 🔴 Assertion Functions (`asserts value is Type`)
 
-## Konsep
+#### Konsep
 
 **Assertion Function** adalah fungsi khusus yang memvalidasi kondisi atau tipe data:
 - Jika kondisi tidak terpenuhi, fungsi akan **melempar exception error (`throw new Error`)**.
@@ -874,7 +886,7 @@ function isUser(val: unknown): val is User { return ...; } → Custom Type Guard
 Format:
 `function assertIsDefined<T>(val: T): asserts val is NonNullable<T>`
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Assertion Function
@@ -903,7 +915,7 @@ function assert(val: unknown): asserts val is Type { if (!valid) throw Error(); 
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                      PETA ARSITEKTUR TYPESCRIPT DASAR
@@ -921,7 +933,7 @@ TYPE SYSTEM CORE             OBJECTS & CONTRACTS         TYPE NARROWING & GUARDS
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Fitur / Keyword | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -940,7 +952,7 @@ TYPE SYSTEM CORE             OBJECTS & CONTRACTS         TYPE NARROWING & GUARDS
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code TypeScript Dasar 10 Detik
+## 23. ⚡ Cheat Code TypeScript Dasar 10 Detik
 
 ```typescript
 // 1. Template Discriminated Union
@@ -962,7 +974,7 @@ type AppRole = typeof APP_ROLES[number] // 'ADMIN' | 'CUSTOMER' | 'STAFF'
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Setup Tooling & Tipe Primitif
@@ -992,7 +1004,7 @@ Langkah 5: Siap Melangkah ke TypeScript OOP, Generics & Utility Types!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Type-Safe User Management, Role-Based Access & E-Commerce Order Processing Engine
+## 25. 🏗️ Mini Project: Production-Ready Type-Safe User Management, Role-Based Access & E-Commerce Order Processing Engine
 
 Aplikasi TypeScript lengkap, modern, dan runnable yang mengintegrasikan: **Discriminated Unions untuk Status Pembayaran, Custom Type Guards untuk Validasi Payload, `as const` Constants, Interface Inheritance, Function Overloading, dan Exhaustiveness Checking `never`**.
 
@@ -1179,7 +1191,7 @@ console.log(OrderProcessor.getPaymentStatusMessage(myOrder.payment))
 console.log(OrderProcessor.shipOrder(myOrder, adminUser))
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 ✅ Pembayaran lunas sebesar Rp 1.750.000 (Ref: TRX-BCA-888999)
@@ -1190,7 +1202,7 @@ console.log(OrderProcessor.shipOrder(myOrder, adminUser))
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [TypeScript Official Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 - [TypeScript Everyday Types Guide](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)

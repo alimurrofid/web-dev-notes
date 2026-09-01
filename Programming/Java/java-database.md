@@ -1,4 +1,15 @@
-# Java Database (JDBC) Cheatsheet Revised
+---
+title: "Java Database (JDBC)"
+description: "Konektivitas database Java via JDBC: DriverManager, DataSource, Connection, Statement, PreparedStatement, ResultSet, Transaction, dan Connection Pooling (HikariCP)."
+order: 6
+tags:
+  - programming
+  - java
+  - jdbc
+  - database
+---
+
+# Java Database (JDBC)
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Generic, dan Collection, serta ingin menguasai koneksi dan transaksi database relasional (**RDBMS**) menggunakan **Java Database Connectivity (JDBC 4.3+)** dan **HikariCP Connection Pool** (Java 21 LTS).
 >
@@ -101,9 +112,9 @@ HikariCP     → library connection pooling modern berkecepatan tinggi standar S
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan JDBC & Mental Model Arsitektur Driver
+## 1. 🟢 Pengenalan JDBC & Mental Model Arsitektur Driver
 
-## Konsep
+#### Konsep
 
 **Java Database Connectivity (JDBC)** adalah API standar di Java (`java.sql` dan `javax.sql`) yang mendefinisikan antarmuka universal bagi aplikasi Java untuk berinteraksi dengan berbagai jenis sistem basis data relasional (*Relational Database Management System / RDBMS*).
 
@@ -113,7 +124,7 @@ Komponen pembentuk arsitektur JDBC:
 3. **JDBC Driver:** Driver pihak ketiga (*library jar*) yang disediakan oleh vendor database (misal: MySQL Connector/J, PostgreSQL JDBC Driver) untuk menerjemahkan instruksi JDBC ke protokol jaringan spesifik database tersebut.
 4. **Database Server:** Server target (MySQL, PostgreSQL, Oracle, SQLite, H2).
 
-## Contoh
+#### Contoh
 
 Contoh menambahkan dependensi JDBC Driver pada build tool modern (Gradle / Maven):
 
@@ -126,7 +137,7 @@ Contoh menambahkan dependensi JDBC Driver pada build tool modern (Gradle / Maven
 </dependency>
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                Aplikasi Java Developer
@@ -154,9 +165,9 @@ JDBC Driver → implementasi konkrit dari vendor database untuk berkomunikasi vi
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Struktur Interface Inti JDBC
+## 2. 🟢 Struktur Interface Inti JDBC
 
-## Konsep
+#### Konsep
 
 Terdapat 7 antarmuka dan class fundamental yang membentuk alur kerja utama di JDBC:
 
@@ -168,7 +179,7 @@ Terdapat 7 antarmuka dan class fundamental yang membentuk alur kerja utama di JD
 6. **`ResultSet`:** Tabel virtual penampung data hasil query `SELECT`.
 7. **`SQLException`:** Exception khusus yang dilempar saat terjadi kesalahan akses database atau query error.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 DriverManager / DataSource
@@ -196,9 +207,9 @@ PreparedStatement.executeQuery()  → mengeksekusi perintah DQL (SELECT) menghas
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Membuat Koneksi Database via `DriverManager`
+## 3. 🟢 Membuat Koneksi Database via `DriverManager`
 
-## Konsep
+#### Konsep
 
 Untuk membuka koneksi database langsung, kita menggunakan method `DriverManager.getConnection(url, username, password)`.
 
@@ -211,7 +222,7 @@ Contoh Format URL Populer:
 - **SQLite (File Lokal):** `jdbc:sqlite:app_database.db`
 - **H2 (In-Memory Testing):** `jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1`
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.Connection;
@@ -241,7 +252,7 @@ public class ConnectionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Menghubungkan ke database...
@@ -262,15 +273,15 @@ connection.close()                           → menutup sesi koneksi dan melepa
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Manajemen Resource Otomatis dengan *Try-with-Resources*
+## 4. 🟢 Manajemen Resource Otomatis dengan *Try-with-Resources*
 
-## Konsep
+#### Konsep
 
 Koneksi database, statement, dan result set adalah **sumber daya sistem eksternal (*unmanaged OS resources*)** yang memakan socket jaringan dan memori database. Jika tidak ditutup dengan benar saat terjadi error, aplikasi akan mengalami **Resource / Memory Leak** dan database akan kehabisan batas koneksi (*Connection Pool Exhaustion*).
 
 Seluruh antarmuka inti JDBC mengimplementasikan `java.lang.AutoCloseable`. Oleh karena itu, **WAJIB menggunakan konstruksi *Try-with-Resources*** agar koneksi dan statement otomatis ditutup saat blok selesai.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.Connection;
@@ -296,13 +307,13 @@ public class TryWithResourcesDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Tabel berhasil dibuat & Resource otomatis dibersihkan aman!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 try (Resource A; Resource B) {
@@ -320,9 +331,9 @@ try (Connection conn = ...; PreparedStatement pstmt = ...) { ... } → pola aman
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 `Statement` vs `PreparedStatement` & Bahaya Fatal SQL Injection
+## 5. 🟢 `Statement` vs `PreparedStatement` & Bahaya Fatal SQL Injection
 
-## Konsep
+#### Konsep
 
 - **`Statement` (Rentan & Usang):** Mengeksekusi string SQL mentah. Jika menggabungkan input pengguna menggunakan konkatenasi string biasa (`"WHERE user = '" + input + "'"`), peretas dapat menyuntikkan perintah SQL jahat (**SQL Injection**).
 - **`PreparedStatement` (Wajib & Aman):**
@@ -331,7 +342,7 @@ try (Connection conn = ...; PreparedStatement pstmt = ...) { ... } → pola aman
   3. Nilai parameter dikirim terpisah dan diperlakukan murni sebagai data literal teks/angka, **sehingga 100% kebal terhadap serangan SQL Injection**.
   4. Database dapat meng-cache *Execution Plan* untuk performa berulang yang lebih kencang.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.Connection;
@@ -373,13 +384,13 @@ public class PreparedStatementSecurityDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Serangan SQL Injection DITANGKAL! Login ditolak karena input dianggap teks biasa.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Input Hacker: ' OR '1'='1
@@ -395,7 +406,7 @@ WHERE username = '\' OR \'1\'=\'1' ──> Tidak ada manipulasi struktur syntax 
 pstmt.setString(parameterIndex, value) → mengisi parameter ke-parameterIndex (mulai dari 1) secara aman
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Menggunakan indeks berbasis 0 pada PreparedStatement: `pstmt.setString(0, "val")` (JDBC menggunakan indeks berbasis 1).
 
@@ -405,16 +416,16 @@ pstmt.setString(parameterIndex, value) → mengisi parameter ke-parameterIndex (
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Eksekusi Query DML (`INSERT`, `UPDATE`, `DELETE`) & `executeUpdate()`
+## 6. 🟢 Eksekusi Query DML (`INSERT`, `UPDATE`, `DELETE`) & `executeUpdate()`
 
-## Konsep
+#### Konsep
 
 Untuk seluruh instruksi SQL yang memanipulasi data (*Data Manipulation Language / DML*) atau skema tabel (*DDL*):
 - Gunakan method **`pstmt.executeUpdate()`**.
 - Method ini mengembalikan bilangan bulat `int` yang merepresentasikan **jumlah baris data yang terpengaruh (*Affected Rows Count*)**.
 - Jika mengembalikan `0` pada perintah `UPDATE`/`DELETE`, berarti tidak ada satupun baris data yang cocok dengan kriteria `WHERE`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.Connection;
@@ -454,7 +465,7 @@ public class ExecuteUpdateDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Baris Tersimpan (INSERT): 1
@@ -471,9 +482,9 @@ int affectedRows = pstmt.executeUpdate(); → mengeksekusi INSERT/UPDATE/DELETE 
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Eksekusi Query DQL (`SELECT`) & Navigasi `ResultSet`
+## 7. 🟢 Eksekusi Query DQL (`SELECT`) & Navigasi `ResultSet`
 
-## Konsep
+#### Konsep
 
 Untuk instruksi pembacaan data (`SELECT`):
 - Gunakan method **`pstmt.executeQuery()`** yang menghasilkan objek **`ResultSet`**.
@@ -481,7 +492,7 @@ Untuk instruksi pembacaan data (`SELECT`):
 - Method **`rs.next()`** memajukan kursor ke baris berikutnya dan mengembalikan `true` jika baris tersebut ada, atau `false` jika data sudah habis.
 - Ambil data kolom menggunakan method getter bertipe: `rs.getInt("column")`, `rs.getString("column")`, `rs.getDouble("column")`, `rs.getTimestamp("column")`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -516,14 +527,14 @@ public class ExecuteQueryDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Query SELECT:
 - ID: 2 | Nama: Budi       | Saldo: Rp 750,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ResultSet Pointer Awal (Before First Row)
@@ -544,15 +555,15 @@ rs.getString(columnLabel)            → mengambil nilai kolom sebagai String
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Mapping `ResultSet` ke Java Model / Record Entity
+## 8. 🟢 Mapping `ResultSet` ke Java Model / Record Entity
 
-## Konsep
+#### Konsep
 
 Dalam arsitektur aplikasi backend profesional, kode database tidak boleh mengekspos objek mentah `ResultSet` ke luar layer database.
 
 Setiap baris data pada `ResultSet` harus **di-mapping menjadi Objek Java / Record Entity** mandiri (*Data Transfer Object*).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -599,7 +610,7 @@ public class ResultSetMappingDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Mapped Entity: MahasiswaEntity[id=1, nim=101, nama=Citra, ipk=3.85]
@@ -616,15 +627,15 @@ Row Mapping → pola transformasi baris relasional ResultSet menjadi objek Java 
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Menangani Nilai NULL pada `ResultSet` (`wasNull()` & Wrapper Class)
+## 9. 🟡 Menangani Nilai NULL pada `ResultSet` (`wasNull()` & Wrapper Class)
 
-## Konsep
+#### Konsep
 
 Ketika kolom database berisi nilai `NULL`:
 - Jika dibaca dengan method primitif (seperti `rs.getInt("age")` atau `rs.getDouble("discount")`), Java akan **mengembalikan nilai `0` atau `0.0`**, bukan `null`! Ini bisa menimbulkan bug fatal jika nilai 0 memiliki arti bisnis yang berbeda dari data kosong.
 - Untuk memeriksa apakah nilai kolom yang baru dibaca sebenarnya bernilai `NULL` di database, gunakan method **`rs.wasNull()`**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -663,7 +674,7 @@ public class NullHandlingDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Pegawai      : Eko
@@ -681,9 +692,9 @@ rs.wasNull() → memeriksa apakah kolom yang baru saja dibaca bernilai NULL di d
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Mengambil Auto-Generated Keys (Primary Key Auto-Increment ID)
+## 10. 🟡 Mengambil Auto-Generated Keys (Primary Key Auto-Increment ID)
 
-## Konsep
+#### Konsep
 
 Ketika melakukan `INSERT` ke tabel yang memiliki kolom Primary Key auto-increment (*Identity / Serial*), database yang menghasilkan nomor ID tersebut.
 
@@ -691,7 +702,7 @@ Untuk mengambil nilai ID yang baru saja digenerate tanpa perlu melakukan query `
 1. Sertakan flag **`Statement.RETURN_GENERATED_KEYS`** saat membuat PreparedStatement.
 2. Panggil method **`pstmt.getGeneratedKeys()`** setelah `executeUpdate()`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -724,7 +735,7 @@ public class AutoGeneratedKeysDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Data tersimpan dengan Auto-Increment ID: 1
@@ -741,15 +752,15 @@ pstmt.getGeneratedKeys()                                    → mengambil Result
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Batch Processing untuk Efisiensi Masif (`addBatch` & `executeBatch`)
+## 11. 🟡 Batch Processing untuk Efisiensi Masif (`addBatch` & `executeBatch`)
 
-## Konsep
+#### Konsep
 
 Jika Anda perlu mengeksekusi 1.000 perintah `INSERT` berturut-turut, mengeksekusinya satu per satu akan sangat lambat karena terjadi 1.000 kali pengiriman paket jaringan (*Network Round-Trips*).
 
 **Batch Processing** mengumpulkan ratusan/ribuan query di sisi aplikasi (`addBatch()`), lalu mengirimkannya **sekaligus dalam satu kali perjalanan jaringan (`executeBatch()`)**, meningkatkan performa hingga puluhan kali lipat.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -783,13 +794,13 @@ public class BatchProcessingDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Berhasil mengeksekusi batch (5 perintah DML sekaligus)!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 addBatch() -> addBatch() -> addBatch() ──[Buffer Aplikasi]──> executeBatch() ──(1 Paket TCP)──> Database
@@ -806,9 +817,9 @@ pstmt.executeBatch() → mengirim dan mengeksekusi seluruh antrian batch query s
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Database Transactions Dasar (ACID, `setAutoCommit`, `commit`, `rollback`)
+## 12. 🟡 Database Transactions Dasar (ACID, `setAutoCommit`, `commit`, `rollback`)
 
-## Konsep
+#### Konsep
 
 Secara default, JDBC beroperasi dalam mode **Auto-Commit** (setiap satu eksekusi SQL langsung disimpan permanen seketika).
 
@@ -818,7 +829,7 @@ Dalam transaksi perbankan atau e-commerce, serangkaian operasi (misal: potong sa
 3. Jika seluruh operasi sukses tanpa error $\rightarrow$ simpan permanen: **`conn.commit()`**.
 4. Jika terjadi error di salah satu langkah $\rightarrow$ batalkan seluruh perubahan: **`conn.rollback()`**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -879,13 +890,13 @@ public class TransactionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ❌ Transaksi Gagal! Seluruh perubahan DIBATALKAN (ROLLED BACK): Simulasi Error: Batas transfer harian terlampaui!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 setAutoCommit(false)
@@ -909,15 +920,15 @@ conn.rollback()           → membatalkan seluruh perubahan transaksi yang belum
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Savepoint pada Transaksi Bertingkat
+## 13. 🟡 Savepoint pada Transaksi Bertingkat
 
-## Konsep
+#### Konsep
 
 **Savepoint** memungkinkan kita membuat titik pemeriksaan (*checkpoint*) di tengah-tengah transaksi yang sedang berjalan.
 
 Jika terjadi kegagalan pada operasi tahap akhir, kita dapat melakukan **Rollback Parsial** kembali ke titik Savepoint tertentu (`conn.rollback(savepoint)`) tanpa membatalkan operasi tahap awal yang sudah berhasil.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -953,7 +964,7 @@ public class SavepointDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Tahap 1 Sukses -> Savepoint 1 Dibuat.
@@ -972,9 +983,9 @@ conn.rollback(sp)                        → membatalkan transaksi hanya sampai 
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Transaction Isolation Levels (`READ_COMMITTED`, `REPEATABLE_READ`, `SERIALIZABLE`)
+## 14. 🟡 Transaction Isolation Levels (`READ_COMMITTED`, `REPEATABLE_READ`, `SERIALIZABLE`)
 
-## Konsep
+#### Konsep
 
 Ketika banyak pengguna mengakses database secara bersamaan (*concurrency*), dapat terjadi anomali data:
 1. **Dirty Read:** Membaca data transaksi lain yang belum di-commit (dan mungkin di-rollback).
@@ -1000,14 +1011,14 @@ conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED) → mengatur
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Metadata Database & ResultSet (`DatabaseMetaData` & `ResultSetMetaData`)
+## 15. 🟡 Metadata Database & ResultSet (`DatabaseMetaData` & `ResultSetMetaData`)
 
-## Konsep
+#### Konsep
 
 - **`DatabaseMetaData`:** Menyediakan informasi komprehensif tentang server RDBMS (nama produk database, versi driver, daftar tabel, dukungan fitur transaksi).
 - **`ResultSetMetaData`:** Menyediakan informasi tentang skema kolom hasil query yang sedang aktif (jumlah kolom, nama kolom, tipe data SQL).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -1042,7 +1053,7 @@ public class MetadataDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 RDBMS Name   : H2
@@ -1066,9 +1077,9 @@ rsMeta.getColumnCount()  → menghitung total jumlah kolom pada ResultSet
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 `CallableStatement` (Stored Procedure & Parameter `OUT`)
+## 16. 🟡 `CallableStatement` (Stored Procedure & Parameter `OUT`)
 
-## Konsep
+#### Konsep
 
 `CallableStatement` digunakan untuk mengeksekusi **Stored Procedure** atau **Function** yang tersimpan di dalam database server.
 
@@ -1077,7 +1088,7 @@ Sintaks pemanggilan standar JDBC:
 
 Untuk membaca nilai kembalian dari parameter `OUT`, daftarkan tipe datanya terlebih dahulu menggunakan `registerOutParameter(index, Types.VARCHAR)`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -1116,7 +1127,7 @@ public class CallableStatementDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Stored Procedure Diskon: Rp 400,000.00
@@ -1133,9 +1144,9 @@ cstmt.registerOutParameter(index, Types.SQL) → mendaftarkan tipe data paramete
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Masalah Koneksi Konvensional & Konsep Connection Pooling
+## 17. 🔴 Masalah Koneksi Konvensional & Konsep Connection Pooling
 
-## Konsep
+#### Konsep
 
 Setiap kali Anda memanggil `DriverManager.getConnection()`:
 1. Terjadi proses **TCP 3-Way Handshake** melalui jaringan.
@@ -1146,7 +1157,7 @@ Proses ini sangat lambat (**memakan waktu puluhan milidetik per request**). Jika
 
 **Connection Pooling** menyelesaikan masalah ini dengan **membuat sekumpulan koneksi di awal (*Pool*)** yang tetap terbuka. Saat aplikasi membutuhkan koneksi, aplikasi cukup *meminjam* dari Pool, dan setelah selesai `close()`, koneksi tidak diputus melainkan *dikembalikan* ke Pool untuk dipakai request berikutnya.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                   Aplikasi Java
@@ -1166,9 +1177,9 @@ Proses ini sangat lambat (**memakan waktu puluhan milidetik per request**). Jika
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Connection Pooling Modern dengan HikariCP
+## 18. 🔴 Connection Pooling Modern dengan HikariCP
 
-## Konsep
+#### Konsep
 
 **HikariCP** adalah library Connection Pool pihak ketiga tercepat dan paling ringan di dunia Java, serta menjadi **default connection pool resmi di Spring Boot**.
 
@@ -1178,7 +1189,7 @@ Konfigurasi penting HikariCP:
 - `connectionTimeout`: Batas waktu tunggu maksimal saat meminjam koneksi sebelum melempar exception (default: 30.000 ms).
 - `maxLifetime`: Umur maksimal sebuah koneksi sebelum disegarkan (default: 1.800.000 ms / 30 menit).
 
-## Contoh
+#### Contoh
 
 ```java
 import com.zaxxer.hikari.HikariConfig;
@@ -1221,7 +1232,7 @@ public class HikariCPDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Berhasil meminjam koneksi dari HikariCP Pool!
@@ -1239,9 +1250,9 @@ ds.getConnection()                                 → meminjam koneksi dari poo
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Repository Pattern / DAO (Data Access Object) Murni
+## 19. 🔴 Repository Pattern / DAO (Data Access Object) Murni
 
-## Konsep
+#### Konsep
 
 **Data Access Object (DAO) / Repository Pattern** memisahkan secara tegas antara **logika query SQL tingkat rendah** dengan **logika bisnis (*Service Layer*)**.
 
@@ -1249,7 +1260,7 @@ Keuntungan:
 - Kode bisnis tidak tercemar oleh sintaks SQL atau `SQLException`.
 - Mudah dilakukan penggantian database atau pembuatan unit test (*Mocking*).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.sql.*;
@@ -1313,16 +1324,16 @@ Repository / DAO Pattern → pola arsitektur pemisahan query database dari domai
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 SQLException Handling & Error Codes
+## 20. 🔴 SQLException Handling & Error Codes
 
-## Konsep
+#### Konsep
 
 Saat `SQLException` terjadi, kita dapat mengekstrak informasi detail error dari database engine:
 - `e.getMessage()` : Pesan deskripsi error manusia.
 - `e.getSQLState()` : Kode status error terstandarisasi X/Open atau SQL:2003 (5 karakter).
 - `e.getErrorCode()` : Kode error numerik spesifik vendor (misal: MySQL Error 1062 = Duplicate Key).
 
-## Contoh
+#### Contoh
 
 ```java
 try {
@@ -1340,7 +1351,7 @@ try {
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                             PETA ARSITEKTUR JAVA JDBC
@@ -1358,7 +1369,7 @@ KONEKSI & RESOURCING            QUERY & TYPE SAFETY             TRANSAKSI & POOL
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Komponen / Method | Fungsi & Karakteristik | Return Type |
 |---|---|---|
@@ -1378,7 +1389,7 @@ KONEKSI & RESOURCING            QUERY & TYPE SAFETY             TRANSAKSI & POOL
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code Java JDBC 10 Detik
+## 23. ⚡ Cheat Code Java JDBC 10 Detik
 
 ```java
 // 1. Template PreparedStatement SELECT Aman
@@ -1409,7 +1420,7 @@ try {
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Fundamental Koneksi & PreparedStatement
@@ -1440,7 +1451,7 @@ Langkah 5: Siap Melangkah ke Spring Data JPA, Hibernate, & Spring Boot!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Store Repository & Order Transaction Manager CLI dengan HikariCP
+## 25. 🏗️ Mini Project: Production-Ready Store Repository & Order Transaction Manager CLI dengan HikariCP
 
 Aplikasi backend transaksi e-commerce lengkap yang mengintegrasikan: **HikariCP Connection Pool, Repository Pattern (DAO), Auto-Generated Keys, Batch Seeding, dan Transaksi Multi-Tabel Atomic dengan Rollback**.
 
@@ -1667,7 +1678,7 @@ public class StoreJdbcApp {
 }
 ```
 
-## Output Demonstrasi
+#### Output Demonstrasi
 
 ```text
 ==================================================
@@ -1694,7 +1705,7 @@ Katalog Produk Saat Ini:
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [Oracle Java JDBC Basics Tutorial](https://docs.oracle.com/javase/tutorial/jdbc/basics/)
 - [Java SE 21 java.sql Package Specification](https://docs.oracle.com/en/java/javase/21/docs/api/java.sql/package-summary.html)

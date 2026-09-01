@@ -1,4 +1,16 @@
-# Laravel Database Cheatsheet Revised
+---
+title: "Laravel Database"
+description: "Manajemen database Laravel: configuration, Migration, Schema Builder, Query Builder, Seeder, Factories, dan raw queries."
+order: 2
+tags:
+  - web-development
+  - backend
+  - laravel
+  - database
+  - sql
+---
+
+# Laravel Database
 
 > **Target:** pemula yang sudah memahami PHP dan Laravel Dasar, lalu ingin memahami database Laravel dan Query Builder sebelum masuk lebih dalam ke Eloquent.
 >
@@ -107,13 +119,13 @@ Seeder        → pengisi data awal / data contoh ke database
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Laravel Database
+## 1. 🟢 Pengenalan Laravel Database
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan lapisan abstraksi database yang sangat kuat berbasis **PHP Data Objects (PDO)**. Laravel melindungi aplikasi secara otomatis dari serangan **SQL Injection** menggunakan *prepared statements* dan *parameter binding*.
 
-## Dukungan Database
+#### Dukungan Database
 
 Laravel mendukung berbagai database driver populer:
 - **SQLite** (Default bawaan pada Laravel modern 11 / 12)
@@ -121,7 +133,7 @@ Laravel mendukung berbagai database driver populer:
 - **PostgreSQL**
 - **SQL Server**
 
-## Diagram Alur Eksekusi Database
+#### Diagram Alur Eksekusi Database
 
 ```text
        Controller Action
@@ -148,13 +160,13 @@ Query Builder bukan database, melainkan API Laravel untuk membuat query SQL seca
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Konfigurasi Database & Environment
+## 2. 🟢 Konfigurasi Database & Environment
 
-## Konsep
+#### Konsep
 
 Konfigurasi database tersimpan di file **`config/database.php`** dan nilainya diambil secara dinamis dari file **`.env`**.
 
-## 1. Konfigurasi Default SQLite (Laravel Modern)
+### 1. Konfigurasi Default SQLite (Laravel Modern)
 
 Pada Laravel 11+, database SQLite aktif secara default tanpa instalasi server database tambahan:
 
@@ -163,7 +175,7 @@ DB_CONNECTION=sqlite
 # File database otomatis dibuat di: database/database.sqlite
 ```
 
-## 2. Konfigurasi MySQL
+### 2. Konfigurasi MySQL
 
 Jika ingin menggunakan MySQL, ubah pengaturan di `.env`:
 
@@ -176,7 +188,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-## 3. Membaca Konfigurasi Database di Kode
+### 3. Membaca Konfigurasi Database di Kode
 
 ```php
 // Mengetahui nama koneksi database default yang sedang aktif
@@ -186,7 +198,7 @@ $defaultConnection = config('database.default'); // e.g. 'sqlite' atau 'mysql'
 $mysqlConfig = config('database.connections.mysql');
 ```
 
-## 4. Membersihkan Cache Konfigurasi
+### 4. Membersihkan Cache Konfigurasi
 
 Jika Anda mengubah nilai di `.env` tetapi belum terbaca:
 
@@ -206,13 +218,13 @@ php artisan config:clear  → bersihkan cache jika ganti database
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 DB Facade Dasar
+## 3. 🟢 DB Facade Dasar
 
-## Konsep
+#### Konsep
 
 Facade `Illuminate\Support\Facades\DB` menyediakan metode dasar untuk menjalankan query SQL mentah (*raw SQL*) dengan parameter binding yang aman.
 
-## 1. Raw Select (`DB::select`)
+### 1. Raw Select (`DB::select`)
 
 ```php
 use Illuminate\Support\Facades\DB;
@@ -224,7 +236,7 @@ $users = DB::select('SELECT * FROM users WHERE active = ? AND age >= ?', [1, 18]
 $users = DB::select('SELECT * FROM users WHERE email = :email', ['email' => 'budi@example.com']);
 ```
 
-## 2. Raw Insert (`DB::insert`)
+### 2. Raw Insert (`DB::insert`)
 
 ```php
 DB::insert('INSERT INTO products (name, price, stock) VALUES (?, ?, ?)', [
@@ -234,7 +246,7 @@ DB::insert('INSERT INTO products (name, price, stock) VALUES (?, ?, ?)', [
 ]);
 ```
 
-## 3. Raw Update (`DB::update`)
+### 3. Raw Update (`DB::update`)
 
 Mengembalikan jumlah baris (*row count*) yang terpengaruh:
 
@@ -242,15 +254,15 @@ Mengembalikan jumlah baris (*row count*) yang terpengaruh:
 $affectedRows = DB::update('UPDATE products SET stock = ? WHERE id = ?', [20, 1]);
 ```
 
-## 4. Raw Delete (`DB::delete`)
+### 4. Raw Delete (`DB::delete`)
 
 ```php
 $deletedRows = DB::delete('DELETE FROM products WHERE stock = ?', [0]);
 ```
 
-## 5. Perbandingan Alur: Query Builder vs Raw Query
+### 5. Perbandingan Alur: Query Builder vs Raw Query
 
-### Alur 1: Raw Query (`DB::select`)
+##### Alur 1: Raw Query (`DB::select`)
 
 ```text
        Aplikasi Web (PHP)
@@ -268,7 +280,7 @@ $deletedRows = DB::delete('DELETE FROM products WHERE stock = ?', [0]);
        Sangat Cepat & Penggunaan RAM di PHP Sangat Minim
 ```
 
-### Alur 2: Query Builder (`DB::table`)
+##### Alur 2: Query Builder (`DB::table`)
 
 ```text
        Aplikasi Web (PHP)
@@ -290,7 +302,7 @@ $deletedRows = DB::delete('DELETE FROM products WHERE stock = ?', [0]);
        Sangat Fleksibel, Aman & Mudah Dimodifikasi Secara Dinamis
 ```
 
-## Kapan Memilih Query Builder vs Raw Query?
+#### Kapan Memilih Query Builder vs Raw Query?
 
 | Aspek | Query Builder (`DB::table`) | Raw Query (`DB::select`) |
 |---|---|---|
@@ -315,15 +327,15 @@ Selalu gunakan parameter binding (?) pada Raw SQL untuk mencegah SQL Injection!
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Query Builder Dasar
+## 4. 🟢 Query Builder Dasar
 
-## Konsep
+#### Konsep
 
 **Query Builder** memungkinkan kita menyusun query SQL menggunakan *method chaining* yang bersih, mudah dibaca, dan konsisten di berbagai jenis database.
 
 Akses awal selalu dimulai dengan `DB::table('nama_tabel')`.
 
-## 1. Mengambil Semua Baris (`get`)
+### 1. Mengambil Semua Baris (`get`)
 
 Mengembalikan instance `Illuminate\Support\Collection` yang berisi objek PHP standar:
 
@@ -337,7 +349,7 @@ foreach ($users as $user) {
 }
 ```
 
-## 2. Mengambil 1 Baris Pertama (`first` & `find`)
+### 2. Mengambil 1 Baris Pertama (`first` & `find`)
 
 ```php
 // Mengambil row pertama yang cocok
@@ -348,14 +360,14 @@ echo $user?->name;
 $user = DB::table('users')->find(3);
 ```
 
-## 3. Mengambil Nilai 1 Kolom Saja (`value`)
+### 3. Mengambil Nilai 1 Kolom Saja (`value`)
 
 ```php
 // Langsung mengembalikan string nilai kolom 'email' (bukan objek)
 $email = DB::table('users')->where('id', 1)->value('email');
 ```
 
-## 4. Mengambil 1 Kolom Menjadi Array (`pluck`)
+### 4. Mengambil 1 Kolom Menjadi Array (`pluck`)
 
 ```php
 // Menghasilkan array: ['Budi', 'Andi', 'Siti']
@@ -379,13 +391,13 @@ value() → ambil nilai 1 kolom tunggal
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Query Builder Insert
+## 5. 🟢 Query Builder Insert
 
-## Konsep
+#### Konsep
 
 Method `insert()` digunakan untuk menambahkan satu atau banyak baris data baru ke tabel.
 
-## 1. Insert 1 Baris
+### 1. Insert 1 Baris
 
 ```php
 DB::table('products')->insert([
@@ -395,7 +407,7 @@ DB::table('products')->insert([
 ]);
 ```
 
-## 2. Insert Banyak Baris Sekaligus (Batch Insert)
+### 2. Insert Banyak Baris Sekaligus (Batch Insert)
 
 ```php
 DB::table('products')->insert([
@@ -404,7 +416,7 @@ DB::table('products')->insert([
 ]);
 ```
 
-## 3. Insert dan Mengambil Auto-Increment ID (`insertGetId`)
+### 3. Insert dan Mengambil Auto-Increment ID (`insertGetId`)
 
 ```php
 $newId = DB::table('products')->insertGetId([
@@ -416,7 +428,7 @@ $newId = DB::table('products')->insertGetId([
 echo "ID Produk Baru: {$newId}";
 ```
 
-## 4. Upsert (Insert atau Update Otomatis)
+### 4. Upsert (Insert atau Update Otomatis)
 
 Menambahkan data baru, atau memperbarui kolom tertentu jika ada unique key/primary key yang sudah ada di database:
 
@@ -444,13 +456,13 @@ upsert()       → insert jika belum ada, update jika sudah ada
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Query Builder Select & Aggregates
+## 6. 🟢 Query Builder Select & Aggregates
 
-## Konsep
+#### Konsep
 
 Secara default, `get()` mengambil semua kolom (`SELECT *`). Anda dapat memilih kolom tertentu menggunakan `select()` dan menghitung nilai agregat.
 
-## 1. Memilih Kolom Tertentu (`select` & `distinct`)
+### 1. Memilih Kolom Tertentu (`select` & `distinct`)
 
 ```php
 // SELECT name, price FROM products
@@ -463,7 +475,7 @@ $products = DB::table('products')->select('name as product_name', 'price')->get(
 $categories = DB::table('products')->select('category_id')->distinct()->get();
 ```
 
-## 2. Fungsi Agregat (Perhitungan Statistik)
+### 2. Fungsi Agregat (Perhitungan Statistik)
 
 ```php
 // Menghitung total jumlah baris
@@ -478,7 +490,7 @@ $avgPrice = DB::table('products')->avg('price');
 $totalStock = DB::table('products')->sum('stock');
 ```
 
-## 3. Memeriksa Keberadaan Data (`exists` & `doesntExist`)
+### 3. Memeriksa Keberadaan Data (`exists` & `doesntExist`)
 
 Metode ini sangat efisien karena hanya menjalankan query `SELECT EXISTS(...)` tanpa memuat seluruh baris data ke memori:
 
@@ -504,13 +516,13 @@ exists()                     → cek ada atau tidaknya data secara efisien (true
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Query Builder Where (Filtering)
+## 7. 🟢 Query Builder Where (Filtering)
 
-## Konsep
+#### Konsep
 
 Method `where()` digunakan untuk menyaring baris data berdasarkan kriteria tertentu (klausa `WHERE` pada SQL).
 
-## 1. Where Dasar
+### 1. Where Dasar
 
 ```php
 // Format: where('kolom', 'operator', 'nilai')
@@ -520,7 +532,7 @@ $products = DB::table('products')->where('price', '>=', 500000)->get();
 $activeUsers = DB::table('users')->where('status', 'active')->get();
 ```
 
-## 2. Multiple Where (AND) vs OR Where
+### 2. Multiple Where (AND) vs OR Where
 
 ```php
 // Kondisi AND (status active DAN age >= 18)
@@ -536,7 +548,7 @@ $staff = DB::table('users')
     ->get();
 ```
 
-## 3. Variasi Helper Where Populer
+### 3. Variasi Helper Where Populer
 
 ```php
 // 1. Where In (mencocokkan dengan kumpulan array nilai)
@@ -568,13 +580,13 @@ whereNull('column')                    → filter nilai NULL
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Query Builder Conditional (when)
+## 8. 🟢 Query Builder Conditional (when)
 
-## Konsep
+#### Konsep
 
 Ketika membangun fitur filter pencarian, query sering kali hanya ditambahkan **jika pengguna mengisi input form tertentu**. Daripada menggunakan blok `if-else` yang memecah rantai query, gunakan method **`when()`**.
 
-## Contoh Penggunaan `when()`
+#### Contoh Penggunaan `when()`
 
 ```php
 use Illuminate\Http\Request;
@@ -600,7 +612,7 @@ public function search(Request $request)
 }
 ```
 
-## Diagram Alur `when()`
+#### Diagram Alur `when()`
 
 ```text
        Input User: { search: 'laptop', category: null }
@@ -625,13 +637,13 @@ public function search(Request $request)
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Query Builder Update
+## 9. 🟢 Query Builder Update
 
-## Konsep
+#### Konsep
 
 Method `update()` digunakan untuk memperbarui nilai kolom pada baris yang cocok dengan kriteria `where()`.
 
-## 1. Update Biasa
+### 1. Update Biasa
 
 ```php
 $affected = DB::table('products')
@@ -642,7 +654,7 @@ $affected = DB::table('products')
     ]);
 ```
 
-## 2. Update atau Insert Jika Belum Ada (`updateOrInsert`)
+### 2. Update atau Insert Jika Belum Ada (`updateOrInsert`)
 
 ```php
 // Jika data user_id=10 ditemukan -> update preferensinya
@@ -653,7 +665,7 @@ DB::table('user_settings')->updateOrInsert(
 );
 ```
 
-## 3. Increment & Decrement (Menambah/Mengurang Angka)
+### 3. Increment & Decrement (Menambah/Mengurang Angka)
 
 Sangat berguna untuk mengubah stok barang, saldo, atau jumlah views tanpa menghitung manual di PHP:
 
@@ -678,13 +690,13 @@ decrement('column', amount)          → kurangi nilai angka
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Query Builder Delete
+## 10. 🟢 Query Builder Delete
 
-## Konsep
+#### Konsep
 
 Method `delete()` menghapus baris tertentu berdasarkan filter `where()`, sedangkan `truncate()` menghapus **seluruh isi tabel** dan mereset ID auto-increment.
 
-## 1. Menghapus Baris Tertentu (`delete`)
+### 1. Menghapus Baris Tertentu (`delete`)
 
 ```php
 // Hapus user yang diblokir
@@ -696,7 +708,7 @@ $deletedCount = DB::table('users')
 DB::table('products')->delete(5);
 ```
 
-## 2. Mengosongkan Tabel (`truncate`)
+### 2. Mengosongkan Tabel (`truncate`)
 
 ```php
 // Menghapus SEMUA baris dan me-reset ID auto-increment kembali ke 1
@@ -716,13 +728,13 @@ truncate()           → kosongkan seluruh tabel & reset ID
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Query Builder Ordering & Grouping
+## 11. 🟢 Query Builder Ordering & Grouping
 
-## Konsep
+#### Konsep
 
 Mengatur urutan baris data (`ORDER BY`) dan mengelompokkan data berdasarkan nilai kolom (`GROUP BY`).
 
-## 1. Mengurutkan Data (`orderBy`)
+### 1. Mengurutkan Data (`orderBy`)
 
 ```php
 // Urutkan berdasarkan harga termurah (ASC)
@@ -736,7 +748,7 @@ $oldestProducts = DB::table('products')->oldest('created_at')->get(); // ASC
 $randomUsers = DB::table('users')->inRandomOrder()->limit(5)->get();
 ```
 
-## 2. Grouping & Having (`groupBy` & `having`)
+### 2. Grouping & Having (`groupBy` & `having`)
 
 ```php
 // Menghitung total produk per kategori yang memiliki produk lebih dari 5
@@ -760,13 +772,13 @@ having('column', 'operator', 'value')      → filter hasil agregat group
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Query Builder Paging & Limiting
+## 12. 🟢 Query Builder Paging & Limiting
 
-## Konsep
+#### Konsep
 
 Membatasi jumlah baris yang diambil dari database menggunakan `limit()` dan `offset()`.
 
-## Contoh Penggunaan
+#### Contoh Penggunaan
 
 ```php
 // Mengambil 10 baris pertama (LIMIT 10)
@@ -794,13 +806,13 @@ offset(amount) / skip(amount) → lewati sebanyak amount baris
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 Pagination Otomatis
+## 13. 🟢 Pagination Otomatis
 
-## Konsep
+#### Konsep
 
 Daripada menghitung limit, offset, dan total halaman secara manual, Laravel menyediakan method **`paginate()`** yang otomatis menghitung seluruh metadata paginasi dan menghasilkan link navigasi halaman.
 
-## 1. Paginasi Standar Bernomor (`paginate`)
+### 1. Paginasi Standar Bernomor (`paginate`)
 
 ```php
 use Illuminate\Support\Facades\DB;
@@ -816,7 +828,7 @@ public function index()
 }
 ```
 
-## 2. Menampilkan Link Paginasi di Blade View
+### 2. Menampilkan Link Paginasi di Blade View
 
 ```html
 <!-- Menampilkan daftar produk -->
@@ -832,7 +844,7 @@ public function index()
 </div>
 ```
 
-## 3. Paginasi Sederhana: `simplePaginate` (Hanya Prev/Next)
+### 3. Paginasi Sederhana: `simplePaginate` (Hanya Prev/Next)
 
 Jika tabel memiliki jutaan baris dan Anda tidak membutuhkan nomor total halaman (untuk menghemat query `COUNT(*)`):
 
@@ -853,13 +865,13 @@ simplePaginate(15) → paginasi ringan (hanya tombol Next/Prev)
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 Query Builder Joins
+## 14. 🟢 Query Builder Joins
 
-## Konsep
+#### Konsep
 
 Join digunakan untuk menggabungkan kolom dari dua tabel atau lebih berdasarkan relasi kolom yang sama.
 
-## 1. Inner Join (`join`)
+### 1. Inner Join (`join`)
 
 Hanya mengembalikan baris yang memiliki kecocokan di kedua tabel:
 
@@ -870,7 +882,7 @@ $orders = DB::table('orders')
     ->get();
 ```
 
-## 2. Left Join (`leftJoin`)
+### 2. Left Join (`leftJoin`)
 
 Mengembalikan semua data dari tabel kiri (`orders`), meskipun tidak memiliki data pasangan di tabel kanan (`users`):
 
@@ -881,7 +893,7 @@ $orders = DB::table('orders')
     ->get();
 ```
 
-## Diagram Alur Join
+#### Diagram Alur Join
 
 ```text
        Tabel 'orders' (user_id = 5)
@@ -904,13 +916,13 @@ join('other_table', 'first_table.id', '=', 'other_table.foreign_id')
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Database Transactions
+## 15. 🟡 Database Transactions
 
-## Konsep
+#### Konsep
 
 **Database Transaction** memastikan sekumpulan operasi query dieksekusi secara **atomic** (*All or Nothing*): jika satu query gagal atau terjadi error, **seluruh perubahan otomatis dibatalkan (*rollback*)** sehingga database tidak rusak atau inkonsisten.
 
-## Contoh Kasus: Transfer Saldo Bank
+#### Contoh Kasus: Transfer Saldo Bank
 
 ```php
 use Illuminate\Support\Facades\DB;
@@ -937,7 +949,7 @@ public function transferDana(int $fromUserId, int $toUserId, int $amount)
 }
 ```
 
-## Diagram Alur Transaction
+#### Diagram Alur Transaction
 
 ```text
        DB::transaction() Dimulai
@@ -953,7 +965,7 @@ public function transferDana(int $fromUserId, int $toUserId, int $amount)
  (Permanen di DB)  (Database Kembali ke Kondisi Awal)
 ```
 
-## Manual Transaction
+#### Manual Transaction
 
 ```php
 DB::beginTransaction();
@@ -980,13 +992,13 @@ DB::transaction(function() { ... })
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Debugging Query
+## 16. 🟡 Debugging Query
 
-## Konsep
+#### Konsep
 
 Saat mengembangkan fitur, kita sering perlu melihat string SQL asli dan binding nilainya yang dijalankan oleh Laravel.
 
-## 1. Melihat SQL Mentah Beserta Nilai (`ddRawSql` & `dumpRawSql`)
+### 1. Melihat SQL Mentah Beserta Nilai (`ddRawSql` & `dumpRawSql`)
 
 Tersedia di Laravel modern untuk melihat SQL lengkap dengan parameter yang sudah disisipkan:
 
@@ -996,14 +1008,14 @@ DB::table('products')->where('stock', '>', 10)->where('price', '<=', 500000)->dd
 // Output di layar: SELECT * FROM `products` WHERE `stock` > 10 AND `price` <= 500000
 ```
 
-## 2. Melihat String SQL Pola (`toSql`)
+### 2. Melihat String SQL Pola (`toSql`)
 
 ```php
 $sql = DB::table('users')->where('status', 'active')->toSql();
 echo $sql; // Output: SELECT * FROM `users` WHERE `status` = ?
 ```
 
-## 3. Mengaktifkan Log Seluruh Query (`enableQueryLog`)
+### 3. Mengaktifkan Log Seluruh Query (`enableQueryLog`)
 
 ```php
 DB::enableQueryLog();
@@ -1027,13 +1039,13 @@ DB::getQueryLog() → lihat riwayat seluruh query yang berjalan
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Raw Expressions (DB::raw)
+## 17. 🟡 Raw Expressions (DB::raw)
 
-## Konsep
+#### Konsep
 
 Gunakan `DB::raw()` jika Anda membutuhkan ekspresi atau fungsi khusus database (seperti `DATE_FORMAT`, `COUNT(*)`, atau fungsi matematika kustom) yang tidak disediakan oleh Query Builder standar.
 
-## Contoh Pemakaian
+#### Contoh Pemakaian
 
 ```php
 use Illuminate\Support\Facades\DB;
@@ -1069,13 +1081,13 @@ whereRaw('column > ?', [$value]) ──> filter raw SQL dengan parameter binding
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Database Locking
+## 18. 🟡 Database Locking
 
-## Konsep
+#### Konsep
 
 Locking digunakan untuk mencegah **Race Condition** (dua pengguna mengubah data yang sama persis di detik yang bersamaan, misalnya: dua orang berebut membeli 1 sisa tiket konser).
 
-## 1. Pessimistic Locking: `lockForUpdate()`
+### 1. Pessimistic Locking: `lockForUpdate()`
 
 Mengunci baris data agar transaksi lain **wajib menunggu** sampai transaksi saat ini selesai di-commit:
 
@@ -1094,7 +1106,7 @@ DB::transaction(function () {
 });
 ```
 
-## 2. Shared Lock: `sharedLock()`
+### 2. Shared Lock: `sharedLock()`
 
 Mengizinkan transaksi lain membaca baris tersebut, tetapi melarang transaksi lain untuk mengubah/mengupdate data sampai transaksi selesai.
 
@@ -1108,13 +1120,13 @@ lockForUpdate() → kunci baris untuk update eksklusif (anti race condition)
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Mengelola Dataset Besar: Chunking
+## 19. 🟡 Mengelola Dataset Besar: Chunking
 
-## Konsep
+#### Konsep
 
 Jika tabel memiliki puluhan ribu hingga jutaan baris, memanggil `get()` akan menyebabkan server kehabisan memori (*Memory Limit Exceeded*). Gunakan **`chunk()`** untuk memproses data dalam potongan-potongan kecil.
 
-## 1. `chunk()` (Hanya untuk Membaca/Export Data)
+### 1. `chunk()` (Hanya untuk Membaca/Export Data)
 
 ```php
 // Memproses 1.000 data per putaran secara hemat memori
@@ -1125,7 +1137,7 @@ DB::table('users')->orderBy('id')->chunk(1000, function ($users) {
 });
 ```
 
-## 2. `chunkById()` (WAJIB Digunakan Jika Ada Update/Delete di Dalam Loop)
+### 2. `chunkById()` (WAJIB Digunakan Jika Ada Update/Delete di Dalam Loop)
 
 Jika Anda memperbarui kolom yang menjadi kriteria filter `where()`, `chunk()` biasa akan melewati (*skip*) sebagian baris karena urutan offset-nya bergeser. Gunakan **`chunkById()`**:
 
@@ -1138,7 +1150,7 @@ DB::table('users')->where('status', 'pending')->chunkById(1000, function ($users
 });
 ```
 
-## Diagram Alur Chunking
+#### Diagram Alur Chunking
 
 ```text
        Tabel 100.000 Baris Data
@@ -1160,13 +1172,13 @@ chunkById(1000, callback) → WAJIB jika ada update data di dalam loop
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Mengelola Dataset Besar: Lazy & Cursor
+## 20. 🟡 Mengelola Dataset Besar: Lazy & Cursor
 
-## Konsep
+#### Konsep
 
 Selain chunking, Laravel menyediakan **`lazy()`** dan **`cursor()`** yang memanfaatkan fitur *PHP Generators* (`yield`) untuk mengalirkan (*stream*) baris data satu per satu dengan konsumsi RAM yang sangat minim.
 
-## 1. Lazy Collection (`lazy()`)
+### 1. Lazy Collection (`lazy()`)
 
 Mengambil data per-batch (misal 1.000 per request SQL), tetapi di-loop seperti array tunggal biasa:
 
@@ -1179,7 +1191,7 @@ foreach ($users as $user) {
 }
 ```
 
-## 2. Cursor (`cursor()`)
+### 2. Cursor (`cursor()`)
 
 Hanya menjalankan **1 kali query SQL tunggal** dan menahan kursor PDO aktif untuk mengalirkan 1 baris record setiap kali loop berjalan (hanya 1 objek user di memori pada satu waktu):
 
@@ -1202,13 +1214,13 @@ cursor() → streaming PDO langsung 1 per 1 (RAM paling hemat)
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Database Migration Dasar
+## 21. 🟡 Database Migration Dasar
 
-## Konsep
+#### Konsep
 
 **Migration** adalah *version control* untuk database. Migration memungkinkan tim pengembang mendefinisikan, mengubah, dan berbagi skema tabel database secara konsisten di seluruh lingkungan development dan server produksi.
 
-## Struktur File Migration
+#### Struktur File Migration
 
 Setiap migration memiliki dua method utama:
 1. **`up()`**: Menjalankan perubahan skema (membuat tabel/kolom baru).
@@ -1250,13 +1262,13 @@ down() → batalkan / hapus perubahan skema tabel
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Membuat & Menjalankan Migration
+## 22. 🟡 Membuat & Menjalankan Migration
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan command Artisan untuk menghasilkan file migration di folder `database/migrations/`.
 
-## 1. Membuat Migration Baru
+### 1. Membuat Migration Baru
 
 ```bash
 # Membuat tabel baru 'products'
@@ -1266,7 +1278,7 @@ php artisan make:migration create_products_table
 php artisan make:migration add_stock_to_products_table
 ```
 
-## 2. Tipe-Tipe Kolom Blueprint yang Sering Digunakan
+### 2. Tipe-Tipe Kolom Blueprint yang Sering Digunakan
 
 ```php
 Schema::create('products', function (Blueprint $table) {
@@ -1283,7 +1295,7 @@ Schema::create('products', function (Blueprint $table) {
 });
 ```
 
-## 3. Menjalankan Migration
+### 3. Menjalankan Migration
 
 ```bash
 # Mengeksekusi semua migration yang belum berjalan
@@ -1301,13 +1313,13 @@ php artisan migrate → eksekusi skema ke database
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 Modifikasi Tabel & Foreign Keys
+## 23. 🟡 Modifikasi Tabel & Foreign Keys
 
-## Konsep
+#### Konsep
 
 Jangan pernah mengubah file migration yang sudah pernah dijalankan di server production. Selalu buat file migration baru untuk menambah kolom, menghapus kolom, atau membuat relasi Foreign Key.
 
-## 1. Menambah & Menghapus Kolom di Tabel yang Ada
+### 1. Menambah & Menghapus Kolom di Tabel yang Ada
 
 ```bash
 php artisan make:migration add_avatar_to_users_table
@@ -1330,7 +1342,7 @@ public function down(): void
 }
 ```
 
-## 2. Foreign Key Modern (`foreignId`)
+### 2. Foreign Key Modern (`foreignId`)
 
 Cara mendefinisikan relasi kunci asing (*Foreign Key*) dengan rapi:
 
@@ -1355,13 +1367,13 @@ $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Rollback, Refresh, & Fresh Migration
+## 24. 🟡 Rollback, Refresh, & Fresh Migration
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan berbagai perintah untuk membatalkan atau menyetel ulang seluruh tabel database.
 
-## Perintah Rollback & Reset
+#### Perintah Rollback & Reset
 
 ```bash
 # 1. Rollback: Membatalkan BATCH migration terakhir saja
@@ -1383,7 +1395,7 @@ php artisan migrate:fresh
 php artisan migrate:fresh --seed
 ```
 
-## Diagram Perbedaan Rollback vs Fresh
+#### Diagram Perbedaan Rollback vs Fresh
 
 ```text
 migrate:rollback ──> Menjalankan method down() pada batch terakhir
@@ -1403,19 +1415,19 @@ migrate:fresh --seed → reset total database & isi ulang data dummy
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 Database Seeding
+## 25. 🟡 Database Seeding
 
-## Konsep
+#### Konsep
 
 **Seeder** digunakan untuk mengisi data awal (seperti akun administrator, master data provinsi/kategori) atau data testing ke dalam database.
 
-## 1. Membuat Seeder via Artisan
+### 1. Membuat Seeder via Artisan
 
 ```bash
 php artisan make:seeder CategorySeeder
 ```
 
-## 2. Mengisi Data di `database/seeders/CategorySeeder.php`
+### 2. Mengisi Data di `database/seeders/CategorySeeder.php`
 
 ```php
 namespace Database\Seeders;
@@ -1436,7 +1448,7 @@ class CategorySeeder extends Seeder
 }
 ```
 
-## 3. Mendaftarkan Seeder di `DatabaseSeeder.php`
+### 3. Mendaftarkan Seeder di `DatabaseSeeder.php`
 
 File `database/seeders/DatabaseSeeder.php` adalah pintu masuk utama seluruh seeder:
 
@@ -1457,7 +1469,7 @@ class DatabaseSeeder extends Seeder
 }
 ```
 
-## 4. Menjalankan Seeder
+### 4. Menjalankan Seeder
 
 ```bash
 # Menjalankan DatabaseSeeder utama
@@ -1478,19 +1490,19 @@ php artisan db:seed → jalankan seluruh seeder
 
 <a id="bagian-26"></a>
 
-# 26. 🟡 Database Factories (Data Dummy)
+## 26. 🟡 Database Factories (Data Dummy)
 
-## Konsep
+#### Konsep
 
 Untuk mengisi puluhan atau ribuan data contoh secara otomatis untuk keperluan testing, gunakan **Model Factories** bersama library Faker.
 
-## 1. Membuat Factory
+### 1. Membuat Factory
 
 ```bash
 php artisan make:factory ProductFactory
 ```
 
-## 2. Definisi Blueprint Factory (`database/factories/ProductFactory.php`)
+### 2. Definisi Blueprint Factory (`database/factories/ProductFactory.php`)
 
 ```php
 namespace Database\Factories;
@@ -1512,7 +1524,7 @@ class ProductFactory extends Factory
 }
 ```
 
-## 3. Menggunakan Factory di Seeder / Test
+### 3. Menggunakan Factory di Seeder / Test
 
 ```php
 // Menghasilkan 50 data produk acak langsung ke database
@@ -1529,13 +1541,13 @@ Factory + Faker ──> membuat ratusan data dummy realistis secara otomatis
 
 <a id="bagian-27"></a>
 
-# 27. 🔴 Database Artisan Commands
+## 27. 🔴 Database Artisan Commands
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan rangkaian command Artisan untuk memeriksa kesehatan, status, dan struktur database secara interaktif.
 
-## Daftar Command Esensial
+#### Daftar Command Esensial
 
 ```bash
 # Melihat status seluruh file migration (sudah run / pending)
@@ -1566,9 +1578,9 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
 
 <a id="bagian-28"></a>
 
-# 28. 🛠️ Peta Ingatan Cepat
+## 28. 🛠️ Peta Ingatan Cepat
 
-## A. Alur Lengkap Operasi Database
+#### A. Alur Lengkap Operasi Database
 
 ```text
        HTTP Request di Controller
@@ -1594,7 +1606,7 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
          (Banyak Row)    (Navigasi Blade)   Tunggal
 ```
 
-## B. Siklus Transaksi Database (Atomic)
+#### B. Siklus Transaksi Database (Atomic)
 
 ```text
             DB::beginTransaction()
@@ -1608,7 +1620,7 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
             DB::commit()    DB::rollBack()
 ```
 
-## C. Alur Pengelolaan Skema Database
+#### C. Alur Pengelolaan Skema Database
 
 ```text
        make:migration
@@ -1626,7 +1638,7 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
 
 <a id="bagian-29"></a>
 
-# 29. 📚 Tabel Ringkasan
+## 29. 📚 Tabel Ringkasan
 
 | Materi | Konsep / API Utama | Fungsi & Kegunaan |
 |---|---|---|
@@ -1653,7 +1665,7 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
 
 <a id="bagian-30"></a>
 
-# 30. ⚡ Cheat Code Database 10 Detik
+## 30. ⚡ Cheat Code Database 10 Detik
 
 ```text
 DB::table('products')->get()             → Ambil semua data
@@ -1682,7 +1694,7 @@ $products = DB::table('products')
 
 <a id="bagian-31"></a>
 
-# 31. 🧭 Urutan Belajar yang Disarankan
+## 31. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 1. 🟢 Fondasi Database & Koneksi
@@ -1709,11 +1721,11 @@ $products = DB::table('products')
 
 <a id="bagian-32"></a>
 
-# 32. 🏗️ Mini Project: Manajemen Inventaris & Checkout Produk
+## 32. 🏗️ Mini Project: Manajemen Inventaris & Checkout Produk
 
 Mini project ini menggabungkan: **Migration, Seeding, Query Builder dengan filter dinamis `when()`, Pagination, dan Database Atomic Transaction**.
 
-## 1. Migration Tabel Produk & Transaksi
+### 1. Migration Tabel Produk & Transaksi
 
 ```php
 // database/migrations/2026_01_01_000001_create_store_tables.php
@@ -1747,7 +1759,7 @@ return new class extends Migration {
 };
 ```
 
-## 2. Seeder Data Awal
+### 2. Seeder Data Awal
 
 ```php
 // database/seeders/ProductSeeder.php
@@ -1767,7 +1779,7 @@ class ProductSeeder extends Seeder {
 }
 ```
 
-## 3. Controller (`app/Http/Controllers/ProductController.php`)
+### 3. Controller (`app/Http/Controllers/ProductController.php`)
 
 ```php
 namespace App\Http\Controllers;
@@ -1828,7 +1840,7 @@ class ProductController extends Controller
 }
 ```
 
-## Output Tampilan Mini Project
+#### Output Tampilan Mini Project
 
 ```text
 Katalog Produk (Stok Tersedia)
@@ -1842,7 +1854,7 @@ Katalog Produk (Stok Tersedia)
 Halaman 1 dari 1 [ < Sebelumnya ] [ Berikutnya > ]
 ```
 
-## Diagram Alur Mini Project
+#### Diagram Alur Mini Project
 
 ```text
        User Beli Produk (Product ID #1, Qty: 1)
@@ -1865,7 +1877,7 @@ Halaman 1 dari 1 [ < Sebelumnya ] [ Berikutnya > ]
 
 <a id="bagian-33"></a>
 
-# 33. 🔗 Referensi Resmi
+## 33. 🔗 Referensi Resmi
 
 - [Laravel Database — Official Documentation](https://laravel.com/docs/database)
 - [Laravel Query Builder Guide](https://laravel.com/docs/queries)

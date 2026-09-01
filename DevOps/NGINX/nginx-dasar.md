@@ -1,4 +1,15 @@
-# NGINX Dasar Cheatsheet Revised
+---
+title: "NGINX Dasar"
+description: "Fundamental web server NGINX: Architecture, Directives (main, events, http, server, location), Static file serving, MIME types, Logging, dan Virtual Hosts."
+order: 1
+tags:
+  - devops
+  - nginx
+  - web-server
+  - fundamental
+---
+
+# NGINX Dasar
 
 > **Target:** Pemula yang ingin menguasai **Web Server NGINX 1.24+ / 1.26+ (Arsitektur Event-Driven Asynchronous, Master & Worker Processes, CLI `nginx -t` & `nginx -s reload`, Hierarki Context `main`/`events`/`http`/`server`/`location`, Server Blocks Virtual Hosts Multi-Domain, Serving Static Files `root` vs `alias`, SPA Client Routing `try_files`, Location Matching Priority Rules `=`/`^~`/`~`/`~*`, Custom Error Pages, Logging `access_log`/`error_log`, IP Access Control, dan Variabel Bawaan NGINX)**.
 >
@@ -111,9 +122,9 @@ location ~* regex         → regular expression match case-insensitive (tidak m
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan NGINX & Mental Model Arsitektur Event-Driven Non-Blocking
+## 1. 🟢 Pengenalan NGINX & Mental Model Arsitektur Event-Driven Non-Blocking
 
-## Konsep
+#### Konsep
 
 Pada web server tradisional (seperti Apache versi lama / *prefork*):
 - Setiap koneksi browser baru akan membuat **1 thread / proses baru di sistem operasi**.
@@ -124,7 +135,7 @@ Pada web server tradisional (seperti Apache versi lama / *prefork*):
 - Setiap worker menggunakan **Event Loop berbasis kernel (`epoll` di Linux / `kqueue` di BSD)**.
 - **Satu worker process sanggup menangani puluhan ribu koneksi sekaligus** dengan konsumsi RAM yang sangat kecil (~beberapa puluh Megabyte).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Apache Prefork (Thread-Based):
@@ -144,9 +155,9 @@ Event-Driven Architecture → arsitektur non-blocking asynchronous yang memungki
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Struktur Proses NGINX: Master Process vs Worker Processes
+## 2. 🟢 Struktur Proses NGINX: Master Process vs Worker Processes
 
-## Konsep
+#### Konsep
 
 NGINX beroperasi menggunakan **Two-Tier Process Architecture**:
 
@@ -157,13 +168,13 @@ NGINX beroperasi menggunakan **Two-Tier Process Architecture**:
 2. **Worker Processes (Berjalan sebagai user unprivileged `nginx` atau `www-data`):**
    - Melakukan pekerjaan nyata: menerima koneksi TCP, membaca file dari disk, dan mengirimkan respons HTTP ke browser.
 
-## Contoh Melihat Proses di Terminal Linux
+#### Contoh Melihat Proses di Terminal Linux
 
 ```bash
 ps aux | grep nginx
 ```
 
-## Output
+#### Output
 
 ```text
 root       1234  0.0  0.1  25400  4200 ?  Ss   20:00   0:00 nginx: master process /usr/sbin/nginx
@@ -181,9 +192,9 @@ Master Process → mengelola konfigurasi dan worker | Worker Process → melayan
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Manajemen Perintah CLI NGINX & Service Control
+## 3. 🟢 Manajemen Perintah CLI NGINX & Service Control
 
-## Konsep
+#### Konsep
 
 Perintah baris perintah resmi NGINX:
 
@@ -212,9 +223,9 @@ nginx -t && nginx -s reload → rumus wajib: uji sintaks terlebih dahulu, baru r
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Anatomi Berkas `nginx.conf` & Konsep Hierarki Context
+## 4. 🟢 Anatomi Berkas `nginx.conf` & Konsep Hierarki Context
 
-## Konsep
+#### Konsep
 
 Konfigurasi NGINX disusun secara modular di dalam **Contexts (Blok Berkurung Kurawal `{}`)**:
 
@@ -224,7 +235,7 @@ Konfigurasi NGINX disusun secara modular di dalam **Contexts (Blok Berkurung Kur
 4. **`server`:** Konfigurasi Virtual Host untuk satu domain/IP tertentu.
 5. **`location`:** Konfigurasi perutean URL path spesifik di dalam suatu server.
 
-## Contoh Berkas `nginx.conf`
+#### Contoh Berkas `nginx.conf`
 
 ```nginx
 # [1] Main Context (Global)
@@ -267,9 +278,9 @@ main -> events -> http -> server -> location (urutan hierarki context NGINX dari
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Struktur Organisasi File Konfigurasi di Server Linux
+## 5. 🟢 Struktur Organisasi File Konfigurasi di Server Linux
 
-## Konsep
+#### Konsep
 
 Dalam implementasi server produksi, jangan menumpuk seluruh domain di satu file `nginx.conf`.
 
@@ -290,9 +301,9 @@ include /etc/nginx/conf.d/*.conf; → memuat seluruh file server block secara mo
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Direktif Inti Context HTTP
+## 6. 🟢 Direktif Inti Context HTTP
 
-## Konsep
+#### Konsep
 
 Direktif penting yang wajib ada di dalam blok `http {}`:
 - **`include mime.types;`:** Memetakan ekstensi file (`.css`, `.js`, `.png`) ke HTTP Content-Type yang tepat.
@@ -311,9 +322,9 @@ sendfile on; tcp_nopush on; → optimasi transfer file statis berkecepatan tingg
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Server Blocks Dasar (Virtual Hosts)
+## 7. 🟢 Server Blocks Dasar (Virtual Hosts)
 
-## Konsep
+#### Konsep
 
 **Server Block** adalah unit konfigurasi yang mendefinisikan satu website / domain.
 
@@ -321,7 +332,7 @@ Direktif Kunci:
 - **`listen 80;`:** Port TCP tempat NGINX menerima request.
 - **`server_name domain.com www.domain.com;`:** Domain yang dicocokkan dengan HTTP Header `Host`.
 
-## Contoh
+#### Contoh
 
 ```nginx
 server {
@@ -343,15 +354,15 @@ server { listen 80; server_name example.com; root /var/www/html; } → deklarasi
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Multi-Domain, Subdomain & Catch-All Server Block
+## 8. 🟢 Multi-Domain, Subdomain & Catch-All Server Block
 
-## Konsep
+#### Konsep
 
 1. **Subdomain:** `server_name api.example.com admin.example.com;`
 2. **Wildcard Subdomain:** `server_name *.example.com;`
 3. **Catch-All Default Server (`server_name _;`):** Menangani request yang mengakses IP langsung atau domain yang tidak terdaftar.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Server Block Catch-All (Tolak akses via IP mentah tanpa domain)
@@ -372,9 +383,9 @@ server_name _ default_server; → menangkap seluruh trafik yang tidak memiliki d
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Serving File Statis: Perbedaan Krusial `root` vs `alias`
+## 9. 🟡 Serving File Statis: Perbedaan Krusial `root` vs `alias`
 
-## Konsep
+#### Konsep
 
 Perbedaan yang paling sering membingungkan developer:
 
@@ -386,7 +397,7 @@ Perbedaan yang paling sering membingungkan developer:
 > [!WARNING]
 > Saat menggunakan `alias`, selalu akhiri path dengan garis miring `/` jika location-nya diakhiri `/`!
 
-## Contoh
+#### Contoh
 
 ```nginx
 # [1] Menggunakan root
@@ -413,9 +424,9 @@ alias → path_disk = alias + sisa_uri_setelah_location
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Konfigurasi Single Page Application (SPA Vue/React/Nuxt)
+## 10. 🟡 Konfigurasi Single Page Application (SPA Vue/React/Nuxt)
 
-## Konsep
+#### Konsep
 
 Pada aplikasi SPA (React Router, Vue Router), rute seperti `/dashboard` atau `/products/123` **bukanlah file fisik di disk server**, melainkan rute virtual JavaScript di browser.
 
@@ -427,7 +438,7 @@ Jika user me-refresh halaman `/dashboard`, NGINX akan mencari file `/var/www/htm
 2. Jika tidak ada, cek apakah ada folder `$uri/`.
 3. Jika tidak ada, **kembalikan file `/index.html`** agar router JavaScript di browser yang menangani rute tersebut!
 
-## Contoh
+#### Contoh
 
 ```nginx
 server {
@@ -452,9 +463,9 @@ try_files $uri $uri/ /index.html; → solusi wajib NGINX untuk routing SPA React
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Klausul `location`: Urutan Prioritas & Aturan Pencocokan URL
+## 11. 🟡 Klausul `location`: Urutan Prioritas & Aturan Pencocokan URL
 
-## Konsep
+#### Konsep
 
 NGINX **tidak mengevaluasi blok `location` berdasarkan urutan baris atas ke bawah**, melainkan berdasarkan **Tingkat Prioritas Modifier**:
 
@@ -476,9 +487,9 @@ NGINX **tidak mengevaluasi blok `location` berdasarkan urutan baris atas ke bawa
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Location Modifier 1: Exact Match (`=`) & Prefix Prioritas (`^~`)
+## 12. 🟡 Location Modifier 1: Exact Match (`=`) & Prefix Prioritas (`^~`)
 
-## Konsep
+#### Konsep
 
 1. **Exact Match (`=`):**
    - Sangat cepat karena NGINX langsung berhenti mencari jika URL cocok persis.
@@ -487,7 +498,7 @@ NGINX **tidak mengevaluasi blok `location` berdasarkan urutan baris atas ke bawa
    - Jika awalan URL cocok, NGINX **tidak akan memeriksa blok regex `~` atau `~*` di bawahnya**.
    - Ideal untuk folder aset statis `/assets/` atau `/static/`.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # [1] Exact Match untuk Favicon
@@ -514,14 +525,14 @@ location ^~ /path/ → prefix prioritas pembungkam evaluasi regex
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Location Modifier 2: Regular Expression (`~` vs `~*`)
+## 13. 🟡 Location Modifier 2: Regular Expression (`~` vs `~*`)
 
-## Konsep
+#### Konsep
 
 - **`~` (Regex Case-Sensitive):** Cocok untuk file PHP `.php` (bukan `.PHP`).
 - **`~*` (Regex Case-Insensitive):** Sangat ideal untuk media dan aset statis (`.JPG`, `.jpg`, `.PNG`, `.png`, `.css`, `.js`).
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Menambahkan Header Caching Panjang untuk Seluruh File Gambar & Aset
@@ -543,16 +554,16 @@ location ~* \.(jpg|png|css|js)$ → regex case-insensitive untuk static asset ca
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Custom Error Pages
+## 14. 🟡 Custom Error Pages
 
-## Konsep
+#### Konsep
 
 Gunakan direktif **`error_page`** untuk menampilkan halaman HTML ramah pengguna saat terjadi HTTP Error (404 Not Found, 500 Internal Error, 502 Bad Gateway).
 
 Direktif **`internal;`**:
 Menandai lokasi rute agar **hanya bisa diakses secara internal oleh NGINX** (pengunjung tidak bisa mengakses URL `/404.html` secara langsung).
 
-## Contoh
+#### Contoh
 
 ```nginx
 server {
@@ -586,16 +597,16 @@ error_page 404 /404.html; location = /404.html { internal; } → custom error pa
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Konfigurasi Logging: Access Log & Error Log
+## 15. 🟡 Konfigurasi Logging: Access Log & Error Log
 
-## Konsep
+#### Konsep
 
 1. **`access_log path [format];`:** Mencatat setiap request HTTP yang masuk (IP client, status code, response time).
 2. **`error_log path [level];`:** Mencatat pesan diagnostik dan error sistem.
    - Tingkat Keparahan (*Log Levels*): `debug`, `info`, `notice`, `warn`, `error`, `crit`, `alert`, `emerg`.
 3. **`log_format`:** Mendefinisikan format string log kustom di context `http`.
 
-## Contoh
+#### Contoh
 
 ```nginx
 http {
@@ -624,9 +635,9 @@ access_log /var/log/nginx/access.log; error_log /var/log/nginx/error.log warn;
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Pembatasan Akses IP Dasar (Access Control)
+## 16. 🟡 Pembatasan Akses IP Dasar (Access Control)
 
-## Konsep
+#### Konsep
 
 Modul `ngx_http_access_module` menyediakan kontrol akses berbasis IP address atau subnet CIDR:
 - **`allow ip/subnet;`** : Mengizinkan akses.
@@ -634,7 +645,7 @@ Modul `ngx_http_access_module` menyediakan kontrol akses berbasis IP address ata
 
 Evaluasi dilakukan dari atas ke bawah.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Kunci Halaman Administrator Hanya untuk IP Kantor / VPN
@@ -655,9 +666,9 @@ allow 192.168.1.0/24; deny all; → membatasi akses endpoint hanya untuk IP atau
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Menambahkan Custom Response Headers
+## 17. 🔴 Menambahkan Custom Response Headers
 
-## Konsep
+#### Konsep
 
 Direktif **`add_header Header-Name "Value" [always];`**:
 Digunakan untuk menambahkan HTTP Header keamanan dan instruksi cache ke browser.
@@ -665,7 +676,7 @@ Digunakan untuk menambahkan HTTP Header keamanan dan instruksi cache ke browser.
 Keyword **`always`**:
 Memastikan header tetap dikirim **bahkan jika respons berupa HTTP Error (404, 500)**.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Security Headers Standar Industri
@@ -685,16 +696,16 @@ add_header X-Frame-Options "SAMEORIGIN" always; → menyematkan header respons H
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 HTTP Redirects: `return` vs `rewrite`
+## 18. 🔴 HTTP Redirects: `return` vs `rewrite`
 
-## Konsep
+#### Konsep
 
 1. **`return code URL;` (Sangat Disarankan):**
    - Sangat cepat dan efisien. NGINX langsung menghentikan evaluasi dan mengirim status HTTP redirect (301 Permanent atau 302 Temporary).
 2. **`rewrite regex replacement [flag];`:**
    - Mengubah struktur URL menggunakan Regular Expression.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # [1] Redirect HTTP ke HTTPS (301 Permanent - Best Practice)
@@ -722,9 +733,9 @@ return 301 https://$host$request_uri; → pengalihan URL permanen paling cepat d
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Handling File Upload & Ukuran Request Body
+## 19. 🔴 Handling File Upload & Ukuran Request Body
 
-## Konsep
+#### Konsep
 
 Secara default, NGINX membatasi ukuran body upload request sebesar **`1M` (1 Megabyte)**. Jika client mengunggah file foto/video > 1MB, NGINX akan mengembalikan error **`413 Request Entity Too Large`**.
 
@@ -732,7 +743,7 @@ Gunakan direktif:
 - **`client_max_body_size 50M;`** (Sesuaikan batas upload).
 - **`client_body_buffer_size 128k;`** (Ukuran buffer memori sebelum ditulis ke file temporary di disk).
 
-## Contoh
+#### Contoh
 
 ```nginx
 server {
@@ -755,9 +766,9 @@ client_max_body_size 50M; → mengatur batas maksimal ukuran payload request/upl
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Daftar Variabel Bawaan Inti NGINX
+## 20. 🔴 Daftar Variabel Bawaan Inti NGINX
 
-## Konsep
+#### Konsep
 
 NGINX menyediakan puluhan variabel bawaan untuk inspeksi request:
 
@@ -781,7 +792,7 @@ $host, $uri, $request_uri, $remote_addr, $scheme, $args → variabel bawaan pali
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                      PETA ARSITEKTUR NGINX DASAR
@@ -799,7 +810,7 @@ PROCESS & CONTEXT HIERARCHY   SERVER BLOCKS & ROUTING    LOGGING & ACCESS SECURI
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Direktif / Modifier | Context | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -819,7 +830,7 @@ PROCESS & CONTEXT HIERARCHY   SERVER BLOCKS & ROUTING    LOGGING & ACCESS SECURI
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code NGINX Dasar 10 Detik
+## 23. ⚡ Cheat Code NGINX Dasar 10 Detik
 
 ```nginx
 # [1] Template SPA React / Vue Server Block
@@ -851,7 +862,7 @@ server {
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Pahami Arsitektur & Manajemen CLI
@@ -881,7 +892,7 @@ Langkah 5: Siap Melangkah ke NGINX Reverse Proxy & Load Balancing!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Multi-Site Static & SPA Web Server Configuration with Custom Errors, Static Asset Caching, and Secure IP Restrictions
+## 25. 🏗️ Mini Project: Production-Ready Multi-Site Static & SPA Web Server Configuration with Custom Errors, Static Asset Caching, and Secure IP Restrictions
 
 Berkas konfigurasi NGINX enterprise lengkap, modular, dan runnable: **Server Block Multi-Domain (Landing Page Statis & Dashboard SPA React/Vue), Routing `try_files`, Optimasi Caching Aset Statis via Regex, Custom Error Pages Terproteksi `internal`, dan Pembatasan IP pada Panel Admin**.
 
@@ -985,13 +996,13 @@ server {
 }
 ```
 
-## Hasil Validasi Sintaks & Pengujian Terminal
+#### Hasil Validasi Sintaks & Pengujian Terminal
 
 ```bash
 sudo nginx -t
 ```
 
-## Output
+#### Output
 
 ```text
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -1002,7 +1013,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [NGINX Official Documentation](https://nginx.org/en/docs/)
 - [NGINX Beginner's Guide](https://nginx.org/en/docs/beginners_guide.html)

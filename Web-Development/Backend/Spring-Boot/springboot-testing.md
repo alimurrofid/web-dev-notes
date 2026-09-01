@@ -1,4 +1,16 @@
-# Spring Boot Testing Cheatsheet Revised
+---
+title: "Spring Boot Testing"
+description: "Pengujian aplikasi Spring Boot: Unit testing dengan JUnit 5 & Mockito, Slice testing (@WebMvcTest, @DataJpaTest), dan Integration testing (@SpringBootTest)."
+order: 5
+tags:
+  - web-development
+  - backend
+  - spring-boot
+  - testing
+  - junit
+---
+
+# Spring Boot Testing
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Spring Boot Core, Web RESTful API, JPA, dan Security, serta ingin menguasai **pengujian otomatis perangkat lunak (Automated Software Testing), Unit Testing dengan Mockito, Web Slice Testing dengan MockMvc, Database Testing dengan `@DataJpaTest`, Security Testing dengan `@WithMockUser`, dan End-to-End Testing** (Spring Boot 3.3+ & Java 21 LTS).
 >
@@ -95,9 +107,9 @@ AssertJ              → library assertion yang menyediakan method chaining eksp
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Testing di Spring Boot & Mental Model Piramida Testing
+## 1. 🟢 Pengenalan Testing di Spring Boot & Mental Model Piramida Testing
 
-## Konsep
+#### Konsep
 
 Pengujian otomatis (*Automated Testing*) adalah jaminan utama bahwa aplikasi Anda tidak rusak saat ada penambahan fitur baru (*Regression Protection*).
 
@@ -110,7 +122,7 @@ Piramida Testing Standar Industri:
 3. **End-to-End (E2E) Tests (5-10% dari total tes):**
    - Menyalakan seluruh konteks Spring Boot pada port acak (`@SpringBootTest`) untuk menguji alur menyeluruh dari HTTP Request sampai penyimpanan database.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Jenis Test:       Target Layer:              Tools / Anotasi:
@@ -130,9 +142,9 @@ Piramida Testing → komposisi pengujian: perbanyak Unit Test cepat di dasar, ba
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Bedah Dependensi `spring-boot-starter-test`
+## 2. 🟢 Bedah Dependensi `spring-boot-starter-test`
 
-## Konsep
+#### Konsep
 
 Saat membuat proyek di Spring Initializr, dependensi `spring-boot-starter-test` otomatis disertakan. Starter ini membundel seluruh library pengujian terbaik di dunia Java tanpa perlu konfigurasi manual:
 
@@ -153,9 +165,9 @@ spring-boot-starter-test → starter tunggal yang menyertakan JUnit 5, Mockito, 
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Siklus Hidup & Anotasi Inti JUnit 5
+## 3. 🟢 Siklus Hidup & Anotasi Inti JUnit 5
 
-## Konsep
+#### Konsep
 
 JUnit 5 (Jupiter) menyediakan serangkaian anotasi untuk mengatur siklus hidup eksekusi metode pengujian:
 
@@ -169,7 +181,7 @@ JUnit 5 (Jupiter) menyediakan serangkaian anotasi untuk mengatur siklus hidup ek
 | **`@AfterAll`** | 1x setelah semua test | Cleanup statis akhir tingkat class (wajib method `static`). |
 | **`@Disabled("alasan")`** | - | Menonaktifkan sementara sebuah test yang belum siap. |
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.test;
@@ -220,9 +232,9 @@ class LifecycleTest {
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Fluent Assertion Modern dengan AssertJ (`assertThat`)
+## 4. 🟢 Fluent Assertion Modern dengan AssertJ (`assertThat`)
 
-## Konsep
+#### Konsep
 
 AssertJ adalah standar emas assertion di Spring Boot. AssertJ menggunakan pendekatan method chaining (`assertThat(actual)...`) yang jauh lebih mudah dibaca dan memberikan pesan error yang sangat detail saat pengujian gagal.
 
@@ -233,7 +245,7 @@ Metode Assertion Populer AssertJ:
 - **Koleksi / List:** `hasSize(3)`, `contains("Budi")`, `containsExactly("A", "B")`, `isEmpty()`.
 - **Angka:** `isGreaterThan(10)`, `isPositive()`, `isBetween(1, 100)`.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.test;
@@ -282,9 +294,9 @@ assertThat(list).hasSize(count)        → memvalidasi jumlah elemen di dalam ko
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Unit Testing Murni Service Layer dengan Mockito
+## 5. 🟢 Unit Testing Murni Service Layer dengan Mockito
 
-## Konsep
+#### Konsep
 
 Unit Testing Service Layer **TIDAK MEMERLUKAN `@SpringBootTest`** (karena menyalakan Spring Context membutuhkan waktu beberapa detik).
 
@@ -293,7 +305,7 @@ Gunakan **`@ExtendWith(MockitoExtension.class)`**:
 - **`@InjectMocks`:** Menginstansiasi class Service asli dan secara otomatis menyuntikkan seluruh objek `@Mock` ke dalamnya via Constructor.
 - Pengujian dieksekusi dalam hitungan **milidetik**!
 
-## Contoh
+#### Contoh
 
 Class yang Diuji (ProductService):
 ```java
@@ -387,9 +399,9 @@ class ProductServiceTest {
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Mendefinisikan Mock Behavior & Stubbing (`when().thenReturn()`)
+## 6. 🟢 Mendefinisikan Mock Behavior & Stubbing (`when().thenReturn()`)
 
-## Konsep
+#### Konsep
 
 **Stubbing** adalah proses mengatur perilaku (*behavior*) yang harus dikembalikan oleh objek mock saat method-nya dipanggil:
 
@@ -398,7 +410,7 @@ class ProductServiceTest {
 - **Method `void`:** `doNothing().when(mock).voidMethod()` atau `doThrow(new Exception()).when(mock).voidMethod()`
 - **Argumen Dinamis (*Argument Matchers*):** `anyLong()`, `anyString()`, `any(Product.class)`, `eq("spesifik")`.
 
-## Contoh
+#### Contoh
 
 ```java
 // Stubbing pencarian dengan argumen ID apapun
@@ -420,9 +432,9 @@ when(mock.method(any())).thenReturn(val) → mengatur nilai return tiruan dari o
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Verifikasi Eksekusi Mock (`verify()`)
+## 7. 🟢 Verifikasi Eksekusi Mock (`verify()`)
 
-## Konsep
+#### Konsep
 
 Selain memeriksa nilai kembalian, pengujian yang baik harus memverifikasi **apakah method pada dependensi mock benar-benar dipanggil dengan benar**:
 
@@ -431,7 +443,7 @@ Selain memeriksa nilai kembalian, pengujian yang baik harus memverifikasi **apak
 - `verifyNoInteractions(mock)` : Memastikan tidak ada interaksi apapun pada objek mock tersebut.
 - **`ArgumentCaptor<T>`:** Menangkap argumen yang dioper ke mock untuk di-assert secara mendalam.
 
-## Contoh
+#### Contoh
 
 ```java
 @Test
@@ -460,15 +472,15 @@ verify(mock, never()).method()       → memvalidasi bahwa method mock tidak per
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Parameterized Tests di JUnit 5 (`@CsvSource`)
+## 8. 🟢 Parameterized Tests di JUnit 5 (`@CsvSource`)
 
-## Konsep
+#### Konsep
 
 Alih-alih menulis 5 method `@Test` duplikat untuk menguji berbagai variasi input validasi, gunakan **`@ParameterizedTest`**:
 - **`@ValueSource(strings = {"a", "b", "c"})`:** Menguji kumpulan data 1 dimensi.
 - **`@CsvSource`:** Menguji tabel baris kolom masukan dan ekspektasi keluaran (*Comma-Separated Values*).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.test;
@@ -510,9 +522,9 @@ class ParameterizedDemoTest {
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Slice Testing Controller Layer dengan `@WebMvcTest` & `MockMvc`
+## 9. 🟡 Slice Testing Controller Layer dengan `@WebMvcTest` & `MockMvc`
 
-## Konsep
+#### Konsep
 
 Untuk menguji Controller Layer, kita tidak perlu menyalakan database atau service sungguhan.
 
@@ -521,7 +533,7 @@ Gunakan **`@WebMvcTest(TargetController.class)`**:
 - **Service Layer diganti menjadi `@MockBean`**.
 - Menggunakan **`MockMvc`** untuk mengirim request HTTP palsu secara lokal tanpa membuka port jaringan TCP.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 MockMvc.perform(get("/api/products/1"))
@@ -546,9 +558,9 @@ MockMvc.perform(get("/api/products/1"))
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Simulasi HTTP Request & Assertion dengan `MockMvc` (`jsonPath`)
+## 10. 🟡 Simulasi HTTP Request & Assertion dengan `MockMvc` (`jsonPath`)
 
-## Konsep
+#### Konsep
 
 Sintaks pengujian `MockMvc`:
 1. `mockMvc.perform(builder)` : Mengirim request HTTP (`get()`, `post()`, `put()`, `delete()`).
@@ -561,7 +573,7 @@ Format Ekspresi JsonPath:
 - `$.data[0].sku` : Mengambil field `sku` dari elemen array pertama.
 - `$.data.length()` : Menghitung panjang array JSON.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.controller;
@@ -617,9 +629,9 @@ mockMvc.perform(get(url)).andExpect(status().isOk()).andExpect(jsonPath("$.path"
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Menyuntikkan Mock Bean ke Spring Context dengan `@MockBean`
+## 11. 🟡 Menyuntikkan Mock Bean ke Spring Context dengan `@MockBean`
 
-## Konsep
+#### Konsep
 
 Ketika menggunakan `@WebMvcTest`, Spring mencari bean dependency yang dibutuhkan oleh Controller (misal: `ProductService`). Jika tidak disediakan, konteks test akan gagal menyala (*NoSuchBeanDefinitionException*).
 
@@ -637,14 +649,14 @@ Anotasi **`@MockBean`**:
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Testing Request Body JSON & Multipart File Upload
+## 12. 🟡 Testing Request Body JSON & Multipart File Upload
 
-## Konsep
+#### Konsep
 
 - **Testing JSON Payload (`POST`/`PUT`):** Gunakan `content(objectMapper.writeValueAsString(dto))` dan `contentType(MediaType.APPLICATION_JSON)`.
 - **Testing File Upload:** Gunakan `MockMultipartHttpServletRequestBuilder` via `multipart("/api/upload")` dan `MockMultipartFile`.
 
-## Contoh
+#### Contoh
 
 ```java
 @Test
@@ -681,13 +693,13 @@ mockMvc.perform(post(url).contentType(APPLICATION_JSON).content(jsonString)) →
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Testing Validasi Jakarta (`@Valid`) & Global Exception Handler
+## 13. 🟡 Testing Validasi Jakarta (`@Valid`) & Global Exception Handler
 
-## Konsep
+#### Konsep
 
 Kita harus menguji apakah Controller dan `@RestControllerAdvice` bekerja sama menolak payload yang melanggar aturan validasi (`@NotBlank`, `@Size`, dll.) dengan mengembalikan status `400 Bad Request` beserta detail field error.
 
-## Contoh
+#### Contoh
 
 ```java
 @Test
@@ -718,16 +730,16 @@ void create_InvalidPayload_Returns400() throws Exception {
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Slice Testing Database Layer dengan `@DataJpaTest`
+## 14. 🟡 Slice Testing Database Layer dengan `@DataJpaTest`
 
-## Konsep
+#### Konsep
 
 **`@DataJpaTest`** digunakan khusus untuk menguji Repository JPA dan Entity Mapping:
 1. Hanya mengonfigurasi komponen JPA (`@Entity`, `JpaRepository`, `EntityManager`).
 2. Otomatis menggunakan database **In-Memory (H2 Database)** secara terisolasi.
 3. **Auto-Rollback:** Setiap method `@Test` otomatis dibungkus transaksi yang **selalu di-rollback di akhir test**, sehingga database tetap bersih dan tidak mencemari test lain.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.repository;
@@ -776,16 +788,16 @@ class ProductRepositoryTest {
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Testing Security & Autentikasi dengan `@WithMockUser`
+## 15. 🟡 Testing Security & Autentikasi dengan `@WithMockUser`
 
-## Konsep
+#### Konsep
 
 Ketika menguji Controller yang diamankan oleh Spring Security (`@PreAuthorize("hasRole('ADMIN')")`), kita dapat mensimulasikan login pengguna menggunakan dependensi `spring-security-test`:
 - **`@WithMockUser(username = "admin", roles = {"ADMIN"})`:** Mensimulasikan request dari pengguna dengan role ADMIN.
 - **`@WithMockUser(username = "user", roles = {"USER"})`:** Mensimulasikan request dari pengguna biasa.
 - **`@WithAnonymousUser`:** Mensimulasikan pengunjung umum tanpa login (memvalidasi respons `401 Unauthorized`).
 
-## Contoh
+#### Contoh
 
 ```java
 @Test
@@ -815,9 +827,9 @@ void deleteProduct_AsAdmin_Success() throws Exception {
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Full End-to-End (E2E) Testing dengan `@SpringBootTest`
+## 16. 🟡 Full End-to-End (E2E) Testing dengan `@SpringBootTest`
 
-## Konsep
+#### Konsep
 
 **`@SpringBootTest`** memuat **seluruh ApplicationContext Spring Boot secara penuh** (termasuk seluruh Service, Repository, Web Controller, dan Security).
 
@@ -825,7 +837,7 @@ Gunakan opsi `webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT`:
 - Spring Boot akan menyalakan server Tomcat riil pada port acak yang tidak bentrok.
 - Gunakan **`TestRestTemplate`** untuk mengirimkan request HTTP jaringan nyata ke server lokal tersebut.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.e2e;
@@ -869,9 +881,9 @@ class FullApplicationE2ETest {
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Konfigurasi Lingkungan Pengujian dengan `@ActiveProfiles("test")`
+## 17. 🔴 Konfigurasi Lingkungan Pengujian dengan `@ActiveProfiles("test")`
 
-## Konsep
+#### Konsep
 
 Saat menjalankan tes otomatis, kita tidak ingin pengujian mencemari database production atau menggunakan kredensial API eksternal asli.
 
@@ -879,7 +891,7 @@ Gunakan **`@ActiveProfiles("test")`**:
 - Spring Boot akan memuat file konfigurasi khusus `src/test/resources/application-test.yaml`.
 - Konfigurasi ini biasanya mengarahkan database ke H2 In-Memory atau database test terisolasi.
 
-## Contoh
+#### Contoh
 
 ```java
 @SpringBootTest
@@ -897,9 +909,9 @@ class ServiceIntegrationTest { ... }
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Pengenalan Integration Testing dengan Testcontainers
+## 18. 🔴 Pengenalan Integration Testing dengan Testcontainers
 
-## Konsep
+#### Konsep
 
 Meskipun database in-memory H2 sangat cepat, H2 memiliki dialek SQL yang berbeda dengan database produksi (seperti fitur JSONB PostgreSQL, stored procedure, atau trigger).
 
@@ -917,7 +929,7 @@ Testcontainers → library pengujian integrasi yang memutar container Docker dat
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                      PETA ARSITEKTUR TESTING SPRING BOOT
@@ -936,7 +948,7 @@ UNIT TESTS (SERVICE)          SLICE TESTS (WEB / DB)         INTEGRATION & E2E
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Anotasi Testing | Lapisan Target | Kecepatan | Karakteristik & Kegunaan Utama |
 |---|---|---|---|
@@ -954,7 +966,7 @@ UNIT TESTS (SERVICE)          SLICE TESTS (WEB / DB)         INTEGRATION & E2E
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Spring Boot Testing 10 Detik
+## 21. ⚡ Cheat Code Spring Boot Testing 10 Detik
 
 ```java
 // 1. Template Unit Test Service (Mockito)
@@ -989,7 +1001,7 @@ class ControllerTest {
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai JUnit 5 & AssertJ
@@ -1020,7 +1032,7 @@ Langkah 5: Siap Menerapkan CI/CD Automated Test Pipeline di Industri!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready E-Commerce Test Suite
+## 23. 🏗️ Mini Project: Production-Ready E-Commerce Test Suite
 
 Suite pengujian komprehensif yang menguji seluruh lapisan aplikasi e-commerce: **Unit Test Service dengan Mockito, Controller Slice Test dengan MockMvc + JsonPath + `@WithMockUser`, dan Repository Slice Test dengan `@DataJpaTest`**.
 
@@ -1159,7 +1171,7 @@ class DummyProductController {
 }
 ```
 
-## Hasil Output Eksekusi Pengujian (Maven / Gradle Test Runner)
+#### Hasil Output Eksekusi Pengujian (Maven / Gradle Test Runner)
 
 ```text
 [INFO] -------------------------------------------------------
@@ -1183,7 +1195,7 @@ class DummyProductController {
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Spring Boot Testing Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.testing)
 - [JUnit 5 (Jupiter) Official User Guide](https://junit.org/junit5/docs/current/user-guide/)

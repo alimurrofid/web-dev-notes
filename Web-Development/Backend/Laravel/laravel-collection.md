@@ -1,4 +1,16 @@
-# Laravel Collection Cheatsheet Revised
+---
+title: "Laravel Collection"
+description: "Panduan komprehensif Fluent Collection Laravel: pembuatan, transformasi (map, filter, reduce), agregasi, grouping, sorting, dan higher-order messages."
+order: 4
+tags:
+  - web-development
+  - backend
+  - laravel
+  - collection
+  - data-processing
+---
+
+# Laravel Collection
 
 > **Target:** pemula sampai menengah yang sudah memahami dasar PHP, array, foreach, dan dasar Laravel, lalu ingin menguasai `Illuminate\Support\Collection` secara mendalam dari nol hingga mahir.
 >
@@ -105,9 +117,9 @@ LazyCollection  → pemrosesan data stream per baris menggunakan PHP Generator u
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Laravel Collection
+## 1. 🟢 Pengenalan Laravel Collection
 
-## Konsep
+#### Konsep
 
 Class `Illuminate\Support\Collection` adalah wrapper berorientasi objek yang kuat dan ekspresif untuk bekerja dengan kumpulan data array di Laravel.
 
@@ -115,7 +127,7 @@ Tanpa Collection, pengolahan array di PHP native sering kali membutuhkan banyak 
 
 Dengan Collection, kita dapat mengolah data menggunakan pola **Method Chaining** yang bersih dan deklaratif.
 
-## 1. Perbandingan PHP Native vs Laravel Collection
+### 1. Perbandingan PHP Native vs Laravel Collection
 
 ```php
 // Pendekatan PHP Native (Banyak baris & variabel sementara):
@@ -145,7 +157,7 @@ $adultAdminNames = collect($users)
     ->values();
 ```
 
-## Output
+#### Output
 
 ```text
 Array
@@ -155,7 +167,7 @@ Array
 )
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input Array Mentah
@@ -178,7 +190,7 @@ $collection->all()      → mengambil kembali array PHP native mentah
 $collection->values()   → mereset index numerik array menjadi berurutan 0, 1, 2...
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan Collection saat data membutuhkan 2 atau lebih langkah transformasi/penyaringan.
 - Jika hanya membutuhkan 1 operasi sederhana pada array kecil (misal `in_array`), fungsi native PHP tetap sah digunakan.
@@ -187,13 +199,13 @@ $collection->values()   → mereset index numerik array menjadi berurutan 0, 1, 
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Membuat Collection
+## 2. 🟢 Membuat Collection
 
-## Konsep
+#### Konsep
 
 Laravel menyediakan beragam cara untuk membuat (*instantiate*) objek Collection, baik dari array biasa, objek, angka urut, maupun nilai tunggal.
 
-## 1. Menggunakan Helper Global `collect()`
+### 1. Menggunakan Helper Global `collect()`
 
 ```php
 // Dari array numerik
@@ -206,7 +218,7 @@ $user = collect([
 ]);
 ```
 
-## 2. Menggunakan Static Method `Collection::make()`
+### 2. Menggunakan Static Method `Collection::make()`
 
 ```php
 use Illuminate\Support\Collection;
@@ -214,13 +226,13 @@ use Illuminate\Support\Collection;
 $collection = Collection::make(['PHP', 'Laravel', 'Vue', 'Docker']);
 ```
 
-## 3. Membuat Collection Kosong (`Collection::empty()`)
+### 3. Membuat Collection Kosong (`Collection::empty()`)
 
 ```php
 $emptyCollection = Collection::empty();
 ```
 
-## 4. Membungkus Nilai Tunggal / Null (`Collection::wrap()`)
+### 4. Membungkus Nilai Tunggal / Null (`Collection::wrap()`)
 
 Method `wrap()` sangat berguna ketika sebuah variabel bisa bernilai `null`, `string`, atau `array`, dan kita ingin menjamin hasilnya selalu berupa Collection yang aman diiterasi:
 
@@ -235,7 +247,7 @@ $col2 = Collection::wrap('tunggal'); // Collection berisi ['tunggal']
 $col3 = Collection::wrap(null); // Collection kosong []
 ```
 
-## 5. Membuat Deret Angka & Pengulangan (`times` & `range`)
+### 5. Membuat Deret Angka & Pengulangan (`times` & `range`)
 
 ```php
 // 1. times: Menjalankan closure sebanyak N kali
@@ -247,7 +259,7 @@ $numbers = Collection::range(1, 5);
 // Hasil: [1, 2, 3, 4, 5]
 ```
 
-## Output
+#### Output
 
 ```text
 Collection Times (5 item):
@@ -269,13 +281,13 @@ Collection::range(start, end)        → membuat koleksi deret angka dari start 
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Iterasi & Perulangan (For Each)
+## 3. 🟢 Iterasi & Perulangan (For Each)
 
-## Konsep
+#### Konsep
 
 Untuk melakukan iterasi pada setiap elemen Collection tanpa mengubah (*mutate*) struktur data dasarnya, gunakan method `each()`. Sangat ideal untuk menjalankan efek samping (*side effects*) seperti logging, pengiriman notifikasi, atau penyimpanan database.
 
-## 1. Penggunaan Dasar `each()`
+### 1. Penggunaan Dasar `each()`
 
 ```php
 $products = collect([
@@ -289,7 +301,7 @@ $products->each(function (array $item, int $key) {
 });
 ```
 
-## 2. Menghentikan Iterasi Lebih Awal (*Break Loop*)
+### 2. Menghentikan Iterasi Lebih Awal (*Break Loop*)
 
 Pada perulangan PHP native kita menggunakan kata kunci `break`. Di dalam method `each()` Collection, kembalikan nilai `false` (`return false;`) untuk menghentikan perulangan seketika:
 
@@ -305,7 +317,7 @@ $scores->each(function (int $score, int $key) {
 });
 ```
 
-## 3. Iterasi Array Bersarang dengan `eachSpread()`
+### 3. Iterasi Array Bersarang dengan `eachSpread()`
 
 Jika elemen koleksi berupa array bertingkat (*nested array*), `eachSpread()` otomatis memecah setiap elemen menjadi argumen terpisah:
 
@@ -320,7 +332,7 @@ $users->eachSpread(function (string $name, string $email, string $role) {
 });
 ```
 
-## Output
+#### Output
 
 ```text
 Nilai: 80
@@ -336,7 +348,7 @@ return false di dalam each                      → menghentikan iterasi (setara
 $collection->eachSpread(fn(arg1, arg2) => ...)  → iterasi array bersarang langsung ke parameter terpisah
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Berharap `each()` mengembalikan array yang sudah diubah (misal menulis `$res = $col->each(fn($x) => $x * 2);`).
 
@@ -346,13 +358,13 @@ $collection->eachSpread(fn(arg1, arg2) => ...)  → iterasi array bersarang lang
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Transformasi Dasar (Mapping)
+## 4. 🟢 Transformasi Dasar (Mapping)
 
-## Konsep
+#### Konsep
 
 Transformasi adalah proses mengubah setiap elemen di dalam koleksi menjadi bentuk/struktur baru. Method keluarga `map` selalu menghasilkan **Collection baru** tanpa merusak data aslinya (*immutable*).
 
-## 1. Method `map()`
+### 1. Method `map()`
 
 ```php
 $prices = collect([10000, 25000, 50000]);
@@ -363,7 +375,7 @@ $totalPrices = $prices->map(function (int $price) {
 });
 ```
 
-## 2. Method `mapWithKeys()`
+### 2. Method `mapWithKeys()`
 
 Mengubah elemen koleksi sekaligus menetapkan *custom associative key*:
 
@@ -387,7 +399,7 @@ Hasil:
 ]
 ```
 
-## 3. Method `flatMap()`
+### 3. Method `flatMap()`
 
 Melakukan mapping lalu meratakan (*flatten*) array satu level ke bawah:
 
@@ -403,7 +415,7 @@ $allTags = $users->flatMap(function (array $user) {
 // Hasil: ['PHP', 'Laravel', 'Vue', 'CSS']
 ```
 
-## 4. Method `mapToGroups()`
+### 4. Method `mapToGroups()`
 
 Mengelompokkan hasil mapping ke dalam key asosiatif:
 
@@ -420,7 +432,7 @@ $grouped = $users->mapToGroups(function (array $user) {
 // Hasil: ['IT' => ['Budi', 'Citra'], 'HR' => ['Andi']]
 ```
 
-## 5. Method `mapInto()`
+### 5. Method `mapInto()`
 
 Mengonversi setiap item di dalam koleksi menjadi objek class tertentu:
 
@@ -432,7 +444,7 @@ class Currency {
 $currencies = collect([50000, 100000])->mapInto(Currency::class);
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input: [10000, 20000]
@@ -457,13 +469,13 @@ $collection->mapSpread(fn(arg1, arg2) => ...)   → mapping array bersarang ke p
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Penyaringan Data (Filtering)
+## 5. 🟢 Penyaringan Data (Filtering)
 
-## Konsep
+#### Konsep
 
 Penyaringan (*filtering*) memilih elemen-elemen tertentu yang memenuhi kriteria kondisi dan membuang elemen yang tidak sesuai.
 
-## 1. Method `filter()` & `reject()`
+### 1. Method `filter()` & `reject()`
 
 - `filter()`: Mempertahankan elemen yang mengembalikan nilai `true`. Jika tanpa callback, otomatis membuang nilai *falsy* (`false`, `null`, `0`, `""`, `[]`).
 - `reject()`: Kebalikan dari `filter()`. Membuang elemen yang mengembalikan `true`.
@@ -481,7 +493,7 @@ $odds = $numbers->reject(fn (int $value) => $value % 2 === 0);  // [1, 3, 5]
 $clean = collect([10, null, 0, false, 'Laravel', ''])->filter(); // [10, 'Laravel']
 ```
 
-## 2. Kumpulan Method `where` Berantai
+### 2. Kumpulan Method `where` Berantai
 
 ```php
 $products = collect([
@@ -512,7 +524,7 @@ $medium = $products->whereBetween('price', [100000, 800000]);
 $strict = $products->whereStrict('stock', 0);
 ```
 
-## 3. Menghapus Duplikasi (`unique` & `duplicates`)
+### 3. Menghapus Duplikasi (`unique` & `duplicates`)
 
 ```php
 $students = collect([
@@ -528,7 +540,7 @@ $uniqueStudents = $students->unique('name');
 $duplicatedNames = collect(['A', 'B', 'C', 'A', 'B'])->duplicates(); // ['A', 'B']
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Koleksi Awal: [1, 2, 3, 4, 5, 6]
@@ -556,13 +568,13 @@ $collection->duplicates('column')                 → ambil kumpulan nilai yang 
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Mengambil Data (Retrieval)
+## 6. 🟢 Mengambil Data (Retrieval)
 
-## Konsep
+#### Konsep
 
 Method pengambilan (*retrieval*) digunakan untuk mengekstrak 1 elemen tertentu, nilai kolom tertentu, atau mengambil data teratas/terbawah dari sebuah koleksi.
 
-## 1. Mengambil Nilai Pertama & Terakhir (`first`, `firstWhere`, `last`)
+### 1. Mengambil Nilai Pertama & Terakhir (`first`, `firstWhere`, `last`)
 
 ```php
 $numbers = collect([10, 20, 30, 40, 50]);
@@ -584,7 +596,7 @@ $user = $users->firstWhere('id', 2); // ['id' => 2, 'name' => 'Citra']
 $last = $numbers->last(); // 50
 ```
 
-## 2. Mengambil Berdasarkan Key / Index (`get`, `value`, `pull`)
+### 2. Mengambil Berdasarkan Key / Index (`get`, `value`, `pull`)
 
 ```php
 $settings = collect([
@@ -607,7 +619,7 @@ $firstPrice = $products->value('price'); // 250000
 $theme = $settings->pull('theme'); // Mengembalikan 'dark', $settings sisa ['app_name' => ...]
 ```
 
-## 3. Mengekstrak Kolom Tertentu (`pluck`)
+### 3. Mengekstrak Kolom Tertentu (`pluck`)
 
 ```php
 $users = collect([
@@ -623,7 +635,7 @@ $roleById = $users->pluck('role', 'id');
 // Hasil: [101 => 'Admin', 102 => 'Editor']
 ```
 
-## 4. Method `sole()`
+### 4. Method `sole()`
 
 Mengambil tepat 1 elemen yang cocok. Melempar error `ItemNotFoundException` jika data kosong, atau `MultipleItemsFoundException` jika ditemukan lebih dari 1 data:
 
@@ -648,13 +660,13 @@ $collection->sole('column', 'value')                  → ambil tepat 1 item (er
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Pemeriksaan & Pengujian (Checking & Testing)
+## 7. 🟢 Pemeriksaan & Pengujian (Checking & Testing)
 
-## Konsep
+#### Konsep
 
 Kumpulan method untuk menguji kondisi isi data, mengecek ketersediaan elemen, atau memverifikasi apakah seluruh elemen memenuhi aturan tertentu. Menghasilkan nilai boolean `true` atau `false`.
 
-## 1. Cek Kekosongan Data (`isEmpty`, `isNotEmpty`)
+### 1. Cek Kekosongan Data (`isEmpty`, `isNotEmpty`)
 
 ```php
 $cart = collect([]);
@@ -663,7 +675,7 @@ $isEmpty = $cart->isEmpty();       // true
 $hasItems = $cart->isNotEmpty();   // false
 ```
 
-## 2. Cek Keberadaan Elemen (`contains`, `doesntContain`)
+### 2. Cek Keberadaan Elemen (`contains`, `doesntContain`)
 
 ```php
 $fruits = collect(['Apel', 'Jeruk', 'Mangga']);
@@ -683,7 +695,7 @@ $hasAdmin = $users->contains('role', 'admin'); // true
 $noSuper = $users->doesntContain('role', 'superadmin'); // true
 ```
 
-## 3. Cek Keberadaan Key Asosiatif (`has`, `hasAny`)
+### 3. Cek Keberadaan Key Asosiatif (`has`, `hasAny`)
 
 ```php
 $profile = collect([
@@ -699,7 +711,7 @@ $hasBoth = $profile->has(['name', 'phone']); // false (karena phone tidak ada)
 $hasAny = $profile->hasAny(['phone', 'email']); // true
 ```
 
-## 4. Validasi Menyeluruh (`every`, `some`, `search`)
+### 4. Validasi Menyeluruh (`every`, `some`, `search`)
 
 ```php
 $scores = collect([80, 85, 90, 78]);
@@ -729,13 +741,13 @@ $collection->search('value')            → cari posisi index elemen (return ind
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Pengurutan (Ordering & Sorting)
+## 8. 🟢 Pengurutan (Ordering & Sorting)
 
-## Konsep
+#### Konsep
 
 Mengurutkan elemen di dalam koleksi, baik berdasarkan nilai langsung, nilai kolom tertentu, maupun berdasarkan urutan key asosiatif.
 
-## 1. Mengurutkan Nilai Skalar (`sort` & `reverse`)
+### 1. Mengurutkan Nilai Skalar (`sort` & `reverse`)
 
 ```php
 $numbers = collect([5, 3, 8, 1, 4]);
@@ -747,7 +759,7 @@ $sorted = $numbers->sort()->values(); // [1, 3, 4, 5, 8]
 $reversed = $sorted->reverse()->values(); // [8, 5, 4, 3, 1]
 ```
 
-## 2. Mengurutkan Berdasarkan Kolom (`sortBy` & `sortByDesc`)
+### 2. Mengurutkan Berdasarkan Kolom (`sortBy` & `sortByDesc`)
 
 ```php
 $products = collect([
@@ -774,7 +786,7 @@ $sortedUsers = $users->sortBy([
 ])->values();
 ```
 
-## 3. Mengurutkan Berdasarkan Key Asosiatif (`sortKeys`, `sortKeysDesc`)
+### 3. Mengurutkan Berdasarkan Key Asosiatif (`sortKeys`, `sortKeysDesc`)
 
 ```php
 $data = collect([
@@ -787,7 +799,7 @@ $sortedByKey = $data->sortKeys();
 // Hasil: ['a' => 'Andi', 'b' => 'Budi', 'c' => 'Citra']
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input: [3, 1, 2]
@@ -808,7 +820,7 @@ $collection->sortKeysDesc()             → urutkan berdasarkan key asosiatif Z-
 $collection->reverse()                  → balikkan urutan isi koleksi
 ```
 
-## Best Practice
+#### Best Practice
 
 - Selalu sambungkan dengan `->values()` setelah pemanggilan `sort()` atau `sortBy()` pada array terindeks numerik untuk mereset kunci index agar kembali rapi mulai dari `0`.
 
@@ -816,15 +828,15 @@ $collection->reverse()                  → balikkan urutan isi koleksi
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Pengelompokan (Grouping & Keying)
+## 9. 🟢 Pengelompokan (Grouping & Keying)
 
-## Konsep
+#### Konsep
 
 - `groupBy()`: Mengelompokkan banyak elemen menjadi array bertingkat berdasarkan kategori tertentu.
 - `keyBy()`: Menetapkan salah satu kolom unik sebagai key asosiatif koleksi (elemen dengan key sama akan saling menimpa).
 - `countBy()`: Menghitung frekuensi kemunculan setiap kategori.
 
-## 1. Method `groupBy()`
+### 1. Method `groupBy()`
 
 ```php
 $students = collect([
@@ -848,7 +860,7 @@ Hasil:
 $byClassAndGender = $students->groupBy(['class', 'gender']);
 ```
 
-## 2. Method `keyBy()`
+### 2. Method `keyBy()`
 
 Mengubah key koleksi menjadi nilai dari kolom tertentu:
 
@@ -871,7 +883,7 @@ Hasil:
 $user101 = $keyedById->get(101);
 ```
 
-## 3. Method `countBy()`
+### 3. Method `countBy()`
 
 Menghitung frekuensi data otomatis:
 
@@ -890,7 +902,7 @@ $domainCounts = $emails->countBy(function (string $email) {
 // Hasil: ['gmail.com' => 3, 'yahoo.com' => 1]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input: [Item A (Cat 1), Item B (Cat 2), Item C (Cat 1)]
@@ -915,13 +927,13 @@ $collection->countBy(callback)          → hitung jumlah frekuensi kemunculan p
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Kalkulasi & Agregasi (Aggregates)
+## 10. 🟢 Kalkulasi & Agregasi (Aggregates)
 
-## Konsep
+#### Konsep
 
 Melakukan perhitungan matematis dan kalkulasi statistik secara langsung terhadap kumpulan nilai numerik atau properti objek di dalam koleksi.
 
-## 1. Operasi Statistik Dasar (`sum`, `avg`, `min`, `max`, `count`)
+### 1. Operasi Statistik Dasar (`sum`, `avg`, `min`, `max`, `count`)
 
 ```php
 $orders = collect([
@@ -947,7 +959,7 @@ $cheapest = $orders->min('price'); // 250000
 $mostExpensive = $orders->max('price'); // 2000000
 ```
 
-## 2. Statistik Lanjutan (`median`, `mode`, `percentage`)
+### 2. Statistik Lanjutan (`median`, `mode`, `percentage`)
 
 ```php
 $scores = collect([10, 20, 20, 40, 50, 90, 100]);
@@ -962,7 +974,7 @@ $mode = $scores->mode(); // [20]
 $percentagePassed = $scores->percentage(fn (int $score) => $score >= 50); // 42.85%
 ```
 
-## Output
+#### Output
 
 ```text
 Total Belanja: Rp 3.750.000
@@ -987,13 +999,13 @@ $collection->percentage(callback)      → persentase elemen yang memenuhi kondi
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Manipulasi Elemen Array
+## 11. 🟡 Manipulasi Elemen Array
 
-## Konsep
+#### Konsep
 
 Kumpulan method untuk memodifikasi, menyisipkan, dan menghapus elemen dari awal, akhir, atau posisi tertentu di dalam koleksi.
 
-## 1. Menambah & Menyisipkan Data (`push`, `prepend`, `put`, `pad`)
+### 1. Menambah & Menyisipkan Data (`push`, `prepend`, `put`, `pad`)
 
 ```php
 $stack = collect(['B', 'C']);
@@ -1012,7 +1024,7 @@ $user->put('email', 'budi@example.com');
 $padded = collect([1, 2])->pad(5, 0); // [1, 2, 0, 0, 0]
 ```
 
-## 2. Mengambil & Menghapus Data (`pop`, `shift`, `forget`, `splice`)
+### 2. Mengambil & Menghapus Data (`pop`, `shift`, `forget`, `splice`)
 
 ```php
 $items = collect(['satu', 'dua', 'tiga', 'empat']);
@@ -1033,7 +1045,7 @@ $chunk = $numbers->splice(1, 2, [99, 100]);
 // $chunk berisi [20, 30], $numbers menjadi [10, 99, 100, 40, 50]
 ```
 
-## 3. Transformasi Langsung di Tempat (`transform`)
+### 3. Transformasi Langsung di Tempat (`transform`)
 
 Berbeda dengan `map()` yang membuat koleksi baru, `transform()` memodifikasi koleksi asal secara langsung di tempat (*mutates original collection*):
 
@@ -1060,15 +1072,15 @@ $collection->transform(callback)       → mutasi setiap elemen langsung di temp
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Partisi & Pembagian Data (Partitioning)
+## 12. 🟡 Partisi & Pembagian Data (Partitioning)
 
-## Konsep
+#### Konsep
 
 Method `partition()` memisahkan sebuah koleksi menjadi **dua koleksi terpisah** dalam satu langkah evaluasi logika:
 1. Koleksi pertama: Berisi elemen yang lulus pengujian kondisi (`true`).
 2. Koleksi kedua: Berisi elemen yang gagal pengujian kondisi (`false`).
 
-## 1. Penggunaan Dasar `partition()`
+### 1. Penggunaan Dasar `partition()`
 
 Menggunakan fitur PHP *Array Destructuring* `[$passed, $failed]`:
 
@@ -1086,7 +1098,7 @@ $students = collect([
 });
 ```
 
-## Output
+#### Output
 
 ```text
 Siswa Lulus:
@@ -1098,7 +1110,7 @@ Siswa Remedial:
 - Dewi (60)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Koleksi Siswa: [Budi (85), Andi (45), Citra (90), Dewi (60)]
@@ -1121,15 +1133,15 @@ Siswa Remedial:
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Struktur Bersarang (Flattening & Collapsing)
+## 13. 🟡 Struktur Bersarang (Flattening & Collapsing)
 
-## Konsep
+#### Konsep
 
 - `collapse()`: Menggabungkan kumpulan array di dalam array menjadi satu array datar (*1 level*).
 - `flatten()`: Meratakan array bersarang multi-level yang sangat dalam menjadi satu tingkat datar.
 - `crossJoin()`: Menghasilkan kombinasi silang (perkalian *Cartesian Product*) antar koleksi.
 
-## 1. Method `collapse()`
+### 1. Method `collapse()`
 
 ```php
 $matrix = collect([
@@ -1142,7 +1154,7 @@ $flat = $matrix->collapse()->values();
 // Hasil: [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-## 2. Method `flatten()`
+### 2. Method `flatten()`
 
 ```php
 $deepNested = collect([
@@ -1161,7 +1173,7 @@ $allDevices = $deepNested->flatten()->values();
 $levelOne = $deepNested->flatten(1);
 ```
 
-## 3. Kombinasi Silang (`crossJoin`)
+### 3. Kombinasi Silang (`crossJoin`)
 
 ```php
 $sizes = collect(['S', 'M', 'L']);
@@ -1190,13 +1202,13 @@ $collection->crossJoin([array1, array2])     → buat kombinasi silang perkalian
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Penggabungan Paralel (Zipping)
+## 14. 🟡 Penggabungan Paralel (Zipping)
 
-## Konsep
+#### Konsep
 
 Method `zip()` menggabungkan elemen dari koleksi asal dengan nilai dari array/koleksi lain yang berada pada posisi index yang sama secara paralel.
 
-## 1. Penggunaan `zip()`
+### 1. Penggunaan `zip()`
 
 ```php
 $names = collect(['Budi', 'Andi', 'Citra']);
@@ -1214,7 +1226,7 @@ Hasil:
 */
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Index 0: 'Budi'   + 'Admin'  + 10000000 ──> ['Budi', 'Admin', 10000000]
@@ -1232,13 +1244,13 @@ $collection->zip([array1, array2]) → pasangkan elemen antar koleksi berdasarka
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Pemotongan Koleksi (Slicing & Memory Pagination)
+## 15. 🟡 Pemotongan Koleksi (Slicing & Memory Pagination)
 
-## Konsep
+#### Konsep
 
 Mengambil sebagian potongan (*slice*) dari koleksi data di memori atau membaginya untuk kebutuhan paginasi manual.
 
-## 1. Method `slice()`
+### 1. Method `slice()`
 
 ```php
 $letters = collect(['A', 'B', 'C', 'D', 'E', 'F']);
@@ -1247,7 +1259,7 @@ $letters = collect(['A', 'B', 'C', 'D', 'E', 'F']);
 $slice = $letters->slice(2, 3)->values(); // ['C', 'D', 'E']
 ```
 
-## 2. Paginasi Memori dengan `forPage()`
+### 2. Paginasi Memori dengan `forPage()`
 
 Mengambil subset data berdasarkan nomor halaman dan jumlah item per halaman:
 
@@ -1261,7 +1273,7 @@ $perPage = 10;
 $pageTwoProducts = $products->forPage($pageNumber, $perPage)->values();
 ```
 
-## 3. Membagi Koleksi (`split` & `splitIn`)
+### 3. Membagi Koleksi (`split` & `splitIn`)
 
 ```php
 $numbers = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -1287,16 +1299,16 @@ $collection->splitIn(number_of_groups)  → bagi koleksi persis menjadi N grup
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Mengambil & Melompati (Take & Skip)
+## 16. 🟡 Mengambil & Melompati (Take & Skip)
 
-## Konsep
+#### Konsep
 
 - `take(limit)`: Mengambil N item pertama (atau N item terakhir jika bernilai negatif).
 - `skip(count)`: Melompati N item pertama dan mengambil sisanya.
 - `takeUntil()` / `takeWhile()`: Mengambil data secara kontinu hingga/selama kondisi terpenuhi.
 - `skipUntil()` / `skipWhile()`: Melompati data secara kontinu hingga/selama kondisi terpenuhi.
 
-## 1. Method `take()` & `skip()`
+### 1. Method `take()` & `skip()`
 
 ```php
 $numbers = collect([10, 20, 30, 40, 50, 60]);
@@ -1311,7 +1323,7 @@ $bottomTwo = $numbers->take(-2)->values(); // [50, 60]
 $skipped = $numbers->skip(2)->values(); // [30, 40, 50, 60]
 ```
 
-## 2. Pengambilan Bersyarat (`takeWhile` & `takeUntil`)
+### 2. Pengambilan Bersyarat (`takeWhile` & `takeUntil`)
 
 ```php
 $temperatures = collect([28, 29, 31, 35, 42, 30, 25]);
@@ -1325,7 +1337,7 @@ $beforeHot = $temperatures->takeUntil(fn (int $temp) => $temp >= 35)->values();
 // Hasil: [28, 29, 31]
 ```
 
-## 3. Pelompatan Bersyarat (`skipWhile` & `skipUntil`)
+### 3. Pelompatan Bersyarat (`skipWhile` & `skipUntil`)
 
 ```php
 $queue = collect(['VIP-1', 'VIP-2', 'REG-1', 'REG-2']);
@@ -1350,15 +1362,15 @@ $collection->skipUntil(callback)    → lompati item hingga kondisi callback men
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Pecahan Data (Chunking & Sliding)
+## 17. 🟡 Pecahan Data (Chunking & Sliding)
 
-## Konsep
+#### Konsep
 
 - `chunk(size)`: Memecah koleksi besar menjadi potongan-potongan kecil berukuran tetap.
 - `chunkWhile()`: Memecah koleksi setiap kali terjadi perubahan kondisi.
 - `sliding(size, step)`: Membuat jendela geser (*sliding window*) untuk analisis data berurutan.
 
-## 1. Method `chunk()`
+### 1. Method `chunk()`
 
 Sangat ideal untuk membuat tata letak grid baris pada UI atau pemrosesan batch:
 
@@ -1375,7 +1387,7 @@ Row 3: ['P7']
 */
 ```
 
-## 2. Method `sliding()` (Jendela Geser)
+### 2. Method `sliding()` (Jendela Geser)
 
 ```php
 $dailySales = collect([100, 120, 130, 150, 180]);
@@ -1390,7 +1402,7 @@ Window 3: [130, 150, 180]
 */
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input: [1, 2, 3, 4, 5, 6, 7]
@@ -1414,13 +1426,13 @@ $collection->sliding(size, step)    → buat jendela geser berurutan untuk anali
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Representasi String & Serialisasi
+## 18. 🟡 Representasi String & Serialisasi
 
-## Konsep
+#### Konsep
 
 Mengubah isi koleksi menjadi format teks string terformat, string JSON untuk respons API, atau mengekspornya kembali menjadi array native.
 
-## 1. Menggabungkan Menjadi String (`implode` & `join`)
+### 1. Menggabungkan Menjadi String (`implode` & `join`)
 
 ```php
 $tags = collect(['PHP', 'Laravel', 'Vue']);
@@ -1437,7 +1449,7 @@ $niceSentence = $tags->join(', ', ' dan ');
 // Hasil: 'PHP, Laravel dan Vue'
 ```
 
-## 2. Serialisasi JSON & Array (`toJson`, `toArray`)
+### 2. Serialisasi JSON & Array (`toJson`, `toArray`)
 
 ```php
 $data = collect([
@@ -1466,15 +1478,15 @@ $collection->toArray()                      → ubah koleksi menjadi array PHP n
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Akumulasi & Reduksi Data (Reduce)
+## 19. 🟡 Akumulasi & Reduksi Data (Reduce)
 
-## Konsep
+#### Konsep
 
 Method `reduce()` mengakumulasi seluruh elemen koleksi secara iteratif dari kiri ke kanan sehingga menghasilkan **satu nilai tunggal** (*single scalar value*).
 
 Method `scan()` mirip dengan `reduce`, namun menyimpan seluruh tahapan akumulasi sementara ke dalam koleksi baru.
 
-## 1. Penggunaan Dasar `reduce()`
+### 1. Penggunaan Dasar `reduce()`
 
 ```php
 $cart = collect([
@@ -1491,7 +1503,7 @@ $totalCart = $cart->reduce(function (int $carry, array $item) {
 echo "Total: Rp {$totalCart}"; // Total: Rp 275.000
 ```
 
-## 2. Method `scan()` (Menyimpan Riwayat Akumulasi)
+### 2. Method `scan()` (Menyimpan Riwayat Akumulasi)
 
 ```php
 $deposits = collect([10000, 20000, 50000]);
@@ -1503,7 +1515,7 @@ $runningBalance = $deposits->scan(function (int $carry, int $deposit) {
 // Hasil: [0, 10000, 30000, 80000]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Carry Awal: 0
@@ -1524,15 +1536,15 @@ $collection->scan(fn(carry, item) => ..., initial)   → akumulasi koleksi denga
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Operasi Himpunan (Set Operations: Diff & Intersect)
+## 20. 🟡 Operasi Himpunan (Set Operations: Diff & Intersect)
 
-## Konsep
+#### Konsep
 
 Operasi matematika himpunan untuk membandingkan dua koleksi:
 - `diff()`: Mencari elemen yang ada di koleksi A tapi **TIDAK ADA** di koleksi B (Selisih).
 - `intersect()`: Mencari elemen yang **ADA DI KEDUA** koleksi (Irisan).
 
-## 1. Operasi Selisih (`diff`, `diffKeys`, `diffAssoc`)
+### 1. Operasi Selisih (`diff`, `diffKeys`, `diffAssoc`)
 
 ```php
 $requiredSkills = collect(['PHP', 'Laravel', 'MySQL', 'Docker']);
@@ -1548,7 +1560,7 @@ $schema = collect(['name' => '', 'email' => '']);
 $extraFields = $formFields->diffKeys($schema); // ['age' => 25]
 ```
 
-## 2. Operasi Irisan (`intersect`, `intersectByKeys`)
+### 2. Operasi Irisan (`intersect`, `intersectByKeys`)
 
 ```php
 $adminPermissions = collect(['create', 'read', 'update', 'delete']);
@@ -1559,7 +1571,7 @@ $common = $adminPermissions->intersect($userPermissions)->values();
 // Hasil: ['read', 'update']
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Himpunan A: [PHP, Laravel, MySQL, Docker]
@@ -1582,16 +1594,16 @@ $collection->intersectByKeys([array]) → cari irisan berdasarkan kecocokan key 
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Penggabungan Koleksi (Merging & Combining)
+## 21. 🟡 Penggabungan Koleksi (Merging & Combining)
 
-## Konsep
+#### Konsep
 
 - `merge()`: Menggabungkan array; jika key asosiatif sama, nilai lama akan ditimpa.
 - `mergeRecursive()`: Menggabungkan array; jika key asosiatif sama, nilainya akan digabung menjadi array bertingkat.
 - `combine()`: Menggabungkan dua koleksi di mana koleksi 1 menjadi **Key** dan koleksi 2 menjadi **Value**.
 - `concat()`: Menambahkan elemen array numerik ke akhir koleksi tanpa mengubah index numerik.
 
-## 1. Method `merge()` & `mergeRecursive()`
+### 1. Method `merge()` & `mergeRecursive()`
 
 ```php
 $defaultSettings = collect(['theme' => 'light', 'notifications' => true]);
@@ -1608,7 +1620,7 @@ $merged = $arr1->mergeRecursive($arr2);
 // Hasil: ['tags' => ['PHP', 'Laravel']]
 ```
 
-## 2. Method `combine()` (Pasangan Key-Value)
+### 2. Method `combine()` (Pasangan Key-Value)
 
 ```php
 $headers = collect(['ID', 'Nama', 'Jabatan']);
@@ -1633,15 +1645,15 @@ $collection->union([array])          → gabungkan array tanpa menimpa key yang 
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Eksekusi Kondisional & Utility Pipeline
+## 22. 🟡 Eksekusi Kondisional & Utility Pipeline
 
-## Konsep
+#### Konsep
 
 - `when()` & `unless()`: Menjalankan transformasi HANYA JIKA kondisi tertentu bernilai `true`/`false` tanpa memutus *method chaining*.
 - `tap()`: Mengintip isi koleksi untuk debugging/logging tanpa memodifikasi data.
 - `pipe()`: Melewatkan seluruh koleksi ke closure kustom untuk menghasilkan nilai akhir baru.
 
-## 1. Eksekusi Kondisional (`when` & `unless`)
+### 1. Eksekusi Kondisional (`when` & `unless`)
 
 ```php
 $searchTerm = request('q');
@@ -1665,7 +1677,7 @@ $result = $products
     ->values();
 ```
 
-## 2. Debugging Tanpa Putus Chaining (`tap`)
+### 2. Debugging Tanpa Putus Chaining (`tap`)
 
 ```php
 $result = collect([1, 2, 3, 4, 5])
@@ -1677,7 +1689,7 @@ $result = collect([1, 2, 3, 4, 5])
     ->values();
 ```
 
-## 3. Pipeline Data Transformation (`pipe`, `pipeThrough`)
+### 3. Pipeline Data Transformation (`pipe`, `pipeThrough`)
 
 ```php
 $stats = collect([10, 20, 30, 40, 50])->pipe(function (Collection $col) {
@@ -1702,13 +1714,13 @@ $collection->pipe(callback)                             → lemparkan seluruh ko
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 Randomisasi Data
+## 23. 🟡 Randomisasi Data
 
-## Konsep
+#### Konsep
 
 Method untuk mengacak urutan elemen koleksi atau mengambil sejumlah sampel acak.
 
-## 1. Method `random()` & `shuffle()`
+### 1. Method `random()` & `shuffle()`
 
 ```php
 $prizes = collect(['Emas 1g', 'Voucher 50rb', 'Payung', 'Kaos', 'Zonk']);
@@ -1734,13 +1746,13 @@ $collection->shuffle()      → acak seluruh urutan elemen di dalam koleksi
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Collection Macros (Extending Collection)
+## 24. 🟡 Collection Macros (Extending Collection)
 
-## Konsep
+#### Konsep
 
 Collection Macros memungkinkan kita menambahkan method kustom buatan sendiri ke dalam class `Collection` di seluruh aplikasi Laravel secara global.
 
-## 1. Mendaftarkan Macro di `AppServiceProvider`
+### 1. Mendaftarkan Macro di `AppServiceProvider`
 
 ```php
 namespace App\Providers;
@@ -1770,7 +1782,7 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-## 2. Penggunaan di Controller / Service
+### 2. Penggunaan di Controller / Service
 
 ```php
 $tags = collect(['php', 'laravel', 'vue'])->toUpper();
@@ -1790,15 +1802,15 @@ Collection::macro('methodName', fn) → daftarkan custom method baru ke Laravel 
 
 <a id="bagian-25"></a>
 
-# 25. 🔴 Lazy Collection: Pengolahan Dataset Raksasa
+## 25. 🔴 Lazy Collection: Pengolahan Dataset Raksasa
 
-## Konsep
+#### Konsep
 
 Standard Collection memuat seluruh data ke dalam memori RAM sekaligus. Jika Anda memproses file log berukuran 2 GB atau 1.000.000 baris data tabel, server akan langsung mengalami error `Allowed memory size exhausted`.
 
 **Lazy Collection** (`Illuminate\Support\LazyCollection`) memanfaatkan fitur **PHP Generators (`yield`)**. Data dialirkan dan diproses **satu per satu baris per baris** (*stream*), sehingga konsumsi memori RAM tetap konstan sangat kecil (misal hanya 2 MB) meski mengolah data jutaan baris!
 
-## 1. Membuat Lazy Collection dari File Besar
+### 1. Membuat Lazy Collection dari File Besar
 
 ```php
 use Illuminate\Support\LazyCollection;
@@ -1820,7 +1832,7 @@ $errorCount = $logLines
     ->count();
 ```
 
-## 2. Lazy Collection Deret Angka Raksasa
+### 2. Lazy Collection Deret Angka Raksasa
 
 ```php
 // Mengolah 10.000.000 angka tanpa crash memori
@@ -1830,7 +1842,7 @@ $sum = LazyCollection::times(10000000)
     ->sum();
 ```
 
-## 3. Integrasi Database Eloquent (`cursor`)
+### 3. Integrasi Database Eloquent (`cursor`)
 
 Eloquent menyediakan method `cursor()` yang otomatis mengembalikan `LazyCollection` menggunakan database cursor PDO:
 
@@ -1844,7 +1856,7 @@ User::query()
     });
 ```
 
-## Diagram Alur: Standard Collection vs Lazy Collection
+#### Diagram Alur: Standard Collection vs Lazy Collection
 
 ```text
 Standard Collection (Boros RAM):
@@ -1868,9 +1880,9 @@ Model::cursor()            → ambil data query database sebagai LazyCollection 
 
 <a id="bagian-26"></a>
 
-# 26. 🔴 Perbandingan Performa: Collection vs Array Native vs SQL Query
+## 26. 🔴 Perbandingan Performa: Collection vs Array Native vs SQL Query
 
-## Konsep
+#### Konsep
 
 Sangat krusial bagi developer untuk memahami kapan data sebaiknya diproses di server database SQL, kapan di Laravel Collection, dan kapan menggunakan Array native.
 
@@ -1881,7 +1893,7 @@ Sangat krusial bagi developer untuk memahami kapan data sebaiknya diproses di se
 | **Keterbacaan Kode** | Sedang (SQL / Query Builder) | Sangat Tinggi (Method Chaining) | Rendah (Banyak loop & variabel) |
 | **Use Case Terbaik** | Menyaring ribuan/jutaan baris data | Transformasi data bisnis & format tampilan | Operasi algoritma mikro & performa ekstrem |
 
-## Aturan Emas Arsitektur Data
+#### Aturan Emas Arsitektur Data
 
 ```text
 1. Filter & Urutkan Data Sebanyak Mungkin di Level Database:
@@ -1904,15 +1916,15 @@ Dataset file raksasa → gunakan LazyCollection (Stream Generator)
 
 <a id="bagian-27"></a>
 
-# 27. 🔴 Perbedaan Support Collection vs Eloquent Collection
+## 27. 🔴 Perbedaan Support Collection vs Eloquent Collection
 
-## Konsep
+#### Konsep
 
 Laravel memiliki dua class Collection yang berbeda:
 1. `Illuminate\Support\Collection`: Collection generik untuk data array umum.
 2. `Illuminate\Database\Eloquent\Collection`: Turunan khusus yang membungkus objek **Model Eloquent**.
 
-## Perbandingan Method Khusus Eloquent Collection
+#### Perbandingan Method Khusus Eloquent Collection
 
 | Method Khusus | Kegunaan pada Eloquent Collection |
 |---|---|
@@ -1940,9 +1952,9 @@ Eloquent Collection  → pembungkus kumpulan Model Eloquent (memiliki method loa
 
 <a id="bagian-28"></a>
 
-# 28. 🛠️ Peta Ingatan Cepat
+## 28. 🛠️ Peta Ingatan Cepat
 
-## A. Peta Mental Fungsi Utama Collection
+#### A. Peta Mental Fungsi Utama Collection
 
 ```text
        ┌────────────────────────────────────────────────────────┐
@@ -1960,7 +1972,7 @@ Eloquent Collection  → pembungkus kumpulan Model Eloquent (memiliki method loa
           countBy)          take, skip)      zip, collapse)
 ```
 
-## B. Ringkasan Perilaku Method Kritis
+#### B. Ringkasan Perilaku Method Kritis
 
 ```text
 • Mengembalikan Koleksi Baru (Immutable) : map, filter, where, sortBy, groupBy, chunk
@@ -1973,7 +1985,7 @@ Eloquent Collection  → pembungkus kumpulan Model Eloquent (memiliki method loa
 
 <a id="bagian-29"></a>
 
-# 29. 📚 Tabel Ringkasan
+## 29. 📚 Tabel Ringkasan
 
 | Kategori | Method / API | Parameter Umum | Fungsi & Deskripsi |
 |---|---|---|---|
@@ -2023,7 +2035,7 @@ Eloquent Collection  → pembungkus kumpulan Model Eloquent (memiliki method loa
 
 <a id="bagian-30"></a>
 
-# 30. ⚡ Cheat Code Collection 10 Detik
+## 30. ⚡ Cheat Code Collection 10 Detik
 
 ```php
 // 1. Pipeline Filter, Map, Sort Lengkap
@@ -2050,7 +2062,7 @@ $grandTotal = collect($cart)->sum(fn($item) => $item['qty'] * $item['price']);
 
 <a id="bagian-31"></a>
 
-# 31. 🧭 Urutan Belajar yang Disarankan
+## 31. 🧭 Urutan Belajar yang Disarankan
 
 ```text
        Langkah 1: Fondasi Pembuatan & Akses Dasar
@@ -2085,11 +2097,11 @@ $grandTotal = collect($cart)->sum(fn($item) => $item['qty'] * $item['price']);
 
 <a id="bagian-32"></a>
 
-# 32. 🏗️ Mini Project: Pengolahan Laporan Penjualan & Analitik E-Commerce
+## 32. 🏗️ Mini Project: Pengolahan Laporan Penjualan & Analitik E-Commerce
 
 Proyek nyata yang menggabungkan seluruh fungsionalitas inti Collection: **Pembuatan, Filtering bersyarat, Mapping data, Grouping per kategori, Paginasi memori, Kalkulasi statistik omset, dan Ekspor laporan ringkasan**.
 
-## 1. Kode Service Analitik (`app/Services/SalesAnalyticsService.php`)
+### 1. Kode Service Analitik (`app/Services/SalesAnalyticsService.php`)
 
 ```php
 namespace App\Services;
@@ -2177,7 +2189,7 @@ class SalesAnalyticsService
 }
 ```
 
-## 2. Data Dummy & Eksekusi
+### 2. Data Dummy & Eksekusi
 
 ```php
 $rawTransactions = [
@@ -2215,7 +2227,7 @@ $analytics = new SalesAnalyticsService();
 $report = $analytics->generateReport($rawTransactions);
 ```
 
-## Output Tampilan Mini Project
+#### Output Tampilan Mini Project
 
 ```text
 ========================================================================
@@ -2244,7 +2256,7 @@ PAGINASI TRANSAKSI TERBARU (Halaman 1):
 ========================================================================
 ```
 
-## Diagram Alur Mini Project
+#### Diagram Alur Mini Project
 
 ```text
        Input Data Transaksi Mentah
@@ -2268,7 +2280,7 @@ PAGINASI TRANSAKSI TERBARU (Halaman 1):
 
 <a id="bagian-33"></a>
 
-# 33. 🔗 Referensi Resmi
+## 33. 🔗 Referensi Resmi
 
 - [Laravel Documentation: Collections Guide](https://laravel.com/docs/collections)
 - [Laravel Documentation: Lazy Collections](https://laravel.com/docs/collections#lazy-collections)

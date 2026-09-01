@@ -1,4 +1,16 @@
-# Java Lambda & Stream API Cheatsheet Revised
+---
+title: "Java Lambda & Stream API"
+description: "Functional programming di Java: lambda expression, functional interfaces (Predicate, Function, Consumer, Supplier), dan Stream API (filter, map, reduce, collect)."
+order: 5
+tags:
+  - programming
+  - java
+  - lambda
+  - stream
+  - functional
+---
+
+# Java Lambda & Stream API
 
 > **Target:** Pemula yang telah memahami dasar Java, OOP, Generic, dan Collection Framework, serta ingin menguasai paradigma **Functional Programming, Lambda Expressions, Method References, Optional, dan Stream API** di Java (Java 21 LTS).
 >
@@ -105,9 +117,9 @@ Terminal     → operasi akhir penutup yang memicu eksekusi seluruh rangkaian in
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Paradigma Functional Programming di Java
+## 1. 🟢 Pengenalan Paradigma Functional Programming di Java
 
-## Konsep
+#### Konsep
 
 Sebelum Java 8, Java adalah bahasa berorientasi objek murni yang bersifat **imperatif** (kita harus menulis instruksi langkah demi langkah secara detail *bagaimana* sebuah tugas diselesaikan, misalnya melalui perulangan for-loop manual dan anonymous class yang panjang).
 
@@ -117,7 +129,7 @@ Perbandingan Gaya Imperatif vs Deklaratif:
 - **Imperatif (Lama):** Buat list kosong $\rightarrow$ for-loop $\rightarrow$ if-statement $\rightarrow$ manual add.
 - **Deklaratif (Functional):** `list.stream().filter(...).map(...).toList()`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -147,14 +159,14 @@ public class FunctionalIntroDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Imperatif : [AHMAD, ANDI, ANISA]
 Hasil Functional: [AHMAD, ANDI, ANISA]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Imperatif  ──> Instruksi mikro teknis: inisialisasi list, loop indeks, conditional check
@@ -171,9 +183,9 @@ Declarative Style → gaya pemrograman yang berfokus pada "apa yang ingin dicapa
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Functional Interface & Anotasi `@FunctionalInterface`
+## 2. 🟢 Functional Interface & Anotasi `@FunctionalInterface`
 
-## Konsep
+#### Konsep
 
 **Functional Interface** adalah interface yang **hanya memiliki tepat satu Single Abstract Method (SAM)**. Interface ini dapat memiliki banyak method `default` atau `static`, asalkan method abstraknya tetap berjumlah satu.
 
@@ -181,7 +193,7 @@ Anotasi opsional `@FunctionalInterface` digunakan untuk meminta compiler memveri
 
 Functional Interface adalah **tipe target mutlak** untuk setiap Lambda Expression dan Method Reference di Java.
 
-## Contoh
+#### Contoh
 
 ```java
 // Mendefinisikan Custom Functional Interface
@@ -209,7 +221,7 @@ public class FunctionalInterfaceDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Menjalankan kalkulasi matematika...
@@ -217,7 +229,7 @@ Menjalankan kalkulasi matematika...
 10 * 5 = 50.0
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Lambda Expression (x, y) -> x + y
@@ -237,9 +249,9 @@ Single Abstract Method (SAM) → syarat mutlak sebuah interface dapat diisi oleh
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Sintaks Dasar Lambda Expression
+## 3. 🟢 Sintaks Dasar Lambda Expression
 
-## Konsep
+#### Konsep
 
 Anatomi Lambda Expression terdiri dari tiga bagian utama:
 1. **Daftar Parameter `(p1, p2)`:** Tipe data parameter bersifat opsional karena compiler dapat menyimpulkannya secara otomatis (*Type Inference*). Jika hanya ada 1 parameter, tanda kurung boleh dihilangkan (`x -> ...`).
@@ -248,7 +260,7 @@ Anatomi Lambda Expression terdiri dari tiga bagian utama:
    - *Expression Body:* Jika hanya satu baris, tanda kurung kurawal `{}` dan kata kunci `return` tidak perlu ditulis.
    - *Block Body:* Jika multi-baris, wajib dibungkus kurung kurawal `{ ... }` dan menyertakan `return` eksplisit jika ada nilai balik.
 
-## Contoh
+#### Contoh
 
 ```java
 @FunctionalInterface
@@ -273,14 +285,14 @@ public class LambdaSyntaxDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 [200] Koneksi berhasil
 [ERROR - 404] HALAMAN TIDAK DITEMUKAN
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 (msg, code)             ->                "[" + code + "] " + msg
@@ -298,9 +310,9 @@ public class LambdaSyntaxDemo {
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Built-in Interface: `Consumer<T>` & `BiConsumer<T, U>`
+## 4. 🟢 Built-in Interface: `Consumer<T>` & `BiConsumer<T, U>`
 
-## Konsep
+#### Konsep
 
 - **`Consumer<T>`:** Menerima satu parameter masukan bertipe `T` dan **tidak mengembalikan nilai apapun (`void`)**. Method utamanya adalah `void accept(T t)`.
 - **`BiConsumer<T, U>`:** Menerima dua parameter masukan dan tidak mengembalikan nilai apapun (`void accept(T t, U u)`).
@@ -308,7 +320,7 @@ public class LambdaSyntaxDemo {
 
 Pola ini umum digunakan untuk: pencetakan data ke log/konsol, mutasi state objek, atau penyimpanan data ke database.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.function.BiConsumer;
@@ -333,7 +345,7 @@ public class ConsumerDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 PRINT: Server berhasil dihidupkan
@@ -341,7 +353,7 @@ LOG  : SERVER BERHASIL DIHIDUPKAN
 Transfer gaji ke Budi Setiawan sebesar Rp 12,500,000.00 sukses.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Input Teks ──> Consumer A (accept) ──> Lanjut ──> Consumer B (accept)
@@ -358,9 +370,9 @@ consumerA.andThen(consumerB)    → merangkai dua consumer untuk dieksekusi beru
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Built-in Interface: `Supplier<T>`
+## 5. 🟢 Built-in Interface: `Supplier<T>`
 
-## Konsep
+#### Konsep
 
 **`Supplier<T>`** adalah kebalikan dari `Consumer`. Interface ini **tidak menerima parameter apapun**, tetapi **menghasilkan/mengembalikan sebuah nilai** bertipe `T`. Method utamanya adalah `T get()`.
 
@@ -368,7 +380,7 @@ Kegunaan utama `Supplier`:
 - **Lazy Evaluation (Evaluasi Tunda):** Menghitung nilai atau membuat objek hanya saat benar-benar dibutuhkan untuk menghemat CPU & RAM.
 - **Factory Pattern:** Menghasilkan instance objek baru.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.UUID;
@@ -388,14 +400,14 @@ public class SupplierDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Transaksi 1: TX-A1B2C3D4 pada 1724930000000
 Transaksi 2: TX-E5F6G7H8 pada 1724930000010
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Supplier.get() ──(Tanpa Input)──> Menghasilkan Objek / Nilai T
@@ -412,16 +424,16 @@ supplier.get()                      → mengambil nilai yang dihasilkan oleh sup
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Built-in Interface: `Function<T, R>` & `BiFunction<T, U, R>`
+## 6. 🟢 Built-in Interface: `Function<T, R>` & `BiFunction<T, U, R>`
 
-## Konsep
+#### Konsep
 
 - **`Function<T, R>`:** Menerima satu parameter masukan bertipe `T` dan **mengubah/mentransformasikan datanya menjadi nilai baru bertipe `R`**. Method utamanya adalah `R apply(T t)`.
 - **`BiFunction<T, U, R>`:** Menerima dua parameter masukan bertipe `T` dan `U`, lalu menghasilkan nilai kembalian bertipe `R` (`R apply(T t, U u)`).
 
 Pola ini adalah fondasi utama operasi `.map()` pada Stream API untuk mengubah Entity database menjadi DTO response.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.function.BiFunction;
@@ -454,7 +466,7 @@ public class FunctionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Transformasi DTO: UserResponseDTO[id=USR-1, username=alimurrofid]
@@ -462,7 +474,7 @@ Panjang Bersih '  Java  ': 4
 Total Setelah Diskon: Rp 135,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Input (T: UserEntity) ──> Function.apply() ──> Output (R: UserResponseDTO)
@@ -479,9 +491,9 @@ functionA.andThen(functionB)    → menjalankan functionA dahulu, lalu hasilnya 
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Built-in Interface: `Predicate<T>` & `BiPredicate<T, U>`
+## 7. 🟢 Built-in Interface: `Predicate<T>` & `BiPredicate<T, U>`
 
-## Konsep
+#### Konsep
 
 - **`Predicate<T>`:** Menerima satu parameter masukan bertipe `T` dan **mengembalikan nilai boolean (`true`/`false`)**. Method utamanya adalah `boolean test(T t)`.
 - **`BiPredicate<T, U>`:** Menerima dua parameter masukan dan mengembalikan nilai boolean (`boolean test(T t, U u)`).
@@ -493,7 +505,7 @@ Predicate mendukung logika boolean berantai:
 
 Pola ini adalah fondasi operasi `.filter()` pada Stream API.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.function.Predicate;
@@ -514,7 +526,7 @@ public class PredicateDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Apakah 4 genap & positif? true
@@ -522,7 +534,7 @@ Apakah -2 genap & positif? false
 Apakah 5 ganjil? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Input Nilai (T) ──> Predicate.test() ──> Evaluasi Logika ──> true / false
@@ -541,9 +553,9 @@ predicate.negate()              → membalikkan hasil pengujian predicate (NOT)
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Primitive Functional Interfaces (`IntPredicate`, `DoubleFunction`, dll.)
+## 8. 🟢 Primitive Functional Interfaces (`IntPredicate`, `DoubleFunction`, dll.)
 
-## Konsep
+#### Konsep
 
 Generic biasa (`Predicate<Integer>`, `Function<Double, Double>`) selalu menggunakan Wrapper Class objek, yang menyebabkan overhead alokasi memori dan konversi otomatis (**Autoboxing & Unboxing**) saat memproses jutaan data angka.
 
@@ -553,7 +565,7 @@ Untuk optimasi performa tinggi, Java menyediakan versi primitif khusus:
 - **Supplier:** `IntSupplier`, `LongSupplier`, `DoubleSupplier`
 - **Function:** `IntFunction<R>`, `ToIntFunction<T>`, `DoubleToLongFunction`, dll.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.function.IntPredicate;
@@ -573,7 +585,7 @@ public class PrimitiveFunctionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Apakah 9 kelipatan 3? true
@@ -590,9 +602,9 @@ IntPredicate / DoubleConsumer → versi fungsional primitif tanpa overhead memor
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Method Reference (4 Pola Sintaks `::`)
+## 9. 🟢 Method Reference (4 Pola Sintaks `::`)
 
-## Konsep
+#### Konsep
 
 **Method Reference** adalah sintaks penyingkat ekspresi lambda yang langsung merujuk ke method atau constructor yang sudah ada menggunakan operator titik dua ganda (`::`).
 
@@ -605,7 +617,7 @@ Terdapat 4 variasi pola Method Reference di Java:
 | 3 | **Instance Method (Objek Arbitrer)** | `(s) -> s.toUpperCase()` | `String::toUpperCase` |
 | 4 | **Constructor Reference** | `(s) -> new ArrayList<>(s)` | `ArrayList::new` |
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -635,7 +647,7 @@ public class MethodReferenceDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Akar 64: 8.0
@@ -644,7 +656,7 @@ Kapital: JAVA 21
 Builder Content: Halo Builder
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Lambda: (str) -> str.toUpperCase()   ===>   Method Reference: String::toUpperCase
@@ -663,9 +675,9 @@ Class::new              → mereferensikan constructor untuk membuat objek baru
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Variable Capture & Aturan *Effectively Final*
+## 10. 🟢 Variable Capture & Aturan *Effectively Final*
 
-## Konsep
+#### Konsep
 
 Lambda Expression dapat membaca variabel lokal yang berada di luar tubuh lambda (*Variable Capture*).
 
@@ -674,7 +686,7 @@ Namun, variabel lokal tersebut **wajib berstatus `final` atau *Effectively Final
 Mengapa Java mewajibkan *Effectively Final*?
 Karena lambda dapat dieksekusi secara asynchronous di thread yang berbeda saat stack frame method aslinya sudah musnah. Java menyalin nilai variabel ke tubuh lambda (*capture by value*), bukan referensi memorinya.
 
-## Contoh
+#### Contoh
 
 ```java
 public class VariableCaptureDemo {
@@ -694,7 +706,7 @@ public class VariableCaptureDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 [APP LOG] Menjalankan background job.
@@ -710,9 +722,9 @@ Effectively Final → variabel lokal yang tidak pernah di-reassign nilainya sehi
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 `Optional<T>` Dasar (Mencegah NullPointerException)
+## 11. 🟡 `Optional<T>` Dasar (Mencegah NullPointerException)
 
-## Konsep
+#### Konsep
 
 `Optional<T>` adalah class container pembungkus yang dirancang untuk merepresentasikan **nilai yang mungkin ada atau mungkin tidak ada (`null`)**. Tujuannya adalah mengeliminasi bahaya `NullPointerException` dan memaksa pemanggil menangani ketiadaan data secara eksplisit.
 
@@ -721,7 +733,7 @@ Tiga cara membuat `Optional`:
 2. `Optional.ofNullable(value)` : Nilai **boleh null** (menjadi `Optional.empty()` jika null).
 3. `Optional.empty()` : Membuat container kosong.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Optional;
@@ -747,7 +759,7 @@ public class OptionalBaseDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Email Budi ada? true
@@ -767,9 +779,9 @@ optional.isEmpty()         → mengembalikan true jika container bernilai kosong
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 `Optional<T>` Modern Flow (`map`, `flatMap`, `orElseThrow`)
+## 12. 🟡 `Optional<T>` Modern Flow (`map`, `flatMap`, `orElseThrow`)
 
-## Konsep
+#### Konsep
 
 Pola modern penanganan `Optional` **TIDAK MENGGUNAKAN `if (opt.isPresent()) opt.get()`** (karena sama saja dengan null check lama).
 
@@ -782,7 +794,7 @@ Gunakan method fungsional berantai (*fluent pipeline*):
 - `orElseGet(Supplier)` : Evaluasi nilai default secara lazy via Supplier.
 - `orElseThrow(SupplierException)` : **Standar Spring Boot:** Lempar custom exception jika data tidak ditemukan.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Optional;
@@ -815,14 +827,14 @@ public class OptionalModernDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Pembersihan: AHMAD_SANTOSO
 ❌ EXCEPTION TERTANGKAP: User dengan ID tersebut tidak ada!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Optional[" ahmad "] ──> map(strip) ──> Optional["ahmad"] ──> map(upper) ──> Optional["AHMAD"]
@@ -841,9 +853,9 @@ optional.ifPresent(consumer)             → mengeksekusi consumer jika data ada
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Pengenalan Stream API & Mental Model Pipeline
+## 13. 🟡 Pengenalan Stream API & Mental Model Pipeline
 
-## Konsep
+#### Konsep
 
 **Stream API** adalah antarmuka pipa aliran data (*pipeline*) untuk memproses sekumpulan data secara deklaratif.
 
@@ -856,7 +868,7 @@ Karakteristik fundamental Stream:
    - **Terminal Operation (Tepat 1):** Operasi penutup yang bersifat **EAGER** yang memicu eksekusi seluruh pipeline dan mengakhiri stream.
 4. **Sekali Pakai (*Single-Use*):** Setelah Terminal Operation dieksekusi, stream ditutup dan **tidak dapat digunakan ulang**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -878,14 +890,14 @@ public class StreamLifecycleDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Data Asli (Tidak Berubah): [Apel, Mangga, Alpukat, Jeruk, Anggur]
 Hasil Stream Pipeline    : [ALPUKAT, ANGGUR, APEL]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 fruits (Source) ──> filter("A") ──> map(Upper) ──> sorted() ──> toList() (Hasil)
@@ -903,9 +915,9 @@ Terminal Operation     → operasi eksekutor yang menghasilkan output akhir dan 
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Membuat Stream dari Berbagai Sumber
+## 14. 🟡 Membuat Stream dari Berbagai Sumber
 
-## Konsep
+#### Konsep
 
 Stream dapat diciptakan dari berbagai macam sumber:
 1. **Dari Collection:** `collection.stream()`
@@ -914,7 +926,7 @@ Stream dapat diciptakan dari berbagai macam sumber:
 4. **Stream Bilangan Primitif:** `IntStream.range(1, 5)` (1..4) atau `rangeClosed(1, 5)` (1..5)
 5. **Infinite Stream (Tak Hingga):** `Stream.iterate(0, n -> n + 2).limit(10)`
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Arrays;
@@ -943,7 +955,7 @@ public class StreamSourceDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 IntStream 1-5: 1 2 3 4 5 
@@ -961,9 +973,9 @@ IntStream.rangeClosed(min, max)→ membuat stream angka integer dari min sampai 
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Intermediate Operations: `filter()`, `map()`, `sorted()`, `distinct()`, `peek()`
+## 15. 🟡 Intermediate Operations: `filter()`, `map()`, `sorted()`, `distinct()`, `peek()`
 
-## Konsep
+#### Konsep
 
 Operasi perantara yang paling sering digunakan:
 - `filter(Predicate)` : Menyaring dan hanya meloloskan elemen yang memenuhi kondisi `true`.
@@ -972,7 +984,7 @@ Operasi perantara yang paling sering digunakan:
 - `sorted()` / `sorted(Comparator)` : Mengurutkan aliran elemen.
 - `peek(Consumer)` : Mengintip elemen yang sedang mengalir di pipeline untuk keperluan **debugging log** tanpa mengubah datanya.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Comparator;
@@ -1004,7 +1016,7 @@ public class IntermediateOperationsDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 [DEBUG PEEK] Lolos: Doni
@@ -1012,7 +1024,7 @@ public class IntermediateOperationsDemo {
 Hasil Akhir: [Doni, Siti]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 5 Karyawan ──> filter(IT) -> 4 ──> distinct() -> 3 ──> filter(>=10jt) -> 2 ──> map(nama) -> ["Doni", "Siti"]
@@ -1031,16 +1043,16 @@ stream.peek(consumer)      → mengintip data untuk logging/debugging tanpa memu
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Intermediate Operations: `flatMap()` (Transformasi One-to-Many)
+## 16. 🟡 Intermediate Operations: `flatMap()` (Transformasi One-to-Many)
 
-## Konsep
+#### Konsep
 
 - `map(Function)` : Menghasilkan 1 elemen untuk setiap 1 elemen input (1-to-1). Jika input berupa `List<List<T>>`, `map` akan menghasilkan `Stream<List<T>>`.
 - **`flatMap(Function)` :** Meratakan (*flattening*) struktur hierarki bertingkat menjadi satu aliran tunggal (*One-to-Many* / Flattened Stream). Hasilnya adalah `Stream<T>` datar.
 
 Gunakan `flatMap` jika setiap elemen di dalam stream memiliki daftar sub-koleksi di dalamnya (misal: Pesanan memiliki banyak OrderItem).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1067,13 +1079,13 @@ public class FlatMapDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Semua Item Unik Terjual: [Buku, Keyboard, Monitor, Mouse, Pulpen]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Order 1 [Buku, Pulpen]   ──┐
@@ -1091,9 +1103,9 @@ stream.flatMap(functionToStream) → meratakan kumpulan sub-koleksi atau stream 
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Slicing Operations: `limit()`, `skip()`, `takeWhile()` & `dropWhile()`
+## 17. 🟡 Slicing Operations: `limit()`, `skip()`, `takeWhile()` & `dropWhile()`
 
-## Konsep
+#### Konsep
 
 Operasi pemotongan ukuran aliran data:
 - `limit(n)` : Mengambil maksimal `n` elemen pertama.
@@ -1101,7 +1113,7 @@ Operasi pemotongan ukuran aliran data:
 - `takeWhile(Predicate)` (Java 9+): Mengambil elemen selama kondisi bernilai `true`. **Begitu bertemu kondisi `false` pertama kali, stream langsung berhenti**.
 - `dropWhile(Predicate)` (Java 9+): Membuang elemen selama kondisi bernilai `true`, lalu mengambil seluruh sisa elemen setelahnya.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1132,7 +1144,7 @@ public class StreamSlicingDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Data Page (Skip 2, Limit 3): [30, 40, 50]
@@ -1152,9 +1164,9 @@ stream.takeWhile(predicate)→ mengambil elemen berurutan selama predicate berni
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Terminal Operations: `forEach()`, `count()`, `min()`, `max()`, `reduce()`
+## 18. 🟡 Terminal Operations: `forEach()`, `count()`, `min()`, `max()`, `reduce()`
 
-## Konsep
+#### Konsep
 
 Terminal Operation mengeksekusi pipeline dan menghasilkan nilai akhir (bukan Stream lagi):
 - `forEach(Consumer)` : Melakukan iterasi dan aksi pada setiap elemen.
@@ -1162,7 +1174,7 @@ Terminal Operation mengeksekusi pipeline dan menghasilkan nilai akhir (bukan Str
 - `min(Comparator)` / `max(Comparator)` : Mengembalikan `Optional<T>` berisi elemen minimum/maksimum.
 - `reduce(identity, accumulator)` : Menggabungkan/mengakumulasi seluruh elemen menjadi satu nilai tunggal (seperti menghitung total penjumlahan nilai atau perkalian).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1189,7 +1201,7 @@ public class TerminalOperationsDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Total Elemen: 4
@@ -1197,7 +1209,7 @@ Nilai Maksimal: 50
 Total Akumulasi Reduce: 100
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 reduce(0, +):
@@ -1219,9 +1231,9 @@ stream.count()                       → menghitung jumlah elemen yang mengalir 
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Short-Circuiting Terminal Operations: `anyMatch()`, `allMatch()`, `findFirst()`
+## 19. 🟡 Short-Circuiting Terminal Operations: `anyMatch()`, `allMatch()`, `findFirst()`
 
-## Konsep
+#### Konsep
 
 **Short-Circuiting Operations** adalah operasi terminal cerdas yang **tidak perlu memproses seluruh elemen stream** sampai habis jika hasil kesimpulannya sudah dapat ditentukan di tengah jalan:
 - `anyMatch(Predicate)` : Mengembalikan `true` begitu menemukan **minimal satu** elemen yang memenuhi syarat.
@@ -1230,7 +1242,7 @@ stream.count()                       → menghitung jumlah elemen yang mengalir 
 - `findFirst()` : Mengembalikan `Optional<T>` berisi elemen pertama yang lolos pipeline.
 - `findAny()` : Mengembalikan elemen apapun yang pertama kali ditemukan (sangat cepat pada parallel stream).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1258,7 +1270,7 @@ public class ShortCircuitDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Apakah ada angka genap? true
@@ -1278,9 +1290,9 @@ stream.findFirst()          → mengambil elemen pertama yang lolos filter sebag
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Collectors Dasar (`toList`, `toSet`, `toMap`, `joining`)
+## 20. 🔴 Collectors Dasar (`toList`, `toSet`, `toMap`, `joining`)
 
-## Konsep
+#### Konsep
 
 Method `.collect(Collector)` adalah operasi terminal paling fleksibel untuk mengubah aliran data stream kembali menjadi struktur data koleksi penampung atau format string:
 - `Collectors.toList()` / `.toList()` (Java 16+): Mengumpulkan ke dalam `List`.
@@ -1288,7 +1300,7 @@ Method `.collect(Collector)` adalah operasi terminal paling fleksibel untuk meng
 - `Collectors.toMap(KeyMapper, ValueMapper)` : Mengumpulkan ke dalam `Map<K, V>`.
 - `Collectors.joining(delimiter)` : Menggabungkan elemen String menjadi satu teks dengan pemisah pemisah tertentu.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1326,7 +1338,7 @@ public class CollectorsBaseDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Set Nama: [Keyboard, Mouse, Laptop]
@@ -1346,14 +1358,14 @@ stream.collect(Collectors.joining(delimiter))    → menggabungkan elemen teks m
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 Collectors Lanjutan: `groupingBy()` & `partitioningBy()`
+## 21. 🔴 Collectors Lanjutan: `groupingBy()` & `partitioningBy()`
 
-## Konsep
+#### Konsep
 
 - **`Collectors.groupingBy(classifier)`:** Mengelompokkan elemen stream berdasarkan kriteria tertentu menjadi **`Map<Key, List<Item>>`** (setara dengan `GROUP BY` pada SQL database).
 - **`Collectors.partitioningBy(predicate)`:** Kasus khusus grouping yang membagi elemen menjadi dua kelompok boolean: **`Map<Boolean, List<Item>>`** (kelompok `true` dan kelompok `false`).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1391,7 +1403,7 @@ public class GroupingPartitionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 --- Grouping Berdasarkan Kategori ---
@@ -1404,7 +1416,7 @@ Transaksi Lunas (true) : 4
 Belum Lunas (false)    : 1
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Stream Transaksi ──> groupingBy(kategori) ──> Map: { ELEKTRONIK=[T1, T3], FASHION=[T2, T5], KULINER=[T4] }
@@ -1421,9 +1433,9 @@ Collectors.partitioningBy(predicate)  → mempartisi elemen stream ke dalam Map<
 
 <a id="bagian-22"></a>
 
-# 22. 🔴 Downstream Collectors (`counting`, `mapping`, `summingDouble`, `averagingDouble`)
+## 22. 🔴 Downstream Collectors (`counting`, `mapping`, `summingDouble`, `averagingDouble`)
 
-## Konsep
+#### Konsep
 
 `Collectors.groupingBy()` mendukung parameter kedua yang disebut **Downstream Collector** untuk melakukan kalkulasi agregasi langsung pada setiap kelompok data:
 - `Collectors.counting()` : Menghitung jumlah elemen per kelompok.
@@ -1431,7 +1443,7 @@ Collectors.partitioningBy(predicate)  → mempartisi elemen stream ke dalam Map<
 - `Collectors.averagingDouble(mapper)` : Menghitung nilai rata-rata per kelompok.
 - `Collectors.mapping(mapper, collector)` : Mentransformasikan objek sebelum dikumpulkan.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1472,7 +1484,7 @@ public class DownstreamCollectorDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 --- Total Omset Penjualan per Kategori ---
@@ -1494,16 +1506,16 @@ groupingBy(keyFn, summingDouble(valFn)) → mengelompokkan data sekaligus menghi
 
 <a id="bagian-23"></a>
 
-# 23. 🔴 Lazy Evaluation pada Stream Pipeline
+## 23. 🔴 Lazy Evaluation pada Stream Pipeline
 
-## Konsep
+#### Konsep
 
 Operasi perantara (*Intermediate Operations*) pada Stream API dieksekusi dengan prinsip **Lazy Evaluation**:
 - Operasi `filter()`, `map()`, `sorted()` **tidak akan dieksekusi sama sekali** saat baris kode dideklarasikan.
 - Mesin eksekusi Java baru mulai menarik data dan memprosesnya saat **Terminal Operation (seperti `findFirst()` atau `toList()`) dipanggil**.
 - Proses dilakukan secara *vertikal per elemen* (bukan horizontal batch), sehingga jika menggunakan short-circuiting, elemen di belakang tidak akan pernah disentuh sama sekali.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1532,7 +1544,7 @@ public class LazyEvaluationDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Mendefinisikan pipeline stream...
@@ -1546,7 +1558,7 @@ Memanggil Terminal Operation findFirst()...
 Hasil Akhir: AHMAD
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Karena findFirst() hanya butuh 1 data, eksekusi BERHENTI setelah "Ahmad" lolos.
@@ -1563,9 +1575,9 @@ Lazy Evaluation → operasi stream intermediate hanya dieksekusi saat dibutuhkan
 
 <a id="bagian-24"></a>
 
-# 24. 🔴 Parallel Stream (`parallelStream()` & ForkJoinPool)
+## 24. 🔴 Parallel Stream (`parallelStream()` & ForkJoinPool)
 
-## Konsep
+#### Konsep
 
 `parallelStream()` membagi aliran data menjadi beberapa pecahan sub-aliran (*sub-streams*) yang dieksekusi secara bersamaan (*multi-threaded*) di seluruh inti CPU komputer menggunakan **`ForkJoinPool.commonPool()`**.
 
@@ -1575,7 +1587,7 @@ Kapan menggunakan Parallel Stream?
   - Ada manipulasi *shared mutable state* (dapat memicu race condition).
   - Kasus operasi I/O, database query, atau stream berukuran kecil (overhead pembuatan thread justru membuat kode lebih lambat).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -1592,7 +1604,7 @@ public class ParallelStreamDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Eksekusi Parallel Stream:
@@ -1616,7 +1628,7 @@ collection.parallelStream() → memproses pipeline data secara paralel memanfaat
 
 <a id="bagian-25"></a>
 
-# 25. 🛠️ Peta Ingatan Cepat
+## 25. 🛠️ Peta Ingatan Cepat
 
 ```text
                          PETA JAVA FUNCTIONAL & STREAM
@@ -1634,7 +1646,7 @@ FUNCTIONAL INTERFACES          OPTIONAL PIPELINE              STREAM LIFECYCLE
 
 <a id="bagian-26"></a>
 
-# 26. 📚 Tabel Ringkasan
+## 26. 📚 Tabel Ringkasan
 
 | Konsep / Interface | Method Utama | Return Type | Karakteristik & Fungsi |
 |---|---|---|---|
@@ -1653,7 +1665,7 @@ FUNCTIONAL INTERFACES          OPTIONAL PIPELINE              STREAM LIFECYCLE
 
 <a id="bagian-27"></a>
 
-# 27. ⚡ Cheat Code Java Lambda & Stream 10 Detik
+## 27. ⚡ Cheat Code Java Lambda & Stream 10 Detik
 
 ```java
 // 1. Filter, Map & toList
@@ -1680,7 +1692,7 @@ boolean hasAdmin = users.stream().anyMatch(u -> "ADMIN".equals(u.getRole()));
 
 <a id="bagian-28"></a>
 
-# 28. 🧭 Urutan Belajar yang Disarankan
+## 28. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Functional Interfaces & Lambda Syntax
@@ -1710,7 +1722,7 @@ Langkah 5: Siap Membangun RESTful API & Service Layer di Spring Boot!
 
 <a id="bagian-29"></a>
 
-# 29. 🏗️ Mini Project: Engine Pemrosesan & Analitik Transaksi Penjualan E-Commerce CLI
+## 29. 🏗️ Mini Project: Engine Pemrosesan & Analitik Transaksi Penjualan E-Commerce CLI
 
 Aplikasi analitik laporan bisnis e-commerce yang mengintegrasikan: **Stream Pipeline, Multi-level Grouping, Downstream Aggregations (`summingDouble`, `counting`, `averagingDouble`), `flatMap`, `takeWhile`, dan `Optional` Handling**.
 
@@ -1819,7 +1831,7 @@ public class SalesAnalyticsApp {
 }
 ```
 
-## Output Demonstrasi
+#### Output Demonstrasi
 
 ```text
 ==================================================
@@ -1856,7 +1868,7 @@ public class SalesAnalyticsApp {
 
 <a id="bagian-30"></a>
 
-# 30. 🔗 Referensi Resmi
+## 30. 🔗 Referensi Resmi
 
 - [Oracle Java Functional Programming & Lambda Tutorial](https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)
 - [Java SE 21 Stream Package Specification](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/package-summary.html)

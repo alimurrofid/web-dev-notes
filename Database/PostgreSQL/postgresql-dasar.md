@@ -1,4 +1,15 @@
-# PostgreSQL Dasar Cheatsheet Revised
+---
+title: "PostgreSQL Dasar"
+description: "Fundamental relational database PostgreSQL: Data types, DDL (CREATE TABLE, ALTER), DML (INSERT, SELECT, UPDATE, DELETE), Filtering (WHERE), dan Constraints."
+order: 1
+tags:
+  - database
+  - postgresql
+  - sql
+  - fundamental
+---
+
+# PostgreSQL Dasar
 
 > **Target:** Pemula yang ingin menguasai **basis data relasional modern (RDBMS / ORDBMS), perintah `psql` CLI, DDL & DML, tipe data modern (UUID `gen_random_uuid()`, ENUM, `TIMESTAMPTZ`, `NUMERIC`), integritas data Constraints (`CHECK`, `UNIQUE`), fitur unggulan `RETURNING` & UPSERT (`ON CONFLICT`), pencarian `ILIKE`, agregasi `GROUP BY` / `HAVING`, dan Multi-Table `JOINs`** menggunakan **PostgreSQL 16+**.
 >
@@ -107,9 +118,9 @@ CHECK Constraint   → aturan validasi nilai kolom tingkat database untuk menjam
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan PostgreSQL 16 & Mental Model Object-Relational Database
+## 1. 🟢 Pengenalan PostgreSQL 16 & Mental Model Object-Relational Database
 
-## Konsep
+#### Konsep
 
 **PostgreSQL** (sering disebut *Postgres*) adalah **Object-Relational Database Management System (ORDBMS)** paling canggih di dunia sumber terbuka (*Open Source*).
 
@@ -119,7 +130,7 @@ Mengapa PostgreSQL Menjadi Standar Utama Industri Modern?
 3. **Tipe Data Sangat Kaya:** Mendukung native JSONB, UUID, Geospasial (PostGIS), IP Address (INET), dan Array.
 4. **Ekstensibilitas Luar Biasa:** Mendukung bahasa pemrograman kustom di dalam database (PL/pgSQL, Python, JavaScript) dan custom index types (GIN, GiST, BRIN).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Aplikasi Backend (Node/Java/PHP/Go)
@@ -142,9 +153,9 @@ MVCC                           → arsitektur konkurensi yang memungkinkan trans
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Tooling `psql` CLI & Perintah Meta Navigasi
+## 2. 🟢 Tooling `psql` CLI & Perintah Meta Navigasi
 
-## Konsep
+#### Konsep
 
 **`psql`** adalah terminal antarmuka baris perintah (*CLI*) bawaan PostgreSQL. Seluruh perintah meta di `psql` diawali dengan garis miring terbalik (**`\`**).
 
@@ -175,9 +186,9 @@ Perintah Meta `psql` Paling Penting:
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Tipe Data Inti PostgreSQL
+## 3. 🟢 Tipe Data Inti PostgreSQL
 
-## Konsep
+#### Konsep
 
 PostgreSQL memiliki sistem tipe data yang sangat kaya dan presisi:
 
@@ -195,7 +206,7 @@ PostgreSQL memiliki sistem tipe data yang sangat kaya dan presisi:
 5. **Boolean:**
    - **`BOOLEAN`:** `TRUE`, `FALSE`, atau `NULL`.
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE TABLE product_samples (
@@ -221,9 +232,9 @@ TIMESTAMPTZ                    → tipe data tanggal waktu standar yang menyerta
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Tipe Data Kustom ENUM
+## 4. 🟢 Tipe Data Kustom ENUM
 
-## Konsep
+#### Konsep
 
 Di PostgreSQL, kita dapat membuat tipe data kustom berbasis pilihan terbatas (**ENUM / Enumerated Type**) menggunakan perintah **`CREATE TYPE ... AS ENUM`**.
 
@@ -232,7 +243,7 @@ Keuntungan ENUM:
 - Hemat ruang penyimpanan dibanding teks string biasa.
 - Memberikan dokumentasi skema yang jelas.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Membuat Tipe Data Kustom ENUM
@@ -256,9 +267,9 @@ CREATE TYPE type_name AS ENUM ('VAL1', 'VAL2', 'VAL3'); → membuat tipe data pi
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 DDL: Membuat Table dengan Constraints Lengkap
+## 5. 🟢 DDL: Membuat Table dengan Constraints Lengkap
 
-## Konsep
+#### Konsep
 
 **Data Definition Language (DDL)** digunakan untuk membangun struktur tabel.
 
@@ -269,7 +280,7 @@ Jenis Constraints (Aturan Integritas Data):
 - **`DEFAULT ...`:** Memberikan nilai bawaan jika kolom tidak disertakan saat insert.
 - **`CHECK (kondisi)`:** Aturan validasi logika bisnis tingkat database (misal: `CHECK (price > 0)` atau `CHECK (discount <= 100)`).
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE TABLE customers (
@@ -293,9 +304,9 @@ CHECK (column_condition) → memvalidasi integritas data bisnis langsung di leve
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 DDL: Mengubah & Menghapus Struktur Table
+## 6. 🟢 DDL: Mengubah & Menghapus Struktur Table
 
-## Konsep
+#### Konsep
 
 Perintah Modifikasi Skema DDL:
 - **`ALTER TABLE table_name ADD COLUMN ...`:** Menambah kolom baru.
@@ -305,7 +316,7 @@ Perintah Modifikasi Skema DDL:
 - **`TRUNCATE TABLE table_name`:** Menghapus seluruh baris data dengan cepat tanpa menghapus struktur tabel (jauh lebih cepat daripada `DELETE`).
 - **`DROP TABLE IF EXISTS table_name CASCADE`:** Menghapus tabel permanen beserta objek dependensinya.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Tambah Kolom Baru
@@ -332,16 +343,16 @@ TRUNCATE TABLE name                   → mengosongkan seluruh data tabel secara
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 DML: Menyimpan Data dengan `INSERT INTO` & Klausa `RETURNING *`
+## 7. 🟢 DML: Menyimpan Data dengan `INSERT INTO` & Klausa `RETURNING *`
 
-## Konsep
+#### Konsep
 
 Perintah **`INSERT INTO`** digunakan untuk menyimpan baris data baru ke tabel.
 
 **Fitur Unggulan PostgreSQL: Klausa `RETURNING`**:
 Di database lain (seperti MySQL), setelah insert Anda harus memanggil fungsi terpisah untuk mengambil ID yang baru dibuat. Di PostgreSQL, cukup tambahkan **`RETURNING *`** atau **`RETURNING id, created_at`** di akhir query `INSERT`, dan database akan langsung mengembalikan baris yang baru saja disimpan!
 
-## Contoh
+#### Contoh
 
 ```sql
 -- Insert Tunggal dengan Klausa RETURNING
@@ -357,7 +368,7 @@ VALUES
 RETURNING id, name;
 ```
 
-## Output
+#### Output
 
 ```text
                   id                  |     name     |     email     |          created_at           
@@ -376,9 +387,9 @@ INSERT INTO table (columns) VALUES (values) RETURNING * → menyimpan data baru 
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 DML: Menangani Konflik Duplikasi / UPSERT
+## 8. 🟢 DML: Menangani Konflik Duplikasi / UPSERT
 
-## Konsep
+#### Konsep
 
 Ketika meng-insert data yang berpotensi melanggar constraint `UNIQUE` (misal: email pengguna yang mungkin sudah terdaftar), database biasa akan melempar error gagal.
 
@@ -386,7 +397,7 @@ PostgreSQL memiliki fitur **UPSERT (*Insert or Update*)** menggunakan klausa **`
 1. **`ON CONFLICT (kolom_unik) DO NOTHING`:** Jika data sudah ada, abaikan tanpa melempar error.
 2. **`ON CONFLICT (kolom_unik) DO UPDATE SET ...`:** Jika data sudah ada, perbarui baris yang ada dengan nilai baru via keyword **`EXCLUDED`**.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- UPSERT: Perbarui nama dan saldo jika email sudah terdaftar
@@ -410,9 +421,9 @@ ON CONFLICT (target_col) DO NOTHING                      → abaikan insert jika
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 DML: Memperbarui Data dengan `UPDATE`
+## 9. 🟡 DML: Memperbarui Data dengan `UPDATE`
 
-## Konsep
+#### Konsep
 
 Perintah **`UPDATE`** digunakan untuk memperbarui nilai kolom pada baris data yang ada.
 
@@ -421,7 +432,7 @@ Perintah **`UPDATE`** digunakan untuk memperbarui nilai kolom pada baris data ya
 
 Klausa `RETURNING` juga dapat digunakan pada `UPDATE`.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- Update Saldo dan Nama Pelanggan Tertentu
@@ -443,15 +454,15 @@ UPDATE table SET col = newVal WHERE condition RETURNING * → memperbarui baris 
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 DML: Menghapus Data dengan `DELETE`
+## 10. 🟡 DML: Menghapus Data dengan `DELETE`
 
-## Konsep
+#### Konsep
 
 Perintah **`DELETE FROM`** digunakan untuk menghapus baris data dari tabel berdasarkan filter kriteria `WHERE`.
 
 Klausa `RETURNING` dapat digunakan untuk mengembalikan data baris yang baru saja dihapus (misal: mencatat ID yang dihapus ke audit log).
 
-## Contoh
+#### Contoh
 
 ```sql
 -- Hapus Customer Tertentu
@@ -470,16 +481,16 @@ DELETE FROM table WHERE condition RETURNING id → menghapus baris data dan meng
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Querying Dasar & Alias
+## 11. 🟡 Querying Dasar & Alias
 
-## Konsep
+#### Konsep
 
 Perintah **`SELECT`** digunakan untuk membaca data:
 - **`SELECT col1, col2 FROM table`:** Memilih kolom tertentu.
 - **`AS alias_name`:** Memberikan nama alias sementara untuk kolom atau tabel.
 - **`SELECT DISTINCT col FROM table`:** Mengeliminasi nilai duplikat dan hanya menampilkan nilai unik.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- Menggunakan Alias dan DISTINCT
@@ -500,9 +511,9 @@ SELECT DISTINCT col FROM table  → menyaring hasil query agar hanya menampilkan
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Filtering Lanjutan dengan Klausa `WHERE`
+## 12. 🟡 Filtering Lanjutan dengan Klausa `WHERE`
 
-## Konsep
+#### Konsep
 
 Klausa **`WHERE`** menyaring baris data berdasarkan ekspresi logika:
 - **Operator Perbandingan:** `=`, `!=` atau `<>`, `>`, `<`, `>=`, `<=`.
@@ -510,7 +521,7 @@ Klausa **`WHERE`** menyaring baris data berdasarkan ekspresi logika:
 - **Koleksi & Rentang:** `IN ('A', 'B', 'C')`, `BETWEEN val1 AND val2`.
 - **Nilai Kosong:** `IS NULL`, `IS NOT NULL` (Dilarang menggunakan `= NULL`).
 
-## Contoh
+#### Contoh
 
 ```sql
 SELECT name, email, balance, is_active
@@ -531,16 +542,16 @@ WHERE col IS NOT NULL AND col IN ('A', 'B') AND col BETWEEN x AND y
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Pencarian Teks Pola dengan `LIKE` vs `ILIKE`
+## 13. 🟡 Pencarian Teks Pola dengan `LIKE` vs `ILIKE`
 
-## Konsep
+#### Konsep
 
 Untuk mencari string yang mengandung pola tertentu (menggunakan wildcard `%` untuk sembarang karakter dan `_` untuk 1 karakter):
 
 1. **`LIKE` (Case-Sensitive):** Membedakan huruf besar dan kecil (`'Budi'` tidak cocok dengan `'budi'`).
 2. **`ILIKE` (Case-Insensitive - Fitur Khas PostgreSQL):** **TIDAK MEMBEDAKAN huruf besar dan kecil** (`'budi'` cocok dengan `'Budi'`, `'BUDI'`, `'bUDI'`).
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Mencari nama yang mengandung kata "santoso" (Huruf besar/kecil bebas!)
@@ -564,16 +575,16 @@ WHERE column ILIKE '%keyword%' → pencarian teks case-insensitive tanpa peduli 
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Pengurutan & Paginasi Data
+## 14. 🟡 Pengurutan & Paginasi Data
 
-## Konsep
+#### Konsep
 
 - **`ORDER BY col1 ASC | DESC`:** Mengurutkan data menaik (*Ascending*) atau menurun (*Descending*).
 - **`NULLS FIRST | NULLS LAST`:** Menentukan apakah nilai `NULL` diletakkan di paling atas atau paling bawah.
 - **`LIMIT n`:** Membatasi jumlah maksimal baris yang dikembalikan.
 - **`OFFSET m`:** Melompati $m$ baris pertama (Rumus Paginasi: `OFFSET = (halaman - 1) * limit`).
 
-## Contoh
+#### Contoh
 
 ```sql
 -- Mengambil Halaman ke-2 (Baris 11 s.d. 20) dengan saldo tertinggi
@@ -593,9 +604,9 @@ ORDER BY col DESC LIMIT 10 OFFSET 20 → mengurutkan data dan memotong baris unt
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Fungsi Agregasi Dasar
+## 15. 🟡 Fungsi Agregasi Dasar
 
-## Konsep
+#### Konsep
 
 Fungsi agregasi menghitung kumpulan baris data menjadi **satu nilai ringkasan tunggal**:
 
@@ -605,7 +616,7 @@ Fungsi agregasi menghitung kumpulan baris data menjadi **satu nilai ringkasan tu
 - **`AVG(kolom)`:** Menghitung rata-rata nilai numerik.
 - **`MIN(kolom)` / `MAX(kolom)`:** Mencari nilai terendah dan tertinggi.
 
-## Contoh
+#### Contoh
 
 ```sql
 SELECT 
@@ -628,9 +639,9 @@ COUNT(*), SUM(col), AVG(col), MIN(col), MAX(col) → lima fungsi agregasi statis
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Pengelompokan Data dengan `GROUP BY` & Penyaringan Agregat `HAVING`
+## 16. 🟡 Pengelompokan Data dengan `GROUP BY` & Penyaringan Agregat `HAVING`
 
-## Konsep
+#### Konsep
 
 1. **`GROUP BY`:** Mengelompokkan baris data yang memiliki nilai kolom yang sama ke dalam baris ringkasan.
 2. **`HAVING`:** Menyaring hasil kalkulasi **setelah agregasi selesai**.
@@ -640,7 +651,7 @@ COUNT(*), SUM(col), AVG(col), MIN(col), MAX(col) → lima fungsi agregasi statis
 > - `WHERE` memfilter **baris data mentah SEBELUM agregasi dihitung**.
 > - `HAVING` memfilter **hasil kalkulasi agregasi SETELAH `GROUP BY` selesai**.
 
-## Contoh
+#### Contoh
 
 ```sql
 SELECT 
@@ -654,7 +665,7 @@ HAVING COUNT(*) >= 2               -- 3. Hanya tampilkan role yang anggotanya mi
 ORDER BY jumlah_user DESC;
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Tabel Customers Mentah (100 Baris)
@@ -679,9 +690,9 @@ GROUP BY col HAVING COUNT(*) > n → mengelompokkan baris dan menyaring grup ber
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Relasi Antar Tabel & Foreign Key Constraints
+## 17. 🟡 Relasi Antar Tabel & Foreign Key Constraints
 
-## Konsep
+#### Konsep
 
 **Foreign Key (Kunci Tamu)** menghubungkan kolom di tabel anak (*Child*) ke Primary Key di tabel induk (*Parent*), menjamin integritas referensial.
 
@@ -690,7 +701,7 @@ Aksi Integritas Hapus Data (**`ON DELETE`**):
 - **`ON DELETE SET NULL`:** Jika parent dihapus, kolom foreign key di child diubah menjadi `NULL`.
 - **`ON DELETE RESTRICT` (Default):** Melarang penghapusan data parent jika masih ada data child yang mengikatnya.
 
-## Contoh
+#### Contoh
 
 Tabel Induk (Categories):
 ```sql
@@ -721,14 +732,14 @@ REFERENCES parent_table(id) ON DELETE CASCADE → relasi kunci asing dengan peng
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Teknik Menggabungkan Tabel (JOIN Inti): `INNER JOIN` & `LEFT JOIN`
+## 18. 🔴 Teknik Menggabungkan Tabel (JOIN Inti): `INNER JOIN` & `LEFT JOIN`
 
-## Konsep
+#### Konsep
 
 1. **`INNER JOIN`:** Hanya menampilkan baris yang **memiliki kecocokan data di KEDUA tabel** (Irisan himpunan).
 2. **`LEFT JOIN` (LEFT OUTER JOIN):** Menampilkan **SEMUA baris dari tabel kiri**, ditambah data yang cocok dari tabel kanan. Jika tabel kanan tidak memiliki pasangan, kolom kanan akan bernilai `NULL`.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. INNER JOIN: Hanya produk yang memiliki kategori yang tampil
@@ -759,15 +770,15 @@ LEFT JOIN table_b ON table_a.b_id = table_b.id  → mempertahankan seluruh baris
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Teknik Menggabungkan Tabel (JOIN Lanjutan): `RIGHT JOIN`, `FULL OUTER JOIN`, dan `CROSS JOIN`
+## 19. 🔴 Teknik Menggabungkan Tabel (JOIN Lanjutan): `RIGHT JOIN`, `FULL OUTER JOIN`, dan `CROSS JOIN`
 
-## Konsep
+#### Konsep
 
 - **`RIGHT JOIN`:** Menampilkan semua baris dari tabel kanan.
 - **`FULL OUTER JOIN`:** Menampilkan semua baris dari tabel kiri DAN tabel kanan (data yang tidak cocok diisi `NULL`).
 - **`CROSS JOIN` (Cartesian Product):** Mengalikan setiap baris tabel A dengan setiap baris tabel B ($N \times M$ kombinasi baris).
 
-## Contoh
+#### Contoh
 
 ```sql
 -- FULL OUTER JOIN: Tampilkan semua kategori & semua produk meski tidak berpasangan
@@ -788,9 +799,9 @@ FULL OUTER JOIN → menggabungkan seluruh baris kedua tabel baik yang cocok maup
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Operasi Himpunan Baris Data: `UNION`, `UNION ALL`, `INTERSECT`, dan `EXCEPT`
+## 20. 🔴 Operasi Himpunan Baris Data: `UNION`, `UNION ALL`, `INTERSECT`, dan `EXCEPT`
 
-## Konsep
+#### Konsep
 
 Operasi himpunan menggabungkan hasil dari 2 query `SELECT` yang berbeda (dengan jumlah dan tipe kolom yang sama):
 
@@ -799,7 +810,7 @@ Operasi himpunan menggabungkan hasil dari 2 query `SELECT` yang berbeda (dengan 
 - **`INTERSECT`:** Hanya mengambil baris yang muncul di **kedua query**.
 - **`EXCEPT`:** Mengambil baris di Query 1 yang **TIDAK ADA di Query 2**.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- UNION ALL: Menggabungkan email pelanggan dan email vendor ke 1 daftar
@@ -819,7 +830,7 @@ UNION ALL → menggabungkan baris data dari 2 query secara instan tanpa komputas
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                        PETA ARSITEKTUR POSTGRESQL DASAR
@@ -837,7 +848,7 @@ DDL & TIPE DATA MODERN         DML & UPSERT ENGINE             QUERY & AGREGASI
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Perintah / Klausul | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -858,7 +869,7 @@ DDL & TIPE DATA MODERN         DML & UPSERT ENGINE             QUERY & AGREGASI
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code PostgreSQL Dasar 10 Detik
+## 23. ⚡ Cheat Code PostgreSQL Dasar 10 Detik
 
 ```sql
 -- 1. Template Tabel Modern dengan UUID, ENUM & CHECK
@@ -884,7 +895,7 @@ RETURNING *;
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Tooling psql & Tipe Data Modern
@@ -914,7 +925,7 @@ Langkah 5: Siap Melangkah ke PostgreSQL Lanjutan (Index, JSONB, CTE & Transaksi)
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready E-Commerce Relational Database Schema & Reporting Query Suite
+## 25. 🏗️ Mini Project: Production-Ready E-Commerce Relational Database Schema & Reporting Query Suite
 
 Skema database e-commerce relasional lengkap dan runnable di PostgreSQL 16: **DDL dengan UUID, ENUM, CHECK Constraints, Relasi Foreign Key `ON DELETE CASCADE`, DML dengan `RETURNING` & UPSERT, serta Analisis Laporan Penjualan Multi-Tabel dengan `INNER JOIN`, `LEFT JOIN`, dan `GROUP BY` / `HAVING`**.
 
@@ -1056,7 +1067,7 @@ WHERE category ILIKE '%aksesoris%' AND stock > 0
 ORDER BY price ASC;
 ```
 
-## Hasil Output Eksekusi Query Laporan (Terminal psql)
+#### Hasil Output Eksekusi Query Laporan (Terminal psql)
 
 ```text
 -- OUTPUT LAPORAN 1:
@@ -1080,7 +1091,7 @@ ORDER BY price ASC;
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [PostgreSQL 16 Official Documentation](https://www.postgresql.org/docs/16/index.html)
 - [PostgreSQL Data Types Reference](https://www.postgresql.org/docs/16/datatype.html)

@@ -1,4 +1,15 @@
-# Dockerfile Dasar Cheatsheet Revised
+---
+title: "Dockerfile Dasar"
+description: "Membangun image kustom dengan Dockerfile: FROM, RUN, COPY, ADD, WORKDIR, ENV, EXPOSE, CMD vs ENTRYPOINT, Multi-stage builds, dan Image optimization."
+order: 2
+tags:
+  - devops
+  - docker
+  - dockerfile
+  - images
+---
+
+# Dockerfile Dasar
 
 > **Target:** Pemula yang sudah memahami dasar Docker (image, container, CLI `docker run`) dan ingin menguasai penulisan Dockerfile untuk merakit custom Docker Image yang optimal, aman, dan berstandar industri.
 >
@@ -90,23 +101,23 @@ Build Context → Direktori file host yang dikirimkan ke Docker Daemon untuk pro
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Dockerfile & Alur Build Image
+## 1. 🟢 Pengenalan Dockerfile & Alur Build Image
 
-## Konsep
+#### Konsep
 
 **Dockerfile** adalah sebuah dokumen teks biasa (tanpa ekstensi file) yang berisi serangkaian instruksi dan perintah baris demi baris yang akan dieksekusi secara otomatis oleh Docker Engine untuk merakit dan membangun sebuah **Docker Image** kustom.
 
-### Analogi Memahami Dockerfile:
+##### Analogi Memahami Dockerfile:
 - **Dockerfile** = *Resep Masakan / Blueprint Cetak Biru*.
 - **Docker Image** = *Kue Jadi / Paket Binari Hasil Build (Read-Only)*.
 - **Docker Container** = *Sepotong Kue yang Sedang Dimakan / Instance yang Berjalan di Memori*.
 
-### Alur Eksekusi:
+##### Alur Eksekusi:
 ```text
        [ Dockerfile ] ──► docker build ──► [ Docker Image ] ──► docker run ──► [ Container Aktif ]
 ```
 
-## Contoh
+#### Contoh
 
 Contoh sebuah Dockerfile sederhana untuk menyajikan file HTML statis menggunakan web server Nginx:
 
@@ -130,7 +141,7 @@ docker build -t my-web:v1.0 .
 docker run -d --name web-app -p 8080:80 my-web:v1.0
 ```
 
-## Output
+#### Output
 
 Hasil proses `docker build`:
 ```text
@@ -144,7 +155,7 @@ Hasil proses `docker build`:
  => => naming to docker.io/library/my-web:v1.0
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Developer menulis instruksi di file "Dockerfile"
@@ -170,7 +181,7 @@ docker build -t name:tag path → Perintah mengompilasi Dockerfile menjadi image
 Build Context → Folder path (titik '.') yang dikirimkan ke Docker Daemon saat proses build
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Beri nama file tepat `Dockerfile` dengan huruf besar 'D' tanpa ekstensi (bukan `Dockerfile.txt` atau `dockerfile.yaml`).
 - ❌ Jangan menaruh file-file berukuran gigabyte yang tidak relevan di dalam folder *build context* karena akan memperlambat pengiriman data ke Docker Daemon.
@@ -179,9 +190,9 @@ Build Context → Folder path (titik '.') yang dikirimkan ke Docker Daemon saat 
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Format & Struktur Penulisan Dockerfile
+## 2. 🟢 Format & Struktur Penulisan Dockerfile
 
-## Konsep
+#### Konsep
 
 Format dasar Dockerfile terdiri dari dua komponen utama: **`INSTRUCTION`** (kata kunci instruksi) dan **`arguments`** (argumen/parameter).
 
@@ -191,7 +202,7 @@ Aturan Sintaks Dockerfile:
 3. **Urutan Instruksi Sangat Penting:** Docker mengeksekusi instruksi dari atas ke bawah secara sekuensial. Setiap instruksi yang memodifikasi sistem file akan menghasilkan satu lapisan (*Layer*) baru.
 4. **Instruksi Wajib Pertama:** Baris instruksi bukan-komentar pertama **WAJIB berupa instruksi `FROM`** (kecuali ada deklarasi global `ARG` sebelum FROM).
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 # =========================================================================
@@ -215,7 +226,7 @@ RUN apk add --no-cache curl bash
 CMD ["bash"]
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Building 2.1s (8/8) FINISHED
@@ -226,7 +237,7 @@ CMD ["bash"]
  => exporting to image
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Baris 1: FROM alpine:3.19   ──► Unduh Base OS
@@ -248,7 +259,7 @@ INSTRUCTION arguments → Format baku baris Dockerfile (Instruksi selalu HURUF B
 # komentar             → Baris dokumentasi yang diabaikan saat build
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Tulis instruksi dalam huruf besar (`FROM`, `RUN`, `COPY`) untuk meningkatkan keterbacaan kode (*readability*).
 - ❌ Jangan meletakkan instruksi seperti `RUN` atau `COPY` sebelum instruksi `FROM`.
@@ -257,9 +268,9 @@ INSTRUCTION arguments → Format baku baris Dockerfile (Instruksi selalu HURUF B
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Instruksi FROM (Base Image & Tagging)
+## 3. 🟢 Instruksi FROM (Base Image & Tagging)
 
-## Konsep
+#### Konsep
 
 Instruksi **`FROM`** menginisialisasi proses build baru dan menentukan **Base Image** (Fondasi Sistem Operasi / Runtime awal) yang akan digunakan sebagai titik awal penumpukan layer.
 
@@ -269,7 +280,7 @@ Aturan Penting `FROM`:
 - Selalu gunakan **Tag Versi Spesifik** (misal: `FROM node:20-alpine`), hindari menggunakan `node:latest` agar hasil build stabil dan tidak berubah mendadak saat ada rilis versi baru.
 - **Image Kosong (`FROM scratch`):** Digunakan untuk aplikasi yang dikompilasi statis (seperti binary Go atau Rust) yang tidak membutuhkan sistem operasi sama sekali (ukuran image bisa sekecil 5MB!).
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 # Menggunakan Node.js versi 20 berbasis distribusi Alpine Linux yang ramping
@@ -279,7 +290,7 @@ FROM node:20-alpine
 RUN node -v && npm -v
 ```
 
-## Output
+#### Output
 
 ```text
 Step 1/2 : FROM node:20-alpine
@@ -292,7 +303,7 @@ v20.12.2
 Successfully built e9d8c7b6a5f4
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Instruksi: FROM node:20-alpine
@@ -312,7 +323,7 @@ FROM <image>[:<tag>] [AS <name>] → Menentukan base image fondasi awal untuk pr
 FROM scratch                    → Base image kosong murni (ukuran 0 byte)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Prioritaskan base image berbasis `alpine` atau `distroless` untuk meminimalkan ukuran image dan mengurangi celah keamanan (*vulnerabilities*).
 - ❌ Jangan pernah menggunakan tag `latest` di lingkungan produksi karena dapat merusak kompatibilitas dependensi sewaktu-waktu.
@@ -321,23 +332,23 @@ FROM scratch                    → Base image kosong murni (ukuran 0 byte)
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Instruksi RUN (Eksekusi Perintah Build & Layer Caching)
+## 4. 🟢 Instruksi RUN (Eksekusi Perintah Build & Layer Caching)
 
-## Konsep
+#### Konsep
 
 Instruksi **`RUN`** digunakan untuk mengeksekusi perintah shell (seperti menginstal paket, membuat direktori, mengunduh file, atau mengompilasi kode) **selama proses pembuatan image (*Build-Time*)**.
 
 Hasil dari instruksi `RUN` akan disimpan sebagai lapisan permanen (*Committed Layer*) baru di dalam image.
 
-### 2 Format Penulisan RUN:
+##### 2 Format Penulisan RUN:
 1. **Shell Form:** `RUN apt-get update && apt-get install -y curl` (dieksekusi melalui shell `/bin/sh -c`).
 2. **Exec Form:** `RUN ["apt-get", "install", "-y", "curl"]`.
 
-### Kunci Optimasi: Penggabungan Perintah (*Chaining with &&*):
+##### Kunci Optimasi: Penggabungan Perintah (*Chaining with &&*):
 Setiap baris instruksi `RUN` menciptakan 1 layer baru. Jika kita menulis 5 baris `RUN` terpisah, ukuran image akan membengkak.
 **Best Practice:** Gabungkan perintah instalasi dan pembersihan cache paket dalam **SATU baris `RUN` tunggal** menggunakan operator `&&`.
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM alpine:3.19
@@ -351,7 +362,7 @@ RUN apk update && \
     rm -rf /var/cache/apk/*
 ```
 
-## Output
+#### Output
 
 ```text
 Step 1/2 : FROM alpine:3.19
@@ -368,7 +379,7 @@ Removing intermediate container d3e4f5a6b7c8
 Successfully built 4a3b2c1d0e9f
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Dockerfile: RUN apk add ...
@@ -393,7 +404,7 @@ RUN <command> && <command> → Menjalankan perintah di masa BUILD dan menyimpan 
 --no-cache / rm -rf cache  → Wajib menghapus file installer sementara agar image tetap ramping
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gabungkan `apt-get update && apt-get install -y ... && rm -rf /var/lib/apt/lists/*` dalam satu instruksi `RUN` agar file index apt tidak tertinggal di layer image.
 - ❌ Jangan memisahkan `RUN apt-get update` di baris 1 dan `RUN apt-get install` di baris 2, karena layer cache Docker akan menyebabkan instalasi paket gagal mengambil versi terbaru.
@@ -402,9 +413,9 @@ RUN <command> && <command> → Menjalankan perintah di masa BUILD dan menyimpan 
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Instruksi CMD (Default Runtime Command & Exec Form)
+## 5. 🟢 Instruksi CMD (Default Runtime Command & Exec Form)
 
-## Konsep
+#### Konsep
 
 Instruksi **`CMD`** menentukan perintah default yang akan dieksekusi **saat kontainer pertama kali dinyalakan (*Container Runtime*)**, bukan saat image sedang di-build.
 
@@ -412,14 +423,14 @@ Karakteristik Kunci `CMD`:
 - Hanya boleh ada **SATU instruksi `CMD` yang aktif** di dalam sebuah Dockerfile. Jika Anda menulis beberapa `CMD`, hanya `CMD` yang paling terakhir yang akan berlaku.
 - Perintah `CMD` **dapat ditimpa (*overridden*) dengan sangat mudah** melalui argumen baris perintah `docker run image [command]`.
 
-### 2 Format Penulisan CMD:
+##### 2 Format Penulisan CMD:
 1. **Exec Form (SANGAT DIREKOMENDASIKAN / STANDAR INDUSTRI):**
    `CMD ["executable", "param1", "param2"]`
    *Alasan:* Menjalankan proses secara langsung sebagai **PID 1** tanpa melalui sub-shell, sehingga kontainer dapat menerima sinyal stop (*SIGTERM*) secara instan (*Graceful Shutdown*).
 2. **Shell Form (Kurang Disarankan):**
    `CMD node server.js` (proses dijalankan di bawah subshell `/bin/sh -c`, sehingga tidak menerima sinyal SIGTERM langsung).
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM node:20-alpine
@@ -440,14 +451,14 @@ docker run --name my-app my-node-image
 docker run --rm my-node-image node -v
 ```
 
-## Output
+#### Output
 
 Eksekusi ke-2 (CMD tertimpa):
 ```text
 v20.12.2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      Build Time: CMD ["node", "app.js"] ──► Disimpan sebagai metadata "Entrypoint/Cmd"
@@ -463,7 +474,7 @@ CMD ["executable", "param1", "param2"] → Menentukan perintah eksekusi default 
 Overridable                            → Argumen di 'docker run' akan menggantikan perintah CMD
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan format JSON Array (*Exec Form*) dengan tanda kutip ganda (`["node", "server.js"]`), bukan kutip tunggal (`['node']`).
 - ❌ Jangan gunakan `CMD` untuk proses kompilasi atau instalasi dependensi (gunakan `RUN` untuk kebutuhan build).
@@ -472,9 +483,9 @@ Overridable                            → Argumen di 'docker run' akan menggant
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Instruksi LABEL (Metadata Penulis, Versi, & Deskripsi)
+## 6. 🟢 Instruksi LABEL (Metadata Penulis, Versi, & Deskripsi)
 
-## Konsep
+#### Konsep
 
 Instruksi **`LABEL`** digunakan untuk menyematkan informasi metadata terstruktur (*key-value pairs*) ke dalam image Docker.
 
@@ -487,7 +498,7 @@ Metadata ini tidak mempengaruhi proses eksekusi kode aplikasi, namun sangat pent
 Perintah Melihat Label:
 - `docker image inspect --format '{{json .Config.Labels}}' image_name`
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM alpine:3.19
@@ -502,7 +513,7 @@ LABEL org.opencontainers.image.licenses="MIT"
 CMD ["sh"]
 ```
 
-## Output
+#### Output
 
 Memeriksa label image via CLI:
 ```bash
@@ -519,7 +530,7 @@ docker inspect --format '{{ json .Config.Labels }}' my-inventory-image
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Instruksi: LABEL version="1.0"
@@ -538,7 +549,7 @@ LABEL <key>="<value>" → Menyematkan metadata dokumentasi & informasi versi ke 
 docker inspect        → Melihat seluruh metadata label yang terpasang pada image
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan namespace standar OCI (`org.opencontainers.image.*`) agar kompatibel dengan scanner keamanan dan tool CI/CD modern.
 - ❌ Jangan menyematkan informasi sensitif (seperti password atau private key) di dalam `LABEL` karena metadata ini bersifat publik.
@@ -547,9 +558,9 @@ docker inspect        → Melihat seluruh metadata label yang terpasang pada ima
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Instruksi COPY (Menyalin File dari Build Context)
+## 7. 🟢 Instruksi COPY (Menyalin File dari Build Context)
 
-## Konsep
+#### Konsep
 
 Instruksi **`COPY`** digunakan untuk menyalin file atau folder dari komputer Host (**Build Context**) ke dalam sistem file di dalam Docker Image.
 
@@ -562,7 +573,7 @@ Fitur Penting `COPY`:
 - Mendukung pencocokan pola wildcard (misal: `COPY package*.json ./`).
 - Opsi **`--chown=user:group`**: Langsung menetapkan kepemilikan permission user Linux pada file saat disalin (tanpa perlu menjalankan `RUN chown` tambahan yang memboroskan layer!).
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM node:20-alpine
@@ -581,7 +592,7 @@ COPY --chown=node:node . .
 CMD ["node", "src/index.js"]
 ```
 
-## Output
+#### Output
 
 ```text
 Step 1/5 : WORKDIR /app
@@ -596,7 +607,7 @@ Step 4/5 : COPY --chown=node:node . .
  ---> 1f2e3d4c5b6a
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
     Folder Laptop Developer (Host)             Sistem File Docker Image
@@ -613,7 +624,7 @@ COPY <src> <dest>                  → Menyalin file/folder lokal ke dalam Docke
 COPY --chown=user:group <src> <dst>→ Menyalin sekaligus menetapkan hak milik user Linux
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pisahkan penyalinan file manifes dependensi (`package.json`, `composer.json`, `go.mod`) sebelum menyalin sisa kode program untuk memaksimalkan **Docker Layer Caching**.
 - ❌ Jangan menyalin folder `node_modules` atau `.git` dari lokal host ke dalam image (selalu gunakan file `.dockerignore`).
@@ -622,19 +633,19 @@ COPY --chown=user:group <src> <dst>→ Menyalin sekaligus menetapkan hak milik u
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Instruksi ADD (Menyalin dengan Auto-Extract Tar & Remote URL)
+## 8. 🟢 Instruksi ADD (Menyalin dengan Auto-Extract Tar & Remote URL)
 
-## Konsep
+#### Konsep
 
 Instruksi **`ADD`** memiliki fungsi serupa dengan `COPY`, namun dilengkapi dengan dua fitur tambahan khusus:
 1. **Ekstraksi Otomatis Arsip Lokal (*Auto-Extraction*):** Jika file sumber adalah arsip terkompresi lokal yang dikenali (seperti `.tar`, `.tar.gz`, `.tgz`, `.tar.bz2`), Docker akan **otomatis mengekstraknya sebagai folder** ke direktori tujuan.
 2. **Pengunduhan dari URL Remote:** Dapat mengunduh file langsung dari internet (misal: `ADD https://example.com/app.zip /tmp/`).
 
-### Kapan Menggunakan ADD vs COPY?
+##### Kapan Menggunakan ADD vs COPY?
 - **Gunakan `COPY` (Pilihan Utama 95% Kasus):** Jauh lebih transparan, aman, dan dapat diprediksi.
 - **Gunakan `ADD` (Khusus):** HANYA jika Anda sengaja ingin mengekstrak file arsip tarball lokal ke dalam image.
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM alpine:3.19
@@ -650,7 +661,7 @@ COPY package.json .
 CMD ["sh"]
 ```
 
-## Output
+#### Output
 
 ```text
 Step 1/3 : WORKDIR /app
@@ -660,7 +671,7 @@ Step 2/3 : ADD assets-bundle.tar.gz /app/assets/
 (Isi file di dalam tar.gz langsung tersebar rapi di folder /app/assets/)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
     File Lokal: assets-bundle.tar.gz
@@ -679,7 +690,7 @@ ADD source.tar.gz /target/ → Menyalin sekaligus otomatis mengekstrak arsip tar
 Aturan Emas               → Gunakan COPY sebagai default, gunakan ADD hanya untuk ekstraksi .tar
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `ADD` khusus untuk menyalin arsip root filesystem (*rootfs.tar.gz*) pada pembuatan base image.
 - ❌ Jangan gunakan `ADD` untuk mengunduh paket dari URL internet jika file tersebut berukuran besar, karena file arsip installer akan tersimpan permanen di layer image (lebih baik gunakan `RUN curl ... && tar ... && rm ...`).
@@ -688,9 +699,9 @@ Aturan Emas               → Gunakan COPY sebagai default, gunakan ADD hanya un
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 File .dockerignore (Mengabaikan File Sampah & Mengoptimalkan Build Context)
+## 9. 🟢 File .dockerignore (Mengabaikan File Sampah & Mengoptimalkan Build Context)
 
-## Konsep
+#### Konsep
 
 Sebelum Docker CLI memulai proses build, Docker akan mengirimkan seluruh isi folder proyek di Host (**Build Context**) ke Docker Daemon.
 
@@ -701,7 +712,7 @@ Keuntungan Memakai `.dockerignore`:
 2. **Ukuran Image Lebih Ramping:** Mencegah file temporer masuk ke layer image.
 3. **Keamanan Maksimal:** Mencegah file rahasia (seperti `.env`, kredensial AWS, private key SSH) tersalin tanpa sengaja ke dalam image publik.
 
-## Contoh
+#### Contoh
 
 Contoh isi file `.dockerignore` standar industri:
 
@@ -735,7 +746,7 @@ coverage
 dist
 ```
 
-## Output
+#### Output
 
 Saat menjalankan `docker build`:
 ```text
@@ -747,7 +758,7 @@ Saat menjalankan `docker build`:
 
 (Perhatikan: transfer build context hanya memakan waktu **0.0 detik (380 Bytes)** karena folder `node_modules` dan `.git` diabaikan!).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Folder Proyek Host (Berisi node_modules 500MB + .env)
@@ -770,7 +781,7 @@ Saat menjalankan `docker build`:
 Wajib Diabaikan → node_modules, .git, .env, *.log, *.key
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu buat file `.dockerignore` pertama kali sebelum menulis baris pertama Dockerfile.
 - ❌ Jangan biarkan file `.env` yang berisi kredensial database terkirim ke Docker Daemon tanpa disaring oleh `.dockerignore`.
@@ -779,9 +790,9 @@ Wajib Diabaikan → node_modules, .git, .env, *.log, *.key
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Instruksi EXPOSE (Dokumentasi Port Jaringan Kontainer)
+## 10. 🟢 Instruksi EXPOSE (Dokumentasi Port Jaringan Kontainer)
 
-## Konsep
+#### Konsep
 
 Instruksi **`EXPOSE`** berfungsi sebagai bentuk **dokumentasi deklaratif** yang menginformasikan kepada pengguna image dan Docker Engine bahwa kontainer mendengarkan (*listening*) lalu lintas jaringan pada nomor port dan protokol tertentu saat runtime.
 
@@ -795,7 +806,7 @@ EXPOSE <port>[/<protocol>]
 ```
 Default protokol jika tidak ditulis adalah `tcp` (misal: `EXPOSE 80` sama dengan `EXPOSE 80/tcp`).
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM node:20-alpine
@@ -815,14 +826,14 @@ Menjalankan Kontainer dengan Port Forwarding:
 docker run -d --name api-service -p 8080:3000 my-node-image
 ```
 
-## Output
+#### Output
 
 ```text
 CONTAINER ID   IMAGE           PORTS                    NAMES
 a1b2c3d4e5f6   my-node-image   0.0.0.0:8080->3000/tcp   api-service
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Dockerfile: EXPOSE 3000
@@ -841,7 +852,7 @@ EXPOSE <port>[/tcp|udp] → Mendeklarasikan port listener kontainer sebagai doku
 docker run -p host:cont → Membuka dan memetakan port nyata dari host ke kontainer
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu tulis instruksi `EXPOSE` agar tim pengembang lain langsung mengetahui port internal yang digunakan oleh aplikasi di dalam image.
 - ❌ Jangan mengira menulis `EXPOSE 80` sudah membuat aplikasi bisa diakses di browser tanpa menyertakan opsi `-p` pada `docker run`.
@@ -850,9 +861,9 @@ docker run -p host:cont → Membuka dan memetakan port nyata dari host ke kontai
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Instruksi ENV (Menetapkan Default Environment Variable)
+## 11. 🟢 Instruksi ENV (Menetapkan Default Environment Variable)
 
-## Konsep
+#### Konsep
 
 Instruksi **`ENV`** digunakan untuk menetapkan nilai **Environment Variables** (Variabel Lingkungan) yang akan:
 1. Tersedia selama proses pembuatan image (**Build-Time**).
@@ -866,7 +877,7 @@ ENV <key>=<value> ...
 Penggunaan Variabel di Dalam Dockerfile:
 Setelah dideklarasikan, variabel dapat dipanggil di instruksi berikutnya menggunakan sintaks `${KEY}` atau `$KEY`.
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM alpine:3.19
@@ -892,7 +903,7 @@ docker run --rm my-env-app
 docker run --rm -e APP_ENV=staging my-env-app
 ```
 
-## Output
+#### Output
 
 Eksekusi 1 (Default):
 ```text
@@ -904,7 +915,7 @@ Eksekusi 2 (Overridden via CLI `-e`):
 Aplikasi berjalan di mode staging pada port 8080
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Dockerfile: ENV APP_PORT=8080
@@ -923,7 +934,7 @@ ENV <key>=<value> → Menetapkan environment variable permanen untuk build-time 
 docker run -e     → Menimpa nilai default ENV saat kontainer dinyalakan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `ENV` untuk menetapkan nilai default yang wajar (seperti `NODE_ENV=production`, `PORT=3000`, `TZ=Asia/Jakarta`).
 - ❌ Jangan pernah menulis data rahasia seperti API token atau password database produksi di dalam `ENV` Dockerfile karena nilainya dapat diintip via `docker inspect`.
@@ -932,9 +943,9 @@ docker run -e     → Menimpa nilai default ENV saat kontainer dinyalakan
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Instruksi WORKDIR (Menentukan Direktori Kerja Default)
+## 12. 🟡 Instruksi WORKDIR (Menentukan Direktori Kerja Default)
 
-## Konsep
+#### Konsep
 
 Instruksi **`WORKDIR`** menetapkan direktori kerja aktif (*Working Directory*) untuk setiap instruksi `RUN`, `CMD`, `ENTRYPOINT`, `COPY`, dan `ADD` yang ditulis setelahnya di dalam Dockerfile.
 
@@ -942,7 +953,7 @@ Karakteristik Kunci `WORKDIR`:
 - **Membuat Otomatis Direktori:** Jika direktori yang ditentukan belum ada di dalam sistem file image, Docker akan **otomatis membuatkannya** (seperti `mkdir -p`).
 - **Menggantikan Perintah `RUN cd /path`:** Menulis `RUN cd /path` TIDAK AKAN mengubah direktori kerja untuk baris instruksi berikutnya (karena setiap `RUN` dieksekusi di sub-shell terpisah). Oleh karena itu, **`WORKDIR` adalah satu-satunya cara yang benar** untuk berpindah folder di Dockerfile.
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM node:20-alpine
@@ -962,7 +973,7 @@ COPY . .
 CMD ["node", "index.js"]
 ```
 
-## Output
+#### Output
 
 ```text
 Step 1/5 : WORKDIR /usr/src/app
@@ -973,7 +984,7 @@ Step 2/5 : COPY package.json .
  ---> 9b0c1d2e3f4a
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          WORKDIR /usr/src/app
@@ -994,7 +1005,7 @@ WORKDIR /absolute/path → Menentukan direktori kerja aktif (otomatis dibuat jik
 Hindari                → RUN cd /path (tidak berpengaruh ke baris berikutnya)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan absolute path (misal: `WORKDIR /app` atau `WORKDIR /var/www/html`), hindari relative path yang membingungkan.
 - ❌ Jangan menaruh file kode program langsung di direktori root (`/`); selalu buat direktori aplikasi terpisah menggunakan `WORKDIR`.
@@ -1003,9 +1014,9 @@ Hindari                → RUN cd /path (tidak berpengaruh ke baris berikutnya)
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Instruksi USER (Keamanan Non-Root User Execution)
+## 13. 🟡 Instruksi USER (Keamanan Non-Root User Execution)
 
-## Konsep
+#### Konsep
 
 Secara default, seluruh proses di dalam container dijalankan menggunakan user **`root`** (Superuser dengan UID 0). Jika aplikasi Anda memiliki kerentanan (*security vulnerability*) dan diretas oleh penyerang, penyerang tersebut bisa berpotensi membahayakan sistem operasi Host (*Container Escape Attack*).
 
@@ -1016,7 +1027,7 @@ Langkah Standar:
 2. Ubah hak milik direktori aplikasi menggunakan `chown`.
 3. Beralih ke user tersebut menggunakan instruksi `USER appuser`.
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM alpine:3.19
@@ -1041,13 +1052,13 @@ Menjalankan Kontainer:
 docker run --rm my-secure-image
 ```
 
-## Output
+#### Output
 
 ```text
 appuser
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Instruksi: USER appuser
@@ -1066,7 +1077,7 @@ USER <user>[:<group>] → Beralih ke user non-root untuk keamanan eksekusi runti
 Principle of Least Privilege → Jangan pernah menjalankan aplikasi produksi sebagai root
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pada image resmi seperti `node:alpine`, user non-root bawaan bernama `node` sudah disediakan (cukup tulis `USER node`).
 - ❌ Jangan lupa memberikan hak akses kepemilikan folder (`chown`) sebelum beralih ke user non-root, agar aplikasi tidak error saat ingin membuat file log atau cache lokal (*Permission Denied*).
@@ -1075,9 +1086,9 @@ Principle of Least Privilege → Jangan pernah menjalankan aplikasi produksi seb
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Instruksi ARG (Build-Time Variables & Dynamic Arguments)
+## 14. 🟡 Instruksi ARG (Build-Time Variables & Dynamic Arguments)
 
-## Konsep
+#### Konsep
 
 Instruksi **`ARG`** mendefinisikan variabel yang **HANYA TERSEDIA selama proses pembuatan image (*Build-Time*)**, dan **TIDAK AKAN TERSIMPAN** saat kontainer dijalankan di runtime.
 
@@ -1095,11 +1106,11 @@ Mengirimkan Nilai ARG via Terminal CLI:
 docker build --build-arg VERSION=2.0.1 -t my-app:v2.0 .
 ```
 
-### Perbedaan Mendasar ARG vs ENV:
+##### Perbedaan Mendasar ARG vs ENV:
 - **`ARG`:** Hanya hidup di masa `docker build` (hilang saat kontainer menyala).
 - **`ENV`:** Hidup di masa `docker build` DAN tetap hidup di masa `docker run` (tersimpan di container).
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 # Mendefinisikan argumen build dengan nilai default 3.19
@@ -1128,7 +1139,7 @@ docker build --build-arg APP_VERSION=2.5.0 -t dynamic-app .
 docker run --rm dynamic-app
 ```
 
-## Output
+#### Output
 
 Hasil saat `docker build`:
 ```text
@@ -1142,7 +1153,7 @@ Hasil saat `docker run`:
 Versi aplikasi di runtime: 2.5.0
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        CLI: docker build --build-arg APP_VERSION=2.5.0 .
@@ -1162,7 +1173,7 @@ docker build --build-arg k=v → Mengirimkan nilai variabel build dari terminal
 ARG vs ENV                  → ARG = Build-Time Saja, ENV = Build-Time + Runtime
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `ARG` untuk menentukan versi base image atau download URL tool di masa kompilasi.
 - ❌ Jangan mengirimkan secret key atau password database via `ARG`, karena nilai argumen build masih dapat terlacak di riwayat history layer image (`docker history`).
@@ -1171,9 +1182,9 @@ ARG vs ENV                  → ARG = Build-Time Saja, ENV = Build-Time + Runtim
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Instruksi VOLUME (Mendeklarasikan Mount Point Anonim)
+## 15. 🟡 Instruksi VOLUME (Mendeklarasikan Mount Point Anonim)
 
-## Konsep
+#### Konsep
 
 Instruksi **`VOLUME`** digunakan untuk membuat sebuah titik pemasangan (*Mount Point*) dengan path direktori yang ditentukan di dalam container dan menandainya sebagai penampung **data persisten eksternal**.
 
@@ -1186,7 +1197,7 @@ Format Sintaks:
 VOLUME ["/var/log/app", "/data"]
 ```
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM alpine:3.19
@@ -1200,7 +1211,7 @@ VOLUME ["/app/data", "/var/log/my-app"]
 CMD ["sh", "-c", "echo Log tersimpan pada $(date) >> /var/log/my-app/app.log && cat /var/log/my-app/app.log"]
 ```
 
-## Output
+#### Output
 
 Saat kontainer dijalankan:
 ```bash
@@ -1220,7 +1231,7 @@ docker inspect --format '{{ json .Mounts }}' log-app
 [{"Type":"volume","Name":"3f8a9b2c...","Source":"/var/lib/docker/volumes/3f8a9b2c.../_data","Destination":"/var/log/my-app"}]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Dockerfile: VOLUME ["/var/log/my-app"]
@@ -1239,7 +1250,7 @@ VOLUME ["/path/dir"] → Mendeklarasikan direktori kontainer sebagai mountpoint 
 Anonymous Volume    → Dibuat otomatis oleh Docker jika user tidak menyediakan named volume
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Deklarasikan `VOLUME` pada image database atau image pencatat log untuk mencegah kehilangan data akibat keteledoran user yang lupa menyertakan flag `-v`.
 - ❌ Jangan mencoba memodifikasi isi file di dalam direktori `VOLUME` pada instruksi `RUN` setelah deklarasi `VOLUME` ditulis, karena perubahan tersebut tidak akan tersimpan ke layer image.
@@ -1248,9 +1259,9 @@ Anonymous Volume    → Dibuat otomatis oleh Docker jika user tidak menyediakan 
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Instruksi ENTRYPOINT (Executable Utama Kontainer)
+## 16. 🟡 Instruksi ENTRYPOINT (Executable Utama Kontainer)
 
-## Konsep
+#### Konsep
 
 Instruksi **`ENTRYPOINT`** digunakan untuk mengonfigurasi kontainer agar berfungsi layaknya **sebuah file program binari (*Executable CLI Tool*)**.
 
@@ -1264,7 +1275,7 @@ Format Sintaks (Exec Form Wajib):
 ENTRYPOINT ["executable", "param1"]
 ```
 
-## Contoh
+#### Contoh
 
 Contoh membuat image utilitas pengecekan jaringan (*Network Ping Tool*):
 
@@ -1288,7 +1299,7 @@ docker run --rm my-ping-tool
 docker run --rm my-ping-tool google.com -c 2
 ```
 
-## Output
+#### Output
 
 Eksekusi ke-2:
 ```text
@@ -1300,7 +1311,7 @@ PING google.com (142.250.190.46): 56 data bytes
 2 packets transmitted, 2 packets received, 0% packet loss
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
     Dockerfile:
@@ -1321,7 +1332,7 @@ ENTRYPOINT ["executable"] → Menetapkan proses binari permanen kontainer (sulit
 Parameter Passthrough    → Seluruh argumen di 'docker run' otomatis diteruskan ke ENTRYPOINT
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `ENTRYPOINT` ketika ingin membuat kontainer utilitas mandiri (*CLI Tools / Microservice daemons*).
 - ❌ Jangan gunakan Shell form pada `ENTRYPOINT ping` karena shell form akan memblokir argumen tambahan dari perintah `docker run`.
@@ -1330,23 +1341,23 @@ Parameter Passthrough    → Seluruh argumen di 'docker run' otomatis diteruskan
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Perbedaan CMD vs ENTRYPOINT & Pola Kombinasi Terbaik
+## 17. 🟡 Perbedaan CMD vs ENTRYPOINT & Pola Kombinasi Terbaik
 
-## Konsep
+#### Konsep
 
 Memahami perbedaan dan cara mengombinasikan **`ENTRYPOINT`** dan **`CMD`** adalah salah satu keterampilan paling esensial dalam menyusun Dockerfile profesional.
 
-### Tabel Perbandingan Mendasar:
+##### Tabel Perbandingan Mendasar:
 | Kriteria | `CMD` | `ENTRYPOINT` |
 |---|---|---|
 | **Tujuan** | Perintah default yang fleksibel | Program binari tetap (*executable*) |
 | **Kemudahan Overwrite** | Sangat mudah (tertimpa argumen `docker run`) | Sulit (butuh flag khusus `--entrypoint`) |
 | **Perilaku Argumen CLI** | Menggantikan seluruh isi `CMD` | Diteruskan sebagai parameter ke `ENTRYPOINT` |
 
-### Pola Kombinasi Terbaik (*Best Practice Pattern*):
+##### Pola Kombinasi Terbaik (*Best Practice Pattern*):
 Gunakan **`ENTRYPOINT`** untuk menentukan binari aplikasi tetap, dan gunakan **`CMD`** untuk menyediakan parameter default yang fleksibel!
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM alpine:3.19
@@ -1367,7 +1378,7 @@ docker run --rm my-curl-image
 docker run --rm my-curl-image https://httpbin.org/user-agent
 ```
 
-## Output
+#### Output
 
 Hasil Kasus A:
 ```text
@@ -1383,7 +1394,7 @@ Hasil Kasus B:
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                      Kombinasi ENTRYPOINT + CMD
@@ -1407,7 +1418,7 @@ CMD        = Parameter Default yang Fleksibel Ditimpa
 Rumus      = Executable (ENTRYPOINT) + Default Arguments (CMD)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Terapkan rumus kombinasi `ENTRYPOINT ["binary"]` + `CMD ["default_arg"]` untuk fleksibilitas maksimal.
 - ❌ Jangan mencampuradukkan Exec Form dan Shell Form pada kombinasi ENTRYPOINT dan CMD karena dapat menghasilkan perintah string yang kacau (*malformed command*).
@@ -1416,9 +1427,9 @@ Rumus      = Executable (ENTRYPOINT) + Default Arguments (CMD)
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Instruksi HEALTHCHECK (Monitoring Kesehatan Internal Image)
+## 18. 🟡 Instruksi HEALTHCHECK (Monitoring Kesehatan Internal Image)
 
-## Konsep
+#### Konsep
 
 Instruksi **`HEALTHCHECK`** memberitahu Docker bagaimana cara menguji dan memverifikasi bahwa aplikasi di dalam container **benar-benar berfungsi secara sehat dan melayani request**, bukan sekadar prosesnya hidup.
 
@@ -1434,7 +1445,7 @@ HEALTHCHECK [options] CMD <command>
 HEALTHCHECK NONE (untuk mematikan healthcheck dari base image)
 ```
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 FROM nginx:alpine
@@ -1449,7 +1460,7 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-## Output
+#### Output
 
 Memeriksa status container via `docker ps`:
 ```text
@@ -1457,7 +1468,7 @@ CONTAINER ID   IMAGE          STATUS                    PORTS                NAM
 4a5b6c7d8e9f   my-nginx-app   Up 30 seconds (healthy)   0.0.0.0:80->80/tcp   web-prod
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Tiap 15 Detik: Docker menjalankan "curl -f http://localhost/"
@@ -1476,7 +1487,7 @@ HEALTHCHECK [options] CMD <command> → Mengonfigurasi tes kesehatan internal di
 Status Lifecycle: starting ──► healthy / unhealthy
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu sediakan parameter `--start-period` yang cukup bagi aplikasi backend yang membutuhkan waktu *booting / warming up* (seperti koneksi ke database atau migrasi skema).
 - ❌ Jangan menulis perintah health check yang memakan beban CPU tinggi atau memicu penulisan data berat ke database.
@@ -1485,9 +1496,9 @@ Status Lifecycle: starting ──► healthy / unhealthy
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Multi-Stage Build (Mereduksi Ukuran Image Drastis)
+## 19. 🔴 Multi-Stage Build (Mereduksi Ukuran Image Drastis)
 
-## Konsep
+#### Konsep
 
 Dalam pengembangan aplikasi modern (seperti Go, Rust, React, Vue, atau TypeScript), kita membutuhkan kompiler, SDK, dan dependensi build yang berukuran sangat besar (ratusan megabyte hingga gigabyte). Namun saat aplikasi dijalankan di server produksi, kita **HANYA MEMBUTUHKAN file binari atau file bundle statisnya saja**.
 
@@ -1498,7 +1509,7 @@ Dalam pengembangan aplikasi modern (seperti Go, Rust, React, Vue, atau TypeScrip
 
 Hasil: Ukuran image berkurang drastis dari **~1.2 GB menjadi hanya ~15 MB!**
 
-## Contoh
+#### Contoh
 
 Contoh Multi-Stage Build untuk aplikasi kompilasi Go (Golang):
 
@@ -1537,7 +1548,7 @@ EXPOSE 8080
 CMD ["/app/api-server"]
 ```
 
-## Output
+#### Output
 
 Perbandingan Hasil Build:
 ```text
@@ -1546,7 +1557,7 @@ go-single-stage    latest     8a1b2c3d4e5f   1 minute ago    850MB (Tanpa Multi-
 go-multi-stage     latest     f4a8b9c1d2e3   5 seconds ago   18.5MB (Dengan Multi-Stage!)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    STAGE 1: golang:alpine (850MB) ──► Kompilasi: /build/api-server (15MB)
@@ -1564,7 +1575,7 @@ COPY --from=<stage_name> src dst → Menyalin artefak binari jadi dari stage seb
 Hasil                            → Image produksi super ramping, cepat di-deploy, & aman
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Terapkan Multi-Stage Build pada semua proyek front-end (React/Vue/Angular build ke Nginx) dan bahasa kompilasi (Go/Rust/Java/C#).
 - ❌ Jangan biarkan development tools (seperti `gcc`, `npm`, `git`) tertinggal di dalam image produksi final.
@@ -1573,16 +1584,16 @@ Hasil                            → Image produksi super ramping, cepat di-depl
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Docker BuildKit & Optimasi Cache Layer
+## 20. 🔴 Docker BuildKit & Optimasi Cache Layer
 
-## Konsep
+#### Konsep
 
 **Docker BuildKit** adalah backend mesin build generasi terbaru dari Docker yang menyediakan peningkatan performa drastis:
 - **Parallel Build Execution:** Mengeksekusi stage build independen secara paralel bersamaan.
 - **Advanced Layer Caching:** Mendukung *cache mounts* (`--mount=type=cache`) untuk mempercepat instalasi paket npm, pip, go, atau apt tanpa mengulang download dari nol.
 - **Secret Mounts (`--mount=type=secret`):** Mengirimkan kredensial rahasia (seperti SSH Key atau token API privat) di masa build tanpa meninggalkan jejak di layer image.
 
-### Urutan Layer Caching yang Optimal:
+##### Urutan Layer Caching yang Optimal:
 Docker mengecek cache dari atas ke bawah. Jika satu layer berubah (*cache invalidated*), seluruh layer di bawahnya **terpaksa di-build ulang**.
 
 Susunan Urutan Terbaik Dockerfile:
@@ -1593,7 +1604,7 @@ Susunan Urutan Terbaik Dockerfile:
 5. Salin source code aplikasi (`COPY . .`) -> **PALING SERING BERUBAH (Ditaruh Paling Bawah)**
 6. `CMD / ENTRYPOINT`
 
-## Contoh
+#### Contoh
 
 ```dockerfile
 # syntax=docker/dockerfile:1
@@ -1619,7 +1630,7 @@ Membangun dengan BuildKit Aktif:
 docker build -t cached-app .
 ```
 
-## Output
+#### Output
 
 Saat mengedit file kode program dan me-rebuild:
 ```text
@@ -1634,7 +1645,7 @@ Saat mengedit file kode program dan me-rebuild:
 
 (Build selesai hanya dalam **0.4 detik** karena dependensi npm menggunakan **CACHED**!).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Ubah file src/index.js di Host
@@ -1652,7 +1663,7 @@ Prinsip Cache Hierarchy → Letakkan instruksi yang jarang berubah di ATAS, yang
 --mount=type=cache     → Mempertahankan cache package manager antar build
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu salin file dependensi (`package.json` / `composer.json`) secara terpisah sebelum menyalin seluruh source code (`COPY . .`).
 - ❌ Jangan menulis `COPY . .` sebelum `RUN npm install`, karena setiap kali Anda mengedit satu baris kode, Docker akan mengulang download seluruh paket dependensi dari awal.
@@ -1661,9 +1672,9 @@ Prinsip Cache Hierarchy → Letakkan instruksi yang jarang berubah di ATAS, yang
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 Docker Hub Registry (Tagging & Pushing Image Resmi)
+## 21. 🔴 Docker Hub Registry (Tagging & Pushing Image Resmi)
 
-## Konsep
+#### Konsep
 
 Setelah berhasil membangun Docker Image kustom di komputer lokal, langkah selanjutnya adalah mendistribusikan image tersebut ke **Docker Hub** agar dapat ditarik (*pulled*) dan dijalankan di server pengujian (Staging) atau server produksi (Production).
 
@@ -1677,7 +1688,7 @@ Langkah Publikasi Image ke Docker Hub:
 2. Beri nama tag image lokal sesuai format namespace akun Docker Hub.
 3. Unggah image ke registry: `docker push`.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Login ke akun Docker Hub
@@ -1694,7 +1705,7 @@ docker push myusername/toko-api:1.0.0
 docker push myusername/toko-api:latest
 ```
 
-## Output
+#### Output
 
 ```text
 The push refers to repository [docker.io/myusername/toko-api]
@@ -1710,7 +1721,7 @@ Di Server Produksi:
 docker run -d -p 80:3000 --name api-prod myusername/toko-api:1.0.0
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
     Laptop Developer (Lokal)                   Docker Hub Cloud Registry
@@ -1731,7 +1742,7 @@ docker tag local_image user/repo:tag → Memberi format namespace registry resmi
 docker push user/repo:tag           → Mengunggah image lokal ke cloud registry Docker Hub
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Terapkan penomoran versi SemVer (*Semantic Versioning*, misal: `v1.2.0`) dan commit hash Git pendek pada tag image.
 - ❌ Jangan hanya mengunggah tag `latest` tanpa versi numerik, karena Anda akan kesulitan melakukan rollback jika rilis terbaru mengalami kegagalan.
@@ -1740,9 +1751,9 @@ docker push user/repo:tag           → Mengunggah image lokal ke cloud registry
 
 <a id="bagian-22"></a>
 
-# 22. 🔴 Private Container Registry (DigitalOcean & GitHub Packages ghcr.io)
+## 22. 🔴 Private Container Registry (DigitalOcean & GitHub Packages ghcr.io)
 
-## Konsep
+#### Konsep
 
 Untuk proyek komersial dan kode milik perusahaan (*Proprietary Code*), kita tidak boleh mengunggah image ke repositori publik Docker Hub. Kita menggunakan **Private Container Registry**.
 
@@ -1755,7 +1766,7 @@ Pola Penamaan Private Registry:
 <domain_registry>/<organization_atau_username>/<app_name>:<tag>
 ```
 
-## Contoh
+#### Contoh
 
 Alur Kerja Publikasi ke GitHub Container Registry (`ghcr.io`):
 
@@ -1782,7 +1793,7 @@ docker tag my-app:v1.0 registry.digitalocean.com/my-registry-space/my-app:v1.0.0
 docker push registry.digitalocean.com/my-registry-space/my-app:v1.0.0
 ```
 
-## Output
+#### Output
 
 ```text
 Login Succeeded
@@ -1791,7 +1802,7 @@ The push refers to repository [ghcr.io/my-org/my-app]
 v1.0.0: digest: sha256:9a8b7c6d5e4f... size: 1420
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        CI/CD Runner (GitHub Actions)
@@ -1814,7 +1825,7 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
 --password-stdin                 → Cara paling aman login registry via token di CI/CD
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Personal Access Token (PAT) atau Service Account dengan hak akses terbatas (*Read-Only*) untuk server produksi yang bertugas menarik image.
 - ❌ Jangan pernah mengetikkan password akun utama langsung di terminal tanpa enkripsi (gunakan pipa `echo $TOKEN | docker login ... --password-stdin`).
@@ -1823,9 +1834,9 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
 
 <a id="bagian-23"></a>
 
-# 23. 🛠️ Peta Ingatan Cepat
+## 23. 🛠️ Peta Ingatan Cepat
 
-## Mental Model Tahapan Instruksi Dockerfile
+#### Mental Model Tahapan Instruksi Dockerfile
 
 ```text
                       ┌───────────────────────────────┐
@@ -1849,7 +1860,7 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
                         - HEALTHCHECK --interval=...
 ```
 
-## Pohon Keputusan Instruksi Dockerfile
+#### Pohon Keputusan Instruksi Dockerfile
 
 ```text
                                 Masalah Pembuatan Image
@@ -1871,7 +1882,7 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
 
 <a id="bagian-24"></a>
 
-# 24. 📚 Tabel Ringkasan
+## 24. 📚 Tabel Ringkasan
 
 | Instruksi | Tahapan | Contoh Sintaks | Penjelasan & Kegunaan |
 |---|---|---|---|
@@ -1894,9 +1905,9 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
 
 <a id="bagian-25"></a>
 
-# 25. ⚡ Cheat Code Dockerfile 10 Detik
+## 25. ⚡ Cheat Code Dockerfile 10 Detik
 
-## 1. Template Produksi Node.js (Ramping & Aman)
+### 1. Template Produksi Node.js (Ramping & Aman)
 ```dockerfile
 FROM node:20-alpine
 WORKDIR /app
@@ -1908,7 +1919,7 @@ EXPOSE 3000
 CMD ["node", "src/index.js"]
 ```
 
-## 2. Template Multi-Stage Golang (Ukuran < 20MB)
+### 2. Template Multi-Stage Golang (Ukuran < 20MB)
 ```dockerfile
 FROM golang:1.22-alpine AS builder
 WORKDIR /src
@@ -1921,7 +1932,7 @@ EXPOSE 8080
 CMD ["/app"]
 ```
 
-## 3. Template Web Server Statis Nginx + Custom HTML
+### 3. Template Web Server Statis Nginx + Custom HTML
 ```dockerfile
 FROM nginx:alpine
 COPY ./dist /usr/share/nginx/html
@@ -1934,7 +1945,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 <a id="bagian-26"></a>
 
-# 26. 🧭 Urutan Belajar yang Disarankan
+## 26. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai penulisan Dockerfile dari tingkat dasar hingga standar arsitektur microservices tingkat lanjut, ikuti 4 fase bertahap berikut:
 
@@ -1978,9 +1989,9 @@ Untuk menguasai penulisan Dockerfile dari tingkat dasar hingga standar arsitektu
 
 <a id="bagian-27"></a>
 
-# 27. 🏗️ Mini Project: Membangun Image Production-Ready Node.js / Go REST API Multi-Stage
+## 27. 🏗️ Mini Project: Membangun Image Production-Ready Node.js / Go REST API Multi-Stage
 
-## Konsep Project
+#### Konsep Project
 
 Project ini mempraktikkan pembuatan **Production-Ready Dockerfile** bertaraf enterprise untuk sebuah aplikasi REST API:
 1. **Multi-Stage Build:**
@@ -1991,7 +2002,7 @@ Project ini mempraktikkan pembuatan **Production-Ready Dockerfile** bertaraf ent
 4. **Resiliency:** Memasang pengujian status berkala via `HEALTHCHECK`.
 5. **Konfigurasi Fleksibel:** Menggunakan kombinasi `ENTRYPOINT` + `CMD` dan `ENV`.
 
-## Kode Lengkap: Dockerfile
+#### Kode Lengkap: Dockerfile
 
 ```dockerfile
 # =========================================================================
@@ -2054,7 +2065,7 @@ ENTRYPOINT ["node"]
 CMD ["src/index.js"]
 ```
 
-## File Pendukung: .dockerignore
+#### File Pendukung: .dockerignore
 
 ```text
 node_modules
@@ -2068,7 +2079,7 @@ coverage
 Dockerfile
 ```
 
-## Langkah Eksekusi CLI
+#### Langkah Eksekusi CLI
 
 ```bash
 # 1. Membangun Docker Image Multi-Stage
@@ -2085,7 +2096,7 @@ docker run -d \
 docker ps --filter "name=api-service"
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Building 2.8s (15/15) FINISHED
@@ -2103,7 +2114,7 @@ CONTAINER ID   IMAGE              STATUS                    PORTS               
 8a9b0c1d2e3f   user-api:v1.0.0    Up 25 seconds (healthy)   0.0.0.0:8080->3000/tcp   api-service
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        STAGE 1 (Builder): Node.js + devDependencies (350MB)
@@ -2128,7 +2139,7 @@ Enterprise Dockerfile Pattern = Multi-Stage + Layer Caching + USER Non-Root + HE
 
 <a id="bagian-28"></a>
 
-# 28. 🔗 Referensi Resmi
+## 28. 🔗 Referensi Resmi
 
 Untuk mempelajari dokumentasi resmi, spesifikasi sintaks, dan praktik terbaik penulisan Dockerfile:
 

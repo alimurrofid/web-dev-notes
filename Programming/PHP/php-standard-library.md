@@ -1,4 +1,15 @@
-# PHP Standard Library Cheatsheet Revised
+---
+title: "PHP Standard Library"
+description: "Fungsi bawaan (built-in functions) dan standard library esensial PHP untuk manipulasi string, array, date/time, math, file system, dan JSON."
+order: 3
+tags:
+  - programming
+  - php
+  - standard-library
+  - reference
+---
+
+# PHP Standard Library
 
 > **Target:** Pemula yang sudah memahami dasar bahasa PHP dan OOP, lalu ingin menguasai fungsi dan class bawaan (*PHP Standard Library*) untuk produktivitas pengembangan web harian di PHP 8+.
 >
@@ -112,9 +123,9 @@ Secure Hash      → password_hash() dan password_verify() untuk keamanan kreden
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan PHP Standard Library & Arsitektur Built-in API
+## 1. 🟢 Pengenalan PHP Standard Library & Arsitektur Built-in API
 
-## Konsep
+#### Konsep
 
 **PHP Standard Library** adalah ekosistem fungsi, class, interface, dan modul bawaan (*built-in*) yang disediakan langsung oleh engine PHP. Anda tidak perlu menginstal library pihak ketiga melalui Composer untuk melakukan tugas-tugas umum seperti manipulasi teks, enkripsi, parsing JSON, pengolahan file, dan komunikasi web.
 
@@ -123,7 +134,7 @@ Arsitektur Standard Library PHP terbagi menjadi:
 2. **Bundled Standard Extensions:** Modul yang aktif secara default di hampir semua instalasi PHP modern (`json`, `mbstring`, `pcre`, `filter`, `hash`, `date`, `spl`).
 3. **Optional Extensions:** Modul resmi untuk kebutuhan spesifik seperti `intl` (internasionalisasi) dan `pdo` (koneksi database).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -138,13 +149,13 @@ $jsonOutput = json_encode(["nama" => $namaBersih, "role" => $roleKecil]);
 echo $jsonOutput;
 ```
 
-## Output
+#### Output
 
 ```text
 {"nama":"Budi Santoso","role":"admin"}
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input Mentah: ["nama" => " Budi Santoso ", "role" => "ADMIN"]
@@ -165,7 +176,7 @@ echo $jsonOutput;
 Standard Library → Koleksi fungsi dan class siap pakai yang disediakan langsung oleh engine PHP
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Periksa fungsi bawaan PHP terlebih dahulu sebelum membuat fungsi kustom atau menambahkan dependency Composer baru.
 - ❌ **Kesalahan Umum:** Menulis ulang fungsi buatan sendiri untuk hal-hal yang sudah disediakan secara sangat cepat dan teruji oleh PHP (seperti *slugify*, *array search*, atau *date diff*).
@@ -174,9 +185,9 @@ Standard Library → Koleksi fungsi dan class siap pakai yang disediakan langsun
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 String Dasar (`strlen`, `strtoupper`, `strtolower`, `trim`, `substr`)
+## 2. 🟢 String Dasar (`strlen`, `strtoupper`, `strtolower`, `trim`, `substr`)
 
-## Konsep
+#### Konsep
 
 Operasi dasar teks yang paling sering digunakan dalam aplikasi:
 - `strlen($string)` : Menghitung jumlah panjang byte string.
@@ -184,7 +195,7 @@ Operasi dasar teks yang paling sering digunakan dalam aplikasi:
 - `trim($string)` : Menghapus spasi dan karakter whitespace di awal dan akhir teks (`ltrim` untuk kiri saja, `rtrim` untuk kanan saja).
 - `substr($string, $offset, $length)` : Mengambil potongan karakter dari posisi tertentu.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -198,7 +209,7 @@ echo "Huruf Kecil : " . strtolower($bersih) . PHP_EOL;
 echo "Potong Teks : " . substr($bersih, 0, 4); // Ambil 4 huruf pertama
 ```
 
-## Output
+#### Output
 
 ```text
 Panjang Teks: 14
@@ -207,7 +218,7 @@ Huruf Kecil : halo dunia php
 Potong Teks : Halo
 ```
 
-## Diagram Alur Pemotongan String
+#### Diagram Alur Pemotongan String
 
 ```text
        Index String:  0   1   2   3   4   5   6   7   8   9  10  11  12  13
@@ -224,7 +235,7 @@ trim($string)                      → Hapus spasi di ujung kiri dan kanan
 substr($string, $offset, $length)  → Potong karakter mulai dari $offset sepanjang $length
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu lakukan `trim()` pada data input formulir sebelum disimpan atau divalidasi.
 - ❌ **Kesalahan Umum:** Menggunakan `strlen()` dan `substr()` untuk karakter beraksen atau emoji (gunakan `mb_strlen()` dan `mb_substr()` untuk keamanan UTF-8).
@@ -233,9 +244,9 @@ substr($string, $offset, $length)  → Potong karakter mulai dari $offset sepanj
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 String Pencarian (`str_contains`, `str_starts_with`, `str_ends_with`, `strpos`)
+## 3. 🟢 String Pencarian (`str_contains`, `str_starts_with`, `str_ends_with`, `strpos`)
 
-## Konsep
+#### Konsep
 
 Pemeriksaan dan pencarian posisi kata di dalam teks:
 - `str_contains($haystack, $needle)` : (PHP 8+) Mengecek apakah teks mengandung substring tertentu (menghasilkan boolean).
@@ -243,7 +254,7 @@ Pemeriksaan dan pencarian posisi kata di dalam teks:
 - `str_ends_with($haystack, $needle)` : (PHP 8+) Mengecek apakah teks diakhiri substring tertentu.
 - `strpos($haystack, $needle)` : Mencari indeks posisi angka kemunculan pertama kata (menghasilkan integer atau boolean `false`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -258,7 +269,7 @@ $posisiDomain = strpos($url, "example.com");
 echo "Domain dimulai pada index ke: $posisiDomain";
 ```
 
-## Output
+#### Output
 
 ```text
 bool(true)
@@ -267,7 +278,7 @@ bool(true)
 Domain dimulai pada index ke: 8
 ```
 
-## Cara Kerja Pencarian String
+#### Cara Kerja Pencarian String
 
 ```text
        URL: "https://example.com/api/v1/users.json"
@@ -291,7 +302,7 @@ str_ends_with($haystack, $needle)    → Cek akhiran string (true/false)
 strpos($haystack, $needle) !== false → Cek posisi kemunculan (wajib strict comparison)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan helper PHP 8+ (`str_contains`, `str_starts_with`) karena lebih ekspresif dan tidak rentan salah evaluasi nilai `0`.
 - ❌ **Kesalahan Umum:** Memeriksa `strpos` dengan operator loose `if (strpos(...) == false)` (jika kata berada di index `0`, ekspresi akan salah dianggap false).
@@ -300,16 +311,16 @@ strpos($haystack, $needle) !== false → Cek posisi kemunculan (wajib strict com
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 String Manipulasi & Format (`str_replace`, `explode`, `implode`, `sprintf`)
+## 4. 🟢 String Manipulasi & Format (`str_replace`, `explode`, `implode`, `sprintf`)
 
-## Konsep
+#### Konsep
 
 - `str_replace($search, $replace, $subject)` : Mengganti seluruh kemunculan kata target.
 - `explode($separator, $string)` : Memecah string menjadi array berdasarkan pemisah.
 - `implode($separator, $array)` : Menggabungkan elemen array menjadi satu string utuh.
 - `sprintf($format, ...$values)` : Memformat teks menggunakan placeholder `%s` (string), `%d` (integer), `%.2f` (float 2 desimal).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -333,7 +344,7 @@ $laporan = sprintf("Item: %-12s | Harga: Rp %10.2f", $namaProduk, $harga);
 echo $laporan;
 ```
 
-## Output
+#### Output
 
 ```text
 Halo Budi, pesanan ORD-99 telah dikirim.
@@ -350,7 +361,7 @@ implode($glue, $array)                   → Satukan array menjadi satu string
 sprintf($format, ...$values)             → Format string dengan template placeholder
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan array pada `$search` dan `$replace` di `str_replace` untuk melakukan penggantian banyak placeholder sekaligus.
 - ❌ **Kesalahan Umum:** Mengirimkan delimiter string kosong `""` ke fungsi `explode()` (memicu `ValueError`).
@@ -359,9 +370,9 @@ sprintf($format, ...$values)             → Format string dengan template place
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Array Dasar & Operasi Elemen (`count`, `array_push`, `array_pop`, `array_shift`)
+## 5. 🟢 Array Dasar & Operasi Elemen (`count`, `array_push`, `array_pop`, `array_shift`)
 
-## Konsep
+#### Konsep
 
 Manipulasi elemen array di awal dan akhir antrean:
 - `count($array)` : Menghitung jumlah total elemen di dalam array.
@@ -370,7 +381,7 @@ Manipulasi elemen array di awal dan akhir antrean:
 - `array_shift($array)` : Mengambil dan menghapus elemen pertama (struktur data *Queue / FIFO*).
 - `array_unshift($array, ...$values)` : Menambahkan elemen baru di posisi paling depan.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -392,7 +403,7 @@ echo "Membatalkan antrean: $batal" . PHP_EOL;
 echo "Sisa antrean (" . count($antrean) . " orang): " . implode(", ", $antrean);
 ```
 
-## Output
+#### Output
 
 ```text
 Sedang dilayani: Budi
@@ -400,7 +411,7 @@ Membatalkan antrean: Dewi
 Sisa antrean (2 orang): Andi, Citra
 ```
 
-## Diagram Alur Operasi Array
+#### Diagram Alur Operasi Array
 
 ```text
        array_unshift() ──> [ Depan ] [ ... Array Data ... ] [ Belakang ] <── array_push() / $arr[]
@@ -416,7 +427,7 @@ array_pop($array)              → Hapus dan ambil elemen paling belakang
 array_shift($array)            → Hapus dan ambil elemen paling depan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `$array[] = $value` alih-alih `array_push()` saat menambahkan satu elemen karena menghindari overhead pemanggilan fungsi.
 - ❌ **Kesalahan Umum:** Lupa bahwa `array_shift()` me-reindex ulang seluruh index numerik array dari `0`.
@@ -425,16 +436,16 @@ array_shift($array)            → Hapus dan ambil elemen paling depan
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Array Search & Key Operations (`in_array`, `array_search`, `array_keys`, `array_values`)
+## 6. 🟢 Array Search & Key Operations (`in_array`, `array_search`, `array_keys`, `array_values`)
 
-## Konsep
+#### Konsep
 
 - `in_array($needle, $haystack, $strict)` : Memeriksa apakah nilai ada di dalam array (menghasilkan boolean).
 - `array_search($needle, $haystack, $strict)` : Mencari nilai dan mengembalikan **key/index** tempat nilai tersebut ditemukan.
 - `array_key_exists($key, $array)` : Memeriksa apakah key tertentu ada di dalam array.
 - `array_keys($array)` / `array_values($array)` : Mengambil seluruh daftar key atau seluruh daftar value sebagai indexed array baru.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -456,7 +467,7 @@ $daftarKeys = array_keys($user);
 echo "Daftar atribut: " . implode(", ", $daftarKeys);
 ```
 
-## Output
+#### Output
 
 ```text
 bool(true)
@@ -475,7 +486,7 @@ array_keys($array)                      → Ekstrak seluruh key menjadi indexed 
 array_values($array)                    → Ekstrak seluruh value menjadi indexed array
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** **Selalu sertakan parameter ketiga `$strict = true`** pada `in_array()` dan `array_search()` untuk mencegah bug perbandingan integer `0` dengan string.
 - ❌ **Kesalahan Umum:** Menggunakan `isset($array[$key])` untuk mengecek key yang bernilai `null` (`isset` menghasilkan `false` jika nilainya null, gunakan `array_key_exists` untuk kepastian keberadaan key).
@@ -484,9 +495,9 @@ array_values($array)                    → Ekstrak seluruh value menjadi indexe
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Array Manipulation (`array_merge`, `array_slice`, `array_splice`, `array_chunk`, `array_column`)
+## 7. 🟢 Array Manipulation (`array_merge`, `array_slice`, `array_splice`, `array_chunk`, `array_column`)
 
-## Konsep
+#### Konsep
 
 - `array_merge(...$arrays)` : Menggabungkan dua atau lebih array. Key string ditimpa oleh array sebelah kanan; key numerik di-reindex urut.
 - `array_slice($array, $offset, $length)` : Mengambil sebagian potongan array tanpa mengubah array asli.
@@ -494,7 +505,7 @@ array_values($array)                    → Ekstrak seluruh value menjadi indexe
 - `array_column($array, $columnKey, $indexKey)` : Mengambil satu kolom spesifik dari array multidimensi.
 - `array_unique($array)` : Menghapus duplikasi elemen nilai.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -519,7 +530,7 @@ $semuaItem = array_merge($namaSemuaProduk, $tambahan);
 echo "Total Item: " . count($semuaItem);
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Produk: Laptop, Mouse, Keyboard
@@ -536,7 +547,7 @@ array_merge($arr1, $arr2)              → Gabungkan beberapa array menjadi satu
 array_unique($array)                   → Hapus seluruh nilai duplikat
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `array_column()` untuk mengekstrak data ID atau nama dari kumpulan data hasil query database.
 - ❌ **Kesalahan Umum:** Tertukar antara `array_slice()` (tidak mengubah array asli) dengan `array_splice()` (memotong dan memodifikasi array asli secara langsung).
@@ -545,9 +556,9 @@ array_unique($array)                   → Hapus seluruh nilai duplikat
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Array Callback Functions (`array_map`, `array_filter`, `array_reduce`, `array_walk`)
+## 8. 🟢 Array Callback Functions (`array_map`, `array_filter`, `array_reduce`, `array_walk`)
 
-## Konsep
+#### Konsep
 
 Fungsi tingkat tinggi (*Higher-Order Functions*) yang menerima fungsi penangan (*callback*):
 - `array_map($callback, $array)` : Mentransformasi setiap elemen array ke format nilai baru.
@@ -555,7 +566,7 @@ Fungsi tingkat tinggi (*Higher-Order Functions*) yang menerima fungsi penangan (
 - `array_reduce($array, $callback, $initial)` : Mengakumulasi seluruh elemen array menjadi satu nilai tunggal (misal: total sum).
 - `array_walk($array, $callback)` : Menjalankan aksi/modifikasi pada setiap elemen array di tempat.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -575,14 +586,14 @@ echo "Transaksi Besar: " . implode(" | ", $formatRupiah) . PHP_EOL;
 echo "Total Omset: Rp " . number_format($totalOmset, 0, ",", ".");
 ```
 
-## Output
+#### Output
 
 ```text
 Transaksi Besar: Rp 150.000 | Rp 300.000
 Total Omset: Rp 600.000
 ```
 
-## Alur Transformasi Callback
+#### Alur Transformasi Callback
 
 ```text
                      Input Array: [50000, 150000, 25000, 300000, 75000]
@@ -610,7 +621,7 @@ array_filter($array, $callback)          → Saring elemen (urutan parameter: ar
 array_reduce($array, $callback, $init)   → Akumulasi nilai menjadi single scalar
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan Arrow Function `fn($item) => $item > 0` untuk callback satu baris yang bersih dan ringkas.
 - ❌ **Kesalahan Umum:** Ingat baik-baik perbedaan posisi parameter: `array_map` menerima callback di awal, sedangkan `array_filter` menerima array di awal!
@@ -619,9 +630,9 @@ array_reduce($array, $callback, $init)   → Akumulasi nilai menjadi single scal
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Array Sorting (`sort`, `rsort`, `asort`, `arsort`, `ksort`, `usort`)
+## 9. 🟢 Array Sorting (`sort`, `rsort`, `asort`, `arsort`, `ksort`, `usort`)
 
-## Konsep
+#### Konsep
 
 PHP menyediakan kumpulan fungsi sorting yang memodifikasi array secara langsung (*in-place*):
 
@@ -635,7 +646,7 @@ PHP menyediakan kumpulan fungsi sorting yang memodifikasi array secara langsung 
 | `krsort()` | Descending berdasarkan Key | ✅ Ya |
 | `usort()` | Custom Comparator Callback | ❌ Tidak |
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -662,7 +673,7 @@ usort($katalog, fn(array $a, array $b): int => $a["harga"] <=> $b["harga"]);
 print_r($katalog);
 ```
 
-## Output
+#### Output
 
 ```text
 Array
@@ -700,7 +711,7 @@ ksort($array)                               → Urutkan alfabetis key array
 usort($array, fn($a, $b) => $a <=> $b)      → Custom sorting dengan spaceship operator
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `usort()` yang dipadukan dengan spaceship operator `<=>` untuk mengurutkan array objek atau tabel multidimensi.
 - ❌ **Kesalahan Umum:** Menggunakan `sort()` pada associative array yang menyebabkan key string hilang dan berubah menjadi index angka `0, 1, 2`.
@@ -709,9 +720,9 @@ usort($array, fn($a, $b) => $a <=> $b)      → Custom sorting dengan spaceship 
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Number Functions & Konversi (`is_numeric`, `is_int`, `intval`, `floatval`, `abs`)
+## 10. 🟢 Number Functions & Konversi (`is_numeric`, `is_int`, `intval`, `floatval`, `abs`)
 
-## Konsep
+#### Konsep
 
 - `is_numeric($val)` : Mengecek apakah variabel berupa angka atau string angka (seperti `"123"` atau `"45.67"`).
 - `intval($val)` / `(int) $val` : Mengonversi nilai ke integer.
@@ -719,7 +730,7 @@ usort($array, fn($a, $b) => $a <=> $b)      → Custom sorting dengan spaceship 
 - `abs($number)` : Mengembalikan nilai mutlak / absolut positif.
 - `number_format($num, $decimals, $dec_point, $thousands_sep)` : Memformat angka ke teks berpemisah ribuan dan desimal.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -735,7 +746,7 @@ if (is_numeric($inputHarga)) {
 echo "Absolut: " . abs(-500); // Menghasilkan 500
 ```
 
-## Output
+#### Output
 
 ```text
 Nominal Valid: Rp 250.000,75
@@ -754,9 +765,9 @@ abs($number)                                          → Nilai mutlak positif
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Math Functions (`round`, `ceil`, `floor`, `min`, `max`, `pow`, `sqrt`)
+## 11. 🟢 Math Functions (`round`, `ceil`, `floor`, `min`, `max`, `pow`, `sqrt`)
 
-## Konsep
+#### Konsep
 
 Operasi matematika standar:
 - `round($val, $precision)` : Pembulatan matematika terdekat.
@@ -766,7 +777,7 @@ Operasi matematika standar:
 - `pow($base, $exp)` / `**` : Perpangkatan.
 - `sqrt($val)` : Menghitung akar kuadrat.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -780,7 +791,7 @@ echo "Nilai Tertinggi   : " . max(10, 45, 90, 23) . PHP_EOL;
 echo "Akar 64           : " . sqrt(64);
 ```
 
-## Output
+#### Output
 
 ```text
 Round (2 desimal): 4.66
@@ -803,9 +814,9 @@ min(...$vals) / max(...)  → Ambil nilai minimum / maksimum
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Date & Time Dasar (`time`, `date`, `strtotime`, `microtime`)
+## 12. 🟢 Date & Time Dasar (`time`, `date`, `strtotime`, `microtime`)
 
-## Konsep
+#### Konsep
 
 Fungsi dasar waktu prosedural bawaan PHP:
 - `time()` : Mengembalikan *Unix Timestamp* saat ini (jumlah detik sejak 1 Januari 1970).
@@ -817,7 +828,7 @@ Karakter format tanggal populer:
 - `Y` : Tahun 4 digit (2026), `m` : Bulan 2 digit (01-12), `d` : Hari 2 digit (01-31).
 - `H` : Jam format 24 (00-23), `i` : Menit (00-59), `s` : Detik (00-59).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -834,7 +845,7 @@ $tujuhHariLagi = strtotime("+7 days");
 echo "7 Hari Kedepan     : " . date("d F Y", $tujuhHariLagi);
 ```
 
-## Output
+#### Output
 
 ```text
 Timestamp Saat Ini : 1787677200
@@ -850,7 +861,7 @@ date('Y-m-d H:i:s', $timestamp)  → Format timestamp ke teks tanggal
 strtotime('+1 month')            → Konversi teks relatif ke unix timestamp
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu pastikan timezone default disetel menggunakan `date_default_timezone_set("Asia/Jakarta")` atau melalui konfigurasi `php.ini`.
 - ❌ **Kesalahan Umum:** Untuk aplikasi modern dan logika bisnis tanggal yang kompleks, utamakan menggunakan `DateTimeImmutable` (lihat Bagian 13) dibanding fungsi prosedural `date()`.
@@ -859,15 +870,15 @@ strtotime('+1 month')            → Konversi teks relatif ke unix timestamp
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 `DateTime` & `DateTimeImmutable` (OOP Date Handling)
+## 13. 🟡 `DateTime` & `DateTimeImmutable` (OOP Date Handling)
 
-## Konsep
+#### Konsep
 
 PHP menyediakan representasi tanggal berbasis Object-Oriented:
 - **`DateTime`:** Objek tanggal yang bersifat *mutable* (memodifikasi objek asal saat method dijalankan).
 - **`DateTimeImmutable` (SANGAT DIREKOMENDASIKAN):** Objek tanggal yang bersifat *immutable* (setiap modifikasi waktu menghasilkan objek baru, sehingga aman dari *bug side-effect*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -888,7 +899,7 @@ $selisih = $waktuOrder->diff($jatuhTempo);
 echo "Selisih     : {$selisih->days} hari";
 ```
 
-## Output
+#### Output
 
 ```text
 Waktu Order : 25-08-2026 14:30
@@ -896,7 +907,7 @@ Jatuh Tempo : 28-08-2026 14:30
 Selisih     : 3 hari
 ```
 
-## Cara Kerja Immutability
+#### Cara Kerja Immutability
 
 ```text
        $waktuOrder = new DateTimeImmutable("2026-08-25")
@@ -916,7 +927,7 @@ $date->modify('+1 day');          → Mengembalikan objek baru yang ditambah 1 h
 $dateA->diff($dateB);             → Menghitung objek selisih DateInterval
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `DateTimeImmutable` sebagai tipe standar untuk seluruh properti entitas tanggal di aplikasi Anda.
 - ❌ **Kesalahan Umum:** Menggunakan `DateTime` biasa di mana passing variabel objek ke fungsi lain tanpa sengaja mengubah nilai tanggal aslinya (*mutation bug*).
@@ -925,14 +936,14 @@ $dateA->diff($dateB);             → Menghitung objek selisih DateInterval
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 `DateInterval` & `DatePeriod`
+## 14. 🟡 `DateInterval` & `DatePeriod`
 
-## Konsep
+#### Konsep
 
 - **`DateInterval`:** Merepresentasikan durasi waktu tertentu (misal: "2 hari 4 jam"). Format spesifikasi ISO-8601 diawali `P` (*Period*), contoh: `P1D` (1 hari), `P2W` (2 minggu), `PT1H` (1 jam, waktu diawali `T`).
 - **`DatePeriod`:** Merepresentasikan rentang perulangan tanggal berulang antara titik awal dan akhir berdasarkan interval tertentu.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -950,7 +961,7 @@ foreach ($periode as $tgl) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Jadwal Acara:
@@ -971,13 +982,13 @@ new DatePeriod($start, $interval, $end)  → Koleksi generator perulangan rentan
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 `DateTimeZone` & Manajemen Zona Waktu
+## 15. 🟡 `DateTimeZone` & Manajemen Zona Waktu
 
-## Konsep
+#### Konsep
 
 Class **`DateTimeZone`** mengelola zona waktu dunia dan aturan *Daylight Saving Time (DST)* secara akurat. Kita dapat mengonversi waktu dari satu zona waktu (misal: UTC) ke zona waktu lokal pengguna (misal: Asia/Jakarta) dengan method `setTimezone()`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -992,7 +1003,7 @@ echo "UTC Time : " . $waktuServerUtc->format("Y-m-d H:i:s T") . PHP_EOL;
 echo "WIB Time : " . $waktuJakarta->format("Y-m-d H:i:s T");
 ```
 
-## Output
+#### Output
 
 ```text
 UTC Time : 2026-08-25 12:00:00 UTC
@@ -1006,7 +1017,7 @@ $tz = new DateTimeZone('Asia/Jakarta');
 $date->setTimezone($tz);                 → Konversi tampilan jam ke zona waktu target
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu simpan data timestamp di database dalam zona waktu `UTC`, lalu konversi ke zona waktu lokal pengguna saat ditampilkan.
 - ❌ **Kesalahan Umum:** Menyimpan tanggal dengan zona waktu campuran di database tanpa menyertakan offset zona waktu.
@@ -1015,9 +1026,9 @@ $date->setTimezone($tz);                 → Konversi tampilan jam ke zona waktu
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 JSON Processing (`json_encode`, `json_decode`, `json_validate`)
+## 16. 🟡 JSON Processing (`json_encode`, `json_decode`, `json_validate`)
 
-## Konsep
+#### Konsep
 
 JSON (*JavaScript Object Notation*) adalah format standar pertukaran data pada Web API modern:
 - `json_encode($data, $flags)` : Mengubah array/objek PHP menjadi teks string JSON.
@@ -1028,7 +1039,7 @@ Flag krusial:
 - `JSON_THROW_ON_ERROR` : Melempar `JsonException` jika proses parsing gagal (menghindari kegagalan hening).
 - `JSON_PRETTY_PRINT` : Memberikan indentasi rapi pada output JSON string.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1054,7 +1065,7 @@ if (json_validate($jsonTeks)) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 {
@@ -1076,7 +1087,7 @@ json_decode($json, true, 512, JSON_THROW_ON_ERROR) → JSON String -> Associativ
 json_validate($json)                           → Cek validitas JSON tanpa decoding (PHP 8.3+)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu pasang flag `JSON_THROW_ON_ERROR` agar error format JSON langsung tertangkap di blok `try-catch`.
 - ❌ **Kesalahan Umum:** Lupa memberikan parameter kedua `$associative = true` pada `json_decode()` yang menyebabkan hasilnya bertipe `stdClass` bukan `array`.
@@ -1085,9 +1096,9 @@ json_validate($json)                           → Cek validitas JSON tanpa deco
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Regular Expression PCRE (`preg_match`, `preg_match_all`, `preg_replace`, `preg_split`)
+## 17. 🟡 Regular Expression PCRE (`preg_match`, `preg_match_all`, `preg_replace`, `preg_split`)
 
-## Konsep
+#### Konsep
 
 PHP menggunakan library PCRE2 (*Perl Compatible Regular Expressions*) untuk pencocokan pola tingkat lanjut:
 - `preg_match($pattern, $subject, $matches)` : Mengecek apakah pola cocok dan menangkap kemunculan pertama.
@@ -1095,7 +1106,7 @@ PHP menggunakan library PCRE2 (*Perl Compatible Regular Expressions*) untuk penc
 - `preg_replace($pattern, $replacement, $subject)` : Mengganti teks yang cocok dengan pola regex.
 - `preg_split($pattern, $subject)` : Memecah string berdasarkan pola pemisah regex.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1117,7 +1128,7 @@ $nomorHpBersih = preg_replace('/\D/', '', $nomorHpKotor);
 echo "Nomor HP Bersih: $nomorHpBersih";
 ```
 
-## Output
+#### Output
 
 ```text
 Ditemukan Kode: ORD-101
@@ -1133,7 +1144,7 @@ preg_match_all('/pola/', $text, $matches)     → Cari seluruh kecocokan
 preg_replace('/\D/', '', $text)               → Ganti pola regex (misal: \D non-digit)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan pembatas pola standar seperti garis miring `/pola/` dan selalu validasi pola regex kompleks dengan unit test.
 - ❌ **Kesalahan Umum:** Menggunakan regex untuk operasi sederhana yang bisa diselesaikan jauh lebih cepat dengan `str_contains()` atau `str_replace()`.
@@ -1142,9 +1153,9 @@ preg_replace('/\D/', '', $text)               → Ganti pola regex (misal: \D no
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 File I/O Cepat (`file_get_contents`, `file_put_contents`, `file_exists`, `unlink`)
+## 18. 🟡 File I/O Cepat (`file_get_contents`, `file_put_contents`, `file_exists`, `unlink`)
 
-## Konsep
+#### Konsep
 
 Fungsi tingkat tinggi untuk operasi baca-tulis file sederhana tanpa repot mengelola file handle pointer:
 - `file_get_contents($filename)` : Membaca seluruh isi file menjadi string teks (juga dapat membaca URL HTTP).
@@ -1153,7 +1164,7 @@ Fungsi tingkat tinggi untuk operasi baca-tulis file sederhana tanpa repot mengel
 - `filesize($filename)` : Mengambil ukuran file dalam satuan byte.
 - `unlink($filename)` : Menghapus file fisik dari storage.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1176,7 +1187,7 @@ if (file_exists($namaFile)) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Ukuran File: 54 byte
@@ -1193,7 +1204,7 @@ file_put_contents($path, $data, FILE_APPEND) → Tulis data ke file (tambahkan d
 unlink($path)                              → Hapus file dari penyimpanan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `file_get_contents()` untuk file berukuran kecil hingga sedang (< 10MB).
 - ❌ **Kesalahan Umum:** Membaca file berukuran ratusan megabyte atau gigabyte dengan `file_get_contents()` yang akan menyebabkan *Fatal Error: Allowed memory size exhausted* (gunakan File Stream di Bagian 19).
@@ -1202,9 +1213,9 @@ unlink($path)                              → Hapus file dari penyimpanan
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 File Stream & CSV (`fopen`, `fgets`, `fread`, `fwrite`, `fgetcsv`, `fputcsv`)
+## 19. 🟡 File Stream & CSV (`fopen`, `fgets`, `fread`, `fwrite`, `fgetcsv`, `fputcsv`)
 
-## Konsep
+#### Konsep
 
 Untuk file berukuran besar atau format terstruktur (seperti CSV), gunakan teknik **File Stream** yang memproses data baris demi baris menggunakan *resource pointer*:
 - `fopen($filename, $mode)` : Membuka file stream (`'r'` = read, `'w'` = write baru, `'a'` = append).
@@ -1212,7 +1223,7 @@ Untuk file berukuran besar atau format terstruktur (seperti CSV), gunakan teknik
 - `fgetcsv($handle)` / `fputcsv($handle, $fields)` : Membaca / menulis 1 baris format CSV menjadi array.
 - `fclose($handle)` : Menutup pointer file stream setelah selesai.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1236,7 +1247,7 @@ fclose($bacaHandle);
 unlink($fileCsv);
 ```
 
-## Output
+#### Output
 
 ```text
 ID   | Nama Produk     | Harga
@@ -1244,7 +1255,7 @@ ID   | Nama Produk     | Harga
 2    | Teh Hijau       | 25000
 ```
 
-## Alur File Streaming Hemat Memori
+#### Alur File Streaming Hemat Memori
 
 ```text
        File CSV di Harddisk (1 Juta Baris)
@@ -1266,7 +1277,7 @@ ID   | Nama Produk     | Harga
 $h = fopen($path, 'r'); while ($row = fgetcsv($h)) { ... } fclose($h);
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu pastikan memanggil `fclose($handle)` setelah selesai membuka file stream guna mencegah kebocoran resource (*file descriptor leak*).
 - ❌ **Kesalahan Umum:** Lupa memeriksa apakah `fopen()` berhasil sebelum membaca file (`if ($handle !== false)`).
@@ -1275,9 +1286,9 @@ $h = fopen($path, 'r'); while ($row = fgetcsv($h)) { ... } fclose($h);
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Directory & Filesystem (`mkdir`, `rmdir`, `scandir`, `is_dir`, `glob`)
+## 20. 🟡 Directory & Filesystem (`mkdir`, `rmdir`, `scandir`, `is_dir`, `glob`)
 
-## Konsep
+#### Konsep
 
 Pengelolaan direktori dan pencarian file:
 - `mkdir($dirname, $permissions, $recursive)` : Membuat direktori baru (aktifkan `$recursive = true` untuk membuat subfolder bertingkat).
@@ -1286,7 +1297,7 @@ Pengelolaan direktori dan pencarian file:
 - `is_dir($path)` / `is_file($path)` : Mengecek apakah path berupa folder atau file.
 - `glob($pattern)` : Mencari daftar file yang cocok dengan pola wildcard (misal: `"uploads/*.png"`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1312,7 +1323,7 @@ rmdir($folder);
 rmdir("storage");
 ```
 
-## Output
+#### Output
 
 ```text
 Ditemukan: app.log
@@ -1331,9 +1342,9 @@ scandir($path)               → Ambil seluruh isi folder menjadi array
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Path Operations (`basename`, `dirname`, `pathinfo`, `realpath`)
+## 21. 🟡 Path Operations (`basename`, `dirname`, `pathinfo`, `realpath`)
 
-## Konsep
+#### Konsep
 
 Memanipulasi dan membedah struktur path file:
 - `basename($path)` : Mengambil nama file beserta ekstensinya saja.
@@ -1341,7 +1352,7 @@ Memanipulasi dan membedah struktur path file:
 - `pathinfo($path)` : Membedah path menjadi associative array (`dirname`, `basename`, `extension`, `filename`).
 - `realpath($path)` : Mengonversi path relatif (seperti `../storage/app.log`) menjadi path absolut sistem operasi yang sebenarnya.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1356,7 +1367,7 @@ echo "Ekstensi     : " . $info["extension"] . PHP_EOL;
 echo "Nama Murni   : " . $info["filename"];
 ```
 
-## Output
+#### Output
 
 ```text
 Folder Induk : /var/www/html/uploads
@@ -1377,16 +1388,16 @@ basename($path)                      → Ambil nama file saja
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Data Filter & Sanitasi (`filter_var`, `filter_input`, `FILTER_VALIDATE_*`)
+## 22. 🟡 Data Filter & Sanitasi (`filter_var`, `filter_input`, `FILTER_VALIDATE_*`)
 
-## Konsep
+#### Konsep
 
 Extension **Filter** menyediakan validasi dan pembersihan (*sanitasi*) data input tanpa perlu menuliskan regex manual yang rumit:
 - `filter_var($value, $filter, $options)` : Memvalidasi atau membersihkan variabel.
 - Filter Validasi Utama: `FILTER_VALIDATE_EMAIL`, `FILTER_VALIDATE_INT`, `FILTER_VALIDATE_FLOAT`, `FILTER_VALIDATE_URL`, `FILTER_VALIDATE_IP`.
 - Filter Sanitasi Utama: `FILTER_SANITIZE_EMAIL`, `FILTER_SANITIZE_NUMBER_INT`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1414,7 +1425,7 @@ $umurValid = filter_var($umurInput, FILTER_VALIDATE_INT, [
 var_dump($umurValid); // int(25)
 ```
 
-## Output
+#### Output
 
 ```text
 Email Valid: budi.santoso@example.com
@@ -1430,7 +1441,7 @@ filter_var($url, FILTER_VALIDATE_URL)       → Validasi format URL web
 filter_var($int, FILTER_VALIDATE_INT)       → Validasi angka integer
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan `filter_var(..., FILTER_VALIDATE_EMAIL)` untuk validasi email daripada mencoba menyusun regex email sendiri.
 - ❌ **Kesalahan Umum:** Mengira sanitasi otomatis memvalidasi kebenaran data; sanitasi hanya membuang karakter terlarang, validasi tetap wajib dilakukan.
@@ -1439,15 +1450,15 @@ filter_var($int, FILTER_VALIDATE_INT)       → Validasi angka integer
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 URL Parsing & Query String (`parse_url`, `http_build_query`, `urlencode`)
+## 23. 🟡 URL Parsing & Query String (`parse_url`, `http_build_query`, `urlencode`)
 
-## Konsep
+#### Konsep
 
 - `parse_url($url)` : Membedah URL menjadi komponen: `scheme`, `host`, `port`, `path`, `query`, `fragment`.
 - `http_build_query($array)` : Mengonversi associative array menjadi format URL query string yang ter-*encode* aman (misal: `q=budi&page=1`).
 - `urlencode($string)` / `urldecode($string)` : Meng-encode dan men-decode karakter khusus agar aman dilewatkan di URL.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1470,7 +1481,7 @@ $queryString = http_build_query($params);
 echo "Generated URL: https://toko.com/produk?" . $queryString;
 ```
 
-## Output
+#### Output
 
 ```text
 Host : toko.com
@@ -1490,9 +1501,9 @@ http_build_query($params)     → Mengonversi array parameter menjadi query stri
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Variable & Type Checking (`isset`, `empty`, `unset`, `is_null`, `gettype`)
+## 24. 🟡 Variable & Type Checking (`isset`, `empty`, `unset`, `is_null`, `gettype`)
 
-## Konsep
+#### Konsep
 
 Konsep dasar pengecekan variabel:
 - `isset($var)` : Menghasilkan `true` jika variabel **ada dan bernilai bukan `null`**.
@@ -1501,7 +1512,7 @@ Konsep dasar pengecekan variabel:
 - `is_null($var)` : Menghasilkan `true` hanya jika variabel bernilai `null`.
 - `gettype($var)` : Mengembalikan nama tipe data variabel berupa string.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1520,7 +1531,7 @@ unset($data["nama"]); // Hapus key nama
 var_dump(isset($data["nama"]));    // bool(false)
 ```
 
-## Output
+#### Output
 
 ```text
 bool(true)
@@ -1529,7 +1540,7 @@ bool(true)
 bool(false)
 ```
 
-## Perbandingan: `isset()` vs `empty()`
+#### Perbandingan: `isset()` vs `empty()`
 
 ```text
        Nilai Variabel               isset($val)         empty($val)
@@ -1553,15 +1564,15 @@ unset($var)      → Hapus variabel dari memori
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 String Encoding & Multibyte (`mb_strlen`, `mb_substr`, `mb_strpos`)
+## 25. 🟡 String Encoding & Multibyte (`mb_strlen`, `mb_substr`, `mb_strpos`)
 
-## Konsep
+#### Konsep
 
 Fungsi string standar (`strlen`, `substr`) mengukur string berdasarkan **jumlah byte**. Bahasa internasional (bahasa Arab, Mandarin, Jepang) serta **Emoji** menggunakan encoding UTF-8 di mana 1 karakter dapat terdiri dari 2 hingga 4 byte.
 
 Extension **`mbstring`** menyediakan fungsi berawalan `mb_*` yang memproses teks berdasarkan **jumlah karakter visual sebenarnya**.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1576,7 +1587,7 @@ echo "mb_strlen() : " . mb_strlen($teksEmoji, "UTF-8") . " karakter" . PHP_EOL;
 echo "mb_substr() : " . mb_substr($teksEmoji, 0, 6, "UTF-8") . PHP_EOL;
 ```
 
-## Output
+#### Output
 
 ```text
 strlen()    : 9 byte
@@ -1591,7 +1602,7 @@ mb_strlen($str, 'UTF-8')               → Hitung karakter teks UTF-8 / Emoji se
 mb_substr($str, $start, $len, 'UTF-8') → Potong teks UTF-8 tanpa merusak karakter
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan `mb_*` saat memproses nama pengguna, bio profil, atau teks internasional yang berpotensi memuat emoji.
 - ❌ **Kesalahan Umum:** Memotong emoji menggunakan `substr()` standar yang akan membelah byte emoji di tengah jalan (*corrupted character*).
@@ -1600,15 +1611,15 @@ mb_substr($str, $start, $len, 'UTF-8') → Potong teks UTF-8 tanpa merusak karak
 
 <a id="bagian-26"></a>
 
-# 26. 🔴 Hash & Cryptographic Digest (`hash`, `hash_hmac`, `hash_equals`)
+## 26. 🔴 Hash & Cryptographic Digest (`hash`, `hash_hmac`, `hash_equals`)
 
-## Konsep
+#### Konsep
 
 - `hash($algo, $data)` : Menghasilkan *digest* hash satu arah (misal: `'sha256'`).
 - `hash_hmac($algo, $data, $secretKey)` : Menghasilkan hash dengan tanda tangan kunci rahasia (*Keyed-Hash Message Authentication Code*), standar untuk verifikasi webhook API (seperti Midtrans/Stripe).
 - `hash_equals($knownHash, $userHash)` : Membandingkan dua string hash secara aman dari serangan *Timing Attack*.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1627,7 +1638,7 @@ if (hash_equals($signature, $signatureMasuk)) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Webhook Signature: b4c28f9d0c6441e8c75d4090289a5ad30a91e5e2978fe2fa03d853e390c503cf
@@ -1642,7 +1653,7 @@ hash_hmac('sha256', $data, $key)       → Hashing ber-tanda tangan kunci rahasi
 hash_equals($known, $user)             → Perbandingan hash aman anti Timing Attack
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan `hash_equals()` saat memverifikasi token reset password atau webhook signature.
 - ❌ **Kesalahan Umum:** Menggunakan `hash('md5', ...)` atau `hash('sha1', ...)` untuk keamanan kata sandi (keduanya rentan bentrokan dan terlalu cepat ditembus).
@@ -1651,16 +1662,16 @@ hash_equals($known, $user)             → Perbandingan hash aman anti Timing At
 
 <a id="bagian-27"></a>
 
-# 27. 🔴 Secure Password Hashing (`password_hash`, `password_verify`, `password_needs_rehash`)
+## 27. 🔴 Secure Password Hashing (`password_hash`, `password_verify`, `password_needs_rehash`)
 
-## Konsep
+#### Konsep
 
 Untuk mengamankan kata sandi pengguna, PHP menyediakan API hashing kriptografi modern berbasis **Bcrypt** dan **Argon2id**:
 - `password_hash($password, PASSWORD_DEFAULT)` : Membuat hash kata sandi aman yang otomatis menyertakan *salt* acak unik.
 - `password_verify($password, $hash)` : Memverifikasi apakah kata sandi mentah cocok dengan string hash di database.
 - `password_needs_rehash($hash, $algo)` : Memeriksa apakah hash perlu diperbarui jika konfigurasi keamanan server ditingkatkan.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1681,7 +1692,7 @@ if (password_verify($passwordInputLogin, $hashTersimpan)) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hash di DB: $2y$10$... (string hash unik 60 karakter)
@@ -1695,7 +1706,7 @@ $hash = password_hash($password, PASSWORD_DEFAULT); → Hashing password otomati
 password_verify($password, $hash)                   → Verifikasi password saat login
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan `PASSWORD_DEFAULT` atau `PASSWORD_ARGON2ID` untuk menyimpan password user.
 - ❌ **Kesalahan Umum:** Menggunakan algoritma hash biasa seperti `md5()` atau `sha256()` untuk password (sangat berbahaya karena rentan serangan *Rainbow Table*).
@@ -1704,9 +1715,9 @@ password_verify($password, $hash)                   → Verifikasi password saat
 
 <a id="bagian-28"></a>
 
-# 28. 🔴 Cryptographically Secure Random (`random_int`, `random_bytes`, `bin2hex`)
+## 28. 🔴 Cryptographically Secure Random (`random_int`, `random_bytes`, `bin2hex`)
 
-## Konsep
+#### Konsep
 
 Untuk keperluan keamanan (seperti membuat token reset password, token API, atau kode OTP), **JANGAN** gunakan fungsi random lama seperti `rand()` atau `mt_rand()`.
 
@@ -1715,7 +1726,7 @@ Gunakan fungsi generator acak berkekuatan kriptografi bawaan CSPRNG:
 - `random_bytes($length)` : Menghasilkan byte acak kriptografis.
 - `bin2hex($bytes)` : Mengonversi byte biner menjadi string heksadesimal yang mudah dibaca.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1729,7 +1740,7 @@ $tokenAman = bin2hex(random_bytes(16)); // 16 bytes = 32 karakter hex
 echo "Token API: $tokenAman";
 ```
 
-## Output
+#### Output
 
 ```text
 Kode OTP: 742918
@@ -1743,7 +1754,7 @@ random_int($min, $max)              → Angka integer acak aman untuk OTP / PIN
 bin2hex(random_bytes(16))           → String token acak aman untuk Token / API Key
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `bin2hex(random_bytes(32))` untuk generate token sesi dan token aktivasi akun.
 - ❌ **Kesalahan Umum:** Menggunakan `uniqid()` atau `rand()` untuk token keamanan (keduanya dapat diprediksi oleh penyerang).
@@ -1752,14 +1763,14 @@ bin2hex(random_bytes(16))           → String token acak aman untuk Token / API
 
 <a id="bagian-29"></a>
 
-# 29. 🔴 Data Serialization (`serialize`, `unserialize`)
+## 29. 🔴 Data Serialization (`serialize`, `unserialize`)
 
-## Konsep
+#### Konsep
 
 - `serialize($value)` : Mengonversi struktur data PHP (array, objek) menjadi representasi string yang dapat disimpan ke database atau cache.
 - `unserialize($string)` : Mengonversi kembali string hasil serialize menjadi struktur objek/array asli di memori.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1777,7 +1788,7 @@ $restored = unserialize($serialized);
 echo "User ID: " . $restored["user_id"];
 ```
 
-## Output
+#### Output
 
 ```text
 Serialized: a:3:{s:7:"user_id";i:101;s:5:"roles";a:2:{i:0;s:5:"admin";i:1;s:6:"editor";}s:12:"is_logged_in";b:1;}
@@ -1791,7 +1802,7 @@ serialize($data)     → PHP Data -> Serialized String
 unserialize($string) → Serialized String -> PHP Data
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Utamakan format JSON (`json_encode`) untuk interoperabilitas data antar sistem.
 - ❌ **Kesalahan Umum:** Melakukan `unserialize()` terhadap string input mentah dari pengguna (celah keamanan kritis *PHP Object Injection*).
@@ -1800,16 +1811,16 @@ unserialize($string) → Serialized String -> PHP Data
 
 <a id="bagian-30"></a>
 
-# 30. 🔴 SPL Iterators (`ArrayIterator`, `IteratorAggregate`, `DirectoryIterator`)
+## 30. 🔴 SPL Iterators (`ArrayIterator`, `IteratorAggregate`, `DirectoryIterator`)
 
-## Konsep
+#### Konsep
 
 **SPL (Standard PHP Library)** menyediakan kumpulan class iterator untuk menelusuri data secara terstandarisasi:
 - `ArrayIterator` : Membungkus array agar dapat diperlakukan sebagai objek iterator.
 - `IteratorAggregate` : Interface agar class kustom dapat diiterasi langsung via loop `foreach`.
 - `DirectoryIterator` : Menelusuri seluruh file dalam folder secara efisien menggunakan pendekatan OOP.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1825,7 +1836,7 @@ foreach ($dir as $fileInfo) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Daftar File di Folder:
@@ -1843,15 +1854,15 @@ new DirectoryIterator($path)   → Iterator OOP untuk menelusuri isi direktori
 
 <a id="bagian-31"></a>
 
-# 31. 🔴 Generators & `yield` (Streaming Data Hemat Memori)
+## 31. 🔴 Generators & `yield` (Streaming Data Hemat Memori)
 
-## Konsep
+#### Konsep
 
 **Generator** memungkinkan pembuatan iterasi data dalam jumlah jutaan **tanpa mengonsumsi memori RAM** karena data di-*generate* satu per satu saat diminta (*on-demand lazy evaluation*).
 
 Kata kunci **`yield`** mengembalikan nilai sementara ke perulangan lalu menjeda eksekusi fungsi hingga iterasi berikutnya dipanggil.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1876,7 +1887,7 @@ foreach (bacaBarisFile("antrean.txt") as $nomor => $isi) {
 unlink("antrean.txt");
 ```
 
-## Output
+#### Output
 
 ```text
 Baris 0: Transaksi 1
@@ -1894,9 +1905,9 @@ yield $value;   → Mengembalikan satu nilai ke perulangan tanpa membebani RAM
 
 <a id="bagian-32"></a>
 
-# 32. 🔴 Exception & Error Hierarchy (`Throwable`, `Exception`, `Error`, `TypeError`)
+## 32. 🔴 Exception & Error Hierarchy (`Throwable`, `Exception`, `Error`, `TypeError`)
 
-## Konsep
+#### Konsep
 
 Seluruh error dan exception di PHP 8+ mengimplementasikan interface **`Throwable`**:
 
@@ -1913,7 +1924,7 @@ Seluruh error dan exception di PHP 8+ mengimplementasikan interface **`Throwable
 RuntimeException    InvalidArgumentException TypeError             ValueError
 ```
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1935,7 +1946,7 @@ try {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Tertangkap Logika Error: Pembagi tidak boleh nol!
@@ -1952,13 +1963,13 @@ catch (Throwable $e)    → Menangkap seluruh jenis error dan exception di PHP
 
 <a id="bagian-33"></a>
 
-# 33. 🔴 Reflection API (`ReflectionClass`, `ReflectionMethod`)
+## 33. 🔴 Reflection API (`ReflectionClass`, `ReflectionMethod`)
 
-## Konsep
+#### Konsep
 
 **Reflection API** memungkinkan program menginspeksi metadata dan arsitektur kode dirinya sendiri saat runtime (melihat daftar class, parameter fungsi, return type, dan annotations).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1980,7 +1991,7 @@ foreach ($method->getParameters() as $param) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Method: bayar
@@ -1998,15 +2009,15 @@ $ref = new ReflectionClass(ClassName::class);  → Introspeksi struktur dan meta
 
 <a id="bagian-34"></a>
 
-# 34. 🔴 Intl Extension (`NumberFormatter`, `IntlDateFormatter`, `Locale`)
+## 34. 🔴 Intl Extension (`NumberFormatter`, `IntlDateFormatter`, `Locale`)
 
-## Konsep
+#### Konsep
 
 Extension **`intl`** menyediakan fungsi internasionalisasi resmi untuk memformat mata uang, angka desimal, dan tanggal sesuai bahasa dan budaya negara target:
 - `NumberFormatter` : Memformat mata uang (misal: format Rupiah lokal `id_ID` atau USD `en_US`).
 - `IntlDateFormatter` : Memformat tanggal dalam nama bulan dan hari bahasa Indonesia lokal.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2031,7 +2042,7 @@ if (class_exists("NumberFormatter")) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Rupiah: Rp 1.500.000,00
@@ -2049,7 +2060,7 @@ new NumberFormatter('id_ID', NumberFormatter::CURRENCY)->formatCurrency($val, 'I
 
 <a id="bagian-35"></a>
 
-# 35. 🛠️ Peta Ingatan Cepat
+## 35. 🛠️ Peta Ingatan Cepat
 
 Mental model komprehensif seluruh domain PHP Standard Library:
 
@@ -2092,7 +2103,7 @@ Keamanan Akun    ──> password_hash, password_verify, random_int, random_byte
 
 <a id="bagian-36"></a>
 
-# 36. 📚 Tabel Ringkasan
+## 36. 📚 Tabel Ringkasan
 
 | Domain | API / Fungsi Utama | Fungsi & Kegunaan Utama |
 |---|---|---|
@@ -2119,7 +2130,7 @@ Keamanan Akun    ──> password_hash, password_verify, random_int, random_byte
 
 <a id="bagian-37"></a>
 
-# 37. ⚡ Cheat Code PHP Standard Library 10 Detik
+## 37. ⚡ Cheat Code PHP Standard Library 10 Detik
 
 ```php
 <?php
@@ -2154,7 +2165,7 @@ $apiToken = bin2hex(random_bytes(16));
 
 <a id="bagian-38"></a>
 
-# 38. 🧭 Urutan Belajar yang Disarankan
+## 38. 🧭 Urutan Belajar yang Disarankan
 
 ```text
        ┌────────────────────────────────────────────────────────────┐
@@ -2191,11 +2202,11 @@ $apiToken = bin2hex(random_bytes(16));
 
 <a id="bagian-39"></a>
 
-# 39. 🏗️ Mini Project: REST API & CLI Data Processor Terintegrasi
+## 39. 🏗️ Mini Project: REST API & CLI Data Processor Terintegrasi
 
 Mini project ini mengintegrasikan fungsi-fungsi Standard Library PHP paling penting: **`file_get_contents`**, **`json_decode` (JSON_THROW_ON_ERROR)**, **`filter_var`**, **`array_filter`**, **`array_map`**, **`DateTimeImmutable`**, **`password_hash`**, dan **`json_encode`**.
 
-### Kode Program (`api_processor.php`)
+##### Kode Program (`api_processor.php`)
 
 ```php
 <?php
@@ -2279,7 +2290,7 @@ try {
 }
 ```
 
-### Output Eksekusi Program
+##### Output Eksekusi Program
 
 ```text
 {
@@ -2315,7 +2326,7 @@ try {
 
 <a id="bagian-40"></a>
 
-# 40. 🔗 Referensi Resmi
+## 40. 🔗 Referensi Resmi
 
 - [PHP Manual — Function Reference](https://www.php.net/manual/en/funcref.php)
 

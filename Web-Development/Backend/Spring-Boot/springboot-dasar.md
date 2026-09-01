@@ -1,4 +1,16 @@
-# Spring Boot Dasar Cheatsheet Revised
+---
+title: "Spring Boot Dasar"
+description: "Fundamental Spring Boot: Inversion of Control (IoC), Dependency Injection (DI), Bean lifecycle, Component Scanning, dan Application Properties."
+order: 1
+tags:
+  - web-development
+  - backend
+  - spring-boot
+  - java
+  - fundamental
+---
+
+# Spring Boot Dasar
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Generic, Collection, dan Database (JDBC), serta ingin menguasai fondasi arsitektur enterprise modern menggunakan **Spring Boot 3.3+ (Spring Framework 6.x & Java 21 LTS)**.
 >
@@ -104,9 +116,9 @@ Constructor Injection → cara penyuntikan dependensi melalui constructor class 
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Spring Boot & Mental Model Inversion of Control (IoC)
+## 1. 🟢 Pengenalan Spring Boot & Mental Model Inversion of Control (IoC)
 
-## Konsep
+#### Konsep
 
 Dalam pemrograman tradisional (tanpa framework), class Anda bertanggung jawab penuh untuk menginstansiasi seluruh objek yang dibutuhkannya secara manual menggunakan kata kunci `new`. Ini menyebabkan kode saling mengunci rapat (*tightly coupled*), sulit di-unit test, dan rawan kesalahan manajemen memori.
 
@@ -115,7 +127,7 @@ Dalam pemrograman tradisional (tanpa framework), class Anda bertanggung jawab pe
 - **Spring IoC Container** yang bertugas membuat objek, mengonfigurasinya, dan menyuntikkannya ke class yang membutuhkan saat aplikasi dimulai.
 - Objek yang dikelola oleh Spring IoC Container disebut **Spring Bean**.
 
-## Contoh
+#### Contoh
 
 ```java
 // 1. CARA LAMA (Tightly Coupled - Hindari di Spring)
@@ -139,7 +151,7 @@ public class ModernOrderService {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Pendekatan Tradisional:
@@ -163,9 +175,9 @@ Loose Coupling             → kondisi di mana antar komponen aplikasi tidak sal
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Struktur Proyek Spring Boot & Anatomi `@SpringBootApplication`
+## 2. 🟢 Struktur Proyek Spring Boot & Anatomi `@SpringBootApplication`
 
-## Konsep
+#### Konsep
 
 Setiap aplikasi Spring Boot memiliki satu class utama (*Entry Point*) yang ditandai dengan anotasi **`@SpringBootApplication`**.
 
@@ -174,7 +186,7 @@ Anotasi ini adalah anotasi komposit (gabungan dari 3 anotasi penting):
 2. **`@EnableAutoConfiguration`:** Menginstruksikan Spring Boot untuk secara cerdas mengonfigurasi komponen database, server, dan security secara otomatis berdasarkan dependensi *starter* yang ada di `pom.xml` / `build.gradle`.
 3. **`@ComponentScan`:** Menginstruksikan Spring untuk memindai (*scan*) seluruh class, package, dan sub-package di bawah lokasi class utama untuk mencari anotasi stereotype (`@Component`, `@Service`, `@Repository`, `@Controller`).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot;
@@ -191,7 +203,7 @@ public class BelajarSpringBootApplication {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 com.belajar.springboot (Root Package - Lokasi @SpringBootApplication)
@@ -208,7 +220,7 @@ com.belajar.springboot (Root Package - Lokasi @SpringBootApplication)
 SpringApplication.run(Class, args) → memicu proses booting container, web server, dan context Spring
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Meletakkan class `@Service` atau `@Repository` di luar root package `@SpringBootApplication` (misal: class utama di `com.belajar.app`, tetapi service di `com.lain.service`), sehingga service tidak pernah ter-scan dan memicu error `NoSuchBeanDefinitionException`.
 
@@ -218,9 +230,9 @@ SpringApplication.run(Class, args) → memicu proses booting container, web serv
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Spring IoC Container & `ApplicationContext`
+## 3. 🟢 Spring IoC Container & `ApplicationContext`
 
-## Konsep
+#### Konsep
 
 **`ApplicationContext`** adalah antarmuka utama yang merepresentasikan **Spring IoC Container**.
 
@@ -229,7 +241,7 @@ Melalui `ApplicationContext`, kita dapat:
 - Memeriksa ketersediaan bean: `context.containsBean(String)`
 - Memeriksa total jumlah bean yang terdaftar di aplikasi.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot;
@@ -261,7 +273,7 @@ public class ApplicationContextDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ⏰ Waktu Sistem: 1724935000000
@@ -279,9 +291,9 @@ context.getBean(TargetClass.class)                     → mengambil instance be
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Mendefinisikan Bean dengan Stereotype Annotations
+## 4. 🟢 Mendefinisikan Bean dengan Stereotype Annotations
 
-## Konsep
+#### Konsep
 
 Cara paling umum mendaftarkan class kita sendiri agar menjadi Spring Bean adalah dengan menambahkan salah satu **Stereotype Annotation** di atas deklarasi class:
 
@@ -293,7 +305,7 @@ Cara paling umum mendaftarkan class kita sendiri agar menjadi Spring Bean adalah
 | **`@Controller`** | Presentation | Menangani request HTTP berbasis Web HTML / MVC. |
 | **`@RestController`** | RESTful API | Menangani request HTTP yang mengembalikan format JSON / XML. |
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.service;
@@ -323,9 +335,9 @@ public class DiskonService {
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Mendefinisikan Custom Bean dengan `@Configuration` & `@Bean`
+## 5. 🟢 Mendefinisikan Custom Bean dengan `@Configuration` & `@Bean`
 
-## Konsep
+#### Konsep
 
 Jika Anda ingin mendaftarkan class pihak ketiga (*Third-Party Libraries* seperti `ObjectMapper` Jackson, Redis Template, atau `RestTemplate` yang kodenya tidak bisa Anda beri anotasi `@Component` langsung), gunakan kombinasi:
 1. **`@Configuration`:** Menandai class Java murni sebagai pabrik konfigurasi bean.
@@ -333,7 +345,7 @@ Jika Anda ingin mendaftarkan class pihak ketiga (*Third-Party Libraries* seperti
 
 Secara default, nama Bean adalah **nama method-nya**.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.config;
@@ -359,7 +371,7 @@ public class ThirdPartyConfig {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Spring Boot Startup ──> Scan @Configuration ──> Jalankan method @Bean ──> Simpan objek di Container
@@ -376,9 +388,9 @@ Spring Boot Startup ──> Scan @Configuration ──> Jalankan method @Bean �
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Dependency Injection (DI) & Constructor Injection
+## 6. 🟢 Dependency Injection (DI) & Constructor Injection
 
-## Konsep
+#### Konsep
 
 Dependency Injection adalah mekanisme di mana Spring menyuntikkan (*inject*) bean A ke dalam bean B yang membutuhkannya.
 
@@ -390,7 +402,7 @@ Tiga cara melakukan DI di Spring:
    - Mudah di-unit test murni tanpa perlu menyalakan Spring Context (`new Service(mockDep)`).
    - Sejak Spring 4.3+, jika class hanya memiliki **1 constructor**, anotasi `@Autowired` **tidak wajib ditulis lagi**.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.service;
@@ -414,7 +426,7 @@ public class CheckoutService {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 1. Container membuat Bean DiskonService
@@ -431,9 +443,9 @@ public TargetService(DependencyService dependency) { this.dependency = dependenc
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Mengatasi Ambiguitas Bean: `@Primary` & `@Qualifier`
+## 7. 🟢 Mengatasi Ambiguitas Bean: `@Primary` & `@Qualifier`
 
-## Konsep
+#### Konsep
 
 Jika Anda memiliki sebuah Interface (misal: `PaymentGateway`) dan memiliki **lebih dari satu class implementasi** yang sama-sama terdaftar sebagai Bean (`GopayService` dan `OvoService`), Spring akan bingung memilih dan melempar error **`NoUniqueBeanDefinitionException`**.
 
@@ -441,7 +453,7 @@ Dua cara menyelesaikannya:
 1. **`@Primary`:** Menandai salah satu implementasi sebagai *default bean* utama jika tidak ada instruksi spesifik.
 2. **`@Qualifier("beanName")`:** Memilih secara eksplisit bean mana yang ingin disuntikkan berdasarkan nama bean-nya (secara default nama bean adalah nama class berhuruf kecil di awal, misal: `gopayService`).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.payment;
@@ -502,9 +514,9 @@ class OrderPaymentProcessor {
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Bean Lifecycle: `@PostConstruct` & `@PreDestroy`
+## 8. 🟢 Bean Lifecycle: `@PostConstruct` & `@PreDestroy`
 
-## Konsep
+#### Konsep
 
 Seringkali sebuah Bean membutuhkan persiapan awal (misal: membuka socket koneksi, menghangatkan cache data) tepat setelah dependensinya di-inject, dan pembersihan resource saat aplikasi dimatikan.
 
@@ -512,7 +524,7 @@ Anotasi Lifecycle Standar (Jakarta Annotation):
 - **`@PostConstruct`:** Dijalankan tepat **satu kali** segera setelah Bean selesai diinstansiasi dan seluruh Constructor Injection selesai.
 - **`@PreDestroy`:** Dijalankan tepat **satu kali** sesaat sebelum Bean dihancurkan dan aplikasi dimatikan (*Graceful Shutdown*).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.lifecycle;
@@ -540,7 +552,7 @@ public class CacheService {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Instansiasi Objek ──> Constructor Injection ──> @PostConstruct ──> [Bean Siap Pakai] ──> Shutdown ──> @PreDestroy
@@ -557,9 +569,9 @@ Instansiasi Objek ──> Constructor Injection ──> @PostConstruct ──> [
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Bean Scopes (`singleton` vs `prototype`)
+## 9. 🟡 Bean Scopes (`singleton` vs `prototype`)
 
-## Konsep
+#### Konsep
 
 Scope menentukan bagaimana Spring membuat instance dari sebuah Bean:
 
@@ -571,7 +583,7 @@ Scope menentukan bagaimana Spring membuat instance dari sebuah Bean:
    - Dibuat **instance objek baru** setiap kali bean tersebut diminta atau di-inject ke komponen lain.
 3. **Web Scopes:** `request` (1 instance per HTTP request), `session` (1 instance per HTTP session).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.scope;
@@ -601,9 +613,9 @@ public class RequestIdGenerator {
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Lazy Initialization Bean (`@Lazy`)
+## 10. 🟡 Lazy Initialization Bean (`@Lazy`)
 
-## Konsep
+#### Konsep
 
 Secara default, Spring menganut prinsip **Eager Initialization** (seluruh singleton bean diinstansiasi di awal saat booting aplikasi agar kesalahan dependensi langsung terdeteksi seketika).
 
@@ -611,7 +623,7 @@ Jika Anda memiliki Bean yang memakan resource berat dan jarang dipakai (misal: R
 - Bean tersebut **tidak akan dibuat saat booting awal**.
 - Bean baru dibuat pertama kali saat ada komponen yang benar-benar memanggil atau menggunakannya.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.service;
@@ -642,9 +654,9 @@ public class HeavyReportService {
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Mengambil Nilai Konfigurasi dengan `@Value`
+## 11. 🟡 Mengambil Nilai Konfigurasi dengan `@Value`
 
-## Konsep
+#### Konsep
 
 Anotasi **`@Value`** digunakan untuk menyuntikkan nilai konfigurasi individual dari file `application.properties` atau `application.yaml` langsung ke field atau parameter constructor class.
 
@@ -652,7 +664,7 @@ Sintaks Format:
 - `${nama.property:nilaiDefault}` : Mengambil nilai, dan menggunakan `nilaiDefault` jika key tidak ditemukan di properties.
 - `#{systemProperties['user.home']}` : Menggunakan SpEL (*Spring Expression Language*).
 
-## Contoh
+#### Contoh
 
 Isi `application.properties`:
 ```properties
@@ -700,9 +712,9 @@ public class AppMetadata {
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Type-Safe Configuration dengan `@ConfigurationProperties`
+## 12. 🟡 Type-Safe Configuration dengan `@ConfigurationProperties`
 
-## Konsep
+#### Konsep
 
 Untuk konfigurasi yang kompleks dan memiliki banyak properti bertingkat (misal: konfigurasi database, payment gateway, mail server), penggunaan `@Value` satu per satu menjadi tidak praktis dan rawan typo.
 
@@ -711,7 +723,7 @@ Untuk konfigurasi yang kompleks dan memiliki banyak properti bertingkat (misal: 
 2. **Type-Safe:** Otomatis mengonversi tipe data String ke `int`, `Duration`, `boolean`, `List<String>`, dll.
 3. Mendukung validasi otomatis dengan Jakarta Validation (`@Validated`).
 
-## Contoh
+#### Contoh
 
 Isi `application.yaml`:
 ```yaml
@@ -759,9 +771,9 @@ public class PaymentConfig {}
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Format Konfigurasi: `application.properties` vs `application.yaml`
+## 13. 🟡 Format Konfigurasi: `application.properties` vs `application.yaml`
 
-## Konsep
+#### Konsep
 
 Spring Boot mendukung dua format konfigurasi utama yang terletak di folder `src/main/resources/`:
 
@@ -795,9 +807,9 @@ application.yaml → format konfigurasi modern hierarkis yang lebih bersih, muda
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Spring Profiles & Multi-Environment Setup
+## 14. 🟡 Spring Profiles & Multi-Environment Setup
 
-## Konsep
+#### Konsep
 
 Aplikasi backend biasanya berjalan di beberapa lingkungan (*environments*): `local`, `dev`, `staging`, dan `prod`. Setiap environment membutuhkan konfigurasi berbeda (misal: database lokal vs database cloud production).
 
@@ -811,7 +823,7 @@ Aplikasi backend biasanya berjalan di beberapa lingkungan (*environments*): `loc
    - Di file: `spring.profiles.active: dev`
    - Di terminal saat menjalankan jar: `java -jar app.jar --spring.profiles.active=prod`
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.mail;
@@ -855,9 +867,9 @@ spring.profiles.active=prod   → memilih environment profile yang aktif
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Conditional Beans (`@ConditionalOnProperty`, `@ConditionalOnMissingBean`)
+## 15. 🟡 Conditional Beans (`@ConditionalOnProperty`, `@ConditionalOnMissingBean`)
 
-## Konsep
+#### Konsep
 
 Spring Boot memiliki fitur **Conditional Beans** yang memungkinkan pembuatan Bean secara kondisional berdasarkan ketersediaan properti konfigurasi atau ketersediaan bean lain:
 
@@ -865,7 +877,7 @@ Spring Boot memiliki fitur **Conditional Beans** yang memungkinkan pembuatan Bea
 - **`@ConditionalOnMissingBean(Interface.class)`:** Bean hanya dibuat jika pengguna **belum mendefinisikan custom bean** untuk interface tersebut (pola dasar pembuatan Spring Boot Auto-Configuration).
 - **`@ConditionalOnClass(ClassName.class)`:** Bean hanya aktif jika library jar tertentu ada di classpath.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.feature;
@@ -893,16 +905,16 @@ public class CashbackFeatureService {
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Event Handling di Spring Boot (`@EventListener`)
+## 16. 🟡 Event Handling di Spring Boot (`@EventListener`)
 
-## Konsep
+#### Konsep
 
 Untuk menjaga antar modul aplikasi tetap terpisah bebas (*Decoupled*), Spring menyediakan sistem **Event Handling internal**:
 1. **Event Object:** Class POJO / Record yang membawa data kejadian (misal: `OrderCreatedEvent`).
 2. **Event Publisher:** Komponen yang memicu kejadian menggunakan **`ApplicationEventPublisher.publishEvent(event)`**.
 3. **Event Listener:** Komponen yang mendengarkan dan merespons kejadian secara otomatis menggunakan anotasi **`@EventListener`**.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.events;
@@ -942,7 +954,7 @@ class OrderNotificationListener {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 OrderPlacementService ──(publishEvent)──> Spring Event Bus ──> OrderNotificationListener (@EventListener)
@@ -959,9 +971,9 @@ eventPublisher.publishEvent(eventObject) → memicu publikasi event internal ke 
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Spring Boot Logging dengan SLF4J & Logback
+## 17. 🔴 Spring Boot Logging dengan SLF4J & Logback
 
-## Konsep
+#### Konsep
 
 Dalam aplikasi enterprise, **DILARANG MENGGUNAKAN `System.out.println()`** karena tidak memiliki level keparahan (*log levels*), tidak memiliki timestamp, dan tidak dapat dialihkan ke file log / cloud monitoring (ELK Stack).
 
@@ -970,7 +982,7 @@ Spring Boot menggunakan **SLF4J (*Simple Logging Facade for Java*)** dengan impl
 Tingkat Keparahan Log (dari terendah ke tertinggi):
 `TRACE` $\rightarrow$ `DEBUG` $\rightarrow$ `INFO` (Default) $\rightarrow$ `WARN` $\rightarrow$ `ERROR`.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.logging;
@@ -1001,7 +1013,7 @@ public class LogDemoService {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 Pengaturan Log Level di `application.yaml`:
 ```yaml
@@ -1022,9 +1034,9 @@ log.info("Pesan: {}", param);                                           → menc
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Runner Interfaces (`CommandLineRunner` & `ApplicationRunner`)
+## 18. 🔴 Runner Interfaces (`CommandLineRunner` & `ApplicationRunner`)
 
-## Konsep
+#### Konsep
 
 Seringkali kita perlu menjalankan perintah atau seeding data otomatis **tepat setelah Spring Boot Context selesai dimuat dan seluruh Bean siap**:
 
@@ -1033,7 +1045,7 @@ Seringkali kita perlu menjalankan perintah atau seeding data otomatis **tepat se
 
 Kedua interface ini otomatis dideteksi dan dieksekusi oleh Spring Boot saat aplikasi baru menyala.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.springboot.runner;
@@ -1063,7 +1075,7 @@ CommandLineRunner  → interface eksekutor logika otomatis saat aplikasi pertama
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                        PETA ARSITEKTUR SPRING BOOT CORE
@@ -1081,7 +1093,7 @@ INVERSION OF CONTROL (IoC)    DEPENDENCY INJECTION (DI)      CONFIG & PROFILES
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Anotasi / Interface | Lokasi Target | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -1103,7 +1115,7 @@ INVERSION OF CONTROL (IoC)    DEPENDENCY INJECTION (DI)      CONFIG & PROFILES
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Spring Boot Dasar 10 Detik
+## 21. ⚡ Cheat Code Spring Boot Dasar 10 Detik
 
 ```java
 // 1. Template Standard Service dengan Constructor Injection
@@ -1136,7 +1148,7 @@ public record SecurityProperties(String jwtSecret, long expirationMs) {}
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Pahami Mental Model IoC & Stereotypes
@@ -1167,7 +1179,7 @@ Langkah 5: Siap Melangkah ke Spring Boot Web (REST API) & Spring Data JPA!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready Modular Order Notification & Discount Engine CLI
+## 23. 🏗️ Mini Project: Production-Ready Modular Order Notification & Discount Engine CLI
 
 Aplikasi Spring Boot Core lengkap dan runnable yang mengintegrasikan: **Constructor Injection, Multiple Profiles, `@ConfigurationProperties`, Event Listener, Custom Third-Party Bean, SLF4J Logging, dan `CommandLineRunner`**.
 
@@ -1335,7 +1347,7 @@ public class StoreApplication {
 }
 ```
 
-## Output Demonstrasi (Profile `dev`)
+#### Output Demonstrasi (Profile `dev`)
 
 ```text
 2026-08-29T19:30:00.120+07:00  INFO 12345 --- [main] c.b.s.StoreApplication: Starting StoreApplication using Java 21
@@ -1357,7 +1369,7 @@ public class StoreApplication {
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Spring Initializr (Project Generator)](https://start.spring.io)
 - [Spring Boot 3.3 Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)

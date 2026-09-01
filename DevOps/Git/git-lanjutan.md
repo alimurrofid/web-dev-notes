@@ -1,4 +1,15 @@
-# Git Lanjutan & Resolusi Konflik Cheatsheet Revised
+---
+title: "Git Lanjutan"
+description: "Fitur lanjutan Git: Branching strategies, Merge vs Rebase, Conflict Resolution, Stash, Reset (soft/mixed/hard), Revert, Cherry-pick, dan Bisect."
+order: 2
+tags:
+  - devops
+  - git
+  - branching
+  - intermediate
+---
+
+# Git Lanjutan
 
 > **Target:** Pemula yang telah menguasai dasar-dasar Git dan ingin melangkah ke tingkat mahir (**Mental Model Directed Acyclic Graph (DAG), Three-Way Merge vs Rebase, The Golden Rule of Rebase, Interactive Rebase `git rebase -i` (Squashing, Rewording, Dropping), Anatomi & Resolusi Manual Merge Conflict, Manajemen Draft Stashing `git stash`, Strategi Undo Aman `git revert`, Time Travel `git reset` 3 Mode (`--soft`, `--mixed`, `--hard`), Pemindahan Commit Spesifik `git cherry-pick`, Penyelamat Commit Terhapus `git reflog`, Pelacak Bug Otomatis `git bisect` Binary Search, dan Release Tagging `git tag -a`**) menggunakan **Git 2.40+**.
 >
@@ -102,15 +113,15 @@ git bisect                   → pencarian biner otomatis untuk menemukan commit
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Git Lanjutan: Mental Model Directed Acyclic Graph (DAG) & Immutability Commit
+## 1. 🟢 Pengenalan Git Lanjutan: Mental Model Directed Acyclic Graph (DAG) & Immutability Commit
 
-## Konsep
+#### Konsep
 
 Di level internal, Git bukanlah sekadar tumpukan file (*Folder*), melainkan sebuah **Directed Acyclic Graph (DAG)**:
 - Setiap **Commit adalah sebuah simpul (*Node*)** yang merujuk (*Pointer*) ke commit induknya (*Parent*).
 - **Immutability (Kekekalan):** Isi sebuah commit tidak pernah bisa diubah! Ketika Anda melakukan *amend*, *rebase*, atau *squash*, Git sebenarnya **membuat commit-commit baru dengan hash baru**, lalu memindahkan pointer branch ke commit baru tersebut.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 [Commit A] <─── [Commit B] <─── [Commit C] <─── HEAD (Branch main)
@@ -127,9 +138,9 @@ Commit di Git bersifat Immutable (Kekal) | Manipulasi riwayat selalu menghasilka
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Three-Way Merge vs Fast-Forward Merge
+## 2. 🟢 Three-Way Merge vs Fast-Forward Merge
 
-## Konsep
+#### Konsep
 
 1. **Fast-Forward Merge:**
    - Terjadi jika branch `main` tidak memiliki commit baru semenjak branch fitur dibuat. Git hanya menggeser pointer `main` maju ke depan.
@@ -141,14 +152,14 @@ Commit di Git bersifat Immutable (Kekal) | Manipulasi riwayat selalu menghasilka
      3. Ujung Commit Branch Sumber (`feature`).
    - Menghasilkan satu **Merge Commit khusus** yang memiliki 2 commit parent.
 
-## Contoh
+#### Contoh
 
 ```bash
 git switch main
 git merge feature/pembayaran
 ```
 
-## Output
+#### Output
 
 ```text
 Merge made by the 'ort' strategy.
@@ -166,15 +177,15 @@ Three-Way Merge → penggabungan dua branch divergen yang menghasilkan satu Merg
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Pengenalan `git rebase`: Menjaga Riwayat Commit Tetap Lurus (Linear History)
+## 3. 🟢 Pengenalan `git rebase`: Menjaga Riwayat Commit Tetap Lurus (Linear History)
 
-## Konsep
+#### Konsep
 
 **`git rebase <base-branch>`**:
 - Alih-alih membuat Merge Commit bercabang, Rebase **mencopot commit-commit branch fitur Anda**, lalu **memasang dan memutarnya ulang satu per satu di atas ujung commit terbaru branch target**.
 - **Hasil:** Riwayat proyek menjadi **satu garis lurus bersih (*Linear History*)**, sangat mudah dibaca via `git log`, dan mempermudah fitur *Bisect*.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Pindah ke branch fitur Anda
@@ -194,9 +205,9 @@ git rebase main → memindahkan titik pangkal branch fitur ke ujung commit main 
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Perbandingan Mendalam: `git merge` vs `git rebase` & The Golden Rule of Rebase
+## 4. 🟢 Perbandingan Mendalam: `git merge` vs `git rebase` & The Golden Rule of Rebase
 
-## Konsep
+#### Konsep
 
 | Parameter | `git merge` | `git rebase` |
 |---|---|---|
@@ -220,9 +231,9 @@ Golden Rule of Rebase → rebase hanya untuk branch fitur lokal pribadi; dilaran
 
 <a id="bagian-5"></a>
 
-# 5. 🟡 Interactive Rebase (`git rebase -i`): Merapikan Riwayat Commit Sebelum Push
+## 5. 🟡 Interactive Rebase (`git rebase -i`): Merapikan Riwayat Commit Sebelum Push
 
-## Konsep
+#### Konsep
 
 **`git rebase -i HEAD~N`**:
 Membuka editor interaktif untuk memanipulasi $N$ commit terakhir sebelum kode di-push ke GitHub.
@@ -234,7 +245,7 @@ Perintah Interaktif:
 - **`fixup` (atau `f`)** : Gabungkan commit ini ke commit sebelumnya, tetapi **buang pesan commit ini** (gunakan pesan commit induk).
 - **`drop` (atau `d`)** : Hapus commit ini secara permanen dari riwayat.
 
-## Contoh
+#### Contoh
 
 ```bash
 # Rapikan 3 commit terakhir di branch fitur Anda
@@ -258,9 +269,9 @@ git rebase -i HEAD~N → interactive rebase untuk menyatukan (squash) commit ber
 
 <a id="bagian-6"></a>
 
-# 6. 🟡 Anatomi Merge Conflict: Membaca Marker `<<<<<<< HEAD`, `=======`, `>>>>>>>`
+## 6. 🟡 Anatomi Merge Conflict: Membaca Marker `<<<<<<< HEAD`, `=======`, `>>>>>>>`
 
-## Konsep
+#### Konsep
 
 **Merge Conflict** terjadi ketika Git tidak dapat memutuskan secara otomatis baris kode mana yang benar karena **dua commit mengubah baris file yang sama dengan konten berbeda**.
 
@@ -284,9 +295,9 @@ const API_BASE_URL = "https://api.prod.perusahaan.com";
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 Langkah Demi Langkah Resolusi Merge Conflict Manual
+## 7. 🟡 Langkah Demi Langkah Resolusi Merge Conflict Manual
 
-## Konsep
+#### Konsep
 
 Prosedur Baku Menyelesaikan Konflik:
 1. Buka file yang berstatus konflik di text editor.
@@ -295,7 +306,7 @@ Prosedur Baku Menyelesaikan Konflik:
 4. Tandai file sudah selesai diselesaikan via **`git add <file>`**.
 5. Lanjutkan proses via **`git merge --continue`** (atau `git rebase --continue`).
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Periksa file mana saja yang konflik
@@ -318,9 +329,9 @@ Edit file -> Hapus marker konflik -> git add file -> git merge --continue
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Membatalkan Proses Merge atau Rebase yang Macet
+## 8. 🟡 Membatalkan Proses Merge atau Rebase yang Macet
 
-## Konsep
+#### Konsep
 
 Jika saat menyelesaikan konflik Anda merasa bingung atau ingin kembali ke kondisi awal sebelum proses merge/rebase dimulai:
 
@@ -338,9 +349,9 @@ git merge --abort || git rebase --abort → membatalkan proses dan mengembalikan
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Menyimpan Perubahan Sementara dengan `git stash`
+## 9. 🟡 Menyimpan Perubahan Sementara dengan `git stash`
 
-## Konsep
+#### Konsep
 
 Bayangkan Anda sedang coding fitur baru di branch `feature/keranjang` (kode masih error/setengah jalan), tiba-tiba ada bug darurat di branch `main` yang harus segera diperbaiki!
 
@@ -350,7 +361,7 @@ Git menolak berpindah branch jika ada file modified yang belum di-commit.
 - Menyimpan seluruh perubahan yang belum selesai ke dalam rak penyimpanan memori sementara (*Stash Stack*).
 - Membersihkan working tree Anda kembali ke kondisi commit terakhir, sehingga Anda **bebas berpindah branch dengan aman**.
 
-## Contoh
+#### Contoh
 
 ```bash
 # Simpan pekerjaan yang belum selesai dengan label deskriptif
@@ -367,9 +378,9 @@ git stash push -m "pesan" → menyimpan draft perubahan lokal sementara agar bis
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Mengembalikan dan Mengelola Antrean Stash
+## 10. 🟡 Mengembalikan dan Mengelola Antrean Stash
 
-## Konsep
+#### Konsep
 
 Perintah Manajemen Stash:
 - **`git stash list`** : Melihat daftar seluruh draft yang tersimpan di rak.
@@ -378,7 +389,7 @@ Perintah Manajemen Stash:
 - **`git stash drop stash@{N}`** : Menghapus draft tertentu dari rak.
 - **`git stash clear`** : Menghapus seluruh draft di rak stash.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Lihat daftar stash
@@ -399,16 +410,16 @@ git stash pop (kembalikan dan hapus dari rak) | git stash apply (kembalikan tanp
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Mengambil Perubahan Sebagian ke Stash
+## 11. 🟡 Mengambil Perubahan Sebagian ke Stash
 
-## Konsep
+#### Konsep
 
 1. **`git stash -u` (atau `--include-untracked`):**
    - Menyimpan file modified DAN file baru (*Untracked*) yang belum di-stage ke dalam stash.
 2. **`git stash -p` (Interactive Patch):**
    - Memilih potongan baris tertentu (*Hunks*) dari satu file untuk dimasukkan ke stash.
 
-## Contoh
+#### Contoh
 
 ```bash
 git stash -u -m "simpan termasuk file konfigurasi baru"
@@ -424,15 +435,15 @@ git stash -u → menyertakan file untracked yang baru dibuat ke dalam simpanan s
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Membatalkan Perubahan dengan `git revert`
+## 12. 🟡 Membatalkan Perubahan dengan `git revert`
 
-## Konsep
+#### Konsep
 
 **`git revert <commit-hash>`**:
 - Cara **Paling Aman** untuk membatalkan efek dari suatu commit di branch bersama (*Public Shared Branch*).
 - Git **TIDAK menghapus** commit buruk dari riwayat masa lalu, melainkan **membuat Commit Baru yang berisi kebalikan (*Inverse Delta*) dari commit tersebut**.
 
-## Contoh
+#### Contoh
 
 ```bash
 # Batalkan commit yang menyebabkan bug di server production
@@ -449,9 +460,9 @@ git revert commit_hash → membatalkan efek commit secara aman di branch bersama
 
 <a id="bagian-13"></a>
 
-# 13. 🔴 Time Travel dengan `git reset`: Memahami 3 Mode Inti
+## 13. 🔴 Time Travel dengan `git reset`: Memahami 3 Mode Inti
 
-## Konsep
+#### Konsep
 
 **`git reset <mode> <target-commit>`**:
 Memundurkan pointer branch ke commit masa lalu. Memiliki **3 Mode dengan tingkat keparahan berbeda**:
@@ -473,9 +484,9 @@ Memundurkan pointer branch ke commit masa lalu. Memiliki **3 Mode dengan tingkat
 
 <a id="bagian-14"></a>
 
-# 14. 🔴 Analisis Efek `git reset` pada 3 Pohon Git
+## 14. 🔴 Analisis Efek `git reset` pada 3 Pohon Git
 
-## Konsep
+#### Konsep
 
 Visualisasi Perbandingan Dampak 3 Mode Reset:
 
@@ -508,9 +519,9 @@ Gunakan --soft jika ingin menyatukan commit; gunakan --hard hanya jika Anda 100%
 
 <a id="bagian-15"></a>
 
-# 15. 🔴 Memindahkan Commit Tertentu Lintas Cabang dengan `git cherry-pick`
+## 15. 🔴 Memindahkan Commit Tertentu Lintas Cabang dengan `git cherry-pick`
 
-## Konsep
+#### Konsep
 
 **`git cherry-pick <commit-hash>`**:
 Mengambil **satu commit spesifik** dari branch lain dan langsung menerapkannya di atas branch aktif saat ini tanpa perlu melakukan merge seluruh branch.
@@ -518,7 +529,7 @@ Mengambil **satu commit spesifik** dari branch lain dan langsung menerapkannya d
 Skenario Nyata:
 Rekan Anda memperbaiki hotfix bug di branch `develop` (Commit `3b1c4e5`), dan Anda butuh perbaikan tersebut segera di branch `feature/auth` Anda.
 
-## Contoh
+#### Contoh
 
 ```bash
 git switch feature/auth
@@ -535,9 +546,9 @@ git cherry-pick commit_hash → menduplikasi satu commit spesifik dari branch la
 
 <a id="bagian-16"></a>
 
-# 16. 🔴 Cherry-Pick Rentang Commit & Penanganan Konflik
+## 16. 🔴 Cherry-Pick Rentang Commit & Penanganan Konflik
 
-## Konsep
+#### Konsep
 
 1. **Rentang Commit:** `git cherry-pick A..B` (Menerapkan rentang commit dari setelah A sampai B).
 2. **Jika Terjadi Konflik saat Cherry-Pick:**
@@ -554,9 +565,9 @@ git cherry-pick --continue || git cherry-pick --abort
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Jaring Pengaman Terakhir: `git reflog`
+## 17. 🔴 Jaring Pengaman Terakhir: `git reflog`
 
-## Konsep
+#### Konsep
 
 Pernahkah Anda panik karena tidak sengaja menjalankan `git reset --hard HEAD~5` dan mengira 5 commit penting Anda hilang selamanya?
 
@@ -564,13 +575,13 @@ Pernahkah Anda panik karena tidak sengaja menjalankan `git reset --hard HEAD~5` 
 - Git mencatat **setiap pergerakan pointer `HEAD`** (commit, checkout, switch, rebase, reset, merge) di komputer lokal selama 30–90 hari terakhir.
 - Selama belum dibersihkan oleh garbage collector, **tidak ada commit yang benar-benar hilang di Git**!
 
-## Contoh
+#### Contoh
 
 ```bash
 git reflog
 ```
 
-## Output
+#### Output
 
 ```text
 7f8a9b2 (HEAD -> main) HEAD@{0}: reset: moving to HEAD~1
@@ -588,16 +599,16 @@ git reflog → buku hitam pelacak seluruh pergerakan HEAD lokal untuk menyelamat
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Memulihkan Branch Terhapus Menggunakan `git reflog`
+## 18. 🔴 Memulihkan Branch Terhapus Menggunakan `git reflog`
 
-## Konsep
+#### Konsep
 
 Untuk menyelamatkan commit atau branch yang hilang setelah menemukan hash-nya di `git reflog`:
 
 Buat branch baru yang langsung menunjuk ke hash reflog tersebut:
 **`git branch <nama-branch-pemulihan> HEAD@{N}`** (atau gunakan hash commit-nya).
 
-## Contoh
+#### Contoh
 
 ```bash
 # Bangkitkan kembali commit 3b1c4e5 yang terhapus ke branch baru
@@ -615,9 +626,9 @@ git branch recovery-branch HEAD@{N} → membangkitkan kembali commit yang terhap
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Debugging Bug Otomatis dengan `git bisect`
+## 19. 🔴 Debugging Bug Otomatis dengan `git bisect`
 
-## Konsep
+#### Konsep
 
 Ketika ada bug muncul di production dan Anda tidak tahu commit mana di antara 500 commit terakhir yang memperkenalkannya:
 
@@ -643,9 +654,9 @@ git bisect start -> git bisect bad -> git bisect good hash -> uji -> git bisect 
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Menandai Versi Rilis Perangkat Lunak: Git Tagging
+## 20. 🔴 Menandai Versi Rilis Perangkat Lunak: Git Tagging
 
-## Konsep
+#### Konsep
 
 **Git Tags**:
 Pointer permanen yang menunjuk ke commit tertentu untuk menandai tonggak versi rilis perangkat lunak (misal: `v1.0.0`, `v2.1.0`).
@@ -654,7 +665,7 @@ Dua Jenis Tag:
 1. **Lightweight Tag:** Hanya penanda nama sederhana.
 2. **Annotated Tag (Standar Rilis):** Menyimpan nama pembuat, email, tanggal, dan pesan rilis lengkap (`git tag -a`).
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Buat Annotated Tag Versi Rilis
@@ -679,7 +690,7 @@ git tag -a v1.0.0 -m "Release" && git push origin --tags → menandai dan mempub
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                    PETA ARSITEKTUR GIT LANJUTAN & RECOVERY
@@ -697,7 +708,7 @@ HISTORY REWRITING & MERGE      STASH & TIME TRAVEL           DIAGNOSTICS & RESCU
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Perintah Git | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -718,7 +729,7 @@ HISTORY REWRITING & MERGE      STASH & TIME TRAVEL           DIAGNOSTICS & RESCU
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code Git Lanjutan 10 Detik
+## 23. ⚡ Cheat Code Git Lanjutan 10 Detik
 
 ```bash
 # [1] Squash 3 Commit Fitur Sebelum Pull Request:
@@ -738,7 +749,7 @@ git reflog && git branch rescue HEAD@{1}
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Perbedaan Merge vs Rebase
@@ -769,7 +780,7 @@ Langkah 5: Siap Melangkah ke Git Workflow Kolaborasi Tim (Git Flow & Conventiona
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Advanced Git Scenario Simulation
+## 25. 🏗️ Mini Project: Production-Ready Advanced Git Scenario Simulation
 
 Simulasi skenario lanjutan nyata di terminal: **Interactive Rebase Squashing, Stashing Drafts, Memicu dan Menyelesaikan Merge Conflict secara Manual, serta Memulihkan Commit Terhapus via `git reflog`**.
 
@@ -848,7 +859,7 @@ git reset --hard HEAD~1
 # git branch recovered-commit HEAD@{1}
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 [main e7f8a9b] feat: update server port to 8080 for production
@@ -869,7 +880,7 @@ HEAD is now at 9d8e7f6 Merge branch 'feature/custom-port'
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [Git Documentation: Rewriting History](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)
 - [Git Documentation: Reset Demystified](https://git-scm.com/blog/2011/07/11/reset.html)

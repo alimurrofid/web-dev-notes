@@ -1,4 +1,16 @@
-# Laravel Eloquent Cheatsheet Revised
+---
+title: "Laravel Eloquent ORM"
+description: "Eloquent ORM mendalam: Model, CRUD, Mass Assignment, Relationships (1-1, 1-N, N-N, Morph), Eager Loading (anti N+1), Scopes, Casting, dan Observers."
+order: 3
+tags:
+  - web-development
+  - backend
+  - laravel
+  - eloquent
+  - orm
+---
+
+# Laravel Eloquent ORM
 
 > **Target:** pemula yang sudah memahami Laravel Dasar, konsep database/migration, dan dasar Collection, lalu ingin menguasai Eloquent ORM secara mendalam dari nol hingga mahir.
 >
@@ -120,16 +132,16 @@ Query Builder → penyusun query SQL berantai sebelum dieksekusi ke database
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Model & Konvensi Tabel
+## 1. 🟢 Model & Konvensi Tabel
 
-## Konsep
+#### Konsep
 
 Setiap class Model di Eloquent merepresentasikan satu tabel database. Eloquent menggunakan prinsip *Convention over Configuration*:
 - **Nama Tabel**: Singular PascalCase (`Product`) otomatis dipetakan ke tabel Plural snake_case (`products`).
 - **Primary Key**: Default kolom `id` berupa auto-incrementing integer.
 - **Timestamps**: Default menganggap kolom `created_at` dan `updated_at` ada.
 
-## 1. Membuat Model via Artisan
+### 1. Membuat Model via Artisan
 
 ```bash
 # Membuat Model saja di app/Models/Product.php
@@ -142,7 +154,7 @@ php artisan make:model Product -m
 php artisan make:model Product -all
 ```
 
-## 2. Struktur Model Dasar (`app/Models/Product.php`)
+### 2. Struktur Model Dasar (`app/Models/Product.php`)
 
 ```php
 namespace App\Models;
@@ -155,7 +167,7 @@ class Product extends Model
 }
 ```
 
-## 3. Menimpa Konvensi Default (*Custom Configuration*)
+### 3. Menimpa Konvensi Default (*Custom Configuration*)
 
 Jika struktur database warisan (*legacy*) tidak mengikuti konvensi Laravel, kita dapat menimpanya dengan properti model:
 
@@ -181,7 +193,7 @@ class Product extends Model
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Nama Class Model: Product
@@ -205,12 +217,12 @@ $table = 'name'     → menimpa nama tabel default
 $primaryKey = 'key' → menimpa nama kolom primary key default
 ```
 
-## Best Practice
+#### Best Practice
 
 - Selalu gunakan nama model bentuk tunggal dalam format PascalCase (misal `Category`, `OrderDetail`).
 - Buat migration bersamaan dengan model menggunakan flag `-m` (`php artisan make:model Product -m`).
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Memberi nama class model bentuk jamak seperti `class Products extends Model`. Ini akan membuat Eloquent mencari tabel `products` yang rancu atau `products_s`.
 
@@ -220,9 +232,9 @@ $primaryKey = 'key' → menimpa nama kolom primary key default
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Insert Data
+## 2. 🟢 Insert Data
 
-## Konsep
+#### Konsep
 
 Memasukkan data baru ke database menggunakan Eloquent dapat dilakukan dengan beberapa pendekatan:
 1. `create()`: Menyimpan array data sekaligus (membutuhkan proteksi Mass Assignment `$fillable`).
@@ -231,7 +243,7 @@ Memasukkan data baru ke database menggunakan Eloquent dapat dilakukan dengan beb
 4. `firstOrCreate()` / `firstOrNew()`: Mencari data yang ada; jika belum ada, buat baru.
 5. `updateOrCreate()`: Update data jika cocok dengan kriteria; jika tidak ada, insert baru.
 
-## 1. Menggunakan `create()` (Paling Umum)
+### 1. Menggunakan `create()` (Paling Umum)
 
 ```php
 use App\Models\Product;
@@ -246,7 +258,7 @@ $product = Product::create([
 echo $product->id; // ID otomatis tersedia setelah berhasil di-insert
 ```
 
-## 2. Menggunakan `new Model()` + `save()`
+### 2. Menggunakan `new Model()` + `save()`
 
 ```php
 $product = new Product();
@@ -256,7 +268,7 @@ $product->stock = 50;
 $product->save(); // Menjalankan query INSERT SQL
 ```
 
-## 3. Menggunakan `forceCreate()`
+### 3. Menggunakan `forceCreate()`
 
 ```php
 // Digunakan saat proses internal yang terpercaya (misal Seeder / Job Worker)
@@ -267,7 +279,7 @@ $product = Product::forceCreate([
 ]);
 ```
 
-## 4. Menggunakan `firstOrCreate()` & `firstOrNew()`
+### 4. Menggunakan `firstOrCreate()` & `firstOrNew()`
 
 ```php
 // firstOrCreate: cari berdasarkan kriteria; jika tidak ada, langsung insert ke DB
@@ -284,7 +296,7 @@ $newProduct = Product::firstOrNew(
 $newProduct->save(); // Simpan manual saat siap
 ```
 
-## 5. Menggunakan `updateOrCreate()`
+### 5. Menggunakan `updateOrCreate()`
 
 ```php
 // Cari berdasarkan SKU; jika ketemu maka update price, jika belum ada maka insert
@@ -294,7 +306,7 @@ $product = Product::updateOrCreate(
 );
 ```
 
-## Output
+#### Output
 
 ```text
 ID Produk Baru: 1
@@ -303,7 +315,7 @@ Harga: Rp 750.000
 Created At: 2026-08-25 20:00:00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Array Data Input
@@ -329,12 +341,12 @@ Model::firstOrNew(condition, attributes)       → ambil jika ada, buat objek ba
 Model::updateOrCreate(condition, attributes)   → perbarui jika ada, insert jika belum ada
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan `Model::create()` untuk form input standar controller yang sudah divalidasi.
 - Gunakan `updateOrCreate()` untuk proses sinkronisasi data API atau import Excel agar terhindar dari duplikasi data.
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Memanggil `Product::create($request->all())` tanpa mendefinisikan `$fillable` pada Model (akan melempar `MassAssignmentException`).
 
@@ -344,13 +356,13 @@ Model::updateOrCreate(condition, attributes)   → perbarui jika ada, insert jik
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Find & Select Data
+## 3. 🟢 Find & Select Data
 
-## Konsep
+#### Konsep
 
 Eloquent menyediakan berbagai method ekspresif untuk mengambil satu atau banyak record model berdasarkan Primary Key maupun kriteria filter kolom.
 
-## 1. Mengambil Berdasarkan Primary Key (`find`, `findOrFail`, `findMany`)
+### 1. Mengambil Berdasarkan Primary Key (`find`, `findOrFail`, `findMany`)
 
 ```php
 use App\Models\Product;
@@ -370,7 +382,7 @@ $product = Product::findOr(999, function () {
 });
 ```
 
-## 2. Mengambil 1 Record Pertama (`first`, `firstOrFail`, `firstWhere`, `sole`)
+### 2. Mengambil 1 Record Pertama (`first`, `firstOrFail`, `firstWhere`, `sole`)
 
 ```php
 // 1. first(): Mengambil baris pertama yang cocok dengan filter
@@ -386,7 +398,7 @@ $product = Product::firstWhere('sku', 'KB-MECH-01');
 $product = Product::where('email', 'admin@example.com')->sole();
 ```
 
-## 3. Mengambil Semua Data (`all`, `get`)
+### 3. Mengambil Semua Data (`all`, `get`)
 
 ```php
 // Mengambil seluruh isi tabel products
@@ -398,14 +410,14 @@ $activeProducts = Product::where('is_active', true)
     ->get();
 ```
 
-## Output
+#### Output
 
 ```text
 Data Ditemukan:
 ID: 1 | Nama: Mechanical Keyboard | Harga: 750000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Product::findOrFail(1)
@@ -434,7 +446,7 @@ all()                                → ambil seluruh isi tabel sebagai Collect
 get()                                → eksekusi query builder dan ambil Collection
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan `findOrFail()` di dalam Route Controller show/edit agar aplikasi otomatis mengembalikan respons 404 jika pengguna memasukkan ID yang tidak ada di URL.
 
@@ -442,16 +454,16 @@ get()                                → eksekusi query builder dan ambil Collec
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Update Data
+## 4. 🟢 Update Data
 
-## Konsep
+#### Konsep
 
 Memperbarui data model dapat dilakukan dengan dua pendekatan:
 1. **Via Model Instance**: Mengambil model, mengubah atributnya, lalu memanggil `save()` atau `update()`. Cara ini memicu *Model Events* dan *Timestamps*.
 2. **Via Direct Query Update**: Memperbarui baris data langsung di tingkat SQL tanpa memuat objek ke RAM. Sangat efisien untuk update massal.
 3. **Increment / Decrement**: Menambah atau mengurangi nilai angka secara atomik.
 
-## 1. Update Lewat Instance Model
+### 1. Update Lewat Instance Model
 
 ```php
 $product = Product::findOrFail(1);
@@ -468,7 +480,7 @@ $product->update([
 ]);
 ```
 
-## 2. Direct Query Update (Update Massal di Database)
+### 2. Direct Query Update (Update Massal di Database)
 
 ```php
 // Update 1000 produk diskon sekaligus tanpa memakan memori RAM
@@ -477,7 +489,7 @@ $affectedRows = Product::where('category_id', 2)
     ->update(['is_discount' => true]);
 ```
 
-## 3. Increment & Decrement Atomik
+### 3. Increment & Decrement Atomik
 
 ```php
 $product = Product::findOrFail(1);
@@ -498,7 +510,7 @@ $product->incrementEach([
 ]);
 ```
 
-## Output
+#### Output
 
 ```text
 Update Berhasil. Baris terpengaruh: 1
@@ -506,7 +518,7 @@ Harga baru: Rp 850.000
 Stok baru: 23
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Ambil Model via findOrFail(id)
@@ -532,7 +544,7 @@ $model->decrement('column', amount)            → kurangi nilai angka secara at
 $model->incrementEach(['column' => amount])    → tambah banyak kolom angka sekaligus
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan `$model->increment()` / `$model->decrement()` untuk operasi counter atau stok agar terhindar dari masalah *Race Condition*.
 
@@ -540,13 +552,13 @@ $model->incrementEach(['column' => amount])    → tambah banyak kolom angka sek
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Delete Data
+## 5. 🟢 Delete Data
 
-## Konsep
+#### Konsep
 
 Menghapus data model dapat dilakukan dari instance objek model menggunakan `delete()` atau langsung berdasarkan ID menggunakan static method `destroy()`.
 
-## 1. Menghapus Lewat Instance Model
+### 1. Menghapus Lewat Instance Model
 
 ```php
 $product = Product::findOrFail(1);
@@ -555,7 +567,7 @@ $product = Product::findOrFail(1);
 $product->delete();
 ```
 
-## 2. Menghapus Berdasarkan Primary Key (`destroy`)
+### 2. Menghapus Berdasarkan Primary Key (`destroy`)
 
 ```php
 // Hapus 1 record berdasarkan ID
@@ -568,13 +580,13 @@ Product::destroy([1, 2, 3]);
 Product::destroy(4, 5, 6);
 ```
 
-## Output
+#### Output
 
 ```text
 Record ID 1 berhasil dihapus dari database.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Product::destroy(1)
@@ -592,7 +604,7 @@ Model::destroy(id)            → hapus data langsung berdasarkan ID tunggal
 Model::destroy([id1, id2])    → hapus banyak data langsung berdasarkan kumpulan array ID
 ```
 
-## Best Practice
+#### Best Practice
 
 - Jika hanya memiliki ID dari request, gunakan `Product::destroy($id)` daripada melakukan `Product::find($id)->delete()` untuk menghemat 1 query SELECT.
 
@@ -600,13 +612,13 @@ Model::destroy([id1, id2])    → hapus banyak data langsung berdasarkan kumpula
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Delete Many & Truncate
+## 6. 🟢 Delete Many & Truncate
 
-## Konsep
+#### Konsep
 
 Ketika perlu menghapus kumpulan data berdasarkan kondisi tertentu tanpa memuat ribuan objek ke memori, gunakan Query Builder `delete()` atau kosongkan seluruh tabel menggunakan `truncate()`.
 
-## 1. Menghapus Banyak Data Berdasarkan Kondisi
+### 1. Menghapus Banyak Data Berdasarkan Kondisi
 
 ```php
 // Menghapus seluruh produk yang statusnya draft dan dibuat sebelum tahun lalu
@@ -617,14 +629,14 @@ $deletedCount = Product::where('status', 'draft')
 echo "Total produk dihapus: {$deletedCount}";
 ```
 
-## 2. Menghapus Seluruh Data Tabel (`truncate`)
+### 2. Menghapus Seluruh Data Tabel (`truncate`)
 
 ```php
 // Menghapus SEMUA data dan mereset auto-increment ID ke 1
 Product::truncate();
 ```
 
-## 3. Perbedaan Mass Delete vs Model Delete
+### 3. Perbedaan Mass Delete vs Model Delete
 
 | Fitur | `$model->delete()` | `Product::where(...)->delete()` |
 |---|---|---|
@@ -633,7 +645,7 @@ Product::truncate();
 | Memicu Model Events | Ya (`deleting`, `deleted`) | Tidak (eksekusi langsung di DB) |
 | Dukungan Soft Delete | Ya | Ya (jika menggunakan trait) |
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Product::where('status', 'inactive')->delete()
@@ -657,15 +669,15 @@ Model::truncate()                         → kosongkan tabel dan reset auto-inc
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Mass Assignment Protection
+## 7. 🟢 Mass Assignment Protection
 
-## Konsep
+#### Konsep
 
 *Mass Assignment* adalah fitur memasukkan array data input (seperti `$request->all()`) langsung ke method `create()` atau `update()`. Fitur ini sangat praktis namun memiliki celah keamanan jika pengguna jahat menyisipkan field terlarang (misal `'is_admin' => true`).
 
 Untuk melindunginya, Laravel mewajibkan kita menentukan `$fillable` (whitelist) atau `$guarded` (blacklist) pada setiap Model.
 
-## 1. Menggunakan `$fillable` (Sangat Disarankan)
+### 1. Menggunakan `$fillable` (Sangat Disarankan)
 
 ```php
 namespace App\Models;
@@ -685,7 +697,7 @@ class Product extends Model
 }
 ```
 
-## 2. Menggunakan `$guarded`
+### 2. Menggunakan `$guarded`
 
 ```php
 class Product extends Model
@@ -698,7 +710,7 @@ class Product extends Model
 }
 ```
 
-## 3. Membuka Proteksi Sementara di Seeder / Command
+### 3. Membuka Proteksi Sementara di Seeder / Command
 
 ```php
 // Mematikan proteksi mass assignment sementara
@@ -710,11 +722,11 @@ Model::unguard();
 Model::reguard();
 ```
 
-## Output Percobaan Penetrasi
+#### Output Percobaan Penetrasi
 
 Jika request mengirim `['name' => 'Mouse', 'is_admin' => 1]`, maka hanya kolom `name` yang tersimpan, sedangkan `is_admin` akan diabaikan secara aman oleh Eloquent.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input Array: ['name' => 'Keyboard', 'is_admin' => true]
@@ -735,7 +747,7 @@ Model::unguard()                 → matikan proteksi mass assignment secara glo
 Model::reguard()                 → aktifkan kembali proteksi mass assignment
 ```
 
-## Best Practice
+#### Best Practice
 
 - Selalu prioritaskan `$fillable` daripada `$guarded = []`. Menentukan kolom secara eksplisit jauh lebih aman dari celah kebocoran hak akses data.
 
@@ -743,15 +755,15 @@ Model::reguard()                 → aktifkan kembali proteksi mass assignment
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Timestamps Management
+## 8. 🟢 Timestamps Management
 
-## Konsep
+#### Konsep
 
 Secara default, Eloquent mengasumsikan tabel Anda memiliki dua kolom timestamp:
 - `created_at`: Otomatis diisi waktu saat data pertama kali dibuat (*INSERT*).
 - `updated_at`: Otomatis diperbarui waktu saat data mengalami perubahan (*UPDATE*).
 
-## 1. Menonaktifkan Timestamps
+### 1. Menonaktifkan Timestamps
 
 Jika tabel Anda tidak memiliki kolom `created_at` dan `updated_at`:
 
@@ -767,7 +779,7 @@ class OrderStatus extends Model
 }
 ```
 
-## 2. Kustomisasi Nama Kolom Timestamps
+### 2. Kustomisasi Nama Kolom Timestamps
 
 ```php
 class Product extends Model
@@ -777,7 +789,7 @@ class Product extends Model
 }
 ```
 
-## 3. Memperbarui Timestamp Tanpa Mengubah Kolom (`touch`)
+### 3. Memperbarui Timestamp Tanpa Mengubah Kolom (`touch`)
 
 ```php
 $product = Product::findOrFail(1);
@@ -786,7 +798,7 @@ $product = Product::findOrFail(1);
 $product->touch();
 ```
 
-## 4. Menyimpan Perubahan Tanpa Mengubah `updated_at`
+### 4. Menyimpan Perubahan Tanpa Mengubah `updated_at`
 
 ```php
 // Update kolom stock tanpa memperbarui updated_at
@@ -795,7 +807,7 @@ $product->withoutTimestamps(function () use ($product) {
 });
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Event INSERT ──> Eloquent otomatis isi created_at & updated_at = now()
@@ -816,13 +828,13 @@ $model->withoutTimestamps(fn)    → jalankan mutasi tanpa mengubah updated_at
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Default Attribute Values
+## 9. 🟢 Default Attribute Values
 
-## Konsep
+#### Konsep
 
 Properti `$attributes` digunakan untuk menetapkan nilai default pada atribut model saat instance objek baru dibuat di memori sebelum disimpan ke database.
 
-## 1. Mendefinisikan `$attributes`
+### 1. Mendefinisikan `$attributes`
 
 ```php
 namespace App\Models;
@@ -840,7 +852,7 @@ class Product extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $product = new Product();
@@ -850,14 +862,14 @@ echo $product->stock;     // 0
 echo $product->is_active; // true
 ```
 
-## Output
+#### Output
 
 ```text
 Status Default: draft
 Stok Default: 0
 ```
 
-## Perbedaan Default Model vs Default Migration
+#### Perbedaan Default Model vs Default Migration
 
 ```text
 Default Migration Schema:
@@ -879,13 +891,13 @@ protected $attributes = ['column' => 'default_value'] → inisialisasi nilai awa
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Query Builder dari Model
+## 10. 🟢 Query Builder dari Model
 
-## Konsep
+#### Konsep
 
 Setiap class Model Eloquent bertindak sebagai *Entry Point* menuju Laravel Query Builder. Kita dapat menggunakan semua method query builder seperti `where()`, `orderBy()`, `limit()`, `select()`, dan menyambungkannya (*method chaining*).
 
-## 1. Sintaks Query Builder Eloquent
+### 1. Sintaks Query Builder Eloquent
 
 ```php
 use App\Models\Product;
@@ -899,7 +911,7 @@ $products = Product::query()
     ->get();
 ```
 
-## 2. Method Eksekutor & Agregasi Esensial
+### 2. Method Eksekutor & Agregasi Esensial
 
 ```php
 // Mengambil 1 data pertama
@@ -921,7 +933,7 @@ $latestProducts = Product::latest()->get();
 $oldestProducts = Product::oldest()->get();
 ```
 
-## Cara Kerja Method Chaining
+#### Cara Kerja Method Chaining
 
 ```text
        Product::query()             → Mulai inisialisasi Query Builder
@@ -954,13 +966,13 @@ get(['column'])                        → eksekusi query dan ambil Collection
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Eloquent Collection
+## 11. 🟢 Eloquent Collection
 
-## Konsep
+#### Konsep
 
 Hasil eksekusi method `get()`, `all()`, atau pemanggilan relasi jamak mengembalikan objek `Illuminate\Database\Eloquent\Collection`. Collection ini membungkus array objek model dengan ratusan helper method bawaan yang sangat kuat.
 
-## 1. Operasi Esensial Eloquent Collection
+### 1. Operasi Esensial Eloquent Collection
 
 ```php
 $products = Product::all();
@@ -994,7 +1006,7 @@ $sorted = $products->sortBy('price');
 $cheapest = $products->firstWhere('price', '<=', 100000);
 ```
 
-## 2. Perbedaan Query Database vs Collection Memory
+### 2. Perbedaan Query Database vs Collection Memory
 
 ```text
 Query Database (Di Server SQL):
@@ -1023,15 +1035,15 @@ load(['relation'])              → eager load relasi pada koleksi yang sudah ad
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Soft Deletes
+## 12. 🟡 Soft Deletes
 
-## Konsep
+#### Konsep
 
 *Soft Delete* adalah mekanisme penghapusan aman di mana baris data tidak benar-benar dihapus secara fisik dari tabel harddisk (*hard delete*). Laravel mengisi kolom timestamp `deleted_at`.
 
 Data yang memiliki `deleted_at` tidak null akan otomatis disembunyikan dari semua query standar Eloquent.
 
-## 1. Menyiapkan Migration
+### 1. Menyiapkan Migration
 
 ```php
 use Illuminate\Database\Migrations\Migration;
@@ -1054,7 +1066,7 @@ return new class extends Migration {
 };
 ```
 
-## 2. Mengaktifkan Trait pada Model
+### 2. Mengaktifkan Trait pada Model
 
 ```php
 namespace App\Models;
@@ -1068,7 +1080,7 @@ class Product extends Model
 }
 ```
 
-## 3. Operasi Soft Delete Lengkap
+### 3. Operasi Soft Delete Lengkap
 
 ```php
 $product = Product::findOrFail(1);
@@ -1093,7 +1105,7 @@ Product::withTrashed()->where('id', 1)->restore();
 $product->forceDelete();
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        $product->delete()
@@ -1120,9 +1132,9 @@ $model->forceDelete()          → hapus fisik baris permanen dari harddisk
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Query Scope: Konsep Reusable Query
+## 13. 🟡 Query Scope: Konsep Reusable Query
 
-## Konsep
+#### Konsep
 
 Query Scope adalah fitur untuk membungkus logika query yang sering digunakan berulang kali ke dalam method model yang ekspresif dan bersih.
 
@@ -1136,7 +1148,7 @@ Laravel membagi scope menjadi dua jenis:
 1. **Local Scope**: Dipanggil secara manual dan eksplisit saat dibutuhkan.
 2. **Global Scope**: Diterapkan secara otomatis ke setiap query model tanpa perlu dipanggil manual.
 
-## Diagram Perbandingan
+#### Diagram Perbandingan
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -1162,13 +1174,13 @@ Global Scope → query filter yang otomatis diterapkan pada setiap query model
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Query Global Scope
+## 14. 🟡 Query Global Scope
 
-## Konsep
+#### Konsep
 
 Global Scope otomatis menyisipkan klausa WHERE tertentu ke semua query model. Sangat cocok untuk fitur *Multi-Tenancy* (misal otomatis filter `where('tenant_id', auth()->user()->tenant_id)`), atau menyembunyikan data rahasia/non-aktif secara sistemik.
 
-## 1. Membuat Global Scope Terpisah via Class
+### 1. Membuat Global Scope Terpisah via Class
 
 ```php
 namespace App\Models\Scopes;
@@ -1186,7 +1198,7 @@ class ActiveScope implements Scope
 }
 ```
 
-## 2. Mendaftarkan Global Scope di Model (`booted`)
+### 2. Mendaftarkan Global Scope di Model (`booted`)
 
 ```php
 namespace App\Models;
@@ -1204,7 +1216,7 @@ class Product extends Model
 }
 ```
 
-## 3. Global Scope Anonim (*Closure Based*)
+### 3. Global Scope Anonim (*Closure Based*)
 
 ```php
 protected static function booted(): void
@@ -1215,7 +1227,7 @@ protected static function booted(): void
 }
 ```
 
-## 4. Menonaktifkan Global Scope Saat Dibutuhkan
+### 4. Menonaktifkan Global Scope Saat Dibutuhkan
 
 ```php
 // Menonaktifkan ActiveScope tertentu untuk halaman Administrator
@@ -1228,7 +1240,7 @@ $allAncient = Product::withoutGlobalScope('ancient')->get();
 $rawProducts = Product::withoutGlobalScopes()->get();
 ```
 
-## Output Query SQL
+#### Output Query SQL
 
 ```text
 Query Product::all():
@@ -1251,13 +1263,13 @@ withoutGlobalScopes()                        → matikan seluruh global scope
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Query Local Scope
+## 15. 🟡 Query Local Scope
 
-## Konsep
+#### Konsep
 
 Local Scope ditulis sebagai method di dalam Model dengan awalan kata `scope` (format camelCase: `scopeActive`, `scopePopular`). Saat dipanggil di Controller, awalan `scope` dihilangkan (`Product::active()`, `Product::popular()`).
 
-## 1. Menulis Local Scope pada Model
+### 1. Menulis Local Scope pada Model
 
 ```php
 namespace App\Models;
@@ -1289,7 +1301,7 @@ class Product extends Model
 }
 ```
 
-## 2. Penggunaan di Controller (*Method Chaining*)
+### 2. Penggunaan di Controller (*Method Chaining*)
 
 ```php
 use App\Models\Product;
@@ -1302,13 +1314,13 @@ $products = Product::query()
     ->get();
 ```
 
-## Output
+#### Output
 
 ```text
 Mengambil produk aktif dengan harga <= 500000 yang mengandung nama pencarian.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Product::active()->priceBelow(500000)
@@ -1327,7 +1339,7 @@ public function scopeActive(Builder $query)            → dipanggil sebagai Mod
 public function scopeCategory(Builder $query, $value)  → dipanggil sebagai Model::category($value)
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan Local Scope untuk menyembunyikan query filter yang kompleks dari Controller. Controller harus tetap ramping dan mudah dibaca (*Thin Controller, Fat Model*).
 
@@ -1335,9 +1347,9 @@ public function scopeCategory(Builder $query, $value)  → dipanggil sebagai Mod
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Konsep Dasar Relasi (Relationships)
+## 16. 🟡 Konsep Dasar Relasi (Relationships)
 
-## Konsep
+#### Konsep
 
 Tabel di database relasional saling terhubung satu sama lain menggunakan kolom *Foreign Key*. Di Eloquent, relasi ini didefinisikan sebagai **method** pada class Model.
 
@@ -1345,7 +1357,7 @@ Eloquent menyediakan fungsionalitas ganda untuk setiap relasi:
 1. **Dynamic Property** (`$user->phone`): Mengembalikan objek atau Collection hasil relasi yang sudah dieksekusi.
 2. **Method Query Builder** (`$user->phone()`): Mengembalikan objek Query Builder relasi sehingga kita dapat menambahkan filter berantai (`->where(...)`, `->orderBy(...)`).
 
-## Diagram Macam-Macam Relasi
+#### Diagram Macam-Macam Relasi
 
 ```text
        ┌────────────────────────────────────────────────────────┐
@@ -1371,9 +1383,9 @@ belongsToMany('RelatedClass')  → model ini berelasi banyak-ke-banyak via tabel
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 One to One Relationship
+## 17. 🟡 One to One Relationship
 
-## Konsep
+#### Konsep
 
 Relasi Satu-ke-Satu (1:1) menghubungkan 1 record di tabel induk dengan tepat 1 record di tabel anak.
 Contoh: Setiap `User` memiliki tepat 1 `Phone` (atau 1 `Profile`), dan setiap `Phone` dimiliki oleh 1 `User`.
@@ -1381,7 +1393,7 @@ Contoh: Setiap `User` memiliki tepat 1 `Phone` (atau 1 `Profile`), dan setiap `P
 - Tabel `users`: `id`, `name`
 - Tabel `phones`: `id`, `user_id` (foreign key), `number`
 
-## 1. Definisi Model `User` (Induk)
+### 1. Definisi Model `User` (Induk)
 
 ```php
 namespace App\Models;
@@ -1399,7 +1411,7 @@ class User extends Model
 }
 ```
 
-## 2. Definisi Model `Phone` (Anak - Pemegang Foreign Key)
+### 2. Definisi Model `Phone` (Anak - Pemegang Foreign Key)
 
 ```php
 namespace App\Models;
@@ -1418,7 +1430,7 @@ class Phone extends Model
 }
 ```
 
-## 3. Penggunaan & Pembuatan Relasi
+### 3. Penggunaan & Pembuatan Relasi
 
 ```php
 // Membaca relasi (Dynamic Property)
@@ -1435,7 +1447,7 @@ $user->phone()->create([
 ]);
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        User Model (id: 1)
@@ -1461,9 +1473,9 @@ $model->relation()->create(attributes)      → insert data anak otomatis mengis
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 One to Many Relationship
+## 18. 🟡 One to Many Relationship
 
-## Konsep
+#### Konsep
 
 Relasi Satu-ke-Banyak (1:N) menghubungkan 1 record di tabel induk dengan banyak record di tabel anak.
 Contoh: 1 `Category` memiliki banyak `Product`, dan setiap `Product` dimiliki oleh 1 `Category`.
@@ -1471,7 +1483,7 @@ Contoh: 1 `Category` memiliki banyak `Product`, dan setiap `Product` dimiliki ol
 - Tabel `categories`: `id`, `name`
 - Tabel `products`: `id`, `category_id` (foreign key), `name`, `price`
 
-## 1. Definisi Model `Category` (Induk)
+### 1. Definisi Model `Category` (Induk)
 
 ```php
 namespace App\Models;
@@ -1488,7 +1500,7 @@ class Category extends Model
 }
 ```
 
-## 2. Definisi Model `Product` (Anak)
+### 2. Definisi Model `Product` (Anak)
 
 ```php
 namespace App\Models;
@@ -1507,7 +1519,7 @@ class Product extends Model
 }
 ```
 
-## 3. Penggunaan
+### 3. Penggunaan
 
 ```php
 $category = Category::findOrFail(1);
@@ -1530,7 +1542,7 @@ $category->products()->create([
 ]);
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Category (id: 1)
@@ -1556,9 +1568,9 @@ $parent->children()->createMany([array])    → insert banyak record anak sekali
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Many to Many Relationship
+## 19. 🟡 Many to Many Relationship
 
-## Konsep
+#### Konsep
 
 Relasi Banyak-ke-Banyak (N:N) terjadi ketika 1 record tabel A dapat memiliki banyak relasi di tabel B, dan sebaliknya 1 record tabel B dapat dimiliki oleh banyak relasi di tabel A.
 Contoh: 1 `User` dapat memiliki banyak `Role` (Admin, Editor), dan 1 `Role` dapat dimiliki oleh banyak `User`.
@@ -1567,7 +1579,7 @@ Relasi ini membutuhkan **Intermediate Table (Tabel Pivot)**.
 - Konvensi nama tabel pivot: gabungan kedua nama model bentuk tunggal secara alfabetis snake_case: `role_user`.
 - Struktur tabel `role_user`: `user_id`, `role_id`.
 
-## 1. Definisi Model
+### 1. Definisi Model
 
 ```php
 // app/Models/User.php
@@ -1599,7 +1611,7 @@ class Role extends Model
 }
 ```
 
-## 2. Mengelola Relasi Pivot (`attach`, `detach`, `sync`, `toggle`)
+### 2. Mengelola Relasi Pivot (`attach`, `detach`, `sync`, `toggle`)
 
 ```php
 $user = User::findOrFail(1);
@@ -1623,7 +1635,7 @@ $user->roles()->syncWithoutDetaching([2]);
 $user->roles()->toggle([1, 2]);
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        User (id: 1) ──> [ Tabel Pivot: role_user ] <── Role (id: 2)
@@ -1650,15 +1662,15 @@ $model->relation()->toggle([ids])  → bolak-balik status relasi (ada -> hapus, 
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Intermediate Table & Kolom Pivot
+## 20. 🟡 Intermediate Table & Kolom Pivot
 
-## Konsep
+#### Konsep
 
 Tabel pivot sering kali tidak hanya menyimpan foreign key saja, melainkan juga memiliki kolom data tambahan (seperti `quantity`, `unit_price`, `expires_at`, `created_at`).
 
 Secara default, Eloquent hanya mengambil foreign key dari tabel pivot. Agar kolom tambahan dapat diakses, kita harus mendaftarkannya menggunakan `withPivot()`.
 
-## 1. Mendefinisikan Kolom Pivot pada Model
+### 1. Mendefinisikan Kolom Pivot pada Model
 
 ```php
 // app/Models/Order.php
@@ -1678,7 +1690,7 @@ class Order extends Model
 }
 ```
 
-## 2. Mengakses & Menyimpan Data Pivot
+### 2. Mengakses & Menyimpan Data Pivot
 
 ```php
 $order = Order::with('products')->findOrFail(1);
@@ -1704,7 +1716,7 @@ $order->products()->updateExistingPivot($productId, [
 ]);
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```sql
        SELECT products.*, 
@@ -1729,13 +1741,13 @@ updateExistingPivot(id, ['column' => 'value']) → perbarui nilai kolom pivot ya
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Pivot Model
+## 21. 🟡 Pivot Model
 
-## Konsep
+#### Konsep
 
 Ketika tabel pivot memiliki logika bisnis yang kompleks, relasi tambahan, casting atribut, atau lifecycle events, membuat class **Custom Pivot Model** (turunan `Illuminate\Database\Eloquent\Relations\Pivot`) adalah pendekatan terbaik.
 
-## 1. Membuat Custom Pivot Model
+### 1. Membuat Custom Pivot Model
 
 ```php
 namespace App\Models;
@@ -1763,7 +1775,7 @@ class OrderProduct extends Pivot
 }
 ```
 
-## 2. Menggunakan Pivot Model pada Relasi (`using`)
+### 2. Menggunakan Pivot Model pada Relasi (`using`)
 
 ```php
 // app/Models/Order.php
@@ -1776,7 +1788,7 @@ public function products(): BelongsToMany
 }
 ```
 
-## 3. Penggunaan
+### 3. Penggunaan
 
 ```php
 $order = Order::find(1);
@@ -1798,13 +1810,13 @@ class OrderProduct extends Pivot  → class custom pivot model
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Querying Relations
+## 22. 🟡 Querying Relations
 
-## Konsep
+#### Konsep
 
 Eloquent memungkinkan kita menyaring (*filter*) model induk berdasarkan keberadaan atau kriteria yang terjadi pada model anaknya.
 
-## 1. Menyaring Berdasarkan Keberadaan Relasi (`has`, `doesntHave`)
+### 1. Menyaring Berdasarkan Keberadaan Relasi (`has`, `doesntHave`)
 
 ```php
 use App\Models\User;
@@ -1819,7 +1831,7 @@ $prolificUsers = User::has('posts', '>=', 5)->get();
 $newbies = User::doesntHave('posts')->get();
 ```
 
-## 2. Menyaring Berdasarkan Kondisi Relasi (`whereHas`, `whereDoesntHave`)
+### 2. Menyaring Berdasarkan Kondisi Relasi (`whereHas`, `whereDoesntHave`)
 
 ```php
 // 1. whereHas(): Ambil user yang memiliki postingan dengan status 'published'
@@ -1841,7 +1853,7 @@ $usersWithActivePosts = User::withWhereHas('posts', function ($query) {
 })->get();
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        User::has('posts')
@@ -1869,15 +1881,15 @@ withWhereHas('relation', callback)              → filter kondisi anak SEKALIGU
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 Aggregating Relations
+## 23. 🟡 Aggregating Relations
 
-## Konsep
+#### Konsep
 
 Sering kali kita perlu menghitung jumlah, menjumlahkan total nominal, atau mencari rata-rata dari relasi anak tanpa perlu memuat ribuan objek anak ke memori aplikasi.
 
 Eloquent menyediakan kumpulan method `withCount`, `withSum`, `withAvg`, `withMin`, `withMax`, dan `withExists` yang dieksekusi secara instan via subquery SQL berkinerja tinggi.
 
-## 1. Menghitung Jumlah Relasi (`withCount`)
+### 1. Menghitung Jumlah Relasi (`withCount`)
 
 ```php
 // Menghitung jumlah komentar di setiap postingan
@@ -1899,7 +1911,7 @@ $posts = Post::withCount([
 echo $posts->first()->approved_comments_count;
 ```
 
-## 2. Agregasi Statistik Lainnya (`withSum`, `withAvg`, `withMin`, `withMax`)
+### 2. Agregasi Statistik Lainnya (`withSum`, `withAvg`, `withMin`, `withMax`)
 
 ```php
 use App\Models\User;
@@ -1925,7 +1937,7 @@ if ($users->first()->active_subscription_exists) {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Post::withCount('comments')
@@ -1951,16 +1963,16 @@ withExists('relation')                     → atribut {relation}_exists (boolea
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Lazy vs Eager Loading (Solusi N+1 Problem)
+## 24. 🟡 Lazy vs Eager Loading (Solusi N+1 Problem)
 
-## Konsep
+#### Konsep
 
 **N+1 Query Problem** adalah jebakan performa paling umum pada ORM:
 - Jika kita mengambil 100 record buku (`1 Query`), lalu di dalam loop kita memanggil `$book->author->name` secara dinamis (*Lazy Loading*), Laravel akan mengeksekusi 1 query tambahan untuk setiap iterasi loop (`100 Query`). Total: **101 Query SQL!** Ini menyebabkan aplikasi menjadi sangat lambat.
 
 **Eager Loading** adalah solusi utama: memuat seluruh relasi yang dibutuhkan di awal hanya dalam **2 Query SQL yang teroptimasi**, terlepas dari berapa pun jumlah baris yang ada.
 
-## 1. Bahaya Lazy Loading (N+1 Query)
+### 1. Bahaya Lazy Loading (N+1 Query)
 
 ```php
 // ❌ BURUK: Menghasilkan 1 + N Query ke Database
@@ -1972,7 +1984,7 @@ foreach ($books as $book) {
 }
 ```
 
-## 2. Solusi Eager Loading (`with`)
+### 2. Solusi Eager Loading (`with`)
 
 ```php
 // ✅ BAIK: Hanya 2 Query SQL Cepat!
@@ -1986,7 +1998,7 @@ foreach ($books as $book) {
 }
 ```
 
-## 3. Eager Loading Lanjutan (Multiple, Nested, & Filtered)
+### 3. Eager Loading Lanjutan (Multiple, Nested, & Filtered)
 
 ```php
 // 1. Memuat banyak relasi sekaligus
@@ -2001,7 +2013,7 @@ $authors = Author::with(['posts' => function ($query) {
 }])->get();
 ```
 
-## 4. Lazy Eager Loading (`load`, `loadMissing`)
+### 4. Lazy Eager Loading (`load`, `loadMissing`)
 
 Jika kumpulan model sudah terlanjur diambil dan kita baru memutuskan ingin melakukan eager load belakangan:
 
@@ -2015,7 +2027,7 @@ $books->load('author');
 $books->loadMissing('author');
 ```
 
-## 5. Mencegah Lazy Loading di Mode Development
+### 5. Mencegah Lazy Loading di Mode Development
 
 Di Laravel modern, kita dapat menginstruksikan aplikasi agar melempar error keras jika ada lazy loading yang tidak sengaja lolos:
 
@@ -2030,7 +2042,7 @@ public function boot(): void
 }
 ```
 
-## Diagram Perbandingan Performa
+#### Diagram Perbandingan Performa
 
 ```text
 Lazy Loading (N+1):
@@ -2059,15 +2071,15 @@ Model::preventLazyLoading(condition)   → aktifkan alarm deteksi N+1 di file Ap
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 UUID & ULID Primary Keys
+## 25. 🟡 UUID & ULID Primary Keys
 
-## Konsep
+#### Konsep
 
 Penggunaan auto-increment integer ID (1, 2, 3) rentan terhadap tebakan URL (*enumeration attack*). Laravel menyediakan dukungan native untuk:
 - **UUID (Universally Unique Identifier)**: String 36 karakter acak (`550e8400-e29b-41d4-a716-446655440000`).
 - **ULID (Universally Unique Lexicographically Sortable Identifier)**: String 26 karakter unik yang dapat diurutkan berdasarkan waktu pembuatan secara alami (`01ARZ3NDEKTSV4RRFFQ69G5FAV`).
 
-## 1. Migration Skema
+### 1. Migration Skema
 
 ```php
 use Illuminate\Database\Migrations\Migration;
@@ -2093,7 +2105,7 @@ return new class extends Migration {
 };
 ```
 
-## 2. Mengaktifkan Trait pada Model
+### 2. Mengaktifkan Trait pada Model
 
 ```php
 // app/Models/Order.php (UUID)
@@ -2119,7 +2131,7 @@ class Transaction extends Model
 }
 ```
 
-## 3. Penggunaan
+### 3. Penggunaan
 
 ```php
 $order = Order::create(['amount' => 500000]);
@@ -2140,15 +2152,15 @@ $table->ulid('id')->primary()  → kolom primary key ULID di migration
 
 <a id="bagian-26"></a>
 
-# 26. 🟡 Attribute Casting Modern
+## 26. 🟡 Attribute Casting Modern
 
-## Konsep
+#### Konsep
 
 Casting secara otomatis mengubah tipe data kolom mentah database (yang sering berupa string) menjadi tipe data PHP yang sesuai saat dibaca, dan mengembalikannya ke format database saat disimpan.
 
 Di Laravel modern (Laravel 11 / 12 / 13), casting didefinisikan menggunakan method `casts(): array` (bukan properti `$casts = []`).
 
-## 1. Mendefinisikan Method `casts()`
+### 1. Mendefinisikan Method `casts()`
 
 ```php
 namespace App\Models;
@@ -2174,7 +2186,7 @@ class Product extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $product = Product::find(1);
@@ -2185,7 +2197,7 @@ $formattedDate = $product->published_at->format('d M Y'); // Objek Carbon
 $product->options = ['color' => 'red', 'size' => 'L']; // Array langsung disimpan sebagai JSON di DB
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Database Storage (JSON String: '{"color":"red"}')
@@ -2215,16 +2227,16 @@ EnumClass::class                  → casting langsung ke PHP 8 Backed Enum
 
 <a id="bagian-27"></a>
 
-# 27. 🟡 Accessors dan Mutators Modern
+## 27. 🟡 Accessors dan Mutators Modern
 
-## Konsep
+#### Konsep
 
 - **Accessor**: Memanipulasi nilai atribut saat **dibaca** oleh kode aplikasi (misal mengubah format nama menjadi huruf kapital).
 - **Mutator**: Memanipulasi nilai atribut saat **disimpan** ke database (misal melakukan hashing password atau slugify judul).
 
 Di Laravel modern, Accessor dan Mutator didefinisikan secara elegan dalam satu method menggunakan class `Illuminate\Database\Eloquent\Casts\Attribute`.
 
-## 1. Definisi Accessor & Mutator Modern
+### 1. Definisi Accessor & Mutator Modern
 
 ```php
 namespace App\Models;
@@ -2255,7 +2267,7 @@ class User extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $user = new User();
@@ -2279,16 +2291,16 @@ set: fn (string $value) => ...                → transformasi nilai saat disimp
 
 <a id="bagian-28"></a>
 
-# 28. 🟡 Model Events & Observers
+## 28. 🟡 Model Events & Observers
 
-## Konsep
+#### Konsep
 
 Eloquent memancarkan berbagai *Lifecycle Events* saat model berinteraksi dengan database:
 `retrieved`, `creating`, `created`, `updating`, `updated`, `saving`, `saved`, `deleting`, `deleted`, `restoring`, `restored`.
 
 Event berakhiran `-ing` berjalan **sebelum** aksi database terjadi (dapat dibatalkan jika return `false`), sedangkan `-ed` berjalan **setelah** aksi sukses.
 
-## 1. Menangani Event di Model (`booted`)
+### 1. Menangani Event di Model (`booted`)
 
 ```php
 namespace App\Models;
@@ -2315,7 +2327,7 @@ class Post extends Model
 }
 ```
 
-## 2. Menggunakan Observers (Class Terpisah untuk Kode Bersih)
+### 2. Menggunakan Observers (Class Terpisah untuk Kode Bersih)
 
 ```bash
 # Membuat Observer class via Artisan
@@ -2370,13 +2382,13 @@ Model::observe(Class) → daftarkan observer di AppServiceProvider
 
 <a id="bagian-29"></a>
 
-# 29. 🟡 Serialization Data
+## 29. 🟡 Serialization Data
 
-## Konsep
+#### Konsep
 
 Serialization adalah proses mengubah instance Model atau Eloquent Collection menjadi array PHP mentah atau format teks JSON untuk kebutuhan respons REST API.
 
-## 1. Mengubah Model ke Array & JSON
+### 1. Mengubah Model ke Array & JSON
 
 ```php
 $user = User::with('roles')->findOrFail(1);
@@ -2391,7 +2403,7 @@ $userJson = $user->toJson();
 return response()->json($user);
 ```
 
-## 2. Menyembunyikan Kolom Sensitif (`$hidden` & `$visible`)
+### 2. Menyembunyikan Kolom Sensitif (`$hidden` & `$visible`)
 
 ```php
 namespace App\Models;
@@ -2412,7 +2424,7 @@ class User extends Model
 }
 ```
 
-## 3. Menambahkan Virtual Attribute ke JSON (`$appends`)
+### 3. Menambahkan Virtual Attribute ke JSON (`$appends`)
 
 ```php
 class User extends Model
@@ -2424,7 +2436,7 @@ class User extends Model
 }
 ```
 
-## Output JSON API
+#### Output JSON API
 
 ```json
 {
@@ -2450,19 +2462,19 @@ protected $appends = ['attr']   → sertakan virtual accessor ke output JSON
 
 <a id="bagian-30"></a>
 
-# 30. 🟡 Model Factories & Seeding
+## 30. 🟡 Model Factories & Seeding
 
-## Konsep
+#### Konsep
 
 Model Factory digunakan untuk membuat ratusan hingga ribuan data tiruan (*dummy data*) yang realistis untuk kebutuhan *automated testing* dan *seeding* database lokal development.
 
-## 1. Membuat Factory via Artisan
+### 1. Membuat Factory via Artisan
 
 ```bash
 php artisan make:factory ProductFactory --model=Product
 ```
 
-## 2. Menulis Definisi Factory (`database/factories/ProductFactory.php`)
+### 2. Menulis Definisi Factory (`database/factories/ProductFactory.php`)
 
 ```php
 namespace Database\Factories;
@@ -2496,7 +2508,7 @@ class ProductFactory extends Factory
 }
 ```
 
-## 3. Menggunakan Factory di Seeder / Test
+### 3. Menggunakan Factory di Seeder / Test
 
 ```php
 use App\Models\Product;
@@ -2534,15 +2546,15 @@ $factory->state(callback)           → modifikasi kondisi atribut tertentu pada
 
 <a id="bagian-31"></a>
 
-# 31. 🔴 Has One of Many
+## 31. 🔴 Has One of Many
 
-## Konsep
+#### Konsep
 
 Ketika model induk memiliki relasi 1-to-Many ke model anak, namun kita sering membutuhkan kueri untuk mengambil **tepat 1 anak** dengan kriteria ekstrem tertentu (misal: pesanan *terbaru*, harga produk *termahal*, atau login *pertama kali*).
 
 Eloquent menyediakan method `latestOfMany()`, `oldestOfMany()`, dan `ofMany()`.
 
-## 1. Definisi pada Model
+### 1. Definisi pada Model
 
 ```php
 namespace App\Models;
@@ -2578,7 +2590,7 @@ class Customer extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $customer = Customer::with('latestOrder')->findOrFail(1);
@@ -2598,9 +2610,9 @@ $this->hasOne(Child::class)->ofMany('column', 'max')   → ambil 1 record anak d
 
 <a id="bagian-32"></a>
 
-# 32. 🔴 Has One Through
+## 32. 🔴 Has One Through
 
-## Konsep
+#### Konsep
 
 Relasi `hasOneThrough` menghubungkan model asal ke 1 model tujuan **melalui satu model perantara**.
 
@@ -2611,7 +2623,7 @@ Struktur Tabel:
 - `cars`: `id`, `mechanic_id`, `model`
 - `owners`: `id`, `car_id`, `name`
 
-## 1. Definisi Model `Mechanic`
+### 1. Definisi Model `Mechanic`
 
 ```php
 namespace App\Models;
@@ -2629,7 +2641,7 @@ class Mechanic extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $mechanic = Mechanic::with('carOwner')->find(1);
@@ -2637,7 +2649,7 @@ $mechanic = Mechanic::with('carOwner')->find(1);
 echo "Montir: {$mechanic->name} sedang memperbaiki mobil milik: {$mechanic->carOwner->name}";
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Mechanic (id: 1)
@@ -2662,9 +2674,9 @@ $this->hasOneThrough(FinalModel::class, IntermediateModel::class)
 
 <a id="bagian-33"></a>
 
-# 33. 🔴 Has Many Through
+## 33. 🔴 Has Many Through
 
-## Konsep
+#### Konsep
 
 Relasi `hasManyThrough` menghubungkan model asal ke **banyak model tujuan melalui satu model perantara**.
 
@@ -2675,7 +2687,7 @@ Struktur Tabel:
 - `users`: `id`, `country_id`, `name`
 - `posts`: `id`, `user_id`, `title`
 
-## 1. Definisi Model `Country`
+### 1. Definisi Model `Country`
 
 ```php
 namespace App\Models;
@@ -2693,7 +2705,7 @@ class Country extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $country = Country::findOrFail(1); // Indonesia
@@ -2705,7 +2717,7 @@ foreach ($country->posts as $post) {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Country (id: 1)
@@ -2730,9 +2742,9 @@ $this->hasManyThrough(FinalModel::class, IntermediateModel::class)
 
 <a id="bagian-34"></a>
 
-# 34. 🔴 Polymorphic Relationships: Konsep & Schema
+## 34. 🔴 Polymorphic Relationships: Konsep & Schema
 
-## Konsep
+#### Konsep
 
 Relasi Polimorfik (*Polymorphic Relations*) memungkinkan satu tabel anak dimiliki oleh **berbagai tipe model induk yang berbeda-beda** hanya dengan satu tabel tunggal.
 
@@ -2742,7 +2754,7 @@ Tabel `comments` membutuhkan 2 kolom khusus:
 1. `commentable_id`: Menyimpan ID induk (misal ID 5).
 2. `commentable_type`: Menyimpan nama class induk (misal `App\Models\Post` atau `App\Models\Video`).
 
-## 1. Migration Skema Polimorfik
+### 1. Migration Skema Polimorfik
 
 ```php
 Schema::create('comments', function (Blueprint $table) {
@@ -2756,7 +2768,7 @@ Schema::create('comments', function (Blueprint $table) {
 });
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                          Tabel comments
@@ -2780,16 +2792,16 @@ $table->nullableMorphs('name')  → buat kolom name_id dan name_type yang boleh 
 
 <a id="bagian-35"></a>
 
-# 35. 🔴 One to One Polymorphic
+## 35. 🔴 One to One Polymorphic
 
-## Konsep
+#### Konsep
 
 Relasi Satu-ke-Satu Polimorfik menghubungkan 1 record anak polimorfik ke 1 record dari berbagai tipe induk.
 Contoh: Model `Image` (Foto Profil) dapat dimiliki oleh `User` atau `Company`.
 
 - Tabel `images`: `id`, `url`, `imageable_id`, `imageable_type`
 
-## 1. Definisi Model
+### 1. Definisi Model
 
 ```php
 // app/Models/Image.php (Model Anak)
@@ -2835,7 +2847,7 @@ class Company extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 // Simpan gambar untuk user
@@ -2862,16 +2874,16 @@ $this->morphTo()                           → deklarasi kebalikan di model anak
 
 <a id="bagian-36"></a>
 
-# 36. 🔴 One to Many Polymorphic
+## 36. 🔴 One to Many Polymorphic
 
-## Konsep
+#### Konsep
 
 Relasi Satu-ke-Banyak Polimorfik menghubungkan banyak record anak ke salah satu dari beberapa tipe model induk.
 Contoh: `Post` dan `Video` sama-sama memiliki banyak `Comment`.
 
 - Tabel `comments`: `id`, `body`, `commentable_id`, `commentable_type`
 
-## 1. Definisi Model
+### 1. Definisi Model
 
 ```php
 // app/Models/Comment.php (Anak)
@@ -2917,7 +2929,7 @@ class Video extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $post = Post::find(1);
@@ -2943,15 +2955,15 @@ $this->morphTo()                                → deklarasi kebalikan di model
 
 <a id="bagian-37"></a>
 
-# 37. 🔴 One of Many Polymorphic
+## 37. 🔴 One of Many Polymorphic
 
-## Konsep
+#### Konsep
 
 Mengambil **tepat 1 record anak polimorfik** terbaru atau terekstrem dari relasi One-to-Many Polimorfik menggunakan `latestOfMany()`.
 
 Contoh: Mengambil 1 `Image` terbaru yang diunggah oleh `User` atau `Product`.
 
-## 1. Definisi Model
+### 1. Definisi Model
 
 ```php
 namespace App\Models;
@@ -2975,7 +2987,7 @@ class Product extends Model
 }
 ```
 
-## 2. Penggunaan
+### 2. Penggunaan
 
 ```php
 $product = Product::with('latestImage')->findOrFail(1);
@@ -2993,9 +3005,9 @@ $this->morphOne(Child::class, 'name')->latestOfMany() → ambil 1 anak polimorfi
 
 <a id="bagian-38"></a>
 
-# 38. 🔴 Many to Many Polymorphic
+## 38. 🔴 Many to Many Polymorphic
 
-## Konsep
+#### Konsep
 
 Relasi Banyak-ke-Banyak Polimorfik memungkinkan beberapa model induk berbagi kumpulan tag/kategori yang sama via tabel pivot polimorfik.
 
@@ -3007,7 +3019,7 @@ Struktur Tabel:
 - `tags`: `id`, `name`
 - `taggables` (Pivot Polimorfik): `tag_id`, `taggable_id`, `taggable_type`
 
-## 1. Migration Skema Pivot
+### 1. Migration Skema Pivot
 
 ```php
 Schema::create('taggables', function (Blueprint $table) {
@@ -3016,7 +3028,7 @@ Schema::create('taggables', function (Blueprint $table) {
 });
 ```
 
-## 2. Definisi Model
+### 2. Definisi Model
 
 ```php
 // app/Models/Tag.php
@@ -3055,7 +3067,7 @@ class Post extends Model
 }
 ```
 
-## 3. Penggunaan
+### 3. Penggunaan
 
 ```php
 $post = Post::find(1);
@@ -3079,9 +3091,9 @@ $this->morphedByMany(Post::class, 'taggable')  → pasang relasi balik di sisi m
 
 <a id="bagian-39"></a>
 
-# 39. 🔴 Polymorphic Types & Morph Map
+## 39. 🔴 Polymorphic Types & Morph Map
 
-## Konsep
+#### Konsep
 
 Secara default, Laravel menyimpan nama class lengkap (*Fully Qualified Class Name*) seperti `App\Models\Post` pada kolom `commentable_type`.
 
@@ -3091,7 +3103,7 @@ Kelemahan FQCN default:
 
 **Solusinya adalah Morph Map**: Mendaftarkan alias pendek dan stabil untuk setiap model.
 
-## 1. Mendaftarkan Morph Map di `AppServiceProvider`
+### 1. Mendaftarkan Morph Map di `AppServiceProvider`
 
 ```php
 namespace App\Providers;
@@ -3116,11 +3128,11 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-## 2. Dampak di Database
+### 2. Dampak di Database
 
 Kolom `commentable_type` sekarang hanya menyimpan string ringkas `'post'` atau `'video'`.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input: $post->comments()->create(['body' => 'Mantap!'])
@@ -3142,19 +3154,19 @@ Relation::enforceMorphMap(['alias' => Model::class])
 
 <a id="bagian-40"></a>
 
-# 40. 🔴 Custom Casts
+## 40. 🔴 Custom Casts
 
-## Konsep
+#### Konsep
 
 Jika kebutuhan konversi tipe data model Anda melampaui kemampuan built-in cast bawaan Laravel (misal: enkripsi kustom, formatting mata uang dengan *Value Object*, atau koordinat GPS), kita dapat membuat **Custom Cast Class** menggunakan antarmuka `CastsAttributes`.
 
-## 1. Membuat Custom Cast via Artisan
+### 1. Membuat Custom Cast via Artisan
 
 ```bash
 php artisan make:cast MoneyCast
 ```
 
-## 2. Implementasi Class `MoneyCast`
+### 2. Implementasi Class `MoneyCast`
 
 ```php
 namespace App\Casts;
@@ -3180,7 +3192,7 @@ class MoneyCast implements CastsAttributes
 }
 ```
 
-## 3. Mendaftarkan Custom Cast di Model
+### 3. Mendaftarkan Custom Cast di Model
 
 ```php
 namespace App\Models;
@@ -3199,7 +3211,7 @@ class Product extends Model
 }
 ```
 
-## 4. Penggunaan
+### 4. Penggunaan
 
 ```php
 $product = new Product();
@@ -3222,14 +3234,14 @@ set($model, $key, $value, $attributes)    → transformasi data masuk (simpan)
 
 <a id="bagian-41"></a>
 
-# 41. 🔴 Model Pruning & Touch Parent
+## 41. 🔴 Model Pruning & Touch Parent
 
-## Konsep
+#### Konsep
 
 1. **Model Pruning**: Fitur pembersihan otomatis untuk menghapus record lama atau data sampah yang sudah usang secara terjadwal tanpa membebani server.
 2. **Touch Parent Timestamps (`$touches`)**: Otomatis memperbarui kolom `updated_at` pada model induk setiap kali ada data anak yang diubah atau dihapus.
 
-## 1. Menerapkan Model Pruning (`Prunable`)
+### 1. Menerapkan Model Pruning (`Prunable`)
 
 ```php
 namespace App\Models;
@@ -3258,7 +3270,7 @@ Jalankan via Artisan / Task Scheduler:
 php artisan model:prune
 ```
 
-## 2. Touch Parent Timestamps (`$touches`)
+### 2. Touch Parent Timestamps (`$touches`)
 
 Contoh Kasus: Setiap kali ada `Comment` baru yang ditambahkan, kita ingin kolom `updated_at` pada `Post` induknya otomatis diperbarui.
 
@@ -3293,9 +3305,9 @@ protected $touches = ['relation_name'] → otomatis perbarui updated_at induk sa
 
 <a id="bagian-42"></a>
 
-# 42. 🛠️ Peta Ingatan Cepat
+## 42. 🛠️ Peta Ingatan Cepat
 
-## A. Mental Model Arsitektur Eloquent ORM
+#### A. Mental Model Arsitektur Eloquent ORM
 
 ```text
        Aplikasi Web (Controller / Action)
@@ -3317,7 +3329,7 @@ protected $touches = ['relation_name'] → otomatis perbarui updated_at induk sa
        Eloquent Collection (Kumpulan Objek Model Terhidrasi di RAM)
 ```
 
-## B. Anatomi Seluruh Relasi Eloquent
+#### B. Anatomi Seluruh Relasi Eloquent
 
 ```text
 One to One:
@@ -3336,7 +3348,7 @@ Post ─────────────── morphMany ──────�
 Video ────────────── morphMany ─────────>
 ```
 
-## C. Alur Penanganan N+1 Problem (Eager Loading)
+#### C. Alur Penanganan N+1 Problem (Eager Loading)
 
 ```text
        ┌────────────────────────────────────────────────────────┐
@@ -3358,7 +3370,7 @@ Video ────────────── morphMany ───────
 
 <a id="bagian-43"></a>
 
-# 43. 📚 Tabel Ringkasan
+## 43. 📚 Tabel Ringkasan
 
 | Kategori | Fitur / Kebutuhan | Method / Sintaks Utama | Fungsi & Kegunaan |
 |---|---|---|---|
@@ -3400,7 +3412,7 @@ Video ────────────── morphMany ───────
 
 <a id="bagian-44"></a>
 
-# 44. ⚡ Cheat Code Eloquent 10 Detik
+## 44. ⚡ Cheat Code Eloquent 10 Detik
 
 ```php
 // 1. Ambil Data Wajib Ada (404 jika null)
@@ -3490,7 +3502,7 @@ class Product extends Model
 
 <a id="bagian-45"></a>
 
-# 45. 🧭 Urutan Belajar yang Disarankan
+## 45. 🧭 Urutan Belajar yang Disarankan
 
 ```text
        Langkah 1: Fondasi Model & Operasi CRUD
@@ -3527,11 +3539,11 @@ class Product extends Model
 
 <a id="bagian-46"></a>
 
-# 46. 🏗️ Mini Project: E-Commerce Catalog, Order Management & Review System
+## 46. 🏗️ Mini Project: E-Commerce Catalog, Order Management & Review System
 
 Proyek mini terpadu yang menggabungkan seluruh konsep inti Eloquent: **Migration, Model, Relasi 1:N, Relasi N:N dengan Pivot Tambahan, Relasi Polimorfik Review, Eager Loading Bebas N+1, Scopes, dan Casting Modern**.
 
-## 1. Migration Skema Database
+### 1. Migration Skema Database
 
 ```php
 // database/migrations/2026_01_01_000001_create_ecommerce_system_tables.php
@@ -3591,7 +3603,7 @@ return new class extends Migration {
 };
 ```
 
-## 2. Definisi Model
+### 2. Definisi Model
 
 ```php
 // app/Models/Category.php
@@ -3677,7 +3689,7 @@ class Product extends Model {
 }
 ```
 
-## 3. Controller (`app/Http/Controllers/ProductCatalogController.php`)
+### 3. Controller (`app/Http/Controllers/ProductCatalogController.php`)
 
 ```php
 namespace App\Http\Controllers;
@@ -3710,7 +3722,7 @@ class ProductCatalogController extends Controller
 }
 ```
 
-## Output Tampilan Mini Project
+#### Output Tampilan Mini Project
 
 ```text
 ========================================================================
@@ -3747,7 +3759,7 @@ Navigasi Halaman:
 [ Halaman 1 dari 4 ]  « Sebelumnya  [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]  Selanjutnya »
 ```
 
-## Diagram Alur Mini Project
+#### Diagram Alur Mini Project
 
 ```text
        GET /catalog?category=aksesoris-komputer
@@ -3770,7 +3782,7 @@ Navigasi Halaman:
 
 <a id="bagian-47"></a>
 
-# 47. 🔗 Referensi Resmi
+## 47. 🔗 Referensi Resmi
 
 - [Laravel Documentation: Eloquent ORM Getting Started](https://laravel.com/docs/eloquent)
 - [Laravel Documentation: Eloquent Relationships](https://laravel.com/docs/eloquent-relationships)

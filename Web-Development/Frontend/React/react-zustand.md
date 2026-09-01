@@ -1,4 +1,16 @@
-# React Zustand Cheatsheet Revised
+---
+title: "React Zustand"
+description: "State management ringan dan fleksibel dengan Zustand: store creation, selective subscriptions, async actions, middleware (persist, devtools), dan slice pattern."
+order: 3
+tags:
+  - web-development
+  - frontend
+  - react
+  - zustand
+  - state-management
+---
+
+# React Zustand
 
 > **Target:** Pemula yang telah memahami React Dasar dan React Router, serta ingin menguasai **Global State Management modern, ringan, berkinerja tinggi, dan tanpa Provider boilerplate menggunakan Zustand v4 / v5** (React 18 / 19 & Vite).
 >
@@ -99,9 +111,9 @@ getState()           → metode imperatif untuk membaca data store langsung dari
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Global State Management & Masalah Props Drilling di React
+## 1. 🟢 Pengenalan Global State Management & Masalah Props Drilling di React
 
-## Konsep
+#### Konsep
 
 Ketika membangun aplikasi kecil, state lokal (`useState`) dan *Lifting State Up* sudah memadai. Namun saat aplikasi membesar, data tertentu (seperti data User Login, Keranjang Belanja, Notifikasi, atau Tema) dibutuhkan oleh puluhan komponen yang tersebar di pohon hierarki yang berbeda.
 
@@ -111,7 +123,7 @@ Kondisi di mana kita terpaksa mengoper props melalui 5–10 lapisan komponen per
 **Global State Management**:
 Menyimpan state bersama di dalam **Store Terpusat (*Single Source of Truth*)** di luar pohon komponen. Komponen manapun dapat langsung membaca atau mengubah data tersebut tanpa melewati perantara.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Props Drilling (Buruk):
@@ -136,9 +148,9 @@ Global State Store → wadah data terpusat independen yang dapat diakses langsun
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Evaluasi React Context API (`useContext`) vs Zustand
+## 2. 🟢 Evaluasi React Context API (`useContext`) vs Zustand
 
-## Konsep
+#### Konsep
 
 Banyak pemula bertanya: *"React sudah punya Context API bawaan, mengapa kita butuh library seperti Zustand?"*
 
@@ -163,9 +175,9 @@ Zustand vs Context → Zustand unggul mutlak dalam performa re-render (selector-
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Pengenalan Zustand & Mental Model
+## 3. 🟢 Pengenalan Zustand & Mental Model
 
-## Konsep
+#### Konsep
 
 **Zustand** (kata Jerman yang berarti *"State / Keadaan"*) adalah library state management berukuran sangat kecil (~1 kB) yang dirancang dengan filosofi modern:
 1. **Hook-Centric:** Store yang Anda buat otomatis menjadi React Hook (misal: `useCartStore()`).
@@ -182,9 +194,9 @@ Zustand Store → custom hook mandiri yang menggabungkan deklarasi state dan fun
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Instalasi & Setup Dasar Zustand
+## 4. 🟢 Instalasi & Setup Dasar Zustand
 
-## Konsep
+#### Konsep
 
 Instalasi Zustand pada proyek React / Vite:
 ```bash
@@ -203,9 +215,9 @@ npm install zustand → dependensi tunggal ringan tanpa dependensi peer yang mem
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Membuat Store Pertama dengan `create()`
+## 5. 🟢 Membuat Store Pertama dengan `create()`
 
-## Konsep
+#### Konsep
 
 Fungsi **`create()`** dari `zustand` menerima satu parameter callback `(set) => ({ ... })` yang mengembalikan objek penampung **State** dan **Action Functions**.
 
@@ -214,7 +226,7 @@ Fungsi `set()`:
 - Dapat menerima objek baru: `set({ count: 10 })`.
 - Atau menerima fungsi updater: `set((state) => ({ count: state.count + 1 }))`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // src/store/useCounterStore.js
@@ -243,9 +255,9 @@ export const useStore = create((set) => ({ key: value, action: () => set(fn) }))
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Mengonsumsi Store di Komponen & Konsep State Selectors
+## 6. 🟢 Mengonsumsi Store di Komponen & Konsep State Selectors
 
-## Konsep
+#### Konsep
 
 Untuk menggunakan store di dalam komponen React, kita memanggil custom hook hasil `create()` dengan memberikan fungsi **Selector: `state => state.targetProperty`**.
 
@@ -253,7 +265,7 @@ Mengapa Wajib Menggunakan Selector?
 - Jika Anda menulis: `const store = useCounterStore()` $\rightarrow$ Komponen akan me-render ulang setiap kali **properti apapun di dalam store berubah** (Boros performa!).
 - Jika Anda menulis: `const count = useCounterStore(state => state.count)` $\rightarrow$ Komponen **HANYA akan me-render ulang jika nilai `count` yang berubah**. Jika `userName` berubah, komponen ini tidak akan terganggu.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import React from 'react';
@@ -285,9 +297,9 @@ const value = useStore((state) => state.specificProperty) → selector berlangga
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Pembaruan State Objek & Array Immutability di Zustand
+## 7. 🟢 Pembaruan State Objek & Array Immutability di Zustand
 
-## Konsep
+#### Konsep
 
 Fungsi `set()` di Zustand melakukan *shallow merge* otomatis pada level pertama, tetapi **untuk Array dan Objek bersarang, Anda tetap wajib menerapkan prinsip Immutability**:
 
@@ -295,7 +307,7 @@ Fungsi `set()` di Zustand melakukan *shallow merge* otomatis pada level pertama,
 - **Menghapus dari Array:** `set(state => ({ items: state.items.filter(i => i.id !== targetId) }))`
 - **Memperbarui Objek Bersarang:** `set(state => ({ user: { ...state.user, name: newName } }))`
 
-## Contoh
+#### Contoh
 
 ```javascript
 import { create } from 'zustand';
@@ -335,9 +347,9 @@ set(state => ({ items: state.items.filter(i => i.id !== id) })) → menghapus it
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Mengakses State Terkini di Dalam Action dengan Parameter `get`
+## 8. 🟢 Mengakses State Terkini di Dalam Action dengan Parameter `get`
 
-## Konsep
+#### Konsep
 
 Seringkali di dalam action function, kita perlu membaca data state saat ini tanpa harus memodifikasinya (misal: memvalidasi stok barang sebelum dimasukkan ke keranjang, atau menghitung total harga).
 
@@ -347,7 +359,7 @@ Callback `create()` menyediakan parameter kedua yaitu **`get`**:
 - `get().items` : Membaca nilai array `items` saat ini.
 - `get().totalPrice()` : Memanggil helper kalkulasi.
 
-## Contoh
+#### Contoh
 
 ```javascript
 import { create } from 'zustand';
@@ -385,16 +397,16 @@ const currentState = get(); → membaca snapshot data state di dalam action func
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Async Actions di Zustand
+## 9. 🟡 Async Actions di Zustand
 
-## Konsep
+#### Konsep
 
 Di Redux lama, menangani asynchronous data fetching membutuhkan middleware rumit seperti Redux Thunk atau Redux Saga.
 
 Di Zustand, **Async Action bekerja secara alami**:
 Cukup tambahkan kata kunci **`async`** pada action function, dan panggil `set()` saat status loading berubah dan saat data API tiba!
 
-## Contoh
+#### Contoh
 
 ```javascript
 import { create } from 'zustand';
@@ -452,15 +464,15 @@ actionName: async () => { set({ loading: true }); const res = await fetch(); set
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Auto-Sync LocalStorage dengan `persist` Middleware
+## 10. 🟡 Auto-Sync LocalStorage dengan `persist` Middleware
 
-## Konsep
+#### Konsep
 
 Zustand menyediakan middleware resmi **`persist`** untuk **menyimpan state ke `localStorage` (atau `sessionStorage`) secara otomatis**:
 - Setiap ada perubahan state $\rightarrow$ Zustand otomatis men-serialize state ke JSON di `localStorage`.
 - Saat browser di-refresh $\rightarrow$ Zustand otomatis memuat kembali (*Hydrate*) data dari `localStorage` ke state aplikasi.
 
-## Contoh
+#### Contoh
 
 ```javascript
 import { create } from 'zustand';
@@ -495,15 +507,15 @@ create(persist((set, get) => ({ ... }), { name: "storage-key" })) → auto-sync 
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Debugging State dengan Redux DevTools Middleware (`devtools`)
+## 11. 🟡 Debugging State dengan Redux DevTools Middleware (`devtools`)
 
-## Konsep
+#### Konsep
 
 Anda dapat menggunakan ekstensi browser **Redux DevTools** untuk melakukan *Time-Travel Debugging*, melihat riwayat setiap mutasi state, dan membatalkan aksi (*Undo/Redo*), meskipun Anda menggunakan Zustand!
 
 Cukup bungkus store Anda dengan middleware **`devtools`**.
 
-## Contoh
+#### Contoh
 
 ```javascript
 import { create } from 'zustand';
@@ -532,16 +544,16 @@ create(devtools((set) => ({ ... }), { name: "StoreName" })) → mengaktifkan deb
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Menggabungkan Multiple Middleware
+## 12. 🟡 Menggabungkan Multiple Middleware
 
-## Konsep
+#### Konsep
 
 Dalam aplikasi profesional, kita sering menggabungkan beberapa middleware sekaligus (misal: `devtools` untuk debugging + `persist` untuk penyimpanan lokal).
 
 Pola pembungkusannya:
 `create(devtools(persist((set, get) => ({ ... }), { name: "storage-key" }), { name: "DevToolsName" }))`
 
-## Contoh
+#### Contoh
 
 ```javascript
 import { create } from 'zustand';
@@ -572,9 +584,9 @@ create(devtools(persist((set) => ({ ... }), { name: "storage-key" }))) → mengg
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Immer Middleware untuk Mutasi State yang Lebih Mudah
+## 13. 🟡 Immer Middleware untuk Mutasi State yang Lebih Mudah
 
-## Konsep
+#### Konsep
 
 Jika Anda memiliki data state dengan struktur bersarang yang sangat dalam (*deeply nested objects/arrays*), menulis spread operator `...` berulang kali dapat membingungkan dan rawan salah.
 
@@ -584,7 +596,7 @@ Middleware **`immer`** memungkinkan kita menulis mutasi langsung (*Direct Mutati
 npm install immer
 ```
 
-## Contoh
+#### Contoh
 
 ```javascript
 import { create } from 'zustand';
@@ -614,9 +626,9 @@ create(immer((set) => ({ update: () => set(state => { state.nested.val = newVal 
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Memisahkan Store Besar dengan Slices Pattern
+## 14. 🟡 Memisahkan Store Besar dengan Slices Pattern
 
-## Konsep
+#### Konsep
 
 Untuk aplikasi enterprise yang memiliki ratusan state, menyatukan seluruh state ke dalam satu file raksasa akan sulit dikelola.
 
@@ -624,7 +636,7 @@ Untuk aplikasi enterprise yang memiliki ratusan state, menyatukan seluruh state 
 1. Buat beberapa slice modular (misal: `createAuthSlice`, `createCartSlice`).
 2. Gabungkan seluruh slice ke dalam satu store utama menggunakan operator spread.
 
-## Contoh
+#### Contoh
 
 Slice 1 (`src/store/slices/authSlice.js`):
 ```javascript
@@ -666,9 +678,9 @@ Slices Pattern → memecah store raksasa menjadi potongan modul slice terpisah y
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Membaca & Mengubah State di Luar Komponen React
+## 15. 🟡 Membaca & Mengubah State di Luar Komponen React
 
-## Konsep
+#### Konsep
 
 Salah satu keunggulan terbesar Zustand dibanding React Context adalah: **Zustand dapat dibaca dan diubah dari file JavaScript murni di luar siklus render React** (misal: di dalam Axios Interceptor, file utilitas, atau service worker).
 
@@ -676,7 +688,7 @@ Salah satu keunggulan terbesar Zustand dibanding React Context adalah: **Zustand
 - **Mengubah State:** `useStore.setState({ token: "newToken" })`
 - **Berlangganan Perubahan Manual:** `useStore.subscribe((state) => console.log(state))`
 
-## Contoh (Axios Authorization Interceptor)
+#### Contoh (Axios Authorization Interceptor)
 
 ```javascript
 // src/api/axiosClient.js
@@ -709,9 +721,9 @@ useStore.setState({ key: val }) → mengubah state secara imperatif dari luar ko
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Menghindari Re-render Berlebihan dengan `useShallow`
+## 16. 🟡 Menghindari Re-render Berlebihan dengan `useShallow`
 
-## Konsep
+#### Konsep
 
 Jika Anda ingin memilih beberapa nilai sekaligus dari store dalam bentuk objek:
 `const { name, role } = useUserStore(state => ({ name: state.name, role: state.role }))`
@@ -722,7 +734,7 @@ Solusi:
 Gunakan utility **`useShallow`** dari `zustand/react/shallow`:
 Zustand akan membandingkan nilai properti satu per satu (*Shallow Comparison*) dan mencegah re-render jika nilainya sama persis.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useShallow } from 'zustand/react/shallow';
@@ -751,9 +763,9 @@ useStore(useShallow(state => ({ a: state.a, b: state.b }))) → mengekstrak bany
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Perbandingan Arsitektur: Client State (Zustand) vs Server State (TanStack React Query)
+## 17. 🔴 Perbandingan Arsitektur: Client State (Zustand) vs Server State (TanStack React Query)
 
-## Konsep
+#### Konsep
 
 Standar arsitektur frontend modern membagi state menjadi 2 domain yang berbeda:
 
@@ -775,15 +787,15 @@ Client State (Zustand) = data UI milik browser | Server State (TanStack Query) =
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 TypeScript Support Dasar di Zustand
+## 18. 🔴 TypeScript Support Dasar di Zustand
 
-## Konsep
+#### Konsep
 
 Zustand memiliki dukungan TypeScript kelas satu bawaan tanpa perlu package types tambahan:
 
 Definisikan tipe interface untuk State dan Actions, lalu operasikan ke `create<StoreType>()`:
 
-## Contoh
+#### Contoh
 
 ```typescript
 import { create } from 'zustand';
@@ -813,7 +825,7 @@ create<StoreInterface>()((set) => ({ ... })) → pola deklarasi typed store di T
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                           PETA ARSITEKTUR ZUSTAND
@@ -831,7 +843,7 @@ CORE & SELECTORS             ASYNC & MIDDLEWARE            INTEGRASI & ADVANCED
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Komponen / Fitur | Lokasi | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -849,7 +861,7 @@ CORE & SELECTORS             ASYNC & MIDDLEWARE            INTEGRASI & ADVANCED
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Zustand 10 Detik
+## 21. ⚡ Cheat Code Zustand 10 Detik
 
 ```javascript
 // 1. Template Store Persist Lengkap
@@ -877,7 +889,7 @@ const add = useStore(state => state.add);
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Fundamental Store & Selectors
@@ -908,7 +920,7 @@ Langkah 5: Siap Membangun Aplikasi Enterprise Skala Penuh!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready E-Commerce Shopping Cart & Auth State Manager Web App
+## 23. 🏗️ Mini Project: Production-Ready E-Commerce Shopping Cart & Auth State Manager Web App
 
 Aplikasi web lengkap dan runnable yang mengintegrasikan: **Zustand Store dengan `persist` Middleware (LocalStorage), Auth State, Shopping Cart State, Live Calculation Subscriptions, Selectors, Multi-Component Dispatching, dan Toast Notifications**.
 
@@ -1142,7 +1154,7 @@ export default function App() {
 }
 ```
 
-## Hasil Output Tampilan Aplikasi & Sinkronisasi LocalStorage
+#### Hasil Output Tampilan Aplikasi & Sinkronisasi LocalStorage
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -1169,7 +1181,7 @@ export default function App() {
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Zustand Official Documentation & GitHub](https://github.com/pmndrs/zustand)
 - [Zustand Documentation Guide (pmndrs.github.io/zustand)](https://docs.pmnd.rs/zustand/getting-started/introduction)

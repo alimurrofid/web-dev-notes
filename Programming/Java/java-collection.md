@@ -1,4 +1,15 @@
-# Java Collection Cheatsheet Revised
+---
+title: "Java Collection Framework"
+description: "Java Collection Framework: List (ArrayList, LinkedList), Set (HashSet, TreeSet), Map (HashMap, TreeMap), Queue, Deque, dan Collections utility."
+order: 4
+tags:
+  - programming
+  - java
+  - collection
+  - data-structures
+---
+
+# Java Collection Framework
 
 > **Target:** Pemula yang telah memahami dasar Java, OOP, dan Generic, serta ingin menguasai arsitektur **Java Collection Framework** secara mendalam dan efisien untuk kebutuhan backend & Spring Boot (Java 21 LTS).
 >
@@ -109,9 +120,9 @@ Sequenced     → fitur Java 21 untuk mengakses elemen pertama, terakhir, dan me
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Java Collection Framework & Mental Model Hierarki
+## 1. 🟢 Pengenalan Java Collection Framework & Mental Model Hierarki
 
-## Konsep
+#### Konsep
 
 Array biasa di Java memiliki keterbatasan mendasar: ukurannya bersifat tetap (*fixed-size*) dan tidak memiliki method bawaan untuk pencarian, pengurutan, atau pencegahan duplikasi.
 
@@ -124,7 +135,7 @@ JCF terbagi menjadi dua cabang hierarki besar:
 - **Cabang `Collection<E>`:** Menampung kumpulan elemen tunggal (`List`, `Set`, `Queue`).
 - **Cabang `Map<K, V>`:** Menampung pasangan kunci unik dan nilai (*Key-Value Pair*).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -150,14 +161,14 @@ public class CollectionOverviewDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Collection Items: [Apel, Mangga, Pisang]
 Map Key-Value   : {Apel=15000.0, Mangga=25000.0}
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  java.util.Collection<E>
@@ -179,9 +190,9 @@ java.util.Map<K, V>     → interface mandiri untuk struktur data pemetaan pasan
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 `Iterable` & `Iterator` Interface (Looping Internal & Safe Removal)
+## 2. 🟢 `Iterable` & `Iterator` Interface (Looping Internal & Safe Removal)
 
-## Konsep
+#### Konsep
 
 - **`Iterable<E>`:** Interface akar di Java yang memiliki satu method abstrak: `Iterator<E> iterator()`. Semua class yang mengimplementasikan `Iterable` dapat dijelajahi menggunakan perulangan modern **`for-each` loop**.
 - **`Iterator<E>`:** Objek penunjuk (*cursor*) yang bertugas melintasi elemen koleksi satu per satu secara aman dengan method:
@@ -189,7 +200,7 @@ java.util.Map<K, V>     → interface mandiri untuk struktur data pemetaan pasan
   - `next()`: Mengambil elemen saat ini dan memajukan cursor.
   - `remove()`: **Menghapus elemen saat ini secara aman** saat perulangan berlangsung tanpa memicu error `ConcurrentModificationException`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -214,13 +225,13 @@ public class IteratorDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Daftar Kota setelah penghapusan aman: [Jakarta, Surabaya, Medan]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 cities.iterator() ──> Cursor di posisi -1
@@ -238,7 +249,7 @@ iterator.next()    → mengambil data elemen berikutnya dan memajukan kursor ite
 iterator.remove()  → menghapus elemen yang baru saja diambil oleh next() secara aman
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Menghapus elemen langsung dari list saat for-each loop: `for (String s : list) { if (..) list.remove(s); }` $\rightarrow$ Memicu `ConcurrentModificationException`.
 
@@ -248,9 +259,9 @@ iterator.remove()  → menghapus elemen yang baru saja diambil oleh next() secar
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 `Collection` Interface Dasar (Operasi Universal Data)
+## 3. 🟢 `Collection` Interface Dasar (Operasi Universal Data)
 
-## Konsep
+#### Konsep
 
 Interface `Collection<E>` mendefinisikan operasi-operasi universal yang didukung oleh seluruh struktur data turunan (`List`, `Set`, `Queue`).
 
@@ -263,7 +274,7 @@ Method-method universal terpenting:
 - `clear()` : Mengosongkan seluruh elemen.
 - `removeIf(Predicate filter)` : Menghapus elemen berdasarkan kondisi logika lambda.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -289,7 +300,7 @@ public class CollectionBaseDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Total Tugas: 3
@@ -297,7 +308,7 @@ Apakah ada 'Menulis Unit Test'? true
 Tugas setelah filter removeIf: [Membaca Dokumentasi, Menulis Unit Test]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 tasks.removeIf(task -> task.contains("Review"))
@@ -319,9 +330,9 @@ collection.size()                → mengembalikan total jumlah elemen di dalam 
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 `List` Interface & `ArrayList` (Dynamic Array Berperforma Tinggi)
+## 4. 🟢 `List` Interface & `ArrayList` (Dynamic Array Berperforma Tinggi)
 
-## Konsep
+#### Konsep
 
 `List` adalah koleksi data yang **mempertahankan urutan penyimpanan (*ordered*)** dan **mengizinkan duplikasi nilai**. Setiap elemen memiliki posisi nomor indeks berbasis nol (`0` s.d. `size - 1`).
 
@@ -330,7 +341,7 @@ collection.size()                → mengembalikan total jumlah elemen di dalam 
 - **Sangat Cepat untuk Akses Acak:** `get(index)` dan `set(index, val)` bekerja dalam waktu instan **$O(1)$**.
 - **Lambat untuk Penyisipan/Penghapusan di Tengah:** Memerlukan pergeseran elemen (*array shift*) dalam waktu **$O(n)$**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -360,7 +371,7 @@ public class ArrayListDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Pemain di Indeks 0: Ronaldo
@@ -368,7 +379,7 @@ Pemain di Indeks 1: Mbappe
 Daftar Pemain Final: [Ronaldo, Mbappe, Messi, Haaland]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ArrayList Internal Memory Array:
@@ -392,9 +403,9 @@ list.indexOf(element)           → mencari nomor indeks kemunculan pertama elem
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 `LinkedList` sebagai List & Deque (Doubly Linked List)
+## 5. 🟢 `LinkedList` sebagai List & Deque (Doubly Linked List)
 
-## Konsep
+#### Konsep
 
 **`LinkedList`** mengorganisir data sebagai rantai simpul (**Doubly Linked List**), di mana setiap simpul (*Node*) menyimpan data beserta dua pointer penunjuk: pointer ke simpul sebelumnya (*prev*) dan ke simpul berikutnya (*next*).
 
@@ -402,7 +413,7 @@ Kapan memilih `LinkedList` dibanding `ArrayList`?
 - **Keunggulan:** Operasi penambahan dan penghapusan di **ujung awal (`addFirst()`, `removeFirst()`)** dan **ujung akhir (`addLast()`, `removeLast()`)** bekerja sangat cepat dalam waktu konstan **$O(1)$** tanpa perlu pergeseran memori array.
 - **Kelemahan:** Operasi pencarian acak `get(index)` sangat lambat **$O(n)$** karena harus melintasi simpul rantai satu per satu dari awal/akhir.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.LinkedList;
@@ -426,7 +437,7 @@ public class LinkedListDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Struktur LinkedList: [Bos Ali, Budi, Citra]
@@ -434,7 +445,7 @@ Dihapus Pertama : Bos Ali
 Sisa LinkedList   : [Budi, Citra]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Node [Bos Ali] <═══> Node [Budi] <═══> Node [Citra]
@@ -454,9 +465,9 @@ linkedList.removeLast()         → mengambil dan menghapus elemen paling belaka
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Immutable List Modern (`List.of`, `List.copyOf` vs `Arrays.asList`)
+## 6. 🟢 Immutable List Modern (`List.of`, `List.copyOf` vs `Arrays.asList`)
 
-## Konsep
+#### Konsep
 
 Java menyediakan factory method modern untuk membuat **Immutable List (Unmodifiable)** yang nilainya dikunci dan tidak dapat diubah setelah dibuat:
 
@@ -464,7 +475,7 @@ Java menyediakan factory method modern untuk membuat **Immutable List (Unmodifia
 2. **`List.copyOf(collection)` (Java 10+):** Membuat salinan immutable dari koleksi lain yang sudah ada.
 3. **`Arrays.asList(array)` (Legacy):** Menghasilkan list berukuran tetap yang membungkus array asli. **TIDAK BENAR-BENAR IMMUTABLE** karena method `.set(index, val)` masih bisa mengubah data array di belakangnya.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -485,14 +496,14 @@ public class ImmutableListDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Daftar Role: [ADMIN, USER, SUPERVISOR]
 Salinan Aman: [ADMIN, USER, SUPERVISOR]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 List.of("A", "B", "C")
@@ -512,9 +523,9 @@ List.copyOf(collection)    → membuat salinan unmodifiable dari koleksi sumber 
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 `Set` Interface & `HashSet` (Penyimpanan Unik Berbasis Hash Table)
+## 7. 🟡 `Set` Interface & `HashSet` (Penyimpanan Unik Berbasis Hash Table)
 
-## Konsep
+#### Konsep
 
 `Set` adalah kumpulan elemen yang **menjamin tidak ada duplikasi data (setiap elemen wajib unik)**. Jika Anda mencoba menambahkan elemen yang sudah ada, penambahan tersebut akan diabaikan (`add()` mengembalikan `false`).
 
@@ -523,7 +534,7 @@ List.copyOf(collection)    → membuat salinan unmodifiable dari koleksi sumber 
 - **Tidak Menjamin Urutan Elemen:** Urutan data saat diiterasi bisa berubah-ubah dan tidak sama dengan urutan saat data dimasukkan.
 - **Pencarian Super Cepat:** Operasi `add()`, `remove()`, dan `contains()` bekerja rata-rata dalam waktu instan **$O(1)$** berbasis nilai `hashCode()` dan `equals()`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.HashSet;
@@ -548,7 +559,7 @@ public class HashSetDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Add budi@mail.com : true
@@ -560,7 +571,7 @@ Isi HashSet (Tidak terurut): [siti@mail.com, budi@mail.com]
 Apakah siti terdaftar? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 emailSet.add("budi@mail.com")
@@ -587,15 +598,15 @@ set.add(element)              → mengembalikan true jika elemen baru berhasil d
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 `LinkedHashSet` (Elemen Unik dengan Pemeliharaan Insertion-Order)
+## 8. 🟡 `LinkedHashSet` (Elemen Unik dengan Pemeliharaan Insertion-Order)
 
-## Konsep
+#### Konsep
 
 `LinkedHashSet` menggabungkan dua keunggulan:
 1. **Keunikan `Set`:** Menjamin tidak ada data duplikat dengan lookup cepat $O(1)$.
 2. **Pemeliharaan Urutan Penyisipan (*Insertion-Order*):** Menjaga urutan iterasi elemen persis seperti saat elemen tersebut pertama kali dimasukkan ke dalam Set menggunakan rantai *doubly-linked list* internal.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.LinkedHashSet;
@@ -618,7 +629,7 @@ public class LinkedHashSetDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Isi LinkedHashSet (Pasti urut sesuai urutan input):
@@ -627,7 +638,7 @@ Isi LinkedHashSet (Pasti urut sesuai urutan input):
 - Budi
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Hash Table (Lookup O(1))  +  Doubly Linked List (Urutan: Zacky -> Ahmad -> Budi)
@@ -643,9 +654,9 @@ Set<T> set = new LinkedHashSet<>(); → menyimpan elemen unik dengan urutan iter
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 `SortedSet`, `NavigableSet` & `TreeSet` (Elemen Unik Terurut Otomatis)
+## 9. 🟡 `SortedSet`, `NavigableSet` & `TreeSet` (Elemen Unik Terurut Otomatis)
 
-## Konsep
+#### Konsep
 
 **`TreeSet`** adalah implementasi `Set` yang menyimpan elemen-elemen unik dalam keadaan **selalu terurut secara otomatis (*sorted*)** berbasis struktur data pohon seimbang **Red-Black Tree**.
 
@@ -654,7 +665,7 @@ Karakteristik `TreeSet`:
 - Operasi `add()`, `remove()`, dan `contains()` bekerja dalam waktu logaritmik **$O(\log n)$**.
 - Menyediakan method navigasi rentang nilai (`NavigableSet`): `first()`, `last()`, `higher()`, `lower()`, `subSet()`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.NavigableSet;
@@ -682,7 +693,7 @@ public class TreeSetDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 TreeSet Terurut Otomatis (Ascending) : [40, 60, 70, 85, 95]
@@ -693,7 +704,7 @@ Nilai di bawah 70 (lower(70))       : 60
 TreeSet Descending                  : [95, 85, 70, 60, 40]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                   Red-Black Tree:
@@ -718,15 +729,15 @@ set.lower(element)                     → mencari elemen terbesar yang lebih ke
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 `EnumSet` (Set Khusus Enum Berbasis Bit-Vector Super Cepat)
+## 10. 🟡 `EnumSet` (Set Khusus Enum Berbasis Bit-Vector Super Cepat)
 
-## Konsep
+#### Konsep
 
 Jika Anda membutuhkan Set untuk menampung nilai-nilai dari tipe `Enum`, gunakan **`EnumSet`**.
 
 `EnumSet` diimplementasikan secara internal menggunakan **Bit-Vector (Bitmask)** bilangan biner 64-bit (`long`). Hasilnya, operasi pada `EnumSet` adalah yang **paling cepat dan paling hemat memori di seluruh Java Collection Framework** (jauh melampaui `HashSet`).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.EnumSet;
@@ -755,7 +766,7 @@ public class EnumSetDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Akses Editor     : [BACA, TULIS]
@@ -763,7 +774,7 @@ Akses SuperAdmin : [BACA, TULIS, HAPUS, ADMIN_SISTEM]
 Akses Operasional: [BACA, TULIS, HAPUS]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Bitmask Memory:
@@ -782,16 +793,16 @@ EnumSet.allOf(EnumClass)  → membuat EnumSet yang berisi seluruh konstanta enum
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Immutable Set Modern (`Set.of`, `Set.copyOf`)
+## 11. 🟡 Immutable Set Modern (`Set.of`, `Set.copyOf`)
 
-## Konsep
+#### Konsep
 
 Sama seperti pada List, Java menyediakan method `Set.of(...)` untuk membuat **Immutable Set**.
 
 > [!CAUTION]
 > Berbeda dengan `HashSet` biasa yang hanya mengabaikan nilai duplikat saat runtime, `Set.of(...)` **akan langsung melempar `IllegalArgumentException` saat kompilasi/runtime jika mendeteksi elemen duplikat di argumen inisialisasinya**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Set;
@@ -807,7 +818,7 @@ public class ImmutableSetDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Permissions: [EXECUTE, WRITE, READ]
@@ -824,9 +835,9 @@ Set.copyOf(collection) → membuat salinan immutable Set dari koleksi lain
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 `Queue` Interface & `ArrayDeque` (Antrian FIFO Standar Industri)
+## 12. 🟡 `Queue` Interface & `ArrayDeque` (Antrian FIFO Standar Industri)
 
-## Konsep
+#### Konsep
 
 `Queue` merepresentasikan struktur data antrian yang memproses elemen dengan prinsip **FIFO (*First In, First Out*)**: elemen yang pertama masuk adalah yang pertama keluar.
 
@@ -836,7 +847,7 @@ Method `Queue` terbagi menjadi dua kategori perlakuan saat kondisi gagal/penuh:
 
 **`ArrayDeque`** adalah implementasi antrian berbasis array sirkular yang menjadi standar industri terbaik karena **bebas alokasi pointer Node dan jauh lebih cepat dibanding `LinkedList`**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayDeque;
@@ -866,7 +877,7 @@ public class QueueDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Antrian Terdepan Saat Ini (peek): Pelanggan A (Budi)
@@ -879,7 +890,7 @@ Memproses Antrian:
 Status antrian setelah semua selesai (poll): null
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 offer("D") ──> [ A ] ──> [ B ] ──> [ C ] ──> [ D ]
@@ -900,15 +911,15 @@ queue.peek()         → melihat elemen terdepan tanpa menghapusnya (return null
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 `PriorityQueue` (Antrian Berprioritas Min-Heap / Max-Heap)
+## 13. 🟡 `PriorityQueue` (Antrian Berprioritas Min-Heap / Max-Heap)
 
-## Konsep
+#### Konsep
 
 Elemen di dalam `PriorityQueue` **tidak diproses berdasarkan waktu kedatangan**, melainkan diproses berdasarkan **skala prioritas nilainya**:
 - **Min-Heap (Default):** Nilai terkecil diproses paling pertama (misal: prioritas level 1 lebih penting dari level 5).
 - **Max-Heap (Kustom Comparator):** Nilai terbesar diproses paling pertama.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Comparator;
@@ -937,7 +948,7 @@ public class PriorityQueueDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Urutan Penanganan Dokter IGD:
@@ -946,7 +957,7 @@ Urutan Penanganan Dokter IGD:
 -> Menangani: Pasien A (Flu) [Tingkat: 4]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Min-Heap Binary Tree:
@@ -963,9 +974,9 @@ Queue<T> pq = new PriorityQueue<>(comparator); → antrian berprioritas yang oto
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 `Deque` Interface (Stack Modern Pengganti Class Legacy `Stack`)
+## 14. 🟡 `Deque` Interface (Stack Modern Pengganti Class Legacy `Stack`)
 
-## Konsep
+#### Konsep
 
 **`Deque`** (*Double-Ended Queue*) adalah antrian dua arah yang memungkinkan operasi penyisipan dan pengambilan di **kedua ujung (depan dan belakang)**.
 
@@ -976,7 +987,7 @@ Operasi Stack Modern via Deque (**LIFO - *Last In, First Out***):
 - `pop()` : Mengambil dan menghapus elemen dari puncak stack (`removeFirst`).
 - `peek()` : Melihat elemen puncak stack.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayDeque;
@@ -1003,7 +1014,7 @@ public class DequeStackDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Halaman Puncak Saat Ini: 3. Halaman Checkout
@@ -1014,7 +1025,7 @@ Menekan Tombol Back (Pop):
 <- Kembali dari: 1. Halaman Beranda
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 push("3. Checkout") ──> ┌─────────────────────┐ (PUNCAK STACK)
@@ -1037,9 +1048,9 @@ deque.pop()         → mengambil dan membuang elemen teratas puncak stack
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Sequenced Collections (Java 21+ `getFirst`, `getLast`, `reversed`)
+## 15. 🟡 Sequenced Collections (Java 21+ `getFirst`, `getLast`, `reversed`)
 
-## Konsep
+#### Konsep
 
 Sebelum Java 21, setiap struktur data memiliki cara berbeda untuk mengambil elemen pertama dan terakhir (misal: `list.get(0)` vs `deque.getFirst()` vs `sortedSet.first()`).
 
@@ -1049,7 +1060,7 @@ Sebelum Java 21, setiap struktur data memiliki cara berbeda untuk mengambil elem
 - `removeFirst()` / `removeLast()` : Menghapus di ujung.
 - `reversed()` : Menghasilkan *reverse-ordered view* secara instan tanpa perlu menyalin list!
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -1074,7 +1085,7 @@ public class SequencedCollectionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 List: [AWAL, A, B, C, D, AKHIR]
@@ -1083,7 +1094,7 @@ Elemen Terakhir (getLast) : AKHIR
 Urutan Terbalik (reversed): [AKHIR, D, C, B, A, AWAL]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 items.reversed() ──> Membungkus list dalam SequencedView terbalik tanpa alokasi list baru (O(1))
@@ -1101,9 +1112,9 @@ collection.reversed() → menghasilkan tampilan koleksi dalam urutan terbalik se
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 `Map` Interface & `HashMap` (Key-Value, Hashing & Bucket Collision)
+## 16. 🟡 `Map` Interface & `HashMap` (Key-Value, Hashing & Bucket Collision)
 
-## Konsep
+#### Konsep
 
 `Map<K, V>` adalah struktur data pemetaan **Kunci Unik (Key)** ke **Nilai (Value)**. Setiap satu kunci hanya dapat menampung satu nilai.
 
@@ -1113,7 +1124,7 @@ collection.reversed() → menghasilkan tampilan koleksi dalam urutan terbalik se
 - **Kunci Wajib Unik:** Jika memasukkan key yang sudah ada, value lama akan ditimpa (*overwrite*).
 - Mengizinkan satu kunci bernilai `null` dan banyak nilai `null`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.HashMap;
@@ -1145,7 +1156,7 @@ public class HashMapDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Role user_101: ADMIN
@@ -1158,7 +1169,7 @@ Key: user_102   -> Value: TECH_LEAD
 Key: user_103   -> Value: MARKETING
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 put("user_101", "ADMIN")
@@ -1184,15 +1195,15 @@ map.entrySet()                           → mengembalikan sekumpulan Map.Entry<
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 `LinkedHashMap` & LRU Cache Dasar (Insertion vs Access Order)
+## 17. 🟡 `LinkedHashMap` & LRU Cache Dasar (Insertion vs Access Order)
 
-## Konsep
+#### Konsep
 
 `LinkedHashMap` mempertahankan urutan elemen dengan dua mode konfigurasi:
 1. **Insertion Order (Default):** Elemen terurut sesuai urutan data pertama kali dimasukkan.
 2. **Access Order:** Elemen diurutkan berdasarkan **kapan terakhir kali diakses (`get`/`put`)**. Elemen yang baru diakses akan dipindahkan ke paling belakang. Mode ini adalah fondasi ideal untuk membuat **LRU (*Least Recently Used*) Cache**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.LinkedHashMap;
@@ -1234,7 +1245,7 @@ public class LinkedHashMapDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Cache Awal (Kapasitas 3): [A, B, C]
@@ -1242,7 +1253,7 @@ Setelah get('A')       : [B, C, A]
 Setelah put('D') (LRU) : [C, A, D]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Access Order:
@@ -1260,9 +1271,9 @@ new LinkedHashMap<>(capacity, loadFactor, true) → membuat map dengan mode acce
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 `SortedMap`, `NavigableMap` & `TreeMap` (Key Terurut Red-Black Tree)
+## 18. 🟡 `SortedMap`, `NavigableMap` & `TreeMap` (Key Terurut Red-Black Tree)
 
-## Konsep
+#### Konsep
 
 **`TreeMap`** adalah implementasi `Map` yang **selalu menjaga kunci-kuncinya (Keys) dalam keadaan terurut otomatis** berbasis Red-Black Tree.
 
@@ -1271,7 +1282,7 @@ Karakteristik:
 - Operasi `put`, `get`, `remove` berjalan dalam waktu **$O(\log n)$**.
 - Menyediakan fungsi pencarian navigasi range: `firstKey()`, `lastKey()`, `subMap()`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.NavigableMap;
@@ -1297,7 +1308,7 @@ public class TreeMapDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 TreeMap (Kunci Terurut Abjad A-Z Otomatis):
@@ -1320,15 +1331,15 @@ NavigableMap<K, V> map = new TreeMap<>(); → Map dengan pengurutan kunci otomat
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 `EnumMap` (Map Khusus Key Enum Berperforma Ekstrem)
+## 19. 🟡 `EnumMap` (Map Khusus Key Enum Berperforma Ekstrem)
 
-## Konsep
+#### Konsep
 
 Jika Kunci (*Key*) dari sebuah Map bertipe data `Enum`, selalu gunakan **`EnumMap`**.
 
 `EnumMap` diimplementasikan secara internal menggunakan **Array biasa dengan indeks sesuai nomor ordinal enum**. Tidak ada proses kalkulasi hash atau penanganan tabrakan (*collision*), menjadikannya **jauh lebih cepat dan jauh lebih hemat memori dibanding `HashMap`**.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.EnumMap;
@@ -1349,7 +1360,7 @@ public class EnumMapDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Jadwal Hari Senin: Sprint Planning & Standup
@@ -1366,16 +1377,16 @@ Map<EnumKey, V> map = new EnumMap<>(EnumKey.class); → map khusus kunci enum de
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Immutable Map Modern (`Map.of`, `Map.ofEntries`, `Map.copyOf`)
+## 20. 🟡 Immutable Map Modern (`Map.of`, `Map.ofEntries`, `Map.copyOf`)
 
-## Konsep
+#### Konsep
 
 Java menyediakan factory method modern untuk membuat **Immutable Map (Unmodifiable)**:
 1. **`Map.of(k1, v1, k2, v2, ...)`:** Mendukung hingga maksimal 10 pasangan *key-value*.
 2. **`Map.ofEntries(entry(k1, v1), ...)`:** Digunakan jika jumlah pasangan *key-value* melebihi 10 entri secara rapi.
 3. **`Map.copyOf(map)`:** Membuat salinan immutable dari map yang sudah ada.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Map;
@@ -1404,7 +1415,7 @@ public class ImmutableMapDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 HTTP Codes: {OK=200, SERVER_ERROR=500, NOT_FOUND=404}
@@ -1422,9 +1433,9 @@ Map.ofEntries(entry(k, v), ...)       → membuat immutable Map untuk jumlah pas
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 `Collections` Utility Class (Sorting, Searching, Shuffling & Wrapping)
+## 21. 🔴 `Collections` Utility Class (Sorting, Searching, Shuffling & Wrapping)
 
-## Konsep
+#### Konsep
 
 Class `java.util.Collections` berisi method-method `static` untuk memanipulasi atau membungkus struktur data koleksi:
 - `sort(List)` : Mengurutkan list secara in-place.
@@ -1435,7 +1446,7 @@ Class `java.util.Collections` berisi method-method `static` untuk memanipulasi a
 - `disjoint(c1, c2)` : Mengecek apakah dua koleksi tidak memiliki satupun elemen yang sama.
 - `unmodifiableList(List)` / `synchronizedList(List)` : Membungkus list agar aman dari modifikasi / thread-safe wrapper.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -1465,7 +1476,7 @@ public class CollectionsUtilityDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Setelah sort       : [10, 10, 20, 30, 40, 50]
@@ -1487,9 +1498,9 @@ Collections.shuffle(list)                → mengacak urutan elemen list
 
 <a id="bagian-22"></a>
 
-# 22. 🔴 Konversi Antar Collection, Array & Map Views (`toArray`, `entrySet`)
+## 22. 🔴 Konversi Antar Collection, Array & Map Views (`toArray`, `entrySet`)
 
-## Konsep
+#### Konsep
 
 Pola konversi umum yang sangat sering digunakan dalam aplikasi backend:
 1. **Collection ke Array:** `collection.toArray(new String[0])` (Metode modern yang efisien).
@@ -1499,7 +1510,7 @@ Pola konversi umum yang sangat sering digunakan dalam aplikasi backend:
    - `map.values()` : Mengembalikan `Collection<V>` berisi seluruh nilai.
    - `map.entrySet()` : Mengembalikan `Set<Map.Entry<K,V>>` berisi pasangan kunci dan nilai.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.*;
@@ -1527,7 +1538,7 @@ public class CollectionConversionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 List Bersih Tanpa Duplikat: [A, B, C]
@@ -1546,9 +1557,9 @@ collection.toArray(new Type[0]) → mengonversi struktur data Collection menjadi
 
 <a id="bagian-23"></a>
 
-# 23. 🔴 Panduan Kompleksitas Waktu (Big-O Time & Space Complexity Guide)
+## 23. 🔴 Panduan Kompleksitas Waktu (Big-O Time & Space Complexity Guide)
 
-## Konsep
+#### Konsep
 
 Pemilihan struktur data yang tepat berdampak masif pada performa dan konsumsi memori aplikasi backend Anda:
 
@@ -1567,9 +1578,9 @@ Pemilihan struktur data yang tepat berdampak masif pada performa dan konsumsi me
 
 <a id="bagian-24"></a>
 
-# 24. 🔴 Concurrency Dasar pada Collection (`ConcurrentHashMap` & Fail-Fast vs Fail-Safe)
+## 24. 🔴 Concurrency Dasar pada Collection (`ConcurrentHashMap` & Fail-Fast vs Fail-Safe)
 
-## Konsep
+#### Konsep
 
 Struktur data bawaan standar (`ArrayList`, `HashMap`, `HashSet`) bersifat **Non-Thread-Safe** dan menggunakan mekanisme **Fail-Fast Iterator** (langsung melempar `ConcurrentModificationException` jika mendeteksi adanya mutasi konkuren saat proses iterasi).
 
@@ -1577,7 +1588,7 @@ Untuk lingkungan *multi-threading* (seperti server Spring Boot yang menangani ri
 1. **`ConcurrentHashMap`:** Map thread-safe berperforma tinggi yang menggunakan teknik *Bucket Level Lock* (bukan mengunci seluruh tabel).
 2. **`CopyOnWriteArrayList`:** List thread-safe yang membuat salinan array baru setiap kali terjadi operasi mutasi data (sangat ideal untuk kasus yang 99% operasinya adalah *Read-Only*).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.concurrent.ConcurrentHashMap;
@@ -1600,7 +1611,7 @@ public class ConcurrentCollectionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Active Concurrent Sessions: {session_xyz=1052, session_abc=1001}
@@ -1616,7 +1627,7 @@ ConcurrentHashMap<K, V> → implementasi Map thread-safe modern berperforma ting
 
 <a id="bagian-25"></a>
 
-# 25. 🛠️ Peta Ingatan Cepat
+## 25. 🛠️ Peta Ingatan Cepat
 
 ```text
                       PANDUAN PEMILIHAN STRUKTUR DATA
@@ -1635,7 +1646,7 @@ ConcurrentHashMap<K, V> → implementasi Map thread-safe modern berperforma ting
 
 <a id="bagian-26"></a>
 
-# 26. 📚 Tabel Ringkasan
+## 26. 📚 Tabel Ringkasan
 
 | Interface | Class Utama | Duplikasi | Urutan Elemen | Null Value | Kompleksitas Umum |
 |---|---|---|---|---|---|
@@ -1653,7 +1664,7 @@ ConcurrentHashMap<K, V> → implementasi Map thread-safe modern berperforma ting
 
 <a id="bagian-27"></a>
 
-# 27. ⚡ Cheat Code Java Collection 10 Detik
+## 27. ⚡ Cheat Code Java Collection 10 Detik
 
 ```java
 // 1. List Cepat
@@ -1682,7 +1693,7 @@ String last = list.getLast();
 
 <a id="bagian-28"></a>
 
-# 28. 🧭 Urutan Belajar yang Disarankan
+## 28. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai List & ArrayList
@@ -1712,7 +1723,7 @@ Langkah 5: Siap Melangkah ke Java Stream API & Spring Boot Architecture!
 
 <a id="bagian-29"></a>
 
-# 29. 🏗️ Mini Project: Sistem Manajemen Keranjang Belanja & Antrian Pesanan E-Commerce CLI
+## 29. 🏗️ Mini Project: Sistem Manajemen Keranjang Belanja & Antrian Pesanan E-Commerce CLI
 
 Aplikasi konsol e-commerce nyata yang mengintegrasikan: `ArrayList` (Katalog), `HashSet` (Kategori Unik), `HashMap` (Keranjang Belanja Key-Value), `ArrayDeque` (Antrian Pesanan Masuk), `PriorityQueue` (Antrian Pengiriman Berprioritas Ekspedisi), dan `Collections` utilities.
 
@@ -1828,7 +1839,7 @@ public class EcommerceStoreApp {
 }
 ```
 
-## Output Demonstrasi
+#### Output Demonstrasi
 
 ```text
 ==================================================
@@ -1872,7 +1883,7 @@ Urutan Penugasan Armada Kurir:
 
 <a id="bagian-30"></a>
 
-# 30. 🔗 Referensi Resmi
+## 30. 🔗 Referensi Resmi
 
 - [Oracle Java Collections Framework Overview & Trail](https://docs.oracle.com/javase/tutorial/collections/)
 - [Java SE 21 Collections Interface Specification](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html)

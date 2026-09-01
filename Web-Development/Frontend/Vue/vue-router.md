@@ -1,4 +1,16 @@
-# Vue Router Cheatsheet Revised
+---
+title: "Vue Router"
+description: "Client-side routing dengan Vue Router 4: Route definitions, Dynamic routes, Nested routes, Navigation guards, Programmatic navigation, dan Lazy loading."
+order: 2
+tags:
+  - web-development
+  - frontend
+  - vue
+  - router
+  - spa
+---
+
+# Vue Router
 
 > **Target:** pemula yang sudah memahami dasar Vue 3 (component, template, props, emit, Composition API), lalu ingin belajar routing multi-halaman dengan Vue Router.
 >
@@ -93,15 +105,15 @@ Vue Router → mengatur URL, navigasi, dan perpindahan halaman
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan SPA & Routing
+## 1. 🟢 Pengenalan SPA & Routing
 
-## Konsep
+#### Konsep
 
 **SPA (Single Page Application)** adalah aplikasi web yang hanya memuat satu file HTML utama (`index.html`) lalu mengganti tampilan komponen secara dinamis berdasarkan URL tanpa melakukan *full page reload* (layar putih berkedip).
 
-## Perbandingan: Web Tradisional vs Vue Router SPA
+#### Perbandingan: Web Tradisional vs Vue Router SPA
 
-### Web Tradisional (Multi-Page Reload)
+##### Web Tradisional (Multi-Page Reload)
 
 ```text
        Pengguna Klik Link
@@ -115,7 +127,7 @@ Vue Router → mengatur URL, navigasi, dan perpindahan halaman
        Full Page Reload (Layar Putih Berkedip)
 ```
 
-### Vue Router SPA (Instant Client-Side Navigation)
+##### Vue Router SPA (Instant Client-Side Navigation)
 
 ```text
        Pengguna Klik <RouterLink>
@@ -132,7 +144,7 @@ Vue Router → mengatur URL, navigasi, dan perpindahan halaman
        UI Berubah Instan Tanpa Reload Server
 ```
 
-## Struktur Aplikasi Vue Router
+#### Struktur Aplikasi Vue Router
 
 ```text
        App.vue (Layout Utama)
@@ -158,13 +170,13 @@ Router menghubungkan: URL di browser ──> Komponen Vue yang dirender
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Setup & Instalasi Vue Router
+## 2. 🟢 Setup & Instalasi Vue Router
 
-## Konsep
+#### Konsep
 
 Vue Router diinstal melalui package manager dan didaftarkan sebagai plugin ke aplikasi Vue menggunakan `createRouter()` dan `app.use(router)`.
 
-## 1. Instalasi
+### 1. Instalasi
 
 Jalankan perintah di terminal:
 
@@ -172,7 +184,7 @@ Jalankan perintah di terminal:
 npm install vue-router
 ```
 
-## 2. Membuat Konfigurasi Router (`src/router/index.js`)
+### 2. Membuat Konfigurasi Router (`src/router/index.js`)
 
 ```js
 import { createRouter, createWebHistory } from 'vue-router'
@@ -192,7 +204,7 @@ const router = createRouter({
 export default router
 ```
 
-## 3. Daftarkan di Entry Point (`src/main.js`)
+### 3. Daftarkan di Entry Point (`src/main.js`)
 
 ```js
 import { createApp } from 'vue'
@@ -207,7 +219,7 @@ app.use(router)
 app.mount('#app')
 ```
 
-## Diagram Alur Setup
+#### Diagram Alur Setup
 
 ```text
        createApp(App)
@@ -238,15 +250,15 @@ createRouter() → app.use(router) → pasang <RouterView /> di App.vue
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Komponen Router: RouterLink & RouterView
+## 3. 🟢 Komponen Router: RouterLink & RouterView
 
-## Konsep
+#### Konsep
 
 Vue Router menyediakan dua komponen global utama:
 1. **`<RouterLink>`**: Komponen navigasi deklaratif (menggantikan tag `<a>`).
 2. **`<RouterView>`**: Wadah tempat komponen rute ditampilkan sesuai URL aktif.
 
-## Contoh Penggunaan (`src/App.vue`)
+#### Contoh Penggunaan (`src/App.vue`)
 
 ```html
 <template>
@@ -275,7 +287,7 @@ Vue Router menyediakan dua komponen global utama:
 </style>
 ```
 
-## Diagram Alur Navigasi
+#### Diagram Alur Navigasi
 
 ```text
        Klik <RouterLink to="/about">
@@ -289,7 +301,7 @@ Vue Router menyediakan dua komponen global utama:
            AboutView Dimuat di <RouterView />
 ```
 
-## Kelas CSS Otomatis pada RouterLink
+#### Kelas CSS Otomatis pada RouterLink
 
 Vue Router secara otomatis menambahkan kelas CSS pada `<RouterLink>` yang aktif:
 - `router-link-active`: Aktif jika URL saat ini mengandung path tujuan (misal `/about` cocok dengan `/about/team`).
@@ -306,13 +318,13 @@ RouterView → slot penampil halaman rute aktif
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Konfigurasi Routes Dasar
+## 4. 🟢 Konfigurasi Routes Dasar
 
-## Konsep
+#### Konsep
 
 Array `routes` mendefinisikan pemetaan antara alamat URL (`path`) dan komponen Vue (`component`) yang akan ditampilkan.
 
-## Contoh Konfigurasi Rute
+#### Contoh Konfigurasi Rute
 
 ```js
 import HomeView from '@/views/HomeView.vue'
@@ -330,7 +342,7 @@ const routes = [
 ]
 ```
 
-## Output Alur
+#### Output Alur
 
 ```text
 Buka URL: /         ──> Merender HomeView
@@ -339,7 +351,7 @@ Buka URL: /contact  ──> Merender ContactView
 Buka URL: /ngawur   ──> Merender NotFoundView (404)
 ```
 
-## Diagram Penanganan 404
+#### Diagram Penanganan 404
 
 ```**text**
        URL yang Diminta Pengguna
@@ -368,13 +380,13 @@ component: NamaView ──> Komponen yang dirender
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Dynamic Route Matching (Route Params)
+## 5. 🟢 Dynamic Route Matching (Route Params)
 
-## Konsep
+#### Konsep
 
 Ketika sebuah rute memiliki bagian dinamis (seperti ID pengguna atau slug artikel), gunakan tanda titik dua `:` untuk mendefinisikan **Route Params**.
 
-## Contoh Konfigurasi
+#### Contoh Konfigurasi
 
 ```js
 const routes = [
@@ -383,7 +395,7 @@ const routes = [
 ]
 ```
 
-## Membaca Parameter di Komponen (`UserDetailView.vue`)
+#### Membaca Parameter di Komponen (`UserDetailView.vue`)
 
 Gunakan fungsi `useRoute()` dari `vue-router` untuk membaca data URL aktif:
 
@@ -404,14 +416,14 @@ console.log('ID User:', route.params.id)
 </template>
 ```
 
-## Output
+#### Output
 
 ```text
 Akses URL: /users/42   ──> Tampilan: "Profil Pengguna #42"
 Akses URL: /users/andi ──> Tampilan: "Profil Pengguna #andi"
 ```
 
-## Diagram Alur Route Params
+#### Diagram Alur Route Params
 
 ```text
        URL: /users/42
@@ -435,13 +447,13 @@ path: '/users/:id' ──> dibaca melalui route.params.id
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Matching Syntax Lanjutan
+## 6. 🟢 Matching Syntax Lanjutan
 
-## Konsep
+#### Konsep
 
 Vue Router 4 mendukung sintaks pencocokan rute yang fleksibel menggunakan *optional params*, *custom regex*, dan *repeatable params*.
 
-## 1. Optional Param (`:param?`)
+### 1. Optional Param (`:param?`)
 
 Tambahkan tanda tanya `?` jika parameter boleh ada atau tidak ada:
 
@@ -450,7 +462,7 @@ Tambahkan tanda tanya `?` jika parameter boleh ada atau tidak ada:
 { path: '/users/:id?', component: UserView }
 ```
 
-## 2. Custom Regex Param (`:param(pattern)`)
+### 2. Custom Regex Param (`:param(pattern)`)
 
 Batasi format parameter agar hanya cocok dengan pola tertentu (misal hanya angka):
 
@@ -464,7 +476,7 @@ Batasi format parameter agar hanya cocok dengan pola tertentu (misal hanya angka
 /products/sepatu ──> Tidak cocok (Dilewati ke rute berikutnya / 404)
 ```
 
-## 3. Repeatable Param (`:param+` atau `:param*`)
+### 3. Repeatable Param (`:param+` atau `:param*`)
 
 Gunakan `+` (minimal 1 segmen) atau `*` (0 atau lebih segmen) untuk menangkap path bersarang:
 
@@ -479,7 +491,7 @@ Hasil ekstraksi:
 route.params.chapters // ['dokumen', '2026', 'laporan.pdf']
 ```
 
-## Ringkasan Sintaks Matching
+#### Ringkasan Sintaks Matching
 
 ```text
 /users/:id        ──> Wajib ada 1 nilai
@@ -499,13 +511,13 @@ route.params.chapters // ['dokumen', '2026', 'laporan.pdf']
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Query Params & Hash
+## 7. 🟢 Query Params & Hash
 
-## Konsep
+#### Konsep
 
 Selain parameter path, URL sering kali membawa data tambahan berupa **Query Params** (`?key=value`) dan **Hash** (`#section`). Query dan hash bersifat opsional dan tidak mengubah struktur pencocokan rute.
 
-## Perbedaan Anatomi URL
+#### Perbedaan Anatomi URL
 
 ```text
 https://example.com/products/10?category=laptop&sort=asc#spesifikasi
@@ -515,7 +527,7 @@ https://example.com/products/10?category=laptop&sort=asc#spesifikasi
                     └─────────────────────────────────────── Path: route.params.id ('10')
 ```
 
-## Membaca Query dan Hash di Komponen
+#### Membaca Query dan Hash di Komponen
 
 ```html
 <script setup>
@@ -536,7 +548,7 @@ console.log('Hash ID:', route.hash)             // '#spesifikasi'
 </template>
 ```
 
-## Navigasi dengan Query & Hash
+#### Navigasi dengan Query & Hash
 
 ```html
 <RouterLink :to="{ path: '/products/10', query: { category: 'laptop' }, hash: '#spesifikasi' }">
@@ -556,13 +568,13 @@ console.log('Hash ID:', route.hash)             // '#spesifikasi'
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Programmatic Navigation (useRouter)
+## 8. 🟢 Programmatic Navigation (useRouter)
 
-## Konsep
+#### Konsep
 
 Selain navigasi deklaratif menggunakan `<RouterLink>`, kita dapat berpindah halaman melalui kode JavaScript (misal setelah tombol submit form diklik) menggunakan fungsi **`useRouter()`**.
 
-## Perbedaan Vital: `useRouter()` vs `useRoute()`
+#### Perbedaan Vital: `useRouter()` vs `useRoute()`
 
 ```text
        ┌───────────────────────────────────────────────────────────┐
@@ -578,7 +590,7 @@ Selain navigasi deklaratif menggunakan `<RouterLink>`, kita dapat berpindah hala
        └─────────────────────────────┴─────────────────────────────┘
 ```
 
-## Contoh Metode Navigasi
+#### Contoh Metode Navigasi
 
 ```html
 <script setup>
@@ -620,15 +632,15 @@ router.back()           → kembali ke halaman sebelumnya
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Nested Routes (Rute Bersarang)
+## 9. 🟡 Nested Routes (Rute Bersarang)
 
-## Konsep
+#### Konsep
 
 Aplikasi modern sering kali memiliki tata letak bertingkat (misal: halaman Dashboard yang memiliki sidebar tetap, dan area konten tengah berganti-ganti antara Profile, Settings, dan Analytics).
 
 Pola ini dibangun menggunakan **Nested Routes** dengan properti `children`.
 
-## Konfigurasi Nested Routes
+#### Konfigurasi Nested Routes
 
 ```js
 const routes = [
@@ -647,7 +659,7 @@ const routes = [
 ]
 ```
 
-## Komponen Induk (`DashboardLayout.vue`)
+#### Komponen Induk (`DashboardLayout.vue`)
 
 Komponen induk **wajib memiliki `<RouterView />`** untuk merender anak komponennya:
 
@@ -668,7 +680,7 @@ Komponen induk **wajib memiliki `<RouterView />`** untuk merender anak komponenn
 </template>
 ```
 
-## Diagram Alur Nested Routes
+#### Diagram Alur Nested Routes
 
 ```text
        URL: /dashboard/profile
@@ -697,18 +709,18 @@ Parent wajib menyertakan <RouterView /> untuk merender child.
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Named Routes
+## 10. 🟡 Named Routes
 
-## Konsep
+#### Konsep
 
 **Named Routes** adalah memberikan nama unik (`name`) pada konfigurasi rute. Menggunakan nama jauh lebih aman dan fleksibel daripada menulis string path URL secara manual di banyak komponen.
 
-## Keuntungan Named Routes
+#### Keuntungan Named Routes
 
 - Jika path URL berubah (misal dari `/pengguna/:id` menjadi `/members/:id`), kita hanya perlu mengubah 1 file router saja tanpa harus mengedit ratusan komponen lain.
 - Menghindari kesalahan ketik (*typo*) pada URL yang panjang.
 
-## Konfigurasi
+#### Konfigurasi
 
 ```js
 const routes = [
@@ -720,9 +732,9 @@ const routes = [
 ]
 ```
 
-## Cara Pemakaian
+#### Cara Pemakaian
 
-### 1. Di Template (`<RouterLink>`)
+##### 1. Di Template (`<RouterLink>`)
 
 ```html
 <RouterLink :to="{ name: 'user-detail', params: { userId: '123' } }">
@@ -730,7 +742,7 @@ const routes = [
 </RouterLink>
 ```
 
-### 2. Di Script (`router.push`)
+##### 2. Di Script (`router.push`)
 
 ```js
 router.push({
@@ -750,13 +762,13 @@ name: 'namaUnik' → :to="{ name: 'namaUnik', params: { id: 1 } }"
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Named Views
+## 11. 🟡 Named Views
 
-## Konsep
+#### Konsep
 
 Secara default, satu `<RouterView />` merender satu komponen. Namun, jika Anda memiliki tata letak dengan beberapa area independen (misalnya: Header, Sidebar, dan Main Content yang berbeda-beda per rute), Anda dapat menggunakan **Named Views**.
 
-## Konfigurasi Router
+#### Konfigurasi Router
 
 Gunakan properti `components` (jamak), bukan `component`:
 
@@ -773,7 +785,7 @@ const routes = [
 ]
 ```
 
-## Template Layout (`App.vue`)
+#### Template Layout (`App.vue`)
 
 ```html
 <template>
@@ -792,7 +804,7 @@ const routes = [
 </template>
 ```
 
-## Diagram Named Views
+#### Diagram Named Views
 
 ```text
        URL: /dashboard
@@ -812,14 +824,14 @@ components: { default: A, sidebar: B } ──> <RouterView name="sidebar" />
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Redirect & Alias
+## 12. 🟡 Redirect & Alias
 
-## Konsep
+#### Konsep
 
 - **Redirect**: Ketika pengguna membuka URL A, router otomatis mengarahkan browser ke URL B.
 - **Alias**: URL A dan URL B menampilkan komponen yang sama persis tanpa mengubah alamat URL di browser.
 
-## 1. Redirect
+### 1. Redirect
 
 ```js
 const routes = [
@@ -839,7 +851,7 @@ const routes = [
 ]
 ```
 
-## 2. Alias
+### 2. Alias
 
 ```js
 const routes = [
@@ -863,13 +875,13 @@ alias: '/nama-lain' ──> URL tetap nama lain, tapi komponen yang dimuat sama
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Passing Props ke Route Component
+## 13. 🟡 Passing Props ke Route Component
 
-## Konsep
+#### Konsep
 
 Daripada komponen rute membaca `$route.params.id` secara langsung (yang membuat komponen terikat erat dengan Vue Router), kita dapat mengaktifkan **`props: true`**. Hal ini membuat komponen bersifat murni (*decoupled*) dan mudah diuji secara independen.
 
-## 1. Boolean Mode (`props: true`)
+### 1. Boolean Mode (`props: true`)
 
 ```js
 const routes = [
@@ -896,7 +908,7 @@ defineProps({
 </template>
 ```
 
-## 2. Function Mode (`props: (route) => ({ ... })`)
+### 2. Function Mode (`props: (route) => ({ ... })`)
 
 Gunakan fungsi jika ingin menggabungkan query params atau melakukan casting tipe:
 
@@ -918,13 +930,13 @@ props: true ──> route.params otomatis diterima via defineProps()
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 History Modes
+## 14. 🟡 History Modes
 
-## Konsep
+#### Konsep
 
 Vue Router 4 menyediakan tiga mode riwayat navigasi (*history modes*) yang dipilih saat membuat router melalui opsi `history`.
 
-## Perbandingan 3 History Mode
+#### Perbandingan 3 History Mode
 
 | Mode | Fungsi Pembuat | Format URL | Kebutuhan Konfigurasi Server |
 |---|---|---|---|
@@ -932,7 +944,7 @@ Vue Router 4 menyediakan tiga mode riwayat navigasi (*history modes*) yang dipil
 | **Hash Mode** | `createWebHashHistory()` | `example.com/#/about` | Tidak perlu konfigurasi server |
 | **Memory Mode** | `createMemoryHistory()` | Tidak tampil di browser | Untuk SSR / Testing / Node.js |
 
-## Contoh Konfigurasi HTML5 Mode
+#### Contoh Konfigurasi HTML5 Mode
 
 ```js
 import { createRouter, createWebHistory } from 'vue-router'
@@ -958,15 +970,15 @@ createMemoryHistory()  → URL di memori (testing & SSR)
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Lazy Loading Routes
+## 15. 🟡 Lazy Loading Routes
 
-## Konsep
+#### Konsep
 
 Secara default, jika semua komponen diimpor di awal file (`import Home from './Home.vue'`), seluruh kode halaman akan digabungkan menjadi satu file JavaScript raksasa.
 
 Dengan **Lazy Loading** (Dynamic Import), kode sebuah halaman hanya akan diunduh oleh browser saat pengguna benar-benar membuka rute tersebut. Hal ini membuat waktu muat awal aplikasi (*initial load time*) jauh lebih cepat.
 
-## Cara Penulisan
+#### Cara Penulisan
 
 ```js
 const routes = [
@@ -985,7 +997,7 @@ const routes = [
 ]
 ```
 
-## Diagram Alur Lazy Loading
+#### Diagram Alur Lazy Loading
 
 ```text
        Aplikasi Pertama Kali Dibuka
@@ -1011,13 +1023,13 @@ component: () => import('@/views/NamaView.vue') ──> kode diunduh saat dibutu
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Route Meta Fields
+## 16. 🟡 Route Meta Fields
 
-## Konsep
+#### Konsep
 
 Properti `meta` memungkinkan kita menyematkan data kustom ke dalam konfigurasi rute, seperti penanda bahwa rute butuh login (`requiresAuth: true`), level hak akses (`role: 'admin'`), atau judul halaman (`title: 'Profil'`).
 
-## Konfigurasi
+#### Konfigurasi
 
 ```js
 const routes = [
@@ -1033,7 +1045,7 @@ const routes = [
 ]
 ```
 
-## Membaca Meta
+#### Membaca Meta
 
 Meta dapat dibaca dari objek `route.meta` di komponen maupun di dalam Navigation Guard:
 
@@ -1056,13 +1068,13 @@ meta: { key: value } ──> data kustom rute untuk auth, title, atau role
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Navigation Guards (Proteksi Rute)
+## 17. 🟡 Navigation Guards (Proteksi Rute)
 
-## Konsep
+#### Konsep
 
 **Navigation Guards** adalah mekanisme untuk mengontrol, membatasi, atau mengarahkan navigasi rute (misalnya: mencegah pengguna masuk halaman dashboard jika belum login).
 
-## Alur Urutan Eksekusi Guard
+#### Alur Urutan Eksekusi Guard
 
 ```text
        Navigasi Dimulai (User klik link)
@@ -1086,7 +1098,7 @@ meta: { key: value } ──> data kustom rute untuk auth, title, atau role
        5. Global After Hook (router.afterEach)
 ```
 
-## 1. Global Before Guard (`router.beforeEach`)
+### 1. Global Before Guard (`router.beforeEach`)
 
 Di Vue Router 4, gunakan nilai pengembalian (*return value*):
 - `return false`: Batalkan navigasi.
@@ -1105,7 +1117,7 @@ router.beforeEach((to, from) => {
 })
 ```
 
-## 2. Per-Route Guard (`beforeEnter`)
+### 2. Per-Route Guard (`beforeEnter`)
 
 Didefinisikan langsung di dalam objek route:
 
@@ -1119,7 +1131,7 @@ Didefinisikan langsung di dalam objek route:
 }
 ```
 
-## 3. In-Component Guard (Composition API)
+### 3. In-Component Guard (Composition API)
 
 Vue Router menyediakan hook yang dapat dipanggil langsung di `<script setup>`:
 
@@ -1152,13 +1164,13 @@ return '/login' ──> redirect rute
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 RouterView Slot, Transition & KeepAlive
+## 18. 🟡 RouterView Slot, Transition & KeepAlive
 
-## Konsep
+#### Konsep
 
 Di Vue 3, untuk menerapkan **animasi transisi antar-halaman** (`<transition>`) atau **menyimpan cache keadaan halaman** (`<keep-alive>`), kita wajib menggunakan sintaks **Scoped Slot** `<RouterView v-slot="{ Component }">`.
 
-## Contoh Lengkap di `App.vue`
+#### Contoh Lengkap di `App.vue`
 
 ```html
 <template>
@@ -1189,7 +1201,7 @@ Di Vue 3, untuk menerapkan **animasi transisi antar-halaman** (`<transition>`) a
 </style>
 ```
 
-## Diagram Alur Slot Rendering
+#### Diagram Alur Slot Rendering
 
 ```text
        <RouterView v-slot="{ Component, route }">
@@ -1220,13 +1232,13 @@ Di Vue 3, untuk menerapkan **animasi transisi antar-halaman** (`<transition>`) a
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Scroll Behavior
+## 19. 🟡 Scroll Behavior
 
-## Konsep
+#### Konsep
 
 Opsi `scrollBehavior` mengatur posisi scroll halaman secara otomatis setiap kali pengguna berpindah rute (misalnya: selalu kembali ke paling atas, atau mempertahankan posisi scroll saat menekan tombol *Back* browser).
 
-## Contoh Konfigurasi
+#### Contoh Konfigurasi
 
 ```js
 const router = createRouter({
@@ -1259,13 +1271,13 @@ scrollBehavior: (to, from, savedPosition) => savedPosition || { top: 0 }
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Dynamic Routing
+## 20. 🟡 Dynamic Routing
 
-## Konsep
+#### Konsep
 
 Vue Router memungkinkan penambahan atau penghapusan rute secara dinamis saat aplikasi sedang berjalan (runtime). Fitur ini sangat berguna untuk aplikasi berbasis izin (*RBAC*), di mana menu admin baru ditambahkan ke router setelah pengguna berhasil login sebagai admin.
 
-## API Dynamic Routing
+#### API Dynamic Routing
 
 ```js
 // 1. Menambahkan rute baru saat runtime
@@ -1302,13 +1314,13 @@ router.removeRoute('name') ──> hapus rute dari router
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 Navigation Failure Handling
+## 21. 🔴 Navigation Failure Handling
 
-## Konsep
+#### Konsep
 
 Navigasi programmatic (`router.push`) dapat dibatalkan atau dialihkan oleh Navigation Guard. Vue Router menyediakan helper untuk mendeteksi apakah navigasi sukses atau mengalami kegagalan.
 
-## Mendeteksi Kegagalan Navigasi
+#### Mendeteksi Kegagalan Navigasi
 
 ```js
 import { isNavigationFailure, NavigationFailureType } from 'vue-router'
@@ -1324,7 +1336,7 @@ async function navigateToAdmin() {
 }
 ```
 
-## Tipe-Tipe Navigation Failure
+#### Tipe-Tipe Navigation Failure
 
 ```text
 aborted    ──> Navigasi dibatalkan (misal: return false di guard)
@@ -1343,9 +1355,9 @@ isNavigationFailure(failure, NavigationFailureType.aborted)
 
 <a id="bagian-22"></a>
 
-# 22. 🧠 Peta Ingatan Cepat
+## 22. 🧠 Peta Ingatan Cepat
 
-## A. Alur Keseluruhan Vue Router
+#### A. Alur Keseluruhan Vue Router
 
 ```text
        Klik <RouterLink> / router.push()
@@ -1369,7 +1381,7 @@ isNavigationFailure(failure, NavigationFailureType.aborted)
        DOM Komponen Tampil di Layar
 ```
 
-## B. Anatomi URL & Pembacaan Data
+#### B. Anatomi URL & Pembacaan Data
 
 ```text
 URL: https://app.com/products/42?category=elektronik#fitur
@@ -1378,7 +1390,7 @@ URL: https://app.com/products/42?category=elektronik#fitur
              route.params.id  route.query.category  route.hash
 ```
 
-## C. Perbandingan useRouter vs useRoute
+#### C. Perbandingan useRouter vs useRoute
 
 ```text
        ┌─────────────────────────┐     ┌─────────────────────────┐
@@ -1391,7 +1403,7 @@ URL: https://app.com/products/42?category=elektronik#fitur
        └─────────────────────────┘     └─────────────────────────┘
 ```
 
-## D. Alur Nested Routes
+#### D. Alur Nested Routes
 
 ```text
        /dashboard/profile
@@ -1408,7 +1420,7 @@ URL: https://app.com/products/42?category=elektronik#fitur
 
 <a id="bagian-23"></a>
 
-# 23. 📚 Tabel Ringkasan
+## 23. 📚 Tabel Ringkasan
 
 | Konsep / API | Fungsi Utama | Contoh Sintaks |
 |---|---|---|
@@ -1432,7 +1444,7 @@ URL: https://app.com/products/42?category=elektronik#fitur
 
 <a id="bagian-24"></a>
 
-# 24. ⚡ Cheat Code Vue Router 10 Detik
+## 24. ⚡ Cheat Code Vue Router 10 Detik
 
 ```text
 createRouter()       → Membuat instance router
@@ -1473,7 +1485,7 @@ function handleGoToDetail(id) {
 
 <a id="bagian-25"></a>
 
-# 25. 🧭 Urutan Belajar yang Disarankan
+## 25. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 1. 🟢 Fundamental Routing
@@ -1500,11 +1512,11 @@ function handleGoToDetail(id) {
 
 <a id="bagian-26"></a>
 
-# 26. 🏗️ Mini Project: Portal Dashboard Pengguna
+## 26. 🏗️ Mini Project: Portal Dashboard Pengguna
 
 Mini project ini menggabungkan: **Nested Routes, Route Params, Named Routes, Props Mode, Route Meta, dan Navigation Auth Guard**.
 
-## 1. Konfigurasi Router (`src/router/index.js`)
+### 1. Konfigurasi Router (`src/router/index.js`)
 
 ```js
 import { createRouter, createWebHistory } from 'vue-router'
@@ -1563,7 +1575,7 @@ router.beforeEach((to) => {
 export default router
 ```
 
-## 2. Layout Induk (`src/views/DashboardLayout.vue`)
+### 2. Layout Induk (`src/views/DashboardLayout.vue`)
 
 ```html
 <script setup>
@@ -1599,7 +1611,7 @@ defineProps({
 </style>
 ```
 
-## 3. Komponen Anak (`src/views/UserProfile.vue`)
+### 3. Komponen Anak (`src/views/UserProfile.vue`)
 
 ```html
 <script setup>
@@ -1616,7 +1628,7 @@ defineProps({
 </template>
 ```
 
-## Output Tampilan Mini Project
+#### Output Tampilan Mini Project
 
 ```text
 URL: /dashboard/10
@@ -1639,7 +1651,7 @@ Daftar Artikel Pengguna #10
 • Panduan Vue Router 4
 ```
 
-## Diagram Alur Mini Project
+#### Diagram Alur Mini Project
 
 ```text
        URL: /dashboard/10
@@ -1661,7 +1673,7 @@ Daftar Artikel Pengguna #10
 
 <a id="bagian-27"></a>
 
-# 27. 🔗 Referensi Resmi
+## 27. 🔗 Referensi Resmi
 
 - [Vue Router 4 — Official Documentation](https://router.vuejs.org/)
 - [Getting Started Guide](https://router.vuejs.org/guide/)

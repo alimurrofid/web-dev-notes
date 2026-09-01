@@ -1,4 +1,16 @@
-# Spring Data JPA & Hibernate Cheatsheet Revised
+---
+title: "Spring Data JPA & Hibernate"
+description: "Persistensi data Spring Boot: JPA Entities, Spring Data Repositories, Derived Queries, @Query (JPQL & Native), Relationships, dan Transaction Management."
+order: 3
+tags:
+  - web-development
+  - backend
+  - spring-boot
+  - jpa
+  - database
+---
+
+# Spring Data JPA & Hibernate
 
 > **Target:** Pemula yang telah memahami Java dasar, OOP, Generic, Database (JDBC), dan Spring Boot Core/Web, serta ingin menguasai **Object-Relational Mapping (ORM), Hibernate 6.x, Spring Data JPA, Relasi Antar Tabel, Optimasi Kinerja Query, dan Database Transactions** (Spring Boot 3.3+ & Java 21 LTS).
 >
@@ -97,9 +109,9 @@ N+1 Query Problem    → bug performa fatal di mana pemanggilan 1 query induk me
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan ORM, Hibernate & Arsitektur Spring Data JPA
+## 1. 🟢 Pengenalan ORM, Hibernate & Arsitektur Spring Data JPA
 
-## Konsep
+#### Konsep
 
 Pada JDBC murni, developer harus menulis query SQL mentah manual, mengekstrak kolom via `rs.getString()` satu per satu, dan mengonversinya secara repetitif.
 
@@ -108,7 +120,7 @@ Pada JDBC murni, developer harus menulis query SQL mentah manual, mengekstrak ko
 2. **Hibernate:** Engine implementasi konkrit (*Library*) yang menjalankan aturan spesifikasi JPA.
 3. **Spring Data JPA:** Abstraksi tingkat tinggi dari Spring yang membungkus Hibernate dan `EntityManager`, sehingga kita cukup mendeklarasikan antarmuka `interface ProductRepository extends JpaRepository<Product, Long>` untuk mendapatkan seluruh operasi database.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Developer Java ──> JpaRepository.save(entity)
@@ -133,9 +145,9 @@ Spring Data JPA → library Spring yang mengotomatisasi interaksi dengan databas
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Anatomi Entity Dasar (`@Entity`, `@Table`, `@Id`, `@Column`)
+## 2. 🟢 Anatomi Entity Dasar (`@Entity`, `@Table`, `@Id`, `@Column`)
 
-## Konsep
+#### Konsep
 
 Sebuah class Java yang dipetakan ke tabel database disebut **Entity**.
 
@@ -146,7 +158,7 @@ Anotasi Dasar Entity:
 - **`@GeneratedValue(strategy = GenerationType.IDENTITY)`:** Menentukan strategi pembuatan ID otomatis oleh database (*Auto-Increment / Serial*).
 - **`@Column(name = "kolom_db", nullable = false, length = 100)`:** Menyesuaikan konfigurasi kolom.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.entity;
@@ -208,14 +220,14 @@ public class Product {
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Tipe Data Khusus, Enum & Auditing Otomatis
+## 3. 🟢 Tipe Data Khusus, Enum & Auditing Otomatis
 
-## Konsep
+#### Konsep
 
 1. **Mapping Enum:** Secara default, JPA menyimpan ordinal angka (`0, 1, 2`) yang sangat rawan bug jika urutan enum berubah. **WAJIB gunakan `@Enumerated(EnumType.STRING)`** untuk menyimpan teks nama enumnya.
 2. **JPA Auditing Otomatis:** Mengotomatisasi pengisian tanggal pembuatan (*Created Date*) dan tanggal pembaruan (*Last Modified Date*) tanpa perlu diisi manual di kode Service.
 
-## Contoh
+#### Contoh
 
 Enum Status:
 ```java
@@ -269,9 +281,9 @@ public class Application {}
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 `JpaRepository<T, ID>` & CRUD Bawaan
+## 4. 🟢 `JpaRepository<T, ID>` & CRUD Bawaan
 
-## Konsep
+#### Konsep
 
 Untuk melakukan operasi database pada Entity, kita cukup membuat sebuah Interface yang meng-extends **`JpaRepository<EntityType, IdType>`**.
 
@@ -287,7 +299,7 @@ Spring Data JPA secara otomatis menyediakan implementasi runtime untuk seluruh m
 | `count()` | `SELECT COUNT(*) ...` | Menghitung total jumlah baris |
 | `deleteById(id)` | `DELETE ... WHERE id = ?` | Menghapus data berdasarkan ID |
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.repository;
@@ -335,9 +347,9 @@ repo.findById(id)                                                    → mencari
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Derived Query Methods (Pencarian Otomatis dari Nama Method)
+## 5. 🟢 Derived Query Methods (Pencarian Otomatis dari Nama Method)
 
-## Konsep
+#### Konsep
 
 Spring Data JPA memiliki mesin parser canggih yang dapat **menerjemahkan nama method Java langsung menjadi query SQL `SELECT` secara otomatis**.
 
@@ -350,7 +362,7 @@ Kata Kunci Pola Penamaan (*Method Naming Conventions*):
 - `countBy[Property]` : `countByStatus(String status)`
 - `existsBy[Property]` : `existsByEmail(String email)`
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.repository;
@@ -388,9 +400,9 @@ existsByProperty(val)            → menghasilkan query pengecekan keberadaan da
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Custom Query dengan JPQL & Native SQL
+## 6. 🟢 Custom Query dengan JPQL & Native SQL
 
-## Konsep
+#### Konsep
 
 Jika query terlalu rumit untuk dinyatakan dengan nama method panjang (*Derived Query*), gunakan anotasi **`@Query`**:
 
@@ -402,7 +414,7 @@ Jika query terlalu rumit untuk dinyatakan dengan nama method panjang (*Derived Q
 3. **Modifying Queries (`@Modifying` + `@Transactional`):**
    - Wajib ditambahkan jika query bertipe `UPDATE` atau `DELETE` kustom.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.repository;
@@ -445,9 +457,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Paging & Sorting Data Skala Besar (`Pageable`)
+## 7. 🟢 Paging & Sorting Data Skala Besar (`Pageable`)
 
-## Konsep
+#### Konsep
 
 Mengambil ribuan atau jutaan data sekaligus (`findAll()`) akan menghabiskan memori RAM aplikasi (*OutOfMemoryError*).
 
@@ -456,7 +468,7 @@ Gunakan abstraksi **`Pageable`** untuk melakukan paginasi data dan pengurutan se
 - **`Page<T>`:** Menampung baris data beserta metadata pagination lengkap (`getTotalElements()`, `getTotalPages()`, `hasNext()`).
 - **`Slice<T>`:** Menampung data tanpa menghitung total count keseluruhan (sangat cepat untuk *Infinite Scroll*).
 
-## Contoh
+#### Contoh
 
 Repository:
 ```java
@@ -511,9 +523,9 @@ Page<Entity> result = repo.findAll(pageable) → mengambil data terpangkas halam
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Projections (Pengambilan Data Parsial Hemat Memori)
+## 8. 🟢 Projections (Pengambilan Data Parsial Hemat Memori)
 
-## Konsep
+#### Konsep
 
 Jika sebuah Entity memiliki 30 kolom, tetapi Anda hanya membutuhkan 2 kolom (misal: `id` dan `name` untuk dropdown list), meload seluruh Entity akan membuang memori dan bandwidth database.
 
@@ -521,7 +533,7 @@ Jika sebuah Entity memiliki 30 kolom, tetapi Anda hanya membutuhkan 2 kolom (mis
 1. **Interface-based Projection (Closed Projection):** Mendefinisikan antarmuka getter.
 2. **DTO Projection:** Menggunakan JPQL Constructor Expression (`SELECT new com.dto.ItemSummary(p.id, p.name) FROM Product p`).
 
-## Contoh
+#### Contoh
 
 Interface Projection:
 ```java
@@ -551,9 +563,9 @@ Projections → teknik mengambil sebagian kolom spesifik untuk optimasi performa
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Relasi Many-to-One (`@ManyToOne` & `@JoinColumn`)
+## 9. 🟡 Relasi Many-to-One (`@ManyToOne` & `@JoinColumn`)
 
-## Konsep
+#### Konsep
 
 Relasi **Many-to-One** adalah relasi di mana **banyak baris di tabel anak terhubung ke satu baris di tabel induk** (contoh: Banyak Produk dimiliki oleh 1 Kategori).
 
@@ -561,7 +573,7 @@ Anotasi Penting:
 - **`@ManyToOne(fetch = FetchType.LAZY)`:** Menandai relasi Many-to-One (Wajib sertakan `FetchType.LAZY`).
 - **`@JoinColumn(name = "category_id", nullable = false)`:** Menentukan nama kolom Foreign Key di tabel anak.
 
-## Contoh
+#### Contoh
 
 Entity Induk (Category):
 ```java
@@ -601,7 +613,7 @@ public class Product {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Tabel products                Tabel categories
@@ -623,9 +635,9 @@ Tabel products                Tabel categories
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Relasi One-to-Many (`@OneToMany`, `mappedBy`, `CascadeType.ALL`)
+## 10. 🟡 Relasi One-to-Many (`@OneToMany`, `mappedBy`, `CascadeType.ALL`)
 
-## Konsep
+#### Konsep
 
 Relasi **One-to-Many** adalah kebalikan dari Many-to-One (satu induk memiliki daftar koleksi anak, misal: 1 Order memiliki banyak OrderItem).
 
@@ -634,7 +646,7 @@ Atribut Krusial:
 - **`cascade = CascadeType.ALL`:** Operasi `save()` atau `delete()` pada induk otomatis diterapkan ke seluruh item anaknya.
 - **`orphanRemoval = true`:** Jika anak dihapus dari list koleksi Java (`items.remove(0)`), baris data anak tersebut otomatis dihapus dari database (`DELETE`).
 
-## Contoh
+#### Contoh
 
 ```java
 @Entity
@@ -675,14 +687,14 @@ public class Order {
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Relasi One-to-One (`@OneToOne`) & Many-to-Many (`@ManyToMany`)
+## 11. 🟡 Relasi One-to-One (`@OneToOne`) & Many-to-Many (`@ManyToMany`)
 
-## Konsep
+#### Konsep
 
 - **`@OneToOne`:** Tepat satu induk terhubung ke tepat satu anak (misal: `User` memiliki 1 `UserProfile`).
 - **`@ManyToMany`:** Banyak entitas A terhubung ke banyak entitas B (misal: `Mahasiswa` dan `MataKuliah`). Menggunakan tabel perantara (*Junction Table*) via **`@JoinTable`**.
 
-## Contoh Many-to-Many
+#### Contoh Many-to-Many
 
 ```java
 @Entity
@@ -714,9 +726,9 @@ public class Student {
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Strategi Fetching: `FetchType.LAZY` vs `FetchType.EAGER`
+## 12. 🟡 Strategi Fetching: `FetchType.LAZY` vs `FetchType.EAGER`
 
-## Konsep
+#### Konsep
 
 - **`FetchType.EAGER` (HINDARI / BAHAYA BESAR):**
   - Data relasi anak **selalu di-load seketika** saat entity induk diambil dari database, meskipun Anda tidak membutuhkannya.
@@ -740,9 +752,9 @@ fetch = FetchType.LAZY → memuat data relasi hanya saat dibutuhkan untuk menghe
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Bahaya Fatal *N+1 Query Problem* & Solusinya (`JOIN FETCH` & `@EntityGraph`)
+## 13. 🟡 Bahaya Fatal *N+1 Query Problem* & Solusinya (`JOIN FETCH` & `@EntityGraph`)
 
-## Konsep
+#### Konsep
 
 **N+1 Query Problem** terjadi ketika Anda mengambil daftar $N$ baris data induk (misal: 100 Produk), lalu saat melakukan loop untuk mengakses nama Kategori produk tersebut, Hibernate mengeksekusi **100 query tambahan secara terpisah** ke database. Total query: $1 + 100 = 101$ query! Ini membuat database overload dan response aplikasi sangat lambat.
 
@@ -750,7 +762,7 @@ Dua Solusi Resmi Mengatasi N+1 Problem:
 1. **`JOIN FETCH` pada JPQL:** Memerintahkan Hibernate meload induk dan relasi anak sekaligus dalam **1 kali query SQL JOIN tunggal**.
 2. **`@EntityGraph(attributePaths = {"..."})`:** Solusi deklaratif modern tanpa perlu menulis query JPQL manual.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.repository;
@@ -774,7 +786,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Tanpa JOIN FETCH (N+1 Query):
@@ -799,16 +811,16 @@ Query 1: SELECT p.*, c.* FROM products p INNER JOIN categories c ON p.category_i
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Database Transactions di Spring: `@Transactional`
+## 14. 🟡 Database Transactions di Spring: `@Transactional`
 
-## Konsep
+#### Konsep
 
 Anotasi **`@Transactional`** di level class Service atau method memastikan seluruh operasi database di dalamnya berjalan secara **ACID**:
 1. **Commit Otomatis:** Jika method selesai dieksekusi tanpa error $\rightarrow$ seluruh perubahan disimpan permanen ke database.
 2. **Rollback Otomatis:** Jika terjadi **`RuntimeException` (Unchecked Exception)** $\rightarrow$ seluruh perubahan otomatis dibatalkan.
 3. **`readOnly = true`:** Optimasi performa untuk query `SELECT` (Hibernate menonaktifkan *Dirty Checking Snapshot* sehingga hemat memori).
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.service;
@@ -862,9 +874,9 @@ public class OrderTransactionService {
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Pola Soft Delete Modern (`@SQLDelete` & `@SQLRestriction`)
+## 15. 🟡 Pola Soft Delete Modern (`@SQLDelete` & `@SQLRestriction`)
 
-## Konsep
+#### Konsep
 
 Dalam aplikasi bisnis, data penting (seperti Produk, User, Transaksi) **tidak boleh benar-benar dihapus permanen dari harddisk (`HARD DELETE`)**. Kita menggunakan **Soft Delete** (mengubah kolom `deleted_at` atau `is_deleted = true`).
 
@@ -872,7 +884,7 @@ Di Hibernate 6 / Spring Boot 3, Soft Delete diimplementasikan sangat elegan:
 - **`@SQLDelete(sql = "UPDATE products SET is_deleted = true WHERE id = ?")`:** Mengubah perilaku method bawaan `repo.deleteById()` menjadi UPDATE.
 - **`@SQLRestriction("is_deleted = false")`:** Otomatis menyuntikkan filter `WHERE is_deleted = false` pada seluruh operasi `SELECT`, `findAll()`, dan relasi tanpa perlu ditulis manual.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.belajar.entity;
@@ -911,9 +923,9 @@ public class Product {
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Database Migration dengan Flyway
+## 16. 🟡 Database Migration dengan Flyway
 
-## Konsep
+#### Konsep
 
 Dalam lingkungan production, kita **DILARANG menggunakan `spring.jpa.hibernate.ddl-auto=update`** karena rawan merusak data.
 
@@ -922,7 +934,7 @@ Standar industri mewajibkan penggunaan alat migrasi basis data seperti **Flyway*
 2. Format penamaan file: **`V1__init_schema.sql`**, **`V2__add_index_to_users.sql`** (Huruf `V`, nomor versi, dua garis bawah `__`, lalu deskripsi).
 3. Saat aplikasi menyala, Flyway otomatis mendeteksi dan mengeksekusi script SQL yang belum pernah dijalankan secara berurutan.
 
-## Contoh Script SQL (`V1__init_schema.sql`)
+#### Contoh Script SQL (`V1__init_schema.sql`)
 
 ```sql
 CREATE TABLE categories (
@@ -951,16 +963,16 @@ Flyway Migration → alat version control skema database otomatis menggunakan fi
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Entity Lifecycle Callbacks (`@PrePersist`, `@PreUpdate`)
+## 17. 🔴 Entity Lifecycle Callbacks (`@PrePersist`, `@PreUpdate`)
 
-## Konsep
+#### Konsep
 
 JPA menyediakan anotasi callback untuk menyisipkan logika bisnis tepat sebelum data disimpan atau diupdate ke database:
 - **`@PrePersist`:** Dijalankan sesaat sebelum entity pertama kali di-INSERT.
 - **`@PreUpdate`:** Dijalankan sesaat sebelum entity di-UPDATE.
 - **`@PostLoad`:** Dijalankan sesaat setelah data selesai di-SELECT dari database.
 
-## Contoh
+#### Contoh
 
 ```java
 @PrePersist
@@ -981,9 +993,9 @@ public void onBeforeInsert() {
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Optimistic Locking untuk Mencegah Race Condition (`@Version`)
+## 18. 🔴 Optimistic Locking untuk Mencegah Race Condition (`@Version`)
 
-## Konsep
+#### Konsep
 
 Ketika dua pengguna membuka halaman edit produk yang sama secara bersamaan dan sama-sama menekan tombol "Simpan", pengguna kedua dapat menimpa perubahan pengguna pertama tanpa sadar (*Lost Update Anomaly*).
 
@@ -991,7 +1003,7 @@ Ketika dua pengguna membuka halaman edit produk yang sama secara bersamaan dan s
 - Tambahkan field **`@Version private Long version;`** di Entity.
 - Hibernate otomatis memeriksa versi saat `UPDATE`. Jika versi di database sudah berubah lebih tinggi, Hibernate membatalkan update dan melempar **`ObjectOptimisticLockingFailureException`**.
 
-## Contoh
+#### Contoh
 
 ```java
 @Entity
@@ -1018,7 +1030,7 @@ public class Product {
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                        PETA ARSITEKTUR SPRING DATA JPA
@@ -1036,7 +1048,7 @@ ENTITY & MAPPING              QUERY & REPOSITORY             RELASI & OPTIMASI
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Anotasi / Interface | Lokasi Target | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -1057,7 +1069,7 @@ ENTITY & MAPPING              QUERY & REPOSITORY             RELASI & OPTIMASI
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Spring Data JPA 10 Detik
+## 21. ⚡ Cheat Code Spring Data JPA 10 Detik
 
 ```java
 // 1. Template Entity Standar dengan Auditing & Soft Delete
@@ -1089,7 +1101,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Entity Mapping & CRUD Dasar
@@ -1121,7 +1133,7 @@ Langkah 5: Siap Melangkah ke Keamanan API dengan Spring Security & JWT!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready E-Commerce Store & Order Management Data Layer
+## 23. 🏗️ Mini Project: Production-Ready E-Commerce Store & Order Management Data Layer
 
 Lapisan data persistence lengkap yang mengintegrasikan: **Entity Kategori, Produk, Pesanan, dan ItemPesanan dengan Relasi `@ManyToOne` & `@OneToMany`, JpaRepository, Derived Queries, Pagination, Solusi N+1 `JOIN FETCH`, Soft Delete `@SQLRestriction`, dan `@Transactional` Service**.
 
@@ -1309,7 +1321,7 @@ public class JpaStoreApplication {
 }
 ```
 
-## Output Demonstrasi
+#### Output Demonstrasi
 
 ```text
 ==================================================
@@ -1335,7 +1347,7 @@ Total Produk Aktif Sekarang: 2
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Spring Data JPA Reference Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
 - [Hibernate ORM 6.x User Guide](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html)

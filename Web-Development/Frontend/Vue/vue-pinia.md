@@ -1,4 +1,16 @@
-# Pinia Cheatsheet Revised
+---
+title: "Vue Pinia"
+description: "Global state management modern dengan Pinia untuk Vue 3: Option vs Setup Stores, State, Getters, Actions, Plugins, dan Persisted State."
+order: 3
+tags:
+  - web-development
+  - frontend
+  - vue
+  - pinia
+  - state-management
+---
+
+# Vue Pinia
 
 > **Target:** pemula yang sudah memahami dasar Vue 3 + Composition API (component, props, emit, `ref`, `computed`), lalu ingin mengenal state management dengan Pinia.
 >
@@ -94,9 +106,9 @@ Store   → tempat ketiganya
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Pinia
+## 1. 🟢 Pengenalan Pinia
 
-## Konsep
+#### Konsep
 
 **Pinia** adalah state management library resmi untuk Vue.
 
@@ -142,7 +154,7 @@ Component C ─────┘      ▼
 
 Pinia store menyimpan **state dan business logic** yang tidak terikat pada satu component tree. Konsep utamanya adalah **state, getters, dan actions**, yang dapat dipahami seperti `data`, `computed`, dan `methods` pada component Vue.
 
-## Kapan menggunakan Pinia?
+#### Kapan menggunakan Pinia?
 
 Cocok untuk data yang:
 
@@ -170,7 +182,7 @@ Input form sementara?  ──> Local State (ref di dalam .vue)
 Tab aktif halaman ini? ──> Local State (ref di dalam .vue)
 ```
 
-## Model mental Pinia
+#### Model mental Pinia
 
 ```text
               Pinia Store
@@ -206,19 +218,19 @@ Store   → tempat ketiganya
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Setup & Instalasi
+## 2. 🟢 Setup & Instalasi
 
-## Konsep
+#### Konsep
 
 Pinia didaftarkan ke aplikasi Vue sebagai plugin dengan `createPinia()`.
 
-## Install Pinia
+#### Install Pinia
 
 ```bash
 npm install pinia
 ```
 
-## Pasang Pinia
+#### Pasang Pinia
 
 `src/main.js`:
 
@@ -236,7 +248,7 @@ app.use(pinia)
 app.mount('#app')
 ```
 
-## Diagram Alur Setup
+#### Diagram Alur Setup
 
 ```text
        createApp(App)
@@ -259,7 +271,7 @@ app.mount('#app')
 
 Setelah `app.use(pinia)`, store Pinia dapat digunakan oleh component di aplikasi.
 
-## Struktur folder
+#### Struktur folder
 
 ```text
 src/
@@ -297,13 +309,13 @@ createPinia() → app.use(pinia) → store tersedia di aplikasi
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Membuat Store
+## 3. 🟢 Membuat Store
 
-## Konsep
+#### Konsep
 
 **Store** adalah tempat untuk menyimpan state dan logic yang ingin digunakan bersama. Store dibuat menggunakan `defineStore()` dan membutuhkan **id unik**. Konvensi nama function store biasanya `use...Store`, misalnya `useUserStore` atau `useCartStore`.
 
-## Membuat Store
+#### Membuat Store
 
 `src/stores/counter.js`:
 
@@ -327,7 +339,7 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-## Diagram Anatomi Store
+#### Diagram Anatomi Store
 
 ```text
        ┌───────────────────────────────────────┐
@@ -347,7 +359,7 @@ export const useCounterStore = defineStore('counter', {
        └───────────────────────────────────────┘
 ```
 
-## Menggunakan Store
+#### Menggunakan Store
 
 Di component:
 
@@ -368,7 +380,7 @@ const counter = useCounterStore()
 </template>
 ```
 
-## Output awal
+#### Output awal
 
 ```text
 Count: 0
@@ -386,7 +398,7 @@ Double: 2
 [ Tambah ]
 ```
 
-## Store adalah reactive
+#### Store adalah reactive
 
 Instance store dapat dibaca dan diubah langsung:
 
@@ -414,13 +426,13 @@ useCounterStore()          → mengambil instance store di komponen
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 State
+## 4. 🟢 State
 
-## Konsep
+#### Konsep
 
 **State** adalah data utama yang disimpan oleh store. Pada Option Store, state didefinisikan sebagai function yang mengembalikan object initial state.
 
-## Membuat State
+#### Membuat State
 
 ```js
 import { defineStore } from 'pinia'
@@ -435,7 +447,7 @@ export const useUserStore = defineStore('user', {
 })
 ```
 
-## Membaca State
+#### Membaca State
 
 ```html
 <script setup>
@@ -450,14 +462,14 @@ const user = useUserStore()
 </template>
 ```
 
-## Output
+#### Output
 
 ```text
 Budi
 20
 ```
 
-## Mengubah State Langsung
+#### Mengubah State Langsung
 
 State dapat diubah langsung dari component:
 
@@ -468,7 +480,7 @@ user.name = 'Andi'
 user.age = 21
 ```
 
-## Diagram Alur Mutasi State
+#### Diagram Alur Mutasi State
 
 ```text
        user.name = 'Andi'
@@ -482,7 +494,7 @@ user.age = 21
        DOM Komponen Diperbarui Otomatis
 ```
 
-## State yang belum memiliki nilai
+#### State yang belum memiliki nilai
 
 Tetap deklarasikan property sejak awal:
 
@@ -516,13 +528,13 @@ state: () => ({ semuaStateAwal })
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Mengubah State dengan `$patch dan $reset`
+## 5. 🟢 Mengubah State dengan `$patch dan $reset`
 
-## Konsep
+#### Konsep
 
 Pinia menyediakan method bawaan `$patch()` untuk mengubah beberapa state sekaligus dalam 1 kali batch update dan `$reset()` untuk mengembalikan state ke kondisi awal.
 
-## Menggunakan `$patch` dengan Objek
+#### Menggunakan `$patch` dengan Objek
 
 ```js
 const user = useUserStore()
@@ -533,7 +545,7 @@ user.$patch({
 })
 ```
 
-## Menggunakan `$patch` dengan Fungsi Callback
+#### Menggunakan `$patch` dengan Fungsi Callback
 
 Untuk perubahan yang melibatkan array atau mutasi bersyarat:
 
@@ -553,7 +565,7 @@ Mutasi B (age)   ──┼──> $patch() ──> 1x Batch Update ke DOM
 Mutasi C (items) ──┘
 ```
 
-## Reset State: `$reset()`
+#### Reset State: `$reset()`
 
 Pada **Option Store**, Pinia menyediakan method `$reset()` untuk mengembalikan nilai ke kondisi default saat store dibuat:
 
@@ -564,7 +576,7 @@ const user = useUserStore()
 user.$reset()
 ```
 
-## Diagram Alur `$reset`
+#### Diagram Alur `$reset`
 
 ```text
 user.name ('Andi') ──┐
@@ -583,9 +595,9 @@ $reset() → kembalikan seluruh state ke nilai awal
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Destructuring dengan storeToRefs
+## 6. 🟢 Destructuring dengan storeToRefs
 
-## Konsep
+#### Konsep
 
 Ketika kita melakukan destructuring langsung pada objek store, **reaktivitas state dan getter akan hilang**:
 
@@ -598,7 +610,7 @@ const { count, doubleCount } = store
 
 Agar destructuring tetap mempertahankan sifat reactive, gunakan **`storeToRefs()`**.
 
-## Cara Penggunaan yang Benar
+#### Cara Penggunaan yang Benar
 
 ```html
 <script setup>
@@ -620,7 +632,7 @@ const { increment } = counter
 </template>
 ```
 
-## Diagram Ekstraksi Reaktif
+#### Diagram Ekstraksi Reaktif
 
 ```text
               ┌───────────────────────────────┐
@@ -655,13 +667,13 @@ action             → ambil langsung dari store
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Getters
+## 7. 🟢 Getters
 
-## Konsep
+#### Konsep
 
 **Getter** adalah nilai turunan dari state, konsepnya mirip dengan `computed` pada component Vue. Getter otomatis di-cache dan hanya dihitung ulang jika dependensinya berubah.
 
-## Getter sederhana
+#### Getter sederhana
 
 ```js
 import { defineStore } from 'pinia'
@@ -692,14 +704,14 @@ const counter = useCounterStore()
 </template>
 ```
 
-## Output
+#### Output
 
 ```text
 Count: 10
 Double: 20
 ```
 
-## Getter menggunakan `this`
+#### Getter menggunakan `this`
 
 Jika getter ingin mengakses getter lain, gunakan fungsi biasa (bukan arrow function):
 
@@ -721,7 +733,7 @@ doubleCount    = 20
 quadrupleCount = 40
 ```
 
-## Getter yang menerima parameter (Return a Function)
+#### Getter yang menerima parameter (Return a Function)
 
 Getter dapat mengembalikan fungsi jika membutuhkan argumen dinamis:
 
@@ -742,7 +754,7 @@ const targetTodo = todoStore.getTodoById(2)
 </script>
 ```
 
-## Diagram Alur Getter
+#### Diagram Alur Getter
 
 ```text
        State Utama (count = 10)
@@ -756,7 +768,7 @@ const targetTodo = todoStore.getTodoById(2)
        Tampilan Komponen (UI Render)
 ```
 
-## Getter bukan tempat side effect
+#### Getter bukan tempat side effect
 
 ```text
 getter → hitung / turunkan nilai (pure function)
@@ -779,13 +791,13 @@ Getter = computed milik store
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Actions
+## 8. 🟢 Actions
 
-## Konsep
+#### Konsep
 
 **Action** adalah function yang berisi logic atau business logic pada store. Action setara dengan method pada component Vue, dan dapat menggunakan `this` untuk mengakses state, getter, dan action lain.
 
-## Membuat Action
+#### Membuat Action
 
 ```js
 import { defineStore } from 'pinia'
@@ -811,7 +823,7 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-## Diagram Siklus Action
+#### Diagram Siklus Action
 
 ```text
        ┌───────────────────────────────┐
@@ -838,7 +850,7 @@ export const useCounterStore = defineStore('counter', {
        └───────────────────────────────┘
 ```
 
-## Action Asynchronous (API Call)
+#### Action Asynchronous (API Call)
 
 Action dapat berupa async function dan cocok untuk API request:
 
@@ -858,7 +870,7 @@ actions: {
 }
 ```
 
-## Action memanggil Action lain
+#### Action memanggil Action lain
 
 ```js
 actions: {
@@ -885,13 +897,13 @@ Action → logic → ubah state → UI update
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Global State & Pola Akses Komponen
+## 9. 🟡 Global State & Pola Akses Komponen
 
-## Konsep
+#### Konsep
 
 Salah satu alasan utama menggunakan Pinia adalah membuat state yang dapat digunakan oleh banyak component secara konsisten tanpa jalur props bertingkat.
 
-## Tanpa Pinia (Prop Drilling Panjang)
+#### Tanpa Pinia (Prop Drilling Panjang)
 
 ```text
        ┌───────────────────────────┐
@@ -917,7 +929,7 @@ Salah satu alasan utama menggunakan Pinia adalah membuat state yang dapat diguna
        └───────────────────────────┘
 ```
 
-## Dengan Pinia (Pusat Data Bersama)
+#### Dengan Pinia (Pusat Data Bersama)
 
 ```text
        ┌───────────────────────────────────────────┐
@@ -938,7 +950,7 @@ Semua component mengambil store yang sama:
 const user = useUserStore()
 ```
 
-## Contoh User Store
+#### Contoh User Store
 
 ```js
 import { defineStore } from 'pinia'
@@ -975,7 +987,7 @@ user.login('Andi')
 
 maka semua component lain yang membaca state tersebut otomatis menerima pembaruan secara reactive.
 
-## Membedakan Local State vs Global State
+#### Membedakan Local State vs Global State
 
 ```text
 Data hanya dibutuhkan oleh 1 komponen?
@@ -1000,16 +1012,16 @@ Global state → untuk data bersama (currentUser, cart, theme)
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Setup Store (Composition API Style)
+## 10. 🟡 Setup Store (Composition API Style)
 
-## Konsep
+#### Konsep
 
 Pinia menyediakan sintaks **Setup Store** yang identik dengan gaya Vue 3 `<script setup>`:
 - `ref()` mewakili **State**
 - `computed()` mewakili **Getters**
 - `function()` mewakili **Actions**
 
-## Contoh Setup Store
+#### Contoh Setup Store
 
 `src/stores/counterSetup.js`:
 
@@ -1043,7 +1055,7 @@ export const useCounterSetupStore = defineStore('counterSetup', () => {
 })
 ```
 
-## Pemetaan Option Store vs Setup Store
+#### Pemetaan Option Store vs Setup Store
 
 ```text
 Option Store           Setup Store
@@ -1053,7 +1065,7 @@ getters: {}        ──> computed()
 actions: {}        ──> function()
 ```
 
-## Perbandingan
+#### Perbandingan
 
 ```js
 //Option Store
@@ -1086,13 +1098,13 @@ function() → action
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Store Composition (Akses Lintas Store)
+## 11. 🟡 Store Composition (Akses Lintas Store)
 
-## Konsep
+#### Konsep
 
 Pinia memungkinkan sebuah store menggunakan store lain secara langsung di dalam Getters maupun Actions.
 
-## Contoh: Cart Store menggunakan User Store
+#### Contoh: Cart Store menggunakan User Store
 
 ```js
 import { defineStore } from 'pinia'
@@ -1118,7 +1130,7 @@ export const useCartStore = defineStore('cart', {
 })
 ```
 
-## Diagram Hubungan Antar-Store
+#### Diagram Hubungan Antar-Store
 
 ```text
        ┌────────────────────────────┐
@@ -1150,13 +1162,13 @@ Import useStoreLain() → panggil di dalam action/getter saat dibutuhkan
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Mengamati Store (`$subscribe dan $onAction`)
+## 12. 🟡 Mengamati Store (`$subscribe dan $onAction`)
 
-## Konsep
+#### Konsep
 
 Pinia menyediakan method untuk mengamati perubahan state (`$subscribe`) dan siklus hidup pemanggilan action (`$onAction`).
 
-## Mengamati Perubahan State: `$subscribe`
+#### Mengamati Perubahan State: `$subscribe`
 
 ```js
 const counter = useCounterStore()
@@ -1167,7 +1179,7 @@ counter.$subscribe((mutation, state) => {
 })
 ```
 
-## Diagram Alur `$subscribe`
+#### Diagram Alur `$subscribe`
 
 ```text
 State berubah
@@ -1177,7 +1189,7 @@ $subscribe terpanggil
 Sync ke LocalStorage / Logging
 ```
 
-## Mengamati Action: `$onAction`
+#### Mengamati Action: `$onAction`
 
 ```js
 counter.$onAction(({ name, args, after, onError }) => {
@@ -1193,7 +1205,7 @@ counter.$onAction(({ name, args, after, onError }) => {
 })
 ```
 
-## Diagram Siklus `$onAction`
+#### Diagram Siklus `$onAction`
 
 ```text
        Komponen Memanggil Action
@@ -1219,13 +1231,13 @@ $onAction  → mengamati pemanggilan action (before, after, error)
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Pinia dengan TypeScript
+## 13. 🟡 Pinia dengan TypeScript
 
-## Konsep
+#### Konsep
 
 Pinia memiliki inferensi tipe otomatis yang sangat baik untuk TypeScript.
 
-## Menentukan Tipe State
+#### Menentukan Tipe State
 
 ```ts
 import { defineStore } from 'pinia'
@@ -1270,13 +1282,13 @@ state: (): UserState => ({ ... })
 
 <a id="bagian-14"></a>
 
-# 14. 🔴 Store di Luar Component & SSR
+## 14. 🔴 Store di Luar Component & SSR
 
-## Konsep
+#### Konsep
 
 Store Pinia dapat digunakan di luar file komponen `.vue`, misalnya di dalam file Vue Router.
 
-## Penggunaan di Vue Router Guard
+#### Penggunaan di Vue Router Guard
 
 Pastikan store dipanggil **di dalam callback router**, bukan di top-level file:
 
@@ -1306,7 +1318,7 @@ router.beforeEach((to, from, next) => {
 export default router
 ```
 
-## Diagram Alur Router Guard
+#### Diagram Alur Router Guard
 
 ```text
        Navigasi Route (to: '/dashboard')
@@ -1335,13 +1347,13 @@ Panggil useStore() di dalam fungsi router guard, bukan di luar fungsi
 
 <a id="bagian-15"></a>
 
-# 15. 🔴 Pinia Plugins & Persist State
+## 15. 🔴 Pinia Plugins & Persist State
 
-## Konsep
+#### Konsep
 
 Plugin Pinia digunakan untuk memperluas fungsi store, seperti auto-save ke `localStorage`. Plugin dipasang menggunakan `pinia.use()`.
 
-## 1. Plugin Sederhana (Custom Logger)
+### 1. Plugin Sederhana (Custom Logger)
 
 ```js
 import { createPinia } from 'pinia'
@@ -1357,7 +1369,7 @@ function loggerPlugin({ store }) {
 pinia.use(loggerPlugin)
 ```
 
-## 2. Persist State dengan `pinia-plugin-persistedstate`
+### 2. Persist State dengan `pinia-plugin-persistedstate`
 
 Install plugin:
 
@@ -1386,7 +1398,7 @@ export const useCartStore = defineStore('cart', {
 })
 ```
 
-## Diagram Alur Persistensi
+#### Diagram Alur Persistensi
 
 ```text
        State di Store Berubah
@@ -1411,9 +1423,9 @@ persist: true     → auto-save state ke browser storage
 
 <a id="bagian-16"></a>
 
-# 16. 🧠 Peta Ingatan Cepat
+## 16. 🧠 Peta Ingatan Cepat
 
-## A. Konsep Dasar
+#### A. Konsep Dasar
 
 ```text
              Pinia
@@ -1427,7 +1439,7 @@ persist: true     → auto-save state ke browser storage
       data   computed  methods
 ```
 
-## B. Alur Data Komponen & Store
+#### B. Alur Data Komponen & Store
 
 ```text
        ┌───────────────────────────────┐
@@ -1453,7 +1465,7 @@ persist: true     → auto-save state ke browser storage
        └───────────────┘ └─────────────┘
 ```
 
-## C. Setup
+#### C. Setup
 
 ```text
 createPinia()
@@ -1465,7 +1477,7 @@ useStore()
 store tersedia
 ```
 
-## D. Store
+#### D. Store
 
 ```text
 defineStore('id', ...)
@@ -1477,7 +1489,7 @@ defineStore('id', ...)
 const store = useSomethingStore()
 ```
 
-## E. State & Patch
+#### E. State & Patch
 
 ```text
 state
@@ -1497,7 +1509,7 @@ store.$reset()
 kembali ke initial state
 ```
 
-## F. Destructuring dengan `storeToRefs`
+#### F. Destructuring dengan `storeToRefs`
 
 ```text
               ┌───────────────────────────────┐
@@ -1515,7 +1527,7 @@ kembali ke initial state
                  Ref Reaktif      Fungsi Action
 ```
 
-## G. Option Store vs Setup Store
+#### G. Option Store vs Setup Store
 
 ```text
 Option Store            Setup Store
@@ -1529,7 +1541,7 @@ actions                 function
 
 <a id="bagian-17"></a>
 
-# 17. 📚 Tabel Ringkasan
+## 17. 📚 Tabel Ringkasan
 
 | Materi | Fungsi | Kata Kunci |
 |---|---|---|
@@ -1554,7 +1566,7 @@ actions                 function
 
 <a id="bagian-18"></a>
 
-# 18. ⚡ Cheat Code Pinia 10 Detik
+## 18. ⚡ Cheat Code Pinia 10 Detik
 
 ```text
 createPinia()       → memasang Pinia ke aplikasi
@@ -1568,7 +1580,7 @@ $patch()            → ubah banyak state sekaligus
 $reset()            → kembali ke state awal
 ```
 
-## Setup dasar
+#### Setup dasar
 
 ```js
 import { createApp } from 'vue'
@@ -1580,7 +1592,7 @@ app.use(createPinia())
 app.mount('#app')
 ```
 
-## Store dasar
+#### Store dasar
 
 ```js
 import { defineStore } from 'pinia'
@@ -1600,7 +1612,7 @@ export const useCounterStore = defineStore('counter', {
 })
 ```
 
-## Menggunakan store di komponen
+#### Menggunakan store di komponen
 
 ```html
 <script setup>
@@ -1622,7 +1634,7 @@ const { increment } = counter
 
 <a id="bagian-19"></a>
 
-# 19. 🧭 Urutan Belajar yang Disarankan
+## 19. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 1. Pengenalan
@@ -1662,11 +1674,11 @@ const { increment } = counter
 
 <a id="bagian-20"></a>
 
-# 20. 🏗️ Mini Project: Shopping Cart Terpadu
+## 20. 🏗️ Mini Project: Shopping Cart Terpadu
 
 Contoh mini project yang menggabungkan: **State, Getters, Actions, `storeToRefs`, dan Cross-Component access**.
 
-## 1. Cart Store (`src/stores/cart.js`)
+### 1. Cart Store (`src/stores/cart.js`)
 
 ```js
 import { defineStore } from 'pinia'
@@ -1712,7 +1724,7 @@ export const useCartStore = defineStore('cart', {
 })
 ```
 
-## 2. Komponen Antarmuka (`src/App.vue`)
+### 2. Komponen Antarmuka (`src/App.vue`)
 
 ```html
 <script setup>
@@ -1762,7 +1774,7 @@ function handleAdd() {
 </template>
 ```
 
-## Output
+#### Output
 
 ```text
 Mini Shopping Cart
@@ -1778,7 +1790,7 @@ Total Bayar: Rp 130.000
 [ Kosongkan Keranjang ]
 ```
 
-## Diagram Alur Mini Project
+#### Diagram Alur Mini Project
 
 ```text
                useCartStore
@@ -1803,7 +1815,7 @@ Total Bayar: Rp 130.000
 
 <a id="bagian-21"></a>
 
-# 21. 🔗 Referensi Resmi
+## 21. 🔗 Referensi Resmi
 
 - [Pinia — Official Website](https://pinia.vuejs.org/)
 - [Getting Started](https://pinia.vuejs.org/getting-started.html)

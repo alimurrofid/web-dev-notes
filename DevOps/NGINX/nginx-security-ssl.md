@@ -1,4 +1,16 @@
-# NGINX Keamanan, SSL & Optimasi Performa Cheatsheet Revised
+---
+title: "NGINX Keamanan & SSL"
+description: "Pengamanan & optimasi performa NGINX: SSL/TLS configuration (HTTPS, Let's Encrypt), Security headers (HSTS, CSP), Rate limiting, Gzip/Brotli compression, dan Caching."
+order: 3
+tags:
+  - devops
+  - nginx
+  - security
+  - ssl
+  - performance
+---
+
+# NGINX Keamanan & SSL
 
 > **Target:** Pemula yang ingin menguasai **Hardening Keamanan Server Web NGINX 1.24+ / 1.26+ (Enkripsi HTTPS, SSL/TLS 1.2 & TLS 1.3, SSL Session Cache, Certbot Let's Encrypt, HTTP $\rightarrow$ HTTPS 301 Redirect, Strict HSTS Preload, Essential Security Headers `CSP`/`X-Frame-Options`, `server_tokens off`, Proteksi File `.env`/`.git`, Rate Limiting Leaky Bucket `limit_req_zone`, Connection Limiting `limit_conn_zone`, Kompresi Gzip & Brotli, Kernel Zero-Copy `sendfile`/`tcp_nopush`/`tcp_nodelay`, Worker Tuning, dan Audit Keamanan Skor A+ Qualys SSL Labs)**.
 >
@@ -118,9 +130,9 @@ sendfile on           → mengaktifkan transfer file langsung dari disk ke netwo
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Keamanan & Hardening Server Web NGINX
+## 1. 🟢 Pengenalan Keamanan & Hardening Server Web NGINX
 
-## Konsep
+#### Konsep
 
 Sebagai gerbang terdepan (*Frontend Web Server / Ingress Gateway*), NGINX adalah benteng pertama yang menghadapi jutaan botnet, web scraper, dan serangan siber di internet publik.
 
@@ -139,16 +151,16 @@ Defense in Depth → memfilter serangan di level web server sebelum membebani ap
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Konfigurasi HTTPS & SSL/TLS Dasar
+## 2. 🟢 Konfigurasi HTTPS & SSL/TLS Dasar
 
-## Konsep
+#### Konsep
 
 Untuk mengaktifkan HTTPS, sebuah server block memerlukan:
 1. Port **`listen 443 ssl;`** (dan `http2` untuk NGINX modern).
 2. **`ssl_certificate`** : Path ke file public certificate chain (`fullchain.pem`).
 3. **`ssl_certificate_key`** : Path ke file private key (`privkey.pem`).
 
-## Contoh
+#### Contoh
 
 ```nginx
 server {
@@ -174,15 +186,15 @@ listen 443 ssl; ssl_certificate /path/fullchain.pem; ssl_certificate_key /path/p
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Pengalihan Otomatis HTTP ke HTTPS (301 Permanent Redirect)
+## 3. 🟢 Pengalihan Otomatis HTTP ke HTTPS (301 Permanent Redirect)
 
-## Konsep
+#### Konsep
 
 Jangan biarkan pengunjung mengakses website melalui koneksi HTTP polos yang tidak terenkripsi.
 
 Buat **Server Block Port 80 khusus** yang tugas satu-satunya adalah me-redirect seluruh request ke URL HTTPS yang setara menggunakan status **HTTP 301 Moved Permanently**.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Server Block Port 80 (HTTP -> HTTPS Redirector)
@@ -205,9 +217,9 @@ server { listen 80; server_name domain.com; return 301 https://$host$request_uri
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 SSL Hardening: Protokol Aman `TLSv1.2 TLSv1.3` & Modern Cipher Suites
+## 4. 🟢 SSL Hardening: Protokol Aman `TLSv1.2 TLSv1.3` & Modern Cipher Suites
 
-## Konsep
+#### Konsep
 
 Protokol SSL versi lama (`SSLv2`, `SSLv3`, `TLSv1.0`, `TLSv1.1`) memiliki kerentanan kriptografi fatal (seperti *POODLE*, *BEAST*, *Heartbleed*).
 
@@ -215,7 +227,7 @@ Protokol SSL versi lama (`SSLv2`, `SSLv3`, `TLSv1.0`, `TLSv1.1`) memiliki kerent
 - Batasi protokol hanya pada **`TLSv1.2 TLSv1.3`**.
 - Gunakan Cipher Suites modern berbasis Elliptic Curve (ECDHE) dan AES-GCM / CHACHA20.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Nonaktifkan Protokol Jadul yang Rentan
@@ -236,16 +248,16 @@ ssl_protocols TLSv1.2 TLSv1.3; → membuang protokol usang dan hanya mengizinkan
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Optimasi Kinerja SSL: SSL Session Cache & Session Tickets
+## 5. 🟢 Optimasi Kinerja SSL: SSL Session Cache & Session Tickets
 
-## Konsep
+#### Konsep
 
 Proses negosiasi awal SSL/TLS (*TLS Handshake*) membutuhkan beberapa putaran pertukaran data (RTT) dan komputasi CPU yang berat.
 
 Dengan mengaktifkan **SSL Session Caching**:
 Ketika pengguna yang sama membuka halaman kedua atau kembali beberapa menit kemudian, sesi SSL di-*resume* seketika **tanpa kalkulasi ulang handshake (menghemat ~100ms latency)**.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Alokasikan 10MB RAM untuk Cache Sesi SSL (~40.000 Sesi)
@@ -266,15 +278,15 @@ ssl_session_cache shared:SSL:10m; ssl_session_timeout 1d; → menghemat 100ms la
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Integrasi Otomatis Let's Encrypt dengan Certbot
+## 6. 🟢 Integrasi Otomatis Let's Encrypt dengan Certbot
 
-## Konsep
+#### Konsep
 
 **Let's Encrypt** menyediakan sertifikat SSL/TLS gratis yang diakui oleh seluruh browser dunia dengan masa aktif 90 hari.
 
 **Certbot** adalah agen otomatis untuk menerbitkan dan memperbarui (*Auto-Renewal*) sertifikat via tantangan ACME HTTP-01.
 
-## Perintah CLI di Server Ubuntu/Debian
+#### Perintah CLI di Server Ubuntu/Debian
 
 ```bash
 # [1] Install Certbot NGINX Plugin
@@ -297,16 +309,16 @@ certbot --nginx -d example.com → menerbitkan dan memasang sertifikat SSL Let's
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 HTTP Strict Transport Security (HSTS)
+## 7. 🟡 HTTP Strict Transport Security (HSTS)
 
-## Konsep
+#### Konsep
 
 **HSTS (`Strict-Transport-Security`)** adalah header HTTP yang memberitahu browser pengguna:
 *"Jangan pernah mencoba menghubungi website ini via HTTP biasa selama X detik ke depan. Selalu ubah `http://` menjadi `https://` langsung di level browser!"*
 
 Mencegah serangan **Man-in-the-Middle (MITM) SSL Stripping**.
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Aktifkan HSTS selama 1 Tahun (31536000 detik) untuk Domain & Seluruh Subdomain
@@ -323,9 +335,9 @@ add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; prelo
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Security Headers Esensial: Anti-Clickjacking & Anti-XSS
+## 8. 🟡 Security Headers Esensial: Anti-Clickjacking & Anti-XSS
 
-## Konsep
+#### Konsep
 
 Paket HTTP Security Headers Standar Industri untuk Memperoleh Nilai A+ di SecurityHeaders.com:
 
@@ -334,7 +346,7 @@ Paket HTTP Security Headers Standar Industri untuk Memperoleh Nilai A+ di Securi
 3. **`Referrer-Policy "strict-origin-when-cross-origin"`** : Menjaga kerahasiaan URL referrer saat berpindah ke situs eksternal.
 4. **`Permissions-Policy`** : Menonaktifkan akses sensor perangkat (kamera, mikrofon, geolokasi) yang tidak dibutuhkan.
 
-## Contoh
+#### Contoh
 
 ```nginx
 add_header X-Frame-Options "SAMEORIGIN" always;
@@ -353,16 +365,16 @@ X-Frame-Options SAMEORIGIN + X-Content-Type-Options nosniff → fondasi wajib se
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Menyembunyikan Versi NGINX & Header Sensitif
+## 9. 🟡 Menyembunyikan Versi NGINX & Header Sensitif
 
-## Konsep
+#### Konsep
 
 Secara default, NGINX menyematkan versinya pada header HTTP (`Server: nginx/1.24.0`) dan pada halaman error bawaan. Hacker menggunakan informasi versi ini untuk mencari celah eksploitasi (*CVE Fingerprinting*).
 
 Gunakan direktif:
 **`server_tokens off;`** (Wajib di blok `http {}`).
 
-## Contoh
+#### Contoh
 
 ```nginx
 http {
@@ -385,15 +397,15 @@ server_tokens off; → menyembunyikan versi NGINX untuk mencegah information dis
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Proteksi File Sensitif & Direktori Tersembunyi
+## 10. 🟡 Proteksi File Sensitif & Direktori Tersembunyi
 
-## Konsep
+#### Konsep
 
 Sering kali developer tidak sengaja mengekspos folder repositori git (`.git/`) atau file konfigurasi rahasia database (`.env`, `.htaccess`, `.DS_Store`) ke direktori public web root.
 
 Blokir seluruh akses ke file/folder berawalan titik menggunakan Regex Matcher:
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Blokir File Rahasia (.env, .git, .yaml, .config) dengan Return 404
@@ -413,9 +425,9 @@ location ~ /\.(env|git) { deny all; return 404; } → mengamankan file rahasia a
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Rate Limiting Dasar dengan `limit_req_zone` (Algoritma Leaky Bucket)
+## 11. 🟡 Rate Limiting Dasar dengan `limit_req_zone` (Algoritma Leaky Bucket)
 
-## Konsep
+#### Konsep
 
 **Rate Limiting**:
 Membatasi jumlah request yang boleh dikirim oleh satu alamat IP dalam satu satuan waktu untuk menangkal **Serangan Brute Force Login, Web Scraping Agresif, dan DoS**.
@@ -439,9 +451,9 @@ limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s; → zona memor
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Parameter Rate Limiting Lanjutan: `burst=N` dan `nodelay`
+## 12. 🟡 Parameter Rate Limiting Lanjutan: `burst=N` dan `nodelay`
 
-## Konsep
+#### Konsep
 
 Jika rate diatur `5r/s`, browser yang mengunduh 6 file CSS/JS secara paralel akan langsung diblokir (*False Positive*).
 
@@ -449,7 +461,7 @@ Solusi:
 - **`burst=10`** : Mengizinkan lonjakan mendadak hingga 10 request tambahan dalam ember penampung (*Leaky Bucket*).
 - **`nodelay`** : Memproses request di dalam burst **secara instan tanpa penundaan**, selama ember belum meluap penuh.
 
-## Contoh
+#### Contoh
 
 ```nginx
 location /api/auth/login {
@@ -470,15 +482,15 @@ limit_req zone=login_limit burst=10 nodelay; → mengakomodasi lonjakan request 
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Connection Limiting dengan `limit_conn_zone`
+## 13. 🟡 Connection Limiting dengan `limit_conn_zone`
 
-## Konsep
+#### Konsep
 
 Berbeda dengan `limit_req` yang membatasi *laju request per detik*, **`limit_conn` membatasi *jumlah koneksi TCP simultan yang sedang terbuka***.
 
 Sangat efektif untuk menangkal **Serangan Slowloris DoS** (penyerang membuka ribuan koneksi lambat untuk menghabiskan worker server).
 
-## Contoh
+#### Contoh
 
 ```nginx
 # Di http context:
@@ -507,9 +519,9 @@ limit_conn conn_limit 20; → membatasi jumlah koneksi TCP simultan per IP pengu
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Kustomisasi Status HTTP & Logging Rate Limiting
+## 14. 🟡 Kustomisasi Status HTTP & Logging Rate Limiting
 
-## Konsep
+#### Konsep
 
 Secara default, NGINX mengembalikan status **503 Service Unavailable** saat rate limit terlampaui. Standar industri modern merekomendasikan status **`429 Too Many Requests`**.
 
@@ -517,7 +529,7 @@ Gunakan direktif:
 - **`limit_req_status 429;`**
 - **`limit_req_log_level warn;`**
 
-## Contoh
+#### Contoh
 
 ```nginx
 http {
@@ -536,9 +548,9 @@ limit_req_status 429; → mengembalikan status standar RFC 6585 'Too Many Reques
 
 <a id="bagian-15"></a>
 
-# 15. 🔴 Kompresi HTTP Berkecepatan Tinggi dengan Gzip
+## 15. 🔴 Kompresi HTTP Berkecepatan Tinggi dengan Gzip
 
-## Konsep
+#### Konsep
 
 Kompresi **Gzip** mengecilkan ukuran file teks (HTML, CSS, JavaScript, JSON, SVG) hingga **70%–80%** sebelum dikirim ke browser.
 
@@ -546,7 +558,7 @@ Aturan Kinerja:
 - Jangan mengompres file yang ukurannya sudah terlalu kecil (`gzip_min_length 256;` / kompresi file < 256 byte justru memperbesar ukuran).
 - Jangan mengompres file gambar biner (`.jpg`, `.png`) karena format gambar sudah terkompresi.
 
-## Contoh
+#### Contoh
 
 ```nginx
 http {
@@ -582,13 +594,13 @@ gzip on; gzip_comp_level 5; gzip_types application/json text/css; → menghemat 
 
 <a id="bagian-16"></a>
 
-# 16. 🔴 Kompresi Modern Brotli
+## 16. 🔴 Kompresi Modern Brotli
 
-## Konsep
+#### Konsep
 
 **Brotli (`ngx_brotli`)** adalah algoritma kompresi generasi terbaru buatan Google yang menghasilkan ukuran file **20% lebih kecil dibanding Gzip** dengan kecepatan dekompresi lebih cepat di browser.
 
-## Contoh (Jika Modul Brotli Terpasang)
+#### Contoh (Jika Modul Brotli Terpasang)
 
 ```nginx
 http {
@@ -608,9 +620,9 @@ Brotli Compression → algoritma kompresi modern yang 20% lebih hemat bandwidth 
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Optimasi Transfer File Kernel OS (Zero-Copy Transfer)
+## 17. 🔴 Optimasi Transfer File Kernel OS (Zero-Copy Transfer)
 
-## Konsep
+#### Konsep
 
 Tiga Direktif Kernel Tuning Inti di Blok `http {}`:
 1. **`sendfile on;`** : Menginstruksikan kernel OS untuk langsung memindahkan file dari disk cache ke TCP Socket tanpa menyalinnya ke user memory buffer (**Zero-Copy**).
@@ -627,9 +639,9 @@ sendfile on; tcp_nopush on; tcp_nodelay on; → trio direktif optimasi throughpu
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Tuning Worker Processes & File Descriptors Sistem
+## 18. 🔴 Tuning Worker Processes & File Descriptors Sistem
 
-## Konsep
+#### Konsep
 
 Konfigurasi Tingkat Sistem di `nginx.conf` (Context `main` & `events`):
 - **`worker_processes auto;`** : Menjalankan 1 worker per core CPU fisik/virtual.
@@ -637,7 +649,7 @@ Konfigurasi Tingkat Sistem di `nginx.conf` (Context `main` & `events`):
 - **`worker_connections 4096;`** : Setiap worker sanggup melayani 4096 koneksi simultan.
 - **`multi_accept on;`** : Worker menerima seluruh koneksi baru di antrean sekaligus.
 
-## Contoh
+#### Contoh
 
 ```nginx
 user www-data;
@@ -661,9 +673,9 @@ worker_processes auto; worker_connections 4096; worker_rlimit_nofile 65535;
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Tuning Buffer Klien & Timeouts Mitigasi Serangan DoS
+## 19. 🔴 Tuning Buffer Klien & Timeouts Mitigasi Serangan DoS
 
-## Konsep
+#### Konsep
 
 Jika penyerang mengirimkan header HTTP dengan sangat lambat (*Slow Client Attack*), worker NGINX bisa tertahan lama.
 
@@ -682,9 +694,9 @@ client_body_timeout 10s; client_header_timeout 10s; → mencegah koneksi lambat 
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Audit Keamanan & Verifikasi Skor A+
+## 20. 🔴 Audit Keamanan & Verifikasi Skor A+
 
-## Konsep
+#### Konsep
 
 Alat Verifikasi & Audit Keamanan Standar Industri Gratis:
 1. **Qualys SSL Labs (ssllabs.com/ssltest):** Menguji keamanan SSL/TLS, sertifikat, dan cipher suites (Target: **Nilai A+**).
@@ -701,7 +713,7 @@ Audit A+ SSL Labs & SecurityHeaders → verifikasi kepatuhan standar keamanan we
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                PETA ARSITEKTUR NGINX KEAMANAN, SSL & OPTIMASI
@@ -719,7 +731,7 @@ HTTPS & SSL/TLS HARDENING      SECURITY HEADERS & LIMITING    PERFORMANCE & KERN
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Direktif / Parameter | Context | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -739,7 +751,7 @@ HTTPS & SSL/TLS HARDENING      SECURITY HEADERS & LIMITING    PERFORMANCE & KERN
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code NGINX Keamanan & SSL 10 Detik
+## 23. ⚡ Cheat Code NGINX Keamanan & SSL 10 Detik
 
 ```nginx
 # [1] Template Hardened SSL & Security Headers
@@ -761,7 +773,7 @@ limit_req_status 429;
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Aktifkan HTTPS & Otomatisasi Certbot
@@ -791,7 +803,7 @@ Langkah 5: Selamat! Server NGINX Anda Siap Produksi dengan Standar Bank-Grade A+
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Bank-Grade NGINX Security Gateway with TLS 1.3, Strict HSTS, Leaky Bucket Rate Limiting, Gzip Compression, and Kernel Tuning
+## 25. 🏗️ Mini Project: Production-Ready Bank-Grade NGINX Security Gateway with TLS 1.3, Strict HSTS, Leaky Bucket Rate Limiting, Gzip Compression, and Kernel Tuning
 
 Berkas konfigurasi NGINX enterprise lengkap, modular, dan runnable: **SSL Termination TLS 1.2/1.3, HSTS Preload, Full Security Headers, Rate Limiting per IP pada Endpoint Login & API, Gzip Compression, Penolakan File Rahasia, dan Kernel Zero-Copy**.
 
@@ -944,13 +956,13 @@ server {
 }
 ```
 
-## Hasil Validasi Sintaks & Pengujian Terminal
+#### Hasil Validasi Sintaks & Pengujian Terminal
 
 ```bash
 sudo nginx -t
 ```
 
-## Output
+#### Output
 
 ```text
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -961,7 +973,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [NGINX SSL Module Documentation](https://nginx.org/en/docs/http/ngx_http_ssl_module.html)
 - [NGINX Rate Limiting Module (limit_req)](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html)

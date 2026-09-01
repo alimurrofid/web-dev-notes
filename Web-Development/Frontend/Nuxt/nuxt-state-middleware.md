@@ -1,4 +1,16 @@
-# Nuxt State, Middleware & Modules Cheatsheet Revised
+---
+title: "Nuxt State & Middleware"
+description: "State sharing dan routing protection di Nuxt 3: useState composable, Route Middleware (global, named, inline), dan Plugin architecture."
+order: 2
+tags:
+  - web-development
+  - frontend
+  - nuxt
+  - middleware
+  - state
+---
+
+# Nuxt State & Middleware
 
 > **Target:** Pemula yang telah memahami Nuxt Dasar dan Universal Data Fetching, serta ingin menguasai **Global State Management SSR-friendly (`useState`), Session Cookies (`useCookie`), Route Middleware (Navigation Guards), Pinia Nuxt, Runtime Config, Plugins System, dan Hybrid Rendering / Route Rules** pada **Nuxt 3.12+ (Nuxt 4 Ready)**.
 >
@@ -96,9 +108,9 @@ Route Rules                   → konfigurasi hybrid rendering di nuxt.config.ts
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan State Management di SSR & Masalah Cross-Request State Pollution
+## 1. 🟢 Pengenalan State Management di SSR & Masalah Cross-Request State Pollution
 
-## Konsep
+#### Konsep
 
 Pada aplikasi Vue SPA murni (Client-Side), Anda dapat membuat variabel global di luar komponen:
 `export const globalUser = ref(null)`
@@ -111,7 +123,7 @@ Cara ini bekerja karena browser hanya digunakan oleh 1 orang pengguna.
 **Solusi Nuxt 3:**
 Nuxt menyediakan composable **`useState()`** yang mengikat state ke dalam konteks request pengguna saat ini (*Request Scope Isolation*) dan menyertakan data tersebut ke dalam SSR Payload secara aman.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 State Biasa (ref di luar komponen - BAHAYA):
@@ -133,9 +145,9 @@ useState()                    → solusi wajib Nuxt untuk mengisolasi state per 
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Composable `useState()` Bawaan Nuxt 3
+## 2. 🟢 Composable `useState()` Bawaan Nuxt 3
 
-## Konsep
+#### Konsep
 
 Composable **`useState(key, initFunction)`**:
 1. `key` (String Unik): Pengenal state agar data tersinkronisasi antara server SSR dan browser hydration.
@@ -144,7 +156,7 @@ Composable **`useState(key, initFunction)`**:
 Karakteristik:
 - Bekerja persis seperti `ref()` bawaan Vue, namun otomatis dipersistensikan ke dalam payload SSR.
 
-## Contoh
+#### Contoh
 
 ```vue
 <script setup>
@@ -170,13 +182,13 @@ const myState = useState('unique-state-key', () => initialValue)
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Mengorganisasi Global State dengan Custom Composables
+## 3. 🟢 Mengorganisasi Global State dengan Custom Composables
 
-## Konsep
+#### Konsep
 
 Praktik terbaik di Nuxt 3 adalah membungkus `useState` ke dalam fungsi composable modular di dalam folder **`composables/`** (otomatis auto-import ke seluruh proyek).
 
-## Contoh
+#### Contoh
 
 File `composables/useAuth.ts`:
 ```typescript
@@ -235,9 +247,9 @@ composables/useFeature.ts → pola modular mengorganisasi global state dan fungs
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Integrasi Pinia dengan Nuxt 3 (`@pinia/nuxt`)
+## 4. 🟢 Integrasi Pinia dengan Nuxt 3 (`@pinia/nuxt`)
 
-## Konsep
+#### Konsep
 
 Jika aplikasi Anda memiliki ratusan state kompleks dan membutuhkan ekosistem Pinia Store, instal modul resmi:
 ```bash
@@ -248,7 +260,7 @@ Keuntungan Pinia di Nuxt 3:
 - Auto-import fungsi `defineStore`.
 - Otomatis menangani hidrasi SSR state ke browser tanpa konfigurasi manual.
 
-## Contoh
+#### Contoh
 
 File `stores/cart.ts`:
 ```typescript
@@ -275,9 +287,9 @@ npx nuxi module add @pinia/nuxt → integrasi Pinia Store dengan SSR auto-hydrat
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Pengenalan Route Middleware di Nuxt 3
+## 5. 🟢 Pengenalan Route Middleware di Nuxt 3
 
-## Konsep
+#### Konsep
 
 **Route Middleware** di Nuxt 3 adalah fungsi penjaga rute (*Navigation Guards*) yang berjalan **sebelum pengguna masuk ke halaman tujuan**:
 - Berjalan di **Server saat SSR** (mencegah server me-render HTML rahasia jika user belum login).
@@ -298,9 +310,9 @@ Route Middleware → penjaga navigasi halaman yang dieksekusi di server dan brow
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Tiga Jenis Route Middleware
+## 6. 🟢 Tiga Jenis Route Middleware
 
-## Konsep
+#### Konsep
 
 Nuxt 3 mendukung 3 variasi penulisan middleware:
 
@@ -323,15 +335,15 @@ middleware/auth.ts → named middleware yang dipanggil sesuai kebutuhan halaman
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Menulis Named Route Middleware (`defineNuxtRouteMiddleware`)
+## 7. 🟢 Menulis Named Route Middleware (`defineNuxtRouteMiddleware`)
 
-## Konsep
+#### Konsep
 
 Untuk membuat Named Middleware:
 1. Buat file di dalam folder **`middleware/`** (misal: `middleware/auth.ts`).
 2. Gunakan pembungkus **`defineNuxtRouteMiddleware((to, from) => { ... })`**.
 
-## Contoh
+#### Contoh
 
 File `middleware/auth.ts`:
 ```typescript
@@ -374,9 +386,9 @@ export default defineNuxtRouteMiddleware((to, from) => { /* logic guard */ })
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Navigasi & Redirect di Middleware (`navigateTo` & `abortNavigation`)
+## 8. 🟢 Navigasi & Redirect di Middleware (`navigateTo` & `abortNavigation`)
 
-## Konsep
+#### Konsep
 
 Di dalam middleware, jangan menggunakan `window.location` atau manipulasi DOM langsung:
 
@@ -387,7 +399,7 @@ Gunakan fungsi resmi Nuxt:
 2. **`abortNavigation(errorOptional)`:**
    - Membatalkan proses navigasi seketika.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Redirect ke halaman login sambil membawa query path asal
@@ -411,13 +423,13 @@ return abortNavigation()   → membatalkan proses perpindahan halaman
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Proteksi Halaman dengan Middleware di `definePageMeta`
+## 9. 🟡 Proteksi Halaman dengan Middleware di `definePageMeta`
 
-## Konsep
+#### Konsep
 
 Untuk memasang satu atau beberapa named middleware pada sebuah halaman, gunakan properti **`middleware`** di dalam macro **`definePageMeta`**.
 
-## Contoh
+#### Contoh
 
 File `pages/admin/dashboard.vue`:
 ```vue
@@ -446,9 +458,9 @@ definePageMeta({ middleware: ['auth', 'admin'] }) → menerapkan rantai proteksi
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Server-Side Cookie Management dengan `useCookie()`
+## 10. 🟡 Server-Side Cookie Management dengan `useCookie()`
 
-## Konsep
+#### Konsep
 
 Di aplikasi SSR, `localStorage` **tidak dapat diakses oleh server**. Jika token autentikasi disimpan di `localStorage`, server saat SSR tidak akan tahu siapa yang sedang login.
 
@@ -457,7 +469,7 @@ Di aplikasi SSR, `localStorage` **tidak dapat diakses oleh server**. Jika token 
 - Otomatis membaca & menulis `document.cookie` saat di browser client.
 - Sinkronisasi dua arah (*Two-Way Reactive Binding*) yang aman untuk auth token.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // composables/useAuthToken.ts
@@ -486,9 +498,9 @@ const token = useCookie('auth_token', { maxAge: 604800 }) → mengelola cookie s
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Runtime Config & Variabel Lingkungan (`useRuntimeConfig`)
+## 11. 🟡 Runtime Config & Variabel Lingkungan (`useRuntimeConfig`)
 
-## Konsep
+#### Konsep
 
 Variabel lingkungan rahasia (seperti Secret Key Database atau Stripe API Secret) **TIDAK BOLEH BOCOR KE JAVASCRIPT BROWSER**.
 
@@ -496,7 +508,7 @@ Nuxt memisahkan variabel di `nuxt.config.ts` via **`runtimeConfig`**:
 - **Variabel Tingkat Atas (Private):** Hanya bisa dibaca di sisi server (Nitro API & Server Middleware).
 - **Variabel di dalam `public`:** Dapat dibaca di server maupun frontend browser.
 
-## Contoh
+#### Contoh
 
 Konfigurasi di `nuxt.config.ts`:
 ```typescript
@@ -538,15 +550,15 @@ runtimeConfig: { secretKey: '...', public: { apiBase: '...' } } → pemisahan va
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Nuxt Plugins System (`plugins/` folder)
+## 12. 🟡 Nuxt Plugins System (`plugins/` folder)
 
-## Konsep
+#### Konsep
 
 Folder **`plugins/`** digunakan untuk menginisialisasi library pihak ketiga, mendaftarkan direktif Vue kustom, atau menyediakan fungsi helper global (`provide`) ke seluruh aplikasi.
 
 Nuxt otomatis membaca seluruh file di dalam folder `plugins/`.
 
-## Contoh
+#### Contoh
 
 File `plugins/currency.ts`:
 ```typescript
@@ -586,9 +598,9 @@ defineNuxtPlugin(() => ({ provide: { helperName: fn } })) → menyediakan fungsi
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Client-Only vs Server-Only Plugins
+## 13. 🟡 Client-Only vs Server-Only Plugins
 
-## Konsep
+#### Konsep
 
 Beberapa library pihak ketiga hanya berjalan di browser (seperti library animasi AOS, Chart.js, atau Google Analytics) dan akan crash jika dijalankan di server.
 
@@ -607,9 +619,9 @@ plugin.client.ts → plugin khusus browser | plugin.server.ts → plugin khusus 
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Ekosistem Nuxt Modules
+## 14. 🟡 Ekosistem Nuxt Modules
 
-## Konsep
+#### Konsep
 
 Modul Nuxt adalah paket ekstensi resmi yang mengotomatisasi konfigurasi library kompleks hanya dengan 1 perintah:
 
@@ -634,9 +646,9 @@ npx nuxi module add <module-name> → menginstal dan mendaftarkan modul Nuxt oto
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Hybrid Rendering & Route Rules di `nuxt.config.ts`
+## 15. 🟡 Hybrid Rendering & Route Rules di `nuxt.config.ts`
 
-## Konsep
+#### Konsep
 
 Di masa lalu, Anda harus memilih: seluruh website dijadikan SSR atau seluruh website dijadikan SPA.
 
@@ -646,7 +658,7 @@ Di masa lalu, Anda harus memilih: seluruh website dijadikan SSR atau seluruh web
 - `/about` : `{ prerender: true }` (Static SSG saat build).
 - `/api/**` : `{ cors: true }` (Tambahkan header CORS otomatis).
 
-## Contoh
+#### Contoh
 
 ```typescript
 // nuxt.config.ts
@@ -677,9 +689,9 @@ routeRules: { '/admin/**': { ssr: false }, '/catalog/**': { swr: 3600 } } → st
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Internationalization (i18n) & Multi-Language Routing
+## 16. 🟡 Internationalization (i18n) & Multi-Language Routing
 
-## Konsep
+#### Konsep
 
 Untuk website multibahasa (misal: `/id/about` dan `/en/about`), ekosistem Nuxt menggunakan modul resmi **`@nuxtjs/i18n`**:
 - Mengatur prefix URL bahasa otomatis.
@@ -696,15 +708,15 @@ Untuk website multibahasa (misal: `/id/about` dan `/en/about`), ekosistem Nuxt m
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Nuxt Lifecycle Hooks & Events
+## 17. 🔴 Nuxt Lifecycle Hooks & Events
 
-## Konsep
+#### Konsep
 
 Nuxt menyediakan sistem **Hooks** yang memungkinkan developer mencegat fase tertentu dari siklus hidup aplikasi:
 - `app:created` : Saat instance Vue App pertama kali dibuat.
 - `page:start` & `page:finish` : Saat transisi navigasi halaman dimulai dan selesai.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // plugins/pageLoading.client.ts
@@ -728,9 +740,9 @@ nuxtApp.hook('page:start', fn) → mencegat event siklus hidup runtime aplikasi 
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Deployment Nuxt 3 ke Production
+## 18. 🔴 Deployment Nuxt 3 ke Production
 
-## Konsep
+#### Konsep
 
 Tiga mode build untuk deployment Nuxt 3:
 
@@ -758,7 +770,7 @@ npx nuxi generate  → build seluruh halaman menjadi HTML statis murni (SSG)
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                        PETA ARSITEKTUR NUXT STATE & GUARDS
@@ -776,7 +788,7 @@ STATE MANAGEMENT                ROUTE MIDDLEWARE                 CONFIG & PLUGIN
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Fitur / Composable | Tipe | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -793,7 +805,7 @@ STATE MANAGEMENT                ROUTE MIDDLEWARE                 CONFIG & PLUGIN
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Nuxt State & Middleware 10 Detik
+## 21. ⚡ Cheat Code Nuxt State & Middleware 10 Detik
 
 ```typescript
 // 1. Template Custom Composable Auth State
@@ -814,7 +826,7 @@ export default defineNuxtRouteMiddleware((to) => {
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Pahami Bahaya State Pollution & Kuasai useState()
@@ -845,11 +857,11 @@ Langkah 5: Selamat! Anda Telah Menguasai Ekosistem Full-Stack Nuxt 3 Lengkap!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready Full-Stack Role-Based Authentication, Cart State & Protected Dashboard Web App
+## 23. 🏗️ Mini Project: Production-Ready Full-Stack Role-Based Authentication, Cart State & Protected Dashboard Web App
 
 Aplikasi web full-stack lengkap dan runnable yang mengintegrasikan: **`useState`, `useCookie` SSR Session, Route Middleware Guards (Auth & Admin), `definePageMeta`, Runtime Config, Custom Helper Plugin `$formatRupiah`, dan Hybrid Rendering Rules**.
 
-### 1. File Konfigurasi Nuxt (`nuxt.config.ts`):
+##### 1. File Konfigurasi Nuxt (`nuxt.config.ts`):
 ```typescript
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -870,7 +882,7 @@ export default defineNuxtConfig({
 })
 ```
 
-### 2. Plugin Pemformat Mata Uang (`plugins/currency.ts`):
+##### 2. Plugin Pemformat Mata Uang (`plugins/currency.ts`):
 ```typescript
 export default defineNuxtPlugin(() => {
   return {
@@ -881,7 +893,7 @@ export default defineNuxtPlugin(() => {
 })
 ```
 
-### 3. Composable Auth & Session State (`composables/useAuth.ts`):
+##### 3. Composable Auth & Session State (`composables/useAuth.ts`):
 ```typescript
 interface AuthUser {
   name: string
@@ -911,7 +923,7 @@ export const useAuth = () => {
 }
 ```
 
-### 4. Auth Route Middleware (`middleware/auth.ts`):
+##### 4. Auth Route Middleware (`middleware/auth.ts`):
 ```typescript
 export default defineNuxtRouteMiddleware((to) => {
   const { user } = useAuth()
@@ -924,7 +936,7 @@ export default defineNuxtRouteMiddleware((to) => {
 })
 ```
 
-### 5. Admin Role Middleware (`middleware/admin.ts`):
+##### 5. Admin Role Middleware (`middleware/admin.ts`):
 ```typescript
 export default defineNuxtRouteMiddleware(() => {
   const { user, isAdmin } = useAuth()
@@ -935,7 +947,7 @@ export default defineNuxtRouteMiddleware(() => {
 })
 ```
 
-### 6. Halaman Login (`pages/login.vue`):
+##### 6. Halaman Login (`pages/login.vue`):
 ```vue
 <script setup>
 const { user, login } = useAuth()
@@ -970,7 +982,7 @@ const handleLogin = (role) => {
 </template>
 ```
 
-### 7. Halaman Dashboard Pengguna (`pages/dashboard.vue`):
+##### 7. Halaman Dashboard Pengguna (`pages/dashboard.vue`):
 ```vue
 <script setup>
 definePageMeta({
@@ -999,7 +1011,7 @@ const { $rupiah } = useNuxtApp()
 </template>
 ```
 
-### 8. Halaman Panel Admin Terproteksi (`pages/admin.vue`):
+##### 8. Halaman Panel Admin Terproteksi (`pages/admin.vue`):
 ```vue
 <script setup>
 definePageMeta({
@@ -1020,7 +1032,7 @@ const config = useRuntimeConfig()
 </template>
 ```
 
-## Hasil Output Alur Pengujian Middleware
+#### Hasil Output Alur Pengujian Middleware
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -1042,7 +1054,7 @@ const config = useRuntimeConfig()
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Nuxt 3 State Management Guide](https://nuxt.com/docs/getting-started/state-management)
 - [Nuxt 3 Route Middleware Guide](https://nuxt.com/docs/guide/directory-structure/middleware)

@@ -1,4 +1,15 @@
-# PostgreSQL Lanjutan Cheatsheet Revised
+---
+title: "PostgreSQL Lanjutan"
+description: "Query SQL lanjutan di PostgreSQL: JOIN (INNER, LEFT, RIGHT, FULL), Subqueries, Aggregate Functions & GROUP BY, Common Table Expressions (CTE), dan Window Functions."
+order: 2
+tags:
+  - database
+  - postgresql
+  - sql
+  - intermediate
+---
+
+# PostgreSQL Lanjutan
 
 > **Target:** Pemula yang telah menguasai dasar-dasar SQL dan PostgreSQL Dasar, serta ingin melangkah ke tingkat menengah-mahir (**Query Tuning `EXPLAIN (ANALYZE, BUFFERS)`, B-Tree & GIN Indexing, Fuzzy Search `pg_trgm` Trigram, Manipulasi Dokumen JSONB, Advanced Upsert `ON CONFLICT` & `MERGE`, Common Table Expressions (CTE) & Recursive CTE, Window Functions analitik (`ROW_NUMBER`, `LEAD`/`LAG`), dan Transaksi ACID dengan Row-Level Locking `SELECT ... FOR UPDATE`**) menggunakan **PostgreSQL 16+**.
 >
@@ -109,16 +120,16 @@ SELECT ... FOR UPDATE→ mekanisme penguncian baris (Row Locking) untuk mencegah
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan PostgreSQL Lanjutan & Mental Model Query Cost Optimizer
+## 1. 🟢 Pengenalan PostgreSQL Lanjutan & Mental Model Query Cost Optimizer
 
-## Konsep
+#### Konsep
 
 PostgreSQL memiliki **Cost-Based Query Optimizer (CBO)** yang sangat canggih:
 - Sebelum mengeksekusi query, optimizer membuat beberapa alternatif *Execution Plan*.
 - Optimizer menghitung estimasi biaya (*cost*) berdasarkan statistik tabel (jumlah baris, distribusi nilai kolom, dan kecepatan disk page fetch).
 - Rencana dengan nilai *cost* terendah akan dipilih oleh *Executor*.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Query SQL: SELECT * FROM users WHERE email = 'budi@mail.com'
@@ -142,9 +153,9 @@ Cost-Based Optimizer → komponen internal PostgreSQL yang memilih rute eksekusi
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Analisis Kinerja Query dengan `EXPLAIN` & `EXPLAIN (ANALYZE, BUFFERS)`
+## 2. 🟢 Analisis Kinerja Query dengan `EXPLAIN` & `EXPLAIN (ANALYZE, BUFFERS)`
 
-## Konsep
+#### Konsep
 
 1. **`EXPLAIN query`:** Menampilkan estimasi rencana eksekusi tanpa benar-benar menjalankan query (*Estimasi Teoretis*).
 2. **`EXPLAIN (ANALYZE, BUFFERS) query`:** **Menjalankan query secara nyata** dan mencatat metrik asli:
@@ -152,7 +163,7 @@ Cost-Based Optimizer → komponen internal PostgreSQL yang memilih rute eksekusi
    - **`Buffers: shared hit`:** Jumlah halaman data yang dibaca dari memory RAM (*Shared Buffer*).
    - **`Buffers: shared read`:** Jumlah halaman data yang terpaksa dibaca dari storage disk fisik (*I/O lambat*).
 
-## Contoh
+#### Contoh
 
 ```sql
 EXPLAIN (ANALYZE, BUFFERS)
@@ -161,7 +172,7 @@ FROM users
 WHERE email = 'budi@mail.com';
 ```
 
-## Output
+#### Output
 
 ```text
 Index Scan using idx_users_email on users  (cost=0.42..8.44 rows=1 width=45) (actual time=0.032..0.033 rows=1 loops=1)
@@ -181,9 +192,9 @@ EXPLAIN (ANALYZE, BUFFERS) query; → menjalankan query nyata dan menampilkan wa
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Arsitektur Indexing: B-Tree Index & Composite Multi-Column Index
+## 3. 🟢 Arsitektur Indexing: B-Tree Index & Composite Multi-Column Index
 
-## Konsep
+#### Konsep
 
 1. **B-Tree Index (Default):**
    - Struktur pohon seimbang (*Self-Balancing Search Tree*) berkinerja $O(\log N)$.
@@ -192,7 +203,7 @@ EXPLAIN (ANALYZE, BUFFERS) query; → menjalankan query nyata dan menampilkan wa
    - Indeks gabungan beberapa kolom: `CREATE INDEX idx ON orders (user_id, status)`.
    - **Aturan Leftmost Prefix:** Indeks ini efektif untuk query yang memfilter `user_id` saja, atau `user_id` DAN `status`. Indeks ini **TIDAK efektif** jika query hanya memfilter `status` tanpa `user_id`!
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. B-Tree Index Tunggal
@@ -215,9 +226,9 @@ CREATE INDEX index_name ON table_name (col1, col2); → membuat B-Tree composite
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Specialized Indexing: GIN Index (Generalized Inverted Index)
+## 4. 🟢 Specialized Indexing: GIN Index (Generalized Inverted Index)
 
-## Konsep
+#### Konsep
 
 **GIN (Generalized Inverted Index)**:
 - Indeks pembalik (*Inverted Index*) yang memetakan setiap elemen/kunci individual di dalam kolom ke baris-baris data yang memuatnya.
@@ -225,7 +236,7 @@ CREATE INDEX index_name ON table_name (col1, col2); → membuat B-Tree composite
   - Pencarian di dalam dokumen **JSONB** (`@>`, `?`, `?|`, `?&`).
   - Pencarian di dalam **Tipe Data Array** (`tags text[]`).
 
-## Contoh
+#### Contoh
 
 ```sql
 -- Buat GIN Index pada Kolom JSONB
@@ -247,9 +258,9 @@ CREATE INDEX index_name ON table_name USING GIN (jsonb_or_array_column); → ind
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Partial Indexing & Expression Index
+## 5. 🟢 Partial Indexing & Expression Index
 
-## Konsep
+#### Konsep
 
 1. **Partial Index (`WHERE condition`):**
    - Hanya mengindeks baris-baris data yang memenuhi kriteria tertentu.
@@ -257,7 +268,7 @@ CREATE INDEX index_name ON table_name USING GIN (jsonb_or_array_column); → ind
 2. **Expression Index (Index pada Hasil Fungsi):**
    - Mengindeks hasil ekspresi/fungsi, misal: `LOWER(email)` agar pencarian case-insensitive tetap menggunakan indeks.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Partial Index: Hanya indeks pesanan yang belum selesai
@@ -281,9 +292,9 @@ CREATE INDEX idx ON tbl (col) WHERE condition; → partial index hemat disk | CR
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Fuzzy Search & Typo Tolerance dengan Ekstensi `pg_trgm`
+## 6. 🟢 Fuzzy Search & Typo Tolerance dengan Ekstensi `pg_trgm`
 
-## Konsep
+#### Konsep
 
 Pencarian teks biasa menggunakan `LIKE '%keyword%'` memiliki dua kelemahan fatal:
 1. **Sangat Lambat:** `LIKE '%...%'` tidak dapat menggunakan B-Tree index biasa dan terpaksa melakukan *Full Table Scan*.
@@ -296,7 +307,7 @@ Pencarian teks biasa menggunakan `LIKE '%keyword%'` memiliki dua kelemahan fatal
   - **`%`** : Pencocokan berdasarkan *similarity threshold* (default > 0.3).
   - **`<->`** : Operator jarak kemiripan (*Distance*) untuk `ORDER BY` dari yang paling mirip.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- [1] Aktifkan Ekstensi Trigram
@@ -318,7 +329,7 @@ ORDER BY name <-> 'leptop asus'
 LIMIT 5;
 ```
 
-## Output
+#### Output
 
 ```text
  id |          name           | skor_kemiripan 
@@ -337,9 +348,9 @@ CREATE EXTENSION pg_trgm; CREATE INDEX idx ON tbl USING GIN (col gin_trgm_ops); 
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 Tipe Data JSON vs JSONB (Binary JSON)
+## 7. 🟡 Tipe Data JSON vs JSONB (Binary JSON)
 
-## Konsep
+#### Konsep
 
 PostgreSQL menyediakan dua tipe data untuk menyimpan dokumen JSON:
 
@@ -364,9 +375,9 @@ Gunakan JSONB untuk dokumen fleksibel karena mendukung indexing GIN dan pemroses
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Operator & Fungsi JSONB Inti
+## 8. 🟡 Operator & Fungsi JSONB Inti
 
-## Konsep
+#### Konsep
 
 Operator Ekstraksi & Pencarian JSONB:
 - **`->`** : Mengekstrak elemen sebagai **objek JSONB**.
@@ -374,7 +385,7 @@ Operator Ekstraksi & Pencarian JSONB:
 - **`@>`** : Operator penampung (*Contains*): Apakah JSONB kiri memuat struktur JSONB kanan?
 - **`?`** : Apakah string key tertentu ada di level atas dokumen JSONB?
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Ekstrak nilai string: ->>
@@ -400,15 +411,15 @@ WHERE attributes @> '{"is_wireless": true}';
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Manipulasi & Modifikasi Data JSONB
+## 9. 🟡 Manipulasi & Modifikasi Data JSONB
 
-## Konsep
+#### Konsep
 
 1. **`jsonb_set(target, path, new_value, create_missing)`:** Mengubah atau menambah properti bersarang.
 2. **`target || new_jsonb`:** Menggabungkan (*Concatenate / Merge*) dua objek JSONB.
 3. **`target - 'key_name'`:** Menghapus key dari objek JSONB.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Update/Tambah Key 'warranty_months' bernilai 24
@@ -437,9 +448,9 @@ jsonb_set(col, '{path}', 'val'::jsonb) → mutasi properti bersarang | col || '{
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Advanced Upsert: `ON CONFLICT` & Statement `MERGE`
+## 10. 🟡 Advanced Upsert: `ON CONFLICT` & Statement `MERGE`
 
-## Konsep
+#### Konsep
 
 1. **`INSERT ... ON CONFLICT` (PostgreSQL Native Upsert):**
    - Menangani benturan saat insert data yang melanggar *Unique Constraint* atau *Primary Key*.
@@ -450,7 +461,7 @@ jsonb_set(col, '{path}', 'val'::jsonb) → mutasi properti bersarang | col || '{
    - Menyinkronkan tabel target dengan tabel sumber berdasarkan kondisi kesamaan data (*Source vs Target*).
    - Mendukung multi-aksi: `WHEN MATCHED THEN UPDATE`, `WHEN NOT MATCHED THEN INSERT`, `WHEN MATCHED AND ... THEN DELETE`.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- [1] Upsert Idempotent dengan ON CONFLICT (Update counter login jika email sudah ada)
@@ -482,15 +493,15 @@ INSERT ... ON CONFLICT (unique_col) DO UPDATE SET col = EXCLUDED.col; → upsert
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Common Table Expressions (CTE / Klausul `WITH`)
+## 11. 🟡 Common Table Expressions (CTE / Klausul `WITH`)
 
-## Konsep
+#### Konsep
 
 **CTE (`WITH cte_name AS (...)`)**:
 - Mendefinisikan tabel hasil sementara (*Temporary Result Set*) yang dapat direferensikan berulang kali di query utama.
 - **Keuntungan:** Jauh lebih mudah dibaca dan di-maintain dibanding *Nested Subqueries* yang berantakan.
 
-## Contoh
+#### Contoh
 
 ```sql
 WITH top_customers AS (
@@ -516,9 +527,9 @@ WITH cte_name AS (SELECT ...) SELECT ... FROM cte_name; → membuat subquery sem
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Recursive CTE (`WITH RECURSIVE`) untuk Data Berjenjang
+## 12. 🟡 Recursive CTE (`WITH RECURSIVE`) untuk Data Berjenjang
 
-## Konsep
+#### Konsep
 
 **`WITH RECURSIVE`**:
 Sintaks khusus untuk membaca struktur data pohon / graf hierarki tak terbatas (seperti pohon kategori bersarang, bagan struktur organisasi karyawan, atau komentar bertingkat).
@@ -528,7 +539,7 @@ Format Dua Bagian:
 2. **`UNION ALL`**
 3. **Recursive Member:** Query yang mereferensikan nama CTE dirinya sendiri untuk menelusuri anak/cabang.
 
-## Contoh
+#### Contoh
 
 ```sql
 WITH RECURSIVE category_tree AS (
@@ -547,7 +558,7 @@ WITH RECURSIVE category_tree AS (
 SELECT id, name, level, path FROM category_tree ORDER BY path;
 ```
 
-## Output
+#### Output
 
 ```text
  id |     name      | level |              path               
@@ -567,14 +578,14 @@ WITH RECURSIVE cte AS (anchor_query UNION ALL recursive_query) → query hierark
 
 <a id="bagian-13"></a>
 
-# 13. 🔴 Pengenalan Window Functions & Perbedaannya dengan `GROUP BY`
+## 13. 🔴 Pengenalan Window Functions & Perbedaannya dengan `GROUP BY`
 
-## Konsep
+#### Konsep
 
 - **`GROUP BY`:** Mengelompokkan baris data dan **menciutkannya menjadi 1 baris agregat** per grup (detail baris individual hilang).
 - **`Window Function`:** Melakukan kalkulasi agregat/peringkat lintas partisi baris **TANPA menghilangkan atau menciutkan baris data asli**.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 GROUP BY departemen:
@@ -597,9 +608,9 @@ Window Function menghitung nilai agregat lintas grup tanpa menciutkan baris data
 
 <a id="bagian-14"></a>
 
-# 14. 🔴 Anatomi Klausul `OVER (PARTITION BY ... ORDER BY ...)`
+## 14. 🔴 Anatomi Klausul `OVER (PARTITION BY ... ORDER BY ...)`
 
-## Konsep
+#### Konsep
 
 Sintaks Window Function:
 `FUNCTION() OVER (PARTITION BY kolom_grup ORDER BY kolom_urut)`
@@ -617,9 +628,9 @@ OVER (PARTITION BY group_col ORDER BY sort_col) → membagi jendela partisi data
 
 <a id="bagian-15"></a>
 
-# 15. 🔴 Ranking Window Functions: `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()`, `NTILE()`
+## 15. 🔴 Ranking Window Functions: `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()`, `NTILE()`
 
-## Konsep
+#### Konsep
 
 Perbedaan 4 Fungsi Pemeringkat:
 - **`ROW_NUMBER()`:** Nomor baris unik berurutan (1, 2, 3, 4) tanpa angka kembar.
@@ -627,7 +638,7 @@ Perbedaan 4 Fungsi Pemeringkat:
 - **`DENSE_RANK()`:** Memberikan peringkat sama untuk nilai kembar **tanpa melompati angka** (1, 2, 2, 3).
 - **`NTILE(N)`:** Membagi baris data menjadi $N$ kelompok kuartil/persentil yang sama besar.
 
-## Contoh
+#### Contoh
 
 ```sql
 SELECT 
@@ -650,15 +661,15 @@ ROW_NUMBER() selalu unik (1,2,3) | RANK() melompat (1,2,2,4) | DENSE_RANK() tida
 
 <a id="bagian-16"></a>
 
-# 16. 🔴 Value Window Functions: `LEAD()`, `LAG()`, `FIRST_VALUE()`, `LAST_VALUE()`
+## 16. 🔴 Value Window Functions: `LEAD()`, `LAG()`, `FIRST_VALUE()`, `LAST_VALUE()`
 
-## Konsep
+#### Konsep
 
 - **`LAG(kolom, offset)`:** Mengambil nilai baris **sebelumnya** di dalam partisi.
 - **`LEAD(kolom, offset)`:** Mengambil nilai baris **berikutnya** di dalam partisi.
 - **Sangat Berguna Untuk:** Menghitung pertumbuhan penjualan bulanan (*Month-over-Month Growth*).
 
-## Contoh
+#### Contoh
 
 ```sql
 SELECT 
@@ -679,13 +690,13 @@ LAG(col, 1) OVER (...) → membaca nilai baris sebelumnya | LEAD(col, 1) OVER (.
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Running Totals & Moving Averages dengan Window Functions
+## 17. 🔴 Running Totals & Moving Averages dengan Window Functions
 
-## Konsep
+#### Konsep
 
 Menghitung akumulasi total berjalan (*Running Total*) dan rata-rata bergerak (*Moving Average*) tanpa loop pemrograman.
 
-## Contoh
+#### Contoh
 
 ```sql
 SELECT 
@@ -711,9 +722,9 @@ SUM(col) OVER (ORDER BY date_col) → menghitung akumulasi total berjalan (runni
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Transaksi Database & Prinsip ACID
+## 18. 🔴 Transaksi Database & Prinsip ACID
 
-## Konsep
+#### Konsep
 
 Transaksi memastikan sekelompok perintah SQL dieksekusi sebagai satu unit tak terpisahkan:
 - **A (Atomicity):** Berhasil semua atau batal semua (*All or Nothing*).
@@ -736,14 +747,14 @@ BEGIN; ... COMMIT; (simpan permanen) | BEGIN; ... ROLLBACK; (batalkan seluruh op
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Titik Pemulihan Parsial dengan `SAVEPOINT`
+## 19. 🔴 Titik Pemulihan Parsial dengan `SAVEPOINT`
 
-## Konsep
+#### Konsep
 
 **`SAVEPOINT nama_titik`**:
 Membuat penanda titik tengah di dalam transaksi, sehingga kita bisa membatalkan sebagian operasi yang gagal (`ROLLBACK TO SAVEPOINT`) tanpa harus membatalkan seluruh transaksi dari awal.
 
-## Contoh
+#### Contoh
 
 ```sql
 BEGIN;
@@ -774,9 +785,9 @@ SAVEPOINT sp_name; ... ROLLBACK TO SAVEPOINT sp_name; → membatalkan sebagian o
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Transaction Isolation Levels
+## 20. 🔴 Transaction Isolation Levels
 
-## Konsep
+#### Konsep
 
 PostgreSQL mendukung 3 tingkat isolasi transaksi:
 
@@ -799,9 +810,9 @@ READ COMMITTED (Default aman cepat) | SERIALIZABLE (Isolasi terketat dengan jami
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 Pencegahan Race Condition dengan Row-Level Locking (`SELECT ... FOR UPDATE`)
+## 21. 🔴 Pencegahan Race Condition dengan Row-Level Locking (`SELECT ... FOR UPDATE`)
 
-## Konsep
+#### Konsep
 
 Ketika dua pengguna mencoba membeli 1 barang stok terakhir pada detik yang sama (*Double-Spending / Race Condition*):
 Keduanya membaca stok = 1 $\rightarrow$ keduanya mengizinkan pembelian $\rightarrow$ Stok menjadi -1 ❌.
@@ -810,7 +821,7 @@ Keduanya membaca stok = 1 $\rightarrow$ keduanya mengizinkan pembelian $\rightar
 - Baris data yang di-select **langsung dikunci (*Pessimistic Lock*)**.
 - Transaksi lain yang mencoba membaca baris yang sama dengan `FOR UPDATE` **wajib menunggu hingga transaksi pertama selesai (`COMMIT` / `ROLLBACK`)**.
 
-## Contoh
+#### Contoh
 
 ```sql
 BEGIN;
@@ -839,9 +850,9 @@ SELECT * FROM tbl WHERE id = 1 FOR UPDATE; → mengunci baris data untuk mencega
 
 <a id="bagian-22"></a>
 
-# 22. 🔴 Deadlock Detection & Strategi Mitigasi
+## 22. 🔴 Deadlock Detection & Strategi Mitigasi
 
-## Konsep
+#### Konsep
 
 **Deadlock**:
 Kondisi di mana Transaksi A mengunci Baris 1 dan menunggu Baris 2, sementara Transaksi B mengunci Baris 2 dan menunggu Baris 1 $\rightarrow$ Keduanya macet selamanya.
@@ -861,7 +872,7 @@ Pencegahan Deadlock → selalu lakukan locking atau update baris dengan urutan I
 
 <a id="bagian-23"></a>
 
-# 23. 🛠️ Peta Ingatan Cepat
+## 23. 🛠️ Peta Ingatan Cepat
 
 ```text
                  PETA ARSITEKTUR POSTGRESQL LANJUTAN
@@ -879,7 +890,7 @@ PERFORMANCE & INDEXING        JSONB & UPSERT QUERIES     ANALYTICS & CONCURRENCY
 
 <a id="bagian-24"></a>
 
-# 24. 📚 Tabel Ringkasan
+## 24. 📚 Tabel Ringkasan
 
 | Fitur / Perintah | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -899,7 +910,7 @@ PERFORMANCE & INDEXING        JSONB & UPSERT QUERIES     ANALYTICS & CONCURRENCY
 
 <a id="bagian-25"></a>
 
-# 25. ⚡ Cheat Code PostgreSQL Lanjutan 10 Detik
+## 25. ⚡ Cheat Code PostgreSQL Lanjutan 10 Detik
 
 ```sql
 -- 1. Template Trigram Fuzzy Search Index
@@ -919,7 +930,7 @@ SELECT stock FROM items WHERE id = 'item-1' FOR UPDATE;
 
 <a id="bagian-26"></a>
 
-# 26. 🧭 Urutan Belajar yang Disarankan
+## 26. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Profiling & Indexing Modern
@@ -951,7 +962,7 @@ Langkah 5: Siap Melangkah ke PostgreSQL Fungsi, Triggers & Administrasi!
 
 <a id="bagian-27"></a>
 
-# 27. 🏗️ Mini Project: Production-Ready Financial Analytics & High-Concurrency Inventory System
+## 27. 🏗️ Mini Project: Production-Ready Financial Analytics & High-Concurrency Inventory System
 
 Skema database PostgreSQL enterprise lengkap, modern, dan runnable yang mengintegrasikan: **Ekstensi `pg_trgm` Fuzzy Search, Kolom JSONB Terindeks GIN, Advanced Upsert `ON CONFLICT`, Window Functions Analitik Finansial, dan Transaksi Concurrency-Safe dengan `SELECT ... FOR UPDATE`**.
 
@@ -1065,7 +1076,7 @@ JOIN products p ON p.id = o.product_id
 ORDER BY o.customer_id, o.created_at;
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 -- Hasil Fuzzy Search:
@@ -1087,7 +1098,7 @@ ORDER BY o.customer_id, o.created_at;
 
 <a id="bagian-28"></a>
 
-# 28. 🔗 Referensi Resmi
+## 28. 🔗 Referensi Resmi
 
 - [PostgreSQL Official Documentation: Indexes](https://www.postgresql.org/docs/current/indexes.html)
 - [PostgreSQL Documentation: pg_trgm Extension](https://www.postgresql.org/docs/current/pgtrgm.html)

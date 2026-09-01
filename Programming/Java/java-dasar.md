@@ -1,4 +1,15 @@
-# Java Dasar Cheatsheet Revised
+---
+title: "Java Dasar"
+description: "Fundamental pemrograman Java: JVM/JDK, sintaks, tipe data primitif & non-primitif, operator, percabangan, perulangan, dan method."
+order: 1
+tags:
+  - programming
+  - java
+  - backend
+  - fundamental
+---
+
+# Java Dasar
 
 > **Target:** Pemula yang baru mulai belajar pemrograman modern dengan Java (Java 21 LTS).
 >
@@ -120,15 +131,15 @@ Statically   → Tipe data setiap variabel wajib dideklarasikan dan diperiksa sa
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Java & Mental Model JVM
+## 1. 🟢 Pengenalan Java & Mental Model JVM
 
-## Konsep
+#### Konsep
 
 Java adalah bahasa pemrograman berorientasi objek yang bersifat **statically typed** dan **compiled to bytecode**. Berbeda dengan bahasa yang langsung dikompilasi ke binary mesin tertentu (seperti C/C++), Java mengompilasi kode sumber menjadi instruksi perantara yang disebut **Bytecode** (`.class`).
 
 Bytecode ini kemudian dieksekusi oleh **Java Virtual Machine (JVM)**. JVM bertindak sebagai jembatan antara bytecode dan sistem operasi komputer, sehingga aplikasi Java dapat berjalan di Windows, Linux, maupun macOS tanpa perlu diubah kodenya (*Write Once, Run Anywhere*).
 
-## Contoh
+#### Contoh
 
 Alur kompilasi dan eksekusi manual via terminal:
 
@@ -141,13 +152,13 @@ javac Main.java
 java Main
 ```
 
-## Output
+#### Output
 
 ```text
 Program Java berhasil dijalankan di atas JVM.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Developer menulis File.java
@@ -174,7 +185,7 @@ javac file.java  → mengompilasi kode sumber Java menjadi file bytecode (.class
 java ClassName   → menjalankan class bytecode di atas Java Virtual Machine
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan versi Java LTS (*Long Term Support*), seperti **Java 17** atau **Java 21**.
 - Pastikan variabel environment `JAVA_HOME` dan `PATH` mengarah ke instalasi JDK yang sesuai di komputer Anda.
@@ -183,16 +194,16 @@ java ClassName   → menjalankan class bytecode di atas Java Virtual Machine
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Program Hello World & Anatomi Class Java
+## 2. 🟢 Program Hello World & Anatomi Class Java
 
-## Konsep
+#### Konsep
 
 Di Java, **setiap kode program wajib berada di dalam sebuah class**. Nama public class harus sama persis dengan nama file fisik (termasuk huruf besar dan kecil / *case-sensitive*).
 
 Titik masuk (*entry point*) eksekusi setiap program Java adalah method khusus dengan signature:
 `public static void main(String[] args)`
 
-## Contoh
+#### Contoh
 
 File `Main.java`:
 
@@ -204,13 +215,13 @@ public class Main {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hello, Dunia Java!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Sistem Operasi / Terminal
@@ -235,7 +246,7 @@ main             → nama method utama standar yang dicari JVM sebagai titik mul
 String[] args    → array argumen baris perintah (command line arguments) yang dikirim saat runtime
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Menamai file `main.java` padahal class-nya `public class Main` (Java bersifat *case-sensitive*).
 
@@ -245,13 +256,13 @@ String[] args    → array argumen baris perintah (command line arguments) yang 
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Komentar & Dokumentasi Kode (Javadoc)
+## 3. 🟢 Komentar & Dokumentasi Kode (Javadoc)
 
-## Konsep
+#### Konsep
 
 Komentar adalah teks dalam program yang diabaikan oleh compiler. Komentar digunakan untuk memberikan penjelasan logika, catatan pengembangan, atau dokumentasi resmi API (*Javadoc*).
 
-## Contoh
+#### Contoh
 
 ```java
 public class KomentarExample {
@@ -280,13 +291,13 @@ public class KomentarExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Komentar tidak akan dieksekusi compiler.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
           Source Code + Komentar
@@ -308,7 +319,7 @@ Komentar tidak akan dieksekusi compiler.
 /** @param @return */   → format Javadoc untuk dokumentasi resmi class/method
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan komentar untuk menjelaskan *mengapa* (alasan) suatu keputusan logika diambil, bukan sekadar mengulang *apa* yang dilakukan baris kode yang sudah jelas.
 - Manfaatkan tag `@param` dan `@return` pada method public agar dokumentasi IDE dapat terbaca otomatis saat *hover*.
@@ -317,9 +328,9 @@ Komentar tidak akan dieksekusi compiler.
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Tipe Data Primitif Number (Integer & Floating Point)
+## 4. 🟢 Tipe Data Primitif Number (Integer & Floating Point)
 
-## Konsep
+#### Konsep
 
 Java menyediakan 8 tipe data primitif, 6 di antaranya adalah tipe number:
 1. **Bilangan Bulat (Integer):** `byte` (8-bit), `short` (16-bit), `int` (32-bit, default), `long` (64-bit).
@@ -327,7 +338,7 @@ Java menyediakan 8 tipe data primitif, 6 di antaranya adalah tipe number:
 
 Sejak Java 7, kita dapat menggunakan tanda garis bawah (*underscore* `_`) sebagai pemisah angka agar lebih mudah dibaca manusia.
 
-## Contoh
+#### Contoh
 
 ```java
 public class NumberExample {
@@ -348,7 +359,7 @@ public class NumberExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Byte: 120
@@ -357,7 +368,7 @@ Long: 9000000000000
 Double: 3.141592653589793
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ┌───────────┬────────┬─────────────────────────────┬────────────────────────────┐
@@ -382,7 +393,7 @@ float   → bilangan pecahan presisi tunggal (wajib akhiran F/f)
 double  → bilangan pecahan standar presisi ganda (default untuk desimal)
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Menulis literal long tanpa `L` saat nilainya melebihi 2 milyar: `long x = 5000000000;` (compiler menganggap 5 milyar sebagai integer sehingga error *integer number too large*).
 
@@ -392,15 +403,15 @@ double  → bilangan pecahan standar presisi ganda (default untuk desimal)
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Tipe Data Character & Escape Sequences
+## 5. 🟢 Tipe Data Character & Escape Sequences
 
-## Konsep
+#### Konsep
 
 Tipe data `char` digunakan untuk menyimpan satu karakter tunggal berbasis encoding Unicode (16-bit). Literal karakter **wajib diapit tanda petik tunggal (`'`)**, bukan petik ganda (`"`).
 
 Karakter khusus dapat ditulis menggunakan **Escape Sequence** yang diawali tanda garis miring terbalik (`\`).
 
-## Contoh
+#### Contoh
 
 ```java
 public class CharExample {
@@ -421,7 +432,7 @@ public class CharExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Baris 1
@@ -429,7 +440,7 @@ Baris 2 dengan tab:	A
 Karakter petik: ' dan backslash: \
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Input Teks Char     ->   Unicode Code Point   ->   Biner 16-bit di Memori
@@ -453,15 +464,15 @@ char   → tipe 1 karakter tunggal diapit petik tunggal ('a', 'Z', '9')
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Tipe Data Boolean
+## 6. 🟢 Tipe Data Boolean
 
-## Konsep
+#### Konsep
 
 Tipe data `boolean` hanya memiliki dua nilai yang valid: `true` (benar) atau `false` (salah). Tipe ini merupakan fondasi utama untuk seluruh percabangan logika (*if statement*) dan perulangan (*loop*).
 
 Di Java, boolean **tidak dapat dikonversi ke angka 0 atau 1** secara otomatis (berbeda dengan C/C++ atau JavaScript).
 
-## Contoh
+#### Contoh
 
 ```java
 public class BooleanExample {
@@ -475,14 +486,14 @@ public class BooleanExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Apakah Java menyenangkan? true
 Apakah ikan terbang? false
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Kondisi Evaluasi Program
@@ -507,15 +518,15 @@ boolean  → tipe data logika dengan dua nilai mutlak: true atau false
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Tipe Data String & Immutability
+## 7. 🟢 Tipe Data String & Immutability
 
-## Konsep
+#### Konsep
 
 Tipe data `String` di Java adalah **tipe data non-primitif (Object / Reference Type)** yang merepresentasikan rangkaian karakter. Literal String ditulis dengan tanda petik ganda (`"`).
 
 Sifat fundamental terpenting dari String di Java adalah **Immutable** (nilainya tidak dapat diubah setelah dibuat). Setiap kali Anda memodifikasi atau menggabungkan String, Java akan menciptakan objek String baru di memori (*String Constant Pool*).
 
-## Contoh
+#### Contoh
 
 ```java
 public class StringExample {
@@ -533,7 +544,7 @@ public class StringExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Lengkap: Budi Santoso
@@ -541,7 +552,7 @@ Panjang Karakter: 12
 Huruf Kapital: BUDI SANTOSO
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Variabel Stack                      String Constant Pool (Heap)
@@ -564,7 +575,7 @@ string.toUpperCase()  → menghasilkan salinan string baru dalam huruf besar sem
 string.toLowerCase()  → menghasilkan salinan string baru dalam huruf kecil semua
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan operator `+` untuk penggabungan string sederhana.
 - Jika melakukan manipulasi / perulangan ribuan penggabungan string, gunakan class `StringBuilder` untuk efisiensi memori.
@@ -573,9 +584,9 @@ string.toLowerCase()  → menghasilkan salinan string baru dalam huruf kecil sem
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Variable, Type Inference (var) & Constant (final)
+## 8. 🟢 Variable, Type Inference (var) & Constant (final)
 
-## Konsep
+#### Konsep
 
 Variabel adalah tempat di memori untuk menampung data. Karena Java bersifat *statically typed*, tipe data variabel harus diketahui sebelum program dijalankan.
 
@@ -583,7 +594,7 @@ Variabel adalah tempat di memori untuk menampung data. Karena Java bersifat *sta
 - **Konstanta (`final`):** nilainya dikunci dan tidak dapat diubah setelah inisialisasi pertama.
 - **Type Inference (`var`):** sejak Java 10, keyword `var` dapat digunakan untuk variabel lokal di mana tipe data disimpulkan otomatis oleh compiler dari nilai inisialisasinya.
 
-## Contoh
+#### Contoh
 
 ```java
 public class VariableExample {
@@ -608,7 +619,7 @@ public class VariableExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Aplikasi: Sistem Kasir
@@ -616,7 +627,7 @@ Toko: Toko Berkah, Pajak: 0.11
 Stok sisa: 45, Harga: 25000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                Deklarasi var x = 100
@@ -637,7 +648,7 @@ final dataType NAME     → membuat variabel konstan yang tidak dapat diubah nil
 var name = value;       → type inference otomatis oleh compiler untuk variabel lokal
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Mendeklarasikan `var` tanpa nilai inisialisasi: `var total;` (compiler tidak bisa menebak tipe datanya).
 
@@ -647,16 +658,16 @@ var name = value;       → type inference otomatis oleh compiler untuk variabel
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Konversi Tipe Data Number (Widening vs Narrowing Casting)
+## 9. 🟢 Konversi Tipe Data Number (Widening vs Narrowing Casting)
 
-## Konsep
+#### Konsep
 
 Konversi number terjadi saat nilai satu tipe number diubah ke tipe number lainnya:
 
 1. **Widening Casting (Otomatis / Implisit):** Mengubah tipe kecil ke tipe lebih besar (`byte -> short -> int -> long -> float -> double`). Aman karena tidak ada data yang hilang.
 2. **Narrowing Casting (Manual / Eksplisit):** Mengubah tipe besar ke tipe lebih kecil (`double -> float -> long -> int -> short -> byte`). Wajib menyertakan tanda kurung `(targetType)` dan berisiko kehilangan presisi (*data loss*) atau *integer overflow*.
 
-## Contoh
+#### Contoh
 
 ```java
 public class CastingExample {
@@ -679,7 +690,7 @@ public class CastingExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Widening (int ke double): 500.0
@@ -687,7 +698,7 @@ Narrowing (double ke int): 9
 Overflow int (130) ke byte: -126
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Widening (Aman - Otomatis):
@@ -704,7 +715,7 @@ double ──> float ──> long ──> int ──> short ──> byte
 (targetType) value  → memaksa konversi nilai ke tipe target secara eksplisit (casting)
 ```
 
-## Best Practice
+#### Best Practice
 
 - Selalu periksa rentang nilai sebelum melakukan *narrowing casting* untuk menghindari *overflow* tak terduga.
 - Ingat bahwa konversi dari `double` ke `int` membuang desimal (bukan pembulatan matematika).
@@ -713,9 +724,9 @@ double ──> float ──> long ──> int ──> short ──> byte
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Tipe Data Bukan Primitif (Wrapper Class & Autoboxing)
+## 10. 🟢 Tipe Data Bukan Primitif (Wrapper Class & Autoboxing)
 
-## Konsep
+#### Konsep
 
 Tipe data primitif (`int`, `double`, `boolean`, dll.) menyimpan nilai secara langsung di memori stack dan **tidak dapat bernilai `null`**.
 
@@ -731,7 +742,7 @@ Namun, Java menyediakan **Wrapper Class** (tipe objek representatif untuk setiap
 
 Konversi otomatis antara primitif dan wrapper disebut **Autoboxing** dan **Unboxing**.
 
-## Contoh
+#### Contoh
 
 ```java
 public class WrapperExample {
@@ -758,7 +769,7 @@ public class WrapperExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Jumlah barang awal: null
@@ -766,7 +777,7 @@ Hasil Parse: 3000
 Parsed Double: 99.99
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
              Primitif (int, 100)
@@ -785,7 +796,7 @@ Double.parseDouble(text)   → mengonversi String teks desimal menjadi tipe prim
 Boolean.parseBoolean(text) → mengonversi String "true"/"false" menjadi tipe primitif boolean
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Melakukan unboxing pada objek wrapper yang bernilai `null`:
 `Integer x = null; int y = x;` $\rightarrow$ Menghasilkan runtime error `NullPointerException`.
@@ -796,9 +807,9 @@ Boolean.parseBoolean(text) → mengonversi String "true"/"false" menjadi tipe pr
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Operator Matematika & Penugasan
+## 11. 🟢 Operator Matematika & Penugasan
 
-## Konsep
+#### Konsep
 
 Java mendukung operator aritmatika standar: penjumlahan (`+`), pengurangan (`-`), perkalian (`*`), pembagian (`/`), dan sisa bagi / modulo (`%`).
 
@@ -806,7 +817,7 @@ Java mendukung operator aritmatika standar: penjumlahan (`+`), pengurangan (`-`)
 - **Augmented Assignment:** Singkatan operator penugasan seperti `+=`, `-=`, `*=`, `/=`, `%=`.
 - **Unary Operator:** Increment `++` (tambah 1) dan Decrement `--` (kurang 1).
 
-## Contoh
+#### Contoh
 
 ```java
 public class MathOperators {
@@ -835,7 +846,7 @@ public class MathOperators {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Penjumlahan (10 + 3): 13
@@ -848,7 +859,7 @@ Saldo Akhir: 1300
 Counter: 6
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Ekspresi: 10 / 3      ==>  Kedua operand int     ==> Hasil: 3 (Integer)
@@ -871,9 +882,9 @@ variable++     → menambah nilai variable sebanyak 1 (post-increment)
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Operator Perbandingan (== vs .equals())
+## 12. 🟢 Operator Perbandingan (== vs .equals())
 
-## Konsep
+#### Konsep
 
 Operator perbandingan menghasilkan nilai boolean `true` atau `false`:
 - `>` (lebih besar dari)
@@ -889,7 +900,7 @@ Operator perbandingan menghasilkan nilai boolean `true` atau `false`:
 > - Operator `==` pada Objek (seperti `String`) membandingkan **alamat memori (referensi)**.
 > - Method `.equals()` membandingkan **isi teks / konten sebenarnya** dari objek.
 
-## Contoh
+#### Contoh
 
 ```java
 public class ComparisonExample {
@@ -912,7 +923,7 @@ public class ComparisonExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 x > y  : false
@@ -923,7 +934,7 @@ x != y : true
 equalsIgnoreCase   : true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Variabel Stack                      Heap Memory
@@ -946,7 +957,7 @@ source.equals(target)         → membandingkan kesamaan konten objek String sec
 source.equalsIgnoreCase(target) → membandingkan kesamaan konten String tanpa membedakan huruf besar/kecil
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Membandingkan dua string menggunakan `if (input == "admin")` (sering menghasilkan bug false saat string dibaca dari Scanner atau Database).
 
@@ -956,16 +967,16 @@ source.equalsIgnoreCase(target) → membandingkan kesamaan konten String tanpa m
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 Operator Logika / Boolean (Short-Circuit)
+## 13. 🟢 Operator Logika / Boolean (Short-Circuit)
 
-## Konsep
+#### Konsep
 
 Operator logika digunakan untuk menggabungkan dua atau lebih ekspresi boolean:
 1. `&&` (**AND Logika / Short-Circuit**): Menghasilkan `true` jika kedua sisi bernilai `true`. Jika operand kiri bernilai `false`, sisi kanan **tidak dievaluasi sama sekali**.
 2. `||` (**OR Logika / Short-Circuit**): Menghasilkan `true` jika salah satu sisi bernilai `true`. Jika operand kiri sudah `true`, sisi kanan **tidak dievaluasi**.
 3. `!` (**NOT Logika / Negasi**): Membalikkan nilai boolean (`!true` menjadi `false`, `!false` menjadi `true`).
 
-## Contoh
+#### Contoh
 
 ```java
 public class LogicalOperators {
@@ -998,7 +1009,7 @@ public class LogicalOperators {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Lulus Kelulusan Final: true
@@ -1007,7 +1018,7 @@ Status Tidak Lulus: false
 Teks bernilai null / aman dari crash!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Ekspresi: (A && B)
@@ -1031,16 +1042,16 @@ conditionA || conditionB → menghasilkan true jika SALAH SATU kondisi bernilai 
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 Output Konsol & Formatting (System.out.printf)
+## 14. 🟢 Output Konsol & Formatting (System.out.printf)
 
-## Konsep
+#### Konsep
 
 Java menyediakan tiga method utama pada objek `System.out`:
 1. `print()`: Mencetak teks tanpa membuat baris baru di akhir.
 2. `println()`: Mencetak teks dan menambahkan karakter *newline* (ganti baris).
 3. `printf()` / `format()`: Mencetak teks dengan format template specifier (`%s`, `%d`, `%f`, dll.).
 
-## Contoh
+#### Contoh
 
 ```java
 public class OutputExample {
@@ -1063,7 +1074,7 @@ public class OutputExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Memuat data... Selesai!
@@ -1073,7 +1084,7 @@ IPK  : 3.88
 Tabel: | Ahmad      |    22 |   3.88 |
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Template String: "Nama: %s, Usia: %d" + Argumen ("Ahmad", 22)
@@ -1101,9 +1112,9 @@ System.out.printf(format, arguments)        → mencetak teks terformat dengan f
 
 <a id="bagian-15"></a>
 
-# 15. 🟢 Membaca Input Pengguna dengan Scanner
+## 15. 🟢 Membaca Input Pengguna dengan Scanner
 
-## Konsep
+#### Konsep
 
 Untuk membaca input teks dari pengguna melalui terminal, Java menyediakan class `java.util.Scanner` yang membungkus stream `System.in`.
 
@@ -1117,7 +1128,7 @@ Method pembacaan Scanner yang sering digunakan:
 > **Masalah "Newline Trap" pada Scanner:**
 > Saat Anda memanggil `nextInt()` kemudian memanggil `nextLine()`, karakter *Enter* (`\n`) yang tersisa di buffer akan langsung terbaca oleh `nextLine()`. Solusinya adalah memanggil `scanner.nextLine()` kosong sebagai pembersih buffer.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Scanner;
@@ -1148,7 +1159,7 @@ public class ScannerExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Masukkan umur Anda: 25
@@ -1161,7 +1172,7 @@ Umur  : 25 tahun
 Saldo : Rp 1,500,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Keyboard User ──> System.in (Buffer Input Stream)
@@ -1188,15 +1199,15 @@ scanner.close()                          → menutup resource scanner setelah se
 
 <a id="bagian-16"></a>
 
-# 16. 🟢 Tipe Data Array 1 Dimensi
+## 16. 🟢 Tipe Data Array 1 Dimensi
 
-## Konsep
+#### Konsep
 
 Array adalah struktur data yang menampung sekumpulan nilai dengan **tipe data yang sama** dan memiliki **panjang ukuran tetap (fixed-size)** yang dialokasikan saat pertama kali dibuat.
 
 Indeks array di Java selalu dimulai dari angka **0** sampai dengan `length - 1`. Mengakses indeks di luar rentang tersebut akan memicu `ArrayIndexOutOfBoundsException`.
 
-## Contoh
+#### Contoh
 
 ```java
 public class ArrayExample {
@@ -1221,7 +1232,7 @@ public class ArrayExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Elemen pertama buah: Apel
@@ -1229,7 +1240,7 @@ Jumlah total buah: 4
 Buah index ke-1 setelah diubah: Alpukat
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 fruits Array di Memori Heap:
@@ -1249,7 +1260,7 @@ arrayName[index]                           → mengakses atau mengubah elemen pa
 arrayName.length                           → properti untuk mengetahui total jumlah elemen dalam array
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Menulis `fruits.length()` dengan kurung seperti pada String (Array menggunakan properti field `.length` tanpa tanda kurung).
 
@@ -1259,15 +1270,15 @@ arrayName.length                           → properti untuk mengetahui total j
 
 <a id="bagian-17"></a>
 
-# 17. 🟢 Tipe Data Array Multidimensi & Jagged Array
+## 17. 🟢 Tipe Data Array Multidimensi & Jagged Array
 
-## Konsep
+#### Konsep
 
 Array Multidimensi di Java adalah "Array di dalam Array". Bentuk paling umum adalah Array 2 Dimensi yang merepresentasikan tabel matriks baris dan kolom.
 
 Karena diimplementasikan sebagai array dari array, Java mendukung **Jagged Array** (array 2D di mana setiap baris memiliki jumlah kolom yang berbeda-beda).
 
-## Contoh
+#### Contoh
 
 ```java
 public class MultiArrayExample {
@@ -1293,7 +1304,7 @@ public class MultiArrayExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Akses baris 0, kolom 2: 3
@@ -1302,7 +1313,7 @@ Jumlah anggota kelompok 0: 2
 Jumlah anggota kelompok 1: 4
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 matriks Referensi
@@ -1326,9 +1337,9 @@ arrayName[row][column]                               → mengakses elemen pada b
 
 <a id="bagian-18"></a>
 
-# 18. 🟢 If, Else If, dan Else Statement
+## 18. 🟢 If, Else If, dan Else Statement
 
-## Konsep
+#### Konsep
 
 Struktur percabangan logika kondisional digunakan untuk mengeksekusi blok kode tertentu hanya ketika suatu kondisi boolean terpenuhi (`true`).
 
@@ -1336,7 +1347,7 @@ Struktur percabangan logika kondisional digunakan untuk mengeksekusi blok kode t
 - `else if`: Kondisi alternatif jika kondisi sebelumnya salah.
 - `else`: Blok default jika seluruh kondisi sebelumnya tidak terpenuhi.
 
-## Contoh
+#### Contoh
 
 ```java
 public class IfStatementExample {
@@ -1364,13 +1375,13 @@ public class IfStatementExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Skor: 82 -> Grade: B (Memuaskan)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                 Evaluasi Kondisi 1 (score >= 85)
@@ -1400,15 +1411,15 @@ else { statement }                              → eksekusi blok default jika s
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Switch Statement & Switch Expression Modern
+## 19. 🟡 Switch Statement & Switch Expression Modern
 
-## Konsep
+#### Konsep
 
 Switch statement digunakan untuk memilih salah satu dari banyak cabang berdasarkan nilai tunggal (tipe: `int`, `byte`, `short`, `char`, `String`, atau `enum`).
 
 Sejak **Java 14**, Java memperkenalkan **Switch Expression** dengan arrow syntax (`case ->`) yang lebih ringkas, aman dari *fall-through bug*, serta dapat menghasilkan nilai kembalian langsung (*expression value*).
 
-## Contoh
+#### Contoh
 
 ```java
 public class SwitchExample {
@@ -1446,14 +1457,14 @@ public class SwitchExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Diskon Classic: 0.2
 Diskon Modern : 0.2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                Nilai Target Switch
@@ -1473,7 +1484,7 @@ switch (variable) { case value -> result; } → switch expression modern menghas
 yield value                                 → mengembalikan nilai dari blok multi-baris di dalam switch expression
 ```
 
-## Best Practice
+#### Best Practice
 
 - Utamakan penggunaan **Switch Expression (`case ->`)** modern karena lebih bersih dan tidak memerlukan keyword `break` manual.
 
@@ -1481,16 +1492,16 @@ yield value                                 → mengembalikan nilai dari blok mu
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Ternary Operator (?:)
+## 20. 🟡 Ternary Operator (?:)
 
-## Konsep
+#### Konsep
 
 Ternary operator adalah bentuk singkat dari percabangan `if-else` sederhana yang mengembalikan sebuah nilai dalam satu baris ekspresi.
 
 Format:
 `kondisi ? nilaiJikaTrue : nilaiJikaFalse;`
 
-## Contoh
+#### Contoh
 
 ```java
 public class TernaryExample {
@@ -1513,13 +1524,13 @@ public class TernaryExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Ternary: Lulus
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 (kondisi)  ───> true  ───> Ambil nilai setelah tanda tanya (?)
@@ -1536,16 +1547,16 @@ condition ? valueIfTrue : valueIfFalse → shorthand evaluasi kondisi if-else me
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 For Loop Standar
+## 21. 🟡 For Loop Standar
 
-## Konsep
+#### Konsep
 
 `for` loop digunakan ketika kita mengetahui secara pasti berapa kali iterasi perulangan perlu dilakukan. Loop ini terdiri dari tiga bagian utama:
 1. **Inisialisasi:** Deklarasi variabel counter awal.
 2. **Kondisi:** Syarat perulangan terus berjalan selama bernilai `true`.
 3. **Post-Statement:** Perubahan counter (biasanya increment `++` atau decrement `--`) di setiap akhir putaran.
 
-## Contoh
+#### Contoh
 
 ```java
 public class ForLoopExample {
@@ -1566,7 +1577,7 @@ public class ForLoopExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Loop Maju:
@@ -1580,7 +1591,7 @@ Loop Mundur:
 5 4 3 2 1 
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 1. Inisialisasi: int i = 1
@@ -1609,13 +1620,13 @@ for (init; condition; post) { statement } → melakukan iterasi berulang selama 
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Enhanced For Loop (For-Each)
+## 22. 🟡 Enhanced For Loop (For-Each)
 
-## Konsep
+#### Konsep
 
 Enhanced For Loop (*For-Each Loop*) diperkenalkan untuk mempermudah pembacaan seluruh elemen array atau koleksi tanpa perlu mengelola variabel index counter manual.
 
-## Contoh
+#### Contoh
 
 ```java
 public class ForEachExample {
@@ -1630,7 +1641,7 @@ public class ForEachExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Kota: Jakarta
@@ -1639,7 +1650,7 @@ Nama Kota: Surabaya
 Nama Kota: Yogyakarta
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Array: ["Jakarta", "Bandung", "Surabaya", "Yogyakarta"]
@@ -1656,7 +1667,7 @@ Array: ["Jakarta", "Bandung", "Surabaya", "Yogyakarta"]
 for (dataType element : collection) { statement } → membaca setiap item dalam array/koleksi dari awal sampai akhir
 ```
 
-## Best Practice
+#### Best Practice
 
 - Gunakan *For-Each* saat Anda hanya butuh membaca data.
 - Gunakan *For Loop standar* jika Anda memerlukan nomor index elemen atau ingin mengubah isi elemen array tersebut.
@@ -1665,15 +1676,15 @@ for (dataType element : collection) { statement } → membaca setiap item dalam 
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 While Loop
+## 23. 🟡 While Loop
 
-## Konsep
+#### Konsep
 
 `while` loop adalah perulangan yang memeriksa kondisi di awal **sebelum** mengeksekusi blok kode di dalamnya. Jika kondisi awal bernilai `false`, blok kode **tidak akan pernah dijalankan sama sekali**.
 
 Loop ini sangat cocok digunakan saat jumlah perulangan tidak diketahui secara pasti (misalnya perulangan menu sampai user memilih keluar).
 
-## Contoh
+#### Contoh
 
 ```java
 public class WhileLoopExample {
@@ -1688,7 +1699,7 @@ public class WhileLoopExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Perulangan while ke-1
@@ -1697,7 +1708,7 @@ Perulangan while ke-3
 Perulangan while ke-4
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Cek Kondisi (counter <= 4)
@@ -1721,13 +1732,13 @@ while (condition) { statement } → mengulang eksekusi kode selama condition ber
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Do-While Loop
+## 24. 🟡 Do-While Loop
 
-## Konsep
+#### Konsep
 
 Berbeda dengan `while` loop, `do-while` loop mengevaluasi kondisi perulangan di **akhir**. Artinya, blok kode di dalam `do-while` **pasti dieksekusi minimal 1 kali**, meskipun kondisinya bernilai `false` sejak awal.
 
-## Contoh
+#### Contoh
 
 ```java
 public class DoWhileExample {
@@ -1742,13 +1753,13 @@ public class DoWhileExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Pasti dijalankan minimal 1 kali! Nilai angka: 100
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         1. Eksekusi Blok Body (Minimal 1x)
@@ -1773,15 +1784,15 @@ do { statement } while (condition); → mengeksekusi body minimal 1x, lalu mengu
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 Break dan Continue
+## 25. 🟡 Break dan Continue
 
-## Konsep
+#### Konsep
 
 Dua kata kunci untuk mengontrol jalannya perulangan:
 - `break`: Menghentikan seluruh proses perulangan seketika dan langsung keluar dari loop.
 - `continue`: Menghentikan iterasi putaran saat ini dan langsung melompat ke putaran/iterasi berikutnya.
 
-## Contoh
+#### Contoh
 
 ```java
 public class BreakContinueExample {
@@ -1806,7 +1817,7 @@ public class BreakContinueExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Demo Continue (Lewati Angka Genap):
@@ -1821,7 +1832,7 @@ Nilai: 3
 Ketemu 4! Berhenti.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 for-loop iterasi
@@ -1842,15 +1853,15 @@ continue → melompati sisa instruksi iterasi saat ini dan lanjut ke iterasi ber
 
 <a id="bagian-26"></a>
 
-# 26. 🟡 Label pada Perulangan
+## 26. 🟡 Label pada Perulangan
 
-## Konsep
+#### Konsep
 
 Secara default, `break` dan `continue` hanya berlaku untuk loop yang paling dalam (*innermost loop*).
 
 Jika kita memiliki perulangan bersarang (*nested loop*) dan ingin menghentikan loop terluar secara langsung, kita dapat menyematkan sebuah **Label** pada loop terluar.
 
-## Contoh
+#### Contoh
 
 ```java
 public class LabelExample {
@@ -1869,7 +1880,7 @@ public class LabelExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Baris: 1, Kolom: 1
@@ -1879,7 +1890,7 @@ Baris: 2, Kolom: 1
 Kondisi tercapai di (2,2) -> Break Outer Loop!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 outerLoop: for (...)
@@ -1901,16 +1912,16 @@ continue labelName;      → melanjutkan iterasi loop bertanda labelName
 
 <a id="bagian-27"></a>
 
-# 27. 🟡 Method Dasar (Void & Return Value)
+## 27. 🟡 Method Dasar (Void & Return Value)
 
-## Konsep
+#### Konsep
 
 Method adalah blok kode yang berisi serangkaian instruksi untuk melakukan tugas spesifik yang dapat dipanggil berulang kali (*reusable*).
 
 - **Method `void`:** Method yang hanya mengeksekusi tugas tanpa mengembalikan nilai data apapun.
 - **Method dengan Return Value:** Method yang wajib mengembalikan data dengan tipe yang telah ditentukan menggunakan kata kunci `return`.
 
-## Contoh
+#### Contoh
 
 ```java
 public class MethodExample {
@@ -1935,14 +1946,14 @@ public class MethodExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Halo, selamat datang Andi!
 Luas persegi dengan sisi 5 adalah 25
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         Pemanggil: main()
@@ -1971,16 +1982,16 @@ return value;                                             → mengembalikan valu
 
 <a id="bagian-28"></a>
 
-# 28. 🟡 Method Parameter & Argument Passing (Pass-by-Value)
+## 28. 🟡 Method Parameter & Argument Passing (Pass-by-Value)
 
-## Konsep
+#### Konsep
 
 Java selalu menggunakan mekanisme **Pass-by-Value** untuk seluruh pengiriman argumen ke parameter method:
 
 1. **Pada Tipe Primitif:** Yang disalin adalah **nilai datanya**. Perubahan nilai parameter di dalam method tidak mempengaruhi variabel asli di pemanggil.
 2. **Pada Tipe Objek/Array:** Yang disalin adalah **nilai referensi memorinya**. Mengubah isi data di dalam objek/array akan berdampak pada objek asli, tetapi menugaskan ulang (*reassign*) referensi baru tidak akan mengubah referensi asli.
 
-## Contoh
+#### Contoh
 
 ```java
 public class ParameterPassingExample {
@@ -2004,14 +2015,14 @@ public class ParameterPassingExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Nilai primitif setelah method: 10
 Array index 0 setelah method: 999
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Stack Frame main()                    Stack Frame ubahPrimitif()
@@ -2041,9 +2052,9 @@ Pass-by-Value (Reference) → menyalin alamat referensi; manipulasi internal obj
 
 <a id="bagian-29"></a>
 
-# 29. 🟡 Method Variable Argument (Varargs)
+## 29. 🟡 Method Variable Argument (Varargs)
 
-## Konsep
+#### Konsep
 
 Varargs (*Variable Arguments*) memungkinkan sebuah method menerima nol, satu, atau banyak argumen dari tipe data yang sama tanpa perlu membuat array secara manual saat pemanggilan.
 
@@ -2052,7 +2063,7 @@ Di dalam tubuh method, parameter varargs diperlakukan seperti array biasa (`data
 > [!NOTE]
 > Parameter varargs wajib diletakkan di **posisi parameter paling akhir** dan hanya boleh ada **satu parameter varargs** dalam satu method.
 
-## Contoh
+#### Contoh
 
 ```java
 public class VarargsExample {
@@ -2078,7 +2089,7 @@ public class VarargsExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Kategori: Belanja Harian, Jumlah item: 3
@@ -2089,7 +2100,7 @@ Total 2: 0
 Total 3: 750
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Pemanggil: hitungTotal("A", 10, 20)
@@ -2111,15 +2122,15 @@ static returnType methodName(type... parameters) → menerima jumlah argumen din
 
 <a id="bagian-30"></a>
 
-# 30. 🟡 Method Overloading
+## 30. 🟡 Method Overloading
 
-## Konsep
+#### Konsep
 
 Method Overloading adalah kemampuan membuat beberapa method dengan **nama yang sama** di dalam satu class, asalkan memiliki **daftar parameter yang berbeda** (berbeda jumlah parameter atau berbeda tipe datanya).
 
 Perbedaan tipe nilai balik (*return type*) saja **tidak cukup** untuk membedakan overloaded method.
 
-## Contoh
+#### Contoh
 
 ```java
 public class OverloadingExample {
@@ -2146,7 +2157,7 @@ public class OverloadingExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Tambah 2 int   : 30
@@ -2154,7 +2165,7 @@ Tambah 3 int   : 60
 Tambah 2 double: 9.7
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Pemanggilan: tambah(10, 20)
@@ -2176,9 +2187,9 @@ Method Overloading → method dengan nama identik tetapi memiliki parameter berb
 
 <a id="bagian-31"></a>
 
-# 31. 🟡 Recursive Method
+## 31. 🟡 Recursive Method
 
-## Konsep
+#### Konsep
 
 Recursive Method adalah method yang **memanggil dirinya sendiri** untuk menyelesaikan masalah bertingkat dengan memecahnya menjadi sub-masalah yang lebih kecil.
 
@@ -2189,7 +2200,7 @@ Setiap fungsi rekursif wajib memiliki dua komponen:
 > [!CAUTION]
 > Jika fungsi rekursif tidak memiliki base case atau terlalu dalam, JVM akan kehabisan memori stack dan memunculkan error `StackOverflowError`.
 
-## Contoh
+#### Contoh
 
 ```java
 public class RecursiveExample {
@@ -2212,13 +2223,13 @@ public class RecursiveExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Faktorial dari 5 adalah 120
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Call Stack Execution:
@@ -2246,9 +2257,9 @@ Recursive Step → pemanggilan diri sendiri dengan parameter yang semakin mendek
 
 <a id="bagian-32"></a>
 
-# 32. 🟡 Variable Scope & Shadowing
+## 32. 🟡 Variable Scope & Shadowing
 
-## Konsep
+#### Konsep
 
 Scope menentukan di mana sebuah variabel dapat diakses di dalam kode program:
 - **Class/Static Scope:** Variabel milik class yang dapat diakses oleh seluruh method dalam class.
@@ -2257,7 +2268,7 @@ Scope menentukan di mana sebuah variabel dapat diakses di dalam kode program:
 
 **Variable Shadowing** terjadi ketika sebuah variabel di scope yang lebih dalam memiliki nama yang sama persis dengan variabel di scope luar, sehingga menutupi variabel luar tersebut.
 
-## Contoh
+#### Contoh
 
 ```java
 public class ScopeExample {
@@ -2281,7 +2292,7 @@ public class ScopeExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Total dalam blok: 175
@@ -2289,7 +2300,7 @@ Nilai lokal globalScore (Shadowing): 999
 Nilai asli static Class: 100
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ┌─ Scope Class (globalScore) ──────────────────────────┐
@@ -2316,13 +2327,13 @@ Shadowing   → variabel lokal menutup visibilitas variabel luar yang bernama sa
 
 <a id="bagian-33"></a>
 
-# 33. 🔴 String Utility Methods Lengkap
+## 33. 🔴 String Utility Methods Lengkap
 
-## Konsep
+#### Konsep
 
 Class `String` di Java memiliki berbagai method bawaan yang sangat kaya untuk memanipulasi, memotong, membersihkan, dan mencari teks.
 
-## Contoh
+#### Contoh
 
 ```java
 public class StringMethodsExample {
@@ -2353,7 +2364,7 @@ public class StringMethodsExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Panjang Karakter: 26
@@ -2369,7 +2380,7 @@ Repeat '*' x 5  : *****
 Formatted String: Halo Budi, skor Anda: 95
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 "Apel,Jeruk,Mangga".split(",") ──> Array Baru: ["Apel", "Jeruk", "Mangga"]
@@ -2393,15 +2404,15 @@ source.formatted(arguments)          → memformat template string dengan argume
 
 <a id="bagian-34"></a>
 
-# 34. 🔴 Text Blocks (Multiline String Modern)
+## 34. 🔴 Text Blocks (Multiline String Modern)
 
-## Konsep
+#### Konsep
 
 Diperkenalkan secara resmi pada **Java 15**, **Text Blocks** memungkinkan penulisan String multi-baris tanpa perlu menggunakan escape sequence `\n` dan concatenation yang rumit.
 
 Text block dibuka dan ditutup dengan **tiga tanda petik ganda (`"""`)**. Indentasi umum secara otomatis dibersihkan oleh compiler.
 
-## Contoh
+#### Contoh
 
 ```java
 public class TextBlockExample {
@@ -2433,7 +2444,7 @@ public class TextBlockExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 JSON Output:
@@ -2451,7 +2462,7 @@ WHERE status = 'ACTIVE'
 ORDER BY created_at DESC;
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Input Tiga Petik Ganda:
@@ -2478,15 +2489,15 @@ String rapi tanpa perlu \n atau \"
 
 <a id="bagian-35"></a>
 
-# 35. 🔴 Math Utility Class (java.lang.Math)
+## 35. 🔴 Math Utility Class (java.lang.Math)
 
-## Konsep
+#### Konsep
 
 Class `java.lang.Math` menyediakan sekumpulan method static untuk operasi matematika lanjutan seperti trigonometri, eksponensial, pembulatan, dan penghitungan angka acak (*random*).
 
 Karena berada dalam package `java.lang`, class ini **tidak perlu di-import**.
 
-## Contoh
+#### Contoh
 
 ```java
 public class MathExample {
@@ -2512,7 +2523,7 @@ public class MathExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Math.max(10, 25): 25
@@ -2526,7 +2537,7 @@ Math.floor(4.9)  : 4.0
 Random (1 - 100) : 73
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Math.random()        ==> Menghasilkan double 0.0 <= x < 1.0
@@ -2550,9 +2561,9 @@ Math.random()                        → menghasilkan bilangan desimal acak dari
 
 <a id="bagian-36"></a>
 
-# 36. 🔴 Record Dasar (Immutable Data Carrier)
+## 36. 🔴 Record Dasar (Immutable Data Carrier)
 
-## Konsep
+#### Konsep
 
 Diperkenalkan secara resmi pada **Java 16**, **Record** adalah tipe class khusus yang dirancang khusus sebagai pembawa data (*data carrier*) yang bersifat *immutable*.
 
@@ -2562,7 +2573,7 @@ Dengan mendeklarasikan sebuah `record`, Java secara otomatis membuatkan:
 - Getter method (dengan nama field tanpa awalan `get`)
 - Method `equals()`, `hashCode()`, dan `toString()` bawaan
 
-## Contoh
+#### Contoh
 
 ```java
 // Definisi Record Product
@@ -2594,7 +2605,7 @@ class RecordDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Kode  : P01
@@ -2604,7 +2615,7 @@ ToString: Product[code=P01, name=Kopi Robusta, price=25000.0]
 p1.equals(p2): true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Deklarasi: record Product(String name, double price)
@@ -2629,9 +2640,9 @@ public record RecordName(parameters) {} → membuat class penampung data immutab
 
 <a id="bagian-37"></a>
 
-# 37. 🔴 Penanganan Exception Dasar (try-catch-finally)
+## 37. 🔴 Penanganan Exception Dasar (try-catch-finally)
 
-## Konsep
+#### Konsep
 
 Exception adalah kejadian error saat runtime yang mengganggu aliran normal program. Jika tidak ditangani, program Java akan langsung crash dan berhenti seketika.
 
@@ -2640,7 +2651,7 @@ Exception adalah kejadian error saat runtime yang mengganggu aliran normal progr
 - `finally`: Blok kode yang **selalu dijalankan**, baik terjadi exception maupun tidak (sering digunakan untuk cleanup).
 - `throw`: Melemparkan exception secara manual saat validasi gagal.
 
-## Contoh
+#### Contoh
 
 ```java
 public class ExceptionExample {
@@ -2672,7 +2683,7 @@ public class ExceptionExample {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Mencoba pembagian valid:
@@ -2684,7 +2695,7 @@ Blok finally selesai dieksekusi (Clean up resource).
 Program tetap berjalan normal setelah exception ditangani!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                   Blok try dijalankan
@@ -2716,7 +2727,7 @@ throw new ExceptionType(message);                        → melempar error baru
 
 <a id="bagian-38"></a>
 
-# 38. 🛠️ Peta Ingatan Cepat
+## 38. 🛠️ Peta Ingatan Cepat
 
 ```text
                        ARSITEKTUR BAHASA JAVA
@@ -2735,7 +2746,7 @@ TIPE DATA PRIMITIF       TIPE DATA REFERENCE         CONTROL & MODULARITAS
 
 <a id="bagian-39"></a>
 
-# 39. 📚 Tabel Ringkasan
+## 39. 📚 Tabel Ringkasan
 
 | Kategori / Fitur | Sintaks / API Utama | Fungsi & Kegunaan |
 |---|---|---|
@@ -2758,7 +2769,7 @@ TIPE DATA PRIMITIF       TIPE DATA REFERENCE         CONTROL & MODULARITAS
 
 <a id="bagian-40"></a>
 
-# 40. ⚡ Cheat Code Java Dasar 10 Detik
+## 40. ⚡ Cheat Code Java Dasar 10 Detik
 
 ```java
 // 1. Template Entry Point Class Standar
@@ -2798,7 +2809,7 @@ public record Item(String id, String name, int price) {}
 
 <a id="bagian-41"></a>
 
-# 41. 🧭 Urutan Belajar yang Disarankan
+## 41. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Fundamental Java Engine & Tipe Data
@@ -2832,7 +2843,7 @@ Langkah 5: Siap Melangkah ke Java OOP & Spring Boot Framework!
 
 <a id="bagian-42"></a>
 
-# 42. 🏗️ Mini Project: Aplikasi Kasir & Inventaris Toko CLI
+## 42. 🏗️ Mini Project: Aplikasi Kasir & Inventaris Toko CLI
 
 Aplikasi konsol interaktif lengkap yang menggabungkan seluruh konsep dasar Java: `Scanner`, `Record`, `Array`, `Method Overloading`, `Switch Expression`, `Loop`, `Formatting`, dan `Exception Handling`.
 
@@ -2964,7 +2975,7 @@ public class TokoApp {
 }
 ```
 
-## Output Demonstrasi
+#### Output Demonstrasi
 
 ```text
 ==================================================
@@ -3012,7 +3023,7 @@ Terima kasih telah menggunakan sistem kasir Toko Berkah!
 
 <a id="bagian-43"></a>
 
-# 43. 🔗 Referensi Resmi
+## 43. 🔗 Referensi Resmi
 
 - [Dokumentasi Resmi Oracle Java SE](https://docs.oracle.com/en/java/)
 - [Java SE 21 (LTS) Specification & API Docs](https://docs.oracle.com/en/java/javase/21/docs/api/)

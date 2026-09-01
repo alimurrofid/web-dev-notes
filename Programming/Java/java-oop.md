@@ -1,4 +1,15 @@
-# Java OOP Cheatsheet Revised
+---
+title: "Java OOP"
+description: "Konsep OOP Java: class, constructor, encapsulation, inheritance, method overriding/overloading, polymorphism, abstract class, dan interface."
+order: 2
+tags:
+  - programming
+  - java
+  - oop
+  - intermediate
+---
+
+# Java OOP
 
 > **Target:** Pemula yang sudah memahami dasar-dasar Java (tipe data, control flow, method) dan ingin menguasai konsep **Object-Oriented Programming (OOP)** modern dengan Java (Java 21 LTS).
 >
@@ -113,9 +124,9 @@ Abstraction  → menyembunyikan detail implementasi dan hanya menampilkan fungsi
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan OOP & 4 Pilar Utama
+## 1. 🟢 Pengenalan OOP & 4 Pilar Utama
 
-## Konsep
+#### Konsep
 
 **Object-Oriented Programming (OOP)** adalah paradigma pemrograman yang mengorganisir kode ke dalam unit-unit mandiri yang disebut **Object**. Objek menggabungkan data (**State / Field**) dan fungsi operasi (**Behavior / Method**).
 
@@ -125,7 +136,7 @@ Empat pilar utama yang menopang arsitektur OOP:
 3. **Polymorphism (Polimorfisme):** Kemampuan satu antarmuka atau parent class untuk mengekspresikan perilaku yang berbeda-beda tergantung objek konkret yang mengeksekusinya.
 4. **Abstraction (Abstraksi):** Menyembunyikan kompleksitas detail implementasi dan hanya mengekspos fungsi yang esensial bagi pengguna/pemanggil.
 
-## Contoh
+#### Contoh
 
 ```java
 // Blueprint Class sederhana dengan Encapsulation & Method
@@ -159,14 +170,14 @@ public class Main {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Berhasil setor Rp 250,000.00. Saldo sekarang: Rp 750,000.00
 Saldo Akhir: Rp 750,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                     4 PILAR UTAMA JAVA OOP
@@ -192,14 +203,14 @@ Abstraction   → penyederhanaan sistem dengan mendefinisikan antarmuka/kontrak 
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Class & Object (Mental Model Cetak Biru vs Instance Memori)
+## 2. 🟢 Class & Object (Mental Model Cetak Biru vs Instance Memori)
 
-## Konsep
+#### Konsep
 
 - **Class:** Cetak biru (*blueprint*), rancangan struktural, atau sketsa konseptual. Class belum memakan memori runtime untuk instance data.
 - **Object:** Instance nyata yang diciptakan dari class menggunakan kata kunci `new`. Objek dialokasikan di area memori **Heap**, sedangkan variabel penampungnya berada di **Stack**.
 
-## Contoh
+#### Contoh
 
 ```java
 // Mendefinisikan Class Mobil
@@ -229,14 +240,14 @@ public class ClassObjectDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Mobil A: Toyota (Hitam, 2022)
 Mobil B: Honda (Putih, 2024)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Stack Memory                            Heap Memory (Instance Nyata)
@@ -260,9 +271,9 @@ ClassName objectName = new ClassName(); → membuat instance objek baru di memor
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Field / Attribute dalam Class
+## 3. 🟢 Field / Attribute dalam Class
 
-## Konsep
+#### Konsep
 
 **Field** (juga disebut atribut atau *property*) adalah variabel yang dideklarasikan di dalam tubuh class untuk menyimpan data/state dari setiap objek.
 
@@ -273,7 +284,7 @@ Field di Java secara otomatis memiliki **nilai default bawaan** jika tidak diini
 - `char` $\rightarrow$ `'\u0000'` (null char)
 - Tipe Reference (`String`, Objek) $\rightarrow$ `null`
 
-## Contoh
+#### Contoh
 
 ```java
 class Mahasiswa {
@@ -307,7 +318,7 @@ public class FieldDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 NIM (default): null
@@ -317,7 +328,7 @@ Universitas  : Institut Teknologi Indonesia
 Mahasiswa: 10123001 - Ahmad Pratama (IPK: 3.92)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Deklarasi: Mahasiswa mhs = new Mahasiswa();
@@ -337,15 +348,15 @@ object.field = value; → menugaskan nilai value ke dalam field dari objek targe
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Method dalam Class (Behavior & State Manipulation)
+## 4. 🟢 Method dalam Class (Behavior & State Manipulation)
 
-## Konsep
+#### Konsep
 
 Method dalam class merepresentasikan tindakan, aksi, atau perilaku (*behavior*) yang dapat dilakukan oleh objek tersebut. Method dapat membaca dan mengubah nilai field yang dimiliki objek.
 
 Berbeda dengan method `static` yang menempel pada class, method non-static (instance method) bekerja langsung pada konteks data instance objek tempat method tersebut dipanggil.
 
-## Contoh
+#### Contoh
 
 ```java
 class DompetDigital {
@@ -390,7 +401,7 @@ public class MethodDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Dompet: Rina | Saldo: Rp 50,000.00
@@ -400,7 +411,7 @@ Pembayaran Rp 50,000.00 gagal! Saldo tidak cukup.
 Dompet: Rina | Saldo: Rp 30,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 dompet.bayar(120_000)
@@ -421,9 +432,9 @@ object.methodName(arguments) → mengeksekusi perilaku method pada konteks data 
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Constructor (Inisialisasi Objek & Default Constructor)
+## 5. 🟢 Constructor (Inisialisasi Objek & Default Constructor)
 
-## Konsep
+#### Konsep
 
 **Constructor** adalah method khusus yang **dieksekusi secara otomatis satu kali** saat pembuatan instance objek baru (`new`).
 
@@ -432,7 +443,7 @@ Aturan baku constructor:
 2. Constructor **tidak memiliki return type** (bahkan tidak boleh diberi kata kunci `void`).
 3. Jika kita tidak menulis constructor sama sekali, compiler Java otomatis menyisipkan **Default No-Argument Constructor** kosong. Namun jika kita menulis minimal satu constructor kustom, default constructor tidak dibuatkan lagi.
 
-## Contoh
+#### Contoh
 
 ```java
 class Pengguna {
@@ -459,14 +470,14 @@ public class ConstructorDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Constructor Pengguna dipanggil!
 User: budi_dev | Role: DEVELOPER | Poin: 100
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             Pernyataan: new Pengguna("budi_dev", "DEVELOPER")
@@ -487,7 +498,7 @@ User: budi_dev | Role: DEVELOPER | Poin: 100
 ClassName(parameters) { ... } → constructor khusus untuk menginisialisasi nilai awal state saat new dipanggil
 ```
 
-## Kesalahan Umum
+#### Kesalahan Umum
 
 ❌ Menambahkan tipe `void` pada constructor: `void Pengguna() { ... }` (ini akan dianggap sebagai method biasa, bukan constructor!).
 
@@ -497,15 +508,15 @@ ClassName(parameters) { ... } → constructor khusus untuk menginisialisasi nila
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Constructor Overloading
+## 6. 🟢 Constructor Overloading
 
-## Konsep
+#### Konsep
 
 Sama seperti method biasa, sebuah class dapat memiliki **lebih dari satu constructor** dengan syarat daftar parameternya berbeda (berbeda jumlah parameter atau berbeda tipe datanya).
 
 Ini memberikan fleksibilitas bagi pemanggil untuk menginstansiasi objek dengan berbagai skenario data awal yang tersedia.
 
-## Contoh
+#### Contoh
 
 ```java
 class Produk {
@@ -552,7 +563,7 @@ public class ConstructorOverloadingDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 P1: PRD-01 - Keyboard Mekanikal (Rp 450,000.00, Stok: 15)
@@ -560,7 +571,7 @@ P2: PRD-02 - Mouse Wireless (Rp 150,000.00, Stok: 0)
 P3: N/A - Produk Belum Bernama (Rp 0.00, Stok: 0)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 new Produk("PRD-02", "Mouse", 150000) ──> Memanggil Constructor 2 (3 Parameter)
@@ -577,9 +588,9 @@ Constructor Overloading → menyediakan variasi constructor dengan parameter ber
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Kata Kunci this & Constructor Chaining
+## 7. 🟢 Kata Kunci this & Constructor Chaining
 
-## Konsep
+#### Konsep
 
 Kata kunci `this` merujuk ke **instance objek saat ini**.
 
@@ -587,7 +598,7 @@ Dua kegunaan vital kata kunci `this`:
 1. **Mengatasi Variable Shadowing:** Membedakan antara parameter method/constructor dengan field class saat memiliki nama yang identik (`this.name = name;`).
 2. **Constructor Chaining (`this(...)`):** Memanggil constructor lain di dalam class yang sama untuk menghindari duplikasi kode inisialisasi. Pemanggilan `this(...)` **wajib berada pada baris pertama** di dalam constructor.
 
-## Contoh
+#### Contoh
 
 ```java
 class Pegawai {
@@ -632,7 +643,7 @@ public class ThisKeywordDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 [EMP-01] Budi - Divisi: ENGINEERING (Gaji: Rp 12,000,000.00)
@@ -640,7 +651,7 @@ public class ThisKeywordDemo {
 [EMP-03] Doni - Divisi: UMUM (Gaji: Rp 5,000,000.00)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 new Pegawai("EMP-03", "Doni")
@@ -663,9 +674,9 @@ this(arguments)        → memanggil constructor lain di class yang sama (harus 
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Modifier Akses (Access Modifiers)
+## 8. 🟢 Modifier Akses (Access Modifiers)
 
-## Konsep
+#### Konsep
 
 Access Modifier menentukan tingkat visibilitas dan batasan akses terhadap class, field, constructor, dan method.
 
@@ -675,7 +686,7 @@ Terdapat 4 tingkat modifier di Java:
 3. *Default / Package-Private* (tanpa modifier): Hanya dapat diakses oleh class-class di dalam **package yang sama**.
 4. `private`: Hanya dapat diakses oleh kode di dalam **class yang sama persis**.
 
-## Contoh
+#### Contoh
 
 ```java
 package com.toko.data;
@@ -696,7 +707,7 @@ public class HakAksesDemo {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ┌──────────────┬───────────────┬─────────────────┬──────────┬─────────────┐
@@ -718,7 +729,7 @@ default   → akses tertutup khusus untuk package yang sama (package-private)
 private   → akses terisolasi ketat hanya untuk internal class tempatnya dibuat
 ```
 
-## Best Practice
+#### Best Practice
 
 - Jadikan seluruh field berstatus `private` demi mematuhi prinsip enkapsulasi data.
 - Buka akses secara terkontrol menggunakan method `public` getter dan setter.
@@ -727,9 +738,9 @@ private   → akses terisolasi ketat hanya untuk internal class tempatnya dibuat
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Enkapsulasi, Getter & Setter
+## 9. 🟢 Enkapsulasi, Getter & Setter
 
-## Konsep
+#### Konsep
 
 **Encapsulation** adalah proses membungkus data (*field*) dan melindungi modifikasi sembarangan dari luar dengan menjadikannya `private`, kemudian menyediakan method publik:
 - **Getter (`getFieldName()`):** Method untuk membaca nilai data.
@@ -737,7 +748,7 @@ private   → akses terisolasi ketat hanya untuk internal class tempatnya dibuat
 
 Dengan enkapsulasi, objek memiliki kendali penuh atas integritas state dirinya sendiri (*Data Integrity & Hiding*).
 
-## Contoh
+#### Contoh
 
 ```java
 class RekeningBank {
@@ -783,14 +794,14 @@ public class EncapsulationDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ❌ Validasi Gagal: Saldo tidak boleh negatif!
 Nomor Rek: 11223344 | Saldo: Rp 1,500,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Akses Eksternal ──> rek.setSaldo(1500000) ──> [Validasi >= 0] ──[OK]──> this.saldo = 1500000
@@ -808,9 +819,9 @@ public void setFieldName(fieldType value) { this.fieldName = value; } → mutato
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Package & Import
+## 10. 🟢 Package & Import
 
-## Konsep
+#### Konsep
 
 **Package** adalah mekanisme pengelompokan class, interface, dan enum ke dalam namespace dan struktur folder direktori fisik.
 
@@ -818,7 +829,7 @@ public void setFieldName(fieldType value) { this.fieldName = value; } → mutato
 - `import` digunakan untuk menggunakan class dari package lain.
 - Package `java.lang` (berisi `String`, `Math`, `System`, `Integer`) di-import secara otomatis oleh compiler.
 
-## Contoh
+#### Contoh
 
 Struktur folder:
 ```text
@@ -866,14 +877,14 @@ public class App {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Customer: Siti Nurhaliza
 Nilai Terbesar: 20
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 javac menyusun folder:
@@ -894,9 +905,9 @@ import static package.Method;→ mengimpor method static sehingga bisa dipanggil
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Inheritance / Pewarisan (extends)
+## 11. 🟡 Inheritance / Pewarisan (extends)
 
-## Konsep
+#### Konsep
 
 **Inheritance** adalah pilar OOP di mana sebuah class (**Child / Subclass**) mewarisi seluruh field dan method non-private dari class induk (**Parent / Superclass**) menggunakan kata kunci `extends`.
 
@@ -904,7 +915,7 @@ Karakteristik penting di Java:
 - **Single Inheritance:** Java hanya mengizinkan satu class mewarisi tepat **satu parent class** (tidak ada multiple class inheritance).
 - Seluruh class di Java secara implisit mewarisi class `java.lang.Object` sebagai puncak hierarki.
 
-## Contoh
+#### Contoh
 
 ```java
 // Superclass (Parent)
@@ -940,14 +951,14 @@ public class InheritanceDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hendra Wijaya sedang menyelesaikan tugas rutin kantor.
 Hendra Wijaya sedang memimpin rapat dengan 8 anggota tim.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               ┌───────────────────────────┐
@@ -974,9 +985,9 @@ class ChildClass extends ParentClass { ... } → mewarisi semua field dan method
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Kata Kunci super (Constructor & Method Delegation)
+## 12. 🟡 Kata Kunci super (Constructor & Method Delegation)
 
-## Konsep
+#### Konsep
 
 Kata kunci `super` digunakan di dalam child class untuk merujuk ke **anggota milik superclass (parent)**:
 
@@ -984,7 +995,7 @@ Kata kunci `super` digunakan di dalam child class untuk merujuk ke **anggota mil
 2. **`super.methodName()`:** Memanggil method asli milik superclass yang telah di-override oleh child class.
 3. **`super.fieldName`:** Mengakses field milik superclass jika terjadi bentrok nama.
 
-## Contoh
+#### Contoh
 
 ```java
 class Kendaraan {
@@ -1030,7 +1041,7 @@ public class SuperKeywordDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Truk Merk: Mitsubishi Fuso | Tahun: 2023 | Kapasitas: 15.5 Ton
@@ -1039,7 +1050,7 @@ Bunyi klakson standar: Tiiin!
 Bunyi klakson kencang Truk: HOOOONK!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Truk Constructor
@@ -1062,9 +1073,9 @@ super.methodName() → memanggil implementasi method asli milik superclass
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Method Overriding (@Override)
+## 13. 🟡 Method Overriding (@Override)
 
-## Konsep
+#### Konsep
 
 **Method Overriding** terjadi saat subclass mendeklarasikan ulang sebuah method yang sudah ada di superclass-nya dengan **nama, tipe return, dan parameter yang sama persis**, tetapi memberikan implementasi tubuh yang berbeda.
 
@@ -1073,7 +1084,7 @@ Gunakan anotasi `@Override` agar compiler membantu memverifikasi bahwa method te
 > [!NOTE]
 > Method yang memiliki modifier `final` atau `private` pada superclass **tidak dapat di-override**.
 
-## Contoh
+#### Contoh
 
 ```java
 class Bentuk {
@@ -1119,14 +1130,14 @@ public class MethodOverridingDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Luas Persegi (sisi 6)     : 36.00
 Luas Lingkaran (radius 7) : 153.94
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Pemanggilan: p.hitungLuas()
@@ -1148,15 +1159,15 @@ Eksekusi method Persegi.hitungLuas() (Bukan Bentuk.hitungLuas())
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Polymorphism (Polimorfisme & Dynamic Dispatch)
+## 14. 🟡 Polymorphism (Polimorfisme & Dynamic Dispatch)
 
-## Konsep
+#### Konsep
 
 **Polymorphism** (banyak bentuk) memungkinkan sebuah variabel bertipe superclass/interface untuk menunjuk ke berbagai macam instance subclass yang berbeda.
 
 Saat sebuah method dipanggil melalui referensi superclass, Java secara cerdas akan mengeksekusi method milik objek nyata yang sebenarnya di heap saat runtime (**Dynamic Method Dispatch**).
 
-## Contoh
+#### Contoh
 
 ```java
 class Pembayaran {
@@ -1195,14 +1206,14 @@ public class PolymorphismDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ✅ Pembayaran Rp 500,000.00 via Transfer Virtual Account Bank.
 ✅ Pembayaran Rp 75,000.00 via Scan QRIS E-Wallet.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Variabel Referensi: Pembayaran metode
@@ -1224,15 +1235,15 @@ Dynamic Method Dispatch                → JVM mengeksekusi versi method objek k
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Type Casting Objek & Pattern Matching instanceof
+## 15. 🟡 Type Casting Objek & Pattern Matching instanceof
 
-## Konsep
+#### Konsep
 
 - **Upcasting (Otomatis):** Mengubah tipe referensi subclass ke superclass (`Karyawan k = new Manager();`). Selalu aman.
 - **Downcasting (Manual):** Mengubah tipe referensi superclass kembali ke subclass spesifiknya (`Manager m = (Manager) k;`). Berisiko `ClassCastException` jika objek aslinya bukan bertipe subclass tersebut.
 - **Pattern Matching for `instanceof` (Java 16+):** Memeriksa tipe objek sekaligus mendeklarasikan variabel casting dalam satu baris ekspresi yang aman dan bersih.
 
-## Contoh
+#### Contoh
 
 ```java
 class PegawaiKantor {
@@ -1272,14 +1283,14 @@ public class InstanceofDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Farhan sedang ngoding aplikasi dengan Java 21.
 Bambang adalah pegawai kantor umum.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 if (p instanceof SoftwareEngineer se)
@@ -1303,14 +1314,14 @@ object instanceof TargetType variable → memeriksa apakah object merupakan tipe
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Abstract Class & Abstract Method
+## 16. 🟡 Abstract Class & Abstract Method
 
-## Konsep
+#### Konsep
 
 - **Abstract Class:** Class setengah jadi yang **tidak dapat diinstansiasi langsung** (`new AbstractClass()` akan error). Didesain khusus untuk menjadi superclass dasar.
 - **Abstract Method:** Method yang dideklarasikan dengan kata kunci `abstract`, **tidak memiliki isi tubuh `{ ... }`**, dan **wajib di-override & diimplementasikan** oleh subclass konkret pertamanya.
 
-## Contoh
+#### Contoh
 
 ```java
 // Abstract Class sebagai cetak biru kontrak dasar
@@ -1363,7 +1374,7 @@ public class AbstractDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Mimi: Meong... Meong!
@@ -1371,7 +1382,7 @@ Mimi sedang tidur nyenyak: Zzz...
 Doggy: Guk... Guk!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 abstract class Hewan (Kontrak: bersuara())
@@ -1392,9 +1403,9 @@ abstract returnType methodName();  → mendefinisikan kontrak method wajib tanpa
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Interface Dasar & Multiple Implementation
+## 17. 🟡 Interface Dasar & Multiple Implementation
 
-## Konsep
+#### Konsep
 
 **Interface** adalah kontrak perilaku murni (*pure contract*) yang mendefinisikan apa yang bisa dilakukan oleh suatu objek tanpa memedulikan bagaimana cara melakukannya.
 
@@ -1404,7 +1415,7 @@ Karakteristik penting Interface:
 3. Class mengimplementasikan interface menggunakan kata kunci `implements`.
 4. **Multiple Implementation:** Satu class dapat mengimplementasikan **banyak interface sekaligus** (solusi atas keterbatasan single inheritance class di Java).
 
-## Contoh
+#### Contoh
 
 ```java
 interface BisaTerbang {
@@ -1443,14 +1454,14 @@ public class InterfaceDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Elang Jawa melayang tinggi di angkasa.
 Elang Jawa berteriak: Kweeeek!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 interface BisaTerbang        interface Bersuara
@@ -1473,15 +1484,15 @@ class ClassName implements InterfaceA, InterfaceB → mengimplementasikan banyak
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Interface Inheritance (extends)
+## 18. 🟡 Interface Inheritance (extends)
 
-## Konsep
+#### Konsep
 
 Interface dapat mewarisi interface lainnya menggunakan kata kunci `extends`.
 
 Berbeda dengan class biasa yang hanya mendukung *single inheritance*, sebuah interface diizinkan mewarisi **banyak interface sekaligus** (*multiple interface inheritance*).
 
-## Contoh
+#### Contoh
 
 ```java
 interface Bernapas {
@@ -1524,7 +1535,7 @@ public class InterfaceInheritanceDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Manusia menghirup oksigen.
@@ -1532,7 +1543,7 @@ Manusia berjalan dengan 2 kaki.
 Manusia makan nasi.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 interface Bernapas     interface Bergerak
@@ -1556,15 +1567,15 @@ interface ChildInterface extends ParentA, ParentB { ... } → interface mewarisi
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Default Method & Static Method pada Interface
+## 19. 🟡 Default Method & Static Method pada Interface
 
-## Konsep
+#### Konsep
 
 Sejak **Java 8**, interface dapat memiliki method konkret yang memiliki tubuh kode `{ ... }`:
 1. **Default Method (`default`):** Menyediakan implementasi standar bawaan. Jika class yang mengimplementasikan interface tidak meng-override method ini, implementasi default yang akan dijalankan. Fitur ini dirancang untuk evolusi library tanpa merusak class yang sudah ada (*backward compatibility*).
 2. **Static Method (`static`):** Method utilitas yang menempel pada interface dan dapat dipanggil langsung melalui nama interface (`InterfaceName.method()`).
 
-## Contoh
+#### Contoh
 
 ```java
 interface NotifikasiService {
@@ -1610,7 +1621,7 @@ public class DefaultMethodDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Mengirim Email ke budi@gmail.com: 'Selamat datang!'
@@ -1620,7 +1631,7 @@ Mengirim Email ke siti@gmail.com: 'Promo Diskon Gajian!'
 Validasi Nomor +62: true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Class EmailNotifikasi ──> Tidak ada kirimBroadcast()?
@@ -1640,15 +1651,15 @@ static returnType methodName() { ... }  → method helper static yang dipanggil 
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Private Method pada Interface
+## 20. 🟡 Private Method pada Interface
 
-## Konsep
+#### Konsep
 
 Sejak **Java 9**, interface mendukung deklarasi method dengan modifier `private`.
 
 Method private di interface digunakan khusus untuk **meringkas dan membagi logika duplikat di antara beberapa `default` method** di dalam interface yang sama, tanpa membocorkan fungsi internal tersebut ke class luar.
 
-## Contoh
+#### Contoh
 
 ```java
 interface LoggingSystem {
@@ -1677,14 +1688,14 @@ public class PrivateInterfaceMethodDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 [18:30:15] [INFO] Koneksi database berhasil dibuat.
 [18:30:15] [ERROR] Query timeout saat membaca tabel orders.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 logInfo()  ───┐
@@ -1702,15 +1713,15 @@ private returnType methodName() { ... } → method helper internal interface unt
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Anonymous Class
+## 21. 🟡 Anonymous Class
 
-## Konsep
+#### Konsep
 
 **Anonymous Class** adalah class tanpa nama yang dideklarasikan dan diinstansiasi secara bersamaan dalam satu baris ekspresi untuk mengimplementasikan sebuah interface atau meng-override abstract class **satu kali pakai**.
 
 Fitur ini berguna saat kita hanya membutuhkan satu objek khusus tanpa perlu repot membuat file class `.java` baru secara terpisah.
 
-## Contoh
+#### Contoh
 
 ```java
 interface TombolClickListener {
@@ -1733,13 +1744,13 @@ public class AnonymousClassDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Tombol Login Diklik! Memvalidasi kredensial pengguna...
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 new InterfaceName() { ... }
@@ -1759,15 +1770,15 @@ InterfaceName obj = new InterfaceName() { @Override ... }; → membuat instance 
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Inner Class & Static Nested Class
+## 22. 🟡 Inner Class & Static Nested Class
 
-## Konsep
+#### Konsep
 
 Java memungkinkan kita mendefinisikan class di dalam class lain (*Nested Classes*):
 1. **Member Inner Class (Non-Static):** Menempel pada instance objek outer class dan memiliki akses langsung ke seluruh field private outer class.
 2. **Static Nested Class:** Tidak menempel pada instance objek outer class, hanya dapat mengakses field static outer class, dan dapat diinstansiasi langsung tanpa instance outer class.
 
-## Contoh
+#### Contoh
 
 ```java
 class Luar {
@@ -1805,14 +1816,14 @@ public class NestedClassDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Inner Non-Static mengakses: Outer Class
 Nested Static mengakses: Static Variable Outer
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Outer Instance (outerObj) ──> outerObj.new DalamNonStatic() (Punya referensi ke outerObj)
@@ -1830,9 +1841,9 @@ Outer.Nested nested = new Outer.Nested();      → instansiasi static nested cla
 
 <a id="bagian-23"></a>
 
-# 23. 🔴 Static Keyword Lengkap (Field, Method, Block)
+## 23. 🔴 Static Keyword Lengkap (Field, Method, Block)
 
-## Konsep
+#### Konsep
 
 Kata kunci `static` menandakan bahwa anggota tersebut **milik class secara global**, bukan milik instance objek perorangan. Seluruh objek berbagi satu salinan memori yang sama (*Shared Memory*).
 
@@ -1840,7 +1851,7 @@ Kata kunci `static` menandakan bahwa anggota tersebut **milik class secara globa
 - **`static method`:** Method utilitas yang dipanggil tanpa membuat objek (`ClassName.method()`).
 - **`static block`:** Blok inisialisasi yang dijalankan **hanya satu kali** saat class pertama kali dimuat oleh ClassLoader ke memori JVM.
 
-## Contoh
+#### Contoh
 
 ```java
 class KonfigurasiAplikasi {
@@ -1867,7 +1878,7 @@ public class StaticDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Memulai program main...
@@ -1875,7 +1886,7 @@ Memulai program main...
 Aplikasi: E-Commerce System | Pool Koneksi: 10
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ClassLoader memuat KonfigurasiAplikasi.class
@@ -1899,9 +1910,9 @@ static { ... }          → blok inisialisasi satu kali saat class pertama dimua
 
 <a id="bagian-24"></a>
 
-# 24. 🔴 Final Keyword Lengkap (Variable, Method, Class)
+## 24. 🔴 Final Keyword Lengkap (Variable, Method, Class)
 
-## Konsep
+#### Konsep
 
 Kata kunci `final` digunakan untuk membatasi mutasi dan modifikasi:
 
@@ -1909,7 +1920,7 @@ Kata kunci `final` digunakan untuk membatasi mutasi dan modifikasi:
 2. **`final method`:** Method **tidak dapat di-override** oleh child class manapun.
 3. **`final class`:** Class **tidak dapat diwariskan / dijadikan parent** oleh class manapun (contoh: class bawaan `java.lang.String` adalah final).
 
-## Contoh
+#### Contoh
 
 ```java
 // Final Class: Tidak bisa di-extends
@@ -1933,13 +1944,13 @@ public class FinalDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Memverifikasi token keamanan secara ketat: TOKEN_12345
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 final variable  ──> Kunci Nilai   ──> Cegah Reassignment
@@ -1959,9 +1970,9 @@ final class ClassName     → mengunci class agar tidak dapat diwariskan/diturun
 
 <a id="bagian-25"></a>
 
-# 25. 🔴 Sealed Classes & Interfaces (Java 17+)
+## 25. 🔴 Sealed Classes & Interfaces (Java 17+)
 
-## Konsep
+#### Konsep
 
 Diperkenalkan secara resmi pada **Java 17**, **Sealed Classes** memungkinkan developer membatasi dan mengontrol secara eksplisit **class mana saja yang diizinkan mewarisi atau mengimplementasikannya** menggunakan kata kunci `sealed` dan `permits`.
 
@@ -1970,7 +1981,7 @@ Subclass yang diizinkan wajib memilih salah satu dari tiga status:
 - `sealed`: Membatasi pewarisan lebih lanjut dengan daftar izinnya sendiri.
 - `non-sealed`: Membuka kembali pewarisan secara bebas untuk siapa saja.
 
-## Contoh
+#### Contoh
 
 ```java
 // 1. Sealed Class yang hanya mengizinkan CardPayment dan QrisPayment
@@ -1995,7 +2006,7 @@ public non-sealed class QrisPayment extends PaymentMethod {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          sealed class PaymentMethod permits CardPayment, QrisPayment
@@ -2017,9 +2028,9 @@ non-sealed class Child extends Parent      → membuka kembali izin pewarisan be
 
 <a id="bagian-26"></a>
 
-# 26. 🔴 Record Lanjutan & Implementasi Interface
+## 26. 🔴 Record Lanjutan & Implementasi Interface
 
-## Konsep
+#### Konsep
 
 Record di Java adalah class pembawa data (*immutable data carrier*). Selain penggunaan dasarnya, Record mendukung:
 - Mengimplementasikan **Interface**.
@@ -2029,7 +2040,7 @@ Record di Java adalah class pembawa data (*immutable data carrier*). Selain peng
 > [!NOTE]
 > Record tidak dapat menggunakan kata kunci `extends` karena Record secara implisit telah mewarisi class `java.lang.Record` dan berstatus `final`.
 
-## Contoh
+#### Contoh
 
 ```java
 interface Validatable {
@@ -2071,7 +2082,7 @@ class RecordAdvancedDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Detail Item : TransaksiItem[sku=SKU-990, kuantitas=3, hargaSatuan=45000.0]
@@ -2079,7 +2090,7 @@ Validitas   : true
 Subtotal    : Rp 135,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 new TransaksiItem("SKU", 3, 45000)
@@ -2101,9 +2112,9 @@ public record RecordName(parameters) implements InterfaceName { ... } → membua
 
 <a id="bagian-27"></a>
 
-# 27. 🔴 Enum Class Lengkap (Fields, Constructor, Method)
+## 27. 🔴 Enum Class Lengkap (Fields, Constructor, Method)
 
-## Konsep
+#### Konsep
 
 **Enum** (*Enumeration*) adalah tipe data class khusus yang berisi kumpulan nilai konstanta tetap yang telah ditentukan sebelumnya.
 
@@ -2112,7 +2123,7 @@ Di Java, Enum adalah **class berkekuatan penuh** yang dapat memiliki:
 - Private constructor
 - Method biasa dan method kalkulasi
 
-## Contoh
+#### Contoh
 
 ```java
 public enum StatusPesanan {
@@ -2157,7 +2168,7 @@ class EnumDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Enum : DIPROSES
@@ -2172,7 +2183,7 @@ Daftar Seluruh Status:
 - SELESAI  : Pesanan Telah Diterima Pelanggan
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 StatusPesanan.values() ──> Menghasilkan array: [PENDING, DIPROSES, DIKIRIM, SELESAI]
@@ -2191,16 +2202,16 @@ EnumName.values()                             → mengembalikan seluruh daftar e
 
 <a id="bagian-28"></a>
 
-# 28. 🔴 Object Root Class (toString, equals, hashCode)
+## 28. 🔴 Object Root Class (toString, equals, hashCode)
 
-## Konsep
+#### Konsep
 
 `java.lang.Object` adalah akar dari seluruh hierarki class di Java. Tiga method paling penting yang wajib di-override pada domain model:
 1. `toString()`: Representasi teks string dari objek saat dicetak ke konsol.
 2. `equals(Object obj)`: Memeriksa kesamaan konten nilai data objek.
 3. `hashCode()`: Menghasilkan bilangan integer unik yang wajib sinkron dengan `equals` untuk struktur data berbasis hash (seperti `HashSet` dan `HashMap`).
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.Objects;
@@ -2247,7 +2258,7 @@ public class ObjectMethodsDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Print Object: AkunUser{username='alimurrofid', email='ali@dev.com'}
@@ -2257,7 +2268,7 @@ HashCode A   : 1947230492
 HashCode B   : 1947230492
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Kontrak Java:
@@ -2276,9 +2287,9 @@ Jika a.equals(b) == true ──> Maka a.hashCode() WAJIB SAMA DENGAN b.hashCode(
 
 <a id="bagian-29"></a>
 
-# 29. 🔴 Hierarchy Exception di Java (Checked vs Unchecked)
+## 29. 🔴 Hierarchy Exception di Java (Checked vs Unchecked)
 
-## Konsep
+#### Konsep
 
 Seluruh error dan exception di Java diturunkan dari class induk `java.lang.Throwable`:
 - **`Error`:** Masalah fatal tingkat JVM sistem yang tidak dapat dipulihkan (misal: `OutOfMemoryError`, `StackOverflowError`). Aplikasi tidak boleh mencoba menangkapnya.
@@ -2286,7 +2297,7 @@ Seluruh error dan exception di Java diturunkan dari class induk `java.lang.Throw
   1. **Checked Exception:** Turunan langsung dari `Exception` (selain `RuntimeException`). Wajib ditangani dengan `try-catch` atau dideklarasikan di method signature dengan keyword `throws`. Contoh: `IOException`, `SQLException`.
   2. **Unchecked Exception / RuntimeException:** Turunan dari `RuntimeException`. Terjadi akibat kesalahan logika pemrograman dan tidak wajib dideklarasikan secara eksplisit. Contoh: `NullPointerException`, `IllegalArgumentException`.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.io.FileReader;
@@ -2309,13 +2320,13 @@ public class ExceptionHierarchyDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Menangani Checked Exception: app-config.json (The system cannot find the file specified)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                         Throwable
@@ -2341,15 +2352,15 @@ throws ExceptionType → mendeklarasikan bahwa method berpotensi melempar checke
 
 <a id="bagian-30"></a>
 
-# 30. 🔴 Custom Exception Class
+## 30. 🔴 Custom Exception Class
 
-## Konsep
+#### Konsep
 
 Untuk merepresentasikan kesalahan spesifik pada domain bisnis aplikasi (seperti `SaldoTidakCukupException` atau `PesananKadaluarsaException`), kita dapat membuat class exception buatan sendiri:
 - Turunkan dari `Exception` jika menginginkan **Checked Exception**.
 - Turunkan dari `RuntimeException` jika menginginkan **Unchecked Exception** yang lebih modern dan fleksibel.
 
-## Contoh
+#### Contoh
 
 ```java
 // Custom Unchecked Exception untuk Validasi Bisnis
@@ -2395,7 +2406,7 @@ public class CustomExceptionDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Tarik tunai berhasil Rp 50,000.00. Sisa saldo: Rp 50,000.00
@@ -2403,7 +2414,7 @@ Tarik tunai berhasil Rp 50,000.00. Sisa saldo: Rp 50,000.00
 👉 Kekurangan Dana: Rp 150,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 tarikTunai(200_000) ──> jumlah > saldo ──> throw new SaldoTidakCukupException(...)
@@ -2422,9 +2433,9 @@ public class MyException extends RuntimeException { public MyException(String ms
 
 <a id="bagian-31"></a>
 
-# 31. 🔴 Garbage Collection & Manajemen Memori OOP
+## 31. 🔴 Garbage Collection & Manajemen Memori OOP
 
-## Konsep
+#### Konsep
 
 Manajemen memori pada runtime Java terbagi dalam 3 area utama:
 1. **Stack Memory:** Menyimpan pemanggilan method (*Stack Frame*), variabel lokal, dan alamat pointer referensi objek. Memori otomatis dibersihkan saat method selesai dieksekusi (*LIFO*).
@@ -2433,7 +2444,7 @@ Manajemen memori pada runtime Java terbagi dalam 3 area utama:
 
 **Garbage Collector (GC):** Utilitas otomatis JVM yang melacak objek-objek di Heap yang sudah tidak memiliki referensi aktif dari Stack, lalu menghancurkannya untuk membebaskan ruang RAM.
 
-## Contoh
+#### Contoh
 
 ```java
 public class MemoryGCDemo {
@@ -2458,14 +2469,14 @@ public class MemoryGCDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Memproses: Sementara
 Garbage Collector disarankan berjalan.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Stack Frame                Heap Memory
@@ -2490,7 +2501,7 @@ System.gc()   → mengirimkan sinyal saran kepada JVM untuk menjalankan Garbage 
 
 <a id="bagian-32"></a>
 
-# 32. 🛠️ Peta Ingatan Cepat
+## 32. 🛠️ Peta Ingatan Cepat
 
 ```text
                              PETA ARSITEKTUR JAVA OOP
@@ -2509,7 +2520,7 @@ System.gc()   → mengirimkan sinyal saran kepada JVM untuk menjalankan Garbage 
 
 <a id="bagian-33"></a>
 
-# 33. 📚 Tabel Ringkasan
+## 33. 📚 Tabel Ringkasan
 
 | Fitur / Keyword | Sintaks Utama | Fungsi & Karakteristik |
 |---|---|---|
@@ -2533,7 +2544,7 @@ System.gc()   → mengirimkan sinyal saran kepada JVM untuk menjalankan Garbage 
 
 <a id="bagian-34"></a>
 
-# 34. ⚡ Cheat Code Java OOP 10 Detik
+## 34. ⚡ Cheat Code Java OOP 10 Detik
 
 ```java
 // 1. Template Class Lengkap dengan Enkapsulasi & Constructor Chaining
@@ -2577,7 +2588,7 @@ public final class Square extends Shape {}
 
 <a id="bagian-35"></a>
 
-# 35. 🧭 Urutan Belajar yang Disarankan
+## 35. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Penguasaan Class, Object, dan Enkapsulasi
@@ -2610,7 +2621,7 @@ Langkah 5: Bangun Arsitektur Sistem OOP Nyata (Mini Project Payment Gateway)!
 
 <a id="bagian-36"></a>
 
-# 36. 🏗️ Mini Project: Sistem Payment Gateway & Transaksi E-Commerce CLI
+## 36. 🏗️ Mini Project: Sistem Payment Gateway & Transaksi E-Commerce CLI
 
 Aplikasi nyata berorientasi objek murni yang menggabungkan seluruh konsep inti OOP: **4 Pilar OOP, Interface, Abstract Class, Sealed Class, Record, Enum, Custom Exception, Pattern Matching `instanceof`, dan Dynamic Method Dispatch**.
 
@@ -2782,7 +2793,7 @@ public class PaymentGatewayApp {
 }
 ```
 
-## Output Demonstrasi
+#### Output Demonstrasi
 
 ```text
 ==================================================
@@ -2817,7 +2828,7 @@ Sesi transaksi gateway selesai.
 
 <a id="bagian-37"></a>
 
-# 37. 🔗 Referensi Resmi
+## 37. 🔗 Referensi Resmi
 
 - [Oracle Java Object-Oriented Programming Concepts](https://docs.oracle.com/javase/tutorial/java/concepts/)
 - [Oracle Java Classes and Objects Tutorial](https://docs.oracle.com/javase/tutorial/java/javaOO/)

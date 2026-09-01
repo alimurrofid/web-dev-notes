@@ -1,4 +1,16 @@
-# TypeScript OOP & Generics Cheatsheet Revised
+---
+title: "TypeScript OOP & Generics"
+description: "Class, access modifiers, interface implementation, abstract classes, serta Generic types, constraints, dan generic utility patterns."
+order: 2
+tags:
+  - programming
+  - typescript
+  - oop
+  - generics
+  - intermediate
+---
+
+# TypeScript OOP & Generics
 
 > **Target:** Pemula yang telah memahami TypeScript Dasar dan ingin menguasai **Pemrograman Berorientasi Objek di TypeScript (Classes, Access Modifiers `public`/`private`/`protected`/`readonly`, Parameter Properties shorthand, Getters/Setters, Static Members, Abstract Classes, Multiple Interface Implementation), Generics Komprehensif (`<T>`, Generic Functions, Generic Interfaces, Generic Classes, Generic Constraints `extends keyof`, Default Type Parameters), dan Utility Types Inti (`Partial`, `Required`, `Readonly`, `Record`, `Pick`, `Omit`)** menggunakan **TypeScript 5.5+**.
 >
@@ -105,9 +117,9 @@ Omit<T, K>            → utility type untuk membuang daftar properti K dari tip
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Object-Oriented Programming (OOP) di TypeScript & Keunggulan Dibanding JS Classes Biasa
+## 1. 🟢 Pengenalan Object-Oriented Programming (OOP) di TypeScript & Keunggulan Dibanding JS Classes Biasa
 
-## Konsep
+#### Konsep
 
 Pada JavaScript biasa (ES6), `class` tidak memiliki penegakan tipe data statis atau enkapsulasi yang ketat (semua properti defaultnya adalah publik dan rentan terhadap mutasi liar).
 
@@ -116,7 +128,7 @@ Pada JavaScript biasa (ES6), `class` tidak memiliki penegakan tipe data statis a
 2. **Type Checking Constructor & Method:** Parameter constructor dan return value method divalidasi saat coding.
 3. **Contract Implementation:** Memastikan Class mematuhi satu atau banyak `interface`.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 JavaScript Class (Biasa):
@@ -138,9 +150,9 @@ TypeScript Class = JavaScript Class + Access Modifiers + Interface Contracts + C
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Definisi Class, Constructor & Access Modifiers
+## 2. 🟢 Definisi Class, Constructor & Access Modifiers
 
-## Konsep
+#### Konsep
 
 Empat Access Modifiers Inti:
 - **`public` (Default):** Properti/method dapat diakses dari mana saja (dalam class, turunan, maupun instance luar).
@@ -148,7 +160,7 @@ Empat Access Modifiers Inti:
 - **`protected`:** Dapat diakses di dalam class itu sendiri **DAN kelas turunannya (*Subclass*)**, tetapi tidak bisa diakses dari instance luar.
 - **`readonly`:** Properti hanya bisa diisi nilainya di deklarasi awal atau di dalam `constructor`, setelah itu tidak bisa diubah (*Immutable*).
 
-## Contoh
+#### Contoh
 
 ```typescript
 class BankAccount {
@@ -193,9 +205,9 @@ readonly  → tidak dapat dimutasi setelah inisialisasi constructor
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Parameter Properties: Shorthand Constructor Deklarasi Otomatis
+## 3. 🟢 Parameter Properties: Shorthand Constructor Deklarasi Otomatis
 
-## Konsep
+#### Konsep
 
 Menuliskan properti class dan menginisialisasinya di constructor secara tradisional sangat bertele-tele (*Boilerplate*).
 
@@ -204,7 +216,7 @@ Dengan menambahkan modifier akses (`public`, `private`, `protected`, atau `reado
 1. Mendeklarasikan properti class tersebut.
 2. Melakukan assign `this.propName = propName` di background secara otomatis.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // ✅ Cara Cerdas & Bersih (Parameter Properties):
@@ -237,15 +249,15 @@ constructor(public name: string, private age: number) {} → deklarasi dan assig
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Getters & Setters untuk Enkapsulasi Mutasi Data
+## 4. 🟢 Getters & Setters untuk Enkapsulasi Mutasi Data
 
-## Konsep
+#### Konsep
 
 Gunakan accessor **`get`** dan **`set`** untuk mengontrol cara membaca dan mengubah data privat dengan validasi khusus:
 - **`get propName(): type`:** Dieksekusi saat membaca properti (`obj.propName`).
 - **`set propName(value: type)`:** Dieksekusi saat menetapkan nilai baru (`obj.propName = val`).
 
-## Contoh
+#### Contoh
 
 ```typescript
 class ProductItem {
@@ -280,14 +292,14 @@ get prop(): type { return this._prop; } set prop(val: type) { this._prop = val; 
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Static Members & Static Initialization Blocks
+## 5. 🟢 Static Members & Static Initialization Blocks
 
-## Konsep
+#### Konsep
 
 1. **Static Members (`static`):** Properti atau method yang menempel **pada Class itu sendiri**, bukan pada instance objek yang dibuat via `new`.
 2. **Static Initialization Blocks (`static { ... }`):** Blok logika untuk menginisialisasi konfigurasi static yang kompleks saat class pertama kali dimuat.
 
-## Contoh
+#### Contoh
 
 ```typescript
 class AppConfiguration {
@@ -320,15 +332,15 @@ static member → properti/method milik Class global tanpa perlu instansiasi new
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Class Inheritance & Method Overriding
+## 6. 🟢 Class Inheritance & Method Overriding
 
-## Konsep
+#### Konsep
 
 Pewarisan Class menggunakan keyword **`extends`**:
 - **`super(...args)`:** Wajib dipanggil di baris pertama constructor subclass untuk memicu constructor parent.
 - **`override` (TS 4.3+):** Keyword penanda bahwa method sengaja menimpa method parent (mencegah salah ketik nama method).
 
-## Contoh
+#### Contoh
 
 ```typescript
 class NotificationService {
@@ -362,15 +374,15 @@ class Child extends Parent { constructor() { super(); } override method() {} }
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 Abstract Classes & Abstract Methods
+## 7. 🟡 Abstract Classes & Abstract Methods
 
-## Konsep
+#### Konsep
 
 **Abstract Class (`abstract class`)**:
 - Kelas cetak biru dasar yang **TIDAK BISA di-instansiasi langsung** (`new AbstractClass()` akan ditolak compiler).
 - Dapat memuat method konkret biasa dan **Abstract Methods (`abstract methodName(): type`)** yang **wajib diimplementasikan oleh setiap subclass turunan**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 abstract class PaymentProcessor {
@@ -408,15 +420,15 @@ abstract class Base { abstract process(): void; } → template class yang mewaji
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Mengimplementasikan Multiple Interfaces pada Class
+## 8. 🟡 Mengimplementasikan Multiple Interfaces pada Class
 
-## Konsep
+#### Konsep
 
 Sebuah class di TypeScript dapat mengimplementasikan **lebih dari satu interface sekaligus** menggunakan keyword **`implements`** dipisahkan tanda koma.
 
 Ini menjamin class mematuhi banyak kontrak arsitektur (*Separation of Concerns*).
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface IIdentifiable {
@@ -453,9 +465,9 @@ class MyClass implements InterfaceA, InterfaceB { ... } → mematuhi banyak kont
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Pengenalan Generics (`<T>`) & Mental Model Reusability
+## 9. 🟡 Pengenalan Generics (`<T>`) & Mental Model Reusability
 
-## Konsep
+#### Konsep
 
 Tanpa Generics, jika Anda ingin membuat fungsi penampung yang bisa menerima sembarang tipe:
 1. Anda menggunakan `any` $\rightarrow$ **Kehilangan Type Safety dan autocompletion!**
@@ -465,7 +477,7 @@ Tanpa Generics, jika Anda ingin membuat fungsi penampung yang bisa menerima semb
 - `<T>` adalah **Variabel Penampung Tipe Data (*Type Parameter*)**.
 - Tipe data baru dikunci saat fungsi/class tersebut dipanggil, sehingga **Type Safety tetap 100% utuh**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Fungsi Generik Murni:
@@ -495,9 +507,9 @@ function fn<T>(arg: T): T → fungsi generik yang mengunci tipe return persis se
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Generic Functions & Multi-Type Parameters
+## 10. 🟡 Generic Functions & Multi-Type Parameters
 
-## Konsep
+#### Konsep
 
 Kita dapat menggunakan lebih dari satu variabel generik (konvensi penamaan: `T`, `U`, `V`, `K`, `E`):
 - `T` : Type
@@ -505,7 +517,7 @@ Kita dapat menggunakan lebih dari satu variabel generik (konvensi penamaan: `T`,
 - `K` : Key
 - `E` : Element / Error
 
-## Contoh
+#### Contoh
 
 ```typescript
 // Fungsi Memasangkan Dua Tipe Berbeda Menjadi Tuple
@@ -527,13 +539,13 @@ function pair<T, U>(a: T, b: U): [T, U] → fungsi generik dengan multi-paramete
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Generic Interfaces & Generic Type Aliases
+## 11. 🟡 Generic Interfaces & Generic Type Aliases
 
-## Konsep
+#### Konsep
 
 Mendefinisikan format respon API atau wrapper data standar yang dapat membungkus model payload apa saja.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // 1. Generic Interface Respon API Standar
@@ -570,13 +582,13 @@ interface ApiResponse<T> { status: number; data: T; } → interface generik untu
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Generic Classes
+## 12. 🟡 Generic Classes
 
-## Konsep
+#### Konsep
 
 Class yang dapat mengelola koleksi data atau logika internal untuk sembarang tipe data secara terisolasi dan type-safe.
 
-## Contoh
+#### Contoh
 
 ```typescript
 class GenericQueue<TItem> {
@@ -611,15 +623,15 @@ class DataStore<T> { private data: T[] = []; push(item: T) {} } → generic clas
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Generic Constraints dengan Keyword `extends`
+## 13. 🟡 Generic Constraints dengan Keyword `extends`
 
-## Konsep
+#### Konsep
 
 Secara default, `<T>` dapat berupa tipe apa saja. Jika Anda ingin memastikan bahwa `<T>` **wajib memiliki properti tertentu** (misal: harus memiliki properti `id: string`):
 
 Gunakan **Generic Constraints**: `<T extends BaseInterface>`.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface HasIdentity {
@@ -645,16 +657,16 @@ logEntityId({ id: "prod-1", name: "Laptop" }) // ✅ Lolos
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Operator `keyof` & Generic Property Constraints
+## 14. 🟡 Operator `keyof` & Generic Property Constraints
 
-## Konsep
+#### Konsep
 
 Operator **`keyof T`** menghasilkan gabungan string literal dari seluruh nama properti pada tipe `T`.
 
 Kombinasi `<T, K extends keyof T>`:
 Memungkinkan kita membuat fungsi pengambil properti objek yang **100% type-safe** (nama properti divalidasi compiler dan return value otomatis bertipe `T[K]`).
 
-## Contoh
+#### Contoh
 
 ```typescript
 function getProperty<T, K extends keyof T>(targetObject: T, propertyKey: K): T[K] {
@@ -679,15 +691,15 @@ const userAge = getProperty(user, "age")   // Tipe otomatis: number
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Default Generic Type Parameters
+## 15. 🟡 Default Generic Type Parameters
 
-## Konsep
+#### Konsep
 
 Sama seperti parameter fungsi biasa yang bisa memiliki nilai default, parameter tipe generik dapat memiliki **tipe default** jika pemanggil tidak menentukannya secara eksplisit.
 
 Format: `<T = DefaultType>`
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface HttpResponse<T = Record<string, unknown>> {
@@ -718,14 +730,14 @@ const userRes: HttpResponse<{ name: string }> = {
 
 <a id="bagian-16"></a>
 
-# 16. 🔴 Utility Types Inti 1: `Partial<T>` & `Required<T>`
+## 16. 🔴 Utility Types Inti 1: `Partial<T>` & `Required<T>`
 
-## Konsep
+#### Konsep
 
 1. **`Partial<T>`:** Mengubah **semua properti tipe `T` menjadi opsional (`?`)**. Sangat ideal untuk payload HTTP `PATCH` / Update DTO.
 2. **`Required<T>`:** Menghapus seluruh tanda `?` dan mengubah **semua properti menjadi wajib**.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface UserProfile {
@@ -754,14 +766,14 @@ Required<T> → membuat seluruh properti menjadi wajib (menghapus tanda ?)
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Utility Types Inti 2: `Readonly<T>` & `Record<K, T>`
+## 17. 🔴 Utility Types Inti 2: `Readonly<T>` & `Record<K, T>`
 
-## Konsep
+#### Konsep
 
 1. **`Readonly<T>`:** Mengunci seluruh properti tipe `T` agar **tidak dapat di-assign ulang nilainya**.
 2. **`Record<Keys, Type>`:** Membuat tipe objek kamus (*Dictionary / Map*) di mana key-nya bertipe `Keys` dan nilainya bertipe `Type`.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface Product {
@@ -796,14 +808,14 @@ Record<K, T>  → membuat dictionary objek bertipe key K dan value T
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Utility Types Inti 3: `Pick<T, K>` & `Omit<T, K>`
+## 18. 🔴 Utility Types Inti 3: `Pick<T, K>` & `Omit<T, K>`
 
-## Konsep
+#### Konsep
 
 1. **`Pick<T, Keys>`:** Membuat tipe baru dengan **hanya mengambil (*Pick*) properti tertentu** dari tipe `T`.
 2. **`Omit<T, Keys>`:** Membuat tipe baru dengan **membuang (*Omit*) properti tertentu** dari tipe `T`.
 
-## Contoh
+#### Contoh
 
 ```typescript
 interface DatabaseUser {
@@ -832,16 +844,16 @@ Omit<T, 'k1' | 'k2'> → membuang properti tertentu dari tipe T
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Generic Factory & Constructor Signatures
+## 19. 🔴 Generic Factory & Constructor Signatures
 
-## Konsep
+#### Konsep
 
 Dalam pola Dependency Injection atau Factory Pattern, kita sering perlu mengoper Class Constructor sebagai parameter dan membuat instance baru secara dinamis.
 
 Tipe Constructor Signature:
 `type Constructor<T> = new (...args: any[]) => T`
 
-## Contoh
+#### Contoh
 
 ```typescript
 type ClassConstructor<T> = new (...args: any[]) => T
@@ -869,9 +881,9 @@ new (...args: any[]) => T → tipe constructor generic untuk Factory Pattern dan
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Best Practice & Anti-Pattern Penggunaan Generics
+## 20. 🔴 Best Practice & Anti-Pattern Penggunaan Generics
 
-## Konsep
+#### Konsep
 
 Generics adalah alat yang sangat kuat, namun sering disalahgunakan (*Over-engineering*).
 
@@ -897,7 +909,7 @@ Aturan Emas Generics → gunakan generics hanya jika terdapat hubungan korelasi 
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                    PETA ARSITEKTUR TYPESCRIPT OOP & GENERICS
@@ -915,7 +927,7 @@ OBJECT-ORIENTED PROGRAMMING    GENERICS SYSTEM (<T>)          UTILITY TYPES TRAN
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Fitur / Keyword | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -936,7 +948,7 @@ OBJECT-ORIENTED PROGRAMMING    GENERICS SYSTEM (<T>)          UTILITY TYPES TRAN
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code TypeScript OOP & Generics 10 Detik
+## 23. ⚡ Cheat Code TypeScript OOP & Generics 10 Detik
 
 ```typescript
 // 1. Shorthand Class & Interface Implementation
@@ -956,7 +968,7 @@ type UpdateUserDTO = Partial<CreateUserDTO>
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Class Modern & Access Modifiers
@@ -986,7 +998,7 @@ Langkah 5: Siap Melangkah ke TypeScript Advanced (Mapped & Conditional Types)!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Enterprise Generic In-Memory Repository, Polymorphic Event Bus & Type-Safe Database Entity Service
+## 25. 🏗️ Mini Project: Production-Ready Enterprise Generic In-Memory Repository, Polymorphic Event Bus & Type-Safe Database Entity Service
 
 Aplikasi enterprise TypeScript lengkap, modern, dan runnable yang mengintegrasikan: **Abstract Base Service, Generic In-Memory Repository `<T extends BaseEntity>`, Polymorphic Event Bus, `Pick`/`Omit` DTOs, dan `Record` In-Memory Index Store**.
 
@@ -1191,7 +1203,7 @@ console.log("Ringkasan User:", newUser)
 userService.topUpBalance(newUser.id, 250000)
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 🔔 [Event Bus] User Baru Terdaftar: Alimur (alimur@dev.com) - ID: id-k8j3x9z1a
@@ -1203,7 +1215,7 @@ Ringkasan User: { id: 'id-k8j3x9z1a', name: 'Alimur', role: 'ADMIN' }
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [TypeScript Classes Documentation](https://www.typescriptlang.org/docs/handbook/2/classes.html)
 - [TypeScript Generics Documentation](https://www.typescriptlang.org/docs/handbook/2/generics.html)

@@ -1,4 +1,15 @@
-# Docker Compose Dasar Cheatsheet Revised
+---
+title: "Docker Compose Dasar"
+description: "Orkestrasi multi-container dengan Docker Compose: compose.yaml specification, Services, Networks, Volumes, Environment variables, Dependencies, dan Healthchecks."
+order: 3
+tags:
+  - devops
+  - docker
+  - docker-compose
+  - orchestration
+---
+
+# Docker Compose Dasar
 
 > **Target:** Pemula yang sudah memahami dasar Docker (image, container, volume, network) dan ingin menguasai Docker Compose untuk mendefinisikan, mengonfigurasi, dan menjalankan aplikasi multi-kontainer secara deklaratif dan terorkestrasi.
 >
@@ -98,13 +109,13 @@ docker compose down  → Mematikan dan membersihkan seluruh kontainer dan networ
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Docker Compose & Orkestrasi Multi-Container
+## 1. 🟢 Pengenalan Docker Compose & Orkestrasi Multi-Container
 
-## Konsep
+#### Konsep
 
 **Docker Compose** adalah sebuah tool orkestrasi deklaratif resmi dari Docker yang digunakan untuk mendefinisikan, mengonfigurasi, dan menjalankan aplikasi multi-kontainer (*Multi-Container Applications*) menggunakan sebuah file konfigurasi berbasis **YAML**.
 
-### Mengapa Membutuhkan Docker Compose?
+##### Mengapa Membutuhkan Docker Compose?
 Aplikasi web modern di dunia nyata hampir tidak pernah berdiri sendiri hanya dengan 1 kontainer tunggal. Sebuah sistem biasanya terdiri dari kombinasi:
 - Kontainer Web Server (Nginx / Apache)
 - Kontainer Backend API (Node.js / Laravel / Go / Python)
@@ -115,7 +126,7 @@ Aplikasi web modern di dunia nyata hampir tidak pernah berdiri sendiri hanya den
 **Tanpa Compose:** Developer harus mengetikkan puluhan perintah `docker network create`, `docker volume create`, dan `docker run -d --network ... -p ... -v ... -e ...` secara manual dengan urutan yang rawan salah.
 **Dengan Compose:** Seluruh konfigurasi jaringan, volume, variabel environment, dan kontainer didefinisikan secara rapi di dalam file **`compose.yaml`**, dan seluruh sistem dapat dinyalakan hanya dengan **1 perintah tunggal: `docker compose up -d`**.
 
-## Contoh
+#### Contoh
 
 Contoh file `compose.yaml` sederhana yang menghubungkan Web Server Nginx dan Database MySQL:
 
@@ -140,7 +151,7 @@ Perintah Menjalankan Seluruh Aplikasi:
 docker compose up -d
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Running 3/3
@@ -149,7 +160,7 @@ docker compose up -d
  ✔ Container myproject-web-1  Started                                      0.4s
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  File Definisi: compose.yaml
@@ -176,7 +187,7 @@ docker compose up -d→ Membuat network, volume, dan menyalakan seluruh service 
 docker compose down → Mematikan dan membersihkan seluruh kontainer & network project
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Docker Compose untuk seluruh kebutuhan development lokal agar setiap anggota tim dapat menjalankan seluruh stack aplikasi dalam 1 kali klik.
 - ❌ Jangan menjalankan banyak perintah `docker run` terpisah satu per satu di terminal jika aplikasi Anda terdiri dari lebih dari 1 kontainer.
@@ -185,9 +196,9 @@ docker compose down → Mematikan dan membersihkan seluruh kontainer & network p
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Menginstall & Memverifikasi Docker Compose (Compose V2)
+## 2. 🟢 Menginstall & Memverifikasi Docker Compose (Compose V2)
 
-## Konsep
+#### Konsep
 
 Pada ekosistem Docker modern, Docker Compose telah berevolusi menjadi **Compose V2**:
 - **Compose V1 (Jadul / Usang):** Ditulis dalam bahasa Python dengan perintah CLI bertanda minus (`docker-compose`). Versi ini sudah resmi *Deprecated* dan dihentikan.
@@ -197,7 +208,7 @@ Status Instalasi:
 - **Docker Desktop (Windows & macOS):** Compose V2 sudah terinstal secara otomatis dan langsung siap digunakan.
 - **Linux Server:** Terinstal sebagai paket `docker-compose-plugin`.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Memeriksa versi Docker Compose V2 yang terpasang
@@ -207,7 +218,7 @@ docker compose version
 docker compose --help
 ```
 
-## Output
+#### Output
 
 ```text
 Docker Compose version v2.27.0
@@ -217,7 +228,7 @@ Usage:  docker compose [OPTIONS] COMMAND
 Define and run multi-container applications with Docker.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Terminal CLI: docker compose ...
@@ -237,7 +248,7 @@ docker compose         → Sintaks resmi Compose V2 modern
 docker-compose         → Sintaks usang Compose V1 (TIDAK LAGI DIGUNAKAN)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan sintaks modern `docker compose` (dengan spasi) di seluruh dokumentasi dan skrip CI/CD baru.
 - ❌ Hindari menggunakan sintaks jadul `docker-compose` (dengan tanda minus) karena sudah tidak menerima pembaruan fitur keamanan.
@@ -246,9 +257,9 @@ docker-compose         → Sintaks usang Compose V1 (TIDAK LAGI DIGUNAKAN)
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Format File Konfigurasi (compose.yaml vs docker-compose.yml)
+## 3. 🟢 Format File Konfigurasi (compose.yaml vs docker-compose.yml)
 
-## Konsep
+#### Konsep
 
 Docker Compose membaca konfigurasi deklaratif dari sebuah file di folder direktori aktif.
 
@@ -258,10 +269,10 @@ Urutan Prioritas Penamaan File Resmi (*Compose Specification*):
 3. **`docker-compose.yaml`**
 4. **`docker-compose.yml`** (Format warisan/legacy yang tetap didukung untuk backward compatibility).
 
-### Catatan Penting Tentang `version:` Tag:
+##### Catatan Penting Tentang `version:` Tag:
 Pada spesifikasi Compose Specification modern (Compose V2), **baris deklarasi `version: '3.8'` SUDAH TIDAK DIPERLUKAN LAGI (Obsolete)**. Docker Compose modern akan secara otomatis menggunakan spesifikasi fitur terbaru tanpa perlu menuliskan tag `version` di baris pertama.
 
-## Contoh
+#### Contoh
 
 Struktur File `compose.yaml` Modern yang Bersih:
 
@@ -279,7 +290,7 @@ services:
       - NODE_ENV=production
 ```
 
-## Output
+#### Output
 
 ```bash
 # Docker otomatis mendeteksi file compose.yaml di direktori saat ini
@@ -309,7 +320,7 @@ networks:
     name: my-app_default
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Perintah: docker compose up
@@ -329,7 +340,7 @@ docker-compose.yml    → Nama file alternatif lama yang masih kompatibel
 Tag 'version:'        → Sudah usang (obsolete) dan tidak wajib ditulis lagi di Compose V2
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan nama file `compose.yaml` untuk proyek-proyek baru.
 - ❌ Jangan khawatir jika tidak menuliskan `version: '3.8'`; Compose Specification modern sengaja menghapusnya agar konfigurasi lebih simpel.
@@ -338,9 +349,9 @@ Tag 'version:'        → Sudah usang (obsolete) dan tidak wajib ditulis lagi di
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Sintaks Dasar YAML untuk Docker Compose
+## 4. 🟢 Sintaks Dasar YAML untuk Docker Compose
 
-## Konsep
+#### Konsep
 
 **YAML (YAML Ain't Markup Language)** adalah format serialisasi data yang mengandalkan **Indentasi Spasi (*Whitespace Indentation*)** untuk menentukan struktur hierarki data.
 
@@ -351,7 +362,7 @@ Aturan Emas Sintaks YAML:
 4. **Komentar:** Ditulis dengan awalan tanda pagar (`#`).
 5. **String Khusus (Port & Boolean):** Selalu bungkus nomor port dengan tanda kutip (misal `"8080:80"`) agar tidak dianggap sebagai bilangan basis-60 oleh parser YAML.
 
-## Contoh
+#### Contoh
 
 ```yaml
 # Contoh Struktur YAML yang Valid & Rapi
@@ -374,7 +385,7 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
 ```
 
-## Output
+#### Output
 
 Memvalidasi sintaks YAML sebelum dijalankan:
 ```bash
@@ -385,7 +396,7 @@ docker compose config --quiet && echo "Sintaks YAML 100% VALID!"
 Sintaks YAML 100% VALID!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      services:              (Tingkat 0: Induk Service)
@@ -403,7 +414,7 @@ List / Array   → Awali baris dengan '- ' (strip spasi)
 Quotes Port    → Selalu beri tanda kutip pada port "- "8080:80""
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Aktifkan ekstensi *YAML linter* di editor kode (seperti VS Code) untuk mendeteksi spasi yang tidak sejajar secara otomatis.
 - ❌ Jangan pernah menggunakan tombol Tab di dalam file `compose.yaml`.
@@ -412,9 +423,9 @@ Quotes Port    → Selalu beri tanda kutip pada port "- "8080:80""
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Siklus Hidup Compose (docker compose up, start, stop, restart, & down)
+## 5. 🟢 Siklus Hidup Compose (docker compose up, start, stop, restart, & down)
 
-## Konsep
+#### Konsep
 
 Docker Compose mengelola seluruh siklus hidup (*Lifecycle*) kumpulan kontainer secara serentak sebagai satu kesatuan proyek (*Project*).
 
@@ -428,7 +439,7 @@ Perintah Siklus Hidup Utama:
 - **`docker compose start`:** Menyalakan kembali kontainer yang sedang stop.
 - **`docker compose restart`:** Memuat ulang seluruh service.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Menyalakan seluruh stack aplikasi di background
@@ -447,7 +458,7 @@ docker compose down
 docker compose down -v
 ```
 
-## Output
+#### Output
 
 Saat `docker compose up -d`:
 ```text
@@ -464,7 +475,7 @@ Saat `docker compose down`:
  ✔ Network myapp_default  Removed                                          0.1s
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                      docker compose up -d
@@ -491,7 +502,7 @@ docker compose down -v    → Menghapus kontainer + network + VOLUME PERSISTEN
 docker compose restart    → Memuat ulang seluruh service
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan `docker compose down` saat selesai bekerja untuk menjaga laptop tetap bersih dari kontainer dan network yang menggantung.
 - ❌ Hati-hati jangan menambahkan flag `-v` pada `docker compose down -v` jika Anda tidak berniat menghapus isi database lokal Anda.
@@ -500,9 +511,9 @@ docker compose restart    → Memuat ulang seluruh service
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Pemantauan Service & Log (docker compose ps, logs, & top)
+## 6. 🟢 Pemantauan Service & Log (docker compose ps, logs, & top)
 
-## Konsep
+#### Konsep
 
 Ketika mengelola banyak kontainer yang berjalan bersamaan, kita membutuhkan perintah pemantauan terpusat untuk melihat status kesehatan, proses yang berjalan, dan log keluaran dari seluruh service.
 
@@ -514,7 +525,7 @@ Perintah Pemantauan:
   - Argumen **`[service_name]`:** Hanya memantau log service tertentu (misal: `docker compose logs -f web`).
 - **`docker compose top`:** Menampilkan daftar proses sistem (*PID*) yang sedang aktif berjalan di dalam setiap kontainer.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Melihat status seluruh service yang dikelola compose
@@ -530,7 +541,7 @@ docker compose logs --tail 20 db
 docker compose top
 ```
 
-## Output
+#### Output
 
 ```text
 NAME                IMAGE          COMMAND                  SERVICE   CREATED         STATUS         PORTS
@@ -541,7 +552,7 @@ myapp-db-1   | 2026-08-29T10:46:01.123456Z 0 [System] [MY-010931] [Server] /usr/
 myapp-db-1   | Version: '8.0.36'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Container 'web' (stdout) ──┐
@@ -557,7 +568,7 @@ docker compose logs -f [srv]   → Memantau rekaman log service secara live real
 docker compose top             → Menampilkan daftar proses aktif di dalam kontainer
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Sertakan nama service spesifik (misal: `docker compose logs -f backend`) agar terminal tidak dipenuhi log dari service lain yang tidak relevan saat debugging.
 - ❌ Jangan menjalankan `docker compose logs` tanpa parameter pada sistem yang sudah berjalan lama tanpa batas baris (`--tail`).
@@ -566,9 +577,9 @@ docker compose top             → Menampilkan daftar proses aktif di dalam kont
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Menjalankan Perintah di Service (docker compose exec & run)
+## 7. 🟢 Menjalankan Perintah di Service (docker compose exec & run)
 
-## Konsep
+#### Konsep
 
 Docker Compose menyediakan dua perintah untuk mengeksekusi instruksi di dalam lingkungan service:
 
@@ -579,7 +590,7 @@ Docker Compose menyediakan dua perintah untuk mengeksekusi instruksi di dalam li
    - Membuat dan menyalakan **KONTAINER BARU SEMENTARA** dari definisi service tersebut, mengeksekusi perintah satu kali, lalu berhenti (*one-off task*).
    - Sangat ideal untuk: inisialisasi awal proyek atau backup data.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Membuka terminal shell interaktif ke dalam service 'web' yang sedang aktif
@@ -592,7 +603,7 @@ docker compose exec backend npm run test
 docker compose run --rm backend npm install axios
 ```
 
-## Output
+#### Output
 
 Saat membuka shell `docker compose exec web sh`:
 ```text
@@ -604,7 +615,7 @@ drwxr-xr-x    1 root     root          4096 Aug 29 10:46 usr
 / # exit
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    docker compose exec backend npm test ──► Masuk ke Kontainer 'backend' yang Sedang Berjalan
@@ -619,7 +630,7 @@ docker compose exec <service> <cmd>  → Menjalankan perintah di dalam kontainer
 docker compose run --rm <service> <cmd> → Menjalankan perintah di dalam kontainer BARU SATU KALI
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu sertakan flag `--rm` saat menggunakan `docker compose run --rm` agar kontainer sementara tidak menumpuk sebagai sampah disk.
 - ❌ Jangan gunakan `docker compose exec` pada service yang statusnya sedang mati/stopped (service wajib berstatus *Up*).
@@ -628,9 +639,9 @@ docker compose run --rm <service> <cmd> → Menjalankan perintah di dalam kontai
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Project Name & Isolasi Lingkungan (-p / COMPOSE_PROJECT_NAME)
+## 8. 🟢 Project Name & Isolasi Lingkungan (-p / COMPOSE_PROJECT_NAME)
 
-## Konsep
+#### Konsep
 
 Secara default, Docker Compose menggunakan **nama folder tempat file `compose.yaml` berada** sebagai **Project Name**.
 
@@ -639,14 +650,14 @@ Nama project ini digunakan oleh Docker Compose sebagai awalan (*prefix*) penamaa
 - **Nama Network:** `<project_name>_default` (misal: `myproject_default`).
 - **Nama Volume:** `<project_name>_<volume_name>` (misal: `myproject_db_data`).
 
-### Cara Mengubah Project Name:
+##### Cara Mengubah Project Name:
 1. **Atribut `name:` di dalam `compose.yaml`:** Mendefinisikan nama proyek secara eksplisit.
 2. **Flag `-p / --project-name`:** `docker compose -p staging up -d`.
 3. **Environment Variable `COMPOSE_PROJECT_NAME`:** Di dalam file `.env`.
 
 Keuntungan: Memungkinkan kita menjalankan **beberapa instance lingkungan yang berbeda (Development, Staging, Feature-Branch)** dari file konfigurasi yang sama di satu mesin server tanpa bentrok nama!
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -663,7 +674,7 @@ Menjalankan dengan Project Name Khusus via CLI:
 docker compose -p toko-staging up -d
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Running 2/2
@@ -671,7 +682,7 @@ docker compose -p toko-staging up -d
  ✔ Container toko-staging-web-1  Started                                   0.3s
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                      Project Name: toko-staging
@@ -690,7 +701,7 @@ name: custom_name di YAML    → Menetapkan nama proyek di dalam compose.yaml
 docker compose -p name up -d → Menjalankan stack dengan namespace project terpisah
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Tetapkan atribut `name: nama-proyek` di baris atas `compose.yaml` agar penamaan kontainer tetap konsisten meskipun nama folder proyek di-rename oleh developer lain.
 - ❌ Hati-hati jika menjalankan perintah `docker compose -p nama_a down`, jangan sampai tertukar dengan project `nama_b`.
@@ -699,9 +710,9 @@ docker compose -p name up -d → Menjalankan stack dengan namespace project terp
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Deklarasi Service & Image (services: & image:)
+## 9. 🟢 Deklarasi Service & Image (services: & image:)
 
-## Konsep
+#### Konsep
 
 Blok utama di dalam `compose.yaml` adalah **`services:`**. Setiap item di bawah `services:` merepresentasikan satu komponen aplikasi atau satu kontainer yang akan dijalankan.
 
@@ -710,7 +721,7 @@ Kunci Properti Service:
 - **`container_name:` (Opsional):** Memberi nama kustom statis pada kontainer (jika tidak diisi, Docker Compose akan memberi nama otomatis `<project>-<service>-1`).
 - **`command:` (Opsional):** Menimpa default `CMD` bawaan image (misal: `command: ["npm", "run", "dev"]`).
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -729,7 +740,7 @@ services:
       POSTGRES_PASSWORD: supersecretpassword
 ```
 
-## Output
+#### Output
 
 ```bash
 docker compose up -d
@@ -742,7 +753,7 @@ custom-postgres-db    postgres:16-alpine   Up 2 seconds   5432/tcp
 toko-api-service-1    node:20-alpine       Up 2 seconds   
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
     services:
@@ -759,7 +770,7 @@ container_name: <name>     → Memberikan nama statis pada kontainer
 command: ["cmd", "arg"]    → Menimpa perintah default startup kontainer
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Berikan nama service yang ringkas dan deskriptif (`web`, `api`, `db`, `cache`) karena nama service ini otomatis menjadi **Hostname DNS internal**.
 - ❌ Hindari menggunakan `container_name:` statis jika Anda berencana melakukan *scaling* kontainer menjadi banyak instance (`--scale`), karena nama kontainer akan bentrok.
@@ -768,9 +779,9 @@ command: ["cmd", "arg"]    → Menimpa perintah default startup kontainer
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Port Mapping (ports:)
+## 10. 🟢 Port Mapping (ports:)
 
-## Konsep
+#### Konsep
 
 Secara default, seluruh port antar service di dalam file Compose saling terhubung secara internal melalui private network. Namun port tersebut **belum dapat diakses oleh browser dari komputer Host**.
 
@@ -784,7 +795,7 @@ ports:
 - Selalu gunakan tanda kutip ganda (`"8080:80"`).
 - Jika Anda hanya ingin mengekspos port ke localhost mesin lokal saja (keamanan), tulis: `"127.0.0.1:8080:80"`.
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -804,7 +815,7 @@ services:
       - "127.0.0.1:3306:3306"
 ```
 
-## Output
+#### Output
 
 ```bash
 docker compose up -d
@@ -818,7 +829,7 @@ docker compose up -d
 
 Akses di browser: `http://localhost:8080` -> Tampil halaman Nginx.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Browser di Laptop Host ──► Request ke localhost:8080
@@ -835,7 +846,7 @@ ports:
   - "127.0.0.1:p1:p2" → Membatasi akses port hanya untuk mesin lokal (keamanan)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Hanya buka port yang benar-benar membutuhkan akses dari luar (misal web server `80/443`). Jangan membuka port database ke internet publik di server produksi.
 - ❌ Jangan lupa membungkus pasangan port dengan tanda kutip (tulis `"8080:80"`, bukan `8080:80`).
@@ -844,9 +855,9 @@ ports:
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Environment Variables (environment: & env_file:)
+## 11. 🟢 Environment Variables (environment: & env_file:)
 
-## Konsep
+#### Konsep
 
 Untuk menyuntikkan konfigurasi dinamis dan kredensial ke dalam kontainer, Docker Compose menyediakan dua pendekatan:
 
@@ -857,7 +868,7 @@ Dua Format Penulisan `environment:`:
 - **Format Array:** `- KEY=VALUE`
 - **Format Map (Key-Value):** `KEY: VALUE`
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -888,7 +899,7 @@ JWT_SECRET=super_secret_jwt_key_2026
 API_KEY=xyz987654321
 ```
 
-## Output
+#### Output
 
 Memeriksa environment variable di dalam kontainer yang sedang berjalan:
 ```bash
@@ -900,7 +911,7 @@ NODE_ENV=production
 DB_HOST=db-service
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          File .env (JWT_SECRET) + compose.yaml (NODE_ENV)
@@ -919,7 +930,7 @@ environment:          → Mendefinisikan variabel lingkungan langsung di file co
 env_file:             → Membaca variabel rahasia dari file eksternal (.env)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pisahkan password dan API key rahasia ke dalam file `.env` dan masukkan file `.env` ke dalam `.gitignore`.
 - ❌ Jangan pernah meng-hardcode password produksi di dalam blok `environment:` file `compose.yaml` yang di-push ke repositori publik.
@@ -928,9 +939,9 @@ env_file:             → Membaca variabel rahasia dari file eksternal (.env)
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Penyimpanan Persistent: Volumes (volumes:)
+## 12. 🟡 Penyimpanan Persistent: Volumes (volumes:)
 
-## Konsep
+#### Konsep
 
 Untuk menyimpan data yang bersifat permanen (*Persistent Data*) seperti file database atau file upload user agar tidak hilang saat kontainer dimatikan (`docker compose down`), kita menggunakan **Named Volumes** yang dikelola langsung oleh Docker Engine.
 
@@ -938,7 +949,7 @@ Dua Bagian Deklarasi Volume di Compose:
 1. **Blok Level Service (`services.<name>.volumes`):** Menghubungkan named volume ke path direktori di dalam kontainer (`<volume_name>:<container_path>`).
 2. **Blok Top-Level (`volumes:` di baris paling bawah):** Mendeklarasikan volume tersebut secara resmi di level proyek.
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -956,7 +967,7 @@ volumes:
   pg_data:
 ```
 
-## Output
+#### Output
 
 Memeriksa volume yang otomatis dibuat dengan prefix nama proyek:
 ```bash
@@ -969,7 +980,7 @@ DRIVER    VOLUME NAME
 local     myproject_pg_data
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Kontainer 'database' (/var/lib/postgresql/data)
@@ -989,7 +1000,7 @@ volumes:
   named_vol:                     → Wajib didaftarkan di root top-level volumes:
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu daftarkan nama volume di blok top-level `volumes:` di akhir file `compose.yaml`.
 - ❌ Jangan lupa bahwa menjalankan `docker compose down -v` akan menghapus seluruh named volume proyek Anda beserta isinya.
@@ -998,9 +1009,9 @@ volumes:
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Bind Mounts untuk Development (volumes: host:container)
+## 13. 🟡 Bind Mounts untuk Development (volumes: host:container)
 
-## Konsep
+#### Konsep
 
 Dalam lingkungan pengembangan (*Local Development*), developer ingin mengedit file source code di laptop (komputer Host) dan melihat perubahannya **langsung terjadi secara instan di dalam kontainer tanpa perlu build ulang image (*Hot-Reloading*)**.
 
@@ -1012,7 +1023,7 @@ volumes:
 - Jalur host diawali dengan titik slash (`./`) yang menandakan folder relatif dari lokasi file `compose.yaml`.
 - **Tidak perlu** mendaftarkan folder bind mount di blok top-level `volumes:`.
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1029,7 +1040,7 @@ services:
     command: ["npm", "run", "dev"]
 ```
 
-## Output
+#### Output
 
 ```bash
 docker compose up -d
@@ -1037,7 +1048,7 @@ docker compose up -d
 
 Edit file `src/App.js` di VS Code laptop Anda -> Browser di `http://localhost:3000` akan me-reload perubahan secara instan!
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
     Folder Laptop Developer (./src)
@@ -1059,7 +1070,7 @@ Edit file `src/App.js` di VS Code laptop Anda -> Browser di `http://localhost:30
 :ro                                → Opsi Read-Only agar kontainer tidak mengubah file lokal host
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Bind Mounts untuk lingkungan development lokal (*hot reload*).
 - ❌ Jangan gunakan Bind Mounts untuk database di server produksi; selalu gunakan Named Volume resmi.
@@ -1068,9 +1079,9 @@ Edit file `src/App.js` di VS Code laptop Anda -> Browser di `http://localhost:30
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Jaringan Antar Service: Networks (networks:)
+## 14. 🟡 Jaringan Antar Service: Networks (networks:)
 
-## Konsep
+#### Konsep
 
 Secara default, Docker Compose **secara otomatis membuat 1 jaringan Virtual Bridge bersama (`<project>_default`)** dan menghubungkan seluruh service yang ada di dalam file ke jaringan tersebut.
 
@@ -1079,7 +1090,7 @@ Semua service di dalam file yang sama **langsung dapat saling memanggil mengguna
 Kustomisasi Multi-Network (Isolasi Bertingkat):
 Kita bisa membuat beberapa jaringan terpisah untuk meningkatkan keamanan (misal: jaringan publik `frontend-net` dan jaringan privat `backend-net`).
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1113,7 +1124,7 @@ networks:
   backend-net:
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Running 5/5
@@ -1124,7 +1135,7 @@ networks:
  ✔ Container myapp-web-1       Started                                     0.3s
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    [web] ◄──(frontend-net)──► [api] ◄──(backend-net)──► [db]
@@ -1141,7 +1152,7 @@ Automatic DNS  → Service 'web' memanggil service 'db' cukup dengan nama hostna
 networks:      → Membuat jaringan terisolasi untuk memisahkan service publik & database privat
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan Embedded DNS bawaan Compose: gunakan nama service (`db`, `cache`) sebagai konfigurasi `DB_HOST` aplikasi Anda.
 - ❌ Jangan pernah menghubungkan kontainer menggunakan IP address yang di-hardcode.
@@ -1150,21 +1161,21 @@ networks:      → Membuat jaringan terisolasi untuk memisahkan service publik &
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Dependensi Urutan Booting: Depends On (depends_on & service_healthy)
+## 15. 🟡 Dependensi Urutan Booting: Depends On (depends_on & service_healthy)
 
-## Konsep
+#### Konsep
 
 Dalam aplikasi nyata, backend tidak boleh menyala sebelum database siap melayani koneksi. Jika backend menyala lebih cepat dari database, backend akan langsung crash (*Database Connection Refused*).
 
 Atribut **`depends_on`** digunakan untuk mengatur urutan prioritas pembuatan dan penyalaan service.
 
-### 2 Tingkatan `depends_on`:
+##### 2 Tingkatan `depends_on`:
 1. **Level Sederhana (Hanya Urutan Start):**
    `depends_on: [db]` -> Hanya memastikan kontainer `db` dinyalakan terlebih dahulu, **TIDAK MENJAMIN** database di dalamnya sudah siap menerima query.
 2. **Level Lanjutan (Menunggu Status Sehat / SANGAT DIREKOMENDASIKAN):**
    Menggunakan kombinasi **`condition: service_healthy`** bersamaan dengan blok `healthcheck:`. Backend **HANYA AKAN MENYALA setelah Database berstatus benar-benar Sehat (*Healthy*)**.
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1192,7 +1203,7 @@ services:
     command: ["npm", "start"]
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Running 2/2
@@ -1202,7 +1213,7 @@ services:
 
 (Perhatikan: `backend` menunggu dengan sabar hingga `db` berstatus **Healthy** sebelum menyala!).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          docker compose up
@@ -1225,7 +1236,7 @@ depends_on:
     condition: service_healthy → Menunggu service dependensi berstatus Healthy sebelum start
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan pola `condition: service_healthy` untuk dependensi database agar backend tidak mengalami crash saat booting.
 - ❌ Jangan hanya menggunakan `depends_on: [db]` sederhana jika aplikasi backend Anda tidak memiliki logika *auto-reconnect retry* bawaan.
@@ -1234,9 +1245,9 @@ depends_on:
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Restart Policy (restart: always, unless-stopped)
+## 16. 🟡 Restart Policy (restart: always, unless-stopped)
 
-## Konsep
+#### Konsep
 
 Atribut **`restart:`** menentukan kebijakan Docker Engine saat kontainer mengalami crash (*abnormal exit*) atau saat mesin server host dinyalakan ulang (*server reboot*).
 
@@ -1246,7 +1257,7 @@ Pilihan Nilai:
 - **`on-failure`:** Me-restart kontainer hanya jika proses aplikasi di dalamnya crash (*exit code* non-nol).
 - **`unless-stopped` (Sangat Direkomendasikan):** Selalu me-restart kontainer, KECUALI jika kontainer dihentikan secara sengaja melalui perintah `docker compose stop`.
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1263,7 +1274,7 @@ services:
     command: ["node", "worker.js"]
 ```
 
-## Output
+#### Output
 
 ```bash
 docker compose up -d
@@ -1278,7 +1289,7 @@ myapp-worker-1    node:20-alpine Up 5 seconds
 
 (Jika server host di-reboot, service `web` akan otomatis langsung menyala kembali!).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Server Host Reboot
@@ -1297,7 +1308,7 @@ restart: unless-stopped → Kebijakan terbaik: otomatis menyala kembali kecuali 
 restart: on-failure     → Restart otomatis hanya jika aplikasi mengalami crash
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pasang `restart: unless-stopped` pada seluruh service backend dan database yang berjalan di server produksi.
 - ❌ Hindari menggunakan `restart: always` pada script migrasi atau seeder yang tugasnya hanya berjalan satu kali (*one-off tasks*).
@@ -1306,9 +1317,9 @@ restart: on-failure     → Restart otomatis hanya jika aplikasi mengalami crash
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Resource Limits (deploy.resources.limits)
+## 17. 🟡 Resource Limits (deploy.resources.limits)
 
-## Konsep
+#### Konsep
 
 Untuk mencegah satu kontainer yang mengalami kebocoran memori (*memory leak*) atau lonjakan komputasi memonopoli seluruh sumber daya CPU dan RAM server, kita wajib membatasi kapasitas maksimum sumber daya menggunakan blok **`deploy.resources.limits`**.
 
@@ -1316,7 +1327,7 @@ Parameter Pembatasan:
 - **`cpus:`:** Batas alokasi core CPU (misal: `'0.5'` untuk 50% core CPU, `'2.0'` untuk 2 core penuh).
 - **`memory:`:** Batas alokasi RAM maksimal (misal: `512M`, `1G`, `2G`).
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1340,7 +1351,7 @@ services:
           memory: 256M
 ```
 
-## Output
+#### Output
 
 Memverifikasi batas memori via `docker stats`:
 ```bash
@@ -1353,7 +1364,7 @@ CONTAINER ID   NAME                  CPU %     MEM USAGE / LIMIT     MEM %
 8a9b0c1d2e3f   myapp-cache-1         0.04%     8.21MiB / 256MiB      3.21%
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Compose menyetel parameter cgroups ke Docker Daemon
@@ -1372,7 +1383,7 @@ deploy:
       memory: 512M    → Batas maksimal RAM 512 Megabyte
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu tetapkan batas `limits.memory` pada seluruh service di file compose staging dan produksi.
 - ❌ Jangan menyetel nilai batas memori terlalu kecil di bawah kapasitas minimal startup runtime aplikasi Anda.
@@ -1381,9 +1392,9 @@ deploy:
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Custom Dockerfile Build (build: & dockerfile:)
+## 18. 🟡 Custom Dockerfile Build (build: & dockerfile:)
 
-## Konsep
+#### Konsep
 
 Selain menarik image jadi dari Docker Hub (`image:`), Docker Compose dapat mengompilasi dan membangun Dockerfile lokal milik kita sendiri secara otomatis menggunakan atribut **`build:`**.
 
@@ -1398,7 +1409,7 @@ Perintah Rebuild:
 docker compose up -d --build
 ```
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1429,7 +1440,7 @@ project-root/
     └── src/
 ```
 
-## Output
+#### Output
 
 ```bash
 docker compose up -d --build
@@ -1443,7 +1454,7 @@ docker compose up -d --build
  ✔ Container project-backend-api-1  Started                                0.3s
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          docker compose up -d --build
@@ -1467,7 +1478,7 @@ build:
 docker compose up --build → Memaksa kompilasi ulang image lokal saat menyalakan service
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu sertakan flag `--build` (`docker compose up -d --build`) saat Anda baru saja mengubah isi kode program atau dependensi di Dockerfile lokal.
 - ❌ Jangan lupa membuat file `.dockerignore` di dalam folder context agar proses build lokal tetap cepat.
@@ -1476,9 +1487,9 @@ docker compose up --build → Memaksa kompilasi ulang image lokal saat menyalaka
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Health Check (healthcheck:)
+## 19. 🟡 Health Check (healthcheck:)
 
-## Konsep
+#### Konsep
 
 Blok **`healthcheck:`** di dalam Docker Compose memungkinkan kita mendefinisikan pengujian kesehatan service secara periodik langsung dari file `compose.yaml` tanpa perlu mengubah isi file Dockerfile asli.
 
@@ -1489,7 +1500,7 @@ Parameter Konfigurasi:
 - **`retries:`:** Toleransi jumlah kegagalan (misal: `3`).
 - **`start_period:`:** Waktu jeda inisialisasi awal saat booting (misal: `15s`).
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1516,7 +1527,7 @@ services:
       retries: 5
 ```
 
-## Output
+#### Output
 
 Memeriksa status kesehatan seluruh service:
 ```bash
@@ -1529,7 +1540,7 @@ myapp-postgres-db-1      postgres:16-alpine   Up 20 seconds (healthy)   5432/tcp
 myapp-web-service-1      nginx:alpine         Up 20 seconds (healthy)   0.0.0.0:80->80/tcp
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Setiap 10 Detik: Eksekusi test di dalam kontainer
@@ -1549,7 +1560,7 @@ healthcheck:
   interval: 10s                      → Frekuensi pengujian berkala
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pasang Healthcheck pada seluruh service kunci (Database, Redis, API) agar service lain yang bergantung via `depends_on` dapat sinkron secara presisi.
 - ❌ Pastikan tool utilitas uji (seperti `wget`, `curl`, atau `pg_isready`) tersedia di dalam image yang digunakan.
@@ -1558,9 +1569,9 @@ healthcheck:
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Extend Service & Overrides (extends: & docker-compose.override.yml)
+## 20. 🔴 Extend Service & Overrides (extends: & docker-compose.override.yml)
 
-## Konsep
+#### Konsep
 
 Dalam proyek profesional, kita sering membutuhkan **konfigurasi yang berbeda antara lingkungan Development dan Production** (misal: di dev kita butuh bind mounts hot-reload dan debug port, sedangkan di prod kita butuh image build statis dan restart policy ketat).
 
@@ -1572,7 +1583,7 @@ Docker Compose menyediakan 2 mekanisme pewarisan konfigurasi:
    `docker compose -f compose.yaml -f compose.prod.yaml up -d`
 3. **Instruksi `extends:`:** Mewarisi konfigurasi dari service lain yang ada di file yang sama atau file berbeda.
 
-## Contoh
+#### Contoh
 
 File Konfigurasi Utama (`compose.yaml`):
 ```yaml
@@ -1614,7 +1625,7 @@ Eksekusi CLI di Server Produksi:
 docker compose -f compose.yaml -f compose.prod.yaml up -d
 ```
 
-## Output
+#### Output
 
 Memeriksa hasil penggabungan (*Merged Config*):
 ```bash
@@ -1631,7 +1642,7 @@ services:
     restart: unless-stopped
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    compose.yaml (Base)  +  compose.prod.yaml (Production)
@@ -1649,7 +1660,7 @@ compose.override.yaml        → Otomatis digabung saat 'docker compose up' (khu
 docker compose -f f1 -f f2   → Menggabungkan beberapa file compose secara eksplisit
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pisahkan konfigurasi sensitif development ke dalam `compose.override.yaml` dan masukkan ke dalam `.gitignore`.
 - ❌ Jangan menaruh konfigurasi port development yang terbuka lebar di dalam file `compose.yaml` dasar.
@@ -1658,9 +1669,9 @@ docker compose -f f1 -f f2   → Menggabungkan beberapa file compose secara eksp
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 Compose File Interpolation & .env Variables (${VAR:-default})
+## 21. 🔴 Compose File Interpolation & .env Variables (${VAR:-default})
 
-## Konsep
+#### Konsep
 
 Docker Compose mendukung fitur **Interpolasi Variabel (*Variable Interpolation*)**, yaitu menyuntikkan nilai dari file `.env` atau environment host langsung ke dalam teks file `compose.yaml` menggunakan sintaks **`${VARIABLE_NAME}`**.
 
@@ -1669,7 +1680,7 @@ Format Sintaks Interpolasi:
 - **`${VAR:-default_value}` (Fallback Default):** Jika `VAR` belum disetel atau kosong, gunakan nilai `default_value`.
 - **`${VAR:?error_message}` (Wajib Ada):** Jika `VAR` belum disetel, hentikan proses build dan tampilkan pesan error.
 
-## Contoh
+#### Contoh
 
 File `compose.yaml`:
 ```yaml
@@ -1694,7 +1705,7 @@ APP_PORT=9000
 DB_PASSWORD=secret_database_password_2026
 ```
 
-## Output
+#### Output
 
 Memeriksa hasil interpolasi variabel via `docker compose config`:
 ```bash
@@ -1715,7 +1726,7 @@ services:
         protocol: tcp
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          File .env (APP_PORT=9000)
@@ -1735,7 +1746,7 @@ ${VAR:-default}    → Menggunakan nilai fallback 'default' jika variabel belum 
 ${VAR:?error_msg}  → Menolak berjalan & menampilkan pesan error jika variabel kosong
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu sediakan nilai fallback default (`${PORT:-3000}`) agar file compose tetap bisa berjalan normal meskipun developer baru lupa membuat file `.env`.
 - ❌ Jangan mengabaikan pesan error `${VAR:?error}` pada variabel kredensial penting.
@@ -1744,9 +1755,9 @@ ${VAR:?error_msg}  → Menolak berjalan & menampilkan pesan error jika variabel 
 
 <a id="bagian-22"></a>
 
-# 22. 🔴 Scaling Services (docker compose up --scale)
+## 22. 🔴 Scaling Services (docker compose up --scale)
 
-## Konsep
+#### Konsep
 
 **Scaling Services** adalah kemampuan Docker Compose untuk menduplikasi dan menjalankan **banyak instance kontainer sekaligus dari satu definisi service yang sama** (*Horizontal Scaling*) untuk mendistribusikan beban kerja (*Load Balancing*).
 
@@ -1759,7 +1770,7 @@ Syarat Penting Service yang Bisa Di-Scale:
 - Service **TIDAK BOLEH** memiliki binding port host statis (misal `ports: - "80:80"`) karena port 80 di host akan bentrok. Gunakan port acak (misal `ports: - "80"`) atau letakkan di belakang Reverse Proxy (seperti Nginx / Traefik).
 - Service **TIDAK BOLEH** memiliki atribut `container_name:` statis.
 
-## Contoh
+#### Contoh
 
 ```yaml
 # compose.yaml
@@ -1784,7 +1795,7 @@ Menjalankan 3 Instance Worker Sekaligus:
 docker compose up -d --scale worker=3
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Running 4/4
@@ -1807,7 +1818,7 @@ myapp-worker-2      node:20-alpine Up 5 seconds
 myapp-worker-3      node:20-alpine Up 5 seconds   
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                        Trafik Masuk (Port 80)
@@ -1828,7 +1839,7 @@ docker compose up -d --scale service=N → Menjalankan N instance kontainer dari
 Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-scale tanpa error
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan scaling untuk kontainer antrean tugas (*background queue workers*) atau microservices API tanpa status (*stateless*).
 - ❌ Jangan mencoba men-scale database berstatus tunggal (*single-instance stateful database*) dengan `--scale db=3` karena data storage akan bertabrakan.
@@ -1837,9 +1848,9 @@ Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-sc
 
 <a id="bagian-23"></a>
 
-# 23. 🛠️ Peta Ingatan Cepat
+## 23. 🛠️ Peta Ingatan Cepat
 
-## Mental Model Hubungan Entitas di Docker Compose
+#### Mental Model Hubungan Entitas di Docker Compose
 
 ```text
                       ┌───────────────────────────────┐
@@ -1864,7 +1875,7 @@ Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-sc
                         - docker compose logs -f
 ```
 
-## Pohon Keputusan Fitur Docker Compose
+#### Pohon Keputusan Fitur Docker Compose
 
 ```text
                                 Kebutuhan Arsitektur Compose
@@ -1893,7 +1904,7 @@ Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-sc
 
 <a id="bagian-24"></a>
 
-# 24. 📚 Tabel Ringkasan
+## 24. 📚 Tabel Ringkasan
 
 | Perintah / Atribut | Kategori | Contoh Penggunaan | Penjelasan & Kegunaan |
 |---|---|---|---|
@@ -1918,9 +1929,9 @@ Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-sc
 
 <a id="bagian-25"></a>
 
-# 25. ⚡ Cheat Code Docker Compose 10 Detik
+## 25. ⚡ Cheat Code Docker Compose 10 Detik
 
-## 1. Template Stack Lengkap Web + Database + Volume
+### 1. Template Stack Lengkap Web + Database + Volume
 ```yaml
 services:
   web:
@@ -1947,7 +1958,7 @@ volumes:
   db_data:
 ```
 
-## 2. Perintah Penting Harian
+### 2. Perintah Penting Harian
 ```bash
 docker compose up -d --build     # Nyalakan & build ulang
 docker compose logs -f --tail 50 # Pantau log 50 baris live
@@ -1959,7 +1970,7 @@ docker compose down -v           # Hapus bersih total
 
 <a id="bagian-26"></a>
 
-# 26. 🧭 Urutan Belajar yang Disarankan
+## 26. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai orkestrasi Docker Compose dari tingkat pemula hingga tingkat lanjut, ikuti 4 fase bertahap berikut:
 
@@ -2004,9 +2015,9 @@ Untuk menguasai orkestrasi Docker Compose dari tingkat pemula hingga tingkat lan
 
 <a id="bagian-27"></a>
 
-# 27. 🏗️ Mini Project: Stack Microservices Lengkap (Nginx Proxy + Node.js API + Redis Cache + MySQL Database)
+## 27. 🏗️ Mini Project: Stack Microservices Lengkap (Nginx Proxy + Node.js API + Redis Cache + MySQL Database)
 
-## Konsep Project
+#### Konsep Project
 
 Project ini membangun satu kesatuan sistem aplikasi web berskala enterprise (*Production-Ready Microservices Architecture*) menggunakan 4 service yang saling terintegrasi penuh di dalam satu file `compose.yaml`:
 1. **Service `proxy` (Nginx Reverse Proxy):** Pintu gerbang publik (*Port 80*) yang meneruskan trafik HTTP ke backend API.
@@ -2019,7 +2030,7 @@ Project ini membangun satu kesatuan sistem aplikasi web berskala enterprise (*Pr
    - Named Volume `db_data` untuk persistensi.
    - Variable Interpolation via file `.env`.
 
-## File Konfigurasi: compose.yaml
+#### File Konfigurasi: compose.yaml
 
 ```yaml
 name: ecommerce-microservices
@@ -2101,7 +2112,7 @@ volumes:
   mysql_storage:
 ```
 
-## File Pendukung: .env
+#### File Pendukung: .env
 
 ```text
 PUBLIC_PORT=80
@@ -2111,7 +2122,7 @@ DB_PASSWORD=PasswordRahasia2026
 DB_ROOT_PASSWORD=SuperSecretRootPassword2026
 ```
 
-## Langkah Eksekusi CLI
+#### Langkah Eksekusi CLI
 
 ```bash
 # 1. Menyalakan seluruh stack sistem multi-kontainer
@@ -2121,7 +2132,7 @@ docker compose up -d
 docker compose ps
 ```
 
-## Output
+#### Output
 
 ```text
 [+] Running 7/7
@@ -2140,7 +2151,7 @@ ecommerce-microservices-database-1    mysql:8.0      Up 15 seconds (healthy)   3
 ecommerce-microservices-proxy-1       nginx:alpine   Up 1 second               0.0.0.0:80->80/tcp
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Browser User (Port 80)
@@ -2170,7 +2181,7 @@ Enterprise Microservices Pattern = Dual Networks (Public/Internal) + Healthcheck
 
 <a id="bagian-28"></a>
 
-# 28. 🔗 Referensi Resmi
+## 28. 🔗 Referensi Resmi
 
 Untuk mempelajari dokumentasi resmi, spesifikasi teknis, dan praktik terbaik Docker Compose:
 

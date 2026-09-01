@@ -1,4 +1,16 @@
-# Vue.js Cheatsheet Revised
+---
+title: "Vue Dasar"
+description: "Fundamental Vue 3: Composition API, <script setup>, Reactivity (ref, reactive), Computed properties, Watchers, Directives, dan Component basics."
+order: 1
+tags:
+  - web-development
+  - frontend
+  - vue
+  - javascript
+  - fundamental
+---
+
+# Vue Dasar
 
 > **Target:** pemula yang sudah memahami JavaScript dasar, lalu ingin
 > memahami Vue 3 + Composition API secara bertahap sebelum masuk lebih dalam
@@ -89,7 +101,7 @@ STATE / DATA
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan
+## 1. 🟢 Pengenalan
 
 **Vue.js** adalah framework JavaScript untuk membuat UI.
 
@@ -152,7 +164,7 @@ Count: 3
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Membuat Project
+## 2. 🟢 Membuat Project
 
 Cara umum membuat project Vue modern menggunakan Vite:
 
@@ -207,7 +219,7 @@ App.vue  → root component
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Hello Vue
+## 3. 🟢 Hello Vue
 
 Component Vue biasanya memiliki:
 
@@ -246,11 +258,11 @@ Vue Single File Component biasanya terdiri dari:
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 API Style
+## 4. 🟢 API Style
 
 Vue menyediakan dua gaya utama:
 
-## Options API
+#### Options API
 
 ```html
 <script>
@@ -270,7 +282,7 @@ export default {
 </script>
 ```
 
-## Composition API
+#### Composition API
 
 Gaya modern yang sering digunakan bersama `<script setup>`:
 
@@ -286,7 +298,7 @@ function increment() {
 </script>
 ```
 
-### Perbandingan
+##### Perbandingan
 
 ```text
 Options API
@@ -312,7 +324,7 @@ dikelompokkan berdasarkan logika/fitur
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Template
+## 5. 🟢 Template
 
 Template adalah bagian HTML-like tempat kita mendeskripsikan struktur UI yang akan ditampilkan ke layar.
 
@@ -334,7 +346,7 @@ Halo Budi
 Selamat belajar Vue.
 ```
 
-### Text Interpolation
+##### Text Interpolation
 
 Syntax `{{ }}` (*Mustache syntax*) disebut **text interpolation**. Ini adalah cara paling dasar untuk menyisipkan data atau variabel JavaScript ke dalam teks HTML secara dinamis.
 
@@ -350,7 +362,7 @@ Vue akan merender nilai variabel `name` sebagai teks polos (*plain text*). Jika 
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Template Attributes
+## 6. 🟢 Template Attributes
 
 Attribute binding adalah mekanisme untuk menghubungkan atribut elemen HTML (seperti `src`, `href`, `title`, `disabled`, `class`, dan `style`) dengan nilai data atau ekspresi JavaScript secara dinamis menggunakan directive `v-bind` atau shorthand titik dua (`:`).
 
@@ -381,7 +393,7 @@ const isDisabled = ref(true)
 <button disabled>Tombol Nonaktif</button>
 ```
 
-### Atribut Boolean
+##### Atribut Boolean
 
 Untuk atribut boolean seperti `disabled`, `checked`, atau `readonly`:
 - Jika nilainya *truthy* (`true`, `'yes'`), atribut akan disertakan pada elemen HTML.
@@ -402,7 +414,7 @@ Untuk atribut boolean seperti `disabled`, `checked`, atau `readonly`:
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 JS Expression di Template
+## 7. 🟢 JS Expression di Template
 
 Template dapat menjalankan expression JavaScript sederhana.
 
@@ -442,11 +454,11 @@ daripada membuat template terlalu rumit.
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Directive
+## 8. 🟢 Directive
 
 Directive adalah atribut HTML khusus bawaan Vue yang selalu diawali dengan awalan `v-`. Directive memberikan instruksi khusus kepada Vue untuk memanipulasi elemen DOM ketika nilai ekspresinya berubah.
 
-### Anatomi Directive
+##### Anatomi Directive
 
 ```text
 v-on:click.prevent="submit"
@@ -457,7 +469,7 @@ v-on:click.prevent="submit"
   └────────────────────── Directive Name: nama directive bawaan Vue (v-on, v-bind, dll.)
 ```
 
-### Daftar Directive Umum
+##### Daftar Directive Umum
 
 ```text
 v-bind  (:)       → menghubungkan attribute HTML ke JavaScript
@@ -470,7 +482,7 @@ v-html            → merender raw HTML (hati-hati risiko XSS)
 v-text            → mengupdate textContent elemen
 ```
 
-### Shorthand Paling Sering Digunakan
+##### Shorthand Paling Sering Digunakan
 
 ```text
 v-bind:src="url"     → :src="url"
@@ -498,7 +510,7 @@ Contoh:
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 State
+## 9. 🟢 State
 
 State adalah data yang menentukan kondisi dan tampilan UI. Ketika data state berubah, Vue akan otomatis memperbarui tampilan UI yang menggunakan data tersebut.
 
@@ -533,7 +545,7 @@ Setelah klik tombol:
 Total: 1
 ```
 
-### Mengapa `.value`?
+##### Mengapa `.value`?
 
 `ref()` membungkus nilai data ke dalam sebuah objek reaktif dengan properti `.value`.
 
@@ -562,7 +574,7 @@ tanpa .value saat di <template> (HTML)
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 DOM Update
+## 10. 🟢 DOM Update
 
 Vue memperbarui DOM secara otomatis ketika reactive state berubah.
 
@@ -609,7 +621,7 @@ Vue Reactive System
 DOM Update (Asynchronous Batch)
 ```
 
-### Update Asynchronous & `nextTick()`
+##### Update Asynchronous & `nextTick()`
 
 Ketika data state berubah, Vue tidak langsung mengupdate DOM saat itu juga secara sinkron, melainkan mengumpulkannya dalam antrean (*buffer*) dan melakukan *batch update* secara asynchronous agar performa rendering tetap efisien.
 
@@ -637,7 +649,7 @@ async function changeMessage() {
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Reactive
+## 11. 🟢 Reactive
 
 `reactive()` adalah fungsi alternatif untuk membuat objek atau array menjadi reactive secara mendalam (*deep reactive*).
 
@@ -681,7 +693,7 @@ Budi
 21
 ```
 
-### Keterbatasan `reactive()`
+##### Keterbatasan `reactive()`
 
 Meskipun terlihat lebih praktis tanpa `.value`, `reactive()` memiliki beberapa keterbatasan penting karena menggunakan JavaScript Proxy:
 
@@ -703,7 +715,7 @@ Meskipun terlihat lebih praktis tanpa `.value`, `reactive()` memiliki beberapa k
    const { name } = user
    ```
 
-### `ref` vs `reactive`
+##### `ref` vs `reactive`
 
 ```text
 ref(value)
@@ -725,7 +737,7 @@ Bekerja dengan JavaScript Proxy
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Computed Properties
+## 12. 🟢 Computed Properties
 
 `computed()` digunakan untuk membuat **nilai turunan dari reactive state**.
 
@@ -760,14 +772,14 @@ price (10000) ────┐
 quantity (3)  ────┘
 ```
 
-### Keunggulan `computed`: Caching Otomatis
+##### Keunggulan `computed`: Caching Otomatis
 
 Mengapa menggunakan `computed()` daripada fungsi/method biasa di template?
 
 1. **Caching Berdasarkan Dependensi**: `computed()` mengingat (*cache*) hasil perhitungannya. Selama nilai `price` dan `quantity` tidak berubah, pemanggilan `total` berkali-kali akan langsung mengambil hasil cache tanpa menghitung ulang.
 2. **Method Tanpa Cache**: Jika kita memanggil fungsi biasa `getTotal()` di template, fungsi tersebut akan dieksekusi ulang **setiap kali terjadi re-render pada komponen**, meskipun datanya tidak berubah.
 
-### Sifat Default: Read-Only
+##### Sifat Default: Read-Only
 
 Secara default, nilai `computed` bersifat **read-only** (hanya bisa dibaca, tidak boleh di-assign langsung):
 
@@ -788,11 +800,11 @@ Gunakan `computed` untuk menghitung **nilai/tampilan**, bukan untuk menjalankan 
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 Style
+## 13. 🟢 Style
 
 Vue menyediakan integrasi khusus untuk manipulasi atribut `class` dan `style` menggunakan data JavaScript dinamis (`:class` dan `:style`).
 
-### 1. Class Binding: Object Syntax
+##### 1. Class Binding: Object Syntax
 
 Class akan diterapkan jika nilai propertinya bernilai *truthy* (`true`):
 
@@ -827,7 +839,7 @@ const hasError = ref(false)
 <div class="active">Menu Item</div>
 ```
 
-### 2. Class Binding: Array Syntax
+##### 2. Class Binding: Array Syntax
 
 Gunakan array jika ingin menerapkan beberapa class CSS secara bersamaan:
 
@@ -852,7 +864,7 @@ const sizeClass = ref('text-large')
 <div class="active text-large">Konten Utama</div>
 ```
 
-### 3. Inline Style Binding
+##### 3. Inline Style Binding
 
 Gunakan objek JavaScript untuk mengatur properti CSS inline:
 
@@ -889,7 +901,7 @@ const fontSize = ref(18)
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 Conditional Rendering
+## 14. 🟢 Conditional Rendering
 
 Conditional rendering adalah teknik untuk menampilkan, menyembunyikan, atau mengganti elemen UI di layar berdasarkan kondisi logika (*truthy/falsy*) dari state.
 
@@ -923,7 +935,7 @@ const isLoggedIn = ref(false)
 Silakan login
 ```
 
-### `v-if` vs `v-show`
+##### `v-if` vs `v-show`
 
 ```text
 v-if
@@ -943,7 +955,7 @@ Lebih hemat biaya jika elemen sangat sering di-toggle (tampil/sembunyi).
 
 <a id="bagian-15"></a>
 
-# 15. 🟢 List Rendering
+## 15. 🟢 List Rendering
 
 List rendering adalah teknik untuk merender daftar elemen berulang (seperti daftar produk, daftar pengguna, atau baris tabel) dari data Array atau Objek ke template HTML menggunakan directive `v-for`.
 
@@ -989,7 +1001,7 @@ users
   <li>...</li>
 ```
 
-### Sangat penting: `key`
+##### Sangat penting: `key`
 
 ```html
 :key="user.id"
@@ -1003,7 +1015,7 @@ Selalu sertakan atribut `:key` yang **unik dan stabil** (seperti ID database) pa
 
 <a id="bagian-16"></a>
 
-# 16. 🟢 Event Handling
+## 16. 🟢 Event Handling
 
 Event handling adalah mekanisme untuk mendengarkan (*listen*) dan merespons aksi atau interaksi dari pengguna (seperti klik tombol, input keyboard, hover mouse, atau submit form) menggunakan directive `v-on` atau shorthand `@`.
 
@@ -1021,7 +1033,7 @@ function sayHello() {
 </template>
 ```
 
-### Event Object
+##### Event Object
 
 Handler fungsi dapat menerima parameter objek `event` bawaan browser secara otomatis:
 
@@ -1037,7 +1049,7 @@ function handleClick(event) {
 }
 ```
 
-### Event Modifier
+##### Event Modifier
 
 Vue menyediakan modifier event untuk mempermudah penanganan perilaku default event tanpa perlu memanggil `event.preventDefault()` atau `event.stopPropagation()` secara manual:
 
@@ -1073,7 +1085,7 @@ Key modifier untuk mendengarkan tombol keyboard tertentu:
 
 <a id="bagian-17"></a>
 
-# 17. 🟢 Input Binding
+## 17. 🟢 Input Binding
 
 Input binding adalah mekanisme untuk menghubungkan nilai elemen form input (seperti input teks, textarea, checkbox, radio, dan select dropdown) dengan reactive state secara dua arah (*two-way data binding*) menggunakan directive `v-model`.
 
@@ -1119,7 +1131,7 @@ User mengetik di UI
   Template / DOM terupdate
 ```
 
-### Penggunaan pada Berbagai Tipe Input
+##### Penggunaan pada Berbagai Tipe Input
 
 `v-model` secara cerdas menyesuaikan properti DOM yang di-bind sesuai tipe inputnya:
 
@@ -1143,7 +1155,7 @@ User mengetik di UI
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Watchers
+## 18. 🟡 Watchers
 
 `watch()` digunakan untuk menjalankan side effect ketika state berubah.
 
@@ -1192,7 +1204,7 @@ Jangan gunakan `watch` hanya untuk menghitung nilai turunan. Untuk itu gunakan `
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Template Refs
+## 19. 🟡 Template Refs
 
 Template ref digunakan untuk mendapatkan referensi langsung ke elemen HTML (DOM) atau instance komponen anak tanpa harus menggunakan `document.querySelector()`.
 
@@ -1230,7 +1242,7 @@ Deklarasi di <script>
 input.value ───────────────> HTMLInputElement (bisa di-focus(), dll.)
 ```
 
-### Mengapa Nilai Awalnya `null`?
+##### Mengapa Nilai Awalnya `null`?
 
 Saat baris `<script setup>` pertama kali dieksekusi, komponen baru saja diinisialisasi dan elemen HTML **belum dibuat di DOM fisik**. Oleh karena itu, variabel ref harus diinisialisasi dengan `null`. 
 
@@ -1242,7 +1254,7 @@ Referensi DOM baru akan terisi oleh Vue setelah komponen selesai dirender dan di
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Lifecycle Hooks
+## 20. 🟡 Lifecycle Hooks
 
 Lifecycle adalah tahapan hidup sebuah component Vue, mulai dari component dibuat, ditampilkan, diperbarui, sampai dihapus.
 
@@ -1354,7 +1366,7 @@ onUnmounted()
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Component
+## 21. 🟡 Component
 
 Component adalah bagian UI yang dapat digunakan kembali.
 
@@ -1408,7 +1420,7 @@ App
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Component Props
+## 22. 🟡 Component Props
 
 Props adalah data yang dikirim **parent → child**.
 
@@ -1442,7 +1454,7 @@ Parent:
 Budi - 20
 ```
 
-### Dengan TypeScript
+##### Dengan TypeScript
 
 ```html
 <script setup lang="ts">
@@ -1471,7 +1483,7 @@ Child
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 Component Event
+## 23. 🟡 Component Event
 
 Component Event digunakan untuk komunikasi dari child component ke parent component melalui custom event (emit).
 
@@ -1569,11 +1581,11 @@ emit  → child ke parent
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Component Model
+## 24. 🟡 Component Model
 
 `v-model` pada komponen kustom digunakan untuk membuat komunikasi dua arah (*two-way data binding*) antara parent dan child component.
 
-### 1. Cara Modern: `defineModel()` (Vue 3.4+)
+##### 1. Cara Modern: `defineModel()` (Vue 3.4+)
 
 `defineModel()` adalah makro resmi bawaan Vue yang menyederhanakan two-way binding menjadi sangat ringkas:
 
@@ -1615,7 +1627,7 @@ Nama: Budi
 
 ---
 
-### 2. Cara Konvensional (Vue 3.3 ke Bawah)
+##### 2. Cara Konvensional (Vue 3.3 ke Bawah)
 
 Di balik layar, `v-model` pada komponen bekerja menggunakan pasangan **prop `modelValue`** dan **event `update:modelValue`**:
 
@@ -1663,7 +1675,7 @@ Di balik layar   → prop modelValue + emit update:modelValue
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 Fallthrough Attributes
+## 25. 🟡 Fallthrough Attributes
 
 Fallthrough attribute adalah atribut atau event listener yang dikirimkan ke komponen dari parent, tetapi **tidak dideklarasikan secara eksplisit** di `defineProps()` atau `defineEmits()`.
 
@@ -1701,7 +1713,7 @@ Secara default, atribut-atribut ini akan otomatis diteruskan (*fallthrough*) ke 
 
 ---
 
-### Menonaktifkan Fallthrough: `inheritAttrs: false`
+##### Menonaktifkan Fallthrough: `inheritAttrs: false`
 
 Jika Anda tidak ingin atribut otomatis jatuh ke root element, matikan fitur ini menggunakan `defineOptions`:
 
@@ -1720,7 +1732,7 @@ defineOptions({
 </template>
 ```
 
-### Multi-Root Components (Fragments)
+##### Multi-Root Components (Fragments)
 
 Jika komponen anak memiliki **lebih dari satu elemen root** di `<template>`, Vue tidak tahu elemen mana yang harus menerima atribut fallthrough dan akan menampilkan peringatan di konsol.
 
@@ -1741,7 +1753,7 @@ Solusinya: gunakan `v-bind="$attrs"` pada elemen yang dituju secara eksplisit:
 
 <a id="bagian-26"></a>
 
-# 26. 🟡 Component Slot
+## 26. 🟡 Component Slot
 
 Slot digunakan untuk mengirim **isi/template dari parent ke child**.
 
@@ -1774,7 +1786,7 @@ Card
 └──────────────────┘
 ```
 
-### Named slot
+##### Named slot
 
 Child:
 
@@ -1813,7 +1825,7 @@ slot  → kirim template/isi UI
 
 <a id="bagian-27"></a>
 
-# 27. 🟡 Dynamic Component
+## 27. 🟡 Dynamic Component
 
 Dynamic component digunakan untuk mengganti component secara dinamis.
 
@@ -1861,7 +1873,7 @@ dynamic view
 
 <a id="bagian-28"></a>
 
-# 28. 🟡 Provide dan Inject
+## 28. 🟡 Provide dan Inject
 
 `provide` dan `inject` digunakan untuk mengirimkan data dari komponen leluhur (*ancestor/grandparent*) langsung ke komponen keturunan (*descendant/grandchild*) yang berada jauh di dalam component tree tanpa harus meneruskan props secara manual di setiap level (**menghindari *prop drilling***).
 
@@ -1922,7 +1934,7 @@ Diagram:
            UI Terupdate
 ```
 
-### Reaktivitas pada Provide/Inject
+##### Reaktivitas pada Provide/Inject
 
 - Jika data yang di-*provide* dibungkus dengan `ref()` atau `reactive()`, koneksi reaktivitas **tetap terjaga**. Ketika nilai `theme.value` di ancestor berubah, komponen anak yang meng-*inject* data tersebut akan otomatis terupdate.
 - **Best Practice:** Jika komponen anak perlu mengubah data yang di-*inject*, sediakan fungsi mutator dari ancestor (seperti `toggleTheme` di atas) dan jangan mengubah nilai `theme.value` secara langsung di komponen anak.
@@ -1939,7 +1951,7 @@ inject  → descendant mengambil data/fungsi dari ancestor
 
 <a id="bagian-29"></a>
 
-# 29. 🔴 Component Instance
+## 29. 🔴 Component Instance
 
 Component instance adalah object internal yang mewakili sebuah instance component.
 ```text
@@ -2010,9 +2022,9 @@ template ref       → Parent mengakses API Child
 
 <a id="bagian-30"></a>
 
-# 30. 🧠 Peta Ingatan Cepat
+## 30. 🧠 Peta Ingatan Cepat
 
-## A. Alur dasar Vue
+#### A. Alur dasar Vue
 
 ```text
           STATE
@@ -2066,7 +2078,7 @@ Event → State berubah → Template update
 
 ---
 
-## B. State
+#### B. State
 
 ```text
 ref()
@@ -2103,7 +2115,7 @@ reactive → object
 
 ---
 
-## C. Template
+#### C. Template
 
 ```text
 {{ value }}
@@ -2149,7 +2161,7 @@ v-model → two-way binding
 
 ---
 
-## D. Computed vs Watch
+#### D. Computed vs Watch
 
 ```text
 Butuh MENGHASILKAN NILAI?
@@ -2195,7 +2207,7 @@ watch    → menjalankan side effect
 
 ---
 
-## E. Component Communication
+#### E. Component Communication
 
 ```text
        ┌──────────────┐
@@ -2225,7 +2237,7 @@ slot  → parent mengirim template/content ke child
 
 ---
 
-## F. Provide / Inject
+#### F. Provide / Inject
 
 ```text
        Ancestor
@@ -2255,7 +2267,7 @@ inject  → mengambil data dari ancestor
 
 ---
 
-## G. Component Dynamic
+#### G. Component Dynamic
 
 ```text
           component
@@ -2296,7 +2308,7 @@ menampilkan About
 
 <a id="bagian-31"></a>
 
-# 31. 📚 Tabel Ringkasan
+## 31. 📚 Tabel Ringkasan
 
 | Materi | Fungsi | Kata kunci |
 |---|---|---|
@@ -2335,7 +2347,7 @@ menampilkan About
 
 <a id="bagian-32"></a>
 
-# 32. ⚡ Cheat Code Vue 10 Detik
+## 32. ⚡ Cheat Code Vue 10 Detik
 
 > **`ref()` membuat state reactive. `reactive()` membuat object reactive. `computed()` membuat nilai turunan. `watch()` mengawasi perubahan untuk side effect. `v-if` mengatur kondisi. `v-for` membuat list. `@` menangani event. `:` melakukan binding. `v-model` menghubungkan input dengan state. Props mengirim data parent → child. Emit mengirim event child → parent. Slot mengirim template. Provide/Inject mengirim data melewati component tree.**
 
@@ -2343,7 +2355,7 @@ menampilkan About
 
 <a id="bagian-33"></a>
 
-# 33. 🧭 Urutan Belajar yang Disarankan
+## 33. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 1. Pengenalan
@@ -2389,7 +2401,7 @@ menampilkan About
 
 <a id="bagian-34"></a>
 
-# 34. 🏗️ Mini Project untuk Menggabungkan Konsep
+## 34. 🏗️ Mini Project untuk Menggabungkan Konsep
 
 Contoh sederhana **Todo App**:
 
@@ -2506,7 +2518,7 @@ ref
 
 <a id="bagian-35"></a>
 
-# 35. 🔗 Referensi Resmi
+## 35. 🔗 Referensi Resmi
 
 - [Vue.js Guide](https://vuejs.org/guide/introduction.html)
 - [Template Syntax](https://vuejs.org/guide/essentials/template-syntax.html)

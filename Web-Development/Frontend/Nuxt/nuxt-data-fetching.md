@@ -1,4 +1,16 @@
-# Nuxt Data Fetching & Server API Cheatsheet Revised
+---
+title: "Nuxt Data Fetching & Server API"
+description: "Data fetching dan Backend server engine di Nuxt 3: useFetch, useAsyncData, $fetch, Nitro server routes (/server/api), dan error handling."
+order: 3
+tags:
+  - web-development
+  - frontend
+  - nuxt
+  - api
+  - data-fetching
+---
+
+# Nuxt Data Fetching & Server API
 
 > **Target:** Pemula yang telah memahami Nuxt Dasar dan Vue 3, serta ingin menguasai **Universal Data Fetching (`useFetch`, `useAsyncData`, `$fetch`), pencegahan double-fetching saat SSR, dan pembuatan backend RESTful API menggunakan Nitro Server Engine (`server/api/`)** pada **Nuxt 3.12+ (Nuxt 4 Ready)**.
 >
@@ -101,9 +113,9 @@ createError(options)    → fungsi utilitas untuk melempar respon error HTTP ter
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Universal Data Fetching di Nuxt 3 & Masalah Double Fetching
+## 1. 🟢 Pengenalan Universal Data Fetching di Nuxt 3 & Masalah Double Fetching
 
-## Konsep
+#### Konsep
 
 Pada aplikasi SSR biasa, jika Anda menggunakan `fetch()` bawaan JavaScript di dalam komponen Vue:
 1. Server mengeksekusi `fetch()` saat me-render HTML awal.
@@ -114,7 +126,7 @@ Pada aplikasi SSR biasa, jika Anda menggunakan `fetch()` bawaan JavaScript di da
 - Server mengambil data saat SSR dan **menyematkan data tersebut ke dalam payload HTML awal** (`window.__NUXT__.data`).
 - Di browser, `useFetch` langsung mengambil data dari payload tersebut **tanpa melakukan network request kedua**.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Fetch Biasa (Bermasalah):
@@ -135,9 +147,9 @@ SSR Data Payload Transfer → mekanisme Nuxt mengoper hasil fetch server ke brow
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Perbedaan Fundamental `useFetch` vs `useAsyncData` vs `$fetch`
+## 2. 🟢 Perbedaan Fundamental `useFetch` vs `useAsyncData` vs `$fetch`
 
-## Konsep
+#### Konsep
 
 Memahami kapan menggunakan masing-masing alat fetching adalah kunci utama di Nuxt 3:
 
@@ -162,9 +174,9 @@ $fetch()       → kirim form POST/PUT/DELETE di dalam fungsi event handler (onC
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Composable `useFetch` Dasar
+## 3. 🟢 Composable `useFetch` Dasar
 
-## Konsep
+#### Konsep
 
 Sintaks dasar `useFetch`:
 `const { data, pending, error, refresh, status } = await useFetch(url, options)`
@@ -176,7 +188,7 @@ Objek Kembalian Reaktif:
 - **`refresh()`:** Fungsi untuk memicu pengambilan data ulang secara manual.
 - **`status`:** `Ref<'idle' | 'pending' | 'success' | 'error'>`.
 
-## Contoh
+#### Contoh
 
 ```vue
 <script setup>
@@ -219,9 +231,9 @@ const { data, pending, error, refresh } = await useFetch('/api/url')
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Opsi Kunci `useFetch` untuk Kinerja Optimal
+## 4. 🟢 Opsi Kunci `useFetch` untuk Kinerja Optimal
 
-## Konsep
+#### Konsep
 
 `useFetch` menyediakan berbagai opsi konfigurasi untuk mengoptimalkan performa dan transfer payload:
 
@@ -235,7 +247,7 @@ const { data, pending, error, refresh } = await useFetch('/api/url')
 4. **`query: { search: 'keyword', limit: 10 }`:**
    - Menyematkan query string parameter ke URL secara otomatis.
 
-## Contoh
+#### Contoh
 
 ```vue
 <script setup>
@@ -262,9 +274,9 @@ query: { key: val }      → menyematkan parameter query string ke URL request
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Composable `useAsyncData` untuk Kasus Lanjutan
+## 5. 🟢 Composable `useAsyncData` untuk Kasus Lanjutan
 
-## Konsep
+#### Konsep
 
 Gunakan **`useAsyncData(key, handlerFunction)`** ketika Anda perlu:
 1. Menggabungkan 2 atau lebih pemanggilan API secara paralel (`Promise.all`).
@@ -274,7 +286,7 @@ Parameter:
 - `key` (String Unik): Pengenal cache data di SSR Payload.
 - `handlerFunction`: Fungsi async yang mengembalikan data hasil.
 
-## Contoh
+#### Contoh
 
 ```vue
 <script setup>
@@ -307,9 +319,9 @@ useAsyncData('unique-cache-key', async () => { return await customFetcher(); })
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Mekanisme Caching & Deduplication Berbasis `key`
+## 6. 🟢 Mekanisme Caching & Deduplication Berbasis `key`
 
-## Konsep
+#### Konsep
 
 Nuxt 3 secara otomatis membuatkan **Cache Key** untuk setiap `useFetch` berdasarkan URL dan opsinya.
 
@@ -330,16 +342,16 @@ Deduplication Caching → Nuxt menggabungkan pemanggilan endpoint yang sama menj
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Re-fetching Otomatis Berbasis Reaktivitas dengan Opsi `watch`
+## 7. 🟢 Re-fetching Otomatis Berbasis Reaktivitas dengan Opsi `watch`
 
-## Konsep
+#### Konsep
 
 Seringkali kita ingin data otomatis di-fetch ulang ketika nilai filter input atau halaman paginasi berubah (misal: dropdown kategori berganti).
 
 Gunakan opsi **`watch: [reactiveDependency]`**:
 Setiap kali nilai di dalam array `watch` berubah, `useFetch` **otomatis memicu `refresh()`** dan memperbarui data di layar.
 
-## Contoh
+#### Contoh
 
 ```vue
 <script setup>
@@ -379,15 +391,15 @@ watch: [reactiveVariable] → otomatis memicu re-fetch data saat variabel reakti
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Eksekusi Manual On-Demand dengan `immediate: false` & `execute()`
+## 8. 🟢 Eksekusi Manual On-Demand dengan `immediate: false` & `execute()`
 
-## Konsep
+#### Konsep
 
 Jika Anda tidak ingin data diambil secara otomatis saat halaman pertama kali dimuat (misal: fitur pencarian yang baru berjalan setelah user menekan tombol *"Cari"*):
 
 Gunakan opsi **`immediate: false`** dan panggil fungsi **`execute()`**:
 
-## Contoh
+#### Contoh
 
 ```vue
 <script setup>
@@ -428,9 +440,9 @@ immediate: false + execute() → menonaktifkan auto-fetch awal dan memicu pemang
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Pengenalan Nitro Server Engine & Direktori `server/api/`
+## 9. 🟡 Pengenalan Nitro Server Engine & Direktori `server/api/`
 
-## Konsep
+#### Konsep
 
 Nuxt 3 bukan sekadar frontend framework, melainkan **Full-Stack Framework**. Di dalamnya tertanam **Nitro Server Engine** berbasis library HTTP super cepat bernama **H3**.
 
@@ -449,15 +461,15 @@ server/api/ → folder khusus penampung endpoint backend RESTful API berbasis Ni
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Menulis Endpoint API Pertama dengan `defineEventHandler`
+## 10. 🟡 Menulis Endpoint API Pertama dengan `defineEventHandler`
 
-## Konsep
+#### Konsep
 
 Setiap file di dalam folder `server/api/` mengekspor default fungsi **`defineEventHandler((event) => { ... })`**.
 
 Nilai yang Anda `return` dari fungsi handler (objek, array, string) **otomatis di-serialize menjadi JSON** dengan header `Content-Type: application/json` dan status HTTP `200 OK`.
 
-## Contoh
+#### Contoh
 
 File `server/api/hello.ts`:
 ```typescript
@@ -471,7 +483,7 @@ export default defineEventHandler((event) => {
 })
 ```
 
-## Output JSON
+#### Output JSON
 
 ```json
 {
@@ -491,9 +503,9 @@ export default defineEventHandler((event) => { return { status: 'success' }; })
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Method Matching pada Server Routes
+## 11. 🟡 Method Matching pada Server Routes
 
-## Konsep
+#### Konsep
 
 Secara default, file `server/api/users.ts` akan menerima semua jenis HTTP method (GET, POST, PUT, DELETE).
 
@@ -503,7 +515,7 @@ Untuk membatasi endpoint hanya merespons method HTTP tertentu (*Method Suffix Ma
 - `server/api/products.put.ts` $\rightarrow$ Hanya merespons `PUT /api/products`
 - `server/api/products.delete.ts` $\rightarrow$ Hanya merespons `DELETE /api/products`
 
-## Contoh
+#### Contoh
 
 File `server/api/products.get.ts`:
 ```typescript
@@ -533,13 +545,13 @@ filename.get.ts / filename.post.ts → membatasi HTTP method yang diterima endpo
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Membaca Query Parameters dengan `getQuery(event)`
+## 12. 🟡 Membaca Query Parameters dengan `getQuery(event)`
 
-## Konsep
+#### Konsep
 
 Untuk membaca query parameters dari URL (misal: `/api/search?keyword=laptop&limit=5`), gunakan fungsi **`getQuery(event)`** dari H3.
 
-## Contoh
+#### Contoh
 
 File `server/api/search.get.ts`:
 ```typescript
@@ -567,13 +579,13 @@ const query = getQuery(event); const keyword = query.keyword; → membaca URL qu
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Membaca Request Body JSON dengan `readBody(event)`
+## 13. 🟡 Membaca Request Body JSON dengan `readBody(event)`
 
-## Konsep
+#### Konsep
 
 Saat client mengirimkan request `POST` atau `PUT` dengan payload JSON, gunakan fungsi asynchronous **`readBody(event)`** untuk mengekstrak dan mem-parsing JSON body secara otomatis.
 
-## Contoh
+#### Contoh
 
 File `server/api/orders.post.ts`:
 ```typescript
@@ -606,16 +618,16 @@ const body = await readBody(event); → mem-parsing JSON payload body pada reque
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Dynamic Server Routes & URL Params dengan `getRouterParam(event, 'id')`
+## 14. 🟡 Dynamic Server Routes & URL Params dengan `getRouterParam(event, 'id')`
 
-## Konsep
+#### Konsep
 
 Sama seperti halaman frontend, kita dapat membuat endpoint server dengan parameter URL dinamis menggunakan kurung siku `[param].ts`.
 
 Untuk membaca parameter tersebut di server:
 Gunakan fungsi **`getRouterParam(event, 'paramName')`**.
 
-## Contoh
+#### Contoh
 
 File `server/api/products/[id].get.ts`:
 ```typescript
@@ -641,9 +653,9 @@ const id = getRouterParam(event, 'id') → mengekstrak parameter dinamis [id] da
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Penanganan Error Server Terstruktur dengan `createError`
+## 15. 🟡 Penanganan Error Server Terstruktur dengan `createError`
 
-## Konsep
+#### Konsep
 
 Jika terjadi kesalahan validasi atau data tidak ditemukan di server API, jangan mengembalikan string biasa.
 
@@ -651,7 +663,7 @@ Gunakan fungsi **`createError({ statusCode, statusMessage, data })`**:
 - Mengembalikan HTTP Status Code yang tepat (400 Bad Request, 401 Unauthorized, 404 Not Found, 500 Server Error).
 - Format respon JSON otomatis seragam dan kompatibel dengan penanganan error di `useFetch` frontend.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // server/api/users/[id].get.ts
@@ -680,9 +692,9 @@ throw createError({ statusCode: 404, statusMessage: 'Not Found' }) → melempar 
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Server Middleware di Folder `server/middleware/`
+## 16. 🟡 Server Middleware di Folder `server/middleware/`
 
-## Konsep
+#### Konsep
 
 Setiap file di dalam folder **`server/middleware/`** akan dieksekusi **pada setiap request yang masuk ke server Nuxt** sebelum request tersebut diteruskan ke route handler.
 
@@ -691,7 +703,7 @@ Kasus Penggunaan:
 - Memeriksa header otentikasi Bearer Token.
 - Menambahkan context custom ke `event.context`.
 
-## Contoh
+#### Contoh
 
 File `server/middleware/logger.ts`:
 ```typescript
@@ -713,9 +725,9 @@ server/middleware/ → middleware server global yang mencegat setiap request mas
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Nitro Server Storage & Cached Event Handlers
+## 17. 🔴 Nitro Server Storage & Cached Event Handlers
 
-## Konsep
+#### Konsep
 
 Untuk endpoint yang datanya jarang berubah (seperti daftar kurs mata uang atau konfigurasi sistem), menjalankan kalkulasi database berulang kali sangat membebani server.
 
@@ -723,7 +735,7 @@ Gunakan **`defineCachedEventHandler(handler, options)`**:
 - Nitro otomatis meng-cache hasil respon di memori server.
 - Opsi `maxAge`: Masa berlaku cache dalam detik (*Stale-While-Revalidate*).
 
-## Contoh
+#### Contoh
 
 ```typescript
 // server/api/rates.get.ts
@@ -745,9 +757,9 @@ defineCachedEventHandler(fn, { maxAge: 600 }) → meng-cache respon endpoint di 
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Mengonsumsi Server API Internal dari Frontend Nuxt
+## 18. 🔴 Mengonsumsi Server API Internal dari Frontend Nuxt
 
-## Konsep
+#### Konsep
 
 Ketika Anda membuat endpoint di `server/api/products.get.ts`, Anda dapat mengonsumsinya langsung dari halaman Vue frontend menggunakan:
 `const { data } = await useFetch('/api/products')`
@@ -765,7 +777,7 @@ Direct Function Call SSR → pemanggilan /api internal saat SSR dieksekusi di me
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                       PETA ARSITEKTUR DATA FETCHING NUXT
@@ -783,7 +795,7 @@ UNIVERSAL FETCH (CLIENT/SSR)  NITRO SERVER API (server/api)   H3 SERVER UTILITIE
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Fungsi / Composable | Lingkungan | Kegunaan & Karakteristik Utama |
 |---|---|---|
@@ -801,7 +813,7 @@ UNIVERSAL FETCH (CLIENT/SSR)  NITRO SERVER API (server/api)   H3 SERVER UTILITIE
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Nuxt Data Fetching 10 Detik
+## 21. ⚡ Cheat Code Nuxt Data Fetching 10 Detik
 
 ```vue
 <!-- 1. Frontend useFetch Template -->
@@ -832,7 +844,7 @@ export default defineEventHandler(async (event) => {
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai useFetch Dasar & Opsi Kunci
@@ -863,11 +875,11 @@ Langkah 5: Siap Melangkah ke Nuxt State Management & Auth Route Middleware!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready Full-Stack Product Management & Search API Web App
+## 23. 🏗️ Mini Project: Production-Ready Full-Stack Product Management & Search API Web App
 
 Aplikasi web full-stack lengkap dan runnable yang mengintegrasikan: **Nitro RESTful Server API (`server/api/products`), H3 Handlers (`getQuery`, `readBody`, `createError`), Server Middleware Logging, Frontend `useFetch` dengan Live Search Watcher, Loading Skeletons, dan Mutasi Data via `$fetch`**.
 
-### 1. Server Middleware Logging (`server/middleware/logger.ts`):
+##### 1. Server Middleware Logging (`server/middleware/logger.ts`):
 ```typescript
 export default defineEventHandler((event) => {
   const method = getMethod(event)
@@ -876,7 +888,7 @@ export default defineEventHandler((event) => {
 })
 ```
 
-### 2. Backend Server GET & Search Endpoint (`server/api/products.get.ts`):
+##### 2. Backend Server GET & Search Endpoint (`server/api/products.get.ts`):
 ```typescript
 // In-Memory Database Dummy
 let productsDb = [
@@ -909,7 +921,7 @@ export default defineEventHandler((event) => {
 })
 ```
 
-### 3. Backend Server POST Create Endpoint (`server/api/products.post.ts`):
+##### 3. Backend Server POST Create Endpoint (`server/api/products.post.ts`):
 ```typescript
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -937,7 +949,7 @@ export default defineEventHandler(async (event) => {
 })
 ```
 
-### 4. Frontend Application Page (`pages/index.vue`):
+##### 4. Frontend Application Page (`pages/index.vue`):
 ```vue
 <script setup>
 useSeoMeta({
@@ -1067,7 +1079,7 @@ const handleAddProduct = async () => {
 </template>
 ```
 
-## Hasil Output Tampilan Aplikasi & Respons Nitro API
+#### Hasil Output Tampilan Aplikasi & Respons Nitro API
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -1090,7 +1102,7 @@ const handleAddProduct = async () => {
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Nuxt 3 Data Fetching Documentation](https://nuxt.com/docs/getting-started/data-fetching)
 - [Nitro Server Engine Official Documentation](https://nitro.unjs.io/)

@@ -1,4 +1,15 @@
-# Git Dasar Cheatsheet Revised
+---
+title: "Git Dasar"
+description: "Fundamental version control dengan Git: git init, clone, staging area, commit, log, diff, status, checkout, dan basic workflow."
+order: 1
+tags:
+  - devops
+  - git
+  - version-control
+  - fundamental
+---
+
+# Git Dasar
 
 > **Target:** Pemula yang ingin menguasai **Sistem Kontrol Versi Terdistribusi Git 2.40+ (Mental Model Distributed VCS, Arsitektur 3 Pohon Git *Working Tree / Staging Area / Repository*, Konfigurasi `git config`, Inisialisasi `git init` & `git clone`, Status Berkas `git status`, Staging `git add` & patch `add -p`, Snapshot Commit `git commit` & `--amend`, Aturan `.gitignore` & `.gitkeep`, Visualisasi Riwayat `git log --oneline --graph`, Inspeksi `git diff`, Branching Modern `git switch` & `git switch -c`, Fast-Forward Merge `git merge`, Pembersihan `git rm --cached` & `git mv`, Integrasi Remote GitHub/GitLab `git remote`, `git push -u`, `git fetch` vs `git pull`, serta Pembatalan Aman via `git restore`)**.
 >
@@ -104,9 +115,9 @@ git restore         → membatalkan perubahan file lokal di working tree atau me
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Version Control System (VCS) & Mental Model Terdistribusi Git
+## 1. 🟢 Pengenalan Version Control System (VCS) & Mental Model Terdistribusi Git
 
-## Konsep
+#### Konsep
 
 Sebelum ada Version Control, developer menyimpan riwayat kode secara manual: `project-final.zip`, `project-final-v2.zip`, `project-beneran-final.zip` $\rightarrow$ sangat rentan tertimpa dan mustahil melacak siapa yang mengubah baris kode tertentu.
 
@@ -114,7 +125,7 @@ Sebelum ada Version Control, developer menyimpan riwayat kode secara manual: `pr
 1. **Model Snapshot, Bukan Delta:** Git memperlakukan data sebagai serangkaian foto/snapshot utuh dari seluruh proyek pada waktu tertentu.
 2. **Arsitektur Terdistribusi (Distributed):** Setiap developer yang melakukan `clone` memiliki **salinan repositori dan riwayat penuh 100% di komputer lokalnya**. Anda bisa melakukan commit, branching, dan inspeksi log secara offline tanpa koneksi internet.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 VCS Tradisional (Delta-Based):
@@ -134,9 +145,9 @@ Git = Distributed Version Control System yang menyimpan snapshot proyek secara t
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Arsitektur Internal 3 Pohon Git: Working Tree, Staging Area (Index), dan Git Repository (`.git`)
+## 2. 🟢 Arsitektur Internal 3 Pohon Git: Working Tree, Staging Area (Index), dan Git Repository (`.git`)
 
-## Konsep
+#### Konsep
 
 Git mengelola berkas Anda melalui **3 Wilayah Kerja (*The Three Trees*)**:
 
@@ -157,15 +168,15 @@ Working Tree (Edit) -> Staging Area (Siapkan via add) -> Repository (Kunci via c
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Konfigurasi Awal Identitas & Preferensi Pengguna
+## 3. 🟢 Konfigurasi Awal Identitas & Preferensi Pengguna
 
-## Konsep
+#### Konsep
 
 Saat pertama kali menginstal Git di komputer baru, Anda **WAJIB** mengatur identitas nama dan email. Identitas ini akan tersemat secara permanen pada setiap commit yang Anda buat.
 
 Gunakan flag **`--global`** agar berlaku untuk seluruh repositori di komputer Anda.
 
-## Perintah CLI
+#### Perintah CLI
 
 ```bash
 # [1] Set Nama Lengkap & Email (Gunakan email yang sama dengan akun GitHub Anda)
@@ -192,15 +203,15 @@ git config --global user.name "Nama" && git config --global user.email "email" �
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Inisialisasi Repositori Lokal (`git init`) vs Kloning Repositori Remote (`git clone`)
+## 4. 🟢 Inisialisasi Repositori Lokal (`git init`) vs Kloning Repositori Remote (`git clone`)
 
-## Konsep
+#### Konsep
 
 Dua Cara Memulai Repositori Git:
 - **`git init`** : Digunakan saat memulai proyek baru dari folder kosong di komputer lokal (membuat folder tersembunyi `.git`).
 - **`git clone <url>`** : Digunakan saat Anda ingin mengunduh seluruh proyek dan riwayat commit yang sudah ada di server remote (GitHub / GitLab).
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Membuat Proyek Baru Lokal
@@ -212,7 +223,7 @@ git init
 git clone https://github.com/perusahaan/backend-api.git
 ```
 
-## Output `git init`
+#### Output `git init`
 
 ```text
 Initialized empty Git repository in /Users/alimur/toko-online/.git/
@@ -228,9 +239,9 @@ git init (buat repo baru di folder lokal) | git clone <url> (unduh repo yang sud
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Siklus Hidup Status Berkas di Git: Untracked, Unmodified, Modified, dan Staged
+## 5. 🟢 Siklus Hidup Status Berkas di Git: Untracked, Unmodified, Modified, dan Staged
 
-## Konsep
+#### Konsep
 
 Setiap file di dalam folder proyek Anda selalu berada di salah satu dari **4 Status Siklus Hidup**:
 
@@ -241,7 +252,7 @@ Setiap file di dalam folder proyek Anda selalu berada di salah satu dari **4 Sta
 | **`Staged`** | File yang sudah ditandai via `git add` dan siap dimasukkan ke commit. | `M  nama_file` (Hijau) |
 | **`Unmodified`** | File sudah tersimpan di commit terakhir dan belum disentuh lagi. | *(Tidak muncul)* |
 
-## Contoh
+#### Contoh
 
 ```bash
 git status       # Status lengkap dan deskriptif
@@ -258,16 +269,16 @@ Untracked (Belum dilacak) -> Modified (Telah diedit) -> Staged (Siap dicommit) -
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Menambahkan Perubahan ke Staging Area
+## 6. 🟢 Menambahkan Perubahan ke Staging Area
 
-## Konsep
+#### Konsep
 
 Untuk memasukkan perubahan file ke dalam Staging Area:
 - **`git add <file>`** : Menambahkan satu file spesifik.
 - **`git add .`** : Menambahkan seluruh file baru dan file yang dimodifikasi di direktori saat ini.
 - **`git add -p` (Interactive Patch):** Menyeleksi potongan baris kode tertentu (*Hunks*) dari satu file untuk dimasukkan ke staging secara presisi.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Tambah File Spesifik
@@ -287,9 +298,9 @@ git add filename → memindahkan perubahan file dari Working Tree ke Staging Are
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Menyimpan Snapshot Permanen (`git commit -m`) & Mengubah Commit Terakhir (`git commit --amend`)
+## 7. 🟢 Menyimpan Snapshot Permanen (`git commit -m`) & Mengubah Commit Terakhir (`git commit --amend`)
 
-## Konsep
+#### Konsep
 
 1. **`git commit -m "pesan"`**:
    - Mengambil seluruh file yang sedang ada di **Staging Area** dan membungkusnya menjadi satu **Snapshot Commit Permanen**.
@@ -297,7 +308,7 @@ git add filename → memindahkan perubahan file dari Working Tree ke Staging Are
 2. **`git commit --amend`**:
    - Menggabungkan perubahan baru ke dalam commit terakhir tanpa membuat commit baru (sangat berguna jika ada file yang tertinggal atau pesan typo).
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Membuat Commit Bersih
@@ -308,7 +319,7 @@ git add lupa_dimasukkan.css
 git commit --amend -m "feat: tambahkan form registrasi pelanggan lengkap dengan styling"
 ```
 
-## Output
+#### Output
 
 ```text
 [main 7f8a9b2] feat: tambahkan form registrasi pelanggan lengkap dengan styling
@@ -327,9 +338,9 @@ git commit -m "pesan" → mengunci staging area menjadi snapshot permanen | git 
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Mengabaikan Berkas dengan `.gitignore` & Menjaga Direktori Kosong dengan `.gitkeep`
+## 8. 🟢 Mengabaikan Berkas dengan `.gitignore` & Menjaga Direktori Kosong dengan `.gitkeep`
 
-## Konsep
+#### Konsep
 
 1. **Berkas `.gitignore`**:
    - File teks khusus di root proyek yang berisi daftar file, direktori, atau pola ekstensi yang **TIDAK BOLEH dipantau oleh Git** (file konfigurasi kredensial `.env`, folder dependensi raksasa `node_modules/`, `vendor/`, atau file build `dist/`).
@@ -337,7 +348,7 @@ git commit -m "pesan" → mengunci staging area menjadi snapshot permanen | git 
    - Secara default, Git **mengabaikan folder kosong**.
    - Jika Anda ingin menjaga struktur folder kosong di repositori (misal: `storage/logs/`), buat file kosong bernama `.gitkeep` di dalam folder tersebut.
 
-## Contoh Berkas `.gitignore`
+#### Contoh Berkas `.gitignore`
 
 ```text
 # [1] Dependensi & Package Manager
@@ -366,9 +377,9 @@ build/
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Memeriksa Riwayat Perubahan: `git log` Visual & Ringkas
+## 9. 🟡 Memeriksa Riwayat Perubahan: `git log` Visual & Ringkas
 
-## Konsep
+#### Konsep
 
 Perintah **`git log`** digunakan untuk menelusuri riwayat seluruh commit yang pernah dibuat.
 
@@ -379,13 +390,13 @@ Parameter Visual Populer:
 - **`--all`** : Menampilkan seluruh commit dari semua branch (bukan hanya branch aktif).
 - **`-n <angka>`** : Membatasi jumlah commit yang ditampilkan.
 
-## Contoh
+#### Contoh
 
 ```bash
 git log --oneline --graph --decorate --all -n 5
 ```
 
-## Output
+#### Output
 
 ```text
 * 7f8a9b2 (HEAD -> main, origin/main) feat: inisialisasi modul autentikasi
@@ -404,15 +415,15 @@ git log --oneline --graph --all → visualisasi riwayat commit proyek dalam form
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Inspeksi Perbedaan Kode Secara Mendalam: `git diff`
+## 10. 🟡 Inspeksi Perbedaan Kode Secara Mendalam: `git diff`
 
-## Konsep
+#### Konsep
 
 Dua Perintah Diff Penting:
 1. **`git diff`** : Menampilkan perbedaan antara **Working Tree (kode yang baru diketik) vs Staging Area**.
 2. **`git diff --staged` (atau `git diff --cached`)** : Menampilkan perbedaan antara **Staging Area (file yang sudah di-add) vs Commit Terakhir**.
 
-## Output
+#### Output
 
 ```diff
 diff --git a/app.js b/app.js
@@ -436,16 +447,16 @@ git diff (bandingkan working tree vs staging) | git diff --staged (bandingkan st
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Konsep Percabangan (Branching) & Pointer HEAD di Git
+## 11. 🟡 Konsep Percabangan (Branching) & Pointer HEAD di Git
 
-## Konsep
+#### Konsep
 
 **Mengapa Branch di Git Sangat Ringan dan Cepat?**:
 - Di VCS lain, membuat branch berarti menyalin seluruh folder proyek (berat dan lambat).
 - Di Git, sebuah **Branch hanyalah sebuah pointer (file teks 41-byte)** yang menunjuk ke nomor SHA commit tertentu!
 - **Pointer `HEAD`**: Pointer penanda yang memberi tahu Git: *"Di branch/commit mana posisi Anda saat ini?"*.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                   HEAD -> feature/login (Branch Aktif)
@@ -467,16 +478,16 @@ Branch di Git hanyalah sebuah pointer penunjuk commit yang sangat ringan | HEAD 
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Membuat, Melihat, dan Mengganti Branch Modern
+## 12. 🟡 Membuat, Melihat, dan Mengganti Branch Modern
 
-## Konsep
+#### Konsep
 
 Perintah Manajemen Branch Modern (Git 2.23+):
 - **`git branch`** : Melihat daftar seluruh branch lokal (tanda `*` menunjukkan branch aktif).
 - **`git branch <nama-branch>`** : Membuat branch baru tanpa langsung berpindah.
 - **`git switch <nama-branch>`** : Beralih ke branch yang sudah ada (**Rekomendasi Modern menggantikan `git checkout`**).
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Lihat Daftar Branch
@@ -499,22 +510,22 @@ git branch (lihat cabang) | git switch branch_name (beralih ke cabang yang dituj
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Membuat dan Langsung Beralih ke Branch Baru
+## 13. 🟡 Membuat dan Langsung Beralih ke Branch Baru
 
-## Konsep
+#### Konsep
 
 Daripada menjalankan dua perintah (`git branch` lalu `git switch`), gunakan shorthand flag **`-c` (Create)**:
 
 **`git switch -c <nama-branch-baru>`**
 
-## Contoh
+#### Contoh
 
 ```bash
 # Buat dan langsung beralih ke branch fitur baru
 git switch -c feature/user-profile
 ```
 
-## Output
+#### Output
 
 ```text
 Switched to a new branch 'feature/user-profile'
@@ -530,16 +541,16 @@ git switch -c feature/nama-fitur → membuat branch baru dan langsung beralih se
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Penggabungan Cabang Dasar: Fast-Forward Merge
+## 14. 🟡 Penggabungan Cabang Dasar: Fast-Forward Merge
 
-## Konsep
+#### Konsep
 
 **Fast-Forward Merge**:
 Ketika Anda menggabungkan branch fitur ke branch `main`, dan **tidak ada commit baru di branch `main` semenjak branch fitur dibuat**:
 - Git tidak perlu membuat commit gabungan baru (*Merge Commit*).
 - Git hanya perlu **menggeser pointer branch `main` maju ke depan** mengikuti commit terakhir branch fitur (*Fast-Forward*).
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Pindah ke branch tujuan penggabungan (main)
@@ -549,7 +560,7 @@ git switch main
 git merge feature/user-profile
 ```
 
-## Output
+#### Output
 
 ```text
 Updating 7f8a9b2..3c4d5e6
@@ -568,15 +579,15 @@ git switch main && git merge feature-branch → menggabungkan perubahan branch f
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Menghapus Branch yang Sudah Selesai Digabung
+## 15. 🟡 Menghapus Branch yang Sudah Selesai Digabung
 
-## Konsep
+#### Konsep
 
 Setelah branch fitur berhasil digabungkan (*merged*) ke branch utama, branch fitur tersebut sebaiknya dihapus agar daftar branch repositori tetap bersih:
 - **`git branch -d <nama-branch>` (Safe Delete):** Menghapus branch hanya jika seluruh commit-nya sudah digabungkan.
 - **`git branch -D <nama-branch>` (Force Delete):** Memaksa menghapus branch meskipun commit-nya belum digabungkan.
 
-## Contoh
+#### Contoh
 
 ```bash
 git branch -d feature/user-profile
@@ -592,9 +603,9 @@ git branch -d branch_name (hapus aman branch yang sudah dimerge) | git branch -D
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Menghapus & Memindahkan File dari Tracking Git
+## 16. 🟡 Menghapus & Memindahkan File dari Tracking Git
 
-## Konsep
+#### Konsep
 
 1. **`git rm <file>`** : Menghapus file dari repositori Git DAN menghapus file fisik di disk.
 2. **`git rm --cached <file>` (Sangat Sering Digunakan):**
@@ -602,7 +613,7 @@ git branch -d branch_name (hapus aman branch yang sudah dimerge) | git branch -D
    - Ideal saat Anda tidak sengaja meng-commit file rahasia `.env` dan ingin menghapusnya dari Git tanpa menghapus file di laptop.
 3. **`git mv <old_path> <new_path>`** : Mengubah nama atau memindahkan file secara resmi di Git.
 
-## Contoh
+#### Contoh
 
 ```bash
 # Hapus .env dari Git tanpa menghapus file asli di disk:
@@ -620,9 +631,9 @@ git rm --cached file_name → menghapus file dari pelacakan Git tanpa menghapus 
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Menghubungkan Repositori Lokal ke Remote Server GitHub / GitLab
+## 17. 🔴 Menghubungkan Repositori Lokal ke Remote Server GitHub / GitLab
 
-## Konsep
+#### Konsep
 
 **Remote Repository**:
 Repositori Git yang di-hosting di server cloud (seperti GitHub, GitLab, atau Bitbucket) untuk kolaborasi tim dan backup terpusat.
@@ -631,7 +642,7 @@ Perintah Kunci:
 - **`git remote add <nama_alias> <url_repo>`** : Menghubungkan repo lokal ke URL remote (konvensi alias default: **`origin`**).
 - **`git remote -v`** : Melihat daftar URL remote aktif.
 
-## Contoh
+#### Contoh
 
 ```bash
 # Hubungkan ke repositori GitHub Anda
@@ -641,7 +652,7 @@ git remote add origin https://github.com/alimur-dev/ecommerce-app.git
 git remote -v
 ```
 
-## Output
+#### Output
 
 ```text
 origin  https://github.com/alimur-dev/ecommerce-app.git (fetch)
@@ -658,16 +669,16 @@ git remote add origin <url> → menghubungkan repositori lokal ke server cloud G
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Mengunggah Kode ke Remote Server
+## 18. 🔴 Mengunggah Kode ke Remote Server
 
-## Konsep
+#### Konsep
 
 Perintah **`git push <remote> <branch>`** digunakan untuk mengunggah commit lokal Anda ke server cloud remote.
 
 Flag **`-u` (atau `--set-upstream`)**:
 Menghubungkan branch lokal dengan branch remote target, sehingga untuk push berikutnya Anda **cukup mengetik `git push` saja tanpa argumen tambahan**.
 
-## Contoh
+#### Contoh
 
 ```bash
 # Push Pertama Kali (Gunakan flag -u):
@@ -687,9 +698,9 @@ git push -u origin main → mengunggah commit lokal ke branch main di server rem
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Sinkronisasi Remote: `git fetch` vs `git pull`
+## 19. 🔴 Sinkronisasi Remote: `git fetch` vs `git pull`
 
-## Konsep
+#### Konsep
 
 Perbedaan Krusial yang Wajib Dipahami Developer:
 
@@ -698,7 +709,7 @@ Perbedaan Krusial yang Wajib Dipahami Developer:
 | **`git fetch origin`** | Mengunduh seluruh commit & branch terbaru dari server remote **tanpa mengubah file di working tree lokal Anda**. | **100% Aman:** Memberi kesempatan untuk menginspeksi perubahan sebelum digabungkan. |
 | **`git pull origin main`** | Menjalankan **`git fetch`** lalu **langsung otomatis menjalankan `git merge`** ke branch aktif Anda. | Cepat dan praktis, namun bisa memicu merge conflict mendadak jika ada baris bertabrakan. |
 
-## Rumus Baku
+#### Rumus Baku
 
 ```text
 git pull = git fetch + git merge FETCH_HEAD
@@ -714,9 +725,9 @@ git fetch (unduh data remote tanpa ubah kode lokal) | git pull (unduh dan langsu
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Membatalkan Perubahan Lokal Aman dengan `git restore`
+## 20. 🔴 Membatalkan Perubahan Lokal Aman dengan `git restore`
 
-## Konsep
+#### Konsep
 
 Perintah **`git restore` (Git 2.23+)** adalah cara modern dan aman untuk membatalkan perubahan file lokal tanpa risiko menghapus branch:
 
@@ -725,7 +736,7 @@ Perintah **`git restore` (Git 2.23+)** adalah cara modern dan aman untuk membata
 2. **`git restore --staged <file>`**:
    - Mengeluarkan file dari Staging Area (*Unstage*) kembali ke Working Tree tanpa merusak isi kode.
 
-## Contoh
+#### Contoh
 
 ```bash
 # [1] Salah ketik kode di index.html tapi belum di-add:
@@ -745,7 +756,7 @@ git restore file (batalkan edit di working tree) | git restore --staged file (ke
 
 <a id="bagian-21"></a>
 
-# 21. 🛠️ Peta Ingatan Cepat
+## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
                        PETA ARSITEKTUR GIT DASAR
@@ -763,7 +774,7 @@ LOCAL THREE-TREE WORKFLOW     BRANCHING & MERGING         REMOTE CLOUD SYNCHRONI
 
 <a id="bagian-22"></a>
 
-# 22. 📚 Tabel Ringkasan
+## 22. 📚 Tabel Ringkasan
 
 | Perintah Git | Kategori | Fungsi & Kegunaan Utama |
 |---|---|---|
@@ -787,7 +798,7 @@ LOCAL THREE-TREE WORKFLOW     BRANCHING & MERGING         REMOTE CLOUD SYNCHRONI
 
 <a id="bagian-23"></a>
 
-# 23. ⚡ Cheat Code Git Dasar 10 Detik
+## 23. ⚡ Cheat Code Git Dasar 10 Detik
 
 ```bash
 # [1] Siklus Rutin Harian: Edit -> Add -> Commit -> Push
@@ -807,7 +818,7 @@ git branch -d feature/checkout
 
 <a id="bagian-24"></a>
 
-# 24. 🧭 Urutan Belajar yang Disarankan
+## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Setup Identitas & Inisialisasi Proyek
@@ -839,7 +850,7 @@ Langkah 5: Siap Melangkah ke Git Lanjutan, Rebase & Resolusi Konflik!
 
 <a id="bagian-25"></a>
 
-# 25. 🏗️ Mini Project: Production-Ready Full-Cycle Git Workflow Simulation
+## 25. 🏗️ Mini Project: Production-Ready Full-Cycle Git Workflow Simulation
 
 Simulasi terminal nyata lengkap dari awal sampai akhir: **Inisialisasi repositori, konfigurasi `.gitignore`, commit baseline, pembuatan branch fitur baru, inspeksi diff, fast-forward merge, dan push ke remote GitHub**.
 
@@ -919,7 +930,7 @@ git log --oneline --graph --decorate
 # git push -u origin main
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 Initialized empty Git repository in /Users/alimur/portal-berita/.git/
@@ -945,7 +956,7 @@ Deleted branch feature/berita-populer (was e4f5a6b).
 
 <a id="bagian-26"></a>
 
-# 26. 🔗 Referensi Resmi
+## 26. 🔗 Referensi Resmi
 
 - [Official Git Documentation](https://git-scm.com/doc)
 - [Pro Git Book (Buku Resmi Gratis oleh Scott Chacon & Ben Straub)](https://git-scm.com/book/en/v2)

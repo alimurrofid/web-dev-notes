@@ -1,4 +1,16 @@
-# Nuxt Dasar Cheatsheet Revised
+---
+title: "Nuxt Dasar"
+description: "Fundamental Nuxt 3: SSR & SSG mental model, File-based routing, Layouts, Auto-imports, Composables, dan SEO meta tags."
+order: 1
+tags:
+  - web-development
+  - frontend
+  - nuxt
+  - vue
+  - ssr
+---
+
+# Nuxt Dasar
 
 > **Target:** Pemula yang telah memahami Vue 3 (Composition API & `<script setup>`), serta ingin menguasai **pengembangan web full-stack, Server-Side Rendering (SSR), Static Site Generation (SSG), File-Based Routing, Auto-Imports, Layouts, dan SEO modern menggunakan Nuxt 3.12+ (Nuxt 4 Ready)**.
 >
@@ -101,9 +113,9 @@ useSeoMeta()                  → composable resmi Nuxt untuk mengatur metadata 
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Nuxt 3 & Mental Model Full-Stack Framework
+## 1. 🟢 Pengenalan Nuxt 3 & Mental Model Full-Stack Framework
 
-## Konsep
+#### Konsep
 
 Vue.js murni adalah framework Single Page Application (SPA) berbasis **Client-Side Rendering (CSR)**: browser menerima file HTML kosong (`<div id="app"></div>`) dan JavaScript besar. Dampaknya:
 1. **SEO Buruk:** Mesin pencari (Google, Bing) dan media sosial kesulitan membaca konten dinamis.
@@ -114,7 +126,7 @@ Vue.js murni adalah framework Single Page Application (SPA) berbasis **Client-Si
 - **Client-Side Hydration:** Setelah halaman tampil, Vue mengambil alih sehingga navigasi berikutnya menjadi SPA super cepat.
 - **Static Site Generation (SSG):** Men-generate seluruh halaman menjadi file HTML statis saat build (`nuxt generate`).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Vue SPA Murni (CSR):
@@ -134,9 +146,9 @@ Universal SSR → render HTML matang di server untuk kecepatan awal dan SEO, lal
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Tooling Nuxi CLI & Inisialisasi Proyek Baru
+## 2. 🟢 Tooling Nuxi CLI & Inisialisasi Proyek Baru
 
-## Konsep
+#### Konsep
 
 **Nuxi** adalah Command Line Interface (CLI) resmi untuk ekosistem Nuxt 3.
 
@@ -167,9 +179,9 @@ npx nuxi@latest init <nama-proyek> → perintah resmi pembuatan proyek baru Nuxt
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Anatomi Struktur Direktori Standar Nuxt 3
+## 3. 🟢 Anatomi Struktur Direktori Standar Nuxt 3
 
-## Konsep
+#### Konsep
 
 Nuxt menganut prinsip **Convention over Configuration** (membaca struktur folder secara otomatis tanpa perlu konfigurasi routing manual):
 
@@ -203,9 +215,9 @@ server/      → endpoint API backend Nitro
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Konsep Auto-Imports Otomatis
+## 4. 🟢 Konsep Auto-Imports Otomatis
 
-## Konsep
+#### Konsep
 
 Salah satu fitur paling produktif di Nuxt 3 adalah **Auto-Imports**:
 Anda **TIDAK PERLU MENULIS BARIS `import { ... }`** untuk:
@@ -213,7 +225,7 @@ Anda **TIDAK PERLU MENULIS BARIS `import { ... }`** untuk:
 2. **Nuxt Composables:** `useRoute`, `useRouter`, `useFetch`, `useHead`, `useSeoMeta`, `useState`.
 3. **Komponen di `components/`:** Semua file `.vue` di folder `components/` langsung dapat digunakan di template JSX/Vue tanpa registrasi.
 
-## Contoh
+#### Contoh
 
 ```vue
 <!-- components/AppAlert.vue -->
@@ -253,9 +265,9 @@ Auto-Imports → seluruh fungsi Vue Reactivity, Nuxt Composables, dan Komponen U
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 File-Based Routing Dasar di Folder `pages/`
+## 5. 🟢 File-Based Routing Dasar di Folder `pages/`
 
-## Konsep
+#### Konsep
 
 Begitu Anda membuat folder **`pages/`**, Nuxt akan mengaktifkan modul Vue Router secara otomatis di balik layar. Setiap file `.vue` yang dibuat di dalam folder ini otomatis menjadi URL rute web:
 
@@ -267,7 +279,7 @@ Begitu Anda membuat folder **`pages/`**, Nuxt akan mengaktifkan modul Vue Router
 | `pages/blog/index.vue` | `http://localhost:3000/blog` |
 | `pages/blog/latest.vue` | `http://localhost:3000/blog/latest` |
 
-## Contoh
+#### Contoh
 
 File `pages/about.vue`:
 ```vue
@@ -290,9 +302,9 @@ pages/about.vue   → rute /about
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Dynamic Routing & Parameter URL
+## 6. 🟢 Dynamic Routing & Parameter URL
 
-## Konsep
+#### Konsep
 
 Untuk membuat halaman dengan parameter URL dinamis (seperti `/products/101` atau `/users/budi`), gunakan tanda kurung siku `[parameter].vue` pada penamaan file atau folder:
 
@@ -303,7 +315,7 @@ Untuk membuat halaman dengan parameter URL dinamis (seperti `/products/101` atau
 Mengekstrak Parameter di Script:
 Gunakan composable **`useRoute().params.id`**.
 
-## Contoh
+#### Contoh
 
 File `pages/products/[id].vue`:
 ```vue
@@ -331,9 +343,9 @@ pages/[...slug].vue     → rute catch-all yang menangkap seluruh sisa segmen UR
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Navigasi Pintar dengan `<NuxtLink>`
+## 7. 🟢 Navigasi Pintar dengan `<NuxtLink>`
 
-## Konsep
+#### Konsep
 
 Komponen **`<NuxtLink>`** adalah pengganti tag `<a>` standar dan komponen `<RouterLink>` bawaan Vue:
 
@@ -342,7 +354,7 @@ Fitur Unggulan `<NuxtLink>`:
 2. **Smart Prefetching Otomatis:** Begitu elemen `<NuxtLink to="/products">` masuk ke area pandang layar (*viewport*), Nuxt otomatis mendownload kode JavaScript halaman tersebut di latar belakang. Saat pengguna mengklik link, halaman terbuka dalam **0 milidetik**!
 3. **Mendukung Link Eksternal:** Jika atribut `to` berisi `https://...`, `<NuxtLink>` otomatis me-render tag `<a>` biasa dengan `rel="noopener noreferrer"`.
 
-## Contoh
+#### Contoh
 
 ```vue
 <template>
@@ -368,16 +380,16 @@ Fitur Unggulan `<NuxtLink>`:
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Komponen `<NuxtPage>` & Root Component `app.vue`
+## 8. 🟢 Komponen `<NuxtPage>` & Root Component `app.vue`
 
-## Konsep
+#### Konsep
 
 File **`app.vue`** di root proyek adalah komponen induk utama tempat seluruh siklus aplikasi Nuxt bermula.
 
 Agar halaman-halaman dari folder `pages/` dapat ditampilkan di layar, Anda **WAJIB menyisipkan tag `<NuxtPage />`** di dalam `app.vue`:
 - Jika `app.vue` hanya berisi teks biasa tanpa `<NuxtPage />`, folder `pages/` tidak akan pernah ditampilkan!
 
-## Contoh
+#### Contoh
 
 File `app.vue` Standar dengan Layout:
 ```vue
@@ -403,9 +415,9 @@ File `app.vue` Standar dengan Layout:
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Layouts System: Membuat Tata Letak Bersama di `layouts/`
+## 9. 🟡 Layouts System: Membuat Tata Letak Bersama di `layouts/`
 
-## Konsep
+#### Konsep
 
 Jika Anda memiliki 20 halaman yang semuanya menggunakan Header Navbar dan Footer yang sama persis, Anda tidak perlu mengulang template tersebut di setiap halaman.
 
@@ -413,7 +425,7 @@ Buat file layout di folder **`layouts/`**:
 - Layout default bernama **`layouts/default.vue`**.
 - Gunakan tag **`<slot />`** untuk menentukan tempat konten halaman dirender.
 
-## Contoh
+#### Contoh
 
 File `layouts/default.vue`:
 ```vue
@@ -451,15 +463,15 @@ layouts/default.vue + <slot /> → template tata letak bersama default untuk sel
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Dynamic & Per-Page Layouts dengan `definePageMeta`
+## 10. 🟡 Dynamic & Per-Page Layouts dengan `definePageMeta`
 
-## Konsep
+#### Konsep
 
 Seringkali kita membutuhkan layout berbeda untuk halaman tertentu (misal: layout khusus Dashboard Admin `layouts/admin.vue`, atau halaman Login tanpa Navbar `layouts/auth.vue`).
 
 Gunakan macro compiler **`definePageMeta({ layout: 'nama-layout' })`** di dalam `<script setup>` halaman terkait.
 
-## Contoh
+#### Contoh
 
 1. Layout Khusus Admin (`layouts/admin.vue`):
 ```vue
@@ -505,9 +517,9 @@ definePageMeta({ layout: false })   → menonaktifkan seluruh layout (halaman po
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Komponen `<ClientOnly>` untuk Render Khusus Browser
+## 11. 🟡 Komponen `<ClientOnly>` untuk Render Khusus Browser
 
-## Konsep
+#### Konsep
 
 Pada Server-Side Rendering (SSR), kode dieksekusi di Node.js server terlebih dahulu. Di server, objek browser seperti `window`, `document`, `localStorage`, atau library Canvas/Chart **TIDAK TERSEDIA**.
 
@@ -517,7 +529,7 @@ Gunakan tag bawaan **`<ClientOnly>`**:
 - Komponen di dalam `<ClientOnly>` **hanya akan dirender di browser klien**.
 - Properti `fallback` menampilkan teks atau skeleton placeholder sementara saat HTML dirender di server.
 
-## Contoh
+#### Contoh
 
 ```vue
 <template>
@@ -542,9 +554,9 @@ Gunakan tag bawaan **`<ClientOnly>`**:
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Assets & Media: Folder `public/` vs `assets/`
+## 12. 🟡 Assets & Media: Folder `public/` vs `assets/`
 
-## Konsep
+#### Konsep
 
 Nuxt 3 menyediakan dua folder untuk menyimpan file gambar, font, dan stylesheet:
 
@@ -554,7 +566,7 @@ Nuxt 3 menyediakan dua folder untuk menyimpan file gambar, font, dan stylesheet:
 | **Akses di Kode** | Menggunakan root URL langsung: `/logo.png`, `/robots.txt` | Menggunakan alias path: `~/assets/images/banner.jpg` |
 | **Kasus Penggunaan** | `favicon.ico`, `robots.txt`, `sitemap.xml`, gambar statis murni | File CSS/SCSS global, gambar yang perlu dioptimasi oleh bundler |
 
-## Contoh
+#### Contoh
 
 ```vue
 <template>
@@ -579,16 +591,16 @@ assets/images  → alias path (~/assets/file.png) diproses dan dioptimasi oleh V
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 SEO & Dynamic Metadata dengan `useHead()` & `useSeoMeta()`
+## 13. 🟡 SEO & Dynamic Metadata dengan `useHead()` & `useSeoMeta()`
 
-## Konsep
+#### Konsep
 
 Keunggulan utama Nuxt adalah optimasi mesin pencari (SEO). Nuxt menyediakan 2 composable resmi:
 
 1. **`useSeoMeta()` (Sangat Direkomendasikan):** Berorientasi properti strongly-typed untuk Title, Description, Open Graph (WhatsApp, Twitter, Facebook preview) dengan performa tinggi.
 2. **`useHead()`:** Mengatur tag `<script>`, `<link rel="stylesheet">`, atau tag `<meta>` kustom.
 
-## Contoh
+#### Contoh
 
 ```vue
 <script setup>
@@ -623,9 +635,9 @@ useSeoMeta({ title: 'Judul', description: 'Deskripsi', ogImage: 'url' }) → kon
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Konfigurasi Utama di `nuxt.config.ts`
+## 14. 🟡 Konfigurasi Utama di `nuxt.config.ts`
 
-## Konsep
+#### Konsep
 
 File **`nuxt.config.ts`** adalah pusat kendali pengaturan aplikasi Nuxt.
 
@@ -635,7 +647,7 @@ Pengaturan Umum:
 - **`app.head`:** Mengatur metadata SEO default untuk seluruh halaman aplikasi.
 - **`devtools`:** Mengaktifkan Nuxt DevTools di browser.
 
-## Contoh
+#### Contoh
 
 ```typescript
 // nuxt.config.ts
@@ -672,9 +684,9 @@ defineNuxtConfig({ devtools: { enabled: true }, css: ['~/assets/css/main.css'] }
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Nested Pages & Sub-routing
+## 15. 🟡 Nested Pages & Sub-routing
 
-## Konsep
+#### Konsep
 
 Untuk membuat halaman bersarang dengan sub-navigasi (misal: halaman Dashboard yang memiliki tab Ringkasan, Profil, dan Notifikasi di dalam area konten yang sama):
 
@@ -682,7 +694,7 @@ Untuk membuat halaman bersarang dengan sub-navigasi (misal: halaman Dashboard ya
 2. Di dalam file induk, letakkan tag **`<NuxtPage />`** internal.
 3. Buat folder dengan nama yang sama persis: `pages/parent/` dan isi sub-halaman di dalamnya (`child1.vue`, `child2.vue`).
 
-## Contoh
+#### Contoh
 
 Struktur File:
 ```text
@@ -721,9 +733,9 @@ pages/parent.vue + pages/parent/child.vue → membuat sub-routing bersarang deng
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Halaman Error Kustom (`error.vue` di Root Proyek)
+## 16. 🟡 Halaman Error Kustom (`error.vue` di Root Proyek)
 
-## Konsep
+#### Konsep
 
 Jika terjadi error `404 Not Found` atau `500 Server Error`, Nuxt secara default menampilkan halaman error bawaan Nuxt.
 
@@ -732,7 +744,7 @@ Untuk membuat halaman error kustom berpenampilan profesional:
 2. Terima properti `error` via `defineProps({ error: Object })`.
 3. Sediakan tombol pemulihan menggunakan fungsi **`clearError({ redirect: '/' })`**.
 
-## Contoh
+#### Contoh
 
 ```vue
 <!-- error.vue -->
@@ -773,9 +785,9 @@ error.vue + clearError({ redirect: '/' }) → halaman error kustom global penang
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Page & Layout Transitions
+## 17. 🔴 Page & Layout Transitions
 
-## Konsep
+#### Konsep
 
 Nuxt 3 memiliki integrasi bawaan dengan komponen `<Transition>` Vue untuk memberikan animasi halus saat berpindah antar halaman.
 
@@ -813,9 +825,9 @@ app.pageTransition: { name: 'page', mode: 'out-in' } → mengaktifkan animasi tr
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 TypeScript Support Kelas Satu di Nuxt 3
+## 18. 🔴 TypeScript Support Kelas Satu di Nuxt 3
 
-## Konsep
+#### Konsep
 
 Nuxt 3 dibangun 100% menggunakan TypeScript dan menyediakan **auto-type generation**:
 - Setiap kali Anda membuat rute baru di `pages/` atau komponen di `components/`, Nuxt otomatis memperbarui file `.nuxt/tsconfig.json` dan memberikan autocompletion tipe rute yang sangat akurat.
@@ -831,7 +843,7 @@ Nuxt 3 dibangun 100% menggunakan TypeScript dan menyediakan **auto-type generati
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                            PETA ARSITEKTUR NUXT DASAR
@@ -849,7 +861,7 @@ ROUTING & NAVIGASI             LAYOUTS & VIEWPORT              OPTIMASI & SEO
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Fitur / Komponen | Lokasi / Tipe | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -867,7 +879,7 @@ ROUTING & NAVIGASI             LAYOUTS & VIEWPORT              OPTIMASI & SEO
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Nuxt Dasar 10 Detik
+## 21. ⚡ Cheat Code Nuxt Dasar 10 Detik
 
 ```vue
 <!-- Template Halaman Standar Nuxt 3 Lengkap -->
@@ -898,7 +910,7 @@ const count = ref(0)
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Fundamental SSR & Struktur Folder
@@ -929,11 +941,11 @@ Langkah 5: Siap Melangkah ke Nuxt Data Fetching (useFetch) & Nitro Server API!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready Corporate Blog & Product Showcase Nuxt Web App
+## 23. 🏗️ Mini Project: Production-Ready Corporate Blog & Product Showcase Nuxt Web App
 
 Aplikasi web Nuxt 3 lengkap dan runnable yang mengintegrasikan: **File-Based Routing, Multi-Layouts (Default vs Admin), Dynamic Routes `[id].vue`, `<NuxtLink>` Prefetching, `useSeoMeta()`, Auto-Imports, `<ClientOnly>`, Custom `error.vue`, dan Catch-All `[...slug].vue`**.
 
-### 1. File Entry Utama (`app.vue`):
+##### 1. File Entry Utama (`app.vue`):
 ```vue
 <template>
   <div>
@@ -944,7 +956,7 @@ Aplikasi web Nuxt 3 lengkap dan runnable yang mengintegrasikan: **File-Based Rou
 </template>
 ```
 
-### 2. Layout Default (`layouts/default.vue`):
+##### 2. Layout Default (`layouts/default.vue`):
 ```vue
 <template>
   <div style="font-family: 'Segoe UI', sans-serif; max-width: 900px; margin: 0 auto; padding: 20px;">
@@ -971,7 +983,7 @@ Aplikasi web Nuxt 3 lengkap dan runnable yang mengintegrasikan: **File-Based Rou
 </template>
 ```
 
-### 3. Layout Admin (`layouts/admin.vue`):
+##### 3. Layout Admin (`layouts/admin.vue`):
 ```vue
 <template>
   <div style="font-family: 'Segoe UI', sans-serif; display: flex; min-height: 100vh;">
@@ -987,7 +999,7 @@ Aplikasi web Nuxt 3 lengkap dan runnable yang mengintegrasikan: **File-Based Rou
 </template>
 ```
 
-### 4. Halaman Beranda (`pages/index.vue`):
+##### 4. Halaman Beranda (`pages/index.vue`):
 ```vue
 <script setup>
 useSeoMeta({
@@ -1028,7 +1040,7 @@ const features = ref([
 </template>
 ```
 
-### 5. Halaman Katalog Produk (`pages/products/index.vue`):
+##### 5. Halaman Katalog Produk (`pages/products/index.vue`):
 ```vue
 <script setup>
 useSeoMeta({
@@ -1061,7 +1073,7 @@ const products = [
 </template>
 ```
 
-### 6. Halaman Detail Produk Dinamis (`pages/products/[id].vue`):
+##### 6. Halaman Detail Produk Dinamis (`pages/products/[id].vue`):
 ```vue
 <script setup>
 const route = useRoute()
@@ -1087,7 +1099,7 @@ useSeoMeta({
 </template>
 ```
 
-### 7. Halaman Admin Dashboard (`pages/admin.vue`):
+##### 7. Halaman Admin Dashboard (`pages/admin.vue`):
 ```vue
 <script setup>
 // Menggunakan layout khusus admin
@@ -1112,7 +1124,7 @@ useSeoMeta({
 </template>
 ```
 
-### 8. Halaman Error Global (`error.vue`):
+##### 8. Halaman Error Global (`error.vue`):
 ```vue
 <script setup>
 const props = defineProps({
@@ -1137,7 +1149,7 @@ const handleClear = () => clearError({ redirect: '/' })
 </template>
 ```
 
-## Hasil Output Tampilan Aplikasi
+#### Hasil Output Tampilan Aplikasi
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -1164,7 +1176,7 @@ const handleClear = () => clearError({ redirect: '/' })
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Nuxt 3 Official Documentation (nuxt.com)](https://nuxt.com/)
 - [Nuxt Directory Structure Guide](https://nuxt.com/docs/guide/directory-structure/nuxt)

@@ -1,4 +1,16 @@
-# React Dasar Cheatsheet Revised
+---
+title: "React Dasar"
+description: "Fundamental React modern: JSX, Components, Props, State (useState), Effects (useEffect), Context API, dan Custom Hooks."
+order: 1
+tags:
+  - web-development
+  - frontend
+  - react
+  - javascript
+  - fundamental
+---
+
+# React Dasar
 
 > **Target:** Pemula yang telah memahami JavaScript dasar, DOM, dan ES6+ (Arrow Functions, Destructuring, Spread Operator, Modules), serta ingin menguasai **arsitektur antarmuka pengguna modern berbasis komponen menggunakan React 18 / 19 & Vite**.
 >
@@ -98,9 +110,9 @@ Hook                 → fungsi khusus berawalan 'use' yang memungkinkan kompone
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan React JS & Mental Model Deklaratif
+## 1. 🟢 Pengenalan React JS & Mental Model Deklaratif
 
-## Konsep
+#### Konsep
 
 Pada JavaScript murni (DOM Manipulation), kita memprogram secara **imperatif** (menginstruksikan langkah demi langkah teknis ke browser: `document.getElementById()`, `element.innerHTML = ...`, `btn.addEventListener()`). Cara ini sangat lambat dan rawan bug sinkronisasi data saat UI semakin kompleks.
 
@@ -112,7 +124,7 @@ Perbandingan Mental Model:
 - **Imperatif (Vanilla JS):** Ubah data $\rightarrow$ Cari elemen DOM $\rightarrow$ Ubah teks elemen manual.
 - **Deklaratif (React):** Ubah data State $\rightarrow$ UI otomatis menyesuaikan seketika.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Vanilla JS (Imperatif):
@@ -132,9 +144,9 @@ Declarative UI → kita mendeskripsikan "apa tampilan yang diinginkan", React me
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Tooling Modern dengan Vite & Struktur Folder Proyek
+## 2. 🟢 Tooling Modern dengan Vite & Struktur Folder Proyek
 
-## Konsep
+#### Konsep
 
 Standar industri modern untuk membuat proyek React adalah **Vite** (bukan Create-React-App yang sudah usang). Vite menggunakan arsitektur *Native ES Modules* di browser yang memberikan kecepatan startup server lokal instan dan *Hot Module Replacement (HMR)* super kilat.
 
@@ -172,9 +184,9 @@ App.jsx   → komponen induk utama penampung seluruh antarmuka aplikasi React
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Anatomi Component & Aturan Emas JSX
+## 3. 🟢 Anatomi Component & Aturan Emas JSX
 
-## Konsep
+#### Konsep
 
 **Component** di React adalah fungsi JavaScript murni yang mengembalikan elemen **JSX (JavaScript XML)**.
 
@@ -185,7 +197,7 @@ Aturan Emas Penulisan JSX:
 4. **Atribut `for` pada label menjadi `htmlFor`**.
 5. **Semua Tag Wajib Ditutup (*Self-Closing*):** `<img />`, `<input />`, `<br />`, `<hr />`.
 
-## Contoh
+#### Contoh
 
 ```jsx
 // Komponen Kartu Profil (PascalCase)
@@ -216,9 +228,9 @@ className             → atribut penentu CSS class pada elemen JSX
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Menyematkan JavaScript di Dalam JSX
+## 4. 🟢 Menyematkan JavaScript di Dalam JSX
 
-## Konsep
+#### Konsep
 
 Di dalam JSX, Anda dapat mengeksekusi ekspresi JavaScript dinamis apapun (seperti variabel, pemanggilan fungsi, operasi matematika, ternary operator) dengan membungkusnya di dalam **tanda kurung kurawal tunggal `{ }`**.
 
@@ -226,7 +238,7 @@ Aturan Styling Inline:
 - Atribut `style` menerima objek JavaScript, sehingga ditulis dengan **kurung kurawal ganda `style={{ ... }}`**.
 - Properti CSS yang memiliki tanda strip diubah menjadi **camelCase** (misal: `background-color` $\rightarrow$ `backgroundColor`, `font-size` $\rightarrow$ `fontSize`).
 
-## Contoh
+#### Contoh
 
 ```jsx
 export default function ProductDisplay() {
@@ -246,7 +258,7 @@ export default function ProductDisplay() {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 MECHANICAL KEYBOARD
@@ -265,9 +277,9 @@ style={{ backgroundColor: "blue" }} → penulisan inline styling objek berformat
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Mengirim & Menerima Data via Props
+## 5. 🟢 Mengirim & Menerima Data via Props
 
-## Konsep
+#### Konsep
 
 **Props (Properties)** adalah mekanisme utama untuk mengalirkan data dari **Komponen Induk (*Parent*) ke Komponen Anak (*Child*)** secara satu arah (*One-Way Data Flow*).
 
@@ -277,7 +289,7 @@ Karakteristik Props:
 - **Default Props:** Memberikan nilai cadangan jika prop tidak dikirim oleh parent.
 - **`children` Prop:** Properti khusus untuk menangkap seluruh elemen JSX yang disisipkan di antara tag pembuka dan penutup komponen (`<Modal>Isi Konten</Modal>`).
 
-## Contoh
+#### Contoh
 
 Komponen Anak (Child):
 ```jsx
@@ -309,7 +321,7 @@ export default function App() {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Parent Component (<Badge text="Admin" color="red" />)
@@ -329,9 +341,9 @@ children                                        → prop bawaan penampung konten
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 State Management Lokal dengan `useState`
+## 6. 🟢 State Management Lokal dengan `useState`
 
-## Konsep
+#### Konsep
 
 **State** adalah data internal yang dimiliki komponen dan **dapat berubah seiring waktu** (misal: input form, toggle popup, counter). Ketika state diperbarui, **React akan otomatis me-render ulang (*Re-render*) komponen tersebut** agar tampilan UI selalu sinkron dengan data terbaru.
 
@@ -346,7 +358,7 @@ Aturan Penting Pembaruan State:
 - **Gunakan Setter:** ✅ `setCount(count + 1)`.
 - **Gunakan Functional Updater jika Bergantung pada State Sebelumnya:** ✅ `setCount(prev => prev + 1)` (Mencegah bug *Stale State Closure* saat pemanggilan berulang).
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useState } from 'react';
@@ -389,9 +401,9 @@ setState(prevState => newState)                  → memperbarui state secara am
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Mengelola State Objek & Array yang Kompleks
+## 7. 🟢 Mengelola State Objek & Array yang Kompleks
 
-## Konsep
+#### Konsep
 
 Di React, State harus diperlakukan sebagai **Immutable (Tidak Boleh Dimutasi Langsung)**.
 
@@ -402,7 +414,7 @@ Di React, State harus diperlakukan sebagai **Immutable (Tidak Boleh Dimutasi Lan
    - **Menghapus Elemen:** Gunakan `prev.filter(item => item.id !== targetId)` (Bukan `prev.splice()`).
    - **Memperbarui Elemen:** Gunakan `prev.map(item => item.id === targetId ? { ...item, updated } : item)`.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useState } from 'react';
@@ -460,9 +472,9 @@ setArr(prev => prev.filter(item => item.id !== id))  → menghapus item array ta
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Handling Events di React
+## 8. 🟢 Handling Events di React
 
-## Konsep
+#### Konsep
 
 React membungkus event bawaan browser ke dalam **SyntheticEvent** untuk memastikan perilaku event konsisten di semua jenis browser (*Cross-Browser Consistency*).
 
@@ -473,7 +485,7 @@ Aturan Event di React:
    - ❌ Salah: `onClick={handleClick()}` (Fungsi akan langsung tereksekusi saat render, memicu loop tak terbatas!).
 3. Mencegah aksi default browser (seperti reload halaman pada submit form): **`e.preventDefault()`**.
 
-## Contoh
+#### Contoh
 
 ```jsx
 export default function ActionButtons() {
@@ -504,9 +516,9 @@ e.preventDefault()                      → menghentikan perilaku reload form at
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Conditional Rendering
+## 9. 🟡 Conditional Rendering
 
-## Konsep
+#### Konsep
 
 Teknik menampilkan elemen UI yang berbeda berdasarkan kondisi tertentu:
 
@@ -514,7 +526,7 @@ Teknik menampilkan elemen UI yang berbeda berdasarkan kondisi tertentu:
 2. **Logical AND (`cond && <Comp />`):** Menampilkan komponen hanya jika kondisi `true`. Jika `false`, tidak me-render apapun (*If Only*).
 3. **Early Return:** Mengembalikan JSX lain di awal fungsi komponen (misal: menampilkan `<LoadingSpinner />` saat data belum siap).
 
-## Contoh
+#### Contoh
 
 ```jsx
 export default function AuthDashboard({ user, isLoading }) {
@@ -554,9 +566,9 @@ condition && <ComponentIfTrue />                       → conditional rendering
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Rendering List Data & Aturan Wajib `key` Prop
+## 10. 🟡 Rendering List Data & Aturan Wajib `key` Prop
 
-## Konsep
+#### Konsep
 
 Untuk me-render kumpulan data array menjadi elemen JSX, kita menggunakan fungsi JavaScript standar **`.map()`**.
 
@@ -567,7 +579,7 @@ Aturan Wajib `key` Prop:
 > [!WARNING]
 > **DILARANG MENGGUNAKAN INDEX ARRAY SEBAGAI `key` (`key={index}`) pada daftar yang elemennya dapat diurutkan, disaring, atau dihapus!** Menggunakan index array dapat menyebabkan bug tampilan form salah input dan penurunan drastis performa diffing.
 
-## Contoh
+#### Contoh
 
 ```jsx
 export default function ProductList() {
@@ -603,9 +615,9 @@ array.map(item => <Element key={item.id}>{item.name}</Element>) → me-render da
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Form Handling: Controlled Components vs Uncontrolled Components
+## 11. 🟡 Form Handling: Controlled Components vs Uncontrolled Components
 
-## Konsep
+#### Konsep
 
 1. **Controlled Components (STANDAR UTAMA REACT):**
    - Nilai input HTML dikendalikan sepenuhnya oleh **React State**.
@@ -614,7 +626,7 @@ array.map(item => <Element key={item.id}>{item.name}</Element>) → me-render da
 2. **Uncontrolled Components:**
    - Nilai input disimpan oleh DOM browser sendiri, dan dibaca saat dibutuhkan menggunakan `useRef()`.
 
-## Contoh (Controlled Component)
+#### Contoh (Controlled Component)
 
 ```jsx
 import { useState } from 'react';
@@ -652,9 +664,9 @@ value={state} onChange={(e) => setState(e.target.value)} → pola Controlled Com
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Menangani Multiple Form Inputs dengan Satu Handler Terpadu
+## 12. 🟡 Menangani Multiple Form Inputs dengan Satu Handler Terpadu
 
-## Konsep
+#### Konsep
 
 Jika sebuah form registrasi memiliki 10 input field, membuat 10 fungsi `useState` terpisah akan membuat kode sangat panjang dan kotor.
 
@@ -663,7 +675,7 @@ Jika sebuah form registrasi memiliki 10 input field, membuat 10 fungsi `useState
 2. Berikan atribut **`name`** pada setiap tag `<input>` yang nilainya sama persis dengan nama property di state.
 3. Buat 1 fungsi `handleChange` yang menggunakan sintaks **ES6 Computed Property Names: `[e.target.name]: e.target.value`**.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useState } from 'react';
@@ -736,9 +748,9 @@ setFormData(prev => ({ ...prev, [e.target.name]: e.target.value })) → satu han
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Lifecycle & Side Effects dengan `useEffect`
+## 13. 🟡 Lifecycle & Side Effects dengan `useEffect`
 
-## Konsep
+#### Konsep
 
 Komponen React harus murni (*Pure Function*) saat me-render UI. Segala operasi yang berinteraksi dengan dunia luar (seperti memanggil API fetch, mengubah judul dokumen `document.title`, memasang timer, atau membaca localStorage) disebut **Side Effects**.
 
@@ -750,7 +762,7 @@ Hook **`useEffect(callback, dependencyArray)`** mengatur kapan efek tersebut die
 | **`[]` (Array Kosong)** | Dijalankan **tepat 1x saat komponen pertama kali dipasang (*Mount*)** | Fetch daftar data awal aplikasi |
 | **Tanpa Array** | ⚠️ Dijalankan **pada setiap kali re-render terjadi** | Logging siklus render (Jarang dipakai) |
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useState, useEffect } from 'react';
@@ -791,9 +803,9 @@ useEffect(() => { /* side effect logic */ }, [dependencies]); → sinkronisasi e
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Cleanup Function pada `useEffect`
+## 14. 🟡 Cleanup Function pada `useEffect`
 
-## Konsep
+#### Konsep
 
 Jika efek samping Anda membuat langganan (*subscription*), event listener window, timer `setInterval`, atau request jaringan yang sedang berjalan, Anda **WAJIB mengembalikan sebuah fungsi pembersih (*Cleanup Function*)**.
 
@@ -803,7 +815,7 @@ Kapan Cleanup Function Dieksekusi?
 
 Jika tidak dibersihkan, aplikasi akan mengalami **Memory Leak** dan error mencoba mengubah state pada komponen yang sudah mati (*Can't perform a React state update on an unmounted component*).
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useState, useEffect } from 'react';
@@ -838,16 +850,16 @@ useEffect(() => { setup(); return () => cleanup(); }, [dep]); → struktur lifec
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Mengakses DOM Langsung & Mutable Reference dengan `useRef`
+## 15. 🟡 Mengakses DOM Langsung & Mutable Reference dengan `useRef`
 
-## Konsep
+#### Konsep
 
 Hook **`useRef(initialValue)`** mengembalikan objek JavaScript `{ current: initialValue }` yang memiliki 2 fungsi utama:
 
 1. **Mengakses Elemen DOM Nyata:** Mengarahkan referensi ke elemen HTML fisik (misal: memberikan auto-focus ke kotak input teks, memutar video `<video>.play()`, atau scroll otomatis).
 2. **Menyimpan Nilai Mutable yang Persisten:** Menyimpan data (seperti ID timer `setInterval`) yang nilainya tetap bertahan antar re-render, **tetapi mengubah `.current` TIDAK memicu re-render UI** (berbeda dengan `useState`).
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useRef, useEffect } from 'react';
@@ -888,9 +900,9 @@ const myRef = useRef(initialVal); → membuat referensi mutable yang tidak memic
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Mengangkat State ke Atas (*Lifting State Up*)
+## 16. 🟡 Mengangkat State ke Atas (*Lifting State Up*)
 
-## Konsep
+#### Konsep
 
 Di React, data mengalir satu arah dari atas ke bawah. Dua komponen saudara (*Sibling Components*) tidak dapat berbagi state secara langsung satu sama lain.
 
@@ -899,7 +911,7 @@ Untuk menyinkronkan data antar komponen saudara:
 2. Kirim nilai State ke komponen anak A via **Props**.
 3. Kirim fungsi Updater (`setState`) ke komponen anak B via **Props Callback**.
 
-## Contoh
+#### Contoh
 
 ```jsx
 import { useState } from 'react';
@@ -942,7 +954,7 @@ export default function FilterableApp() {
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                     Parent: FilterableApp
@@ -963,9 +975,9 @@ Lifting State Up → memindahkan state ke komponen induk terdekat agar dapat dib
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Membangun Custom Hooks
+## 17. 🔴 Membangun Custom Hooks
 
-## Konsep
+#### Konsep
 
 Jika Anda memiliki logika stateful yang berulang di beberapa komponen (misal: logika menyimpan data ke `localStorage`, mendeteksi status koneksi internet, atau fetching API), Anda dapat mengekstraknya menjadi **Custom Hook**.
 
@@ -973,7 +985,7 @@ Aturan Pembuatan Custom Hook:
 1. Nama fungsi **WAJIB diawali dengan kata `use`** (misal: `useLocalStorage`, `useToggle`, `useFetch`). Aturan ini wajib agar React Linter dapat memverifikasi aturan Hooks.
 2. Di dalam Custom Hook, Anda bebas memanggil hook React standar lain (`useState`, `useEffect`, `useRef`).
 
-## Contoh (`useLocalStorage` Custom Hook)
+#### Contoh (`useLocalStorage` Custom Hook)
 
 ```jsx
 import { useState, useEffect } from 'react';
@@ -1028,9 +1040,9 @@ useCustomHookName → fungsi kustom berawalan 'use' untuk mendaur ulang logika s
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 React Strict Mode & Cara Kerjanya
+## 18. 🔴 React Strict Mode & Cara Kerjanya
 
-## Konsep
+#### Konsep
 
 Di dalam `main.jsx`, Anda akan melihat komponen dibungkus oleh `<React.StrictMode>`.
 
@@ -1050,7 +1062,7 @@ Apa Fungsi Strict Mode?
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                          PETA ARSITEKTUR REACT DASAR
@@ -1068,7 +1080,7 @@ KOMPONEN & JSX                STATE & IMMUTABILITY           EFFECTS & DOM
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Hook / Konsep | Tipe | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -1086,7 +1098,7 @@ KOMPONEN & JSX                STATE & IMMUTABILITY           EFFECTS & DOM
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code React Dasar 10 Detik
+## 21. ⚡ Cheat Code React Dasar 10 Detik
 
 ```jsx
 // 1. Template Functional Component dengan Props & State
@@ -1117,7 +1129,7 @@ const onChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.va
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Mental Model Deklaratif & JSX
@@ -1148,7 +1160,7 @@ Langkah 5: Siap Melangkah ke React Router (SPA) & Global State Management (Zusta
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Production-Ready Interactive Task & Expense Manager Web App
+## 23. 🏗️ Mini Project: Production-Ready Interactive Task & Expense Manager Web App
 
 Aplikasi web interaktif lengkap dan runnable yang mengintegrasikan: **Functional Components, Props, `useState` Immutability (Array & Object), Controlled Forms, `useEffect` dengan LocalStorage Persistence, Custom Hook `useLocalStorage`, Filter Search, dan Summary Statistics**.
 
@@ -1379,7 +1391,7 @@ export default function App() {
 }
 ```
 
-## Hasil Output Tampilan Aplikasi
+#### Hasil Output Tampilan Aplikasi
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -1402,7 +1414,7 @@ export default function App() {
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [React Official Documentation (react.dev)](https://react.dev/)
 - [Vite Official Documentation](https://vitejs.dev/)

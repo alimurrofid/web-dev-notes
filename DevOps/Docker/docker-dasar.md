@@ -1,4 +1,15 @@
-# Docker Dasar Cheatsheet Revised
+---
+title: "Docker Dasar"
+description: "Fundamental containerization Docker: Mental model container vs VM, Docker architecture, CLI commands (run, ps, stop, rm, exec), Image management, dan Docker Hub."
+order: 1
+tags:
+  - devops
+  - docker
+  - containers
+  - fundamental
+---
+
+# Docker Dasar
 
 > **Target:** Pemula yang baru mengenal Docker dan container, serta ingin menguasai perintah Docker CLI untuk deployment dan operasional kontainer aplikasi.
 >
@@ -99,20 +110,20 @@ Network   → Jembatan virtual komunikasi antar kontainer menggunakan DNS name
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Container & Isolasi Proses
+## 1. 🟢 Pengenalan Container & Isolasi Proses
 
-## Konsep
+#### Konsep
 
 **Container** adalah unit standar perangkat lunak yang mengemas kode aplikasi beserta seluruh dependensi (*runtime*, pustaka, konfigurasi sistem, dan file binari) ke dalam satu wadah terisolasi yang dapat berjalan secara konsisten di lingkungan komputasi apa pun (laptop developer, server staging, hingga cloud production).
 
-### Mengapa Kita Membutuhkan Container?
+##### Mengapa Kita Membutuhkan Container?
 Masalah klasik programmer adalah *"It works on my machine"* (program berjalan normal di laptop developer, tetapi crash/rusak saat di-deploy ke server produksi akibat perbedaan versi OS, modul, atau dependensi sistem). Container menyelesaikan masalah ini secara tuntas dengan menjamin lingkungan eksekusi yang identik 100%.
 
-### Perbedaan Mendasar Container vs Virtual Machine (VM):
+##### Perbedaan Mendasar Container vs Virtual Machine (VM):
 - **Virtual Machine (VM):** Mengemulasi perangkat keras lengkap (*hardware level*) dan mewajibkan instalasi Sistem Operasi Tamu (*Guest OS*) penuh yang memakan ruang gigabyte dan booting dalam hitungan menit.
 - **Container:** Berjalan di level sistem operasi (*OS level virtualization*). Seluruh container **berbagi Kernel Host yang sama** dan hanya mengemas aplikasi + dependensinya saja, sehingga berukuran sangat kecil (megabyte) dan menyala (*start*) dalam hitungan milidetik.
 
-## Contoh
+#### Contoh
 
 ```bash
 # Menjalankan kontainer Linux Ubuntu terisolasi hanya dalam 1 detik
@@ -123,7 +134,7 @@ cat /etc/os-release
 exit
 ```
 
-## Output
+#### Output
 
 ```text
 root@a1b2c3d4e5f6:/# cat /etc/os-release
@@ -134,7 +145,7 @@ PRETTY_NAME="Ubuntu 22.04.4 LTS"
 root@a1b2c3d4e5f6:/# exit
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Virtual Machine Architecture            Container Architecture
@@ -159,7 +170,7 @@ Container → Proses aplikasi terisolasi yang berbagi Kernel Host (ringan, cepat
 VM        → Emulasi komputer penuh dengan Guest OS mandiri (berat, butuh hypervisor)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Perlakukan container sebagai entitas sementara (*ephemeral / stateless*); simpan data penting di Volume eksternal.
 - ❌ Jangan menganggap container sebagai Virtual Machine penuh yang diisi banyak layanan (database, web server, ssh) dalam 1 container (*One Process Per Container Rule*).
@@ -168,9 +179,9 @@ VM        → Emulasi komputer penuh dengan Guest OS mandiri (berat, butuh hyper
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Pengenalan Docker & Nilai Tambah Kontainerisasi
+## 2. 🟢 Pengenalan Docker & Nilai Tambah Kontainerisasi
 
-## Konsep
+#### Konsep
 
 **Docker** adalah platform sumber terbuka (*open-source platform*) paling populer di dunia yang mempermudah proses pembuatan (*build*), pengiriman (*ship*), dan eksekusi (*run*) aplikasi di dalam container.
 
@@ -180,7 +191,7 @@ Nilai Tambah Utama Docker:
 3. **Isolasi Total:** Jika satu container crash atau terinfeksi bug, container lain dan OS host tetap aman terlindungi.
 4. **Kecepatan Deployment:** Menyalakan atau mematikan layanan aplikasi terjadi secara instan dalam hitungan detik (*instant startup*).
 
-## Contoh
+#### Contoh
 
 ```bash
 # Menjalankan web server Nginx secara instan tanpa perlu install Nginx di laptop
@@ -190,7 +201,7 @@ docker run -d -p 8080:80 --name web-testing nginx:alpine
 docker ps
 ```
 
-## Output
+#### Output
 
 ```text
 CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                  NAMES
@@ -199,7 +210,7 @@ f4a8b9c1d2e3   nginx:alpine   "/docker-entrypoint.…"   2 seconds ago   Up 1 se
 
 Buka browser di `http://localhost:8080` -> Tampilan *"Welcome to nginx!"* langsung muncul.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
            Developer Command: docker run ...
@@ -222,7 +233,7 @@ docker run   → Perintah membuat dan langsung menjalankan container baru
 docker ps    → Menampilkan daftar kontainer yang sedang aktif berjalan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan varian image berbasis `alpine` (misal: `nginx:alpine`, `node:alpine`) karena ukurannya sangat ramping (hanya ~5-30MB) dibanding image standar.
 - ❌ Jangan mengedit file kode secara manual langsung di dalam container produksi tanpa sinkronisasi volume atau image build baru.
@@ -231,9 +242,9 @@ docker ps    → Menampilkan daftar kontainer yang sedang aktif berjalan
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Arsitektur Docker (Client, Docker Daemon, Host, Registry)
+## 3. 🟢 Arsitektur Docker (Client, Docker Daemon, Host, Registry)
 
-## Konsep
+#### Konsep
 
 Docker menggunakan arsitektur **Client-Server**:
 
@@ -243,7 +254,7 @@ Komponen Utama Arsitektur Docker:
 3. **Docker Registry:** Tempat penyimpanan dan distribusi Docker Image publik/privat (default utama adalah **Docker Hub**).
 4. **Docker Objects:** Entitas yang dibuat oleh Docker (Image, Container, Volume, Network).
 
-## Contoh
+#### Contoh
 
 ```bash
 # Memeriksa informasi arsitektur Docker Client dan Server Engine
@@ -253,7 +264,7 @@ docker version
 docker info
 ```
 
-## Output
+#### Output
 
 ```text
 Client: Docker Engine - Community
@@ -269,7 +280,7 @@ Server: Docker Engine - Community
   Runtimes:         runc io.containerd.runc.v2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Docker Client (CLI)
@@ -296,7 +307,7 @@ Docker Daemon → Server engine di background yang memproses instruksi & memutar
 Docker Hub    → Gudang cloud pusat penyimpanan image resmi di seluruh dunia
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pahami bahwa perintah `docker` yang Anda ketikkan di terminal sebenarnya mengirimkan instruksi HTTP REST API ke Docker Daemon di background.
 - ❌ Jika muncul error `Cannot connect to the Docker daemon`, itu artinya service background Docker Engine belum dinyalakan di OS Host.
@@ -305,9 +316,9 @@ Docker Hub    → Gudang cloud pusat penyimpanan image resmi di seluruh dunia
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Menginstall & Verifikasi Docker Engine
+## 4. 🟢 Menginstall & Verifikasi Docker Engine
 
-## Konsep
+#### Konsep
 
 Untuk mulai menggunakan Docker, kita menginstal **Docker Desktop** (untuk Windows & macOS dengan GUI dashboard terintegrasi) atau **Docker Engine** (untuk server Linux via apt/yum).
 
@@ -315,7 +326,7 @@ Langkah Verifikasi Instalasi:
 1. Mengecek ketersediaan perintah `docker --version`.
 2. Menjalankan container uji coba resmi **`hello-world`** untuk memastikan Client berhasil berkomunikasi dengan Daemon dan Docker Hub.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Cek versi CLI
@@ -325,7 +336,7 @@ docker --version
 docker run hello-world
 ```
 
-## Output
+#### Output
 
 ```text
 Docker version 26.1.0, build 9714adc
@@ -340,7 +351,7 @@ To generate this message, Docker took the following steps:
  4. The Docker daemon streamed that output to the Docker client, which sent it to your terminal.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          docker run hello-world
@@ -362,7 +373,7 @@ docker --version     → Memeriksa versi Docker yang terpasang
 docker run hello-world → Menjalankan kontainer uji verifikasi koneksi engine
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pada Windows / macOS, pastikan fitur virtualisasi hardware (VT-x / AMD-V) dan WSL 2 (Windows Subsystem for Linux) sudah aktif di BIOS.
 - ❌ Di Linux, tambahkan user Anda ke grup docker (`sudo usermod -aG docker $USER`) agar tidak perlu mengetikkan `sudo` setiap kali menjalankan perintah docker.
@@ -371,9 +382,9 @@ docker run hello-world → Menjalankan kontainer uji verifikasi koneksi engine
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Docker Registry & Docker Hub
+## 5. 🟢 Docker Registry & Docker Hub
 
-## Konsep
+#### Konsep
 
 **Docker Registry** adalah sistem penyimpanan terpusat yang bertanggung jawab untuk mengelola dan mendistribusikan Docker Images.
 
@@ -386,7 +397,7 @@ Perintah Autentikasi Registry:
 - `docker logout`: Keluar dari sesi registry.
 - `docker search keyword`: Mencari image publik langsung dari terminal.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Mencari image resmi Redis di Docker Hub
@@ -403,7 +414,7 @@ docker tag local-app:latest myusername/my-awesome-app:v1.0.0
 docker push myusername/my-awesome-app:v1.0.0
 ```
 
-## Output
+#### Output
 
 ```text
 NAME      DESCRIPTION                                     STARS     OFFICIAL
@@ -414,7 +425,7 @@ The push refers to repository [docker.io/myusername/my-awesome-app]
 v1.0.0: digest: sha256:7f8a9b... size: 1420
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Lokal Mesin Developer                     Docker Hub Cloud Registry
@@ -436,7 +447,7 @@ docker push image_name:tag → Mengunggah image lokal ke cloud registry
 docker pull image_name:tag → Mengunduh image dari registry ke komputer lokal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu pilih image yang bertanda **OFFICIAL** di Docker Hub untuk menjamin stabilitas dan keamanan dari celah malware.
 - ❌ Jangan pernah mengunggah image ke public registry jika di dalamnya berisi password, API key, atau file `.env` rahasia.
@@ -445,9 +456,9 @@ docker pull image_name:tag → Mengunduh image dari registry ke komputer lokal
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Docker Image (Pull, List, Tag, & Remove)
+## 6. 🟢 Docker Image (Pull, List, Tag, & Remove)
 
-## Konsep
+#### Konsep
 
 **Docker Image** adalah paket *read-only* (template cetak biru) yang berisi kode program, library, dependensi sistem, dan konfigurasi yang dibutuhkan untuk menjalankan aplikasi.
 
@@ -461,7 +472,7 @@ Perintah Manajemen Image:
 - `docker image tag source:tag target:tag`: Memberi alias/tag baru.
 - `docker rmi image_id` / `docker image rm`: Menghapus image dari lokal.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Mengunduh image Redis versi alpine
@@ -477,7 +488,7 @@ docker tag redis:alpine my-redis-cache:v1
 docker rmi my-redis-cache:v1
 ```
 
-## Output
+#### Output
 
 ```text
 alpine: Pulling from library/redis
@@ -491,7 +502,7 @@ nginx        alpine    f9e8d7c6b5a4   1 week ago     23.5MB
 Untagged: my-redis-cache:v1
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          docker pull redis:alpine
@@ -512,7 +523,7 @@ docker images              → Melihat seluruh image yang tersimpan di lokal
 docker rmi image_name      → Menghapus image dari memori penyimpanan lokal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu sertakan tag versi eksplisit (misal `node:20.12-alpine`), hindari menggunakan tag `latest` di produksi agar versi tidak berubah mendadak saat server di-deploy ulang.
 - ❌ Anda tidak bisa menghapus image (`docker rmi`) jika image tersebut masih digunakan oleh container yang ada (hentikan dan hapus kontainernya terlebih dahulu).
@@ -521,9 +532,9 @@ docker rmi image_name      → Menghapus image dari memori penyimpanan lokal
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Docker Container Lifecycle (Run, Start, Stop, Restart, & Remove)
+## 7. 🟢 Docker Container Lifecycle (Run, Start, Stop, Restart, & Remove)
 
-## Konsep
+#### Konsep
 
 **Docker Container** adalah instance aktif yang berjalan (*running instance*) dari sebuah Docker Image.
 
@@ -559,7 +570,7 @@ Perintah Siklus Hidup:
 - `docker restart container_name`: Memuat ulang container.
 - `docker rm container_name`: Menghapus container.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Membuat dan menjalankan kontainer Nginx di background dengan nama 'my-web'
@@ -582,7 +593,7 @@ docker stop my-web
 docker rm my-web
 ```
 
-## Output
+#### Output
 
 ```text
 9a8b7c6d5e4f... (Container ID)
@@ -599,7 +610,7 @@ my-web (Started)
 my-web (Removed)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          docker run -d --name my-web nginx:alpine
@@ -619,7 +630,7 @@ docker stop container_name      → Menghentikan container yang sedang berjalan
 docker rm container_name        → Menghapus container dari sistem
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu beri nama container menggunakan opsi `--name` yang deskriptif agar mudah diidentifikasi (jangan biarkan Docker memberi nama acak seperti `flamboyant_morse`).
 - ❌ Jangan membuat puluhan container baru dengan `docker run` jika hanya ingin menyalakan container lama yang sudah ada (gunakan `docker start`).
@@ -628,9 +639,9 @@ docker rm container_name        → Menghapus container dari sistem
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Container Log & Monitoring Output (docker logs)
+## 8. 🟢 Container Log & Monitoring Output (docker logs)
 
-## Konsep
+#### Konsep
 
 Setiap aplikasi yang berjalan di dalam container biasanya mencetak informasi log ke keluaran standar (**`stdout`**) dan kesalahan standar (**`stderr`**).
 
@@ -642,7 +653,7 @@ Opsi Esensial `docker logs`:
 - `docker logs --tail N container_name`: Hanya menampilkan `N` baris terakhir.
 - `docker logs -t container_name` (*timestamps*): Menyertakan waktu tanggal pada setiap baris log.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Menjalankan kontainer Redis di background
@@ -655,7 +666,7 @@ docker logs --tail 5 -t cache-db
 # docker logs -f cache-db
 ```
 
-## Output
+#### Output
 
 ```text
 2026-08-29T10:42:01.123456789Z 1:M 29 Aug 2026 10:42:01.123 * Running mode=standalone, port=6379.
@@ -663,7 +674,7 @@ docker logs --tail 5 -t cache-db
 2026-08-29T10:42:01.124123456Z 1:M 29 Aug 2026 10:42:01.124 * Ready to accept connections tcp
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Proses di dalam Container mencetak output ke stdout / stderr
@@ -682,7 +693,7 @@ docker logs container_name            → Membaca riwayat seluruh log kontainer
 docker logs -f --tail 50 name         → Memantau 50 baris log terakhir secara live real-time
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Desain aplikasi Anda agar menulis log langsung ke `stdout` / `stderr` (bukan ke file log tersembunyi di dalam folder) agar kompatibel dengan standar Docker Logging.
 - ❌ Jangan menjalankan `docker logs` tanpa opsi `--tail` pada container produksi yang sudah berjalan berbulan-bulan karena terminal akan dibanjiri jutaan baris log.
@@ -691,9 +702,9 @@ docker logs -f --tail 50 name         → Memantau 50 baris log terakhir secara 
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Container Exec & Akses Shell Interaktif (docker exec)
+## 9. 🟢 Container Exec & Akses Shell Interaktif (docker exec)
 
-## Konsep
+#### Konsep
 
 Perintah **`docker exec`** memungkinkan kita mengeksekusi perintah tambahan atau membuka sesi terminal shell interaktif (**bash / sh**) di dalam container yang **sedang aktif berjalan**.
 
@@ -706,7 +717,7 @@ Perbedaan dengan `docker run`:
 - `docker run`: Membuat container **BARU** dari image.
 - `docker exec`: Masuk / mengeksekusi perintah ke dalam container yang **SUDAH ADA & SEDANG BERJALAN**.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Menjalankan web server Nginx
@@ -724,7 +735,7 @@ docker exec -it my-server sh
 # exit
 ```
 
-## Output
+#### Output
 
 ```text
 nginx version: nginx/1.25.5
@@ -737,7 +748,7 @@ drwxr-xr-x    1 root     root          4096 Aug 29 10:42 usr
 / # exit
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Terminal Komputer Host (Developer)
@@ -758,7 +769,7 @@ docker exec -it container_name bash → Masuk ke terminal interaktif kontainer (
 docker exec container_name command  → Menjalankan perintah satu kali tanpa membuka terminal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `sh` jika image menggunakan distribusi Alpine Linux, dan gunakan `bash` untuk distribusi Ubuntu/Debian.
 - ❌ Jangan gunakan `docker exec` untuk mengubah konfigurasi permanen aplikasi; jadikan `docker exec` hanya sebagai sarana investigasi dan debugging sementara.
@@ -767,9 +778,9 @@ docker exec container_name command  → Menjalankan perintah satu kali tanpa mem
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Container Port Publishing (-p host:container)
+## 10. 🟢 Container Port Publishing (-p host:container)
 
-## Konsep
+#### Konsep
 
 Secara default, seluruh port jaringan di dalam container terisolasi dan **tidak dapat diakses langsung dari luar mesin Host**.
 
@@ -782,7 +793,7 @@ Format Sintaks Port Mapping:
 - **`PortHost`:** Nomor port di laptop/server host tempat Anda mengakses aplikasi via browser (misal `http://localhost:8080`).
 - **`PortContainer`:** Nomor port internal tempat aplikasi di dalam container mendengarkan (*listen*) trafik (misal port `80` untuk Nginx, port `3000` untuk Node.js, port `3306` untuk MySQL).
 
-## Contoh
+#### Contoh
 
 ```bash
 # Menjalankan 2 kontainer Nginx berbeda pada port host yang berbeda
@@ -796,7 +807,7 @@ docker run -d --name web-dua -p 8081:80 nginx:alpine
 docker ps --format "table {{.Names}}	{{.Ports}}"
 ```
 
-## Output
+#### Output
 
 ```text
 NAMES      PORTS
@@ -808,7 +819,7 @@ Akses browser:
 - `http://localhost:8080` -> Masuk ke web-satu.
 - `http://localhost:8081` -> Masuk ke web-dua.
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Browser User (Host Laptop)
@@ -827,7 +838,7 @@ Akses browser:
 Rumus Hafalan               → -p LUAR:DALAM (Luar = Laptop Host, Dalam = Kontainer)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu ingat rumus **LUAR:DALAM** (*Host:Container*).
 - ❌ Hati-hati terhadap error `Bind for 0.0.0.0:8080 failed: port is already allocated`; itu artinya port `8080` di laptop host sedang dipakai oleh aplikasi lain (ganti ke port lain seperti `8082:80`).
@@ -836,9 +847,9 @@ Rumus Hafalan               → -p LUAR:DALAM (Luar = Laptop Host, Dalam = Konta
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Container Environment Variable (-e KEY=VAL & --env-file)
+## 11. 🟢 Container Environment Variable (-e KEY=VAL & --env-file)
 
-## Konsep
+#### Konsep
 
 Aplikasi modern (*12-Factor App methodology*) memisahkan kode program dari konfigurasi menggunakan **Environment Variables** (Variabel Lingkungan).
 
@@ -848,7 +859,7 @@ Cara Mengirimkan Variabel Lingkungan ke Container:
 
 Sangat esensial untuk mengonfigurasi kredensial database, port aplikasi, secret key, atau mode environment (`NODE_ENV=production`).
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Menjalankan kontainer Database MySQL dengan Environment Variables
@@ -866,7 +877,7 @@ docker run -d --name db-app   -e MYSQL_ROOT_PASSWORD=rahasia_root_123   -e MYSQL
 docker exec db-app env | grep MYSQL
 ```
 
-## Output
+#### Output
 
 ```text
 MYSQL_DATABASE=toko_db
@@ -875,7 +886,7 @@ MYSQL_USER=budi_user
 MYSQL_PASSWORD=password_budi
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Perintah: docker run -e MYSQL_DATABASE=toko_db mysql
@@ -894,7 +905,7 @@ MYSQL_PASSWORD=password_budi
 --env-file path/file  → Menyuntikkan seluruh variabel dari file konfigurasi .env
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `--env-file .env` untuk proyek yang memiliki banyak variabel konfigurasi agar perintah `docker run` tidak terlalu panjang.
 - ❌ Jangan pernah meng-commit file `.env` yang berisi password produksi ke repositori publik Git (masukkan `.env` ke file `.gitignore`).
@@ -903,9 +914,9 @@ MYSQL_PASSWORD=password_budi
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Container Stats & Pemantauan Resource Real-time (docker stats)
+## 12. 🟡 Container Stats & Pemantauan Resource Real-time (docker stats)
 
-## Konsep
+#### Konsep
 
 Perintah **`docker stats`** menyediakan tampilan langsung (*live stream monitoring*) dari penggunaan sumber daya perangkat keras (CPU, RAM, Network I/O, Disk I/O) dari seluruh kontainer yang sedang aktif berjalan.
 
@@ -917,7 +928,7 @@ Informasi Metrik yang Ditampilkan:
 - **`BLOCK I/O`:** Total data baca/tulis ke media penyimpanan disk.
 - **`PIDS`:** Jumlah proses / thread yang sedang aktif di dalam container.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Menjalankan kontainer beban uji
@@ -931,7 +942,7 @@ docker run -d --name web-server nginx:alpine
 docker stats --no-stream
 ```
 
-## Output
+#### Output
 
 ```text
 CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O          BLOCK I/O   PIDS
@@ -939,7 +950,7 @@ f4a8b9c1d2e3   redis-server   0.15%     3.45MiB / 7.65GiB     0.04%     1.2kB / 
 9a8b7c6d5e4f   web-server     0.00%     4.12MiB / 7.65GiB     0.05%     850B / 650B      0B / 0B     2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Docker Engine membaca metrik dari Linux Control Groups (cgroups)
@@ -955,7 +966,7 @@ docker stats             → Memantau konsumsi CPU, RAM, & Network container sec
 docker stats --no-stream → Menampilkan snapshot metrik resource satu kali
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `docker stats` saat melakukan pengujian beban (*load testing*) untuk mengetahui titik jenuh pemakaian RAM aplikasi.
 - ❌ Jangan biarkan container berjalan di server produksi tanpa batasan memori (*Resource Limits*), karena satu container yang bocor memori (*memory leak*) dapat menghabiskan seluruh RAM server (*OOM Crash*).
@@ -964,9 +975,9 @@ docker stats --no-stream → Menampilkan snapshot metrik resource satu kali
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Container Resource Limit (Memory --memory & CPU --cpus)
+## 13. 🟡 Container Resource Limit (Memory --memory & CPU --cpus)
 
-## Konsep
+#### Konsep
 
 Secara default, sebuah container diizinkan menggunakan **seluruh kapasitas CPU dan RAM yang tersedia di server Host**. Jika sebuah aplikasi mengalami *memory leak*, container tersebut dapat membekukan seluruh sistem operasi server.
 
@@ -976,7 +987,7 @@ Flag Pembatas Sumber Daya:
 - **`--memory=size` (Batas RAM):** Batas maksimum memori RAM (misal: `512m`, `1g`, `2g`). Jika container melebihi batas ini, proses di dalamnya akan dimatikan secara aman oleh mekanisme *OOM (Out Of Memory) Killer*.
 - **`--cpus=number` (Batas CPU):** Jumlah core CPU yang dialokasikan (misal: `0.5` untuk setengah core, `2.0` untuk 2 core penuh).
 
-## Contoh
+#### Contoh
 
 ```bash
 # Menjalankan kontainer Nginx dengan batas RAM 256MB dan maksimal 1.5 Core CPU
@@ -986,7 +997,7 @@ docker run -d --name secure-web   --memory=256m   --cpus=1.5   -p 8080:80   ngin
 docker stats --no-stream secure-web
 ```
 
-## Output
+#### Output
 
 ```text
 CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT   MEM %     NET I/O      BLOCK I/O   PIDS
@@ -995,7 +1006,7 @@ CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT   MEM %     NET I/O     
 
 (Perhatikan kolom `MEM LIMIT` terkunci tepat di angka **256MiB**).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Perintah: docker run --memory=256m --cpus=1.5 ...
@@ -1014,7 +1025,7 @@ CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT   MEM %     NET I/O     
 --cpus=1.0    → Membatasi penggunaan CPU maksimal 1 Core Processor
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu tetapkan batas `--memory` pada container database dan backend di server produksi.
 - ❌ Jangan menyetel batas memori yang terlalu sempit di bawah kebutuhan minimal startup aplikasi (misal memberi 32MB untuk aplikasi Java/Spring Boot yang butuh 256MB), karena container akan langsung crash (*Exit code 137 OOMKilled*).
@@ -1023,9 +1034,9 @@ CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT   MEM %     NET I/O     
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Bind Mounts (Menghubungkan Folder Host Langsung)
+## 14. 🟡 Bind Mounts (Menghubungkan Folder Host Langsung)
 
-## Konsep
+#### Konsep
 
 Secara alami, sistem file di dalam container bersifat sementara (*ephemeral*). Saat container dihapus, seluruh data di dalamnya akan lenyap.
 
@@ -1041,7 +1052,7 @@ Format Flag:
 --mount type=bind,source=/path/di/host,target=/path/di/container
 ```
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Buat folder dan file HTML di komputer host
@@ -1057,7 +1068,7 @@ docker run -d --name dev-web   -v $(pwd)/my-html:/usr/share/nginx/html:ro   -p 8
 curl http://localhost:8080
 ```
 
-## Output
+#### Output
 
 ```text
 <h1>Hello from Local Host File!</h1>
@@ -1065,7 +1076,7 @@ curl http://localhost:8080
 
 (Jika file `my-html/index.html` diubah menggunakan text editor di host, refresh browser akan langsung menampilkan perubahan tersebut secara instan!).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
     Folder di Laptop Host (my-html)
@@ -1087,7 +1098,7 @@ curl http://localhost:8080
 :ro (Read-Only)           → Opsi keamanan agar container tidak bisa mengubah file di host
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan absolute path (`$(pwd)` di Linux/macOS atau `${PWD}` di PowerShell) untuk sumber path host pada flag `-v`.
 - ❌ Jangan gunakan Bind Mounts untuk database skala besar di server produksi; gunakan **Named Volume** yang dikelola langsung oleh Docker Engine.
@@ -1096,9 +1107,9 @@ curl http://localhost:8080
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Docker Volume (Persistent Data Terisolasi)
+## 15. 🟡 Docker Volume (Persistent Data Terisolasi)
 
-## Konsep
+#### Konsep
 
 **Docker Volume** adalah mekanisme standar resmi yang dikelola sepenuhnya oleh Docker Engine untuk menyimpan data yang bersifat permanen (**Persistent Data**), terisolasi dari sistem file host, dan tidak akan hilang meskipun container dimatikan atau dihapus.
 
@@ -1114,7 +1125,7 @@ Perintah Manajemen Volume:
 - `docker volume rm volume_name`: Menghapus volume.
 - `docker volume prune`: Menghapus seluruh volume yang sudah tidak digunakan.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Membuat Named Volume baru untuk database
@@ -1127,7 +1138,7 @@ docker volume ls
 docker volume inspect db_data_production
 ```
 
-## Output
+#### Output
 
 ```text
 db_data_production
@@ -1147,7 +1158,7 @@ local     db_data_production
 ]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
               Docker Engine Storage Area (/var/lib/docker/volumes)
@@ -1170,7 +1181,7 @@ docker volume inspect name → Melihat lokasi fisik mountpoint volume di host
 docker volume rm name      → Menghapus volume
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Berikan nama yang jelas pada volume (misal: `mysql_data`, `postgres_db`, `redis_cache`).
 - ❌ Jangan menghapus volume yang sedang aktif digunakan oleh container yang berjalan (hapus kontainernya terlebih dahulu).
@@ -1179,9 +1190,9 @@ docker volume rm name      → Menghapus volume
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Container Volume (Memasang Named Volume ke Container)
+## 16. 🟡 Container Volume (Memasang Named Volume ke Container)
 
-## Konsep
+#### Konsep
 
 Setelah sebuah Named Volume dibuat, kita memasangkannya (*mount*) ke dalam folder target di dalam container menggunakan flag **`-v volume_name:/path/di/container`**.
 
@@ -1194,7 +1205,7 @@ Uji Coba Ketahanan Data (*Data Persistence Test*):
 4. Jalankan container baru yang berbeda dengan memasang volume yang sama.
 5. **Data tetap utuh 100%!**
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Jalankan kontainer database MySQL dengan named volume 'mysql_storage'
@@ -1211,7 +1222,7 @@ docker run -d --name db-baru   -e MYSQL_ROOT_PASSWORD=rahasia   -v mysql_storage
 docker exec db-baru mysql -u root -prahasia -e "SHOW DATABASES;"
 ```
 
-## Output
+#### Output
 
 ```text
 Database
@@ -1222,7 +1233,7 @@ performance_schema
 sys
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Container 1 (db-utama)                    Container 2 (db-baru)
@@ -1245,7 +1256,7 @@ sys
 Data Persistence               → Data tetap aman meskipun container dimatikan dan dihapus
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu ketahui letak folder penyimpanan data resmi dari image yang digunakan (misal MySQL: `/var/lib/mysql`, PostgreSQL: `/var/lib/postgresql/data`, MongoDB: `/data/db`).
 - ❌ Jangan pernah menjalankan container database di server produksi tanpa memasang Volume.
@@ -1254,9 +1265,9 @@ Data Persistence               → Data tetap aman meskipun container dimatikan 
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Backup Volume (Ekspor Data Volume ke File Tar)
+## 17. 🟡 Backup Volume (Ekspor Data Volume ke File Tar)
 
-## Konsep
+#### Konsep
 
 Karena Named Volume dikelola langsung oleh Docker Daemon di direktori terisolasi, kita dapat membuat salinan cadangan (**Backup**) dengan cara menjalankan sebuah **Container Sementara (*Temporary Helper Container*)** yang menghubungkan dua hal sekaligus:
 1. **Named Volume** yang ingin di-backup (dipasang ke `/volume-data`).
@@ -1264,7 +1275,7 @@ Karena Named Volume dikelola langsung oleh Docker Daemon di direktori terisolasi
 
 Kemudian, container sementara tersebut mengeksekusi perintah pengarsipan **`tar -czvf`** lalu otomatis menghapus dirinya sendiri (`--rm`).
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Menyiapkan folder penyimpanan backup di host
@@ -1278,7 +1289,7 @@ docker run --rm   -v mysql_storage:/volume-data:ro   -v ~/docker-backups:/backup
 ls -lh ~/docker-backups
 ```
 
-## Output
+#### Output
 
 ```text
 ./
@@ -1290,7 +1301,7 @@ ls -lh ~/docker-backups
 -rw-r--r-- 1 root root 18.4M Aug 29 10:43 mysql_backup_2026.tar.gz
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Named Volume (mysql_storage)             Folder Host (~/docker-backups)
@@ -1313,7 +1324,7 @@ tar -czvf /backup/file.tar.gz -C /data . → Mengompresi seluruh isi folder menj
 docker run --rm -v vol:/data -v host:/backup alpine tar... → Pola standar backup Docker Volume
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pasang volume target dengan mode *Read-Only* (`:ro`) saat backup agar proses pengarsipan tidak memodifikasi data asli.
 - ❌ Hentikan sementara container database utama sebelum melakukan backup volume skala besar untuk menghindari data terpotong di tengah penulisan (*data inconsistency*).
@@ -1322,9 +1333,9 @@ docker run --rm -v vol:/data -v host:/backup alpine tar... → Pola standar back
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Restore Volume (Impor Data Tar ke Volume Baru)
+## 18. 🟡 Restore Volume (Impor Data Tar ke Volume Baru)
 
-## Konsep
+#### Konsep
 
 **Restore Volume** adalah proses pemulihan data dari file arsip backup (`.tar.gz`) kembali ke dalam sebuah Docker Volume baru.
 
@@ -1333,7 +1344,7 @@ Langkah Proses Restore:
 2. Jalankan container pembantu sementara yang memasang volume baru dan folder backup host.
 3. Ekstrak isi file tar ke dalam volume menggunakan perintah **`tar -xzvf`**.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Buat volume baru sebagai target restore
@@ -1349,7 +1360,7 @@ docker run -d --name db-restored   -e MYSQL_ROOT_PASSWORD=rahasia   -v mysql_res
 docker exec db-restored mysql -u root -prahasia -e "SHOW DATABASES;"
 ```
 
-## Output
+#### Output
 
 ```text
 ./
@@ -1365,7 +1376,7 @@ performance_schema
 sys
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    File Backup Host (mysql_backup.tar.gz)
@@ -1386,7 +1397,7 @@ sys
 tar -xzvf /backup/file.tar.gz -C /target → Mengekstrak file arsip backup ke dalam direktori target
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Lakukan uji coba restore secara berkala (*Disaster Recovery Drill*) ke volume testing untuk memastikan file backup tidak rusak (*corrupt*).
 - ❌ Jangan mengekstrak file backup ke dalam volume yang sudah berisi database aktif tanpa membersihkannya terlebih dahulu, karena data lama dan baru akan bertabrakan.
@@ -1395,9 +1406,9 @@ tar -xzvf /backup/file.tar.gz -C /target → Mengekstrak file arsip backup ke da
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Docker Network (Bridge, Host, None)
+## 19. 🟡 Docker Network (Bridge, Host, None)
 
-## Konsep
+#### Konsep
 
 Docker menyediakan subsistem jaringan (**Docker Network**) untuk mengatur bagaimana container saling berkomunikasi satu sama lain dan dengan dunia luar.
 
@@ -1412,7 +1423,7 @@ Perintah Manajemen Network:
 - `docker network inspect network_name`: Memeriksa detail subnet, gateway, dan kontainer yang terhubung.
 - `docker network rm network_name`: Menghapus jaringan.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Melihat daftar network bawaan Docker
@@ -1425,7 +1436,7 @@ docker network create my-app-network
 docker network inspect my-app-network --format 'Subnet: {{range .IPAM.Config}}{{.Subnet}}{{end}}'
 ```
 
-## Output
+#### Output
 
 ```text
 NETWORK ID     NAME             DRIVER    SCOPE
@@ -1437,7 +1448,7 @@ NETWORK ID     NAME             DRIVER    SCOPE
 Subnet: 172.20.0.0/16
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Komputer Host (Docker Daemon)
@@ -1456,7 +1467,7 @@ docker network ls          → Melihat daftar seluruh network yang terdaftar
 docker network inspect name→ Melihat detail subnet IP dan daftar container terhubung
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu buat **User-Defined Custom Bridge Network** (`docker network create`) untuk setiap aplikasi multi-kontainer Anda.
 - ❌ Jangan mengandalkan *Default Bridge Network* bawaan untuk komunikasi antar kontainer, karena default bridge tidak mendukung fitur *Automatic DNS Name Resolution*.
@@ -1465,9 +1476,9 @@ docker network inspect name→ Melihat detail subnet IP dan daftar container ter
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 Container Network (Komunikasi Antar Container via DNS Name)
+## 20. 🟡 Container Network (Komunikasi Antar Container via DNS Name)
 
-## Konsep
+#### Konsep
 
 Ketika beberapa container terhubung ke dalam **User-Defined Custom Bridge Network** yang sama, Docker secara otomatis mengaktifkan fitur **Embedded DNS Server**.
 
@@ -1475,7 +1486,7 @@ Keunggulan Embedded DNS:
 - Container dapat saling memanggil dan berkomunikasi satu sama lain **cukup dengan menggunakan NAMA KONTAINER-nya sebagai Hostname** (misal: `curl http://web-api:3000` atau koneksi database ke host `database-server`).
 - Developer **TIDAK PERLU** lagi menghafal atau mengandalkan alamat IP container yang dinamis dan mudah berubah!
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Buat custom network
@@ -1491,7 +1502,7 @@ docker run -d --name api-service   --network internal-network   -p 8080:80   ngi
 docker exec api-service ping -c 3 mysql-db
 ```
 
-## Output
+#### Output
 
 ```text
 PING mysql-db (172.20.0.2): 56 data bytes
@@ -1503,7 +1514,7 @@ PING mysql-db (172.20.0.2): 56 data bytes
 3 packets transmitted, 3 packets received, 0% packet loss
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
              User-Defined Bridge Network (internal-network)
@@ -1526,7 +1537,7 @@ PING mysql-db (172.20.0.2): 56 data bytes
 Automatic DNS          → Container bisa memanggil container lain via namanya (nama = domain)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan nama container sebagai nama host koneksi database (misal di file konfigurasi: `DB_HOST=mysql-db`).
 - ❌ Jangan pernah melakukan hardcode alamat IP (seperti `172.17.0.2`) di kode aplikasi karena alamat IP kontainer akan berubah setiap kali kontainer di-restart.
@@ -1535,9 +1546,9 @@ Automatic DNS          → Container bisa memanggil container lain via namanya (
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 Docker Inspect (Inspeksi Konfigurasi JSON & IP Address)
+## 21. 🟡 Docker Inspect (Inspeksi Konfigurasi JSON & IP Address)
 
-## Konsep
+#### Konsep
 
 Perintah **`docker inspect`** mengembalikan informasi metadata teknis tingkat rendah (*low-level technical metadata*) dari sebuah container, image, volume, atau network dalam format **JSON** lengkap.
 
@@ -1551,7 +1562,7 @@ Informasi yang Bisa Diinspeksi:
 Format Filter Output (`--format` / Go Template):
 Daripada membaca ribuan baris JSON, gunakan flag `--format` untuk mengambil satu nilai spesifik secara instan.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Jalankan kontainer Nginx
@@ -1567,7 +1578,7 @@ docker inspect --format '{{ .State.Status }} (PID: {{ .State.Pid }})' web-target
 docker inspect --format '{{ json .NetworkSettings.Ports }}' web-target
 ```
 
-## Output
+#### Output
 
 ```text
 172.17.0.2
@@ -1575,7 +1586,7 @@ running (PID: 14520)
 {"80/tcp":[{"HostIp":"0.0.0.0","HostPort":"8080"}]}
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Perintah: docker inspect --format '{{ .NetworkSettings.IPAddress }}'
@@ -1594,7 +1605,7 @@ docker inspect target_name                         → Menampilkan seluruh konfi
 docker inspect --format '{{.NetworkSettings.IPAddress}}' name → Mengambil IP container seketika
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Manfaatkan `docker inspect --format` dalam skrip otomatisasi bash/CI-CD untuk memverifikasi status container.
 - ❌ Jangan membaca JSON manual secara visual jika hanya membutuhkan 1 informasi spesifik; manfaatkan flag `--format`.
@@ -1603,9 +1614,9 @@ docker inspect --format '{{.NetworkSettings.IPAddress}}' name → Mengambil IP c
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 Docker Prune & Garbage Collection (Membersihkan Sampah Disk)
+## 22. 🟡 Docker Prune & Garbage Collection (Membersihkan Sampah Disk)
 
-## Konsep
+#### Konsep
 
 Seiring berjalannya waktu, Docker akan menumpuk container yang sudah berhenti (*stopped containers*), image lama yang tidak terpakai (*dangling images*), volume yatim (*orphan volumes*), dan build cache yang dapat memakan puluhan gigabyte ruang hard disk.
 
@@ -1618,7 +1629,7 @@ Varian Perintah Prune:
 - `docker system prune`: Membersihkan container mati, network tak terpakai, dan dangling images sekaligus.
 - `docker system prune -a --volumes` (**Pembersihan Total**): Menghapus SEMUA image yang tidak dipakai dan seluruh volume yatim.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Memeriksa total ruang disk yang digunakan oleh Docker
@@ -1631,7 +1642,7 @@ docker system prune -f
 docker system df
 ```
 
-## Output
+#### Output
 
 ```text
 TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
@@ -1647,7 +1658,7 @@ f4a8b9c1d2e3
 Total reclaimed space: 3.17GB
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          docker system prune
@@ -1667,7 +1678,7 @@ docker system prune -f   → Membersihkan seluruh kontainer mati dan image sampa
 docker volume prune -f   → Membersihkan volume yatim yang sudah tidak terpakai
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Jalankan `docker system df` secara berkala untuk memantau kapasitas penyimpanan server.
 - ❌ **HATI-HATI** saat menggunakan opsi `--volumes` pada `docker system prune --volumes` di server produksi, karena volume database yang sedang sengaja dimatikan sementara bisa ikut terhapus permanen!
@@ -1676,9 +1687,9 @@ docker volume prune -f   → Membersihkan volume yatim yang sudah tidak terpakai
 
 <a id="bagian-23"></a>
 
-# 23. 🔴 Container Restart Policy (--restart=always, unless-stopped, on-failure)
+## 23. 🔴 Container Restart Policy (--restart=always, unless-stopped, on-failure)
 
-## Konsep
+#### Konsep
 
 Dalam lingkungan server produksi, sebuah server sewaktu-waktu dapat mengalami *reboot* (karena pemadaman listrik, maintenance OS, atau update kernel) atau aplikasi di dalam container dapat mengalami *crash*.
 
@@ -1690,7 +1701,7 @@ Pilihan Nilai Restart Policy:
 3. **`always`:** Selalu me-restart container dalam kondisi apa pun (termasuk jika server host di-reboot atau container dihentikan paksa).
 4. **`unless-stopped` (Sangat Direkomendasikan untuk Server):** Selalu me-restart container saat server reboot, KECUALI jika developer secara sengaja menghentikannya manual menggunakan perintah `docker stop`.
 
-## Contoh
+#### Contoh
 
 ```bash
 # 1. Menjalankan Database dengan kebijakan restart 'unless-stopped'
@@ -1703,7 +1714,7 @@ docker update --restart=unless-stopped prod-mysql
 docker inspect --format 'Restart Policy: {{ .HostConfig.RestartPolicy.Name }}' prod-mysql
 ```
 
-## Output
+#### Output
 
 ```text
 prod-mysql
@@ -1712,7 +1723,7 @@ Restart Policy: unless-stopped
 
 (Jika server Linux di-reboot, kontainer `prod-mysql` akan otomatis langsung menyala kembali tanpa perlu intervensi manusia!).
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Server Host Reboot / Kontainer Crash
@@ -1733,7 +1744,7 @@ Restart Policy: unless-stopped
 docker update --restart=always name → Mengubah restart policy kontainer tanpa menghapusnya
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu pasang `--restart=unless-stopped` pada seluruh layanan backend dan database di server produksi.
 - ❌ Hati-hati dengan `--restart=always` pada container yang memiliki bug fatal di startup, karena container akan terjebak dalam *crash-looping* tanpa henti.
@@ -1742,9 +1753,9 @@ docker update --restart=always name → Mengubah restart policy kontainer tanpa 
 
 <a id="bagian-24"></a>
 
-# 24. 🔴 Container Health Check (--health-cmd & Status Kesehatan Kontainer)
+## 24. 🔴 Container Health Check (--health-cmd & Status Kesehatan Kontainer)
 
-## Konsep
+#### Konsep
 
 Secara default, Docker menganggap sebuah container berstatus sehat (**`healthy`**) hanya berdasarkan fakta bahwa proses utama (*PID 1*) di dalamnya masih aktif berjalan.
 
@@ -1763,7 +1774,7 @@ Status Kesehatan Kontainer:
 2. `healthy`: Perintah health check berhasil me-return exit code `0`.
 3. `unhealthy`: Perintah health check gagal berturut-turut melebihi batas toleransi (*retries*).
 
-## Contoh
+#### Contoh
 
 ```bash
 # Menjalankan Nginx dengan Health Check aktif setiap 10 detik
@@ -1773,14 +1784,14 @@ docker run -d --name monitored-web   -p 8080:80   --health-cmd="curl -f http://l
 docker ps --format "table {{.Names}}	{{.Status}}"
 ```
 
-## Output
+#### Output
 
 ```text
 NAMES           STATUS
 monitored-web   Up 15 seconds (healthy)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Tiap 10 Detik: Docker mengeksekusi --health-cmd di dalam kontainer
@@ -1801,7 +1812,7 @@ monitored-web   Up 15 seconds (healthy)
 Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani trafik
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Pasang Health Check pada container backend agar load balancer atau orkestrator (seperti Docker Swarm / Kubernetes) tidak mengirimkan trafik ke kontainer yang sedang *starting* atau *unhealthy*.
 - ❌ Pastikan perintah yang digunakan di `--health-cmd` (seperti `curl` atau `wget`) tersedia di dalam image yang bersangkutan.
@@ -1810,9 +1821,9 @@ Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani tra
 
 <a id="bagian-25"></a>
 
-# 25. 🛠️ Peta Ingatan Cepat
+## 25. 🛠️ Peta Ingatan Cepat
 
-## Mental Model Hubungan Objek Docker
+#### Mental Model Hubungan Objek Docker
 
 ```text
                       ┌───────────────────────────────┐
@@ -1837,7 +1848,7 @@ Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani tra
                         - DNS Name Resolution
 ```
 
-## Pohon Keputusan Penyimpanan & Jaringan Docker
+#### Pohon Keputusan Penyimpanan & Jaringan Docker
 
 ```text
                                 Kebutuhan Penyimpanan Data
@@ -1866,7 +1877,7 @@ Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani tra
 
 <a id="bagian-26"></a>
 
-# 26. 📚 Tabel Ringkasan
+## 26. 📚 Tabel Ringkasan
 
 | Kategori | Perintah Docker CLI | Contoh Penggunaan | Penjelasan & Kegunaan |
 |---|---|---|---|
@@ -1892,26 +1903,26 @@ Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani tra
 
 <a id="bagian-27"></a>
 
-# 27. ⚡ Cheat Code Docker CLI 10 Detik
+## 27. ⚡ Cheat Code Docker CLI 10 Detik
 
-## 1. Menjalankan Web Server Cepat (Port + Detached)
+### 1. Menjalankan Web Server Cepat (Port + Detached)
 ```bash
 docker run -d --name my-web -p 8080:80 nginx:alpine
 ```
 
-## 2. Menjalankan Database Lengkap (Volume + Env + Network)
+### 2. Menjalankan Database Lengkap (Volume + Env + Network)
 ```bash
 docker run -d --name my-mysql   --network app-network   -e MYSQL_ROOT_PASSWORD=secret   -v mysql_data:/var/lib/mysql   --restart=unless-stopped   mysql:8.0
 ```
 
-## 3. Investigasi & Debugging Cepat
+### 3. Investigasi & Debugging Cepat
 ```bash
 docker logs -f --tail 100 my-web
 docker exec -it my-web sh
 docker inspect --format '{{.NetworkSettings.IPAddress}}' my-web
 ```
 
-## 4. Bersihkan Seluruh Sampah Docker
+### 4. Bersihkan Seluruh Sampah Docker
 ```bash
 docker system prune -f
 docker volume prune -f
@@ -1921,7 +1932,7 @@ docker volume prune -f
 
 <a id="bagian-28"></a>
 
-# 28. 🧭 Urutan Belajar yang Disarankan
+## 28. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai Docker dari nol hingga siap mengelola container di level produksi, ikuti 4 fase bertahap berikut:
 
@@ -1966,9 +1977,9 @@ Untuk menguasai Docker dari nol hingga siap mengelola container di level produks
 
 <a id="bagian-29"></a>
 
-# 29. 🏗️ Mini Project: Menjalankan Stack Web Server Nginx + Node.js + Database MySQL Terisolasi
+## 29. 🏗️ Mini Project: Menjalankan Stack Web Server Nginx + Node.js + Database MySQL Terisolasi
 
-## Konsep Project
+#### Konsep Project
 
 Project ini mensimulasikan lingkungan produksi nyata (*Multi-Container Production-Ready Stack*) yang menggabungkan seluruh fitur Docker CLI yang telah dipelajari:
 1. **User-Defined Bridge Network (`toko-network`):** Agar ketiga layanan bisa saling berkomunikasi via DNS name tanpa membuka port database ke internet publik.
@@ -1978,7 +1989,7 @@ Project ini mensimulasikan lingkungan produksi nyata (*Multi-Container Productio
 5. **Reverse Proxy Container (`web-proxy`):** Nginx yang bertindak sebagai pintu gerbang publik (*Port 80*) yang meneruskan trafik ke backend.
 6. **Resource Limits & Restart Policies:** Membatasi RAM 512MB dan auto-restart.
 
-## Langkah Eksekusi CLI Lengkap
+#### Langkah Eksekusi CLI Lengkap
 
 ```bash
 # =========================================================================
@@ -2008,7 +2019,7 @@ docker run -d --name web-proxy   --network toko-network   --restart=unless-stopp
 docker ps --format "table {{.Names}}	{{.Status}}	{{.Ports}}"
 ```
 
-## Output
+#### Output
 
 ```text
 NAMES          STATUS         PORTS
@@ -2017,7 +2028,7 @@ backend-toko   Up 8 seconds   80/tcp
 db-toko        Up 12 seconds  3306/tcp, 33060/tcp
 ```
 
-## Uji Komunikasi Antar Kontainer (DNS Resolusi)
+#### Uji Komunikasi Antar Kontainer (DNS Resolusi)
 
 ```bash
 # Tes koneksi dari web-proxy ke backend-toko melalui NAMA KONTAINER
@@ -2027,7 +2038,7 @@ docker exec web-proxy ping -c 2 backend-toko
 docker exec backend-toko ping -c 2 db-toko
 ```
 
-## Output Ping DNS
+#### Output Ping DNS
 
 ```text
 PING backend-toko (172.25.0.3): 56 data bytes
@@ -2039,7 +2050,7 @@ PING db-toko (172.25.0.2): 56 data bytes
 64 bytes from 172.25.0.2: seq=1 ttl=64 time=0.075 ms
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Browser Pengunjung (Laptop Host)
@@ -2068,7 +2079,7 @@ Production Multi-Container Pattern → Custom Network (DNS) + Named Volume (Data
 
 <a id="bagian-30"></a>
 
-# 30. 🔗 Referensi Resmi
+## 30. 🔗 Referensi Resmi
 
 Untuk mempelajari dokumentasi resmi, panduan teknis, dan spesifikasi Docker Engine:
 

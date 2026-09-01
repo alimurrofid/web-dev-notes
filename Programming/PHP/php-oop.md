@@ -1,4 +1,15 @@
-# PHP OOP Cheatsheet Revised
+---
+title: "PHP OOP"
+description: "Konsep Object-Oriented Programming pada PHP 8.x: class, object, inheritance, encapsulation, polymorphism, trait, interface, dan abstract class."
+order: 2
+tags:
+  - programming
+  - php
+  - oop
+  - intermediate
+---
+
+# PHP OOP
 
 > **Target:** Pemula yang sudah memahami PHP Dasar, lalu ingin menguasai Object-Oriented Programming (OOP) modern di PHP 8+.
 >
@@ -121,9 +132,9 @@ Constructor  → Method khusus __construct() yang otomatis dieksekusi saat objec
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan OOP & Mental Model Objek
+## 1. 🟢 Pengenalan OOP & Mental Model Objek
 
-## Konsep
+#### Konsep
 
 **Object-Oriented Programming (OOP)** adalah paradigma pemrograman yang mengorganisasi kode menjadi kumpulan **Objek**. Berbeda dengan pemrograman prosedural yang memisahkan data (variabel) dan logika (fungsi), OOP menyatukan data dan fungsi yang memanipulasinya ke dalam satu kesatuan utuh.
 
@@ -133,7 +144,7 @@ Empat Pilar Utama OOP:
 3. **Polymorphism:** Kemampuan berbagai class berbeda merespons method yang sama dengan cara masing-masing.
 4. **Abstraction:** Menyembunyikan detail implementasi internal dan hanya mengekspos fungsi penting melalui interface/abstract.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -155,13 +166,13 @@ $mobilBudi->merk = "Toyota";
 $mobilBudi->tancapGas(60);
 ```
 
-## Output
+#### Output
 
 ```text
 Mobil Toyota melaju pada kecepatan 60 km/jam.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Definisi Class Mobil (Cetak Biru)
@@ -185,7 +196,7 @@ Class   → Cetak biru (blueprint) yang mendefinisikan atribut dan aksi
 Object  → Bentuk nyata hasil cetakan class yang menyimpan data tersendiri
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Modelkan class berdasarkan entitas nyata dalam domain bisnis Anda (`User`, `Product`, `Order`, `Invoice`).
 - ❌ **Kesalahan Umum:** Menggunakan OOP hanya sebagai pembungkus fungsi prosedural tanpa memanfaatkan enkapsulasi state objek.
@@ -194,15 +205,15 @@ Object  → Bentuk nyata hasil cetakan class yang menyimpan data tersendiri
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Class (Definisi & Struktur)
+## 2. 🟢 Class (Definisi & Struktur)
 
-## Konsep
+#### Konsep
 
 **Class** adalah cetak biru (*blueprint*) atau template untuk membuat objek. Di dalam class, kita mendefinisikan properti apa saja yang dimiliki objek dan method apa saja yang dapat dijalankan oleh objek tersebut.
 
 Nama class di PHP secara konvensi wajib menggunakan format **PascalCase** (contoh: `PenggunaAplikasi`, `TransaksiKasir`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -221,7 +232,7 @@ class Pengguna
 }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        File PHP dimuat
@@ -239,7 +250,7 @@ class Pengguna
 class ClassName { ... }   → Mendefinisikan class baru dengan nama PascalCase
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Letakkan satu class per satu file dengan nama file yang persis sama dengan nama class (misal: `Pengguna.php` untuk `class Pengguna`).
 - ❌ **Kesalahan Umum:** Menulis kode logika eksekusi (seperti `echo` atau kalkulasi langsung) di luar method di dalam blok class.
@@ -248,15 +259,15 @@ class ClassName { ... }   → Mendefinisikan class baru dengan nama PascalCase
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Object (Instansiasi dengan `new`)
+## 3. 🟢 Object (Instansiasi dengan `new`)
 
-## Konsep
+#### Konsep
 
 **Object** adalah instansiasi konkret dari sebuah class. Setiap objek memiliki ruang memorinya sendiri, sehingga perubahan data pada satu objek tidak akan memengaruhi data pada objek lain, meskipun keduanya dibuat dari class yang sama.
 
 Untuk membuat objek baru, gunakan kata kunci `new ClassName()`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -285,14 +296,14 @@ $kucingA->bersuara();
 $kucingB->bersuara();
 ```
 
-## Output
+#### Output
 
 ```text
 Milo (Oranye): Meong!
 Luna (Hitam): Meong!
 ```
 
-## Alokasi Memori Objek
+#### Alokasi Memori Objek
 
 ```text
                      Class Kucing (Template)
@@ -313,7 +324,7 @@ $object->propertyName       → Mengakses nilai properti dari objek
 $object->methodName()       → Menjalankan method dari objek
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu inisialisasi properti objek melalui *Constructor* agar objek tidak berada dalam kondisi state yang tidak lengkap (*uninitialized*).
 - ❌ **Kesalahan Umum:** Mengakses properti sebelum diberi nilai pada typed properties, yang memicu *Error: Typed property must not be accessed before initialization*.
@@ -322,13 +333,13 @@ $object->methodName()       → Menjalankan method dari objek
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Property (Typed Properties & Readonly)
+## 4. 🟢 Property (Typed Properties & Readonly)
 
-## Konsep
+#### Konsep
 
 **Property** adalah variabel yang dimiliki oleh class. Sejak PHP 7.4, properti mendukung deklarasi tipe eksplisit (**Typed Properties**). Sejak PHP 8.1, kita dapat menambahkan modifier **`readonly`** untuk membuat properti hanya bisa diisi tepat **satu kali** (biasanya di constructor) dan tidak dapat diubah lagi sesudahnya (*immutable*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -356,13 +367,13 @@ echo "Produk: {$laptop->nama} | SKU: {$laptop->sku} | Harga: Rp {$laptop->harga}
 // $laptop->sku = "SKU-999"; // ERROR! Cannot modify readonly property
 ```
 
-## Output
+#### Output
 
 ```text
 Produk: Laptop Gaming | SKU: SKU-101 | Harga: Rp 15000000
 ```
 
-## Cara Kerja Readonly
+#### Cara Kerja Readonly
 
 ```text
        Inisialisasi di Constructor: $this->sku = "SKU-101";
@@ -381,7 +392,7 @@ public type $propertyName;          → Properti dengan penegasan tipe data
 public readonly type $propertyName; → Properti yang nilainya tidak dapat diubah setelah diisi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu berikan type declaration pada properti untuk mencegah bug tipe data liar.
 - ❌ **Kesalahan Umum:** Memberikan default value pada properti readonly (`public readonly string $sku = "A";` ❌), yang menyebabkan nilainya terkunci selamanya dan tidak bisa diisi dari constructor.
@@ -390,13 +401,13 @@ public readonly type $propertyName; → Properti yang nilainya tidak dapat diuba
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Method & Return Types
+## 5. 🟢 Method & Return Types
 
-## Konsep
+#### Konsep
 
 **Method** adalah fungsi yang didefinisikan di dalam class untuk merepresentasikan tindakan atau perilaku yang dapat dilakukan oleh objek. Method dapat menerima parameter dan wajib memiliki deklarasi nilai kembalian (*return type*) pada PHP modern.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -421,14 +432,14 @@ $hasil = $app->hitung(200000, 15);
 $app->cetakStruk("Minimarket Berkah", $hasil);
 ```
 
-## Output
+#### Output
 
 ```text
 === Minimarket Berkah ===
 Total yang harus dibayar: Rp 170.000
 ```
 
-## Diagram Alur Pemanggilan Method
+#### Diagram Alur Pemanggilan Method
 
 ```text
        $app->hitung(200000, 15)
@@ -449,7 +460,7 @@ Total yang harus dibayar: Rp 170.000
 public function methodName(type $param): returnType { ... }
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan return type `: void` jika method tidak mengembalikan nilai, atau gunakan `: self` / `: static` jika mengembalikan instance objek itu sendiri.
 - ❌ **Kesalahan Umum:** Lupa kata kunci `public`/`private`/`protected` pada deklarasi method (meski default-nya `public`, menuliskannya secara eksplisit adalah standar PSR-12).
@@ -458,14 +469,14 @@ public function methodName(type $param): returnType { ... }
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 `$this` Keyword & Method Chaining
+## 6. 🟢 `$this` Keyword & Method Chaining
 
-## Konsep
+#### Konsep
 
 - **`$this` Keyword:** Variabel semu khusus (*pseudo-variable*) yang otomatis tersedia di dalam method non-static. `$this` merujuk langsung ke **instance objek saat ini yang sedang menjalankan method tersebut**.
 - **Method Chaining:** Teknik memanggil beberapa method secara beruntun dalam satu baris (contoh: `$query->where()->orderBy()->get()`) dengan cara mengembalikan `$this` di akhir method.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -507,13 +518,13 @@ $query = (new QueryBuilder())
 echo $query;
 ```
 
-## Output
+#### Output
 
 ```text
 SELECT * FROM users WHERE status = 'active' AND role = 'admin'
 ```
 
-## Alur Method Chaining
+#### Alur Method Chaining
 
 ```text
        (new QueryBuilder())
@@ -539,7 +550,7 @@ $this->methodName()       → Memanggil method lain di dalam objek yang sama
 return $this;             → Pola method chaining (fluent interface)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan type hint `: self` atau `: static` pada method yang mengembalikan `return $this;`.
 - ❌ **Kesalahan Umum:** Mencoba menggunakan `$this` di dalam fungsi global atau method `static` (memicu *Fatal Error: Using $this when not in object context*).
@@ -548,15 +559,15 @@ return $this;             → Pola method chaining (fluent interface)
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Constructor & Constructor Property Promotion (PHP 8+)
+## 7. 🟢 Constructor & Constructor Property Promotion (PHP 8+)
 
-## Konsep
+#### Konsep
 
 **Constructor (`__construct`)** adalah method khusus yang otomatis dieksekusi oleh PHP pada saat sebuah objek pertama kali dibuat dengan kata kunci `new`. Constructor berfungsi utama untuk menerima argumen dan menginisialisasi properti objek.
 
 **Constructor Property Promotion (PHP 8+):** Fitur modern yang memungkinkan deklarasi visibilitas, tipe data, dan penetapan properti langsung di dalam parameter constructor tanpa perlu menuliskan deklarasi properti dan baris `$this->prop = $prop;` secara manual berulang-ulang.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -578,13 +589,13 @@ $user = new Pelanggan(1, "Budi Santoso", "budi@gmail.com");
 echo "ID: {$user->id} | Nama: {$user->nama} | Level: {$user->level}";
 ```
 
-## Output
+#### Output
 
 ```text
 ID: 1 | Nama: Budi Santoso | Level: Silver
 ```
 
-## Perbandingan Penulisan: Lama vs Modern (PHP 8+)
+#### Perbandingan Penulisan: Lama vs Modern (PHP 8+)
 
 ```text
 Gaya Lama (Sebelum PHP 8)                       Gaya Modern (Property Promotion)
@@ -605,7 +616,7 @@ class User {                                    class User {
 public function __construct(public type $param) { ... }  → Deklarasi + inisialisasi instan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan *Constructor Property Promotion* sebagai cara standar menulis DTO (*Data Transfer Object*) dan Entity di PHP modern.
 - ❌ **Kesalahan Umum:** Menggandakan deklarasi properti di luar constructor saat sudah menggunakan property promotion.
@@ -614,9 +625,9 @@ public function __construct(public type $param) { ... }  → Deklarasi + inisial
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Visibility (`public`, `protected`, `private`)
+## 8. 🟢 Visibility (`public`, `protected`, `private`)
 
-## Konsep
+#### Konsep
 
 **Visibility (Aksesibilitas)** mengatur dari mana saja suatu properti atau method dapat diakses di dalam aplikasi.
 
@@ -625,7 +636,7 @@ Tiga tingkat visibility di PHP:
 2. **`protected`:** HANYA dapat diakses dari dalam class itu sendiri dan class anak turunannya (*subclass*).
 3. **`private`:** HANYA dapat diakses dari dalam class tempat ia dideklarasikan secara persis (class anak turunan TIDAK BISA mengaksesnya).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -660,13 +671,13 @@ echo $obj->terbuka . PHP_EOL; // BISA
 // echo $obj->rahasia;        // ERROR!
 ```
 
-## Output
+#### Output
 
 ```text
 Public: Semua orang boleh akses
 ```
 
-## Matriks Hak Akses Visibility
+#### Matriks Hak Akses Visibility
 
 ```text
        Hak Akses                 public       protected       private
@@ -684,7 +695,7 @@ protected → Hanya untuk class sendiri dan anak turunannya
 private   → Terkunci rapat hanya untuk class tempat ia ditulis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Jadikan properti `private` atau `protected` secara default, lalu buka akses baca/tulis melalui method publik yang terenkapsulasi.
 - ❌ **Kesalahan Umum:** Menjadikan semua properti `public` sehingga state internal objek bisa dirusak secara liar dari luar.
@@ -693,13 +704,13 @@ private   → Terkunci rapat hanya untuk class tempat ia ditulis
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 Encapsulation & Data Integrity
+## 9. 🟢 Encapsulation & Data Integrity
 
-## Konsep
+#### Konsep
 
 **Encapsulation (Enkapsulasi)** adalah teknik menyembunyikan data internal objek dan mewajibkan segala modifikasi data dilakukan melalui method publik yang memiliki logika validasi. Tujuannya adalah memastikan objek **selalu berada dalam kondisi valid (*data integrity*)**.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -745,14 +756,14 @@ $tabungan->tarik(200000); // Ditolak validasi enkapsulasi
 echo "Saldo Akhir: Rp " . $tabungan->getSaldo();
 ```
 
-## Output
+#### Output
 
 ```text
 Error: Saldo tidak mencukupi!
 Saldo Akhir: Rp 150000
 ```
 
-## Cara Kerja Enkapsulasi
+#### Cara Kerja Enkapsulasi
 
 ```text
        Luar Objek (Client Code)
@@ -775,7 +786,7 @@ Saldo Akhir: Rp 150000
 Enkapsulasi = Data disembunyikan (private) + Akses divalidasi via method publik
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Letakkan semua aturan validasi bisnis (*business rules*) di dalam method class objek terkait, bukan tercecer di file controller.
 - ❌ **Kesalahan Umum:** Membuat properti `private` namun langsung membuat getter dan setter polos tanpa validasi apa pun (ini sama saja dengan membuat properti publik).
@@ -784,16 +795,16 @@ Enkapsulasi = Data disembunyikan (private) + Akses divalidasi via method publik
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Getter dan Setter (Accessor & Mutator)
+## 10. 🟢 Getter dan Setter (Accessor & Mutator)
 
-## Konsep
+#### Konsep
 
 - **Getter (Accessor):** Method publik yang bertugas membaca dan mengembalikan nilai properti private/protected.
 - **Setter (Mutator):** Method publik yang bertugas memvalidasi dan mengubah nilai properti private/protected.
 
 Konvensi penamaan standar: `getPropertyName()` dan `setPropertyName($value)`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -822,13 +833,13 @@ $user->setEmail("Budi.Santoso@Example.COM");
 echo "Email tersimpan: " . $user->getEmail();
 ```
 
-## Output
+#### Output
 
 ```text
 Email tersimpan: budi.santoso@example.com
 ```
 
-## Alur Setter & Getter
+#### Alur Setter & Getter
 
 ```text
        Input Luar ("Budi.Santoso@Example.COM")
@@ -852,7 +863,7 @@ public function getProperty(): type { return $this->property; }
 public function setProperty(type $value): void { $this->property = $value; }
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Berikan sanitasi atau transformasi format (seperti `trim()`, `strtolower()`) di dalam setter saat menerima input data.
 - ❌ **Kesalahan Umum:** Mengembalikan referensi langsung ke array internal yang memungkinkan data termodifikasi tanpa melewati setter.
@@ -861,15 +872,15 @@ public function setProperty(type $value): void { $this->property = $value; }
 
 <a id="bagian-11"></a>
 
-# 11. 🟢 Inheritance (Pewarisan dengan `extends`)
+## 11. 🟢 Inheritance (Pewarisan dengan `extends`)
 
-## Konsep
+#### Konsep
 
 **Inheritance (Pewarisan)** memungkinkan sebuah class anak (*subclass/child class*) mewarisi seluruh properti dan method berstatus `public` dan `protected` dari class induk (*superclass/parent class*).
 
 Pewarisan ditulis menggunakan kata kunci **`extends`**. Di PHP, sebuah class **hanya boleh mewarisi tepat satu class induk** (*single inheritance*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -902,13 +913,13 @@ $mgr = new Manager("Budi", 10000000);
 echo "Manager: {$mgr->nama} | Gaji Total: Rp " . number_format($mgr->getGajiTotal(), 0, ",", ".");
 ```
 
-## Output
+#### Output
 
 ```text
 Manager: Budi | Gaji Total: Rp 15.000.000
 ```
 
-## Struktur Pewarisan Class
+#### Struktur Pewarisan Class
 
 ```text
        Parent Class: Karyawan ($nama, $gajiPokok, getGajiTotal())
@@ -924,7 +935,7 @@ Manager: Budi | Gaji Total: Rp 15.000.000
 class ChildClass extends ParentClass { ... }  → Mewarisi seluruh member parent
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan inheritance jika terdapat hubungan **"IS-A" (Adalah Suatu)** yang valid (misal: *Manager IS-A Karyawan*).
 - ❌ **Kesalahan Umum:** Menggunakan inheritance semata-mata demi *code sharing* padahal hubungannya bukan "IS-A" (untuk kasus ini, gunakan *Composition* atau *Trait*).
@@ -933,9 +944,9 @@ class ChildClass extends ParentClass { ... }  → Mewarisi seluruh member parent
 
 <a id="bagian-12"></a>
 
-# 12. 🟢 Method Overriding & Strict Compatibility
+## 12. 🟢 Method Overriding & Strict Compatibility
 
-## Konsep
+#### Konsep
 
 **Method Overriding** adalah kemampuan class anak untuk menulis ulang implementasi method yang diwarisi dari class induk dengan nama yang sama persis.
 
@@ -944,7 +955,7 @@ Aturan Kompatibilitas PHP Modern:
 2. Return type pada class anak tidak boleh lebih luas daripada class induk.
 3. Tingkat visibilitas pada class anak **tidak boleh lebih ketat** daripada class induk (misal: `public` di parent tidak boleh diubah jadi `protected` di child).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -970,13 +981,13 @@ $notif = new EmailNotifikasi();
 $notif->kirim("Tagihan bulanan telah terbit.");
 ```
 
-## Output
+#### Output
 
 ```text
 Mengirim EMAIL via SMTP Server: Tagihan bulanan telah terbit.
 ```
 
-## Cara Kerja Method Resolution
+#### Cara Kerja Method Resolution
 
 ```text
        Pemanggilan: $notif->kirim()
@@ -993,7 +1004,7 @@ Mengirim EMAIL via SMTP Server: Tagihan bulanan telah terbit.
 Override = Menulis ulang method parent di child class dengan nama yang sama
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan atribut `#[Override]` di atas method pada PHP 8.3+ untuk memastikan bahwa method tersebut benar-benar meng-override method parent.
 - ❌ **Kesalahan Umum:** Mengubah visibility dari `public` di parent menjadi `private` di child class (*Fatal Error: Access level must be public*).
@@ -1002,15 +1013,15 @@ Override = Menulis ulang method parent di child class dengan nama yang sama
 
 <a id="bagian-13"></a>
 
-# 13. 🟢 `parent` Keyword & Parent Constructor
+## 13. 🟢 `parent` Keyword & Parent Constructor
 
-## Konsep
+#### Konsep
 
 Kata kunci **`parent`** digunakan di dalam class anak untuk memanggil method atau constructor milik class induk yang telah ditimpa (*overridden*).
 
 Operator resolusi scope **`parent::methodName()`** memastikan logika pada class induk tetap dijalankan sebelum atau sesudah logika tambahan milik class anak dieksekusi.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1037,14 +1048,14 @@ class MobilSport extends Kendaraan
 $ferrari = new MobilSport("Ferrari", 2026, 4000);
 ```
 
-## Output
+#### Output
 
 ```text
 1. Constructor Kendaraan (Ferrari, 2026) dijalankan.
 2. Constructor MobilSport (4000 cc) selesai.
 ```
 
-## Alur Pemanggilan Parent Constructor
+#### Alur Pemanggilan Parent Constructor
 
 ```text
        new MobilSport("Ferrari", 2026, 4000)
@@ -1067,7 +1078,7 @@ parent::__construct($args)  → Menjalankan constructor class induk
 parent::methodName($args)   → Menjalankan method class induk yang di-override
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu panggil `parent::__construct()` di baris pertama constructor anak jika class induk memiliki constructor sendiri.
 - ❌ **Kesalahan Umum:** Lupa memanggil constructor parent sehingga properti penting yang diinisialisasi di class induk menjadi kosong/uninitialized.
@@ -1076,14 +1087,14 @@ parent::methodName($args)   → Menjalankan method class induk yang di-override
 
 <a id="bagian-14"></a>
 
-# 14. 🟢 Abstract Class & Abstract Method
+## 14. 🟢 Abstract Class & Abstract Method
 
-## Konsep
+#### Konsep
 
 - **Abstract Class:** Class setengah matang yang **tidak dapat diinstansiasi secara langsung** (`new AbstractClass()` ❌). Class ini berfungsi sebagai kerangka dasar wajib bagi class-class turunannya.
 - **Abstract Method:** Method tanpa isi blok kode yang wajib diimplementasikan secara konkret oleh setiap class anak turunan non-abstract.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1116,14 +1127,14 @@ $bayar->prosesPembayaran();
 $bayar->cetakKuitansi();
 ```
 
-## Output
+#### Output
 
 ```text
 Memverifikasi mutasi rekening bank untuk nominal Rp 500000...
 Kuitansi Pembayaran senilai Rp 500.000
 ```
 
-## Struktur Abstract Class
+#### Struktur Abstract Class
 
 ```text
        abstract class Pembayaran (Tidak bisa di-new)
@@ -1143,7 +1154,7 @@ abstract class ClassName { ... }          → Class cetak biru yang tidak bisa d
 abstract public function methodName();   → Deklarasi kontrak method wajib tanpa kurung kurawal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan abstract class ketika beberapa class anak berbagi banyak properti dan logika bersama, namun memiliki 1 atau 2 perilaku spesifik yang berbeda.
 - ❌ **Kesalahan Umum:** Mencoba membuat abstract method dengan isi kurung kurawal (`abstract public function test() {}` ❌).
@@ -1152,15 +1163,15 @@ abstract public function methodName();   → Deklarasi kontrak method wajib tanp
 
 <a id="bagian-15"></a>
 
-# 15. 🟢 Interface & Multiple Interfaces
+## 15. 🟢 Interface & Multiple Interfaces
 
-## Konsep
+#### Konsep
 
 **Interface** adalah kontrak murni 100% yang mendefinisikan daftar method apa saja yang **wajib disediakan oleh sebuah class**, tanpa memuat kode implementasi sama sekali.
 
 Keunggulan terbesar Interface dibandingkan Class: sebuah class PHP dapat mengimplementasikan **banyak interface sekaligus (*Multiple Interfaces*)** menggunakan kata kunci **`implements`**.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1195,14 +1206,14 @@ echo $laporan->exportPdf() . PHP_EOL;
 $laporan->kirimEmail("direktur@perusahaan.com");
 ```
 
-## Output
+#### Output
 
 ```text
 File PDF Laporan Keuangan berhasil dibuat.
 Laporan berhasil dikirim ke email: direktur@perusahaan.com
 ```
 
-## Matriks: Abstract Class vs Interface
+#### Matriks: Abstract Class vs Interface
 
 ```text
 Fitur                       Abstract Class              Interface
@@ -1219,7 +1230,7 @@ interface InterfaceName { ... }               → Membuat kontrak interface
 class MyClass implements IntfA, IntfB { ... } → Memenuhi implementasi banyak interface
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Berikan nama interface yang mencerminkan kemampuan atau peran (*role*), sering diakhiri kata sifat seperti `Exportable`, `Loggable`, `Jsonable`.
 - ❌ **Kesalahan Umum:** Memberikan visibility `private` atau `protected` pada method interface (seluruh method interface WAJIB `public`).
@@ -1228,13 +1239,13 @@ class MyClass implements IntfA, IntfB { ... } → Memenuhi implementasi banyak i
 
 <a id="bagian-16"></a>
 
-# 16. 🟢 Interface Inheritance
+## 16. 🟢 Interface Inheritance
 
-## Konsep
+#### Konsep
 
 Sama seperti class, **sebuah interface dapat mewarisi interface lainnya** menggunakan kata kunci **`extends`**. Class yang mengimplementasikan interface anak wajib memenuhi seluruh method dari interface anak dan seluruh method dari interface induknya.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1262,7 +1273,7 @@ $repo = new UserRepository();
 print_r($repo->findById(1));
 ```
 
-## Output
+#### Output
 
 ```text
 Array
@@ -1272,7 +1283,7 @@ Array
 )
 ```
 
-## Hirarki Interface
+#### Hirarki Interface
 
 ```text
        interface RepositoryDasar (findById, save)
@@ -1292,7 +1303,7 @@ Array
 interface ChildInterface extends ParentInterface { ... }
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Pecah interface menjadi bagian-bagian kecil yang terfokus (*Interface Segregation Principle*).
 - ❌ **Kesalahan Umum:** Membuat interface raksasa yang memaksa class mengimplementasikan method yang sebenarnya tidak dibutuhkan.
@@ -1301,15 +1312,15 @@ interface ChildInterface extends ParentInterface { ... }
 
 <a id="bagian-17"></a>
 
-# 17. 🟢 Polymorphism (Satu Kontrak, Banyak Bentuk)
+## 17. 🟢 Polymorphism (Satu Kontrak, Banyak Bentuk)
 
-## Konsep
+#### Konsep
 
 **Polymorphism (Banyak Bentuk)** adalah kemampuan kode aplikasi untuk memperlakukan berbagai objek yang berbeda dengan cara yang seragam, selama objek-objek tersebut mengimplementasikan interface atau parent class yang sama.
 
 Dengan polymorphism, kita dapat menambah fitur pembayaran/notifikasi baru tanpa mengubah kode sistem utama.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1345,14 +1356,14 @@ selesaikanOrder(new MidtransGateway(), 150000);
 selesaikanOrder(new XenditGateway(), 250000);
 ```
 
-## Output
+#### Output
 
 ```text
 Pembayaran Rp 150000 diproses via Snap Midtrans.
 Pembayaran Rp 250000 diproses via Virtual Account Xendit.
 ```
 
-## Cara Kerja Polymorphism
+#### Cara Kerja Polymorphism
 
 ```text
        Fungsi: selesaikanOrder(GatewayPembayaran $gateway)
@@ -1370,7 +1381,7 @@ Pembayaran Rp 250000 diproses via Virtual Account Xendit.
 Polymorphism = Bergantung pada Interface/Abstraksi, bukan pada class konkret
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Terapkan prinsip *Dependency Inversion* dengan selalu mem-passing interface pada parameter fungsi atau constructor.
 - ❌ **Kesalahan Umum:** Menggunakan banyak percabangan `if ($type == 'midtrans') ... elseif ($type == 'xendit')` yang merusak fleksibilitas polymorphism.
@@ -1379,14 +1390,14 @@ Polymorphism = Bergantung pada Interface/Abstraksi, bukan pada class konkret
 
 <a id="bagian-18"></a>
 
-# 18. 🟢 Type Declaration & `instanceof` Operator
+## 18. 🟢 Type Declaration & `instanceof` Operator
 
-## Konsep
+#### Konsep
 
 - **Object Type Declaration:** Memastikan parameter fungsi atau properti menerima instance dari class atau interface tertentu.
 - **`instanceof` Operator:** Memeriksa pada saat *runtime* apakah suatu objek merupakan turunan dari class tertentu atau mengimplementasikan interface tertentu (menghasilkan boolean `true` atau `false`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1413,7 +1424,7 @@ var_dump($pesanA instanceof Pesan);      // bool(true) - mengimplementasikan int
 var_dump($pesanA instanceof SmsPesan);   // bool(false)
 ```
 
-## Output
+#### Output
 
 ```text
 bool(true)
@@ -1428,7 +1439,7 @@ $object instanceof ClassName      → Memeriksa apakah $object turunan dari Clas
 $object instanceof InterfaceName  → Memeriksa apakah $object mengimplementasikan InterfaceName
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan type declaration di parameter fungsi sebagai validasi utama; gunakan `instanceof` hanya saat mengecek koleksi objek heterogen.
 - ❌ **Kesalahan Umum:** Menggunakan perbandingan string nama class `get_class($obj) === 'EmailPesan'` yang tidak mengenali hubungan inheritance dan interface.
@@ -1437,15 +1448,15 @@ $object instanceof InterfaceName  → Memeriksa apakah $object mengimplementasik
 
 <a id="bagian-19"></a>
 
-# 19. 🟡 Namespace & Penataan Struktur Kode
+## 19. 🟡 Namespace & Penataan Struktur Kode
 
-## Konsep
+#### Konsep
 
 **Namespace** digunakan untuk mengelompokkan class, interface, function, dan konstanta agar terorganisir rapi dan **mencegah bentrokan nama (*name collision*)** ketika aplikasi menggunakan library eksternal.
 
 Namespace dideklarasikan di **baris pertama paling atas file** menggunakan kata kunci `namespace Vendor\Package;`.
 
-## Contoh
+#### Contoh
 
 File `src/Payment/Invoice.php`:
 
@@ -1475,13 +1486,13 @@ $inv = new \App\Payment\Invoice();
 echo $inv->cetak();
 ```
 
-## Output
+#### Output
 
 ```text
 Invoice Pembayaran
 ```
 
-## Struktur Namespace vs Folder (PSR-4)
+#### Struktur Namespace vs Folder (PSR-4)
 
 ```text
        App\Payment\Invoice
@@ -1498,7 +1509,7 @@ namespace App\Services;     → Mendeklarasikan ruang nama file saat ini
 \App\Services\PaymentService → Akses class dengan alamat lengkap FQCN
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Ikuti standar PSR-4 di mana penamaan namespace mencerminkan struktur folder file di project Anda.
 - ❌ **Kesalahan Umum:** Meletakkan statement atau output apa pun di atas deklarasi `namespace` (harus menjadi baris pertama setelah `<?php`).
@@ -1507,15 +1518,15 @@ namespace App\Services;     → Mendeklarasikan ruang nama file saat ini
 
 <a id="bagian-20"></a>
 
-# 20. 🟡 `use` Keyword (Import Class, Function, Const, & Alias)
+## 20. 🟡 `use` Keyword (Import Class, Function, Const, & Alias)
 
-## Konsep
+#### Konsep
 
 Kata kunci **`use`** digunakan untuk mengimpor (*import*) class, interface, fungsi, atau konstanta dari namespace lain ke dalam file aktif, sehingga kita tidak perlu menuliskan nama namespace yang panjang berulang kali.
 
 Jika terdapat dua class dengan nama yang sama persis dari namespace berbeda, gunakan kata kunci **`as`** untuk membuat **Alias**.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1531,7 +1542,7 @@ $invoice = new PaymentInvoice();
 echo $invoice->cetak() . PHP_EOL;
 ```
 
-## Output
+#### Output
 
 ```text
 Invoice Pembayaran
@@ -1546,7 +1557,7 @@ use function Path\To\functionName;  → Import fungsi global/namespace
 use const Path\To\CONST_NAME;       → Import konstanta
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Urutkan baris `use` secara alfabetis dan kelompokkan berdasarkan jenisnya (PSR-12).
 - ❌ **Kesalahan Umum:** Mengimpor dua class bernama sama tanpa memberikan alias `as` (*Fatal Error: Cannot use App\A\User as User because the name is already in use*).
@@ -1555,9 +1566,9 @@ use const Path\To\CONST_NAME;       → Import konstanta
 
 <a id="bagian-21"></a>
 
-# 21. 🟡 `static` Keyword (Static Property & Method)
+## 21. 🟡 `static` Keyword (Static Property & Method)
 
-## Konsep
+#### Konsep
 
 Kata kunci **`static`** mendefinisikan properti atau method yang **menjadi milik class itu sendiri**, bukan milik instance objek individu.
 
@@ -1566,7 +1577,7 @@ Karakteristik Static Member:
 - Nilai static property dibagi bersama (*shared state*) oleh seluruh instance class.
 - Dipanggil menggunakan operator resolusi scope ganda **`::`** (Paamayim Nekudotayim).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1586,14 +1597,14 @@ echo "Kurs: Rp " . KonverterMataUang::$kursUsdKeIdr . PHP_EOL;
 echo "$10 USD = Rp " . number_format(KonverterMataUang::keRupiah(10), 0, ",", ".");
 ```
 
-## Output
+#### Output
 
 ```text
 Kurs: Rp 16000
 $10 USD = Rp 160.000
 ```
 
-## Alokasi Memori: Static vs Instance
+#### Alokasi Memori: Static vs Instance
 
 ```text
        ┌────────────────────────────────────────────────────────────┐
@@ -1610,7 +1621,7 @@ ClassName::staticMethod()     → Menjalankan method statis dari luar class
 self::$staticProperty         → Mengakses properti statis dari dalam class
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan static method untuk fungsi helper utilitas murni (*pure helper functions*) yang tidak membutuhkan state objek (misal: `Str::slug()`, `Math::round()`).
 - ❌ **Kesalahan Umum:** Menggunakan `$this` di dalam static method (static method tidak memiliki konteks `$this`!).
@@ -1619,16 +1630,16 @@ self::$staticProperty         → Mengakses properti statis dari dalam class
 
 <a id="bagian-22"></a>
 
-# 22. 🟡 `self` vs `$this` vs `parent`
+## 22. 🟡 `self` vs `$this` vs `parent`
 
-## Konsep
+#### Konsep
 
 Tiga kata kunci referensi internal di PHP:
 1. **`$this`:** Merujuk ke **instance objek saat ini** (digunakan untuk properti/method non-static).
 2. **`self`:** Merujuk ke **class tempat kode tersebut ditulis** secara statis saat *compile-time*.
 3. **`parent`:** Merujuk ke **class induk langsung** dari class saat ini.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1651,13 +1662,13 @@ $anak = new Anak();
 echo "Hasil self: " . $anak->getSelf(); // Menghasilkan "Induk" karena self diikat di class Induk
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil self: Induk
 ```
 
-## Matriks Perbandingan Referensi
+#### Matriks Perbandingan Referensi
 
 ```text
        Kata Kunci     Konteks           Operator     Target Rujukan
@@ -1675,7 +1686,7 @@ self::$property   → Akses static member class sendiri
 parent::method()  → Akses method milik class induk
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `static::` (Late Static Binding) alih-alih `self::` jika Anda menginginkan subclass dapat meng-override static property/method parent.
 - ❌ **Kesalahan Umum:** Menggunakan `$this->` untuk memanggil static property (seharusnya gunakan `self::$property`).
@@ -1684,15 +1695,15 @@ parent::method()  → Akses method milik class induk
 
 <a id="bagian-23"></a>
 
-# 23. 🟡 `final` Keyword (Final Method & Class)
+## 23. 🟡 `final` Keyword (Final Method & Class)
 
-## Konsep
+#### Konsep
 
 Kata kunci **`final`** digunakan untuk mencegah pewarisan atau modifikasi lebih lanjut:
 - **Final Class:** Class yang **tidak dapat diwarisi / di-extends** sama sekali oleh class lain.
 - **Final Method:** Method yang **tidak dapat di-override** oleh class anak.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1722,7 +1733,7 @@ final class ClassName { ... }         → Mencegah class di-extends
 final public function methodName()    → Mencegah method di-override
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Berikan keyword `final` pada class value object atau algoritma keamanan kritis yang tidak boleh dimodifikasi perilsakunya.
 - ❌ **Kesalahan Umum:** Menjadikan abstract class sebagai `final` (kontradiktif! Abstract mewajibkan extends, sedangkan final melarang extends).
@@ -1731,15 +1742,15 @@ final public function methodName()    → Mencegah method di-override
 
 <a id="bagian-24"></a>
 
-# 24. 🟡 Trait (Horizontal Code Reuse)
+## 24. 🟡 Trait (Horizontal Code Reuse)
 
-## Konsep
+#### Konsep
 
 PHP hanya mendukung *Single Inheritance* (hanya bisa `extends` 1 class). **Trait** hadir sebagai mekanisme untuk berbagi method dan properti antar class yang tidak berada dalam satu garis keturunan pewarisan (*Horizontal Code Reuse*).
 
 Trait dimasukkan ke dalam class menggunakan kata kunci **`use TraitName;`** di dalam blok class.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1773,13 +1784,13 @@ $user->recordTimestamps();
 echo "User: {$user->name} dibuat pada {$user->createdAt}";
 ```
 
-## Output
+#### Output
 
 ```text
 User: Budi dibuat pada 2026-08-25 22:25:00
 ```
 
-## Visualisasi Trait (Horizontal Reuse)
+#### Visualisasi Trait (Horizontal Reuse)
 
 ```text
                         ┌──────────────────┐
@@ -1799,7 +1810,7 @@ trait TraitName { ... }    → Mendefinisikan trait baru
 use TraitA, TraitB;        → Memasang satu atau banyak trait di dalam class
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan trait untuk kemampuan utilitas lintas class (seperti `Loggable`, `HasSlug`, `Auditable`).
 - ❌ **Kesalahan Umum:** Memasukkan terlalu banyak trait ke dalam satu class hingga menciptakan kode siluman (*hidden dependencies*) yang sulit ditelusuri.
@@ -1808,9 +1819,9 @@ use TraitA, TraitB;        → Memasang satu atau banyak trait di dalam class
 
 <a id="bagian-25"></a>
 
-# 25. 🟡 Trait Conflict, Priority & Alias (`insteadof` & `as`)
+## 25. 🟡 Trait Conflict, Priority & Alias (`insteadof` & `as`)
 
-## Konsep
+#### Konsep
 
 Jika sebuah class menggunakan dua trait yang memiliki nama method yang persis sama, PHP akan melempar *Fatal Error*.
 
@@ -1818,7 +1829,7 @@ Untuk mengatasi bentrokan:
 1. **`insteadof`:** Memilih secara eksplisit method dari trait mana yang akan dipakai.
 2. **`as`:** Memberikan nama alias alternatif pada method trait lainnya.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1848,7 +1859,7 @@ $srv->log("Pesan utama");
 $srv->logBackup("Pesan cadangan");
 ```
 
-## Output
+#### Output
 
 ```text
 [LoggerA]: Pesan utama
@@ -1862,7 +1873,7 @@ TraitA::method insteadof TraitB;  → Pilih method TraitA untuk menyelesaikan be
 TraitB::method as aliasName;       → Ganti nama panggilan method dari TraitB
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Rancang nama method di dalam trait secara unik untuk meminimalisir kemungkinan konflik sejak awal.
 - ❌ **Kesalahan Umum:** Lupa menangani konflik method trait ganda yang menghasilkan *Fatal Error: Trait method has not been applied*.
@@ -1871,13 +1882,13 @@ TraitB::method as aliasName;       → Ganti nama panggilan method dari TraitB
 
 <a id="bagian-26"></a>
 
-# 26. 🟡 Anonymous Class
+## 26. 🟡 Anonymous Class
 
-## Konsep
+#### Konsep
 
 **Anonymous Class** adalah class tanpa nama yang dibuat langsung pada saat *runtime*. Fitur ini sangat berguna untuk membuat objek instan sekali pakai, seperti untuk kebutuhan *mocking unit testing* atau konfigurasi handler sederhana.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1901,7 +1912,7 @@ prosesSistem(new class implements Logger {
 });
 ```
 
-## Output
+#### Output
 
 ```text
 [IN-MEMORY LOG]: Sistem berhasil dijalankan.
@@ -1913,7 +1924,7 @@ prosesSistem(new class implements Logger {
 $obj = new class($args) { ... };  → Membuat objek dari class anonim instan
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan anonymous class untuk objek *mock* saat testing atau passing callback kompleks satu kali pakai.
 - ❌ **Kesalahan Umum:** Menggunakan anonymous class untuk struktur data domain utama yang perlu dipakai berulang di banyak file.
@@ -1922,13 +1933,13 @@ $obj = new class($args) { ... };  → Membuat objek dari class anonim instan
 
 <a id="bagian-27"></a>
 
-# 27. 🟡 `stdClass` & Object Casting
+## 27. 🟡 `stdClass` & Object Casting
 
-## Konsep
+#### Konsep
 
 **`stdClass`** adalah class bawaan PHP yang kosong secara default. Objek `stdClass` sering digunakan saat melakukan konversi (*casting*) dari associative array menjadi objek menggunakan sintaks `(object) $array`, atau saat melakukan decoding JSON (`json_decode($json)`).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -1946,7 +1957,7 @@ echo "Kota: " . $obj->kota . PHP_EOL;
 var_dump($obj);
 ```
 
-## Output
+#### Output
 
 ```text
 Nama: Budi
@@ -1966,7 +1977,7 @@ $obj = (object) $array;   → Casting associative array menjadi objek stdClass
 $obj = new stdClass();    → Membuat objek generic kosong bawaan PHP
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan DTO / Class kustom ber-tipe daripada `stdClass` jika struktur data memiliki aturan validasi bisnis.
 - ❌ **Kesalahan Umum:** Mengira `stdClass` memiliki method; `stdClass` murni penampung properti dinamis tanpa method.
@@ -1975,15 +1986,15 @@ $obj = new stdClass();    → Membuat objek generic kosong bawaan PHP
 
 <a id="bagian-28"></a>
 
-# 28. 🟡 Object Cloning (`clone` & `__clone`)
+## 28. 🟡 Object Cloning (`clone` & `__clone`)
 
-## Konsep
+#### Konsep
 
 Di PHP, saat kita melakukan penugasan variabel objek `$b = $a`, PHP melakukan *pass-by-reference handle* (keduanya menunjuk ke objek yang sama di memori).
 
 Untuk menduplikasi objek secara terpisah, gunakan kata kunci **`clone $object`**. Jika objek tersebut memiliki referensi ke objek bersarang lain, definisikan magic method **`__clone()`** untuk melakukan *Deep Copy*.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2014,14 +2025,14 @@ echo "Karyawan 1: {$karyawan1->nama} ({$karyawan1->alamat->kota})" . PHP_EOL;
 echo "Karyawan 2: {$karyawan2->nama} ({$karyawan2->alamat->kota})";
 ```
 
-## Output
+#### Output
 
 ```text
 Karyawan 1: Budi (Jakarta)
 Karyawan 2: Andi (Bandung)
 ```
 
-## Perbedaan Assignment vs Clone
+#### Perbedaan Assignment vs Clone
 
 ```text
        Assignment ($b = $a)              Cloning ($b = clone $a)
@@ -2039,7 +2050,7 @@ $copy = clone $original;   → Menduplikasi objek menjadi instance terpisah
 public function __clone()  → Method yang otomatis dipanggil saat proses kloning
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Terapkan *Deep Copy* di dalam `__clone()` jika objek Anda memiliki properti bertipe objek lain.
 - ❌ **Kesalahan Umum:** Mengira `$b = $a` membuat salinan objek baru; perubahan pada `$b` akan merusak data pada `$a`.
@@ -2048,15 +2059,15 @@ public function __clone()  → Method yang otomatis dipanggil saat proses klonin
 
 <a id="bagian-29"></a>
 
-# 29. 🟡 Comparing Objects (`==` vs `===`)
+## 29. 🟡 Comparing Objects (`==` vs `===`)
 
-## Konsep
+#### Konsep
 
 Dua operator untuk membandingkan objek di PHP:
 1. **Perbandingan Kesamaan (`$a == $b`):** Bernilai `true` jika kedua objek berasal dari **class yang sama dan seluruh nilai propertinya sama**.
 2. **Perbandingan Identik (`$a === $b`):** Bernilai `true` HANYA JIKA kedua variabel merujuk ke **instance fisik yang persis sama di memori RAM**.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2075,7 +2086,7 @@ var_dump($t1 === $t2); // bool(false) - slot memori berbeda
 var_dump($t1 === $t3); // bool(true)  - slot memori persis sama
 ```
 
-## Output
+#### Output
 
 ```text
 bool(true)
@@ -2090,7 +2101,7 @@ $objA == $objB    → True jika tipe class sama dan semua isi propertinya bernil
 $objA === $objB   → True hanya jika menunjuk ke alamat instance memori yang persis sama
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan `===` jika Anda ingin memastikan bahwa variabel adalah objek yang sama persis (misal: *identity check*).
 - ❌ **Kesalahan Umum:** Membandingkan dua objek hasil kloning dengan `===` dan berharap hasilnya `true`.
@@ -2099,9 +2110,9 @@ $objA === $objB   → True hanya jika menunjuk ke alamat instance memori yang pe
 
 <a id="bagian-30"></a>
 
-# 30. 🟡 Magic Methods Populer
+## 30. 🟡 Magic Methods Populer
 
-## Konsep
+#### Konsep
 
 **Magic Methods** adalah method-method khusus bawaan PHP yang selalu diawali dengan garis bawah ganda (`__`). Method ini dipicu secara otomatis oleh PHP saat terjadi aksi tertentu pada objek.
 
@@ -2111,7 +2122,7 @@ Magic Methods paling populer:
 - `__get($name)` / `__set($name, $value)` : Dipicu saat membaca/menulis properti yang tidak ada atau tidak dapat diakses.
 - `__call($name, $arguments)` : Dipicu saat memanggil method yang tidak ada.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2138,7 +2149,7 @@ echo $user . PHP_EOL; // Memanggil __toString()
 $user("ExportData");  // Memanggil __invoke()
 ```
 
-## Output
+#### Output
 
 ```text
 Pengguna: Budi Santoso (Role: Admin)
@@ -2153,7 +2164,7 @@ __invoke(...$args)         → Menjadikan objek dapat dipanggil seperti fungsi $
 __get($prop) / __set($p,$v) → Menangkap akses ke properti yang tidak terdefinisi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Implementasikan `__toString()` pada Value Objects atau Entity untuk kemudahan debugging dan logging.
 - ❌ **Kesalahan Umum:** Menggunakan `__get` dan `__set` secara berlebihan sehingga kode kehilangan dukungan autocomplete IDE.
@@ -2162,13 +2173,13 @@ __get($prop) / __set($p,$v) → Menangkap akses ke properti yang tidak terdefini
 
 <a id="bagian-31"></a>
 
-# 31. 🟡 Overloading Property & Method Dinamis
+## 31. 🟡 Overloading Property & Method Dinamis
 
-## Konsep
+#### Konsep
 
 Di PHP, **Overloading** memiliki arti berbeda dibanding bahasa C++/Java. Di PHP, Overloading adalah kemampuan menangani pemanggilan properti atau method yang tidak terdefinisi secara dinamis melalui magic methods `__get`, `__set`, `__isset`, `__unset`, dan `__call`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2200,7 +2211,7 @@ echo "Warna: " . $bag->warna . PHP_EOL; // Memicu __get
 $bag->simpanData("data1", 123); // Memicu __call
 ```
 
-## Output
+#### Output
 
 ```text
 Warna: Merah
@@ -2215,7 +2226,7 @@ __get($key)                → Intersep pembacaan properti dinamis
 __call($method, $args)     → Intersep pemanggilan method dinamis
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan overloading untuk proxy atau wrapper library eksternal secara terkontrol.
 - ❌ **Kesalahan Umum:** Menyimpan data bisnis inti di dalam properti dinamis tanpa schema atau type checking yang jelas.
@@ -2224,15 +2235,15 @@ __call($method, $args)     → Intersep pemanggilan method dinamis
 
 <a id="bagian-32"></a>
 
-# 32. 🟡 Object Iteration (`IteratorAggregate` & `Traversable`)
+## 32. 🟡 Object Iteration (`IteratorAggregate` & `Traversable`)
 
-## Konsep
+#### Konsep
 
 Secara default, jika objek di-loop dengan `foreach ($object as $key => $val)`, PHP akan mengiterasi seluruh properti yang berstatus `public`.
 
 Untuk mengontrol penuh bagaimana objek di-iterasi (misal: membaca data dari array private di dalamnya), class dapat mengimplementasikan interface bawaan PHP **`IteratorAggregate`**.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2262,7 +2273,7 @@ foreach ($cart as $item) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 - Kemeja: Rp 150000
@@ -2276,7 +2287,7 @@ implements IteratorAggregate  → Menjadikan objek private dapat di-foreach dari
 public function getIterator() → Mengembalikan instance ArrayIterator dari data internal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Implementasikan `IteratorAggregate` pada class koleksi (*Collection class*) agar terasa seperti array native bagi pemanggil.
 - ❌ **Kesalahan Umum:** Membuka properti internal array menjadi `public` hanya agar bisa di-loop `foreach`.
@@ -2285,13 +2296,13 @@ public function getIterator() → Mengembalikan instance ArrayIterator dari data
 
 <a id="bagian-33"></a>
 
-# 33. 🟡 Destructor (`__destruct`) & Resource Cleanup
+## 33. 🟡 Destructor (`__destruct`) & Resource Cleanup
 
-## Konsep
+#### Konsep
 
 **Destructor (`__destruct`)** adalah magic method yang otomatis dipanggil oleh PHP ketika sebuah objek dihapus dari memori, atau saat skrip PHP selesai dieksekusi seluruhnya. Destructor sangat ideal untuk membersihkan resource eksternal (menutup file handle, menutup koneksi socket, atau mencatat log akhir).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2319,7 +2330,7 @@ $writer->tulis("Data Omset Harian");
 // Saat skrip selesai, __destruct otomatis dieksekusi
 ```
 
-## Output
+#### Output
 
 ```text
 1. Membuka file: laporan.txt
@@ -2333,7 +2344,7 @@ $writer->tulis("Data Omset Harian");
 public function __destruct()  → Dipanggil otomatis saat objek dihapus / program selesai
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan destructor untuk menutup resource eksternal yang tidak tertangani otomatis oleh garbage collector.
 - ❌ **Kesalahan Umum:** Melempar exception dari dalam `__destruct()` (dapat memicu *Fatal Error* yang tidak tertangkap jika skrip sedang shutdown).
@@ -2342,15 +2353,15 @@ public function __destruct()  → Dipanggil otomatis saat objek dihapus / progra
 
 <a id="bagian-34"></a>
 
-# 34. 🔴 Generator & `yield` dalam OOP
+## 34. 🔴 Generator & `yield` dalam OOP
 
-## Konsep
+#### Konsep
 
 **Generator** memungkinkan kita membuat method yang menghasilkan serangkaian data dalam jumlah sangat besar **tanpa harus memuat seluruh data sekaligus ke memori RAM**.
 
 Generator menggunakan kata kunci **`yield`**. Generator mengembalikan objek `Generator` bawaan PHP yang mengimplementasikan `Iterator`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2372,7 +2383,7 @@ foreach ($gen->generateAngka(3) as $nomor => $baris) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 ID 1: Baris Transaksi #1
@@ -2380,7 +2391,7 @@ ID 2: Baris Transaksi #2
 ID 3: Baris Transaksi #3
 ```
 
-## Perbandingan Memori: Array vs Generator
+#### Perbandingan Memori: Array vs Generator
 
 ```text
        Array Biasa (Memuat 1 Juta Baris Sekaligus)
@@ -2401,7 +2412,7 @@ yield $value;       → Mengembalikan satu nilai ke perulangan lalu mem-pause ek
 public function fn(): Generator  → Return type fungsi generator
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan generator saat membaca file CSV berukuran gigabyte atau streaming data query database yang masif.
 - ❌ **Kesalahan Umum:** Mencoba mengakses index generator dengan kurung siku (`$gen[0]` ❌). Generator hanya bisa diiterasi via loop.
@@ -2410,15 +2421,15 @@ public function fn(): Generator  → Return type fungsi generator
 
 <a id="bagian-35"></a>
 
-# 35. 🔴 Covariance & Contravariance
+## 35. 🔴 Covariance & Contravariance
 
-## Konsep
+#### Konsep
 
 Prinsip variansi tipe pada method overriding:
 - **Covariance (Return Type):** Class anak diizinkan mengembalikan tipe yang **lebih spesifik (subtipe)** daripada tipe kembalian di class parent.
 - **Contravariance (Parameter Type):** Class anak diizinkan menerima parameter dengan tipe yang **lebih umum (supertipe)** daripada tipe parameter di class parent.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2444,7 +2455,7 @@ class Kucing extends Hewan
 echo "Covariance & Contravariance valid di PHP 8+";
 ```
 
-## Output
+#### Output
 
 ```text
 Covariance & Contravariance valid di PHP 8+
@@ -2461,15 +2472,15 @@ Contravariance → Parameter type boleh lebih luas / umum (Parent Class)
 
 <a id="bagian-36"></a>
 
-# 36. 🔴 Reflection API (Introspeksi Class & Object)
+## 36. 🔴 Reflection API (Introspeksi Class & Object)
 
-## Konsep
+#### Konsep
 
 **Reflection API** adalah kumpulan class bawaan PHP (`ReflectionClass`, `ReflectionMethod`, `ReflectionProperty`) yang memungkinkan program untuk **menginspeksi struktur kode dirinya sendiri** saat runtime (melihat daftar method, properti private, annotations/attributes, tipe parameter).
 
 Fitur ini menjadi fondasi utama *Dependency Injection Container* di framework modern seperti Laravel dan Symfony.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2493,7 +2504,7 @@ foreach ($reflector->getMethods() as $method) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Nama Class: PenggunaService
@@ -2507,7 +2518,7 @@ $reflector = new ReflectionClass(ClassName::class);  → Menginspeksi metadata c
 $reflector->getMethods();                            → Mengambil daftar seluruh method
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Gunakan Reflection untuk pembuatan framework/library, dynamic container, atau auto-wiring.
 - ❌ **Kesalahan Umum:** Menggunakan reflection untuk logika bisnis sehari-hari (reflection memiliki *overhead* performa lebih lambat).
@@ -2516,15 +2527,15 @@ $reflector->getMethods();                            → Mengambil daftar seluru
 
 <a id="bagian-37"></a>
 
-# 37. 🔴 DateTime & `DateTimeImmutable` (OOP Date Handling)
+## 37. 🔴 DateTime & `DateTimeImmutable` (OOP Date Handling)
 
-## Konsep
+#### Konsep
 
 PHP menyediakan class OOP resmi untuk mengelola tanggal dan zona waktu:
 - **`DateTime`:** Objek tanggal yang bersifat *mutable* (perubahan tanggal memodifikasi objek itu sendiri).
 - **`DateTimeImmutable` (SANGAT DIREKOMENDASIKAN):** Objek tanggal yang bersifat *immutable* (setiap modifikasi menghasilkan objek baru sehingga aman dari *side-effect*).
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2539,7 +2550,7 @@ echo "Waktu Dibuat : " . $sekarang->format("d F Y H:i") . PHP_EOL;
 echo "Jatuh Tempo  : " . $tujuhHariLagi->format("d F Y H:i");
 ```
 
-## Output
+#### Output
 
 ```text
 Waktu Dibuat : 25 August 2026 10:00
@@ -2554,7 +2565,7 @@ $date->format('Y-m-d H:i:s');  → Format tanggal menjadi string
 $date->modify('+1 day');       → Tambah waktu (menghasilkan objek baru)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Selalu gunakan `DateTimeImmutable` sebagai tipe standar manipulasi tanggal.
 - ❌ **Kesalahan Umum:** Menggunakan fungsi prosedural lawas `date()` dan `strtotime()` yang rentan bug zona waktu pada aplikasi enterprise.
@@ -2563,15 +2574,15 @@ $date->modify('+1 day');       → Tambah waktu (menghasilkan objek baru)
 
 <a id="bagian-38"></a>
 
-# 38. 🔴 Exception Handling (try, catch, finally, Custom Exception)
+## 38. 🔴 Exception Handling (try, catch, finally, Custom Exception)
 
-## Konsep
+#### Konsep
 
 **Exception** adalah objek yang merepresentasikan kondisi error atau kegagalan yang tidak terduga saat program berjalan. OOP menggunakan blok **`try-catch-finally`** dan instruksi **`throw`** untuk menangani error secara elegan tanpa membuat aplikasi *crash*.
 
 Kita dapat membuat **Custom Exception** dengan cara meng-extends class bawaan `Exception`.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2604,14 +2615,14 @@ try {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Tertangkap Exception: Gagal: Saldo Rp 50000 tidak cukup untuk bayar Rp 100000.
 Blok finally: Selesai memproses transaksi.
 ```
 
-## Alur Eksekusi Try-Catch-Finally
+#### Alur Eksekusi Try-Catch-Finally
 
 ```text
        Blok try { $dompet->bayar(100000); }
@@ -2641,7 +2652,7 @@ try { ... } catch (Exception $e) { ... }  → Menangkap dan menangani exception
 finally { ... }                            → Blok yang selalu dieksekusi apapun yang terjadi
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ **Best Practice:** Buat class custom exception yang deskriptif (`UserNotFoundException`, `PaymentFailedException`) untuk menangkap error secara spesifik.
 - ❌ **Kesalahan Umum:** Menangkap generic `catch (Throwable $e)` dan mengabaikannya tanpa mencatat log error (*silent failure*).
@@ -2650,13 +2661,13 @@ finally { ... }                            → Blok yang selalu dieksekusi apapu
 
 <a id="bagian-39"></a>
 
-# 39. 🔴 Regular Expression OOP (Pola PCRE2 dalam Objek)
+## 39. 🔴 Regular Expression OOP (Pola PCRE2 dalam Objek)
 
-## Konsep
+#### Konsep
 
 Dalam arsitektur OOP modern, operasi Regular Expression (Regex) dibungkus ke dalam class Value Object atau Service Validator agar pola regex terenkapsulasi rapi dan dapat digunakan ulang tanpa menuliskan `preg_match` mentah di mana-mana.
 
-## Contoh
+#### Contoh
 
 ```php
 <?php
@@ -2679,7 +2690,7 @@ echo "User 1 Valid? " . (ValidatorUsername::isValid($user1) ? "Ya" : "Tidak") . 
 echo "User 2 Valid? " . (ValidatorUsername::isValid($user2) ? "Ya" : "Tidak");
 ```
 
-## Output
+#### Output
 
 ```text
 User 1 Valid? Ya
@@ -2697,7 +2708,7 @@ preg_replace($pattern, $rep, $s) → Ganti teks yang cocok dengan pola regex
 
 <a id="bagian-40"></a>
 
-# 40. 🛠️ Peta Ingatan Cepat
+## 40. 🛠️ Peta Ingatan Cepat
 
 Mental model komprehensif hubungan seluruh konsep utama PHP OOP:
 
@@ -2740,7 +2751,7 @@ Keandalan Sistem → Custom Exceptions (try-catch), DateTimeImmutable, Generator
 
 <a id="bagian-41"></a>
 
-# 41. 📚 Tabel Ringkasan
+## 41. 📚 Tabel Ringkasan
 
 | Fitur / Konsep | Sintaks / Kata Kunci | Fungsi & Kegunaan Utama |
 |---|---|---|
@@ -2764,7 +2775,7 @@ Keandalan Sistem → Custom Exceptions (try-catch), DateTimeImmutable, Generator
 
 <a id="bagian-42"></a>
 
-# 42. ⚡ Cheat Code PHP OOP 10 Detik
+## 42. ⚡ Cheat Code PHP OOP 10 Detik
 
 ```php
 <?php
@@ -2812,7 +2823,7 @@ try {
 
 <a id="bagian-43"></a>
 
-# 43. 🧭 Urutan Belajar yang Disarankan
+## 43. 🧭 Urutan Belajar yang Disarankan
 
 ```text
        ┌────────────────────────────────────────────────────────────┐
@@ -2850,11 +2861,11 @@ try {
 
 <a id="bagian-44"></a>
 
-# 44. 🏗️ Mini Project: Sistem Manajemen E-Commerce & Pembayaran OOP
+## 44. 🏗️ Mini Project: Sistem Manajemen E-Commerce & Pembayaran OOP
 
 Mini project ini mengintegrasikan seluruh konsep fundamental hingga lanjutan PHP OOP: **Constructor Property Promotion**, **Readonly Properties**, **Interface & Polymorphism**, **Traits**, **Custom Exceptions**, **Encapsulation**, dan **Type Declarations**.
 
-### Kode Program (`ecommerce.php`)
+##### Kode Program (`ecommerce.php`)
 
 ```php
 <?php
@@ -3000,7 +3011,7 @@ try {
 }
 ```
 
-### Output Eksekusi Program
+##### Output Eksekusi Program
 
 ```text
 ==================================================
@@ -3016,7 +3027,7 @@ Total Tagihan: Rp 12.500.000
 
 <a id="bagian-45"></a>
 
-# 45. 🔗 Referensi Resmi
+## 45. 🔗 Referensi Resmi
 
 - [PHP Manual — Classes and Objects (OOP5)](https://www.php.net/manual/en/language.oop5.php)
 

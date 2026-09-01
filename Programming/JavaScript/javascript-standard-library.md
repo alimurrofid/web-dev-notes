@@ -1,4 +1,15 @@
-# JavaScript Standard Library Cheatsheet Revised
+---
+title: "JavaScript Standard Library"
+description: "Standard built-in objects JavaScript: Array methods, String, Object, Map, Set, Math, Date, JSON, Promise, dan asynchronous utilities."
+order: 4
+tags:
+  - programming
+  - javascript
+  - standard-library
+  - reference
+---
+
+# JavaScript Standard Library
 
 > **Target:** Pemula yang sudah memahami dasar JavaScript (tipe data, variabel, fungsi, array, dan object) serta ingin menguasai built-in standard objects dan utility API resmi JavaScript (ES2020+).
 >
@@ -99,9 +110,9 @@ Deep Clone       → Duplikasi struktur data kompleks hingga ke cabang terdalam 
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Standard Library & Global Objects
+## 1. 🟢 Pengenalan Standard Library & Global Objects
 
-## Konsep
+#### Konsep
 
 **JavaScript Standard Library** adalah kumpulan objek, fungsi, dan konstruktor bawaan (*built-in global objects*) yang telah disediakan secara langsung oleh spesifikasi ECMAScript di dalam runtime (Browser, Node.js, Deno, Bun) tanpa perlu menginstal paket (*npm*) atau pustaka eksternal pihak ketiga.
 
@@ -112,7 +123,7 @@ Kategori Utama Standard Library:
 4. **Format & Pertukaran Data:** `JSON`, `RegExp`, `URL`, `URLSearchParams`, URI encoders.
 5. **Metaprogramming & Eksekusi:** `Proxy`, `Reflect`, `structuredClone`, `eval`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Menggunakan beberapa fitur built-in Standard Library sekaligus
@@ -136,7 +147,7 @@ console.log("Format Rupiah (Intl):", formattedPrice);
 console.log("Tanggal Transaksi (Date):", transactionDate);
 ```
 
-## Output
+#### Output
 
 ```text
 Harga Asli (String): 150000.75
@@ -146,7 +157,7 @@ Format Rupiah (Intl): Rp 150.001,00
 Tanggal Transaksi (Date): 2026-08-29
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                  Aplikasi JavaScript
@@ -172,7 +183,7 @@ Standard Library → Kumpulan objek & utilitas bawaan resmi yang siap pakai tanp
 globalThis       → Objek global universal di semua runtime JS (window di browser, global di Node)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Maksimalkan penggunaan Standard Library bawaan sebelum memutuskan untuk menginstal library eksternal berukuran besar (seperti Moment.js atau Lodash).
 - ❌ Jangan pernah memodifikasi prototype bawaan Standard Library (*Monkey Patching*).
@@ -181,9 +192,9 @@ globalThis       → Objek global universal di semua runtime JS (window di brows
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Number (Static Properties, Methods, & Formatting)
+## 2. 🟢 Number (Static Properties, Methods, & Formatting)
 
-## Konsep
+#### Konsep
 
 Objek bawaan **`Number`** menyediakan konstanta numerik penting dan metode-metode pembantu untuk memvalidasi, mengonversi, serta memformat angka.
 
@@ -200,7 +211,7 @@ Method Static & Prototype Esensial:
 - `num.toFixed(digits)`: Memformat angka desimal dengan jumlah digit tetap di belakang koma (mengembalikan string).
 - `num.toLocaleString(locale)`: Memformat angka sesuai aturan penulisan regional (ribuan, desimal).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Validasi Angka yang Ketat
@@ -220,7 +231,7 @@ console.log("Format Indonesia:", largeAmount.toLocaleString("id-ID")); // "1.500
 console.log("Format US:", largeAmount.toLocaleString("en-US")); // "1,500,000,000"
 ```
 
-## Output
+#### Output
 
 ```text
 isInteger(42): true
@@ -233,7 +244,7 @@ Format Indonesia: 1.500.000.000
 Format US: 1,500,000,000
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
             Nilai Angka: 3.14159
@@ -254,7 +265,7 @@ number.toFixed(digits)   → Membulatkan angka ke jumlah digit desimal tertentu 
 number.toLocaleString()  → Memformat angka dengan pemisah ribuan lokal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan `Number.isNaN()` modern, jangan gunakan fungsi global lawas `isNaN()`, karena `isNaN("teks")` menghasilkan `true` akibat konversi tipe otomatis yang membingungkan.
 - ❌ Ingat bahwa `num.toFixed()` menghasilkan nilai bertipe **String**, bukan Number; gunakan `Number(num.toFixed(2))` jika ingin mengembalikannya ke tipe angka.
@@ -263,9 +274,9 @@ number.toLocaleString()  → Memformat angka dengan pemisah ribuan lokal
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 BigInt (Bilangan Bulat Arbitrer)
+## 3. 🟢 BigInt (Bilangan Bulat Arbitrer)
 
-## Konsep
+#### Konsep
 
 Tipe data primitif **`BigInt`** digunakan untuk merepresentasikan dan memproses bilangan bulat dengan ukuran sembarang (*arbitrary-precision integers*) yang melampaui batas batas aman `Number.MAX_SAFE_INTEGER` (2^53 - 1).
 
@@ -274,7 +285,7 @@ Karakteristik BigInt:
 - Hanya dapat digunakan untuk bilangan bulat (tidak mendukung angka pecahan/desimal).
 - Tidak dapat dicampur langsung dalam operasi matematika dengan tipe `Number` biasa tanpa konversi eksplisit.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Masalah pada Number biasa saat melebihi batas aman
@@ -297,7 +308,7 @@ const validMath = BigInt(normalNumber) + bigNumber;
 console.log("Hasil Penjumlahan Aman:", validMath);
 ```
 
-## Output
+#### Output
 
 ```text
 Number Biasa (Rusak): 9007199254740992
@@ -306,7 +317,7 @@ BigInt Presisi 2: 5000000000000000000000000n
 Hasil Penjumlahan Aman: 150n
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        9007199254740991n + 2n
@@ -325,7 +336,7 @@ Hasil Penjumlahan Aman: 150n
 BigInt(stringOrNumber) → Mengonversi string/angka menjadi tipe BigInt
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan BigInt untuk menangani ID transaksi database 64-bit (misal Twitter Snowflake ID, data kriptografi, atau saldo kripto).
 - ❌ Jangan pernah mengonversi BigInt kembali ke Number jika nilainya melebihi `Number.MAX_SAFE_INTEGER`, karena presisinya akan hilang.
@@ -334,9 +345,9 @@ BigInt(stringOrNumber) → Mengonversi string/angka menjadi tipe BigInt
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Math (Konstanta, Pembulatan, Trigonometri, & Random)
+## 4. 🟢 Math (Konstanta, Pembulatan, Trigonometri, & Random)
 
-## Konsep
+#### Konsep
 
 Objek **`Math`** adalah objek statis bawaan (*bukan fungsi konstruktor*) yang menyediakan konstanta matematika standar dan sekumpulan fungsi kalkulasi numerik.
 
@@ -354,7 +365,7 @@ Fitur Utama Objek `Math`:
   - `Math.sqrt(x)`: Akar kuadrat.
   - `Math.random()`: Menghasilkan angka acak semu antara 0 (inklusif) sampai 1 (eksklusif).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Teknik Pembulatan Angka
@@ -379,7 +390,7 @@ console.log("Dadu (1-6):", getRandomInt(1, 6));
 console.log("Dadu (1-6):", getRandomInt(1, 6));
 ```
 
-## Output
+#### Output
 
 ```text
 Math.floor(45.7): 45
@@ -392,7 +403,7 @@ Dadu (1-6): 4
 Dadu (1-6): 2
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Math.random() -> Menghasilkan desimal 0.7234...
@@ -416,7 +427,7 @@ Math.max(...numbers)              → Mencari angka terbesar dari daftar
 Math.floor(Math.random() * N) + 1 → Rumus umum angka acak 1 sampai N
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan penyebaran (*spread operator*) `Math.max(...array)` saat mencari nilai ekstrem dari array.
 - ❌ Jangan pernah memanggil `new Math()`, karena `Math` bukan class konstruktor.
@@ -425,9 +436,9 @@ Math.floor(Math.random() * N) + 1 → Rumus umum angka acak 1 sampai N
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Boolean (Wrapper & Konversi Logika)
+## 5. 🟢 Boolean (Wrapper & Konversi Logika)
 
-## Konsep
+#### Konsep
 
 Tipe **`Boolean`** dapat digunakan sebagai fungsi utilitas konversi tipe data (`Boolean(value)`) untuk mengecek apakah suatu nilai bernilai **Truthy** atau **Falsy**.
 
@@ -435,7 +446,7 @@ Fungsi `Boolean(val)` mengonversi nilai apa pun menjadi `true` atau `false` murn
 - Seluruh 8 nilai falsy (`false`, `0`, `""`, `null`, `undefined`, `NaN`, `0n`, `document.all`) akan menghasilkan `false`.
 - Semua nilai di luar daftar di atas akan menghasilkan `true`.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menguji Berbagai Nilai Falsy
@@ -461,7 +472,7 @@ const cleanData = rawData.filter(Boolean); // Membuang string kosong, 0, null, u
 console.log("Data Bersih:", cleanData);
 ```
 
-## Output
+#### Output
 
 ```text
 Boolean(0): false
@@ -476,7 +487,7 @@ hasName (!!): true
 Data Bersih: [ 'Apel', 'Jeruk', 'Mangga' ]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          rawData.filter(Boolean)
@@ -499,7 +510,7 @@ Boolean(value)      → Mengonversi nilai apa pun menjadi boolean murni (true/fa
 array.filter(Boolean) → Trik ampuh membuang semua elemen falsy dari array
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `array.filter(Boolean)` untuk membersihkan array dari nilai-nilai kosong atau `null`.
 - ❌ Jangan membuat objek boolean dengan kata kunci `new Boolean(false)`, karena objek pembungkus selalu bernilai *truthy* dan dapat menimbulkan bug logika yang fatal.
@@ -508,9 +519,9 @@ array.filter(Boolean) → Trik ampuh membuang semua elemen falsy dari array
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 String (Manipulasi, Pencarian, Slicing, & Regex Method)
+## 6. 🟢 String (Manipulasi, Pencarian, Slicing, & Regex Method)
 
-## Konsep
+#### Konsep
 
 Objek bawaan **`String`** menyediakan puluhan method bawaan (*prototype methods*) untuk memanipulasi, memotong, mencari, dan memformat teks.
 
@@ -530,7 +541,7 @@ Method String yang Paling Sering Digunakan:
   - `.replaceAll(target, replacement)`: Mengganti seluruh kemunculan teks.
   - `.padStart(targetLength, padString)` & `.padEnd()`: Menambahkan karakter pengisi panjang.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const message = "   Halo, Belajar JavaScript Standard Library Seru!   ";
@@ -563,7 +574,7 @@ const invoiceNumber = "42";
 console.log("Format Invoice ID:", invoiceNumber.padStart(6, "0")); // "000042"
 ```
 
-## Output
+#### Output
 
 ```text
 Trimmed: Halo, Belajar JavaScript Standard Library Seru!
@@ -577,7 +588,7 @@ Updated CSV: Apel,Alpukat,Mangga,Alpukat
 Format Invoice ID: 000042
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
      "laporan-keuangan.pdf".slice(-3)
@@ -599,7 +610,7 @@ string.replaceAll(oldText, newText)→ Mengganti semua kata yang cocok
 string.padStart(length, padChar)  → Mengisi karakter di depan hingga panjang tercapai
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `.slice()` daripada method lawas seperti `.substr()` atau `.substring()` karena `.slice()` lebih konsisten dan mendukung indeks negatif.
 - ❌ Ingat bahwa semua tipe String di JavaScript bersifat **Immutable** (tidak dapat diubah di tempat); method string selalu mengembalikan string baru.
@@ -608,13 +619,13 @@ string.padStart(length, padChar)  → Mengisi karakter di depan hingga panjang t
 
 <a id="bagian-7"></a>
 
-# 7. 🟢 Array (Mutasi, Non-Mutasi, Iterasi, & Transformation)
+## 7. 🟢 Array (Mutasi, Non-Mutasi, Iterasi, & Transformation)
 
-## Konsep
+#### Konsep
 
 Objek **`Array`** adalah struktur data terpenting di JavaScript untuk mengelola deret data.
 
-### Klasifikasi Method Array:
+##### Klasifikasi Method Array:
 1. **Mutating Methods (Mengubah Array Asli):**
    - `.push(...items)`: Menambah di akhir.
    - `.pop()`: Mengambil dan menghapus elemen terakhir.
@@ -635,7 +646,7 @@ Objek **`Array`** adalah struktur data terpenting di JavaScript untuk mengelola 
    - `.flat(depth)`: Meratakan nested array.
    - `.toSorted()`, `.toReversed()`, `.toSpliced()` (ES2023): Versi non-mutasi modern.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const products = [
@@ -665,7 +676,7 @@ const hasCheapItem = products.some(item => item.price < 50000);
 console.log("Ada barang di bawah 50rb?", hasCheapItem); // true
 ```
 
-## Output
+#### Output
 
 ```text
 Produk Elektronik: [ 'Keyboard', 'Mouse' ]
@@ -675,7 +686,7 @@ Produk Mewah Pertama: Meja Kerja
 Ada barang di bawah 50rb? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
                     Array Awal: [150000, 450000, 35000]
@@ -702,7 +713,7 @@ array.reduce(callback, initialVal)→ Menggabungkan seluruh elemen menjadi satu 
 array.find(callback)              → Mengembalikan elemen pertama yang cocok (atau undefined)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Prioritaskan method fungsional non-mutasi (`.map()`, `.filter()`, `.reduce()`) untuk meminimalkan *side-effects* pada data asli.
 - ❌ Hati-hati dengan `array.sort()` tanpa comparator function (`array.sort((a,b) => a - b)`), karena secara default `.sort()` mengurutkan angka berdasarkan urutan alfabetik string (`[10, 2, 5].sort()` menjadi `[10, 2, 5]`).
@@ -711,9 +722,9 @@ array.find(callback)              → Mengembalikan elemen pertama yang cocok (a
 
 <a id="bagian-8"></a>
 
-# 8. 🟢 Object (Static Methods: keys, values, entries, assign, freeze, seal)
+## 8. 🟢 Object (Static Methods: keys, values, entries, assign, freeze, seal)
 
-## Konsep
+#### Konsep
 
 Objek global **`Object`** menyediakan sekumpulan method statis yang sangat berguna untuk menginspeksi, memanipulasi, menggabungkan, serta mengunci struktur objek di JavaScript.
 
@@ -729,7 +740,7 @@ Method Statis Utama Objek:
   - `Object.freeze(obj)`: Membekukan objek sepenuhnya (tidak bisa tambah, ubah, atau hapus properti).
   - `Object.seal(obj)`: Mengunci objek (properti yang ada boleh diubah nilainya, tetapi tidak bisa tambah/hapus properti).
 
-## Contoh
+#### Contoh
 
 ```javascript
 const user = {
@@ -761,7 +772,7 @@ console.log("Config Max Retries:", appConfig.maxRetries); // 3 (Tetap aman!)
 console.log("Apakah objek dibekukan?", Object.isFrozen(appConfig)); // true
 ```
 
-## Output
+#### Output
 
 ```text
 Keys: [ 'id', 'name', 'role', 'score' ]
@@ -780,7 +791,7 @@ Config Max Retries: 3
 Apakah objek dibekukan? true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Objek: { name: "Budi", role: "Admin" }
@@ -802,7 +813,7 @@ Object.fromEntries(iterable)       → Mengubah array [key, value] menjadi Objek
 Object.freeze(object)              → Mengunci objek agar tidak bisa dimutasi sama sekali
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan kombinasi `Object.entries(obj)` dan `for...of` untuk melakukan iterasi data objek secara aman tanpa risiko properti prototype terbawa.
 - ❌ Ingat bahwa `Object.freeze()` hanya bersifat *shallow freeze* (hanya membekukan properti tingkat pertama; objek bersarang di dalamnya tetap bisa dimutasi kecuali dibekukan secara rekursif).
@@ -811,9 +822,9 @@ Object.freeze(object)              → Mengunci objek agar tidak bisa dimutasi s
 
 <a id="bagian-9"></a>
 
-# 9. 🟢 JSON (Serialization, Deserialization, Replacer, & Reviver)
+## 9. 🟢 JSON (Serialization, Deserialization, Replacer, & Reviver)
 
-## Konsep
+#### Konsep
 
 **JSON (JavaScript Object Notation)** adalah format teks standar terbuka yang ringan dan independen bahasa untuk pertukaran data (*data interchange*) antara klien (browser) dan server (backend API).
 
@@ -826,7 +837,7 @@ Objek bawaan **`JSON`** menyediakan 2 metode utama:
    Mengurai teks string JSON kembali menjadi objek JavaScript asli.
    - `reviver`: Fungsi transformasi untuk memulihkan tipe data tertentu (misal string tanggal kembali ke objek `Date`).
 
-## Contoh
+#### Contoh
 
 ```javascript
 const transaction = {
@@ -860,7 +871,7 @@ console.log("Order ID:", parsedData.orderId);
 console.log("Tipe createdAt:", parsedData.createdAt instanceof Date ? "Objek Date Valid" : "String Biasa");
 ```
 
-## Output
+#### Output
 
 ```text
 === Serialized JSON String ===
@@ -876,7 +887,7 @@ Order ID: TRX-9988
 Tipe createdAt: Objek Date Valid
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Objek JS: { name: "Budi" }  ──► JSON.stringify() ──► String: '{"name":"Budi"}'
@@ -890,7 +901,7 @@ JSON.stringify(value, replacer, space) → Mengubah objek menjadi string JSON (S
 JSON.parse(text, reviver)             → Mengubah string JSON menjadi objek JS (Deserialization)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu bungkus pemanggilan `JSON.parse()` di dalam blok `try...catch` untuk menangani risiko data JSON yang rusak (*malformed JSON*).
 - ❌ Ketahuilah bahwa `JSON.stringify()` otomatis membuang properti bernilai `undefined`, `Function`, dan `Symbol`.
@@ -899,9 +910,9 @@ JSON.parse(text, reviver)             → Mengubah string JSON menjadi objek JS 
 
 <a id="bagian-10"></a>
 
-# 10. 🟢 Date (Waktu, Timestamp, Formatting, & Operasi Tanggal)
+## 10. 🟢 Date (Waktu, Timestamp, Formatting, & Operasi Tanggal)
 
-## Konsep
+#### Konsep
 
 Objek bawaan **`Date`** digunakan untuk merepresentasikan dan memanipulasi waktu serta tanggal di JavaScript (berbasis milidetik sejak *Unix Epoch* yaitu 1 Januari 1970 00:00:00 UTC).
 
@@ -916,7 +927,7 @@ Method Utama Objek Date:
 - **Static Helper:**
   - `Date.now()`: Mengambil timestamp milidetik saat ini secara instan tanpa membuat instance objek.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Membuat dan Membaca Komponen Tanggal
@@ -943,7 +954,7 @@ const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
 console.log(`Selisih Waktu: ${diffInDays} hari`);
 ```
 
-## Output
+#### Output
 
 ```text
 Tahun: 2026
@@ -955,7 +966,7 @@ Timestamp Epoch (ms): 1787999700000
 Selisih Waktu: 28 hari
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        endDate.getTime() - startDate.getTime()
@@ -981,7 +992,7 @@ date.getDate()         → Mengambil nomor hari/tanggal (1-31)
 date.toISOString()     → Mengubah tanggal ke format standar ISO 8601 (UTC)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `Date.now()` untuk mencatat waktu atau mengukur durasi performa karena lebih cepat dan tidak membebani memori alokasi objek.
 - ❌ Hati-hati terhadap jebakan `date.getMonth()`; ingat selalu bahwa bulan Januari bernilai `0`, bukan `1`.
@@ -990,19 +1001,19 @@ date.toISOString()     → Mengubah tanggal ke format standar ISO 8601 (UTC)
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Map & WeakMap (Key-Value Collection Lanjutan)
+## 11. 🟡 Map & WeakMap (Key-Value Collection Lanjutan)
 
-## Konsep
+#### Konsep
 
 **`Map`** adalah struktur data koleksi pasangan kunci-nilai (*key-value pairs*) yang diperkenalkan pada ES6 sebagai alternatif yang jauh lebih kuat dan fleksibel dibandingkan objek biasa.
 
-### Keunggulan `Map` Dibandingkan Objek Biasa (`{}`):
+##### Keunggulan `Map` Dibandingkan Objek Biasa (`{}`):
 1. **Tipe Key Bebas:** Key pada `Map` bisa bertipe data apa saja (termasuk Objek, Fungsi, Boolean, Number), sedangkan objek biasa membatasi key hanya berupa String atau Symbol.
 2. **Urutan Terjamin:** Urutan iterasi pada `Map` dijamin sesuai dengan urutan waktu penyisipan (*insertion order*).
 3. **Ukuran Langsung:** Memiliki properti `.size` untuk mengetahui jumlah data secara instan (tanpa perlu `Object.keys().length`).
 4. **Performa Tinggi:** Dioptimasi khusus untuk operasi penambahan dan penghapusan data yang sering (*frequent additions/removals*).
 
-### Method Utama `Map`:
+##### Method Utama `Map`:
 - `.set(key, value)`: Menambah atau memperbarui pasangan key-value.
 - `.get(key)`: Mengambil nilai berdasarkan key (mengembalikan `undefined` jika tidak ada).
 - `.has(key)`: Memeriksa apakah key ada di dalam Map (boolean).
@@ -1012,7 +1023,7 @@ date.toISOString()     → Mengubah tanggal ke format standar ISO 8601 (UTC)
 
 **`WeakMap`** adalah variasi khusus di mana key **wajib bertipe Objek** dan referensi ke objek tersebut bersifat lemah (*weakly held*), sehingga tidak mencegah *Garbage Collector* membersihkan memori saat objek aslinya sudah tidak digunakan lagi di tempat lain.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Membuat dan Menggunakan Map
@@ -1045,7 +1056,7 @@ userMetadata.set(tempUser, { loginCount: 15, lastIp: "192.168.1.1" });
 console.log("\nMetadata tempUser:", userMetadata.get(tempUser));
 ```
 
-## Output
+#### Output
 
 ```text
 Role Budi: SUPER_ADMIN
@@ -1060,7 +1071,7 @@ Key: session_timeout -> Role: 3600
 Metadata tempUser: { loginCount: 15, lastIp: '192.168.1.1' }
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        userRoleMap.set(userBudi, "SUPER_ADMIN")
@@ -1082,7 +1093,7 @@ map.delete(key)       → Menghapus entri berdasarkan key
 map.size              → Mendapatkan total jumlah entri di dalam Map
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `Map` saat kunci data Anda dinamis atau berupa objek (misal: asosiasi metadata DOM element ke data aplikasi).
 - ❌ Jangan gunakan `map[key] = val` untuk mengisi data Map; selalu gunakan method resmi `map.set(key, val)`.
@@ -1091,9 +1102,9 @@ map.size              → Mendapatkan total jumlah entri di dalam Map
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Set & WeakSet (Koleksi Nilai Unik)
+## 12. 🟡 Set & WeakSet (Koleksi Nilai Unik)
 
-## Konsep
+#### Konsep
 
 **`Set`** adalah struktur data bawaan yang menampung sekumpulan **nilai unik (*unique values*)**. `Set` secara otomatis membuang nilai duplikat sehingga setiap elemen hanya boleh muncul tepat satu kali.
 
@@ -1106,7 +1117,7 @@ Method Utama `Set`:
 
 **`WeakSet`** adalah variasi di mana seluruh elemen **wajib berupa Objek** dan referensi objek di dalamnya bersifat lemah untuk pencegahan kebocoran memori (*memory leak prevention*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menghilangkan Duplikasi dari Array secara Instan (Trik Populer!)
@@ -1136,7 +1147,7 @@ for (const tag of new Set(rawTags)) {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Array Asli (Ada Duplikat): [ 'javascript', 'web', 'nodejs', 'javascript', 'react', 'web' ]
@@ -1152,7 +1163,7 @@ Tag: nodejs
 Tag: react
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Input Array: ["js", "web", "js"]
@@ -1176,7 +1187,7 @@ set.has(value)      → Mengecek keberadaan nilai dengan performa O(1) yang sang
 set.size            → Jumlah elemen unik di dalam Set
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan `Set.prototype.has()` untuk pengecekan keberadaan data berulang-ulang alih-alih `array.includes()`, karena `Set` memiliki performa O(1) yang jauh lebih cepat dibanding `Array` O(N).
 - ❌ Objek di dalam Set dibandingkan berdasarkan referensi memorinya (`=== `), sehingga `set.add({id: 1})` dan `set.add({id: 1})` akan dianggap sebagai 2 objek yang berbeda karena referensi memorinya berlainan.
@@ -1185,9 +1196,9 @@ set.size            → Jumlah elemen unik di dalam Set
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Symbol (Identifier Unik & Well-Known Symbols)
+## 13. 🟡 Symbol (Identifier Unik & Well-Known Symbols)
 
-## Konsep
+#### Konsep
 
 **`Symbol`** adalah tipe data primitif yang diperkenalkan pada ES6 untuk menciptakan **pengenal unik yang dijamin tidak akan pernah bentrok (*guaranteed unique identifier*)**, bahkan jika dua simbol dibuat dengan label deskripsi yang persis sama.
 
@@ -1196,7 +1207,7 @@ Kegunaan Utama Symbol:
 2. **Non-Enumerable Property:** Properti yang menggunakan kunci Symbol tidak akan muncul pada perulangan `for...in` atau `Object.keys()`.
 3. **Well-Known Symbols:** Simbol bawaan standar (seperti `Symbol.iterator`, `Symbol.toPrimitive`, `Symbol.hasInstance`) untuk mengkustomisasi perilaku internal bahasa.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Setiap Symbol Dijamin Selalu Unik
@@ -1224,7 +1235,7 @@ console.log("Object.keys():", Object.keys(userAccount)); // [ 'name', 'role' ] (
 console.log("Own Symbols:", Object.getOwnPropertySymbols(userAccount));
 ```
 
-## Output
+#### Output
 
 ```text
 Apakah symA === symB? false
@@ -1234,7 +1245,7 @@ Object.keys(): [ 'name', 'role' ]
 Own Symbols: [ Symbol(internal_id) ]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          const id = Symbol("desc")
@@ -1254,7 +1265,7 @@ Symbol.for(key)                → Mengambil atau mendaftarkan simbol ke dalam G
 Object.getOwnPropertySymbols() → Mengambil seluruh key properti bertipe Symbol dari suatu objek
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Symbol untuk menambahkan metadata internal pada objek agar tidak mengganggu properti publik yang diakses oleh pengguna objek.
 - ❌ Jangan memanggil Symbol dengan kata kunci `new Symbol()`, karena Symbol adalah fungsi pembuat tipe primitif, bukan constructor.
@@ -1263,9 +1274,9 @@ Object.getOwnPropertySymbols() → Mengambil seluruh key properti bertipe Symbol
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 RegExp (Regular Expression Patterns & Modifiers)
+## 14. 🟡 RegExp (Regular Expression Patterns & Modifiers)
 
-## Konsep
+#### Konsep
 
 **`RegExp`** (Regular Expression) adalah objek pola pencocokan teks yang digunakan untuk memvalidasi format, mencari substring, dan mengganti teks berdasarkan pola tertentu.
 
@@ -1283,7 +1294,7 @@ Method Penting RegExp & String:
 - `regex.exec(string)`: Mengembalikan array detail hasil pencocokan pertama beserta *capture groups*.
 - `string.match(regex)` & `string.matchAll(regex)`: Mencocokkan string dengan pola.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Validasi Format Email Sederhana dengan .test()
@@ -1311,7 +1322,7 @@ const cleanAlphaNum = dirtyInput.replace(/[^a-zA-Z0-9 ]/g, "");
 console.log("\nCleaned String:", cleanAlphaNum);
 ```
 
-## Output
+#### Output
 
 ```text
 Email 1 Valid? true
@@ -1324,7 +1335,7 @@ Nomor Ditemukan: 0857-1122-3344 (Kode Area: 0857)
 Cleaned String: Halo Dunia 2026 
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          "budi@example.com"
@@ -1348,7 +1359,7 @@ regex.exec(string)      → Mengekstrak grup kecocokan pola
 string.replace(regex, replacement) → Mengganti teks yang cocok dengan pola regex
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan `regex.test()` jika Anda hanya membutuhkan konfirmasi ada/tidaknya pola (boolean) karena jauh lebih cepat daripada `.exec()` atau `.match()`.
 - ❌ Hati-hati dengan flag global `g` pada method `regex.test()`, karena RegExp objek akan menyimpan indeks pencarian terakhir (`lastIndex`) yang dapat menghasilkan nilai selang-seling jika dipanggil ulang.
@@ -1357,9 +1368,9 @@ string.replace(regex, replacement) → Mengganti teks yang cocok dengan pola reg
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 URL & URLSearchParams (Parsing & Manipulasi Query URL)
+## 15. 🟡 URL & URLSearchParams (Parsing & Manipulasi Query URL)
 
-## Konsep
+#### Konsep
 
 Objek bawaan **`URL`** dan **`URLSearchParams`** menyediakan API standar yang aman dan andal untuk mengurai (*parse*), membaca, serta memanipulasi komponen alamat website dan parameter query string tanpa perlu melakukan manipulasi string manual yang rawan bug.
 
@@ -1378,7 +1389,7 @@ Method Utama `URLSearchParams`:
 - `.delete(name)`: Menghapus parameter.
 - `.toString()`: Mengubah kembali ke string query URL.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Mengurai (Parsing) Alamat URL Lengkap
@@ -1404,7 +1415,7 @@ console.log("\nURL Query yang Diperbarui:", query.toString());
 console.log("URL Final Lengkap:", fullUrl.toString());
 ```
 
-## Output
+#### Output
 
 ```text
 Protocol: https:
@@ -1418,7 +1429,7 @@ URL Query yang Diperbarui: category=gadget&page=2&filter=free_shipping
 URL Final Lengkap: https://toko.example.com:8080/products/search?category=gadget&page=2&filter=free_shipping#reviews
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
          Alamat URL Teks
@@ -1442,7 +1453,7 @@ url.searchParams.get(paramName)        → Mengambil nilai dari parameter query
 url.searchParams.set(paramName, value) → Menetapkan atau memperbarui nilai parameter query
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu gunakan `URL` dan `URLSearchParams` untuk membangun endpoint API agar karakter khusus (seperti spasi dan simbol) otomatis di-*encode* dengan benar.
 - ❌ Jangan menyusun URL query menggunakan konkatenasi string manual `url + "?key=" + val` yang rentan menimbulkan bug karakter ilegal.
@@ -1451,9 +1462,9 @@ url.searchParams.set(paramName, value) → Menetapkan atau memperbarui nilai par
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 URI Encoding (encodeURI, encodeURIComponent, decodeURI)
+## 16. 🟡 URI Encoding (encodeURI, encodeURIComponent, decodeURI)
 
-## Konsep
+#### Konsep
 
 Karakter khusus pada URL (seperti spasi, tanda tanya `?`, ampersand `&`, garis miring `/`, dan simbol non-ASCII) harus diubah menjadi format heksadesimal yang aman (*Percent-Encoding*) agar dapat ditransmisikan melalui protokol HTTP tanpa merusak struktur URL.
 
@@ -1468,7 +1479,7 @@ Perbedaan Dua Fungsi Encoding Utama:
 Fungsi Pemulih (Decoding):
 - **`decodeURI(encodedUri)`** & **`decodeURIComponent(encodedParam)`**.
 
-## Contoh
+#### Contoh
 
 ```javascript
 const searchKeyword = "Laptop Gaming & Aksesoris/2026?";
@@ -1491,7 +1502,7 @@ const decodedValue = decodeURIComponent(encodedValueOnly);
 console.log("\nDecoded Kembali:", decodedValue);
 ```
 
-## Output
+#### Output
 
 ```text
 === Menggunakan encodeURI ===
@@ -1504,7 +1515,7 @@ Safe Final URL: https://example.com/cari?q=Laptop%20Gaming%20%26%20Aksesoris%2F2
 Decoded Kembali: Laptop Gaming & Aksesoris/2026?
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Karakter '&' dan '?' dalam data ──► encodeURIComponent() ──► '%26' dan '%3F'
@@ -1519,7 +1530,7 @@ encodeURI(fullUrl)          → Meng-encode seluruh URL lengkap tanpa merusak st
 decodeURIComponent(encoded) → Mengembalikan nilai percent-encoded kembali ke teks normal
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu bungkus setiap nilai variabel dinamis yang akan dimasukkan ke dalam query URL dengan `encodeURIComponent()`.
 - ❌ Jangan gunakan `encodeURI()` pada nilai parameter yang mengandung tanda `&` atau `=`, karena karakter tersebut tidak akan di-encode dan membuat query terpecah.
@@ -1528,9 +1539,9 @@ decodeURIComponent(encoded) → Mengembalikan nilai percent-encoded kembali ke t
 
 <a id="bagian-17"></a>
 
-# 17. 🟡 Base64 Encoding (btoa, atob, Buffer)
+## 17. 🟡 Base64 Encoding (btoa, atob, Buffer)
 
-## Konsep
+#### Konsep
 
 **Base64** adalah skema pengodean (*encoding*) yang mengubah data biner atau teks menjadi sekumpulan 64 karakter ASCII yang aman untuk ditransmisikan melalui media yang hanya mendukung format teks (seperti header HTTP, email, token otentikasi Basic Auth, atau Data URL gambar inline).
 
@@ -1542,7 +1553,7 @@ Fungsi Bawaan Base64:
    - `Buffer.from(text, 'utf-8').toString('base64')`
    - `Buffer.from(base64, 'base64').toString('utf-8')`
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Menggunakan btoa dan atob (Standar Web Global)
@@ -1567,7 +1578,7 @@ const nodeDecoded = Buffer.from(nodeEncoded, "base64").toString("utf-8");
 console.log("\nNode.js Buffer Decode:", nodeDecoded);
 ```
 
-## Output
+#### Output
 
 ```text
 Teks Asli: admin_user:super_secret_password_2026
@@ -1578,7 +1589,7 @@ Header Authorization: Basic Y2xpZW50X2lkOmNsaWVudF9zZWNyZXQ=
 Node.js Buffer Decode: admin_user:super_secret_password_2026
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
    Teks: "admin:123" ──► Konversi ke Byte Biner ──► Dikelompokkan per 6 bit ──► Teks Base64: "YWRtaW46MTIz"
@@ -1591,7 +1602,7 @@ btoa(text)   → Mengubah string teks menjadi Base64 (Binary to ASCII)
 atob(base64) → Mengubah string Base64 kembali ke teks asli (ASCII to Binary)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Base64 untuk menyematkan aset kecil (misal ikon SVG kecil pada CSS) atau header otentikasi.
 - ❌ Ingat bahwa Base64 adalah teknik **Encoding**, BUKAN **Enkripsi**; data Base64 dapat dibaca kembali oleh siapa saja dengan mudah tanpa kunci rahasia.
@@ -1600,9 +1611,9 @@ atob(base64) → Mengubah string Base64 kembali ke teks asli (ASCII to Binary)
 
 <a id="bagian-18"></a>
 
-# 18. 🟡 Internationalization API (Intl.NumberFormat, Intl.DateTimeFormat, Intl.RelativeTimeFormat)
+## 18. 🟡 Internationalization API (Intl.NumberFormat, Intl.DateTimeFormat, Intl.RelativeTimeFormat)
 
-## Konsep
+#### Konsep
 
 Namespace global **`Intl`** adalah Internationalization API resmi ECMAScript yang menyediakan pemformatan bahasa, angka, mata uang, dan tanggal tingkat lanjut berdasarkan standar lokasi regional (*Locale-sensitive formatting*).
 
@@ -1611,7 +1622,7 @@ Fitur Utama `Intl`:
 2. **`Intl.DateTimeFormat(locale, options)`:** Memformat tanggal dan jam lengkap dengan nama hari, bulan, dan zona waktu lokal.
 3. **`Intl.RelativeTimeFormat(locale, options)`:** Memformat waktu relatif secara alami (seperti *"3 hari yang lalu"*, *"besok"*, *"dalam 5 menit"*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Pemformatan Mata Uang (Intl.NumberFormat)
@@ -1646,7 +1657,7 @@ console.log("Waktu Relatif (-3 hari):", rtf.format(-3, "day"));     // "3 hari y
 console.log("Waktu Relatif (+2 jam):", rtf.format(2, "hour"));      // "dalam 2 jam"
 ```
 
-## Output
+#### Output
 
 ```text
 Format Rupiah: Rp 1.500.000
@@ -1659,7 +1670,7 @@ Waktu Relatif (-3 hari): 3 hari yang lalu
 Waktu Relatif (+2 jam): dalam 2 jam
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" })
@@ -1679,7 +1690,7 @@ new Intl.DateTimeFormat(locale, options).format(date)     → Format tanggal lok
 new Intl.RelativeTimeFormat(locale, options).format(n, u) → Format teks waktu relatif (lalu / depan)
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Simpan instance `Intl.NumberFormat` atau `Intl.DateTimeFormat` ke dalam variabel/konstanta untuk digunakan berulang-ulang agar performa rendering aplikasi cepat.
 - ❌ Jangan membuat format mata uang manual menggunakan pemotongan string dan regex jika bisa diserahkan ke `Intl.NumberFormat` bawaan browser.
@@ -1688,9 +1699,9 @@ new Intl.RelativeTimeFormat(locale, options).format(n, u) → Format teks waktu 
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Proxy (Interception & Traps: get, set, deleteProperty)
+## 19. 🔴 Proxy (Interception & Traps: get, set, deleteProperty)
 
-## Konsep
+#### Konsep
 
 Objek **`Proxy`** memungkinkan kita membungkus suatu objek target (**Target**) dan mencegat (*intercept*) serta mengkustomisasi operasi dasar pada objek tersebut (seperti membaca properti, menulis nilai baru, menghapus properti, atau pemanggilan fungsi) menggunakan kumpulan fungsi penangkap yang disebut **Traps** di dalam objek **Handler**.
 
@@ -1707,7 +1718,7 @@ Traps Populer pada Handler:
 
 Proxy menjadi fondasi utama di balik sistem **Reaktivitas Modern** pada framework web terkini (seperti Vue 3 Composition API).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Objek Data Target
@@ -1754,7 +1765,7 @@ console.log("Usia Baru:", monitoredUser.age);
 // monitoredUser.age = -10; // Error! RangeError: Usia harus berupa angka antara 0 sampai 120!
 ```
 
-## Output
+#### Output
 
 ```text
 [LOG]: Membaca properti "username"
@@ -1766,7 +1777,7 @@ Email: Properti Tidak Ditemukan!
 Usia Baru: 25
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Akses: monitoredUser.username
@@ -1788,7 +1799,7 @@ new Proxy(target, { get, set, has, deleteProperty }) → Membungkus objek dengan
 trap.set(target, prop, value)                        → Wajib me-return boolean true jika sukses
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Gunakan Proxy untuk membuat sistem validasi skema otomatis, logging aktivitas data (*auditing*), atau data-binding reaktif.
 - ❌ Jangan lupa mengembalikan nilai `true` pada trap `set`, karena di Strict Mode hal itu akan memicu `TypeError`.
@@ -1797,9 +1808,9 @@ trap.set(target, prop, value)                        → Wajib me-return boolean
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Reflect (Metaprogramming & Standard Object Operations)
+## 20. 🔴 Reflect (Metaprogramming & Standard Object Operations)
 
-## Konsep
+#### Konsep
 
 **`Reflect`** adalah objek statis bawaan (mirip dengan `Math`, bukan konstruktor) yang menyediakan metode-metode standar untuk melakukan operasi inspeksi dan manipulasi objek di level bahasa (*Metaprogramming*).
 
@@ -1808,7 +1819,7 @@ Mengapa Menggunakan `Reflect`?
 2. **Nilai Kembalian yang Lebih Elegan:** Daripada melempar error fatal, method `Reflect` mengembalikan status boolean (misal `Reflect.defineProperty` me-return boolean `true`/`false`).
 3. **Menggantikan Operator Jadul:** Menyediakan fungsi formal untuk `in` (`Reflect.has`), `delete` (`Reflect.deleteProperty`), dan `new` (`Reflect.construct`).
 
-## Contoh
+#### Contoh
 
 ```javascript
 const article = {
@@ -1847,7 +1858,7 @@ reactiveProxy.score = 200;
 console.log("Skor Akhir:", reactiveProxy.score);
 ```
 
-## Output
+#### Output
 
 ```text
 Reflect.has('title'): true
@@ -1859,7 +1870,7 @@ Tags setelah delete: undefined
 Skor Akhir: 200
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Proxy Handler Trap
@@ -1880,7 +1891,7 @@ Reflect.has(target, prop)                   → Pengganti fungsi untuk operator 
 Reflect.deleteProperty(target, prop)        → Pengganti fungsi untuk operator 'delete'
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Selalu teruskan operasi bawaan di dalam Proxy handler menggunakan `Reflect.*` dengan menyertakan argumen `receiver` agar referensi `this` pada getter/setter prototype tidak rusak.
 - ❌ Jangan memanggil `new Reflect()`, karena `Reflect` adalah objek statis murni.
@@ -1889,9 +1900,9 @@ Reflect.deleteProperty(target, prop)        → Pengganti fungsi untuk operator 
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 Structured Clone (structuredClone Deep Copy)
+## 21. 🔴 Structured Clone (structuredClone Deep Copy)
 
-## Konsep
+#### Konsep
 
 Fungsi global **`structuredClone(value)`** (standar resmi HTML/ECMAScript modern) adalah cara resmi untuk menduplikasi objek secara mendalam (**Deep Clone / Deep Copy**) secara native tanpa bantuan pustaka eksternal seperti Lodash.
 
@@ -1900,7 +1911,7 @@ Perbedaan Tipe Salinan:
 2. **Deep Copy Tradisional (`JSON.parse(JSON.stringify(obj))`):** Mampu menyalin bersarang, tetapi **merusak tipe data khusus** (Date menjadi string, Map/Set menjadi objek kosong, RegExp hilang, dan melempar error pada referensi melingkar / *circular reference*).
 3. **`structuredClone()` (Native Modern):** Menyalin seluruh hierarki bersarang sekaligus **mempertahankan tipe data kompleks** (`Date`, `Set`, `Map`, `ArrayBuffer`, `RegExp`) serta mampu menangani referensi melingkar (*circular references*).
 
-## Contoh
+#### Contoh
 
 ```javascript
 // Objek kompleks dengan nested structure, Date, Set, dan referensi
@@ -1939,7 +1950,7 @@ console.log("Email Notif Kloning:", clonedAccount.settings.notifications.email);
 console.log("Tags Kloning (Set):", [...clonedAccount.tags]); // [ 'vip', 'verified', 'premium' ]
 ```
 
-## Output
+#### Output
 
 ```text
 === Objek Asli (Aman & Tidak Berubah) ===
@@ -1954,7 +1965,7 @@ Email Notif Kloning: false
 Tags Kloning (Set): [ 'vip', 'verified', 'premium' ]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
            originalAccount (Nested Memory 1)
@@ -1972,7 +1983,7 @@ Tags Kloning (Set): [ 'vip', 'verified', 'premium' ]
 structuredClone(object) → Melakukan deep copy native untuk seluruh struktur data kompleks
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ Jadikan `structuredClone()` sebagai standar utama untuk menduplikasi state atau objek konfigurasi bertingkat.
 - ❌ Ingat bahwa `structuredClone()` tidak dapat menyalin fungsi (*Function*) atau node DOM browser; mencoba menyalin fungsi akan melempar `DataCloneError`.
@@ -1981,13 +1992,13 @@ structuredClone(object) → Melakukan deep copy native untuk seluruh struktur da
 
 <a id="bagian-22"></a>
 
-# 22. 🔴 Eval & Function Constructor (dan Risiko Keamanannya)
+## 22. 🔴 Eval & Function Constructor (dan Risiko Keamanannya)
 
-## Konsep
+#### Konsep
 
 Fungsi bawaan **`eval(stringCode)`** mengeksekusi string teks yang dikirimkan seolah-olah string tersebut adalah kode program JavaScript yang sedang berjalan.
 
-### Mengapa `eval()` Sangat Berbahaya & Dilarang Keras di Aplikasi Nyata?
+##### Mengapa `eval()` Sangat Berbahaya & Dilarang Keras di Aplikasi Nyata?
 1. **Celah Keamanan Fatal (XSS / Code Injection):** Jika teks masukan berasal dari pengguna atau sumber luar yang belum terfilter, peretas dapat mengeksekusi kode jahat apa pun (mencuri token cookie, membobol data sensitif).
 2. **Merusak Optimasi Performa:** Engine JavaScript (V8) tidak dapat mengoptimasi kode di sekitar `eval` karena struktur variabel tidak dapat diprediksi secara statis.
 3. **Kebocoran Scope:** `eval` tanpa mode ketat dapat menciptakan atau mengubah variabel di scope lokal sekitarnya secara tidak terduga.
@@ -1996,7 +2007,7 @@ Alternatif Aman:
 - Jika ingin mem-parsing format data JSON: Gunakan **`JSON.parse()`**.
 - Jika ingin mengakses properti dinamis: Gunakan **Bracket Notation (`obj[prop]`)**.
 
-## Contoh
+#### Contoh
 
 ```javascript
 // 1. Contoh Sederhana Cara Kerja eval (Hanya untuk edukasi!)
@@ -2023,7 +2034,7 @@ function safeAdd(a, b) {
 console.log("Hasil Aman:", safeAdd("10", "20"));
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil eval("10 * 5 + 2"): 52
@@ -2031,7 +2042,7 @@ Kalkulasi Wajar: 75
 Hasil Aman: 30
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
         String Teks: "10 + 5"
@@ -2051,7 +2062,7 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
 "eval is evil"   → Pepatah terkenal dalam komunitas JavaScript: hindari 100%!
 ```
 
-## Best Practice & Kesalahan Umum
+#### Best Practice & Kesalahan Umum
 
 - ✅ 100% hindari penggunaan `eval()` dalam pengembangan aplikasi web dan backend modern.
 - ❌ Jangan pernah menggunakan `eval()` hanya untuk mengurai string JSON (selalu gunakan `JSON.parse()`).
@@ -2060,9 +2071,9 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
 
 <a id="bagian-23"></a>
 
-# 23. 🛠️ Peta Ingatan Cepat
+## 23. 🛠️ Peta Ingatan Cepat
 
-## Mental Model Pemilihan Built-in Object Berdasarkan Bentuk Data
+#### Mental Model Pemilihan Built-in Object Berdasarkan Bentuk Data
 
 ```text
                                 Masalah Komputasi Data
@@ -2086,7 +2097,7 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
                              - structuredClone (Deep Copy)
 ```
 
-## Pohon Keputusan Utilitas Koleksi Data
+#### Pohon Keputusan Utilitas Koleksi Data
 
 ```text
                                 Kebutuhan Struktur Data
@@ -2109,7 +2120,7 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
 
 <a id="bagian-24"></a>
 
-# 24. 📚 Tabel Ringkasan
+## 24. 📚 Tabel Ringkasan
 
 | Kategori | API / Built-in | Contoh Kode | Penjelasan & Kegunaan |
 |---|---|---|---|
@@ -2136,27 +2147,27 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
 
 <a id="bagian-25"></a>
 
-# 25. ⚡ Cheat Code JavaScript Standard Library 10 Detik
+## 25. ⚡ Cheat Code JavaScript Standard Library 10 Detik
 
-## 1. Hapus Duplikat & Bersihkan Array
+### 1. Hapus Duplikat & Bersihkan Array
 ```javascript
 const uniqueItems = [...new Set(["a", "b", "a", "c"])]; // ["a", "b", "c"]
 const validValues = [1, "", null, 2, undefined].filter(Boolean); // [1, 2]
 ```
 
-## 2. Format Rupiah & Tanggal Lokal Cepat
+### 2. Format Rupiah & Tanggal Lokal Cepat
 ```javascript
 const rupiah = (num) => new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(num);
 const todayIndo = new Intl.DateTimeFormat("id-ID", { dateStyle: "full" }).format(new Date());
 ```
 
-## 3. Deep Clone Aman (ES2022+)
+### 3. Deep Clone Aman (ES2022+)
 ```javascript
 const original = { id: 1, date: new Date(), tags: new Set(["a", "b"]) };
 const copied = structuredClone(original);
 ```
 
-## 4. Query URL & Object Entries
+### 4. Query URL & Object Entries
 ```javascript
 const params = new URLSearchParams({ category: "gadget", sort: "desc" });
 console.log(params.toString()); // "category=gadget&sort=desc"
@@ -2170,7 +2181,7 @@ for (const [key, value] of Object.entries({ a: 1, b: 2 })) {
 
 <a id="bagian-26"></a>
 
-# 26. 🧭 Urutan Belajar yang Disarankan
+## 26. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai Standard Library JavaScript secara efisien dari operasi data harian hingga metaprogramming, ikuti 4 tahapan berikut:
 
@@ -2213,9 +2224,9 @@ Untuk menguasai Standard Library JavaScript secara efisien dari operasi data har
 
 <a id="bagian-27"></a>
 
-# 27. 🏗️ Mini Project: Dashboard Pemrosesan Data & Utilitas Transaksi E-Commerce
+## 27. 🏗️ Mini Project: Dashboard Pemrosesan Data & Utilitas Transaksi E-Commerce
 
-## Konsep Project
+#### Konsep Project
 
 Project ini menggabungkan berbagai built-in Standard Library JavaScript ke dalam sebuah sistem pipeline pemrosesan data pesanan e-commerce:
 - **Map & Set:** Menyimpan katalog produk unik dan keranjang belanja berbasis objek.
@@ -2225,7 +2236,7 @@ Project ini menggabungkan berbagai built-in Standard Library JavaScript ke dalam
 - **structuredClone:** Membuat backup salinan transaksi yang aman dari mutasi liar.
 - **JSON:** Menyimpan data log audit transaksi.
 
-## Kode Lengkap
+#### Kode Lengkap
 
 ```javascript
 /**
@@ -2364,7 +2375,7 @@ const { receipt } = processOrderCheckout(customer, shoppingCart, "DISKON-15");
 console.log(receipt);
 ```
 
-## Output
+#### Output
 
 ```text
 =======================================================
@@ -2388,7 +2399,7 @@ Link Bayar    : https://checkout.toko.com/pay?order_id=INV-789012&amount=4165000
 =======================================================
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
        Input Pesanan (Customer, Cart, Kupon)
@@ -2419,7 +2430,7 @@ Standard Library Pipeline → Menggabungkan Map, Set, Intl, RegExp, Proxy, URL u
 
 <a id="bagian-28"></a>
 
-# 28. 🔗 Referensi Resmi
+## 28. 🔗 Referensi Resmi
 
 Untuk mempelajari dokumentasi dan spesifikasi resmi seluruh Standard Library built-in JavaScript:
 

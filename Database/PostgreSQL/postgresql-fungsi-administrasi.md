@@ -1,4 +1,15 @@
-# PostgreSQL Fungsi & Administrasi Cheatsheet Revised
+---
+title: "PostgreSQL Fungsi & Administrasi"
+description: "Administrasi & fitur tingkat lanjut PostgreSQL: Stored Procedures & Functions, Triggers, Views, Indexing (B-Tree, GIN), EXPLAIN ANALYZE, Transactions (ACID), dan Backup."
+order: 3
+tags:
+  - database
+  - postgresql
+  - administration
+  - performance
+---
+
+# PostgreSQL Fungsi & Administrasi
 
 > **Target:** Pemula yang telah menguasai SQL dasar dan PostgreSQL Lanjutan, serta ingin menguasai **Database Programmability di level engine (Views, Materialized Views `REFRESH CONCURRENTLY`, Bahasa Prosedural PL/pgSQL, Stored Functions & Stored Procedures `CALL`), Otomatisasi Event via Database Triggers (`NEW`, `OLD`, Audit Logging), Real-Time Pub/Sub (`LISTEN`/`NOTIFY`), Full-Text Search (`tsvector`, `tsquery`, GIN ranking), Foreign Data Wrapper (`postgres_fdw`), Query Profiling (`pg_stat_statements`), Connection Pooling (`PgBouncer`), Row Level Security (RLS Policies multi-tenancy), serta Administrasi Database (Maintenance `VACUUM ANALYZE`, Pemantauan `pg_stat_activity`, dan Backup/Restore `pg_dump`/`pg_restore`)** menggunakan **PostgreSQL 16+**.
 >
@@ -109,9 +120,9 @@ VACUUM                    → proses pembersihan dead tuples (sampah baris usang
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Database Programmability & Administrasi PostgreSQL 16
+## 1. 🟢 Pengenalan Database Programmability & Administrasi PostgreSQL 16
 
-## Konsep
+#### Konsep
 
 PostgreSQL bukan hanya tempat pasif menyimpan data, melainkan **Platform Komputasi Terdistribusi yang Kuat**:
 1. **Programmability:** Menjalankan logika bisnis kompleks langsung di dalam mesin database via **PL/pgSQL Functions, Stored Procedures, dan Triggers** (mengurangi round-trip jaringan aplikasi hingga 90%).
@@ -127,16 +138,16 @@ Database Programmability → memindahkan eksekusi logika bisnis berat langsung k
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Database Views: Virtual Tables untuk Keamanan & Abstraksi Query
+## 2. 🟢 Database Views: Virtual Tables untuk Keamanan & Abstraksi Query
 
-## Konsep
+#### Konsep
 
 **View (`CREATE VIEW`)**:
 - Tabel virtual yang tidak menyimpan data fisik di disk.
 - Menyimpan query `SELECT` yang rumit (banyak `JOIN`) menjadi satu nama tabel sederhana.
 - **Keamanan:** Membatasi kolom sensitif (seperti `password_hash` atau `gaji`) agar tidak terlihat oleh user laporan.
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE OR REPLACE VIEW view_active_customers AS
@@ -162,16 +173,16 @@ CREATE VIEW view_name AS SELECT ...; → tabel virtual penyederhana query dan pe
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Materialized Views: Caching Query Berat di Disk
+## 3. 🟢 Materialized Views: Caching Query Berat di Disk
 
-## Konsep
+#### Konsep
 
 **Materialized View (`CREATE MATERIALIZED VIEW`)**:
 - Berbeda dengan View biasa, Materialized View **menyimpan hasil query secara fisik ke disk (*Precomputed Cache*)**.
 - Query laporan berat berdurasi 10 detik dapat disajikan seketika dalam **1 milidetik**.
 - **Pembaruan Data:** Menggunakan `REFRESH MATERIALIZED VIEW CONCURRENTLY view_name;` (tanpa mengunci akses pembacaan).
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Buat Materialized View Agregasi Laporan Penjualan Bulanan
@@ -201,16 +212,16 @@ CREATE MATERIALIZED VIEW mv AS ...; REFRESH MATERIALIZED VIEW CONCURRENTLY mv; �
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Pengenalan Bahasa Prosedural PL/pgSQL & Blok Anonim
+## 4. 🟢 Pengenalan Bahasa Prosedural PL/pgSQL & Blok Anonim
 
-## Konsep
+#### Konsep
 
 **PL/pgSQL (Procedural Language / PostgreSQL)** menambahkan fitur pemrograman (variabel, percabangan `IF`, perulangan `LOOP`, dan exception handling) ke dalam SQL standar.
 
 **Blok Anonim (`DO $$ ... $$`)**:
 Menjalankan script PL/pgSQL sekali pakai tanpa perlu membuat fungsi permanen di database.
 
-## Contoh
+#### Contoh
 
 ```sql
 DO $$
@@ -233,15 +244,15 @@ DO $$ DECLARE ... BEGIN ... END $$; → mengeksekusi blok kode PL/pgSQL sekali p
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Menulis Stored Functions dengan PL/pgSQL
+## 5. 🟢 Menulis Stored Functions dengan PL/pgSQL
 
-## Konsep
+#### Konsep
 
 **Stored Function (`CREATE FUNCTION`)**:
 - Fungsi tersimpan di database yang menerima argumen dan **mengembalikan nilai skalar atau record**.
 - Dapat dipanggil langsung di dalam query `SELECT`, `WHERE`, atau `HAVING`.
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE OR REPLACE FUNCTION fn_calculate_discount(
@@ -278,13 +289,13 @@ CREATE FUNCTION fn_name(params) RETURNS type LANGUAGE plpgsql AS $$ ... $$; → 
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Parameter Fungsi & Nilai Kembalian Tabel
+## 6. 🟢 Parameter Fungsi & Nilai Kembalian Tabel
 
-## Konsep
+#### Konsep
 
 Fungsi PL/pgSQL dapat mengembalikan kumpulan baris data layaknya tabel menggunakan klausa **`RETURNS TABLE (kolom1 tipe, kolom2 tipe)`** dan keyword **`RETURN QUERY`**.
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE OR REPLACE FUNCTION fn_get_top_products(p_limit INT)
@@ -323,16 +334,16 @@ RETURNS TABLE (col type) ... RETURN QUERY SELECT ...; → fungsi database yang m
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 Kontrol Alur Logika di PL/pgSQL
+## 7. 🟡 Kontrol Alur Logika di PL/pgSQL
 
-## Konsep
+#### Konsep
 
 PL/pgSQL mendukung struktur kendali lengkap:
 1. **Percabangan:** `IF condition THEN ... ELSIF ... ELSE ... END IF;`
 2. **Perulangan Cursor / Record:** `FOR record_var IN query LOOP ... END LOOP;`
 3. **Perulangan Numerik:** `FOR i IN 1..10 LOOP ... END LOOP;`
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE OR REPLACE FUNCTION fn_recalculate_points()
@@ -365,14 +376,14 @@ FOR record_var IN (SELECT ...) LOOP ... END LOOP; → iterasi baris hasil query 
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Penanganan Error & Eksepsi di PL/pgSQL
+## 8. 🟡 Penanganan Error & Eksepsi di PL/pgSQL
 
-## Konsep
+#### Konsep
 
 1. **`RAISE EXCEPTION 'Pesan Error';`** : Melempar error dan otomatis membatalkan (*Rollback*) transaksi.
 2. **Blok `BEGIN ... EXCEPTION WHEN ... THEN ... END;`** : Menangkap error agar proses tetap berjalan.
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE OR REPLACE FUNCTION fn_transfer_balance(
@@ -418,15 +429,15 @@ RAISE EXCEPTION 'pesan' → melempar error dan rollback | EXCEPTION WHEN OTHERS 
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Stored Procedures: Menjalankan Transaksi di Database
+## 9. 🟡 Stored Procedures: Menjalankan Transaksi di Database
 
-## Konsep
+#### Konsep
 
 Perbedaan Utama Function vs Procedure:
 - **Function (`CREATE FUNCTION`):** Wajib mengembalikan nilai dan **TIDAK BISA** melakukan `COMMIT` atau `ROLLBACK` di tengah eksekusi.
 - **Procedure (`CREATE PROCEDURE` - PG 11+):** Dieksekusi via perintah **`CALL`** dan **BISA mengontrol transaksi (`COMMIT` / `ROLLBACK`) mandiri**. Sangat ideal untuk batch processing ribuan data.
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE OR REPLACE PROCEDURE pr_process_monthly_billing()
@@ -459,9 +470,9 @@ CREATE PROCEDURE pr_name() ... CALL pr_name(); → prosedur database mandiri yan
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Pengenalan Database Triggers & Mental Model Event-Driven
+## 10. 🟡 Pengenalan Database Triggers & Mental Model Event-Driven
 
-## Konsep
+#### Konsep
 
 **Database Trigger**:
 Mekanisme event-driven di mana fungsi database dieksekusi secara otomatis ketika terjadi event DML (**`INSERT`**, **`UPDATE`**, atau **`DELETE`**) pada tabel target.
@@ -484,9 +495,9 @@ BEFORE Trigger untuk validasi data | AFTER Trigger untuk audit logging dan sinkr
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Menulis Trigger Function
+## 11. 🟡 Menulis Trigger Function
 
-## Konsep
+#### Konsep
 
 Trigger Function memiliki format khusus:
 - **`RETURNS trigger`**
@@ -495,7 +506,7 @@ Trigger Function memiliki format khusus:
   - **`OLD`** : Record berisi data baris lama sebelum di-update/delete.
   - **`TG_OP`** : Nama operasi (`'INSERT'`, `'UPDATE'`, `'DELETE'`).
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE OR REPLACE FUNCTION trg_fn_update_timestamp()
@@ -520,13 +531,13 @@ RETURNS TRIGGER ... RETURN NEW; → fungsi trigger yang menyematkan nilai modifi
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Mendefinisikan Database Trigger
+## 12. 🟡 Mendefinisikan Database Trigger
 
-## Konsep
+#### Konsep
 
 Menghubungkan Trigger Function ke tabel target menggunakan statement **`CREATE TRIGGER`**.
 
-## Contoh
+#### Contoh
 
 ```sql
 CREATE TRIGGER trg_products_updated_at
@@ -545,13 +556,13 @@ CREATE TRIGGER trg_name BEFORE UPDATE ON tbl FOR EACH ROW EXECUTE FUNCTION fn_na
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Studi Kasus Trigger: Audit Logging Otomatis
+## 13. 🟡 Studi Kasus Trigger: Audit Logging Otomatis
 
-## Konsep
+#### Konsep
 
 Mencatat seluruh riwayat perubahan harga produk atau mutasi data sensitif ke tabel audit log secara otomatis dan tidak bisa dimanipulasi oleh aplikasi backend.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- [1] Tabel Audit Log
@@ -603,15 +614,15 @@ Audit Trigger AFTER UPDATE OR DELETE → mencatat riwayat perubahan data sensiti
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Real-Time Pub/Sub Native: `LISTEN` & `NOTIFY`
+## 14. 🟡 Real-Time Pub/Sub Native: `LISTEN` & `NOTIFY`
 
-## Konsep
+#### Konsep
 
 PostgreSQL memiliki sistem **Publish/Subscribe (Pub/Sub) Native** berkecepatan tinggi tanpa perlu menginstal message broker eksternal (seperti Redis/RabbitMQ) untuk kebutuhan notifikasi real-time:
 - **`NOTIFY channel_name, 'payload_teks'`** : Mengirimkan pesan/event ke channel tertentu.
 - **`LISTEN channel_name;`** : Mendaftarkan koneksi client (Node.js, Go, Python) untuk mendengarkan pesan masuk secara asynchronous via event loop WebSocket.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- [1] Trigger Function yang Mengirim Notifikasi Real-Time saat Order Baru Masuk
@@ -656,16 +667,16 @@ PERFORM pg_notify('channel', payload::text); | LISTEN channel; → real-time pub
 
 <a id="bagian-15"></a>
 
-# 15. 🟡 Full-Text Search Modern di PostgreSQL
+## 15. 🟡 Full-Text Search Modern di PostgreSQL
 
-## Konsep
+#### Konsep
 
 Pencarian teks lengkap (*Full-Text Search*) mengubah teks menjadi representasi leksikal yang memahami akar kata (*Stemming*) dan mengabaikan kata hubung (*Stop words*):
 1. **`to_tsvector('indonesian', text)`:** Mengubah teks mentah menjadi dokumen vektor kata terindeks.
 2. **`to_tsquery('indonesian', 'kata1 & kata2')`:** Mengubah kata kunci pencarian menjadi query boolean (`&` AND, `|` OR, `!` NOT).
 3. **Operator `@@`:** Operator pencocokan Full-Text (`vector @@ query`).
 
-## Contoh
+#### Contoh
 
 ```sql
 -- Pencarian Artikel Berisi Kata 'belajar' DAN 'database'
@@ -684,9 +695,9 @@ to_tsvector(text) @@ to_tsquery(query) → operator pencarian full-text search l
 
 <a id="bagian-16"></a>
 
-# 16. 🟡 Optimasi Full-Text Search dengan GIN Index & Ranking
+## 16. 🟡 Optimasi Full-Text Search dengan GIN Index & Ranking
 
-## Konsep
+#### Konsep
 
 Pencarian Full-Text pada jutaan baris akan lambat jika `to_tsvector` dihitung ulang setiap kali query.
 
@@ -695,7 +706,7 @@ Optimasi Standar:
 2. Buat **GIN Index** pada kolom `tsvector` tersebut.
 3. Gunakan **`ts_rank()`** untuk mengurutkan hasil berdasarkan tingkat relevansi tertinggi.
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Tambah Kolom Generated tsvector
@@ -727,9 +738,9 @@ ts_rank(vector, query) → menghitung skor relevansi pencarian teks lengkap
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Foreign Data Wrapper (FDW) & Federated Queries via `postgres_fdw`
+## 17. 🔴 Foreign Data Wrapper (FDW) & Federated Queries via `postgres_fdw`
 
-## Konsep
+#### Konsep
 
 **Foreign Data Wrapper (FDW - SQL/MED Standard)**:
 Fitur resmi PostgreSQL yang memungkinkan database lokal mengakses dan melakukan **`JOIN` langsung dengan tabel di server PostgreSQL lain (Remote Database)** secara transparan layaknya tabel lokal.
@@ -740,7 +751,7 @@ Empat Langkah Setup FDW:
 3. `CREATE USER MAPPING FOR local_user SERVER remote_srv OPTIONS (user 'remote_usr', password 'secret');`
 4. `IMPORT FOREIGN SCHEMA public FROM SERVER remote_srv INTO remote_orders;`
 
-## Contoh
+#### Contoh
 
 ```sql
 -- [1] Aktifkan Ekstensi FDW
@@ -782,9 +793,9 @@ CREATE EXTENSION postgres_fdw; IMPORT FOREIGN SCHEMA ... INTO schema_lokal; → 
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Query Performance Profiling dengan Ekstensi `pg_stat_statements`
+## 18. 🔴 Query Performance Profiling dengan Ekstensi `pg_stat_statements`
 
-## Konsep
+#### Konsep
 
 **`pg_stat_statements`** adalah modul resmi wajib untuk DBA dan Backend Engineer guna melacak dan mendiagnosa seluruh query SQL yang berjalan di database.
 
@@ -793,7 +804,7 @@ Mengidentifikasi:
 - Query paling sering dipanggil (*Calls Count*).
 - Query yang paling banyak membebani I/O disk (*Block Read I/O*).
 
-## Contoh Query Diagnosa Top 5 Slow Queries
+#### Contoh Query Diagnosa Top 5 Slow Queries
 
 ```sql
 -- Aktifkan Ekstensi
@@ -822,9 +833,9 @@ SELECT query, calls, mean_exec_time FROM pg_stat_statements ORDER BY total_exec_
 
 <a id="bagian-19"></a>
 
-# 19. 🔴 Connection Pooling di Lingkungan Produksi dengan `PgBouncer`
+## 19. 🔴 Connection Pooling di Lingkungan Produksi dengan `PgBouncer`
 
-## Konsep
+#### Konsep
 
 PostgreSQL menggunakan model *Process-per-Connection* di mana setiap koneksi baru menghabiskan ~5–10MB RAM dan slot CPU.
 
@@ -849,16 +860,16 @@ PgBouncer Transaction Pooling → connection pooler ringan yang memungkinkan rib
 
 <a id="bagian-20"></a>
 
-# 20. 🔴 Manajemen User, Roles & Hak Akses
+## 20. 🔴 Manajemen User, Roles & Hak Akses
 
-## Konsep
+#### Konsep
 
 PostgreSQL menggunakan konsep **Roles** yang dapat berfungsi sebagai user (login) atau grup.
 
 Prinsip *Least Privilege*:
 - Aplikasi hanya boleh diberi hak `SELECT`, `INSERT`, `UPDATE`, `DELETE`. Dilarang menggunakan user superuser `postgres` di kode aplikasi!
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Buat Role Aplikasi Tanpa Superuser
@@ -886,9 +897,9 @@ CREATE ROLE app_user WITH LOGIN; GRANT SELECT, INSERT, UPDATE ON ALL TABLES TO a
 
 <a id="bagian-21"></a>
 
-# 21. 🔴 Row Level Security (RLS) untuk Multi-Tenancy & Data Isolation
+## 21. 🔴 Row Level Security (RLS) untuk Multi-Tenancy & Data Isolation
 
-## Konsep
+#### Konsep
 
 **Row Level Security (RLS)**:
 Fitur keamanan di mana database secara otomatis membatasi baris data yang boleh dibaca atau diubah pengguna berdasarkan *Security Policy*.
@@ -896,7 +907,7 @@ Fitur keamanan di mana database secara otomatis membatasi baris data yang boleh 
 Sangat ideal untuk **Aplikasi SaaS Multi-Tenant**:
 Developer tidak perlu khawatir lupa menulis `WHERE tenant_id = ...` di setiap query backend, karena database otomatis memfilternya di level engine!
 
-## Contoh
+#### Contoh
 
 ```sql
 -- 1. Aktifkan RLS pada Tabel
@@ -924,9 +935,9 @@ ALTER TABLE tbl ENABLE ROW LEVEL SECURITY; CREATE POLICY p ON tbl USING (tenant_
 
 <a id="bagian-22"></a>
 
-# 22. 🔴 Database Maintenance & Garbage Collection
+## 22. 🔴 Database Maintenance & Garbage Collection
 
-## Konsep
+#### Konsep
 
 PostgreSQL menggunakan **Multi-Version Concurrency Control (MVCC)**:
 - Saat baris di-`UPDATE` atau di-`DELETE`, baris lama tidak langsung ditimpa di disk melainkan ditandai sebagai **Dead Tuple**.
@@ -947,16 +958,16 @@ VACUUM ANALYZE table_name; → membersihkan dead tuples sampah MVCC dan memperba
 
 <a id="bagian-23"></a>
 
-# 23. 🔴 Strategi Backup & Disaster Recovery
+## 23. 🔴 Strategi Backup & Disaster Recovery
 
-## Konsep
+#### Konsep
 
 1. **Logical Backup (`pg_dump`):**
    - Mengekstrak skema dan data menjadi file SQL atau custom archive `.dump`.
 2. **Restore (`pg_restore` / `psql`):**
    - Memulihkan data dari berkas backup.
 
-## Perintah CLI di Terminal Linux
+#### Perintah CLI di Terminal Linux
 
 ```bash
 # [1] Backup Database Lengkap Format Custom Directory Terkompresi
@@ -976,9 +987,9 @@ pg_dump -F c -f db.dump dbname (backup arsip biner terkompresi) | pg_restore -d 
 
 <a id="bagian-24"></a>
 
-# 24. 🔴 Replikasi & High Availability Dasar
+## 24. 🔴 Replikasi & High Availability Dasar
 
-## Konsep
+#### Konsep
 
 1. **Physical Streaming Replication:**
    - Menyalin seluruh isi cluster byte-by-byte via stream log transaksi WAL (*Write-Ahead Logging*).
@@ -996,7 +1007,7 @@ Streaming Replication → mereplikasi seluruh cluster database ke server Read Re
 
 <a id="bagian-25"></a>
 
-# 25. 🛠️ Peta Ingatan Cepat
+## 25. 🛠️ Peta Ingatan Cepat
 
 ```text
             PETA ARSITEKTUR POSTGRESQL FUNGSI & ADMINISTRASI
@@ -1014,7 +1025,7 @@ DATABASE PROGRAMMABILITY     ADVANCED EXTENSIONS & FDW     ADMINISTRATION & SECU
 
 <a id="bagian-26"></a>
 
-# 26. 📚 Tabel Ringkasan
+## 26. 📚 Tabel Ringkasan
 
 | Fitur / Perintah | Kategori | Fungsi & Karakteristik Utama |
 |---|---|---|
@@ -1035,7 +1046,7 @@ DATABASE PROGRAMMABILITY     ADVANCED EXTENSIONS & FDW     ADMINISTRATION & SECU
 
 <a id="bagian-27"></a>
 
-# 27. ⚡ Cheat Code PostgreSQL Fungsi & Administrasi 10 Detik
+## 27. ⚡ Cheat Code PostgreSQL Fungsi & Administrasi 10 Detik
 
 ```sql
 -- 1. Template Real-Time Trigger Notification
@@ -1055,7 +1066,7 @@ IMPORT FOREIGN SCHEMA public FROM SERVER remote_srv INTO remote_schema;
 
 <a id="bagian-28"></a>
 
-# 28. 🧭 Urutan Belajar yang Disarankan
+## 28. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Kuasai Views & Materialized Views
@@ -1088,7 +1099,7 @@ Langkah 5: Selamat! Anda Telah Menjadi Database Architect PostgreSQL Handal!
 
 <a id="bagian-29"></a>
 
-# 29. 🏗️ Mini Project: Production-Ready Enterprise Multi-Tenant E-Commerce System with Audit Triggers, Real-Time NOTIFY, Materialized Analytics, PL/pgSQL Stored Procedure, and Row Level Security (RLS)
+## 29. 🏗️ Mini Project: Production-Ready Enterprise Multi-Tenant E-Commerce System with Audit Triggers, Real-Time NOTIFY, Materialized Analytics, PL/pgSQL Stored Procedure, and Row Level Security (RLS)
 
 Skema database PostgreSQL enterprise lengkap, modern, dan runnable yang mengintegrasikan: **Row Level Security (RLS) Multi-Tenant, Event Trigger Audit Logging, Real-Time NOTIFY Streaming, Materialized Analytics Caching, dan PL/pgSQL Inventory Procedure**.
 
@@ -1230,7 +1241,7 @@ CALL pr_pay_order(3);
 SELECT id, tenant_id, action, new_data->>'customer_name' AS customer FROM audit_logs;
 ```
 
-## Hasil Output Eksekusi Terminal
+#### Hasil Output Eksekusi Terminal
 
 ```text
 -- Hasil Query Tenant 2 (Isolasi RLS 100% Aman):
@@ -1250,7 +1261,7 @@ SELECT id, tenant_id, action, new_data->>'customer_name' AS customer FROM audit_
 
 <a id="bagian-30"></a>
 
-# 30. 🔗 Referensi Resmi
+## 30. 🔗 Referensi Resmi
 
 - [PostgreSQL Documentation: Views and Materialized Views](https://www.postgresql.org/docs/current/rules-materializedviews.html)
 - [PostgreSQL Documentation: PL/pgSQL Programming Language](https://www.postgresql.org/docs/current/plpgsql.html)

@@ -1,4 +1,15 @@
-# Java Generic Cheatsheet Revised
+---
+title: "Java Generic"
+description: "Java Generics: generic class, generic method, bounded type parameters, wildcard types (? extends, ? super), dan type erasure."
+order: 3
+tags:
+  - programming
+  - java
+  - generics
+  - intermediate
+---
+
+# Java Generic
 
 > **Target:** Pemula yang telah menguasai konsep dasar Java dan OOP, serta ingin memahami **Java Generic** secara mendalam dan type-safe untuk persiapan Collection Framework & Spring Boot.
 >
@@ -97,9 +108,9 @@ Type Erasure   → mekanisme compiler menghapus informasi generic di bytecode de
 
 <a id="bagian-1"></a>
 
-# 1. 🟢 Pengenalan Java Generic & Masalah Kode Non-Generic
+## 1. 🟢 Pengenalan Java Generic & Masalah Kode Non-Generic
 
-## Konsep
+#### Konsep
 
 Sebelum Java 5 memperkenalkan Generic, developer harus menggunakan tipe umum `Object` untuk membuat struktur data yang fleksibel. Pendekatan ini memiliki dua kelemahan fatal:
 1. **Wajib Manual Casting:** Setiap kali mengambil data dari penampung, developer harus melakukan *explicit downcasting* `(String) data`.
@@ -107,7 +118,7 @@ Sebelum Java 5 memperkenalkan Generic, developer harus menggunakan tipe umum `Ob
 
 **Java Generic** menyelesaikan masalah ini dengan memindahkan verifikasi tipe data langsung ke **waktu kompilasi (*compile-time type safety*)** tanpa perlu casting manual.
 
-## Contoh
+#### Contoh
 
 ```java
 // 1. Pendekatan Lama Tanpa Generic (Raw Object)
@@ -146,13 +157,13 @@ public class GenericIntroDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Data dari Generic Box: Teks Aman
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 KODE NON-GENERIC (Object):
@@ -173,9 +184,9 @@ Generic     → parameterisasi tipe data yang memungkinkan class/method bekerja 
 
 <a id="bagian-2"></a>
 
-# 2. 🟢 Generic Class dengan Parameter Tunggal (`<T>`)
+## 2. 🟢 Generic Class dengan Parameter Tunggal (`<T>`)
 
-## Konsep
+#### Konsep
 
 Generic Class adalah class yang mendeklarasikan satu atau lebih **Type Parameter** di samping nama class-nya menggunakan kurung siku (misal: `class Box<T>`).
 
@@ -186,7 +197,7 @@ Konvensi penamaan standar Type Parameter di Java:
 - `V` : *Value* (Nilai dalam Map)
 - `N` : *Number* (Angka)
 
-## Contoh
+#### Contoh
 
 ```java
 // Mendefinisikan Generic Class dengan Type Parameter <T>
@@ -227,7 +238,7 @@ class GenericClassDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Konten: Belajar Java Generic (Tipe Asli: String)
@@ -235,7 +246,7 @@ Konten: 2024 (Tipe Asli: Integer)
 Konten: true (Tipe Asli: Boolean)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 WadahData<String>   ──> Tipe T digantikan oleh String di konteks objek wadahTeks
@@ -253,9 +264,9 @@ ClassName<TargetType> obj = new ClassName<>(); → instansiasi objek generic den
 
 <a id="bagian-3"></a>
 
-# 3. 🟢 Generic Class dengan Multi-Parameter (`<K, V>`)
+## 3. 🟢 Generic Class dengan Multi-Parameter (`<K, V>`)
 
-## Konsep
+#### Konsep
 
 Class generic dapat menerima **lebih dari satu type parameter** yang dipisahkan dengan tanda koma (misal: `<K, V>` atau `<T, E, R>`).
 
@@ -264,7 +275,7 @@ Pola ini sangat sering digunakan dalam arsitektur backend untuk:
 - Pembungkus Respon API (*API Response Wrapper* / DTO)
 - Hasil Operasi Result/Either (`<Success, Error>`)
 
-## Contoh
+#### Contoh
 
 ```java
 // Generic Pair Class dengan dua type parameter <K, V>
@@ -304,7 +315,7 @@ public class MultiGenericDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Stok: [PRD-001 => 150]
@@ -312,7 +323,7 @@ Respon Server: [200 => OK: Berhasil mengambil data.]
 Kode: PRD-001, Jumlah: 150 unit.
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 new Pasangan<String, Integer>("PRD-001", 150)
@@ -331,16 +342,16 @@ class ClassName<K, V> { ... } → mendefinisikan generic class dengan dua parame
 
 <a id="bagian-4"></a>
 
-# 4. 🟢 Generic Method (`<T> returnType method(T param)`)
+## 4. 🟢 Generic Method (`<T> returnType method(T param)`)
 
-## Konsep
+#### Konsep
 
 Generic Method adalah method yang mendeklarasikan **Type Parameter-nya sendiri** secara independen, terlepas dari apakah class pembungkusnya generic atau bukan.
 
 Deklarasi `<T>` diletakkan **tepat sebelum tipe nilai balik (*return type*)** method:
 `public static <T> void namaMethod(T param) { ... }`
 
-## Contoh
+#### Contoh
 
 ```java
 public class GenericMethodDemo {
@@ -374,14 +385,14 @@ public class GenericMethodDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Array Nama : Total 3, Pertama: 'Ahmad'
 Array Angka: Total 5, Pertama: 10
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ambilPertama(daftarNama) ──> Compiler melihat tipe argumen String[] ──> T otomatis disimpulkan sebagai String
@@ -398,13 +409,13 @@ public static <T> returnType methodName(T parameter) → mendeklarasikan generic
 
 <a id="bagian-5"></a>
 
-# 5. 🟢 Generic Constructor
+## 5. 🟢 Generic Constructor
 
-## Konsep
+#### Konsep
 
 Constructor pada class biasa (non-generic) maupun generic class dapat memiliki **Type Parameter-nya sendiri** yang terpisah dari type parameter class.
 
-## Contoh
+#### Contoh
 
 ```java
 class LoggerEntry {
@@ -433,7 +444,7 @@ public class GenericConstructorDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Log [String]: Transaksi Berhasil
@@ -441,7 +452,7 @@ Log [Integer]: 500
 Log [Boolean]: true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 new LoggerEntry(500) ──> Tipe constructor T otomatis menjadi Integer ──> Inisialisasi deskripsi
@@ -457,15 +468,15 @@ public <T> ClassName(T parameter) { ... } → mendefinisikan constructor dengan 
 
 <a id="bagian-6"></a>
 
-# 6. 🟢 Generic Interface (`Repository<T, ID>`)
+## 6. 🟢 Generic Interface (`Repository<T, ID>`)
 
-## Konsep
+#### Konsep
 
 Generic Interface mendefinisikan kontrak antarmuka yang fleksibel terhadap tipe data model yang akan diolahnya.
 
 Pola ini adalah fondasi dari seluruh arsitektur **Data Access Layer / DAO / Repository Pattern** modern (seperti `JpaRepository<T, ID>` di Spring Data).
 
-## Contoh
+#### Contoh
 
 ```java
 // Generic Interface Kontrak CRUD
@@ -522,7 +533,7 @@ public class GenericInterfaceDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Menyimpan ke memori: AkunUser{id='USR-01', nama='Budi Hartono'}
@@ -530,7 +541,7 @@ Ditemukan: AkunUser{id='USR-01', nama='Budi Hartono'}
 Menghapus user dengan ID: USR-01
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 interface GenericRepository<T, ID>
@@ -552,9 +563,9 @@ class ClassName implements InterfaceName<TypeA, TypeB>  → mengimplementasikan 
 
 <a id="bagian-7"></a>
 
-# 7. 🟡 Bounded Type Parameter (Upper Bounded: `<T extends Number>`)
+## 7. 🟡 Bounded Type Parameter (Upper Bounded: `<T extends Number>`)
 
-## Konsep
+#### Konsep
 
 Secara default, parameter `<T>` dapat diisi oleh tipe data apapun (setara dengan turunan `Object`).
 
@@ -565,7 +576,7 @@ Keuntungan Bounded Type:
 - Mencegah tipe yang tidak relevan masuk saat kompilasi.
 - Mengizinkan method milik `SuperClass` dipanggil langsung pada variabel `T`.
 
-## Contoh
+#### Contoh
 
 ```java
 // Membatasi T hanya untuk turunan Number (Integer, Double, Float, Long)
@@ -603,14 +614,14 @@ public class BoundedTypeDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Rata-rata Nilai Int: 87.50
 Rata-rata Harga    : Rp 16,667.08
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 <T extends Number>
@@ -629,9 +640,9 @@ Rata-rata Harga    : Rp 16,667.08
 
 <a id="bagian-8"></a>
 
-# 8. 🟡 Multiple Bounds Type Parameter (`<T extends A & B>`)
+## 8. 🟡 Multiple Bounds Type Parameter (`<T extends A & B>`)
 
-## Konsep
+#### Konsep
 
 Java memungkinkan Type Parameter dibatasi oleh **lebih dari satu batasan tipe** (*Multiple Bounds*) menggunakan tanda ampersand (`&`):
 `<T extends ClassA & InterfaceB & InterfaceC>`
@@ -641,7 +652,7 @@ Aturan baku Multiple Bounds:
 2. Batasan berikutnya harus berupa `Interface`.
 3. Java tidak mengizinkan lebih dari satu class pada multiple bounds (karena aturan single inheritance).
 
-## Contoh
+#### Contoh
 
 ```java
 interface Bernama {
@@ -680,13 +691,13 @@ public class MultipleBoundsDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Pemilik: Dewi Lestari | Saldo: Rp 7,500,000.00
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Parameter T wajib lolos 2 syarat:
@@ -704,9 +715,9 @@ Parameter T wajib lolos 2 syarat:
 
 <a id="bagian-9"></a>
 
-# 9. 🟡 Konsep Invariant pada Generic (Invariant vs Covariant)
+## 9. 🟡 Konsep Invariant pada Generic (Invariant vs Covariant)
 
-## Konsep
+#### Konsep
 
 Dalam pewarisan objek biasa di Java:
 `Integer` adalah subclass dari `Number` $\rightarrow$ `Number num = Integer.valueOf(10);` (Polymorphic / Covariant).
@@ -717,7 +728,7 @@ Namun, pada **Java Generic**, perilakunya bersifat **INVARIANT**:
 Mengapa Java mendesain Generic bersifat Invariant?
 Untuk **mencegah Heap Pollution** dan menjaga Type Safety. Jika diizinkan, kita bisa memasukkan `Double` ke dalam `WadahData<Number>` yang sebenarnya menyimpan `Integer`, sehingga memicu runtime crash.
 
-## Contoh
+#### Contoh
 
 ```java
 public class InvariantDemo {
@@ -737,13 +748,13 @@ public class InvariantDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Generic bersifat Invariant demi melindungi Type Safety!
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Hubungan Pewarisan Biasa:
@@ -763,9 +774,9 @@ Invariant → Box<Child> bukan merupakan turunan dari Box<Parent> meskipun Child
 
 <a id="bagian-10"></a>
 
-# 10. 🟡 Wildcard Unbounded (`<?>`)
+## 10. 🟡 Wildcard Unbounded (`<?>`)
 
-## Konsep
+#### Konsep
 
 Karena generic bersifat invariant, kita tidak bisa mengoper `Box<String>` atau `Box<Integer>` ke method yang menerima `Box<Object>`.
 
@@ -774,7 +785,7 @@ Solusinya adalah menggunakan **Wildcard Unbounded** yang dilambangkan dengan tan
 > [!WARNING]
 > Struktur data dengan `<?>` bersifat **Read-Only / Safe for Reading** sebagai tipe `Object`. Anda **tidak boleh menambahkan/menulis data baru** ke dalamnya (kecuali nilai `null`).
 
-## Contoh
+#### Contoh
 
 ```java
 public class UnboundedWildcardDemo {
@@ -800,7 +811,7 @@ public class UnboundedWildcardDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Isi Wadah (?): Halo Dunia
@@ -808,7 +819,7 @@ Isi Wadah (?): 500
 Isi Wadah (?): true
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 cetakIsiWadah(WadahData<?> wadah)
@@ -827,9 +838,9 @@ ClassName<?> variable → wildcard unbounded menerima tipe generic apapun untuk 
 
 <a id="bagian-11"></a>
 
-# 11. 🟡 Wildcard Upper Bounded (`<? extends T>`)
+## 11. 🟡 Wildcard Upper Bounded (`<? extends T>`)
 
-## Konsep
+#### Konsep
 
 **Upper Bounded Wildcard** (`<? extends T>`) membatasi tipe wildcard hanya untuk tipe `T` atau class-class turunannya.
 
@@ -837,7 +848,7 @@ Karakteristik utama `<? extends T>`:
 - **Digunakan untuk MEMBACA data (Read Only / Producer):** Kita dijamin mendapatkan data yang minimal bertipe `T`.
 - **DILARANG MENULIS data baru:** Compiler menolak penambahan data baru karena compiler tidak tahu pasti tipe turunan konkret apa yang sedang aktif di dalam struktur data tersebut.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.List;
@@ -864,14 +875,14 @@ public class UpperBoundedWildcardDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Total List Integer: 60.0
 Total List Double : 7.5
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 List<? extends Number>
@@ -891,16 +902,16 @@ List<? extends Number>
 
 <a id="bagian-12"></a>
 
-# 12. 🟡 Wildcard Lower Bounded (`<? super T>`)
+## 12. 🟡 Wildcard Lower Bounded (`<? super T>`)
 
-## Konsep
+#### Konsep
 
 **Lower Bounded Wildcard** (`<? super T>`) membatasi tipe wildcard hanya untuk tipe `T` atau superclass induk di atasnya (sampai dengan `Object`).
 
 Karakteristik utama `<? super T>`:
 - **Digunakan untuk MENULIS / MENAMPUNG data (Write / Consumer):** Kita dijamin aman memasukkan objek bertipe `T` (atau subclass-nya) ke dalam koleksi tersebut.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -930,7 +941,7 @@ public class LowerBoundedWildcardDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Berhasil menambahkan 3 angka integer ke list tujuan.
@@ -940,7 +951,7 @@ List Number: [100, 200, 300]
 List Object: [100, 200, 300]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 List<? super Integer>
@@ -959,9 +970,9 @@ List<? super Integer>
 
 <a id="bagian-13"></a>
 
-# 13. 🟡 Prinsip PECS (Producer Extends, Consumer Super)
+## 13. 🟡 Prinsip PECS (Producer Extends, Consumer Super)
 
-## Konsep
+#### Konsep
 
 **PECS** adalah singkatan dari:
 - **Producer Extends:** Jika parameter generic bertindak sebagai **penghasil/penyedia data** yang akan dibaca oleh method Anda $\rightarrow$ gunakan `<? extends T>`.
@@ -969,7 +980,7 @@ List<? super Integer>
 
 Prinsip ini dirumuskan oleh *Joshua Bloch* (penulis buku *Effective Java*) sebagai panduan arsitektur library Java standar.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -995,13 +1006,13 @@ public class PecsDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Hasil Salin PECS: [1, 2, 3, 4, 5]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 List<? extends T> source (PRODUCER)  ──>  item = source.get()
@@ -1021,15 +1032,15 @@ Consumer Super   → gunakan <? super T> jika hanya menulis data ke dalam parame
 
 <a id="bagian-14"></a>
 
-# 14. 🟡 Generic Record (Java 16+)
+## 14. 🟡 Generic Record (Java 16+)
 
-## Konsep
+#### Konsep
 
 Sejak **Java 16**, tipe `record` (immutable data carrier) mendukung deklarasi Type Parameter generic.
 
 Pola ini merupakan standar industri modern untuk membungkus **Standard API Response DTO** pada aplikasi RESTful API (seperti Spring Boot) yang rapi, ringkas, dan type-safe.
 
-## Contoh
+#### Contoh
 
 ```java
 // Standard API Response Record Generic
@@ -1067,7 +1078,7 @@ class RecordGenericDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Respon 1: ApiResponse[success=true, message=Login berhasil., data=Token-JWT-12345, timestamp=1724930000000]
@@ -1075,7 +1086,7 @@ Status: true | Data: 500000 | Pesan: Saldo berhasil dimuat.
 Respon Error: ApiResponse[success=false, message=User tidak ditemukan!, data=null, timestamp=1724930000000]
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 ApiResponse<UserDTO> ──> data() otomatis bertipe UserDTO tanpa casting
@@ -1091,9 +1102,9 @@ public record RecordName<T>(T data, String message) {} → membuat DTO immutable
 
 <a id="bagian-15"></a>
 
-# 15. 🔴 Type Erasure di JVM & Bridge Method
+## 15. 🔴 Type Erasure di JVM & Bridge Method
 
-## Konsep
+#### Konsep
 
 Java Generic diimplementasikan menggunakan konsep **Type Erasure** demi menjaga kompatibilitas dengan versi Java lama sebelum Java 5 (*Backward Compatibility*).
 
@@ -1104,7 +1115,7 @@ Apa yang terjadi saat proses kompilasi (*compile-time* $\rightarrow$ *bytecode*)
 
 Akibatnya, **pada saat runtime JVM berjalan, informasi `<T>` sudah tidak ada lagi di memori objek**.
 
-## Contoh
+#### Contoh
 
 Perbandingan Kode Sumber Java vs Hasil Bytecode setelah Type Erasure:
 
@@ -1126,7 +1137,7 @@ public class Box {
 */
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 Kode Sumber: Box<String> box = new Box<>(); box.set("Halo"); String s = box.get();
@@ -1145,9 +1156,9 @@ Type Erasure → proses compiler menghapus seluruh kurung <T> di bytecode dan me
 
 <a id="bagian-16"></a>
 
-# 16. 🔴 Batasan & Larangan pada Java Generic
+## 16. 🔴 Batasan & Larangan pada Java Generic
 
-## Konsep
+#### Konsep
 
 Karena adanya mekanisme *Type Erasure*, terdapat beberapa batasan fundamental yang **DILARANG** dalam penulisan Java Generic:
 
@@ -1160,7 +1171,7 @@ Karena adanya mekanisme *Type Erasure*, terdapat beberapa batasan fundamental ya
 | 5 | Tidak bisa membuat generic array: `new T[10]` ❌ | Array butuh informasi tipe konkret di runtime | Gunakan `(T[]) new Object[size]` atau `List<T>` |
 | 6 | Tidak bisa generic Exception: `class MyEx<T> extends Exception` ❌ | JVM tidak bisa menangkap generic catch | Buat class exception biasa |
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.function.Supplier;
@@ -1183,7 +1194,7 @@ public class GenericRestrictionsDemo<T> {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Instance string baru via Supplier berhasil dibuat.
@@ -1193,9 +1204,9 @@ Instance string baru via Supplier berhasil dibuat.
 
 <a id="bagian-17"></a>
 
-# 17. 🔴 Raw Types & Anotasi `@SuppressWarnings("unchecked")`
+## 17. 🔴 Raw Types & Anotasi `@SuppressWarnings("unchecked")`
 
-## Konsep
+#### Konsep
 
 **Raw Type** adalah penggunaan generic class tanpa menyertakan Type Argument (misal: menulis `WadahData` alih-alih `WadahData<String>`).
 
@@ -1203,7 +1214,7 @@ Penggunaan Raw Type sangat **TIDAK DIREKOMENDASIKAN** karena mematikan fitur typ
 
 Jika Anda terpaksa berinteraksi dengan library warisan (*legacy code*) yang menghasilkan peringatan *unchecked warning*, Anda dapat membungkam peringatan compiler secara terkontrol menggunakan anotasi `@SuppressWarnings("unchecked")`.
 
-## Contoh
+#### Contoh
 
 ```java
 public class RawTypeDemo {
@@ -1225,13 +1236,13 @@ public class RawTypeDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Array generic kapasitas: 5
 ```
 
-## Best Practice
+#### Best Practice
 
 - **Haramkan penggunaan Raw Type** pada kode baru.
 - Batasi lingkup `@SuppressWarnings("unchecked")` sesempit mungkin (hanya pada satu baris variabel atau satu method kecil).
@@ -1240,15 +1251,15 @@ Array generic kapasitas: 5
 
 <a id="bagian-18"></a>
 
-# 18. 🔴 Comparable & Comparator Generic (`Comparable<T>`, `Comparator<T>`)
+## 18. 🔴 Comparable & Comparator Generic (`Comparable<T>`, `Comparator<T>`)
 
-## Konsep
+#### Konsep
 
 Untuk melakukan pengurutan data objek generic (*sorting*), Java menyediakan dua interface generic standar:
 1. **`Comparable<T>` (Natural Ordering):** Diimplementasikan langsung oleh class objek tersebut dengan meng-override method `compareTo(T other)`.
 2. **`Comparator<T>` (Custom Sorting):** Dibuat sebagai class / lambda terpisah untuk mendefinisikan berbagai variasi aturan pengurutan yang berbeda-beda.
 
-## Contoh
+#### Contoh
 
 ```java
 import java.util.ArrayList;
@@ -1301,7 +1312,7 @@ public class ComparableGenericDemo {
 }
 ```
 
-## Output
+#### Output
 
 ```text
 Urut Harga (Natural Sort):
@@ -1315,7 +1326,7 @@ Urut Nama A-Z (Comparator):
 - Mouse Pad (Rp 50,000.00)
 ```
 
-## Cara Kerja
+#### Cara Kerja
 
 ```text
 compareTo(other):
@@ -1335,7 +1346,7 @@ Comparator.comparing(Class::getField)  → membuat comparator instan berbasis ge
 
 <a id="bagian-19"></a>
 
-# 19. 🛠️ Peta Ingatan Cepat
+## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
                            PETA ARSITEKTUR JAVA GENERIC
@@ -1353,7 +1364,7 @@ Comparator.comparing(Class::getField)  → membuat comparator instan berbasis ge
 
 <a id="bagian-20"></a>
 
-# 20. 📚 Tabel Ringkasan
+## 20. 📚 Tabel Ringkasan
 
 | Konsep / Fitur | Sintaks Utama | Fungsi & Kegunaan |
 |---|---|---|
@@ -1376,7 +1387,7 @@ Comparator.comparing(Class::getField)  → membuat comparator instan berbasis ge
 
 <a id="bagian-21"></a>
 
-# 21. ⚡ Cheat Code Java Generic 10 Detik
+## 21. ⚡ Cheat Code Java Generic 10 Detik
 
 ```java
 // 1. Generic Box Sederhana
@@ -1404,7 +1415,7 @@ public record Result<T>(boolean ok, T value, String error) {}
 
 <a id="bagian-22"></a>
 
-# 22. 🧭 Urutan Belajar yang Disarankan
+## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
 Langkah 1: Fundamental Type Safety & Generic Class
@@ -1432,7 +1443,7 @@ Langkah 4: Siap Melangkah ke Java Collection Framework & Spring Data JPA!
 
 <a id="bagian-23"></a>
 
-# 23. 🏗️ Mini Project: Generic In-Memory Repository & Paginated Data Store Engine CLI
+## 23. 🏗️ Mini Project: Generic In-Memory Repository & Paginated Data Store Engine CLI
 
 Aplikasi nyata backend data store engine generik yang mengimplementasikan **Generic Interface, Bounded Type Parameter, Generic Record, Predicate Filtering, PECS, dan Pagination DTO** yang siap pakai untuk arsitektur backend.
 
@@ -1590,7 +1601,7 @@ public class GenericEngineApp {
 }
 ```
 
-## Output Demonstrasi
+#### Output Demonstrasi
 
 ```text
 ==================================================
@@ -1623,7 +1634,7 @@ Customer ID: 1002 | User: budi_santoso (budi@dev.com)
 
 <a id="bagian-24"></a>
 
-# 24. 🔗 Referensi Resmi
+## 24. 🔗 Referensi Resmi
 
 - [Oracle Java Generics Documentation & Tutorial](https://docs.oracle.com/javase/tutorial/java/generics/)
 - [Java Language Specification - Type Variables & Parameterized Types](https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.4)
