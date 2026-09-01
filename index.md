@@ -35,6 +35,7 @@ Dasar bahasa pemrograman, object-oriented programming, standard library, generic
 - **Vue**: [[vue-dasar|Vue Dasar (Composition API)]] · [[vue-router|Vue Router]] · [[vue-pinia|Vue Pinia]]
 - **React**: [[react-dasar|React Dasar]] · [[react-router|React Router]] · [[react-zustand|React Zustand]]
 - **Nuxt**: [[nuxt-dasar|Nuxt Dasar]] · [[nuxt-state-middleware|Nuxt State & Middleware]] · [[nuxt-data-fetching|Nuxt Data Fetching]]
+- **Angular**: [[angular-dasar|Angular Dasar]] · [[angular-routing|Angular Routing]] · [[angular-state|Angular State]]
 
 ### 3. Database
 - **PostgreSQL**: [[postgresql-dasar|PostgreSQL Dasar]] · [[postgresql-lanjutan|PostgreSQL Lanjutan]] · [[postgresql-fungsi-administrasi|PostgreSQL Fungsi & Administrasi]]
