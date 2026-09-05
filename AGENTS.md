@@ -42,41 +42,53 @@ Konsistensi
 
 # 2. Struktur Repository
 
-Struktur repository menggunakan kategori teknologi.
+Struktur repository menggunakan kategori teknologi di dalam direktori `content/` (sebagai satu-satunya Obsidian Vault).
 
 Contoh:
 
 ```text
 root/
-│
-├── Programming/
-│   ├── PHP/
-│   ├── JavaScript/
-│   ├── TypeScript/
-│   └── Java/
-│
-├── Web-Development/
-│   ├── Backend/
-│   │   ├── Laravel/
-│   │   └── Spring-Boot/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── content/              ← Obsidian Vault
+│   ├── .obsidian/
+│   ├── index.md
 │   │
-│   └── Frontend/
-│       ├── Vue/
-│       ├── React/
-│       └── Nuxt/
-│
-├── Database/
-│   ├── Database-Fundamental/
-│   ├── PostgreSQL/
-│   ├── MySQL/
-│   └── PostGIS/
-│
-└── DevOps/
-    ├── Git/
-    ├── Linux/
-    ├── Docker/
-    ├── NGINX/
-    └── CI-CD/
+│   ├── Programming/
+│   │   ├── PHP/
+│   │   ├── JavaScript/
+│   │   ├── TypeScript/
+│   │   └── Java/
+│   │
+│   ├── Web-Development/
+│   │   ├── Backend/
+│   │   │   ├── Laravel/
+│   │   │   └── Spring-Boot/
+│   │   │
+│   │   └── Frontend/
+│   │       ├── Vue/
+│   │       ├── React/
+│   │       └── Nuxt/
+│   │
+│   ├── Database/
+│   │   ├── Database-Fundamental/
+│   │   ├── PostgreSQL/
+│   │   ├── MySQL/
+│   │   └── PostGIS/
+│   │
+│   └── DevOps/
+│       ├── Git/
+│       ├── Linux/
+│       ├── Docker/
+│       └── NGINX/
+├── quartz/
+├── quartz.config.ts
+├── quartz.layout.ts
+├── package.json
+├── tsconfig.json
+├── .gitignore
+└── AGENTS.md
 ```
 
 Tidak ada lagi struktur:
@@ -93,12 +105,12 @@ Tidak ada konsep:
 -revised.md
 ```
 
-File yang dibuat agent adalah **file final**.
+File yang dibuat agent adalah **file final** di dalam `content/`.
 
 Contoh:
 
 ```text
-Web-Development/Backend/Laravel/
+content/Web-Development/Backend/Laravel/
 ├── laravel-dasar.md
 ├── laravel-database.md
 ├── laravel-eloquent.md

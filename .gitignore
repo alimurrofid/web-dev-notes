@@ -1,0 +1,15 @@
+# Dependencies & Build
+node_modules/
+public/
+.quartz-cache/
+tsconfig.tsbuildinfo
+prof/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Obsidian Workspace State (Desktop vs Mobile layouts)
+content/.obsidian/workspace.json
+content/.obsidian/workspace-mobile.json
+content/.obsidian/cache/
