@@ -306,7 +306,7 @@ export class AppComponent {}
 **Kondisi awal di URL `/`:**
 ```text
 ┌────────────────────────────────────────────────────────┐
-│ MyPortal                    [ Beranda (Active) ] [ Tentang Kami ] │
+│ MyPortal        [ Beranda (Active) ] [ Tentang Kami ]  │
 ├────────────────────────────────────────────────────────┤
 │ 🏠 Halaman Utama                                       │
 │ Selamat datang di portal kami!                         │
@@ -316,9 +316,9 @@ export class AppComponent {}
 **Setelah mengklik menu "Tentang Kami" (URL menjadi `/about` tanpa reload):**
 ```text
 ┌────────────────────────────────────────────────────────┐
-│ MyPortal                    [ Beranda ] [ Tentang Kami (Active) ] │
+│ MyPortal        [ Beranda ] [ Tentang Kami (Active) ]  │
 ├────────────────────────────────────────────────────────┤
-│ ℹ️ Tentang Kami                                        │
+│ ℹ️ Tentang Kami                                         │
 │ Aplikasi ini dibuat dengan Angular Modern.             │
 └────────────────────────────────────────────────────────┘
 ```
@@ -1267,11 +1267,11 @@ Membangun aplikasi multi-halaman **Portal Dashboard & Katalog Produk SPA** mandi
 - Penanganan Halaman 404 Not Found.
 
 ```text
-┌────────────────────────────────────────────────────────────────┐
-│ 🚀 Portal SPA   [ Katalog ]  [ Dashboard Admin (🔒) ]  [ Login ]│
-├────────────────────────────────────────────────────────────────┤
-│ (Tampilan Halaman Berganti di sini via <router-outlet />)      │
-└────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│ 🚀 Portal SPA   [ Katalog ]  [ Dashboard Admin (🔒) ] [ Login ] │
+├──────────────────────────────────────────────────────────────────┤
+│ (Tampilan Halaman Berganti di sini via <router-outlet />)        │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ### Langkah 1: Service Otentikasi (`src/app/services/auth.service.ts`)

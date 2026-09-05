@@ -353,12 +353,12 @@ Buka URL: /ngawur   ──> Merender NotFoundView (404)
 
 #### Diagram Penanganan 404
 
-```**text**
+```text
        URL yang Diminta Pengguna
                    │
                    │ cocok dengan salah satu route?
          ┌─────────┴─────────┐
-         │ YA                │ TIDAK
+         │ (YA)              │ (TIDAK)
          ▼                   ▼
     Halaman Terkait    /:pathMatch(.*)*
                          │

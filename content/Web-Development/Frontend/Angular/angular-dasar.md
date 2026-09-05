@@ -2037,12 +2037,12 @@ Membangun aplikasi web **Interactive Task & Habit Tracker** mandiri yang mengint
 ┌────────────────────────────────────────────────────────┐
 │              Task & Habit Tracker (Angular)            │
 │  ┌──────────────────────────────────────────────────┐  │
-│  │ [ Input Judul Task... ]  [ + Tambah ]             │  │
+│  │ [ Input Judul Task... ]  [ + Tambah ]            │  │
 │  └──────────────────────────────────────────────────┘  │
 │  Total: 3 | Selesai: 1 | Belum: 2                      │
 │  ┌──────────────────────────────────────────────────┐  │
-│  │ [x] Belajar Standalone Component     [ Hapus ]   │  │
-│  │ [ ] Menguasai Signals Reactivity     [ Hapus ]   │  │
+│  │ [x] Belajar Standalone Component      [ Hapus ]  │  │
+│  │ [ ] Menguasai Signals Reactivity      [ Hapus ]  │  │
 │  │ [ ] Menggunakan Built-in Control Flow [ Hapus ]  │  │
 │  └──────────────────────────────────────────────────┘  │
 └────────────────────────────────────────────────────────┘

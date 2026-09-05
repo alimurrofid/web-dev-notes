@@ -231,14 +231,14 @@ Angular Signal menyediakan method **`asReadonly()`** yang mengubah *Writable Sig
 ┌────────────────────────────────────────────────────────────┐
 │                    Store Service Class                     │
 │                                                            │
-│  Private State: #items = signal<string[]>([])             │
+│  Private State: #items = signal<string[]>([])              │
 │        │                                                   │
 │        ▼ (Diekspos ke luar via .asReadonly())              │
-│  Public State:  items = this.#items.asReadonly()          │
+│  Public State:  items = this.#items.asReadonly()           │
 │                                                            │
 │  Komponen Luar:                                            │
-│  - store.items()        ──► BISA (Membaca Data)           │
-│  - store.items.set(...) ──► ❌ ERROR (Dilarang Memutasi)   │
+│  - store.items()        ──► BISA (Membaca Data)            │
+│  - store.items.set(...) ──► ❌ ERROR (Dilarang Memutasi)  │
 │  - store.addItem(...)   ──► BISA (Memanggil Action Resmi)  │
 └────────────────────────────────────────────────────────────┘
 ```
@@ -1139,14 +1139,14 @@ Membangun aplikasi **Interactive Shopping Cart & Auth Session SPA** mandiri yang
 - Tampilan Navbar Cart Badge yang otomatis sinkron dengan Catalog Page dan Cart Drawer.
 
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ 🛒 TechStore   [ Katalog Produk ]    [ 👤 Budi Santoso ]  [ 🛒 2 Item ]│
-├────────────────────────────────────────────────────────────────────────┤
-│ Katalog Produk Unggulan:               │ Keranjang Belanja Anda:       │
-│ • Keyboard RGB (Rp 450.000) [ + Beli ] │ • Keyboard RGB x1 [ + ] [ - ] │
-│ • Mouse Ergonomic (Rp 200.000) [ +Beli]│ • Mouse Ergonomic x1 [ + ][ - ]│
-│                                        │ Total: Rp 650.000             │
-└────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 🛒 TechStore    [ Katalog Produk ]    [ 👤 Budi Santoso ]    [ 🛒 2 Item ] │
+├──────────────────────────────────────────────┬───────────────────────────────┤
+│ Katalog Produk Unggulan:                     │ Keranjang Belanja Anda:       │
+│ • Keyboard RGB (Rp 450.000) [ + Beli ]       │ • Keyboard RGB x1 [ + ] [ - ] │
+│ • Mouse Ergonomic (Rp 200.000) [ + Beli ]    │ • Mouse Ergonomic x1 [+][-]   │
+│                                              │ Total: Rp 650.000             │
+└──────────────────────────────────────────────┴───────────────────────────────┘
 ```
 
 ### Langkah 1: Model Data (`src/app/models/cart.model.ts`)

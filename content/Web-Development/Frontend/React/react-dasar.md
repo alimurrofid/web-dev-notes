@@ -1397,7 +1397,7 @@ export default function App() {
 │ 💰 Task & Expense Tracker                                              │
 │ Total Pengeluaran: Rp 75.000             Jumlah Catatan: 2 Transaksi   │
 ├────────────────────────────────────────────────────────────────────────┤
-│ [ Makan Siang         ] [ 25000     ] [ Makanan  ▼ ] [ + Tambah ]     │
+│ [ Makan Siang         ] [ 25000     ] [ Makanan  ▼ ] [ + Tambah ]      │
 ├────────────────────────────────────────────────────────────────────────┤
 │ [ Cari pengeluaran...               ] [ Semua Kategori ▼ ]             │
 │                                                                        │

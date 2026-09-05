@@ -931,16 +931,16 @@ Salah satu alasan utama menggunakan Pinia adalah membuat state yang dapat diguna
 #### Dengan Pinia (Pusat Data Bersama)
 
 ```text
-       ┌───────────────────────────────────────────┐
-       │               useUserStore                │
-       │              (Global State)               │
-       └───────┬─────────────┬─────────────┬───────┘
-               │             │             │
-    useUser()  │  useUser()  │  useUser()  │
-               ▼             ▼             ▼
-       ┌──────────────┐┌──────────────┐┌──────────────┐
-       │  Navbar.vue  ││Dashboard.vue ││ Profile.vue  │
-       └──────────────┘└──────────────┘└──────────────┘
+      ┌───────────────────────────────────────────────────────┐
+      │                     useUserStore                      │
+      │                    (Global State)                     │
+      └───────┬───────────────────┬───────────────────┬───────┘
+              │                   │                   │
+   useUser()  │        useUser()  │        useUser()  │
+              ▼                   ▼                   ▼
+      ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
+      │   Navbar.vue    │   │  Dashboard.vue  │   │   Profile.vue   │
+      └─────────────────┘   └─────────────────┘   └─────────────────┘
 ```
 
 Semua component mengambil store yang sama:
@@ -1133,22 +1133,22 @@ export const useCartStore = defineStore('cart', {
 
 ```text
        ┌────────────────────────────┐
-       │       useUserStore         │
-       │  user: { isLoggedIn: true }│
+       │        useUserStore        │
+       │ user: { isLoggedIn: true } │
        └─────────────┬──────────────┘
                      │
                      │ dibaca oleh action
                      ▼
-       ┌───────────────────────────┐
-       │       useCartStore        │
-       │     checkout() { ... }    │
-       └─────────────┬─────────────┘
+       ┌────────────────────────────┐
+       │        useCartStore        │
+       │     checkout() { ... }     │
+       └─────────────┬──────────────┘
                      │
                      │ validasi sukses
                      ▼
-       ┌───────────────────────────┐
-       │   Proses Transaksi Belanja│
-       └───────────────────────────┘
+       ┌────────────────────────────┐
+       │  Proses Transaksi Belanja  │
+       └────────────────────────────┘
 ```
 
 **Hafalan:**

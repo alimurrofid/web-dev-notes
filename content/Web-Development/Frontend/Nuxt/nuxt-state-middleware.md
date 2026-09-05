@@ -1035,7 +1035,7 @@ const config = useRuntimeConfig()
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 1. Akses Langsung /admin tanpa login                                  │
+│ 1. Akses Langsung /admin tanpa login                                   │
 │    ──> Mencegat via middleware/auth.ts                                 │
 │    ──> Otomatis Redirect ke: /login?redirect=/admin                    │
 ├────────────────────────────────────────────────────────────────────────┤

@@ -1984,18 +1984,18 @@ Untuk menguasai orkestrasi Docker Compose dari tingkat pemula hingga tingkat lan
                                       │
                                       ▼
                    FASE 2: Konfigurasi, Storage & Jaringan (Minggu 2)
-       ┌─────────────────────────────────────────────────────────────┐
-       │ 5. Mengelola variabel: environment: dan file rahasia env_file│
-       │ 6. Bind mounts (./src:/app) untuk hot-reload development     │
-       │ 7. Named Volume persisten untuk database + deklarasi root   │
-       │ 8. Custom bridge networks & DNS hostname resolution         │
-       └──────────────────────────────┬──────────────────────────────┘
+       ┌───────────────────────────────────────────────────────────────┐
+       │ 5. Mengelola variabel: environment: dan file rahasia env_file │
+       │ 6. Bind mounts (./src:/app) untuk hot-reload development      │
+       │ 7. Named Volume persisten untuk database + deklarasi root     │
+       │ 8. Custom bridge networks & DNS hostname resolution           │
+       └──────────────────────────────┬────────────────────────────────┘
                                       │
                                       ▼
                    FASE 3: Keandalan & Sinkronisasi Booting (Minggu 3)
        ┌─────────────────────────────────────────────────────────────┐
        │ 9. Mengonfigurasi healthcheck: pada database & cache        │
-       │ 10. Mengatur dependensi ketat: depends_on + service_healthy  │
+       │ 10. Mengatur dependensi ketat: depends_on + service_healthy │
        │ 11. Memasang kebijakan restart: unless-stopped & limit RAM  │
        │ 12. Mengompilasi Dockerfile lokal via blok build:           │
        └──────────────────────────────┬──────────────────────────────┘
@@ -2003,7 +2003,7 @@ Untuk menguasai orkestrasi Docker Compose dari tingkat pemula hingga tingkat lan
                                       ▼
                    FASE 4: Operasional Lanjutan & Mini Project (Minggu 4)
        ┌─────────────────────────────────────────────────────────────┐
-       │ 13. Interpolasi variabel: ${PORT:-8080} via file .env        │
+       │ 13. Interpolasi variabel: ${PORT:-8080} via file .env       │
        │ 14. Multiple compose files & compose.override.yaml          │
        │ 15. Scaling service stateless: docker compose up --scale    │
        │ 16. Mengerjakan Mini Project Stack Microservices Lengkap    │

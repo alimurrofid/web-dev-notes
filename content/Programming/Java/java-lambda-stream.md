@@ -41,7 +41,7 @@ Mental model alur data Stream Pipeline pada JVM:
                         ▼  .stream()
        ┌─────────────────────────────────┐
        │     INTERMEDIATE OPERATIONS     │ (LAZY)
-       │  filter() ──> map() ──> sorted()│
+       │ filter() ──> map() ──> sorted() │
        └────────────────┬────────────────┘
                         │
                         ▼  Terminal Operation Dipanggil

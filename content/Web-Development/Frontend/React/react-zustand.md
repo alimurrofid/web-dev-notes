@@ -1156,24 +1156,24 @@ export default function App() {
 #### Hasil Output Tampilan Aplikasi & Sinkronisasi LocalStorage
 
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ ⚡ Zustand Mart         🛒 Keranjang: 2 Barang       Halo, Budi Santoso│
-├────────────────────────────────────────────────────────────────────────┤
-│ Katalog Produk Tersedia                                                │
-│ ┌──────────────────────┐ ┌──────────────────────┐ ┌──────────────────┐ │
-│ │ Mechanical Keyboard  │ │ Wireless Mouse       │ │ Headset Gaming   │ │
-│ │ Rp 850.000           │ │ Rp 450.000           │ │ Rp 650.000       │ │
-│ │ [ + Masukkan Keranjang]│ │ [ + Masukkan Keranjang]│ │ [+ Masuk Keranjang]│
-│ └──────────────────────┘ └──────────────────────┘ └──────────────────┘ │
-├────────────────────────────────────────────────────────────────────────┤
-│ Rincian Keranjang Belanja                                [Kosongkan]   │
-│ • Mechanical Keyboard RGB   Rp 850.000 x 1 = Rp 850.000  [-] 1 [+] [✕] │
-│ • Wireless Ergonomic Mouse  Rp 450.000 x 1 = Rp 450.000  [-] 1 [+] [✕] │
-│                                                                        │
-│ Total Pembayaran: Rp 1.300.000                  [ Checkout Sekarang ➡ ]│
-├────────────────────────────────────────────────────────────────────────┤
-│ (State otomatis tersimpan di LocalStorage key: ecommerce-zustand-store)│
-└────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ ⚡ Zustand Mart         🛒 Keranjang: 2 Barang            Halo, Budi Santoso│
+├──────────────────────────────────────────────────────────────────────────────┤
+│ Katalog Produk Tersedia                                                      │
+│ ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────┐ │
+│ │ Mechanical Keyboard  │  │ Wireless Mouse       │  │ Headset Gaming       │ │
+│ │ Rp 850.000           │  │ Rp 450.000           │  │ Rp 650.000           │ │
+│ │ [ + Keranjang ]      │  │ [ + Keranjang ]      │  │ [ + Keranjang ]      │ │
+│ └──────────────────────┘  └──────────────────────┘  └──────────────────────┘ │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ Rincian Keranjang Belanja                                      [Kosongkan]   │
+│ • Mechanical Keyboard RGB   Rp 850.000 x 1 = Rp 850.000  [-] 1 [+] [✕]       |
+│ • Wireless Ergonomic Mouse  Rp 450.000 x 1 = Rp 450.000  [-] 1 [+] [✕]       │
+│                                                                              │
+│ Total Pembayaran: Rp 1.300.000                      [ Checkout Sekarang ➡ ] │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ (State otomatis tersimpan di LocalStorage key: ecommerce-zustand-store)      │
+└──────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---

@@ -1165,7 +1165,7 @@ const handleClear = () => clearError({ redirect: '/' })
 │                                                                        │
 │ 🕒 Waktu Browser Klien: 19:56:00 (ClientOnly)                          │
 │                                                                        │
-│ [ Jelajahi Produk Kami ➡ ]                                            │
+│ [ Jelajahi Produk Kami ➡ ]                                             │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Nuxt 3 Universal SSR Enterprise Architecture © 2026                    │
 └────────────────────────────────────────────────────────────────────────┘

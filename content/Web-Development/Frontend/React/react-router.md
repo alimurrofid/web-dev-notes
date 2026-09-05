@@ -1314,7 +1314,7 @@ export default function App() {
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 🛍️ TechStore SPA         Beranda   Katalog   Panel Admin 🔒   [ Masuk ]│
+│ 🛍️ TechStore SPA        Beranda   Katalog   Panel Admin 🔒   [ Masuk ] │
 ├────────────────────────────────────────────────────────────────────────┤
 │ URL: /catalog                                                          │
 │                                                                        │
@@ -1326,7 +1326,7 @@ export default function App() {
 │ │ [Lihat Detail 🔎]         │      │ [Lihat Detail 🔎]         │       │
 │ └───────────────────────────┘      └───────────────────────────┘       │
 ├────────────────────────────────────────────────────────────────────────┤
-│ (Klik "Lihat Detail" -> URL: /catalog/P1 tanpa reload halaman browser!)│
+│ (Klik [Lihat Detail] ──> URL: /catalog/P1 tanpa reload browser!)       │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 

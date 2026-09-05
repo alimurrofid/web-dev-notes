@@ -157,10 +157,10 @@ Pendekatan Tradisional:
 OrderService ──(new)──> EmailNotification (Tergantung Kaku)
 
 Pendekatan Spring IoC:
-┌───────────────────────────────────────────────┐
-│              SPRING IOC CONTAINER             │
-│  [NotificationService] ──(Inject)──> [OrderService]
-└───────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                  SPRING IOC CONTAINER                  │
+│   [NotificationService] ──(Inject)──> [OrderService]   │
+└────────────────────────────────────────────────────────┘
 ```
 
 **Hafalan:**
