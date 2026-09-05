@@ -1,5 +1,5 @@
-import { QuartzConfig } from "./quartz/cfg"
-import * as Plugin from "./quartz/plugins"
+import { QuartzConfig } from "./quartz/cfg";
+import * as Plugin from "./quartz/plugins";
 
 /**
  * Quartz 4 Configuration
@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Web Development Notes",
+    pageTitle: "Web Dev Notes",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -89,6 +89,6 @@ const config: QuartzConfig = {
       // CustomOgImages can be enabled if needed; disabled for faster initial builds
     ],
   },
-}
+};
 
-export default config
+export default config;
