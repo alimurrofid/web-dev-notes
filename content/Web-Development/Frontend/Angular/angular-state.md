@@ -1,6 +1,6 @@
 ---
 title: "Angular State Management"
-description: "Manajemen state global dan data flow asinkron di Angular modern: Service-based Signals Store, Derived Global State (computed), Side Effects (effect, untracked), RxJS & Signals Interop (toSignal, toObservable), HTTP Interceptors, dan Mini Project Shopping Cart."
+description: "Manajemen state global di Angular modern: Service-based Signals Store, computed values, side effects, RxJS Interop, dan HTTP Interceptors."
 order: 3
 tags:
   - web-development

@@ -1,6 +1,6 @@
 ---
 title: "Angular Dasar"
-description: "Panduan fundamental Angular modern: Standalone Component, Built-in Control Flow (@if, @for), Signal State lokal, Component Communication (input, output, model), Form, dan Dependency Injection (inject)."
+description: "Panduan Angular modern: Standalone Component, Built-in Control Flow (@if, @for), Signal State lokal, Component Communication, dan Dependency Injection."
 order: 1
 tags:
   - web-development

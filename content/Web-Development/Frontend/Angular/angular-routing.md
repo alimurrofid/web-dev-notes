@@ -1,6 +1,6 @@
 ---
 title: "Angular Routing"
-description: "Panduan client-side routing modern dengan Angular Router: Routes, RouterOutlet, RouterLink, Component Input Binding (:id), Nested routes, Lazy loading (loadComponent), Functional Guards (canActivate), dan Mini Project."
+description: "Panduan client-side routing dengan Angular Router: Routes, RouterOutlet, Component Input Binding (:id), Lazy Loading, dan Functional Guards."
 order: 2
 tags:
   - web-development

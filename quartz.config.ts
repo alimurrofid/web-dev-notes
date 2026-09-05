@@ -9,11 +9,11 @@ import * as Plugin from "./quartz/plugins";
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "Web Dev Notes",
-    pageTitleSuffix: "",
+    pageTitleSuffix: " | Web Dev Notes",
     enableSPA: true,
     enablePopovers: true,
     analytics: null,
-    locale: "en-US",
+    locale: "id-ID",
     baseUrl: "notes.rofid.me",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
@@ -86,7 +86,7 @@ const config: QuartzConfig = {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
-      // CustomOgImages can be enabled if needed; disabled for faster initial builds
+      Plugin.CustomOgImages(),
     ],
   },
 };

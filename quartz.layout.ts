@@ -13,6 +13,30 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
+const explorerComponent = Component.Explorer({
+  sortFn: (a, b) => {
+    if (!a.isFolder && !b.isFolder) {
+      const orderA = a.data?.order ?? 999
+      const orderB = b.data?.order ?? 999
+      if (orderA !== orderB) return orderA - orderB
+      return a.displayName.localeCompare(b.displayName, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      })
+    }
+    if (a.isFolder && b.isFolder) {
+      const orderA = a.data?.order ?? 999
+      const orderB = b.data?.order ?? 999
+      if (orderA !== orderB) return orderA - orderB
+      return a.displayName.localeCompare(b.displayName, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      })
+    }
+    return !a.isFolder && b.isFolder ? 1 : -1
+  },
+})
+
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
@@ -20,10 +44,10 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
-    Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
   ],
+  afterBody: [Component.NextPrev()],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
@@ -37,7 +61,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    explorerComponent,
   ],
   right: [
     Component.Graph(),
@@ -61,7 +85,7 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    explorerComponent,
   ],
   right: [],
 }

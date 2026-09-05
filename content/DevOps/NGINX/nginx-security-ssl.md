@@ -1,5 +1,5 @@
 ---
-title: "NGINX Keamanan & SSL"
+title: "NGINX Security & SSL"
 description: "Pengamanan & optimasi performa NGINX: SSL/TLS configuration (HTTPS, Let's Encrypt), Security headers (HSTS, CSP), Rate limiting, Gzip/Brotli compression, dan Caching."
 order: 3
 tags:
@@ -10,7 +10,7 @@ tags:
   - performance
 ---
 
-# NGINX Keamanan & SSL
+# NGINX Security & SSL
 
 > **Target:** Pemula yang ingin menguasai **Hardening Keamanan Server Web NGINX 1.24+ / 1.26+ (Enkripsi HTTPS, SSL/TLS 1.2 & TLS 1.3, SSL Session Cache, Certbot Let's Encrypt, HTTP $\rightarrow$ HTTPS 301 Redirect, Strict HSTS Preload, Essential Security Headers `CSP`/`X-Frame-Options`, `server_tokens off`, Proteksi File `.env`/`.git`, Rate Limiting Leaky Bucket `limit_req_zone`, Connection Limiting `limit_conn_zone`, Kompresi Gzip & Brotli, Kernel Zero-Copy `sendfile`/`tcp_nopush`/`tcp_nodelay`, Worker Tuning, dan Audit Keamanan Skor A+ Qualys SSL Labs)**.
 > **Versi:** NGINX 1.24+ / 1.26+ / OpenSSL 3.x
@@ -32,7 +32,7 @@ tags:
 → penting untuk skala produksi: Kompresi Gzip/Brotli, Kernel Zero-Copy (sendfile), Worker Tuning, dan Audit Skor A+
 ```
 
-Mental model alur filter keamanan berlapis (*Defense-in-Depth Pipeline*) di NGINX Gateway:
+Mental model alur filter keamanan berlapis (_Defense-in-Depth Pipeline_) di NGINX Gateway:
 
 ```text
                      HTTP/HTTPS REQUEST MASUK DARI INTERNET
@@ -120,7 +120,7 @@ sendfile on           → mengaktifkan transfer file langsung dari disk ke netwo
 
 21. [Peta Ingatan Cepat](#bagian-21)
 22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code NGINX Keamanan & SSL 10 Detik](#bagian-23)
+23. [Cheat Code NGINX Security & SSL 10 Detik](#bagian-23)
 24. [Urutan Belajar yang Disarankan](#bagian-24)
 25. [Mini Project: Production-Ready Bank-Grade NGINX Security Gateway with TLS 1.3, Strict HSTS, Leaky Bucket Rate Limiting, Gzip Compression, and Kernel Tuning](#bagian-25)
 26. [Referensi Resmi](#bagian-26)
@@ -133,11 +133,12 @@ sendfile on           → mengaktifkan transfer file langsung dari disk ke netwo
 
 #### Konsep
 
-Sebagai gerbang terdepan (*Frontend Web Server / Ingress Gateway*), NGINX adalah benteng pertama yang menghadapi jutaan botnet, web scraper, dan serangan siber di internet publik.
+Sebagai gerbang terdepan (_Frontend Web Server / Ingress Gateway_), NGINX adalah benteng pertama yang menghadapi jutaan botnet, web scraper, dan serangan siber di internet publik.
 
 Prinsip **Defense in Depth**:
 Jika keamanan hanya dipasang di kode aplikasi (Node.js/PHP/Java), server tetap rentan kehabisan RAM atau CPU saat diserang banjir traffic.
 Dengan memasang filter keamanan di **NGINX level**:
+
 - Request berbahaya diblokir di level gerbang jaringan sebelum sempat menyentuh memori aplikasi backend.
 
 **Hafalan:**
@@ -155,6 +156,7 @@ Defense in Depth → memfilter serangan di level web server sebelum membebani ap
 #### Konsep
 
 Untuk mengaktifkan HTTPS, sebuah server block memerlukan:
+
 1. Port **`listen 443 ssl;`** (dan `http2` untuk NGINX modern).
 2. **`ssl_certificate`** : Path ke file public certificate chain (`fullchain.pem`).
 3. **`ssl_certificate_key`** : Path ke file private key (`privkey.pem`).
@@ -220,9 +222,10 @@ server { listen 80; server_name domain.com; return 301 https://$host$request_uri
 
 #### Konsep
 
-Protokol SSL versi lama (`SSLv2`, `SSLv3`, `TLSv1.0`, `TLSv1.1`) memiliki kerentanan kriptografi fatal (seperti *POODLE*, *BEAST*, *Heartbleed*).
+Protokol SSL versi lama (`SSLv2`, `SSLv3`, `TLSv1.0`, `TLSv1.1`) memiliki kerentanan kriptografi fatal (seperti _POODLE_, _BEAST_, _Heartbleed_).
 
 **Standar Hardening SSL Modern**:
+
 - Batasi protokol hanya pada **`TLSv1.2 TLSv1.3`**.
 - Gunakan Cipher Suites modern berbasis Elliptic Curve (ECDHE) dan AES-GCM / CHACHA20.
 
@@ -251,10 +254,10 @@ ssl_protocols TLSv1.2 TLSv1.3; → membuang protokol usang dan hanya mengizinkan
 
 #### Konsep
 
-Proses negosiasi awal SSL/TLS (*TLS Handshake*) membutuhkan beberapa putaran pertukaran data (RTT) dan komputasi CPU yang berat.
+Proses negosiasi awal SSL/TLS (_TLS Handshake_) membutuhkan beberapa putaran pertukaran data (RTT) dan komputasi CPU yang berat.
 
 Dengan mengaktifkan **SSL Session Caching**:
-Ketika pengguna yang sama membuka halaman kedua atau kembali beberapa menit kemudian, sesi SSL di-*resume* seketika **tanpa kalkulasi ulang handshake (menghemat ~100ms latency)**.
+Ketika pengguna yang sama membuka halaman kedua atau kembali beberapa menit kemudian, sesi SSL di-_resume_ seketika **tanpa kalkulasi ulang handshake (menghemat ~100ms latency)**.
 
 #### Contoh
 
@@ -283,7 +286,7 @@ ssl_session_cache shared:SSL:10m; ssl_session_timeout 1d; → menghemat 100ms la
 
 **Let's Encrypt** menyediakan sertifikat SSL/TLS gratis yang diakui oleh seluruh browser dunia dengan masa aktif 90 hari.
 
-**Certbot** adalah agen otomatis untuk menerbitkan dan memperbarui (*Auto-Renewal*) sertifikat via tantangan ACME HTTP-01.
+**Certbot** adalah agen otomatis untuk menerbitkan dan memperbarui (_Auto-Renewal_) sertifikat via tantangan ACME HTTP-01.
 
 #### Perintah CLI di Server Ubuntu/Debian
 
@@ -313,7 +316,7 @@ certbot --nginx -d example.com → menerbitkan dan memasang sertifikat SSL Let's
 #### Konsep
 
 **HSTS (`Strict-Transport-Security`)** adalah header HTTP yang memberitahu browser pengguna:
-*"Jangan pernah mencoba menghubungi website ini via HTTP biasa selama X detik ke depan. Selalu ubah `http://` menjadi `https://` langsung di level browser!"*
+_"Jangan pernah mencoba menghubungi website ini via HTTP biasa selama X detik ke depan. Selalu ubah `http://` menjadi `https://` langsung di level browser!"_
 
 Mencegah serangan **Man-in-the-Middle (MITM) SSL Stripping**.
 
@@ -341,7 +344,7 @@ add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; prelo
 Paket HTTP Security Headers Standar Industri untuk Memperoleh Nilai A+ di SecurityHeaders.com:
 
 1. **`X-Frame-Options "SAMEORIGIN"`** : Mencegah website Anda di-embed ke dalam `<iframe>` situs jahat (**Anti-Clickjacking**).
-2. **`X-Content-Type-Options "nosniff"`** : Mencegah browser menebak (*MIME sniffing*) tipe file executable sebagai script.
+2. **`X-Content-Type-Options "nosniff"`** : Mencegah browser menebak (_MIME sniffing_) tipe file executable sebagai script.
 3. **`Referrer-Policy "strict-origin-when-cross-origin"`** : Menjaga kerahasiaan URL referrer saat berpindah ke situs eksternal.
 4. **`Permissions-Policy`** : Menonaktifkan akses sensor perangkat (kamera, mikrofon, geolokasi) yang tidak dibutuhkan.
 
@@ -368,7 +371,7 @@ X-Frame-Options SAMEORIGIN + X-Content-Type-Options nosniff → fondasi wajib se
 
 #### Konsep
 
-Secara default, NGINX menyematkan versinya pada header HTTP (`Server: nginx/1.24.0`) dan pada halaman error bawaan. Hacker menggunakan informasi versi ini untuk mencari celah eksploitasi (*CVE Fingerprinting*).
+Secara default, NGINX menyematkan versinya pada header HTTP (`Server: nginx/1.24.0`) dan pada halaman error bawaan. Hacker menggunakan informasi versi ini untuk mencari celah eksploitasi (_CVE Fingerprinting_).
 
 Gunakan direktif:
 **`server_tokens off;`** (Wajib di blok `http {}`).
@@ -432,6 +435,7 @@ location ~ /\.(env|git) { deny all; return 404; } → mengamankan file rahasia a
 Membatasi jumlah request yang boleh dikirim oleh satu alamat IP dalam satu satuan waktu untuk menangkal **Serangan Brute Force Login, Web Scraping Agresif, dan DoS**.
 
 Dua Langkah Konfigurasi:
+
 1. **Definisikan Zona Memori (Di Blok `http {}`):**
    `limit_req_zone $binary_remote_addr zone=login_limit:10m rate=5r/s;`
    - `$binary_remote_addr` : Menyimpan IP client dalam bentuk biner (hanya 4 byte per IP / sangat hemat RAM).
@@ -454,10 +458,11 @@ limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s; → zona memor
 
 #### Konsep
 
-Jika rate diatur `5r/s`, browser yang mengunduh 6 file CSS/JS secara paralel akan langsung diblokir (*False Positive*).
+Jika rate diatur `5r/s`, browser yang mengunduh 6 file CSS/JS secara paralel akan langsung diblokir (_False Positive_).
 
 Solusi:
-- **`burst=10`** : Mengizinkan lonjakan mendadak hingga 10 request tambahan dalam ember penampung (*Leaky Bucket*).
+
+- **`burst=10`** : Mengizinkan lonjakan mendadak hingga 10 request tambahan dalam ember penampung (_Leaky Bucket_).
 - **`nodelay`** : Memproses request di dalam burst **secara instan tanpa penundaan**, selama ember belum meluap penuh.
 
 #### Contoh
@@ -485,7 +490,7 @@ limit_req zone=login_limit burst=10 nodelay; → mengakomodasi lonjakan request 
 
 #### Konsep
 
-Berbeda dengan `limit_req` yang membatasi *laju request per detik*, **`limit_conn` membatasi *jumlah koneksi TCP simultan yang sedang terbuka***.
+Berbeda dengan `limit_req` yang membatasi _laju request per detik_, **`limit_conn` membatasi _jumlah koneksi TCP simultan yang sedang terbuka_**.
 
 Sangat efektif untuk menangkal **Serangan Slowloris DoS** (penyerang membuka ribuan koneksi lambat untuk menghabiskan worker server).
 
@@ -497,7 +502,7 @@ limit_conn_zone $binary_remote_addr zone=conn_limit:10m;
 
 server {
     listen 443 ssl;
-    
+
     # Batasi maksimal 20 koneksi TCP simultan per IP
     limit_conn conn_limit 20;
 
@@ -525,6 +530,7 @@ limit_conn conn_limit 20; → membatasi jumlah koneksi TCP simultan per IP pengu
 Secara default, NGINX mengembalikan status **503 Service Unavailable** saat rate limit terlampaui. Standar industri modern merekomendasikan status **`429 Too Many Requests`**.
 
 Gunakan direktif:
+
 - **`limit_req_status 429;`**
 - **`limit_req_log_level warn;`**
 
@@ -554,6 +560,7 @@ limit_req_status 429; → mengembalikan status standar RFC 6585 'Too Many Reques
 Kompresi **Gzip** mengecilkan ukuran file teks (HTML, CSS, JavaScript, JSON, SVG) hingga **70%–80%** sebelum dikirim ke browser.
 
 Aturan Kinerja:
+
 - Jangan mengompres file yang ukurannya sudah terlalu kecil (`gzip_min_length 256;` / kompresi file < 256 byte justru memperbesar ukuran).
 - Jangan mengompres file gambar biner (`.jpg`, `.png`) karena format gambar sudah terkompresi.
 
@@ -567,7 +574,7 @@ http {
     gzip_proxied any;
     gzip_comp_level 5; # Level 5: Keseimbangan optimal rasio kompresi vs beban CPU
     gzip_min_length 256;
-    
+
     # Daftar MIME Types yang Dikompresi
     gzip_types
         text/plain
@@ -624,6 +631,7 @@ Brotli Compression → algoritma kompresi modern yang 20% lebih hemat bandwidth 
 #### Konsep
 
 Tiga Direktif Kernel Tuning Inti di Blok `http {}`:
+
 1. **`sendfile on;`** : Menginstruksikan kernel OS untuk langsung memindahkan file dari disk cache ke TCP Socket tanpa menyalinnya ke user memory buffer (**Zero-Copy**).
 2. **`tcp_nopush on;`** : Memaksa NGINX mengirim header HTTP dan isi file dalam 1 paket TCP utuh (hanya aktif jika `sendfile on`).
 3. **`tcp_nodelay on;`** : Menonaktifkan algoritma Nagle pada koneksi keepalive untuk meminimalkan latency respons API kecil.
@@ -643,6 +651,7 @@ sendfile on; tcp_nopush on; tcp_nodelay on; → trio direktif optimasi throughpu
 #### Konsep
 
 Konfigurasi Tingkat Sistem di `nginx.conf` (Context `main` & `events`):
+
 - **`worker_processes auto;`** : Menjalankan 1 worker per core CPU fisik/virtual.
 - **`worker_rlimit_nofile 65535;`** : Menaikkan batas maksimal File Descriptors yang boleh dibuka NGINX di level OS.
 - **`worker_connections 4096;`** : Setiap worker sanggup melayani 4096 koneksi simultan.
@@ -676,9 +685,10 @@ worker_processes auto; worker_connections 4096; worker_rlimit_nofile 65535;
 
 #### Konsep
 
-Jika penyerang mengirimkan header HTTP dengan sangat lambat (*Slow Client Attack*), worker NGINX bisa tertahan lama.
+Jika penyerang mengirimkan header HTTP dengan sangat lambat (_Slow Client Attack_), worker NGINX bisa tertahan lama.
 
 Kunci Timeouts yang Ketat:
+
 - **`client_body_timeout 10s;`** : Waktu maksimal menunggu client mengirim body payload.
 - **`client_header_timeout 10s;`** : Waktu maksimal menunggu client mengirim header HTTP.
 - **`keepalive_timeout 30s;`** : Menutup koneksi idle setelah 30 detik untuk membebaskan memory.
@@ -698,6 +708,7 @@ client_body_timeout 10s; client_header_timeout 10s; → mencegah koneksi lambat 
 #### Konsep
 
 Alat Verifikasi & Audit Keamanan Standar Industri Gratis:
+
 1. **Qualys SSL Labs (ssllabs.com/ssltest):** Menguji keamanan SSL/TLS, sertifikat, dan cipher suites (Target: **Nilai A+**).
 2. **SecurityHeaders.com:** Menguji kelengkapan HTTP Security Headers (Target: **Nilai A+**).
 3. **Mozilla Observatory (observatory.mozilla.org):** Audit menyeluruh standar kepatuhan web security.
@@ -715,7 +726,7 @@ Audit A+ SSL Labs & SecurityHeaders → verifikasi kepatuhan standar keamanan we
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
-               PETA ARSITEKTUR NGINX KEAMANAN, SSL & OPTIMASI
+               PETA ARSITEKTUR NGINX Security, SSL & OPTIMASI
                                       │
        ┌──────────────────────────────┼──────────────────────────────┐
        ▼                              ▼                              ▼
@@ -732,25 +743,25 @@ HTTPS & SSL/TLS HARDENING      SECURITY HEADERS & LIMITING    PERFORMANCE & KERN
 
 ## 22. 📚 Tabel Ringkasan
 
-| Direktif / Parameter | Context | Fungsi & Karakteristik Utama |
-|---|---|---|
-| `listen 443 ssl` | `server` | Mengaktifkan port HTTPS terenkripsi SSL/TLS |
-| `ssl_protocols` | `http/server` | Menentukan versi protokol SSL yang diizinkan (`TLSv1.2 TLSv1.3`) |
-| `ssl_session_cache` | `http/server` | Menyimpan cache sesi SSL di RAM untuk menghemat handshake CPU |
-| `Strict-Transport-Security` | `http/server` | Memaksa browser selalu berkomunikasi via HTTPS (HSTS) |
-| `server_tokens off` | `http/server` | Menyembunyikan informasi versi NGINX dari publik |
-| `limit_req_zone` | `http` | Membuat zona memori pelacak laju request per IP client |
-| `limit_req` | `server/location` | Menerapkan batas laju request (`burst=N nodelay`) |
-| `limit_conn` | `server/location` | Membatasi jumlah koneksi TCP simultan per alamat IP |
-| `gzip on` | `http/server/location` | Mengaktifkan kompresi data teks untuk efisiensi bandwidth |
-| `sendfile on` | `http/server/location` | Mengaktifkan transfer file langsung di kernel OS (Zero-Copy) |
-| `worker_rlimit_nofile` | `main` | Menaikkan batas file descriptor maksimal di sistem operasi |
+| Direktif / Parameter        | Context                | Fungsi & Karakteristik Utama                                     |
+| --------------------------- | ---------------------- | ---------------------------------------------------------------- |
+| `listen 443 ssl`            | `server`               | Mengaktifkan port HTTPS terenkripsi SSL/TLS                      |
+| `ssl_protocols`             | `http/server`          | Menentukan versi protokol SSL yang diizinkan (`TLSv1.2 TLSv1.3`) |
+| `ssl_session_cache`         | `http/server`          | Menyimpan cache sesi SSL di RAM untuk menghemat handshake CPU    |
+| `Strict-Transport-Security` | `http/server`          | Memaksa browser selalu berkomunikasi via HTTPS (HSTS)            |
+| `server_tokens off`         | `http/server`          | Menyembunyikan informasi versi NGINX dari publik                 |
+| `limit_req_zone`            | `http`                 | Membuat zona memori pelacak laju request per IP client           |
+| `limit_req`                 | `server/location`      | Menerapkan batas laju request (`burst=N nodelay`)                |
+| `limit_conn`                | `server/location`      | Membatasi jumlah koneksi TCP simultan per alamat IP              |
+| `gzip on`                   | `http/server/location` | Mengaktifkan kompresi data teks untuk efisiensi bandwidth        |
+| `sendfile on`               | `http/server/location` | Mengaktifkan transfer file langsung di kernel OS (Zero-Copy)     |
+| `worker_rlimit_nofile`      | `main`                 | Menaikkan batas file descriptor maksimal di sistem operasi       |
 
 ---
 
 <a id="bagian-23"></a>
 
-## 23. ⚡ Cheat Code NGINX Keamanan & SSL 10 Detik
+## 23. ⚡ Cheat Code NGINX Security & SSL 10 Detik
 
 ```nginx
 # [1] Template Hardened SSL & Security Headers
