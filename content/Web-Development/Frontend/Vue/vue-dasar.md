@@ -18,7 +18,6 @@ tags:
 > Fokus modul pembelajaran ini: **template → state → reactive → computed →
 > Semua contoh utama menggunakan `<script setup>` agar cocok dengan gaya Vue
 
-
 ## Cara Belajar
 
 ```text
@@ -48,51 +47,49 @@ STATE / DATA
 
 ### 🟢 Fundamental
 
-1. [Pengenalan](#bagian-1)
-2. [Membuat Project](#bagian-2)
-3. [Hello Vue](#bagian-3)
-4. [API Style](#bagian-4)
-5. [Template](#bagian-5)
-6. [Template Attributes](#bagian-6)
-7. [JS Expression di Template](#bagian-7)
-8. [Directive](#bagian-8)
-9. [State](#bagian-9)
-10. [DOM Update](#bagian-10)
-11. [Reactive](#bagian-11)
-12. [Computed Properties](#bagian-12)
-13. [Style](#bagian-13)
-14. [Conditional Rendering](#bagian-14)
-15. [List Rendering](#bagian-15)
-16. [Event Handling](#bagian-16)
-17. [Input Binding](#bagian-17)
+1. [Pengenalan](#1--pengenalan)
+2. [Membuat Project](#2--membuat-project)
+3. [Hello Vue](#3--hello-vue)
+4. [API Style](#4--api-style)
+5. [Template](#5--template)
+6. [Template Attributes](#6--template-attributes)
+7. [JS Expression di Template](#7--js-expression-di-template)
+8. [Directive](#8--directive)
+9. [State](#9--state)
+10. [DOM Update](#10--dom-update)
+11. [Reactive](#11--reactive)
+12. [Computed Properties](#12--computed-properties)
+13. [Style](#13--style)
+14. [Conditional Rendering](#14--conditional-rendering)
+15. [List Rendering](#15--list-rendering)
+16. [Event Handling](#16--event-handling)
+17. [Input Binding](#17--input-binding)
 
 ### 🟡 Lanjutan
 
-18. [Watchers](#bagian-18)
-19. [Template Refs](#bagian-19)
-20. [Lifecycle Hooks](#bagian-20)
-21. [Component](#bagian-21)
-22. [Component Props](#bagian-22)
-23. [Component Event](#bagian-23)
-24. [Component Model](#bagian-24)
-25. [Fallthrough Attributes](#bagian-25)
-26. [Component Slot](#bagian-26)
-27. [Dynamic Component](#bagian-27)
-28. [Provide dan Inject](#bagian-28)
+18. [Watchers](#18--watchers)
+19. [Template Refs](#19--template-refs)
+20. [Lifecycle Hooks](#20--lifecycle-hooks)
+21. [Component](#21--component)
+22. [Component Props](#22--component-props)
+23. [Component Event](#23--component-event)
+24. [Component Model](#24--component-model)
+25. [Fallthrough Attributes](#25--fallthrough-attributes)
+26. [Component Slot](#26--component-slot)
+27. [Dynamic Component](#27--dynamic-component)
+28. [Provide dan Inject](#28--provide-dan-inject)
 
 ### 🔴 Advanced / Reference
 
-29. [Component Instance](#bagian-29)
-30. [Peta Ingatan Cepat](#bagian-30)
-31. [Tabel Ringkasan](#bagian-31)
-32. [Cheat Code Vue 10 Detik](#bagian-32)
-33. [Urutan Belajar yang Disarankan](#bagian-33)
-34. [Mini Project](#bagian-34)
-35. [Referensi Resmi](#bagian-35)
+29. [Component Instance](#29--component-instance)
+30. [Peta Ingatan Cepat](#30--peta-ingatan-cepat)
+31. [Tabel Ringkasan](#31--tabel-ringkasan)
+32. [Cheat Code Vue 10 Detik](#32--cheat-code-vue-10-detik)
+33. [Urutan Belajar yang Disarankan](#33--urutan-belajar-yang-disarankan)
+34. [Mini Project](#34-️-mini-project-untuk-menggabungkan-konsep)
+35. [Referensi Resmi](#35--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan
 
@@ -155,8 +152,6 @@ Count: 3
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Membuat Project
 
 Cara umum membuat project Vue modern menggunakan Vite:
@@ -210,8 +205,6 @@ App.vue  → root component
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Hello Vue
 
 Component Vue biasanya memiliki:
@@ -248,8 +241,6 @@ Vue Single File Component biasanya terdiri dari:
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 API Style
 
@@ -315,8 +306,6 @@ dikelompokkan berdasarkan logika/fitur
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Template
 
 Template adalah bagian HTML-like tempat kita mendeskripsikan struktur UI yang akan ditampilkan ke layar.
@@ -352,8 +341,6 @@ Vue akan merender nilai variabel `name` sebagai teks polos (*plain text*). Jika 
 **Kunci:** `{{ }}` digunakan untuk menyisipkan teks dinamis ke dalam elemen HTML.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Template Attributes
 
@@ -405,8 +392,6 @@ Untuk atribut boolean seperti `disabled`, `checked`, atau `readonly`:
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 JS Expression di Template
 
 Template dapat menjalankan expression JavaScript sederhana.
@@ -444,8 +429,6 @@ method/function
 daripada membuat template terlalu rumit.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Directive
 
@@ -500,8 +483,6 @@ Contoh:
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 State
 
@@ -564,8 +545,6 @@ tanpa .value saat di <template> (HTML)
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 DOM Update
 
@@ -639,8 +618,6 @@ async function changeMessage() {
 **Kunci:** Vue melakukan DOM update secara asynchronous; gunakan `await nextTick()` jika butuh menunggu DOM selesai diperbarui.
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Reactive
 
@@ -728,8 +705,6 @@ Bekerja dengan JavaScript Proxy
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟢 Computed Properties
 
 `computed()` digunakan untuk membuat **nilai turunan dari reactive state**.
@@ -790,8 +765,6 @@ state → computed → nilai turunan (dengan caching)
 Gunakan `computed` untuk menghitung **nilai/tampilan**, bukan untuk menjalankan side effect (untuk side effect gunakan `watch`).
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟢 Style
 
@@ -892,8 +865,6 @@ const fontSize = ref(18)
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟢 Conditional Rendering
 
 Conditional rendering adalah teknik untuk menampilkan, menyembunyikan, atau mengganti elemen UI di layar berdasarkan kondisi logika (*truthy/falsy*) dari state.
@@ -945,8 +916,6 @@ Lebih hemat biaya jika elemen sangat sering di-toggle (tampil/sembunyi).
 **Kunci:** Gunakan `v-if` untuk percabangan kondisional umum, gunakan `v-show` jika elemen sangat sering di-toggle.
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟢 List Rendering
 
@@ -1005,8 +974,6 @@ Selalu sertakan atribut `:key` yang **unik dan stabil** (seperti ID database) pa
 **Kunci:** Gunakan `v-for="item in items" :key="item.id"` untuk merender data list berulang.
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟢 Event Handling
 
@@ -1076,8 +1043,6 @@ Key modifier untuk mendengarkan tombol keyboard tertentu:
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟢 Input Binding
 
 Input binding adalah mekanisme untuk menghubungkan nilai elemen form input (seperti input teks, textarea, checkbox, radio, dan select dropdown) dengan reactive state secara dua arah (*two-way data binding*) menggunakan directive `v-model`.
@@ -1146,8 +1111,6 @@ User mengetik di UI
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 Watchers
 
 `watch()` digunakan untuk menjalankan side effect ketika state berubah.
@@ -1194,8 +1157,6 @@ Jangan gunakan `watch` hanya untuk menghitung nilai turunan. Untuk itu gunakan `
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 Template Refs
 
@@ -1244,8 +1205,6 @@ Referensi DOM baru akan terisi oleh Vue setelah komponen selesai dirender dan di
 **Kunci:** Template ref hanya dapat diakses setelah komponen masuk ke tahap `onMounted()`.
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🟡 Lifecycle Hooks
 
@@ -1357,8 +1316,6 @@ onUnmounted()
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Component
 
 Component adalah bagian UI yang dapat digunakan kembali.
@@ -1410,8 +1367,6 @@ App
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Component Props
 
@@ -1473,8 +1428,6 @@ Child
 **Kunci:** props = input component.
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🟡 Component Event
 
@@ -1555,7 +1508,6 @@ props
   ▼
 Parent ─────────→ Child
 
-
 emit
   │
   │ event + data
@@ -1571,8 +1523,6 @@ emit  → child ke parent
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🟡 Component Model
 
@@ -1666,8 +1616,6 @@ Di balik layar   → prop modelValue + emit update:modelValue
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🟡 Fallthrough Attributes
 
 Fallthrough attribute adalah atribut atau event listener yang dikirimkan ke komponen dari parent, tetapi **tidak dideklarasikan secara eksplisit** di `defineProps()` atau `defineEmits()`.
@@ -1744,8 +1692,6 @@ Solusinya: gunakan `v-bind="$attrs"` pada elemen yang dituju secara eksplisit:
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🟡 Component Slot
 
 Slot digunakan untuk mengirim **isi/template dari parent ke child**.
@@ -1816,8 +1762,6 @@ slot  → kirim template/isi UI
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 🟡 Dynamic Component
 
 Dynamic component digunakan untuk mengganti component secara dinamis.
@@ -1863,8 +1807,6 @@ dynamic view
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🟡 Provide dan Inject
 
@@ -1942,8 +1884,6 @@ inject  → descendant mengambil data/fungsi dari ancestor
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 🔴 Component Instance
 
 Component instance adalah object internal yang mewakili sebuah instance component.
@@ -2012,8 +1952,6 @@ template ref       → Parent mengakses API Child
 **Catatan:** jangan menjadikan akses instance sebagai cara utama komunikasi antar-component. Gunakan props, emits, slots, provide/inject, atau state management sesuai kebutuhan.
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🧠 Peta Ingatan Cepat
 
@@ -2296,10 +2234,7 @@ menampilkan About
 :is → menentukan component yang sedang ditampilkan
 ```
 
-
 ---
-
-<a id="bagian-31"></a>
 
 ## 31. 📚 Tabel Ringkasan
 
@@ -2338,15 +2273,11 @@ menampilkan About
 
 ---
 
-<a id="bagian-32"></a>
-
 ## 32. ⚡ Cheat Code Vue 10 Detik
 
 > **`ref()` membuat state reactive. `reactive()` membuat object reactive. `computed()` membuat nilai turunan. `watch()` mengawasi perubahan untuk side effect. `v-if` mengatur kondisi. `v-for` membuat list. `@` menangani event. `:` melakukan binding. `v-model` menghubungkan input dengan state. Props mengirim data parent → child. Emit mengirim event child → parent. Slot mengirim template. Provide/Inject mengirim data melewati component tree.**
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 🧭 Urutan Belajar yang Disarankan
 
@@ -2391,8 +2322,6 @@ menampilkan About
 ```
 
 ---
-
-<a id="bagian-34"></a>
 
 ## 34. 🏗️ Mini Project untuk Menggabungkan Konsep
 
@@ -2508,8 +2437,6 @@ ref
 > **Kunci:** pahami alur **State → Template → Event → State berubah → DOM diperbarui**. Setelah itu pelajari **Component → Props → Emit → Slot**, karena sebagian besar aplikasi Vue tersusun dari pola tersebut.
 
 ---
-
-<a id="bagian-35"></a>
 
 ## 35. 🔗 Referensi Resmi
 

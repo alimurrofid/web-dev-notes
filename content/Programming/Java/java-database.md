@@ -71,45 +71,43 @@ HikariCP     → library connection pooling modern berkecepatan tinggi standar S
 
 ### 🟢 Fundamental
 
-1. [Pengenalan JDBC & Mental Model Arsitektur Driver](#bagian-1)
-2. [Struktur Interface Inti JDBC](#bagian-2)
-3. [Membuat Koneksi Database via `DriverManager`](#bagian-3)
-4. [Manajemen Resource Otomatis dengan *Try-with-Resources*](#bagian-4)
-5. [`Statement` vs `PreparedStatement` & Bahaya Fatal SQL Injection](#bagian-5)
-6. [Eksekusi Query DML (`INSERT`, `UPDATE`, `DELETE`) & `executeUpdate()`](#bagian-6)
-7. [Eksekusi Query DQL (`SELECT`) & Navigasi `ResultSet`](#bagian-7)
-8. [Mapping `ResultSet` ke Java Model / Record Entity](#bagian-8)
+1. [Pengenalan JDBC & Mental Model Arsitektur Driver](#1--pengenalan-jdbc--mental-model-arsitektur-driver)
+2. [Struktur Interface Inti JDBC](#2--struktur-interface-inti-jdbc)
+3. [Membuat Koneksi Database via `DriverManager`](#3--membuat-koneksi-database-via-drivermanager)
+4. [Manajemen Resource Otomatis dengan *Try-with-Resources*](#4--manajemen-resource-otomatis-dengan-try-with-resources)
+5. [`Statement` vs `PreparedStatement` & Bahaya Fatal SQL Injection](#5--statement-vs-preparedstatement--bahaya-fatal-sql-injection)
+6. [Eksekusi Query DML (`INSERT`, `UPDATE`, `DELETE`) & `executeUpdate()`](#6--eksekusi-query-dml-insert-update-delete--executeupdate)
+7. [Eksekusi Query DQL (`SELECT`) & Navigasi `ResultSet`](#7--eksekusi-query-dql-select--navigasi-resultset)
+8. [Mapping `ResultSet` ke Java Model / Record Entity](#8--mapping-resultset-ke-java-model--record-entity)
 
 ### 🟡 Lanjutan
 
-9. [Menangani Nilai NULL pada `ResultSet` (`wasNull()` & Wrapper Class)](#bagian-9)
-10. [Mengambil Auto-Generated Keys (Primary Key Auto-Increment ID)](#bagian-10)
-11. [Batch Processing untuk Efisiensi Masif (`addBatch` & `executeBatch`)](#bagian-11)
-12. [Database Transactions Dasar (ACID, `setAutoCommit`, `commit`, `rollback`)](#bagian-12)
-13. [Savepoint pada Transaksi Bertingkat](#bagian-13)
-14. [Transaction Isolation Levels (`READ_COMMITTED`, `REPEATABLE_READ`, `SERIALIZABLE`)](#bagian-14)
-15. [Metadata Database & ResultSet (`DatabaseMetaData` & `ResultSetMetaData`)](#bagian-15)
-16. [`CallableStatement` (Stored Procedure & Parameter `OUT`)](#bagian-16)
+9. [Menangani Nilai NULL pada `ResultSet` (`wasNull()` & Wrapper Class)](#9--menangani-nilai-null-pada-resultset-wasnull--wrapper-class)
+10. [Mengambil Auto-Generated Keys (Primary Key Auto-Increment ID)](#10--mengambil-auto-generated-keys-primary-key-auto-increment-id)
+11. [Batch Processing untuk Efisiensi Masif (`addBatch` & `executeBatch`)](#11--batch-processing-untuk-efisiensi-masif-addbatch--executebatch)
+12. [Database Transactions Dasar (ACID, `setAutoCommit`, `commit`, `rollback`)](#12--database-transactions-dasar-acid-setautocommit-commit-rollback)
+13. [Savepoint pada Transaksi Bertingkat](#13--savepoint-pada-transaksi-bertingkat)
+14. [Transaction Isolation Levels (`READ_COMMITTED`, `REPEATABLE_READ`, `SERIALIZABLE`)](#14--transaction-isolation-levels-read_committed-repeatable_read-serializable)
+15. [Metadata Database & ResultSet (`DatabaseMetaData` & `ResultSetMetaData`)](#15--metadata-database--resultset-databasemetadata--resultsetmetadata)
+16. [`CallableStatement` (Stored Procedure & Parameter `OUT`)](#16--callablestatement-stored-procedure--parameter-out)
 
 ### 🔴 Advanced / Operasional
 
-17. [Masalah Koneksi Konvensional & Konsep Connection Pooling](#bagian-17)
-18. [Connection Pooling Modern dengan HikariCP](#bagian-18)
-19. [Repository Pattern / DAO (Data Access Object) Murni](#bagian-19)
-20. [SQLException Handling & Error Codes](#bagian-20)
+17. [Masalah Koneksi Konvensional & Konsep Connection Pooling](#17--masalah-koneksi-konvensional--konsep-connection-pooling)
+18. [Connection Pooling Modern dengan HikariCP](#18--connection-pooling-modern-dengan-hikaricp)
+19. [Repository Pattern / DAO (Data Access Object) Murni](#19--repository-pattern--dao-data-access-object-murni)
+20. [SQLException Handling & Error Codes](#20--sqlexception-handling--error-codes)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code Java JDBC 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready Store Repository & Order Transaction Manager CLI dengan HikariCP](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code Java JDBC 10 Detik](#23--cheat-code-java-jdbc-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready Store Repository & Order Transaction Manager CLI dengan HikariCP](#25-️-mini-project-production-ready-store-repository--order-transaction-manager-cli-dengan-hikaricp)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan JDBC & Mental Model Arsitektur Driver
 
@@ -162,8 +160,6 @@ JDBC Driver → implementasi konkrit dari vendor database untuk berkomunikasi vi
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Struktur Interface Inti JDBC
 
 #### Konsep
@@ -203,8 +199,6 @@ PreparedStatement.executeQuery()  → mengeksekusi perintah DQL (SELECT) menghas
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Membuat Koneksi Database via `DriverManager`
 
@@ -270,8 +264,6 @@ connection.close()                           → menutup sesi koneksi dan melepa
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Manajemen Resource Otomatis dengan *Try-with-Resources*
 
 #### Konsep
@@ -327,8 +319,6 @@ try (Connection conn = ...; PreparedStatement pstmt = ...) { ... } → pola aman
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 `Statement` vs `PreparedStatement` & Bahaya Fatal SQL Injection
 
@@ -413,8 +403,6 @@ pstmt.setString(parameterIndex, value) → mengisi parameter ke-parameterIndex (
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Eksekusi Query DML (`INSERT`, `UPDATE`, `DELETE`) & `executeUpdate()`
 
 #### Konsep
@@ -478,8 +466,6 @@ int affectedRows = pstmt.executeUpdate(); → mengeksekusi INSERT/UPDATE/DELETE 
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Eksekusi Query DQL (`SELECT`) & Navigasi `ResultSet`
 
@@ -552,8 +538,6 @@ rs.getString(columnLabel)            → mengambil nilai kolom sebagai String
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Mapping `ResultSet` ke Java Model / Record Entity
 
 #### Konsep
@@ -624,8 +608,6 @@ Row Mapping → pola transformasi baris relasional ResultSet menjadi objek Java 
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Menangani Nilai NULL pada `ResultSet` (`wasNull()` & Wrapper Class)
 
 #### Konsep
@@ -689,8 +671,6 @@ rs.wasNull() → memeriksa apakah kolom yang baru saja dibaca bernilai NULL di d
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Mengambil Auto-Generated Keys (Primary Key Auto-Increment ID)
 
 #### Konsep
@@ -748,8 +728,6 @@ pstmt.getGeneratedKeys()                                    → mengambil Result
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Batch Processing untuk Efisiensi Masif (`addBatch` & `executeBatch`)
 
@@ -813,8 +791,6 @@ pstmt.executeBatch() → mengirim dan mengeksekusi seluruh antrian batch query s
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Database Transactions Dasar (ACID, `setAutoCommit`, `commit`, `rollback`)
 
@@ -917,8 +893,6 @@ conn.rollback()           → membatalkan seluruh perubahan transaksi yang belum
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Savepoint pada Transaksi Bertingkat
 
 #### Konsep
@@ -980,8 +954,6 @@ conn.rollback(sp)                        → membatalkan transaksi hanya sampai 
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Transaction Isolation Levels (`READ_COMMITTED`, `REPEATABLE_READ`, `SERIALIZABLE`)
 
 #### Konsep
@@ -1007,8 +979,6 @@ conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED) → mengatur
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Metadata Database & ResultSet (`DatabaseMetaData` & `ResultSetMetaData`)
 
@@ -1073,8 +1043,6 @@ rsMeta.getColumnCount()  → menghitung total jumlah kolom pada ResultSet
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 `CallableStatement` (Stored Procedure & Parameter `OUT`)
 
@@ -1141,8 +1109,6 @@ cstmt.registerOutParameter(index, Types.SQL) → mendaftarkan tipe data paramete
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Masalah Koneksi Konvensional & Konsep Connection Pooling
 
 #### Konsep
@@ -1173,8 +1139,6 @@ Proses ini sangat lambat (**memakan waktu puluhan milidetik per request**). Jika
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 Connection Pooling Modern dengan HikariCP
 
@@ -1246,8 +1210,6 @@ ds.getConnection()                                 → meminjam koneksi dari poo
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🔴 Repository Pattern / DAO (Data Access Object) Murni
 
@@ -1321,8 +1283,6 @@ Repository / DAO Pattern → pola arsitektur pemisahan query database dari domai
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 SQLException Handling & Error Codes
 
 #### Konsep
@@ -1348,8 +1308,6 @@ try {
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1365,8 +1323,6 @@ KONEKSI & RESOURCING            QUERY & TYPE SAFETY             TRANSAKSI & POOL
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -1385,8 +1341,6 @@ KONEKSI & RESOURCING            QUERY & TYPE SAFETY             TRANSAKSI & POOL
 | `HikariDataSource` | Pool koneksi berkecepatan tinggi production | `DataSource` |
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. ⚡ Cheat Code Java JDBC 10 Detik
 
@@ -1417,8 +1371,6 @@ try {
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1447,8 +1399,6 @@ Langkah 5: Siap Melangkah ke Spring Data JPA, Hibernate, & Spring Boot!
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready Store Repository & Order Transaction Manager CLI dengan HikariCP
 
@@ -1701,8 +1651,6 @@ Katalog Produk Saat Ini:
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

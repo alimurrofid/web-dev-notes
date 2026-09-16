@@ -70,43 +70,41 @@ N+1 Query Problem    → bug performa fatal di mana pemanggilan 1 query induk me
 
 ### 🟢 Fundamental
 
-1. [Pengenalan ORM, Hibernate & Arsitektur Spring Data JPA](#bagian-1)
-2. [Anatomi Entity Dasar (`@Entity`, `@Table`, `@Id`, `@Column`)](#bagian-2)
-3. [Tipe Data Khusus, Enum & Auditing Otomatis](#bagian-3)
-4. [`JpaRepository<T, ID>` & CRUD Bawaan](#bagian-4)
-5. [Derived Query Methods (Pencarian Otomatis dari Nama Method)](#bagian-5)
-6. [Custom Query dengan JPQL & Native SQL](#bagian-6)
-7. [Paging & Sorting Data Skala Besar (`Pageable`)](#bagian-7)
-8. [Projections (Pengambilan Data Parsial Hemat Memori)](#bagian-8)
+1. [Pengenalan ORM, Hibernate & Arsitektur Spring Data JPA](#1--pengenalan-orm-hibernate--arsitektur-spring-data-jpa)
+2. [Anatomi Entity Dasar (`@Entity`, `@Table`, `@Id`, `@Column`)](#2--anatomi-entity-dasar-entity-table-id-column)
+3. [Tipe Data Khusus, Enum & Auditing Otomatis](#3--tipe-data-khusus-enum--auditing-otomatis)
+4. [`JpaRepository<T, ID>` & CRUD Bawaan](#4--jparepositoryt-id--crud-bawaan)
+5. [Derived Query Methods (Pencarian Otomatis dari Nama Method)](#5--derived-query-methods-pencarian-otomatis-dari-nama-method)
+6. [Custom Query dengan JPQL & Native SQL](#6--custom-query-dengan-jpql--native-sql)
+7. [Paging & Sorting Data Skala Besar (`Pageable`)](#7--paging--sorting-data-skala-besar-pageable)
+8. [Projections (Pengambilan Data Parsial Hemat Memori)](#8--projections-pengambilan-data-parsial-hemat-memori)
 
 ### 🟡 Lanjutan
 
-9. [Relasi Many-to-One (`@ManyToOne` & `@JoinColumn`)](#bagian-9)
-10. [Relasi One-to-Many (`@OneToMany`, `mappedBy`, `CascadeType.ALL`)](#bagian-10)
-11. [Relasi One-to-One (`@OneToOne`) & Many-to-Many (`@ManyToMany`)](#bagian-11)
-12. [Strategi Fetching: `FetchType.LAZY` vs `FetchType.EAGER`](#bagian-12)
-13. [Bahaya Fatal *N+1 Query Problem* & Solusinya (`JOIN FETCH` & `@EntityGraph`)](#bagian-13)
-14. [Database Transactions di Spring: `@Transactional`](#bagian-14)
-15. [Pola Soft Delete Modern (`@SQLDelete` & `@SQLRestriction`)](#bagian-15)
-16. [Database Migration dengan Flyway](#bagian-16)
+9. [Relasi Many-to-One (`@ManyToOne` & `@JoinColumn`)](#9--relasi-many-to-one-manytoone--joincolumn)
+10. [Relasi One-to-Many (`@OneToMany`, `mappedBy`, `CascadeType.ALL`)](#10--relasi-one-to-many-onetomany-mappedby-cascadetypeall)
+11. [Relasi One-to-One (`@OneToOne`) & Many-to-Many (`@ManyToMany`)](#11--relasi-one-to-one-onetoone--many-to-many-manytomany)
+12. [Strategi Fetching: `FetchType.LAZY` vs `FetchType.EAGER`](#12--strategi-fetching-fetchtypelazy-vs-fetchtypeeager)
+13. [Bahaya Fatal *N+1 Query Problem* & Solusinya (`JOIN FETCH` & `@EntityGraph`)](#13--bahaya-fatal-n1-query-problem--solusinya-join-fetch--entitygraph)
+14. [Database Transactions di Spring: `@Transactional`](#14--database-transactions-di-spring-transactional)
+15. [Pola Soft Delete Modern (`@SQLDelete` & `@SQLRestriction`)](#15--pola-soft-delete-modern-sqldelete--sqlrestriction)
+16. [Database Migration dengan Flyway](#16--database-migration-dengan-flyway)
 
 ### 🔴 Advanced / Operasional
 
-17. [Entity Lifecycle Callbacks (`@PrePersist`, `@PreUpdate`)](#bagian-17)
-18. [Optimistic Locking untuk Mencegah Race Condition (`@Version`)](#bagian-18)
+17. [Entity Lifecycle Callbacks (`@PrePersist`, `@PreUpdate`)](#17--entity-lifecycle-callbacks-prepersist-preupdate)
+18. [Optimistic Locking untuk Mencegah Race Condition (`@Version`)](#18--optimistic-locking-untuk-mencegah-race-condition-version)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Spring Data JPA 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready E-Commerce Store & Order Management Data Layer](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Spring Data JPA 10 Detik](#21--cheat-code-spring-data-jpa-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready E-Commerce Store & Order Management Data Layer](#23-️-mini-project-production-ready-e-commerce-store--order-management-data-layer)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan ORM, Hibernate & Arsitektur Spring Data JPA
 
@@ -141,8 +139,6 @@ Spring Data JPA → library Spring yang mengotomatisasi interaksi dengan databas
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Anatomi Entity Dasar (`@Entity`, `@Table`, `@Id`, `@Column`)
 
@@ -217,8 +213,6 @@ public class Product {
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Tipe Data Khusus, Enum & Auditing Otomatis
 
 #### Konsep
@@ -277,8 +271,6 @@ public class Application {}
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 `JpaRepository<T, ID>` & CRUD Bawaan
 
@@ -344,8 +336,6 @@ repo.findById(id)                                                    → mencari
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Derived Query Methods (Pencarian Otomatis dari Nama Method)
 
 #### Konsep
@@ -396,8 +386,6 @@ existsByProperty(val)            → menghasilkan query pengecekan keberadaan da
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Custom Query dengan JPQL & Native SQL
 
@@ -453,8 +441,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Paging & Sorting Data Skala Besar (`Pageable`)
 
@@ -520,8 +506,6 @@ Page<Entity> result = repo.findAll(pageable) → mengambil data terpangkas halam
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Projections (Pengambilan Data Parsial Hemat Memori)
 
 #### Konsep
@@ -559,8 +543,6 @@ Projections → teknik mengambil sebagian kolom spesifik untuk optimasi performa
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Relasi Many-to-One (`@ManyToOne` & `@JoinColumn`)
 
@@ -632,8 +614,6 @@ Tabel products                Tabel categories
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Relasi One-to-Many (`@OneToMany`, `mappedBy`, `CascadeType.ALL`)
 
 #### Konsep
@@ -684,8 +664,6 @@ public class Order {
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Relasi One-to-One (`@OneToOne`) & Many-to-Many (`@ManyToMany`)
 
 #### Konsep
@@ -723,8 +701,6 @@ public class Student {
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Strategi Fetching: `FetchType.LAZY` vs `FetchType.EAGER`
 
 #### Konsep
@@ -748,8 +724,6 @@ fetch = FetchType.LAZY → memuat data relasi hanya saat dibutuhkan untuk menghe
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Bahaya Fatal *N+1 Query Problem* & Solusinya (`JOIN FETCH` & `@EntityGraph`)
 
@@ -807,8 +781,6 @@ Query 1: SELECT p.*, c.* FROM products p INNER JOIN categories c ON p.category_i
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Database Transactions di Spring: `@Transactional`
 
@@ -871,8 +843,6 @@ public class OrderTransactionService {
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Pola Soft Delete Modern (`@SQLDelete` & `@SQLRestriction`)
 
 #### Konsep
@@ -920,8 +890,6 @@ public class Product {
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Database Migration dengan Flyway
 
 #### Konsep
@@ -960,8 +928,6 @@ Flyway Migration → alat version control skema database otomatis menggunakan fi
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Entity Lifecycle Callbacks (`@PrePersist`, `@PreUpdate`)
 
 #### Konsep
@@ -989,8 +955,6 @@ public void onBeforeInsert() {
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 Optimistic Locking untuk Mencegah Race Condition (`@Version`)
 
@@ -1027,8 +991,6 @@ public class Product {
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1044,8 +1006,6 @@ ENTITY & MAPPING              QUERY & REPOSITORY             RELASI & OPTIMASI
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 📚 Tabel Ringkasan
 
@@ -1065,8 +1025,6 @@ ENTITY & MAPPING              QUERY & REPOSITORY             RELASI & OPTIMASI
 | `@Version` | Field | Mengaktifkan perlindungan Optimistic Locking |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Spring Data JPA 10 Detik
 
@@ -1098,8 +1056,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1129,8 +1085,6 @@ Langkah 5: Siap Melangkah ke Keamanan API dengan Spring Security & JWT!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready E-Commerce Store & Order Management Data Layer
 
@@ -1343,8 +1297,6 @@ Total Produk Aktif Sekarang: 2
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

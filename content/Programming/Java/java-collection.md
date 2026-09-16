@@ -75,49 +75,47 @@ Sequenced     → fitur Java 21 untuk mengakses elemen pertama, terakhir, dan me
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Java Collection Framework & Mental Model Hierarki](#bagian-1)
-2. [`Iterable` & `Iterator` Interface (Looping Internal & Safe Removal)](#bagian-2)
-3. [`Collection` Interface Dasar (Operasi Universal Data)](#bagian-3)
-4. [`List` Interface & `ArrayList` (Dynamic Array Berperforma Tinggi)](#bagian-4)
-5. [`LinkedList` sebagai List & Deque (Doubly Linked List)](#bagian-5)
-6. [Immutable List Modern (`List.of`, `List.copyOf` vs `Arrays.asList`)](#bagian-6)
+1. [Pengenalan Java Collection Framework & Mental Model Hierarki](#1--pengenalan-java-collection-framework--mental-model-hierarki)
+2. [`Iterable` & `Iterator` Interface (Looping Internal & Safe Removal)](#2--iterable--iterator-interface-looping-internal--safe-removal)
+3. [`Collection` Interface Dasar (Operasi Universal Data)](#3--collection-interface-dasar-operasi-universal-data)
+4. [`List` Interface & `ArrayList` (Dynamic Array Berperforma Tinggi)](#4--list-interface--arraylist-dynamic-array-berperforma-tinggi)
+5. [`LinkedList` sebagai List & Deque (Doubly Linked List)](#5--linkedlist-sebagai-list--deque-doubly-linked-list)
+6. [Immutable List Modern (`List.of`, `List.copyOf` vs `Arrays.asList`)](#6--immutable-list-modern-listof-listcopyof-vs-arraysaslist)
 
 ### 🟡 Lanjutan
 
-7. [`Set` Interface & `HashSet` (Penyimpanan Unik Berbasis Hash Table)](#bagian-7)
-8. [`LinkedHashSet` (Elemen Unik dengan Pemeliharaan Insertion-Order)](#bagian-8)
-9. [`SortedSet`, `NavigableSet` & `TreeSet` (Elemen Unik Terurut Otomatis)](#bagian-9)
-10. [`EnumSet` (Set Khusus Enum Berbasis Bit-Vector Super Cepat)](#bagian-10)
-11. [Immutable Set Modern (`Set.of`, `Set.copyOf`)](#bagian-11)
-12. [`Queue` Interface & `ArrayDeque` (Antrian FIFO Standar Industri)](#bagian-12)
-13. [`PriorityQueue` (Antrian Berprioritas Min-Heap / Max-Heap)](#bagian-13)
-14. [`Deque` Interface (Stack Modern Pengganti Class Legacy `Stack`)](#bagian-14)
-15. [Sequenced Collections (Java 21+ `getFirst`, `getLast`, `reversed`)](#bagian-15)
-16. [`Map` Interface & `HashMap` (Key-Value, Hashing & Bucket Collision)](#bagian-16)
-17. [`LinkedHashMap` & LRU Cache Dasar (Insertion vs Access Order)](#bagian-17)
-18. [`SortedMap`, `NavigableMap` & `TreeMap` (Key Terurut Red-Black Tree)](#bagian-18)
-19. [`EnumMap` (Map Khusus Key Enum Berperforma Ekstrem)](#bagian-19)
-20. [Immutable Map Modern (`Map.of`, `Map.ofEntries`, `Map.copyOf`)](#bagian-20)
+7. [`Set` Interface & `HashSet` (Penyimpanan Unik Berbasis Hash Table)](#7--set-interface--hashset-penyimpanan-unik-berbasis-hash-table)
+8. [`LinkedHashSet` (Elemen Unik dengan Pemeliharaan Insertion-Order)](#8--linkedhashset-elemen-unik-dengan-pemeliharaan-insertion-order)
+9. [`SortedSet`, `NavigableSet` & `TreeSet` (Elemen Unik Terurut Otomatis)](#9--sortedset-navigableset--treeset-elemen-unik-terurut-otomatis)
+10. [`EnumSet` (Set Khusus Enum Berbasis Bit-Vector Super Cepat)](#10--enumset-set-khusus-enum-berbasis-bit-vector-super-cepat)
+11. [Immutable Set Modern (`Set.of`, `Set.copyOf`)](#11--immutable-set-modern-setof-setcopyof)
+12. [`Queue` Interface & `ArrayDeque` (Antrian FIFO Standar Industri)](#12--queue-interface--arraydeque-antrian-fifo-standar-industri)
+13. [`PriorityQueue` (Antrian Berprioritas Min-Heap / Max-Heap)](#13--priorityqueue-antrian-berprioritas-min-heap--max-heap)
+14. [`Deque` Interface (Stack Modern Pengganti Class Legacy `Stack`)](#14--deque-interface-stack-modern-pengganti-class-legacy-stack)
+15. [Sequenced Collections (Java 21+ `getFirst`, `getLast`, `reversed`)](#15--sequenced-collections-java-21-getfirst-getlast-reversed)
+16. [`Map` Interface & `HashMap` (Key-Value, Hashing & Bucket Collision)](#16--map-interface--hashmap-key-value-hashing--bucket-collision)
+17. [`LinkedHashMap` & LRU Cache Dasar (Insertion vs Access Order)](#17--linkedhashmap--lru-cache-dasar-insertion-vs-access-order)
+18. [`SortedMap`, `NavigableMap` & `TreeMap` (Key Terurut Red-Black Tree)](#18--sortedmap-navigablemap--treemap-key-terurut-red-black-tree)
+19. [`EnumMap` (Map Khusus Key Enum Berperforma Ekstrem)](#19--enummap-map-khusus-key-enum-berperforma-ekstrem)
+20. [Immutable Map Modern (`Map.of`, `Map.ofEntries`, `Map.copyOf`)](#20--immutable-map-modern-mapof-mapofentries-mapcopyof)
 
 ### 🔴 Advanced / Operasional
 
-21. [`Collections` Utility Class (Sorting, Searching, Shuffling & Wrapping)](#bagian-21)
-22. [Konversi Antar Collection, Array & Map Views (`toArray`, `entrySet`)](#bagian-22)
-23. [Panduan Kompleksitas Waktu (Big-O Time & Space Complexity Guide)](#bagian-23)
-24. [Concurrency Dasar pada Collection (`ConcurrentHashMap` & Fail-Fast vs Fail-Safe)](#bagian-24)
+21. [`Collections` Utility Class (Sorting, Searching, Shuffling & Wrapping)](#21--collections-utility-class-sorting-searching-shuffling--wrapping)
+22. [Konversi Antar Collection, Array & Map Views (`toArray`, `entrySet`)](#22--konversi-antar-collection-array--map-views-toarray-entryset)
+23. [Panduan Kompleksitas Waktu (Big-O Time & Space Complexity Guide)](#23--panduan-kompleksitas-waktu-big-o-time--space-complexity-guide)
+24. [Concurrency Dasar pada Collection (`ConcurrentHashMap` & Fail-Fast vs Fail-Safe)](#24--concurrency-dasar-pada-collection-concurrenthashmap--fail-fast-vs-fail-safe)
 
 ### 🛠️ Referensi & Praktik
 
-25. [Peta Ingatan Cepat](#bagian-25)
-26. [Tabel Ringkasan](#bagian-26)
-27. [Cheat Code Java Collection 10 Detik](#bagian-27)
-28. [Urutan Belajar yang Disarankan](#bagian-28)
-29. [Mini Project: Sistem Manajemen Keranjang Belanja & Antrian Pesanan E-Commerce CLI](#bagian-29)
-30. [Referensi Resmi](#bagian-30)
+25. [Peta Ingatan Cepat](#25-️-peta-ingatan-cepat)
+26. [Tabel Ringkasan](#26--tabel-ringkasan)
+27. [Cheat Code Java Collection 10 Detik](#27--cheat-code-java-collection-10-detik)
+28. [Urutan Belajar yang Disarankan](#28--urutan-belajar-yang-disarankan)
+29. [Mini Project: Sistem Manajemen Keranjang Belanja & Antrian Pesanan E-Commerce CLI](#29-️-mini-project-sistem-manajemen-keranjang-belanja--antrian-pesanan-e-commerce-cli)
+30. [Referensi Resmi](#30--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Java Collection Framework & Mental Model Hierarki
 
@@ -187,8 +185,6 @@ java.util.Map<K, V>     → interface mandiri untuk struktur data pemetaan pasan
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 `Iterable` & `Iterator` Interface (Looping Internal & Safe Removal)
 
 #### Konsep
@@ -255,8 +251,6 @@ iterator.remove()  → menghapus elemen yang baru saja diambil oleh next() secar
 ✅ Gunakan `iterator.remove()` atau method modern `list.removeIf(condition)`.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 `Collection` Interface Dasar (Operasi Universal Data)
 
@@ -326,8 +320,6 @@ collection.size()                → mengembalikan total jumlah elemen di dalam 
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 `List` Interface & `ArrayList` (Dynamic Array Berperforma Tinggi)
 
@@ -400,8 +392,6 @@ list.indexOf(element)           → mencari nomor indeks kemunculan pertama elem
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 `LinkedList` sebagai List & Deque (Doubly Linked List)
 
 #### Konsep
@@ -462,8 +452,6 @@ linkedList.removeLast()         → mengambil dan menghapus elemen paling belaka
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Immutable List Modern (`List.of`, `List.copyOf` vs `Arrays.asList`)
 
 #### Konsep
@@ -519,8 +507,6 @@ List.copyOf(collection)    → membuat salinan unmodifiable dari koleksi sumber 
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟡 `Set` Interface & `HashSet` (Penyimpanan Unik Berbasis Hash Table)
 
@@ -595,8 +581,6 @@ set.add(element)              → mengembalikan true jika elemen baru berhasil d
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟡 `LinkedHashSet` (Elemen Unik dengan Pemeliharaan Insertion-Order)
 
 #### Konsep
@@ -650,8 +634,6 @@ Set<T> set = new LinkedHashSet<>(); → menyimpan elemen unik dengan urutan iter
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 `SortedSet`, `NavigableSet` & `TreeSet` (Elemen Unik Terurut Otomatis)
 
@@ -726,8 +708,6 @@ set.lower(element)                     → mencari elemen terbesar yang lebih ke
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 `EnumSet` (Set Khusus Enum Berbasis Bit-Vector Super Cepat)
 
 #### Konsep
@@ -790,8 +770,6 @@ EnumSet.allOf(EnumClass)  → membuat EnumSet yang berisi seluruh konstanta enum
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Immutable Set Modern (`Set.of`, `Set.copyOf`)
 
 #### Konsep
@@ -831,8 +809,6 @@ Set.copyOf(collection) → membuat salinan immutable Set dari koleksi lain
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 `Queue` Interface & `ArrayDeque` (Antrian FIFO Standar Industri)
 
@@ -908,8 +884,6 @@ queue.peek()         → melihat elemen terdepan tanpa menghapusnya (return null
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 `PriorityQueue` (Antrian Berprioritas Min-Heap / Max-Heap)
 
 #### Konsep
@@ -970,8 +944,6 @@ Queue<T> pq = new PriorityQueue<>(comparator); → antrian berprioritas yang oto
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 `Deque` Interface (Stack Modern Pengganti Class Legacy `Stack`)
 
@@ -1045,8 +1017,6 @@ deque.pop()         → mengambil dan membuang elemen teratas puncak stack
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Sequenced Collections (Java 21+ `getFirst`, `getLast`, `reversed`)
 
 #### Konsep
@@ -1108,8 +1078,6 @@ collection.reversed() → menghasilkan tampilan koleksi dalam urutan terbalik se
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 `Map` Interface & `HashMap` (Key-Value, Hashing & Bucket Collision)
 
@@ -1192,8 +1160,6 @@ map.entrySet()                           → mengembalikan sekumpulan Map.Entry<
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 `LinkedHashMap` & LRU Cache Dasar (Insertion vs Access Order)
 
 #### Konsep
@@ -1268,8 +1234,6 @@ new LinkedHashMap<>(capacity, loadFactor, true) → membuat map dengan mode acce
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 `SortedMap`, `NavigableMap` & `TreeMap` (Key Terurut Red-Black Tree)
 
 #### Konsep
@@ -1328,8 +1292,6 @@ NavigableMap<K, V> map = new TreeMap<>(); → Map dengan pengurutan kunci otomat
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 `EnumMap` (Map Khusus Key Enum Berperforma Ekstrem)
 
 #### Konsep
@@ -1373,8 +1335,6 @@ Map<EnumKey, V> map = new EnumMap<>(EnumKey.class); → map khusus kunci enum de
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🟡 Immutable Map Modern (`Map.of`, `Map.ofEntries`, `Map.copyOf`)
 
@@ -1429,8 +1389,6 @@ Map.ofEntries(entry(k, v), ...)       → membuat immutable Map untuk jumlah pas
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🔴 `Collections` Utility Class (Sorting, Searching, Shuffling & Wrapping)
 
@@ -1495,8 +1453,6 @@ Collections.shuffle(list)                → mengacak urutan elemen list
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🔴 Konversi Antar Collection, Array & Map Views (`toArray`, `entrySet`)
 
 #### Konsep
@@ -1554,8 +1510,6 @@ collection.toArray(new Type[0]) → mengonversi struktur data Collection menjadi
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🔴 Panduan Kompleksitas Waktu (Big-O Time & Space Complexity Guide)
 
 #### Konsep
@@ -1574,8 +1528,6 @@ Pemilihan struktur data yang tepat berdampak masif pada performa dan konsumsi me
 | **Map** | `TreeMap` | N/A | **$O(\log n)$** | **$O(\log n)$** | **$O(\log n)$** | Pilihan saat butuh Map dengan Key terurut |
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔴 Concurrency Dasar pada Collection (`ConcurrentHashMap` & Fail-Fast vs Fail-Safe)
 
@@ -1624,8 +1576,6 @@ ConcurrentHashMap<K, V> → implementasi Map thread-safe modern berperforma ting
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1643,8 +1593,6 @@ ConcurrentHashMap<K, V> → implementasi Map thread-safe modern berperforma ting
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 📚 Tabel Ringkasan
 
 | Interface | Class Utama | Duplikasi | Urutan Elemen | Null Value | Kompleksitas Umum |
@@ -1660,8 +1608,6 @@ ConcurrentHashMap<K, V> → implementasi Map thread-safe modern berperforma ting
 | `Map` | `TreeMap` | Key Tidak | Sorted Key | Key **Tidak**| $O(\log n)$ |
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. ⚡ Cheat Code Java Collection 10 Detik
 
@@ -1690,8 +1636,6 @@ String last = list.getLast();
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1719,8 +1663,6 @@ Langkah 5: Siap Melangkah ke Java Stream API & Spring Boot Architecture!
 ```
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🏗️ Mini Project: Sistem Manajemen Keranjang Belanja & Antrian Pesanan E-Commerce CLI
 
@@ -1879,8 +1821,6 @@ Urutan Penugasan Armada Kurir:
 ```
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🔗 Referensi Resmi
 

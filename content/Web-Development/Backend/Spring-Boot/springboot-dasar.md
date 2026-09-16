@@ -77,43 +77,41 @@ Constructor Injection → cara penyuntikan dependensi melalui constructor class 
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Spring Boot & Mental Model Inversion of Control (IoC)](#bagian-1)
-2. [Struktur Proyek Spring Boot & Anatomi `@SpringBootApplication`](#bagian-2)
-3. [Spring IoC Container & `ApplicationContext`](#bagian-3)
-4. [Mendefinisikan Bean dengan Stereotype Annotations](#bagian-4)
-5. [Mendefinisikan Custom Bean dengan `@Configuration` & `@Bean`](#bagian-5)
-6. [Dependency Injection (DI) & Constructor Injection](#bagian-6)
-7. [Mengatasi Ambiguitas Bean: `@Primary` & `@Qualifier`](#bagian-7)
-8. [Bean Lifecycle: `@PostConstruct` & `@PreDestroy`](#bagian-8)
+1. [Pengenalan Spring Boot & Mental Model Inversion of Control (IoC)](#1--pengenalan-spring-boot--mental-model-inversion-of-control-ioc)
+2. [Struktur Proyek Spring Boot & Anatomi `@SpringBootApplication`](#2--struktur-proyek-spring-boot--anatomi-springbootapplication)
+3. [Spring IoC Container & `ApplicationContext`](#3--spring-ioc-container--applicationcontext)
+4. [Mendefinisikan Bean dengan Stereotype Annotations](#4--mendefinisikan-bean-dengan-stereotype-annotations)
+5. [Mendefinisikan Custom Bean dengan `@Configuration` & `@Bean`](#5--mendefinisikan-custom-bean-dengan-configuration--bean)
+6. [Dependency Injection (DI) & Constructor Injection](#6--dependency-injection-di--constructor-injection)
+7. [Mengatasi Ambiguitas Bean: `@Primary` & `@Qualifier`](#7--mengatasi-ambiguitas-bean-primary--qualifier)
+8. [Bean Lifecycle: `@PostConstruct` & `@PreDestroy`](#8--bean-lifecycle-postconstruct--predestroy)
 
 ### 🟡 Lanjutan
 
-9. [Bean Scopes (`singleton` vs `prototype`)](#bagian-9)
-10. [Lazy Initialization Bean (`@Lazy`)](#bagian-10)
-11. [Mengambil Nilai Konfigurasi dengan `@Value`](#bagian-11)
-12. [Type-Safe Configuration dengan `@ConfigurationProperties`](#bagian-12)
-13. [Format Konfigurasi: `application.properties` vs `application.yaml`](#bagian-13)
-14. [Spring Profiles & Multi-Environment Setup](#bagian-14)
-15. [Conditional Beans (`@ConditionalOnProperty`, `@ConditionalOnMissingBean`)](#bagian-15)
-16. [Event Handling di Spring Boot (`@EventListener`)](#bagian-16)
+9. [Bean Scopes (`singleton` vs `prototype`)](#9--bean-scopes-singleton-vs-prototype)
+10. [Lazy Initialization Bean (`@Lazy`)](#10--lazy-initialization-bean-lazy)
+11. [Mengambil Nilai Konfigurasi dengan `@Value`](#11--mengambil-nilai-konfigurasi-dengan-value)
+12. [Type-Safe Configuration dengan `@ConfigurationProperties`](#12--type-safe-configuration-dengan-configurationproperties)
+13. [Format Konfigurasi: `application.properties` vs `application.yaml`](#13--format-konfigurasi-applicationproperties-vs-applicationyaml)
+14. [Spring Profiles & Multi-Environment Setup](#14--spring-profiles--multi-environment-setup)
+15. [Conditional Beans (`@ConditionalOnProperty`, `@ConditionalOnMissingBean`)](#15--conditional-beans-conditionalonproperty-conditionalonmissingbean)
+16. [Event Handling di Spring Boot (`@EventListener`)](#16--event-handling-di-spring-boot-eventlistener)
 
 ### 🔴 Advanced / Operasional
 
-17. [Spring Boot Logging dengan SLF4J & Logback](#bagian-17)
-18. [Runner Interfaces (`CommandLineRunner` & `ApplicationRunner`)](#bagian-18)
+17. [Spring Boot Logging dengan SLF4J & Logback](#17--spring-boot-logging-dengan-slf4j--logback)
+18. [Runner Interfaces (`CommandLineRunner` & `ApplicationRunner`)](#18--runner-interfaces-commandlinerunner--applicationrunner)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Spring Boot Dasar 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready Modular Order Notification & Discount Engine CLI](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Spring Boot Dasar 10 Detik](#21--cheat-code-spring-boot-dasar-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready Modular Order Notification & Discount Engine CLI](#23-️-mini-project-production-ready-modular-order-notification--discount-engine-cli)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Spring Boot & Mental Model Inversion of Control (IoC)
 
@@ -172,8 +170,6 @@ Loose Coupling             → kondisi di mana antar komponen aplikasi tidak sal
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Struktur Proyek Spring Boot & Anatomi `@SpringBootApplication`
 
 #### Konsep
@@ -226,8 +222,6 @@ SpringApplication.run(Class, args) → memicu proses booting container, web serv
 ✅ Selalu letakkan class `@SpringBootApplication` di root package teratas proyek Anda.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Spring IoC Container & `ApplicationContext`
 
@@ -288,8 +282,6 @@ context.getBean(TargetClass.class)                     → mengambil instance be
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Mendefinisikan Bean dengan Stereotype Annotations
 
 #### Konsep
@@ -331,8 +323,6 @@ public class DiskonService {
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Mendefinisikan Custom Bean dengan `@Configuration` & `@Bean`
 
@@ -384,8 +374,6 @@ Spring Boot Startup ──> Scan @Configuration ──> Jalankan method @Bean �
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Dependency Injection (DI) & Constructor Injection
 
@@ -439,8 +427,6 @@ public TargetService(DependencyService dependency) { this.dependency = dependenc
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Mengatasi Ambiguitas Bean: `@Primary` & `@Qualifier`
 
@@ -511,8 +497,6 @@ class OrderPaymentProcessor {
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Bean Lifecycle: `@PostConstruct` & `@PreDestroy`
 
 #### Konsep
@@ -566,8 +550,6 @@ Instansiasi Objek ──> Constructor Injection ──> @PostConstruct ──> [
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Bean Scopes (`singleton` vs `prototype`)
 
 #### Konsep
@@ -610,8 +592,6 @@ public class RequestIdGenerator {
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Lazy Initialization Bean (`@Lazy`)
 
 #### Konsep
@@ -650,8 +630,6 @@ public class HeavyReportService {
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Mengambil Nilai Konfigurasi dengan `@Value`
 
@@ -708,8 +686,6 @@ public class AppMetadata {
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Type-Safe Configuration dengan `@ConfigurationProperties`
 
@@ -768,8 +744,6 @@ public class PaymentConfig {}
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Format Konfigurasi: `application.properties` vs `application.yaml`
 
 #### Konsep
@@ -803,8 +777,6 @@ application.yaml → format konfigurasi modern hierarkis yang lebih bersih, muda
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Spring Profiles & Multi-Environment Setup
 
@@ -864,8 +836,6 @@ spring.profiles.active=prod   → memilih environment profile yang aktif
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Conditional Beans (`@ConditionalOnProperty`, `@ConditionalOnMissingBean`)
 
 #### Konsep
@@ -901,8 +871,6 @@ public class CashbackFeatureService {
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Event Handling di Spring Boot (`@EventListener`)
 
@@ -968,8 +936,6 @@ eventPublisher.publishEvent(eventObject) → memicu publikasi event internal ke 
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Spring Boot Logging dengan SLF4J & Logback
 
 #### Konsep
@@ -1031,8 +997,6 @@ log.info("Pesan: {}", param);                                           → menc
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Runner Interfaces (`CommandLineRunner` & `ApplicationRunner`)
 
 #### Konsep
@@ -1072,8 +1036,6 @@ CommandLineRunner  → interface eksekutor logika otomatis saat aplikasi pertama
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1089,8 +1051,6 @@ INVERSION OF CONTROL (IoC)    DEPENDENCY INJECTION (DI)      CONFIG & PROFILES
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 📚 Tabel Ringkasan
 
@@ -1111,8 +1071,6 @@ INVERSION OF CONTROL (IoC)    DEPENDENCY INJECTION (DI)      CONFIG & PROFILES
 | `CommandLineRunner` | Interface Class | Menjalankan logika konsol otomatis saat startup selesai |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Spring Boot Dasar 10 Detik
 
@@ -1145,8 +1103,6 @@ public record SecurityProperties(String jwtSecret, long expirationMs) {}
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1175,8 +1131,6 @@ Langkah 5: Siap Melangkah ke Spring Boot Web (REST API) & Spring Data JPA!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready Modular Order Notification & Discount Engine CLI
 
@@ -1365,8 +1319,6 @@ public class StoreApplication {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

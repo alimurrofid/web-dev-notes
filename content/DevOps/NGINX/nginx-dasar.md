@@ -80,45 +80,43 @@ location ~* regex         → regular expression match case-insensitive (tidak m
 
 ### 🟢 Fundamental
 
-1. [Pengenalan NGINX & Mental Model Arsitektur Event-Driven Non-Blocking](#bagian-1)
-2. [Struktur Proses NGINX: Master Process vs Worker Processes](#bagian-2)
-3. [Manajemen Perintah CLI NGINX & Service Control](#bagian-3)
-4. [Anatomi Berkas `nginx.conf` & Konsep Hierarki Context](#bagian-4)
-5. [Struktur Organisasi File Konfigurasi di Server Linux](#bagian-5)
-6. [Direktif Inti Context HTTP](#bagian-6)
-7. [Server Blocks Dasar (Virtual Hosts)](#bagian-7)
-8. [Multi-Domain, Subdomain & Catch-All Server Block](#bagian-8)
+1. [Pengenalan NGINX & Mental Model Arsitektur Event-Driven Non-Blocking](#1--pengenalan-nginx--mental-model-arsitektur-event-driven-non-blocking)
+2. [Struktur Proses NGINX: Master Process vs Worker Processes](#2--struktur-proses-nginx-master-process-vs-worker-processes)
+3. [Manajemen Perintah CLI NGINX & Service Control](#3--manajemen-perintah-cli-nginx--service-control)
+4. [Anatomi Berkas `nginx.conf` & Konsep Hierarki Context](#4--anatomi-berkas-nginxconf--konsep-hierarki-context)
+5. [Struktur Organisasi File Konfigurasi di Server Linux](#5--struktur-organisasi-file-konfigurasi-di-server-linux)
+6. [Direktif Inti Context HTTP](#6--direktif-inti-context-http)
+7. [Server Blocks Dasar (Virtual Hosts)](#7--server-blocks-dasar-virtual-hosts)
+8. [Multi-Domain, Subdomain & Catch-All Server Block](#8--multi-domain-subdomain--catch-all-server-block)
 
 ### 🟡 Lanjutan
 
-9. [Serving File Statis: Perbedaan Krusial `root` vs `alias`](#bagian-9)
-10. [Konfigurasi Single Page Application (SPA Vue/React/Nuxt)](#bagian-10)
-11. [Klausul `location`: Urutan Prioritas & Aturan Pencocokan URL](#bagian-11)
-12. [Location Modifier 1: Exact Match (`=`) & Prefix Prioritas (`^~`)](#bagian-12)
-13. [Location Modifier 2: Regular Expression (`~` vs `~*`)](#bagian-13)
-14. [Custom Error Pages](#bagian-14)
-15. [Konfigurasi Logging: Access Log & Error Log](#bagian-15)
-16. [Pembatasan Akses IP Dasar (Access Control)](#bagian-16)
+9. [Serving File Statis: Perbedaan Krusial `root` vs `alias`](#9--serving-file-statis-perbedaan-krusial-root-vs-alias)
+10. [Konfigurasi Single Page Application (SPA Vue/React/Nuxt)](#10--konfigurasi-single-page-application-spa-vuereactnuxt)
+11. [Klausul `location`: Urutan Prioritas & Aturan Pencocokan URL](#11--klausul-location-urutan-prioritas--aturan-pencocokan-url)
+12. [Location Modifier 1: Exact Match (`=`) & Prefix Prioritas (`^~`)](#12--location-modifier-1-exact-match---prefix-prioritas-)
+13. [Location Modifier 2: Regular Expression (`~` vs `~*`)](#13--location-modifier-2-regular-expression--vs-)
+14. [Custom Error Pages](#14--custom-error-pages)
+15. [Konfigurasi Logging: Access Log & Error Log](#15--konfigurasi-logging-access-log--error-log)
+16. [Pembatasan Akses IP Dasar (Access Control)](#16--pembatasan-akses-ip-dasar-access-control)
 
 ### 🔴 Advanced / Operasional
 
-17. [Menambahkan Custom Response Headers](#bagian-17)
-18. [HTTP Redirects: `return` vs `rewrite`](#bagian-18)
-19. [Handling File Upload & Ukuran Request Body](#bagian-19)
-20. [Daftar Variabel Bawaan Inti NGINX](#bagian-20)
+17. [Menambahkan Custom Response Headers](#17--menambahkan-custom-response-headers)
+18. [HTTP Redirects: `return` vs `rewrite`](#18--http-redirects-return-vs-rewrite)
+19. [Handling File Upload & Ukuran Request Body](#19--handling-file-upload--ukuran-request-body)
+20. [Daftar Variabel Bawaan Inti NGINX](#20--daftar-variabel-bawaan-inti-nginx)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code NGINX Dasar 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready Multi-Site Static & SPA Web Server Configuration with Custom Errors, Static Asset Caching, and Secure IP Restrictions](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code NGINX Dasar 10 Detik](#23--cheat-code-nginx-dasar-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready Multi-Site Static & SPA Web Server Configuration with Custom Errors, Static Asset Caching, and Secure IP Restrictions](#25-️-mini-project-production-ready-multi-site-static--spa-web-server-configuration-with-custom-errors-static-asset-caching-and-secure-ip-restrictions)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan NGINX & Mental Model Arsitektur Event-Driven Non-Blocking
 
@@ -150,8 +148,6 @@ Event-Driven Architecture → arsitektur non-blocking asynchronous yang memungki
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Struktur Proses NGINX: Master Process vs Worker Processes
 
@@ -188,8 +184,6 @@ Master Process → mengelola konfigurasi dan worker | Worker Process → melayan
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Manajemen Perintah CLI NGINX & Service Control
 
 #### Konsep
@@ -218,8 +212,6 @@ nginx -t && nginx -s reload → rumus wajib: uji sintaks terlebih dahulu, baru r
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Anatomi Berkas `nginx.conf` & Konsep Hierarki Context
 
@@ -274,8 +266,6 @@ main -> events -> http -> server -> location (urutan hierarki context NGINX dari
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Struktur Organisasi File Konfigurasi di Server Linux
 
 #### Konsep
@@ -297,8 +287,6 @@ include /etc/nginx/conf.d/*.conf; → memuat seluruh file server block secara mo
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Direktif Inti Context HTTP
 
 #### Konsep
@@ -317,8 +305,6 @@ sendfile on; tcp_nopush on; → optimasi transfer file statis berkecepatan tingg
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Server Blocks Dasar (Virtual Hosts)
 
@@ -350,8 +336,6 @@ server { listen 80; server_name example.com; root /var/www/html; } → deklarasi
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Multi-Domain, Subdomain & Catch-All Server Block
 
 #### Konsep
@@ -378,8 +362,6 @@ server_name _ default_server; → menangkap seluruh trafik yang tidak memiliki d
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Serving File Statis: Perbedaan Krusial `root` vs `alias`
 
@@ -420,8 +402,6 @@ alias → path_disk = alias + sisa_uri_setelah_location
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Konfigurasi Single Page Application (SPA Vue/React/Nuxt)
 
 #### Konsep
@@ -459,8 +439,6 @@ try_files $uri $uri/ /index.html; → solusi wajib NGINX untuk routing SPA React
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Klausul `location`: Urutan Prioritas & Aturan Pencocokan URL
 
 #### Konsep
@@ -482,8 +460,6 @@ NGINX **tidak mengevaluasi blok `location` berdasarkan urutan baris atas ke bawa
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Location Modifier 1: Exact Match (`=`) & Prefix Prioritas (`^~`)
 
@@ -521,8 +497,6 @@ location ^~ /path/ → prefix prioritas pembungkam evaluasi regex
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Location Modifier 2: Regular Expression (`~` vs `~*`)
 
 #### Konsep
@@ -549,8 +523,6 @@ location ~* \.(jpg|png|css|js)$ → regex case-insensitive untuk static asset ca
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Custom Error Pages
 
@@ -593,8 +565,6 @@ error_page 404 /404.html; location = /404.html { internal; } → custom error pa
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Konfigurasi Logging: Access Log & Error Log
 
 #### Konsep
@@ -631,8 +601,6 @@ access_log /var/log/nginx/access.log; error_log /var/log/nginx/error.log warn;
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Pembatasan Akses IP Dasar (Access Control)
 
 #### Konsep
@@ -662,8 +630,6 @@ allow 192.168.1.0/24; deny all; → membatasi akses endpoint hanya untuk IP atau
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Menambahkan Custom Response Headers
 
 #### Konsep
@@ -691,8 +657,6 @@ add_header X-Frame-Options "SAMEORIGIN" always; → menyematkan header respons H
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 HTTP Redirects: `return` vs `rewrite`
 
@@ -729,8 +693,6 @@ return 301 https://$host$request_uri; → pengalihan URL permanen paling cepat d
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🔴 Handling File Upload & Ukuran Request Body
 
 #### Konsep
@@ -762,8 +724,6 @@ client_max_body_size 50M; → mengatur batas maksimal ukuran payload request/upl
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Daftar Variabel Bawaan Inti NGINX
 
 #### Konsep
@@ -788,8 +748,6 @@ $host, $uri, $request_uri, $remote_addr, $scheme, $args → variabel bawaan pali
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -805,8 +763,6 @@ PROCESS & CONTEXT HIERARCHY   SERVER BLOCKS & ROUTING    LOGGING & ACCESS SECURI
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -825,8 +781,6 @@ PROCESS & CONTEXT HIERARCHY   SERVER BLOCKS & ROUTING    LOGGING & ACCESS SECURI
 | `client_max_body_size` | `http/server` | Menentukan batas ukuran maksimal upload file HTTP |
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. ⚡ Cheat Code NGINX Dasar 10 Detik
 
@@ -858,8 +812,6 @@ server {
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -887,8 +839,6 @@ Langkah 5: Siap Melangkah ke NGINX Reverse Proxy & Load Balancing!
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready Multi-Site Static & SPA Web Server Configuration with Custom Errors, Static Asset Caching, and Secure IP Restrictions
 
@@ -1008,8 +958,6 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

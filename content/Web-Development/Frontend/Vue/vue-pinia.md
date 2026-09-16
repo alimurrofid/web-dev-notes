@@ -73,37 +73,35 @@ Store   → tempat ketiganya
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Pinia](#bagian-1)
-2. [Setup & Instalasi](#bagian-2)
-3. [Membuat Store](#bagian-3)
-4. [State](#bagian-4)
-5. [Mengubah State dengan `$patch dan $reset`](#bagian-5)
-6. [Destructuring dengan storeToRefs](#bagian-6)
-7. [Getters](#bagian-7)
-8. [Actions](#bagian-8)
+1. [Pengenalan Pinia](#1--pengenalan-pinia)
+2. [Setup & Instalasi](#2--setup--instalasi)
+3. [Membuat Store](#3--membuat-store)
+4. [State](#4--state)
+5. [Mengubah State dengan `$patch dan $reset`](#5--mengubah-state-dengan-patch-dan-reset)
+6. [Destructuring dengan storeToRefs](#6--destructuring-dengan-storetorefs)
+7. [Getters](#7--getters)
+8. [Actions](#8--actions)
 
 ### 🟡 Lanjutan
 
-9. [Global State & Pola Akses Komponen](#bagian-9)
-10. [Setup Store (Composition API Style)](#bagian-10)
-11. [Store Composition (Akses Lintas Store)](#bagian-11)
-12. [Mengamati Store (`$subscribe dan $onAction`)](#bagian-12)
-13. [Pinia dengan TypeScript](#bagian-13)
+9. [Global State & Pola Akses Komponen](#9--global-state--pola-akses-komponen)
+10. [Setup Store (Composition API Style)](#10--setup-store-composition-api-style)
+11. [Store Composition (Akses Lintas Store)](#11--store-composition-akses-lintas-store)
+12. [Mengamati Store (`$subscribe dan $onAction`)](#12--mengamati-store-subscribe-dan-onaction)
+13. [Pinia dengan TypeScript](#13--pinia-dengan-typescript)
 
 ### 🔴 Advanced / Reference
 
-14. [Store di Luar Component & SSR](#bagian-14)
-15. [Pinia Plugins & Persist State](#bagian-15)
-16. [Peta Ingatan Cepat](#bagian-16)
-17. [Tabel Ringkasan](#bagian-17)
-18. [Cheat Code Pinia 10 Detik](#bagian-18)
-19. [Urutan Belajar yang Disarankan](#bagian-19)
-20. [Mini Project: Shopping Cart Terpadu](#bagian-20)
-21. [Referensi Resmi](#bagian-21)
+14. [Store di Luar Component & SSR](#14--store-di-luar-component--ssr)
+15. [Pinia Plugins & Persist State](#15--pinia-plugins--persist-state)
+16. [Peta Ingatan Cepat](#16--peta-ingatan-cepat)
+17. [Tabel Ringkasan](#17--tabel-ringkasan)
+18. [Cheat Code Pinia 10 Detik](#18--cheat-code-pinia-10-detik)
+19. [Urutan Belajar yang Disarankan](#19--urutan-belajar-yang-disarankan)
+20. [Mini Project: Shopping Cart Terpadu](#20-️-mini-project-shopping-cart-terpadu)
+21. [Referensi Resmi](#21--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Pinia
 
@@ -215,8 +213,6 @@ Store   → tempat ketiganya
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Setup & Instalasi
 
 #### Konsep
@@ -305,8 +301,6 @@ createPinia() → app.use(pinia) → store tersedia di aplikasi
 **Best Practice:** Simpan setiap store di file terpisah dalam folder `src/stores/`.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Membuat Store
 
@@ -423,8 +417,6 @@ useCounterStore()          → mengambil instance store di komponen
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 State
 
 #### Konsep
@@ -525,8 +517,6 @@ state: () => ({ semuaStateAwal })
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Mengubah State dengan `$patch dan $reset`
 
 #### Konsep
@@ -591,8 +581,6 @@ $reset() → kembalikan seluruh state ke nilai awal
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Destructuring dengan storeToRefs
 
@@ -663,8 +651,6 @@ action             → ambil langsung dari store
 ✅ `storeToRefs` hanya untuk data reaktif (state dan getter).
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Getters
 
@@ -788,8 +774,6 @@ Getter = computed milik store
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Actions
 
 #### Konsep
@@ -893,8 +877,6 @@ Action → logic → ubah state → UI update
 **Best Practice:** Letakkan semua logic perubahan state yang kompleks (termasuk async) di action, bukan di dalam komponen.
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Global State & Pola Akses Komponen
 
@@ -1009,8 +991,6 @@ Global state → untuk data bersama (currentUser, cart, theme)
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Setup Store (Composition API Style)
 
 #### Konsep
@@ -1095,8 +1075,6 @@ function() → action
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Store Composition (Akses Lintas Store)
 
 #### Konsep
@@ -1158,8 +1136,6 @@ Import useStoreLain() → panggil di dalam action/getter saat dibutuhkan
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Mengamati Store (`$subscribe dan $onAction`)
 
@@ -1228,8 +1204,6 @@ $onAction  → mengamati pemanggilan action (before, after, error)
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Pinia dengan TypeScript
 
 #### Konsep
@@ -1278,8 +1252,6 @@ state: (): UserState => ({ ... })
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🔴 Store di Luar Component & SSR
 
@@ -1343,8 +1315,6 @@ Panggil useStore() di dalam fungsi router guard, bukan di luar fungsi
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🔴 Pinia Plugins & Persist State
 
@@ -1419,8 +1389,6 @@ persist: true     → auto-save state ke browser storage
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🧠 Peta Ingatan Cepat
 
@@ -1538,8 +1506,6 @@ actions                 function
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 📚 Tabel Ringkasan
 
 | Materi | Fungsi | Kata Kunci |
@@ -1562,8 +1528,6 @@ actions                 function
 | Plugins | Ekstensi fungsionalitas store | `pinia.use()` |
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. ⚡ Cheat Code Pinia 10 Detik
 
@@ -1631,8 +1595,6 @@ const { increment } = counter
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1670,8 +1632,6 @@ const { increment } = counter
 **Prinsip:** Kuasai dulu konsep dasar State → Getter → Action dengan Option Store, baru pelajari Setup Store dan fitur lanjutan.
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🏗️ Mini Project: Shopping Cart Terpadu
 
@@ -1811,8 +1771,6 @@ Total Bayar: Rp 130.000
 **Kunci:** Pahami alur **State → Getter (hitung) → Action (mutasi) → UI Update**. Seluruh komponen yang membaca store akan otomatis terupdate secara sinkron.
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🔗 Referensi Resmi
 

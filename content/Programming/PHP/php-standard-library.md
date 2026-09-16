@@ -68,59 +68,57 @@ Secure Hash      → password_hash() dan password_verify() untuk keamanan kreden
 
 ### 🟢 Fundamental
 
-1. [Pengenalan PHP Standard Library & Arsitektur Built-in API](#bagian-1)
-2. [String Dasar (strlen, strtoupper, strtolower, trim, substr)](#bagian-2)
-3. [String Pencarian (str_contains, str_starts_with, str_ends_with, strpos)](#bagian-3)
-4. [String Manipulasi & Format (str_replace, explode, implode, sprintf)](#bagian-4)
-5. [Array Dasar & Operasi Elemen (count, array_push, array_pop, array_shift)](#bagian-5)
-6. [Array Search & Key Operations (in_array, array_search, array_keys, array_values)](#bagian-6)
-7. [Array Manipulation (array_merge, array_slice, array_splice, array_chunk, array_column)](#bagian-7)
-8. [Array Callback Functions (array_map, array_filter, array_reduce, array_walk)](#bagian-8)
-9. [Array Sorting (sort, rsort, asort, arsort, ksort, usort)](#bagian-9)
-10. [Number Functions & Konversi (is_numeric, is_int, intval, floatval, abs)](#bagian-10)
-11. [Math Functions (round, ceil, floor, min, max, pow, sqrt)](#bagian-11)
-12. [Date & Time Dasar (time, date, strtotime, microtime)](#bagian-12)
+1. [Pengenalan PHP Standard Library & Arsitektur Built-in API](#1--pengenalan-php-standard-library--arsitektur-built-in-api)
+2. [String Dasar (strlen, strtoupper, strtolower, trim, substr)](#2--string-dasar-strlen-strtoupper-strtolower-trim-substr)
+3. [String Pencarian (str_contains, str_starts_with, str_ends_with, strpos)](#3--string-pencarian-str_contains-str_starts_with-str_ends_with-strpos)
+4. [String Manipulasi & Format (str_replace, explode, implode, sprintf)](#4--string-manipulasi--format-str_replace-explode-implode-sprintf)
+5. [Array Dasar & Operasi Elemen (count, array_push, array_pop, array_shift)](#5--array-dasar--operasi-elemen-count-array_push-array_pop-array_shift)
+6. [Array Search & Key Operations (in_array, array_search, array_keys, array_values)](#6--array-search--key-operations-in_array-array_search-array_keys-array_values)
+7. [Array Manipulation (array_merge, array_slice, array_splice, array_chunk, array_column)](#7--array-manipulation-array_merge-array_slice-array_splice-array_chunk-array_column)
+8. [Array Callback Functions (array_map, array_filter, array_reduce, array_walk)](#8--array-callback-functions-array_map-array_filter-array_reduce-array_walk)
+9. [Array Sorting (sort, rsort, asort, arsort, ksort, usort)](#9--array-sorting-sort-rsort-asort-arsort-ksort-usort)
+10. [Number Functions & Konversi (is_numeric, is_int, intval, floatval, abs)](#10--number-functions--konversi-is_numeric-is_int-intval-floatval-abs)
+11. [Math Functions (round, ceil, floor, min, max, pow, sqrt)](#11--math-functions-round-ceil-floor-min-max-pow-sqrt)
+12. [Date & Time Dasar (time, date, strtotime, microtime)](#12--date--time-dasar-time-date-strtotime-microtime)
 
 ### 🟡 Lanjutan
 
-13. [DateTime & DateTimeImmutable (OOP Date Handling)](#bagian-13)
-14. [DateInterval & DatePeriod](#bagian-14)
-15. [DateTimeZone & Manajemen Zona Waktu](#bagian-15)
-16. [JSON Processing (json_encode, json_decode, json_validate)](#bagian-16)
-17. [Regular Expression PCRE (preg_match, preg_match_all, preg_replace, preg_split)](#bagian-17)
-18. [File I/O Cepat (file_get_contents, file_put_contents, file_exists, unlink)](#bagian-18)
-19. [File Stream & CSV (fopen, fgets, fread, fwrite, fgetcsv, fputcsv)](#bagian-19)
-20. [Directory & Filesystem (mkdir, rmdir, scandir, is_dir, glob)](#bagian-20)
-21. [Path Operations (basename, dirname, pathinfo, realpath)](#bagian-21)
-22. [Data Filter & Sanitasi (filter_var, filter_input, FILTER_VALIDATE_*)](#bagian-22)
-23. [URL Parsing & Query String (parse_url, http_build_query, urlencode)](#bagian-23)
-24. [Variable & Type Checking (isset, empty, unset, is_null, gettype)](#bagian-24)
-25. [String Encoding & Multibyte (mb_strlen, mb_substr, mb_strpos)](#bagian-25)
+13. [DateTime & DateTimeImmutable (OOP Date Handling)](#13--datetime--datetimeimmutable-oop-date-handling)
+14. [DateInterval & DatePeriod](#14--dateinterval--dateperiod)
+15. [DateTimeZone & Manajemen Zona Waktu](#15--datetimezone--manajemen-zona-waktu)
+16. [JSON Processing (json_encode, json_decode, json_validate)](#16--json-processing-json_encode-json_decode-json_validate)
+17. [Regular Expression PCRE (preg_match, preg_match_all, preg_replace, preg_split)](#17--regular-expression-pcre-preg_match-preg_match_all-preg_replace-preg_split)
+18. [File I/O Cepat (file_get_contents, file_put_contents, file_exists, unlink)](#18--file-io-cepat-file_get_contents-file_put_contents-file_exists-unlink)
+19. [File Stream & CSV (fopen, fgets, fread, fwrite, fgetcsv, fputcsv)](#19--file-stream--csv-fopen-fgets-fread-fwrite-fgetcsv-fputcsv)
+20. [Directory & Filesystem (mkdir, rmdir, scandir, is_dir, glob)](#20--directory--filesystem-mkdir-rmdir-scandir-is_dir-glob)
+21. [Path Operations (basename, dirname, pathinfo, realpath)](#21--path-operations-basename-dirname-pathinfo-realpath)
+22. [Data Filter & Sanitasi (filter_var, filter_input, FILTER_VALIDATE_*)](#22--data-filter--sanitasi-filter_var-filter_input-filter_validate_)
+23. [URL Parsing & Query String (parse_url, http_build_query, urlencode)](#23--url-parsing--query-string-parse_url-http_build_query-urlencode)
+24. [Variable & Type Checking (isset, empty, unset, is_null, gettype)](#24--variable--type-checking-isset-empty-unset-is_null-gettype)
+25. [String Encoding & Multibyte (mb_strlen, mb_substr, mb_strpos)](#25--string-encoding--multibyte-mb_strlen-mb_substr-mb_strpos)
 
 ### 🔴 Advanced / Reference
 
-26. [Hash & Cryptographic Digest (hash, hash_hmac, hash_equals)](#bagian-26)
-27. [Secure Password Hashing (password_hash, password_verify, password_needs_rehash)](#bagian-27)
-28. [Cryptographically Secure Random (random_int, random_bytes, bin2hex)](#bagian-28)
-29. [Data Serialization (serialize, unserialize)](#bagian-29)
-30. [SPL Iterators (ArrayIterator, IteratorAggregate, DirectoryIterator)](#bagian-30)
-31. [Generators & yield (Streaming Data Hemat Memori)](#bagian-31)
-32. [Exception & Error Hierarchy (Throwable, Exception, Error, TypeError)](#bagian-32)
-33. [Reflection API (ReflectionClass, ReflectionMethod)](#bagian-33)
-34. [Intl Extension (NumberFormatter, IntlDateFormatter, Locale)](#bagian-34)
+26. [Hash & Cryptographic Digest (hash, hash_hmac, hash_equals)](#26--hash--cryptographic-digest-hash-hash_hmac-hash_equals)
+27. [Secure Password Hashing (password_hash, password_verify, password_needs_rehash)](#27--secure-password-hashing-password_hash-password_verify-password_needs_rehash)
+28. [Cryptographically Secure Random (random_int, random_bytes, bin2hex)](#28--cryptographically-secure-random-random_int-random_bytes-bin2hex)
+29. [Data Serialization (serialize, unserialize)](#29--data-serialization-serialize-unserialize)
+30. [SPL Iterators (ArrayIterator, IteratorAggregate, DirectoryIterator)](#30--spl-iterators-arrayiterator-iteratoraggregate-directoryiterator)
+31. [Generators & yield (Streaming Data Hemat Memori)](#31--generators--yield-streaming-data-hemat-memori)
+32. [Exception & Error Hierarchy (Throwable, Exception, Error, TypeError)](#32--exception--error-hierarchy-throwable-exception-error-typeerror)
+33. [Reflection API (ReflectionClass, ReflectionMethod)](#33--reflection-api-reflectionclass-reflectionmethod)
+34. [Intl Extension (NumberFormatter, IntlDateFormatter, Locale)](#34--intl-extension-numberformatter-intldateformatter-locale)
 
 ### 🛠️ Referensi & Praktik
 
-35. [Peta Ingatan Cepat](#bagian-35)
-36. [Tabel Ringkasan](#bagian-36)
-37. [Cheat Code PHP Standard Library 10 Detik](#bagian-37)
-38. [Urutan Belajar yang Disarankan](#bagian-38)
-39. [Mini Project: REST API & CLI Data Processor Terintegrasi](#bagian-39)
-40. [Referensi Resmi](#bagian-40)
+35. [Peta Ingatan Cepat](#35-️-peta-ingatan-cepat)
+36. [Tabel Ringkasan](#36--tabel-ringkasan)
+37. [Cheat Code PHP Standard Library 10 Detik](#37--cheat-code-php-standard-library-10-detik)
+38. [Urutan Belajar yang Disarankan](#38--urutan-belajar-yang-disarankan)
+39. [Mini Project: REST API & CLI Data Processor Terintegrasi](#39-️-mini-project-rest-api--cli-data-processor-terintegrasi)
+40. [Referensi Resmi](#40--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan PHP Standard Library & Arsitektur Built-in API
 
@@ -182,8 +180,6 @@ Standard Library → Koleksi fungsi dan class siap pakai yang disediakan langsun
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 String Dasar (`strlen`, `strtoupper`, `strtolower`, `trim`, `substr`)
 
 #### Konsep
@@ -240,8 +236,6 @@ substr($string, $offset, $length)  → Potong karakter mulai dari $offset sepanj
 - ❌ **Kesalahan Umum:** Menggunakan `strlen()` dan `substr()` untuk karakter beraksen atau emoji (gunakan `mb_strlen()` dan `mb_substr()` untuk keamanan UTF-8).
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 String Pencarian (`str_contains`, `str_starts_with`, `str_ends_with`, `strpos`)
 
@@ -308,8 +302,6 @@ strpos($haystack, $needle) !== false → Cek posisi kemunculan (wajib strict com
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 String Manipulasi & Format (`str_replace`, `explode`, `implode`, `sprintf`)
 
 #### Konsep
@@ -366,8 +358,6 @@ sprintf($format, ...$values)             → Format string dengan template place
 - ❌ **Kesalahan Umum:** Mengirimkan delimiter string kosong `""` ke fungsi `explode()` (memicu `ValueError`).
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Array Dasar & Operasi Elemen (`count`, `array_push`, `array_pop`, `array_shift`)
 
@@ -433,8 +423,6 @@ array_shift($array)            → Hapus dan ambil elemen paling depan
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Array Search & Key Operations (`in_array`, `array_search`, `array_keys`, `array_values`)
 
 #### Konsep
@@ -491,8 +479,6 @@ array_values($array)                    → Ekstrak seluruh value menjadi indexe
 - ❌ **Kesalahan Umum:** Menggunakan `isset($array[$key])` untuk mengecek key yang bernilai `null` (`isset` menghasilkan `false` jika nilainya null, gunakan `array_key_exists` untuk kepastian keberadaan key).
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Array Manipulation (`array_merge`, `array_slice`, `array_splice`, `array_chunk`, `array_column`)
 
@@ -552,8 +538,6 @@ array_unique($array)                   → Hapus seluruh nilai duplikat
 - ❌ **Kesalahan Umum:** Tertukar antara `array_slice()` (tidak mengubah array asli) dengan `array_splice()` (memotong dan memodifikasi array asli secara langsung).
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Array Callback Functions (`array_map`, `array_filter`, `array_reduce`, `array_walk`)
 
@@ -626,8 +610,6 @@ array_reduce($array, $callback, $init)   → Akumulasi nilai menjadi single scal
 - ❌ **Kesalahan Umum:** Ingat baik-baik perbedaan posisi parameter: `array_map` menerima callback di awal, sedangkan `array_filter` menerima array di awal!
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Array Sorting (`sort`, `rsort`, `asort`, `arsort`, `ksort`, `usort`)
 
@@ -717,8 +699,6 @@ usort($array, fn($a, $b) => $a <=> $b)      → Custom sorting dengan spaceship 
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Number Functions & Konversi (`is_numeric`, `is_int`, `intval`, `floatval`, `abs`)
 
 #### Konsep
@@ -761,8 +741,6 @@ abs($number)                                          → Nilai mutlak positif
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Math Functions (`round`, `ceil`, `floor`, `min`, `max`, `pow`, `sqrt`)
 
@@ -810,8 +788,6 @@ min(...$vals) / max(...)  → Ambil nilai minimum / maksimum
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟢 Date & Time Dasar (`time`, `date`, `strtotime`, `microtime`)
 
@@ -866,8 +842,6 @@ strtotime('+1 month')            → Konversi teks relatif ke unix timestamp
 - ❌ **Kesalahan Umum:** Untuk aplikasi modern dan logika bisnis tanggal yang kompleks, utamakan menggunakan `DateTimeImmutable` (lihat Bagian 13) dibanding fungsi prosedural `date()`.
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 `DateTime` & `DateTimeImmutable` (OOP Date Handling)
 
@@ -933,8 +907,6 @@ $dateA->diff($dateB);             → Menghitung objek selisih DateInterval
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 `DateInterval` & `DatePeriod`
 
 #### Konsep
@@ -979,8 +951,6 @@ new DatePeriod($start, $interval, $end)  → Koleksi generator perulangan rentan
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 `DateTimeZone` & Manajemen Zona Waktu
 
 #### Konsep
@@ -1022,8 +992,6 @@ $date->setTimezone($tz);                 → Konversi tampilan jam ke zona waktu
 - ❌ **Kesalahan Umum:** Menyimpan tanggal dengan zona waktu campuran di database tanpa menyertakan offset zona waktu.
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 JSON Processing (`json_encode`, `json_decode`, `json_validate`)
 
@@ -1093,8 +1061,6 @@ json_validate($json)                           → Cek validitas JSON tanpa deco
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Regular Expression PCRE (`preg_match`, `preg_match_all`, `preg_replace`, `preg_split`)
 
 #### Konsep
@@ -1149,8 +1115,6 @@ preg_replace('/\D/', '', $text)               → Ganti pola regex (misal: \D no
 - ❌ **Kesalahan Umum:** Menggunakan regex untuk operasi sederhana yang bisa diselesaikan jauh lebih cepat dengan `str_contains()` atau `str_replace()`.
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 File I/O Cepat (`file_get_contents`, `file_put_contents`, `file_exists`, `unlink`)
 
@@ -1209,8 +1173,6 @@ unlink($path)                              → Hapus file dari penyimpanan
 - ❌ **Kesalahan Umum:** Membaca file berukuran ratusan megabyte atau gigabyte dengan `file_get_contents()` yang akan menyebabkan *Fatal Error: Allowed memory size exhausted* (gunakan File Stream di Bagian 19).
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 File Stream & CSV (`fopen`, `fgets`, `fread`, `fwrite`, `fgetcsv`, `fputcsv`)
 
@@ -1283,8 +1245,6 @@ $h = fopen($path, 'r'); while ($row = fgetcsv($h)) { ... } fclose($h);
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 Directory & Filesystem (`mkdir`, `rmdir`, `scandir`, `is_dir`, `glob`)
 
 #### Konsep
@@ -1339,8 +1299,6 @@ scandir($path)               → Ambil seluruh isi folder menjadi array
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Path Operations (`basename`, `dirname`, `pathinfo`, `realpath`)
 
 #### Konsep
@@ -1384,8 +1342,6 @@ basename($path)                      → Ambil nama file saja
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Data Filter & Sanitasi (`filter_var`, `filter_input`, `FILTER_VALIDATE_*`)
 
@@ -1447,8 +1403,6 @@ filter_var($int, FILTER_VALIDATE_INT)       → Validasi angka integer
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🟡 URL Parsing & Query String (`parse_url`, `http_build_query`, `urlencode`)
 
 #### Konsep
@@ -1497,8 +1451,6 @@ http_build_query($params)     → Mengonversi array parameter menjadi query stri
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🟡 Variable & Type Checking (`isset`, `empty`, `unset`, `is_null`, `gettype`)
 
@@ -1561,8 +1513,6 @@ unset($var)      → Hapus variabel dari memori
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🟡 String Encoding & Multibyte (`mb_strlen`, `mb_substr`, `mb_strpos`)
 
 #### Konsep
@@ -1607,8 +1557,6 @@ mb_substr($str, $start, $len, 'UTF-8') → Potong teks UTF-8 tanpa merusak karak
 - ❌ **Kesalahan Umum:** Memotong emoji menggunakan `substr()` standar yang akan membelah byte emoji di tengah jalan (*corrupted character*).
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔴 Hash & Cryptographic Digest (`hash`, `hash_hmac`, `hash_equals`)
 
@@ -1658,8 +1606,6 @@ hash_equals($known, $user)             → Perbandingan hash aman anti Timing At
 - ❌ **Kesalahan Umum:** Menggunakan `hash('md5', ...)` atau `hash('sha1', ...)` untuk keamanan kata sandi (keduanya rentan bentrokan dan terlalu cepat ditembus).
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🔴 Secure Password Hashing (`password_hash`, `password_verify`, `password_needs_rehash`)
 
@@ -1712,8 +1658,6 @@ password_verify($password, $hash)                   → Verifikasi password saat
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🔴 Cryptographically Secure Random (`random_int`, `random_bytes`, `bin2hex`)
 
 #### Konsep
@@ -1759,8 +1703,6 @@ bin2hex(random_bytes(16))           → String token acak aman untuk Token / API
 - ❌ **Kesalahan Umum:** Menggunakan `uniqid()` atau `rand()` untuk token keamanan (keduanya dapat diprediksi oleh penyerang).
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🔴 Data Serialization (`serialize`, `unserialize`)
 
@@ -1808,8 +1750,6 @@ unserialize($string) → Serialized String -> PHP Data
 
 ---
 
-<a id="bagian-30"></a>
-
 ## 30. 🔴 SPL Iterators (`ArrayIterator`, `IteratorAggregate`, `DirectoryIterator`)
 
 #### Konsep
@@ -1850,8 +1790,6 @@ new DirectoryIterator($path)   → Iterator OOP untuk menelusuri isi direktori
 ```
 
 ---
-
-<a id="bagian-31"></a>
 
 ## 31. 🔴 Generators & `yield` (Streaming Data Hemat Memori)
 
@@ -1901,8 +1839,6 @@ yield $value;   → Mengembalikan satu nilai ke perulangan tanpa membebani RAM
 ```
 
 ---
-
-<a id="bagian-32"></a>
 
 ## 32. 🔴 Exception & Error Hierarchy (`Throwable`, `Exception`, `Error`, `TypeError`)
 
@@ -1960,8 +1896,6 @@ catch (Throwable $e)    → Menangkap seluruh jenis error dan exception di PHP
 
 ---
 
-<a id="bagian-33"></a>
-
 ## 33. 🔴 Reflection API (`ReflectionClass`, `ReflectionMethod`)
 
 #### Konsep
@@ -2005,8 +1939,6 @@ $ref = new ReflectionClass(ClassName::class);  → Introspeksi struktur dan meta
 ```
 
 ---
-
-<a id="bagian-34"></a>
 
 ## 34. 🔴 Intl Extension (`NumberFormatter`, `IntlDateFormatter`, `Locale`)
 
@@ -2057,8 +1989,6 @@ new NumberFormatter('id_ID', NumberFormatter::CURRENCY)->formatCurrency($val, 'I
 
 ---
 
-<a id="bagian-35"></a>
-
 ## 35. 🛠️ Peta Ingatan Cepat
 
 Mental model komprehensif seluruh domain PHP Standard Library:
@@ -2100,8 +2030,6 @@ Keamanan Akun    ──> password_hash, password_verify, random_int, random_byte
 
 ---
 
-<a id="bagian-36"></a>
-
 ## 36. 📚 Tabel Ringkasan
 
 | Domain | API / Fungsi Utama | Fungsi & Kegunaan Utama |
@@ -2126,8 +2054,6 @@ Keamanan Akun    ──> password_hash, password_verify, random_int, random_byte
 | **Streaming RAM**| `yield` (Generator) | Penghasil iterasi data on-demand hemat memori |
 
 ---
-
-<a id="bagian-37"></a>
 
 ## 37. ⚡ Cheat Code PHP Standard Library 10 Detik
 
@@ -2161,8 +2087,6 @@ $apiToken = bin2hex(random_bytes(16));
 ```
 
 ---
-
-<a id="bagian-38"></a>
 
 ## 38. 🧭 Urutan Belajar yang Disarankan
 
@@ -2198,8 +2122,6 @@ $apiToken = bin2hex(random_bytes(16));
 ```
 
 ---
-
-<a id="bagian-39"></a>
 
 ## 39. 🏗️ Mini Project: REST API & CLI Data Processor Terintegrasi
 
@@ -2322,8 +2244,6 @@ try {
 ```
 
 ---
-
-<a id="bagian-40"></a>
 
 ## 40. 🔗 Referensi Resmi
 

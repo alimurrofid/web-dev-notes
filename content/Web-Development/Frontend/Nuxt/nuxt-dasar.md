@@ -74,43 +74,41 @@ useSeoMeta()                  → composable resmi Nuxt untuk mengatur metadata 
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Nuxt 3 & Mental Model Full-Stack Framework](#bagian-1)
-2. [Tooling Nuxi CLI & Inisialisasi Proyek Baru](#bagian-2)
-3. [Anatomi Struktur Direktori Standar Nuxt 3](#bagian-3)
-4. [Konsep Auto-Imports Otomatis](#bagian-4)
-5. [File-Based Routing Dasar di Folder `pages/`](#bagian-5)
-6. [Dynamic Routing & Parameter URL](#bagian-6)
-7. [Navigasi Pintar dengan `<NuxtLink>`](#bagian-7)
-8. [Komponen `<NuxtPage>` & Root Component `app.vue`](#bagian-8)
+1. [Pengenalan Nuxt 3 & Mental Model Full-Stack Framework](#1--pengenalan-nuxt-3--mental-model-full-stack-framework)
+2. [Tooling Nuxi CLI & Inisialisasi Proyek Baru](#2--tooling-nuxi-cli--inisialisasi-proyek-baru)
+3. [Anatomi Struktur Direktori Standar Nuxt 3](#3--anatomi-struktur-direktori-standar-nuxt-3)
+4. [Konsep Auto-Imports Otomatis](#4--konsep-auto-imports-otomatis)
+5. [File-Based Routing Dasar di Folder `pages/`](#5--file-based-routing-dasar-di-folder-pages)
+6. [Dynamic Routing & Parameter URL](#6--dynamic-routing--parameter-url)
+7. [Navigasi Pintar dengan `<NuxtLink>`](#7--navigasi-pintar-dengan-nuxtlink)
+8. [Komponen `<NuxtPage>` & Root Component `app.vue`](#8--komponen-nuxtpage--root-component-appvue)
 
 ### 🟡 Lanjutan
 
-9. [Layouts System: Membuat Tata Letak Bersama di `layouts/`](#bagian-9)
-10. [Dynamic & Per-Page Layouts dengan `definePageMeta`](#bagian-10)
-11. [Komponen `<ClientOnly>` untuk Render Khusus Browser](#bagian-11)
-12. [Assets & Media: Folder `public/` vs `assets/`](#bagian-12)
-13. [SEO & Dynamic Metadata dengan `useHead()` & `useSeoMeta()`](#bagian-13)
-14. [Konfigurasi Utama di `nuxt.config.ts`](#bagian-14)
-15. [Nested Pages & Sub-routing](#bagian-15)
-16. [Halaman Error Kustom (`error.vue` di Root Proyek)](#bagian-16)
+9. [Layouts System: Membuat Tata Letak Bersama di `layouts/`](#9--layouts-system-membuat-tata-letak-bersama-di-layouts)
+10. [Dynamic & Per-Page Layouts dengan `definePageMeta`](#10--dynamic--per-page-layouts-dengan-definepagemeta)
+11. [Komponen `<ClientOnly>` untuk Render Khusus Browser](#11--komponen-clientonly-untuk-render-khusus-browser)
+12. [Assets & Media: Folder `public/` vs `assets/`](#12--assets--media-folder-public-vs-assets)
+13. [SEO & Dynamic Metadata dengan `useHead()` & `useSeoMeta()`](#13--seo--dynamic-metadata-dengan-usehead--useseometa)
+14. [Konfigurasi Utama di `nuxt.config.ts`](#14--konfigurasi-utama-di-nuxtconfigts)
+15. [Nested Pages & Sub-routing](#15--nested-pages--sub-routing)
+16. [Halaman Error Kustom (`error.vue` di Root Proyek)](#16--halaman-error-kustom-errorvue-di-root-proyek)
 
 ### 🔴 Advanced / Operasional
 
-17. [Page & Layout Transitions](#bagian-17)
-18. [TypeScript Support Kelas Satu di Nuxt 3](#bagian-18)
+17. [Page & Layout Transitions](#17--page--layout-transitions)
+18. [TypeScript Support Kelas Satu di Nuxt 3](#18--typescript-support-kelas-satu-di-nuxt-3)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Nuxt Dasar 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready Corporate Blog & Product Showcase Nuxt Web App](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Nuxt Dasar 10 Detik](#21--cheat-code-nuxt-dasar-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready Corporate Blog & Product Showcase Nuxt Web App](#23-️-mini-project-production-ready-corporate-blog--product-showcase-nuxt-web-app)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Nuxt 3 & Mental Model Full-Stack Framework
 
@@ -143,8 +141,6 @@ Universal SSR → render HTML matang di server untuk kecepatan awal dan SEO, lal
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Tooling Nuxi CLI & Inisialisasi Proyek Baru
 
 #### Konsep
@@ -175,8 +171,6 @@ npx nuxi@latest init <nama-proyek> → perintah resmi pembuatan proyek baru Nuxt
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Anatomi Struktur Direktori Standar Nuxt 3
 
@@ -211,8 +205,6 @@ server/      → endpoint API backend Nitro
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Konsep Auto-Imports Otomatis
 
@@ -262,8 +254,6 @@ Auto-Imports → seluruh fungsi Vue Reactivity, Nuxt Composables, dan Komponen U
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 File-Based Routing Dasar di Folder `pages/`
 
 #### Konsep
@@ -298,8 +288,6 @@ pages/about.vue   → rute /about
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Dynamic Routing & Parameter URL
 
@@ -340,8 +328,6 @@ pages/[...slug].vue     → rute catch-all yang menangkap seluruh sisa segmen UR
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Navigasi Pintar dengan `<NuxtLink>`
 
 #### Konsep
@@ -377,8 +363,6 @@ Fitur Unggulan `<NuxtLink>`:
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Komponen `<NuxtPage>` & Root Component `app.vue`
 
 #### Konsep
@@ -411,8 +395,6 @@ File `app.vue` Standar dengan Layout:
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Layouts System: Membuat Tata Letak Bersama di `layouts/`
 
@@ -459,8 +441,6 @@ layouts/default.vue + <slot /> → template tata letak bersama default untuk sel
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Dynamic & Per-Page Layouts dengan `definePageMeta`
 
@@ -514,8 +494,6 @@ definePageMeta({ layout: false })   → menonaktifkan seluruh layout (halaman po
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Komponen `<ClientOnly>` untuk Render Khusus Browser
 
 #### Konsep
@@ -551,8 +529,6 @@ Gunakan tag bawaan **`<ClientOnly>`**:
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Assets & Media: Folder `public/` vs `assets/`
 
 #### Konsep
@@ -587,8 +563,6 @@ assets/images  → alias path (~/assets/file.png) diproses dan dioptimasi oleh V
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 SEO & Dynamic Metadata dengan `useHead()` & `useSeoMeta()`
 
@@ -631,8 +605,6 @@ useSeoMeta({ title: 'Judul', description: 'Deskripsi', ogImage: 'url' }) → kon
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Konfigurasi Utama di `nuxt.config.ts`
 
@@ -681,8 +653,6 @@ defineNuxtConfig({ devtools: { enabled: true }, css: ['~/assets/css/main.css'] }
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Nested Pages & Sub-routing
 
 #### Konsep
@@ -729,8 +699,6 @@ pages/parent.vue + pages/parent/child.vue → membuat sub-routing bersarang deng
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Halaman Error Kustom (`error.vue` di Root Proyek)
 
@@ -782,8 +750,6 @@ error.vue + clearError({ redirect: '/' }) → halaman error kustom global penang
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Page & Layout Transitions
 
 #### Konsep
@@ -822,8 +788,6 @@ app.pageTransition: { name: 'page', mode: 'out-in' } → mengaktifkan animasi tr
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 TypeScript Support Kelas Satu di Nuxt 3
 
 #### Konsep
@@ -839,8 +803,6 @@ Nuxt 3 dibangun 100% menggunakan TypeScript dan menyediakan **auto-type generati
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🛠️ Peta Ingatan Cepat
 
@@ -858,8 +820,6 @@ ROUTING & NAVIGASI             LAYOUTS & VIEWPORT              OPTIMASI & SEO
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 📚 Tabel Ringkasan
 
 | Fitur / Komponen | Lokasi / Tipe | Fungsi & Karakteristik Utama |
@@ -875,8 +835,6 @@ ROUTING & NAVIGASI             LAYOUTS & VIEWPORT              OPTIMASI & SEO
 | `clearError()` | Composable | Membersihkan status error global dan melakukan redirect |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Nuxt Dasar 10 Detik
 
@@ -907,8 +865,6 @@ const count = ref(0)
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -937,8 +893,6 @@ Langkah 5: Siap Melangkah ke Nuxt Data Fetching (useFetch) & Nitro Server API!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready Corporate Blog & Product Showcase Nuxt Web App
 
@@ -1172,8 +1126,6 @@ const handleClear = () => clearError({ redirect: '/' })
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

@@ -70,52 +70,50 @@ Inheritance → Pewarisan fitur dari parent class ke child class via extends
 
 ### 🟢 Fundamental
 
-1. [Pengenalan OOP & 4 Pilar Utama](#bagian-1)
-2. [Constructor Function](#bagian-2)
-3. [Property di Constructor Function](#bagian-3)
-4. [Method di Constructor Function & Masalah Duplikasi Memori](#bagian-4)
-5. [Parameter di Constructor Function](#bagian-5)
-6. [Constructor Inheritance (Parent.call(this))](#bagian-6)
-7. [Prototype (prototype & __proto__)](#bagian-7)
-8. [Prototype Inheritance & Prototype Chain](#bagian-8)
-9. [Class Declaration & Expression (ES6)](#bagian-9)
-10. [Constructor di Class](#bagian-10)
-11. [Property di Class](#bagian-11)
-12. [Method di Class & Prototype Method](#bagian-12)
+1. [Pengenalan OOP & 4 Pilar Utama](#1--pengenalan-oop--4-pilar-utama)
+2. [Constructor Function](#2--constructor-function)
+3. [Property di Constructor Function](#3--property-di-constructor-function)
+4. [Method di Constructor Function & Masalah Duplikasi Memori](#4--method-di-constructor-function--masalah-duplikasi-memori)
+5. [Parameter di Constructor Function](#5--parameter-di-constructor-function)
+6. [Constructor Inheritance (Parent.call(this))](#6--constructor-inheritance-parentcallthis)
+7. [Prototype (prototype & __proto__)](#7--prototype-prototype--__proto__)
+8. [Prototype Inheritance & Prototype Chain](#8--prototype-inheritance--prototype-chain)
+9. [Class Declaration & Expression (ES6)](#9--class-declaration--expression-es6)
+10. [Constructor di Class](#10--constructor-di-class)
+11. [Property di Class](#11--property-di-class)
+12. [Method di Class & Prototype Method](#12--method-di-class--prototype-method)
 
 ### 🟡 Lanjutan
 
-13. [Class Inheritance (extends)](#bagian-13)
-14. [Super Constructor (super())](#bagian-14)
-15. [Super Method (super.method()) & Method Overriding](#bagian-15)
-16. [Getter dan Setter di Class](#bagian-16)
-17. [Public Class Field](#bagian-17)
-18. [Private Class Field (#field) & Enkapsulasi Asli](#bagian-18)
-19. [Private Method (#method())](#bagian-19)
-20. [Operator instanceof & Type Checking](#bagian-20)
-21. [Static Field (static property)](#bagian-21)
-22. [Static Method (static method()) & Utility Class](#bagian-22)
-23. [Standard Error di JavaScript (Error, TypeError, RangeError)](#bagian-23)
-24. [Error Handling (try, catch, finally, throw)](#bagian-24)
-25. [Custom Error Class (class CustomError extends Error)](#bagian-25)
+13. [Class Inheritance (extends)](#13--class-inheritance-extends)
+14. [Super Constructor (super())](#14--super-constructor-super)
+15. [Super Method (super.method()) & Method Overriding](#15--super-method-supermethod--method-overriding)
+16. [Getter dan Setter di Class](#16--getter-dan-setter-di-class)
+17. [Public Class Field](#17--public-class-field)
+18. [Private Class Field (#field) & Enkapsulasi Asli](#18--private-class-field-field--enkapsulasi-asli)
+19. [Private Method (#method())](#19--private-method-method)
+20. [Operator instanceof & Type Checking](#20--operator-instanceof--type-checking)
+21. [Static Field (static property)](#21--static-field-static-property)
+22. [Static Method (static method()) & Utility Class](#22--static-method-static-method--utility-class)
+23. [Standard Error di JavaScript (Error, TypeError, RangeError)](#23--standard-error-di-javascript-error-typeerror-rangeerror)
+24. [Error Handling (try, catch, finally, throw)](#24--error-handling-try-catch-finally-throw)
+25. [Custom Error Class (class CustomError extends Error)](#25--custom-error-class-class-customerror-extends-error)
 
 ### 🔴 Advanced / Operasional
 
-26. [Iterable dan Iterator Protocol ([Symbol.iterator])](#bagian-26)
-27. [Object Composition vs Class Inheritance](#bagian-27)
+26. [Iterable dan Iterator Protocol ([Symbol.iterator])](#26--iterable-dan-iterator-protocol-symboliterator)
+27. [Object Composition vs Class Inheritance](#27--object-composition-vs-class-inheritance)
 
 ### 🛠️ Referensi & Praktik
 
-28. [Peta Ingatan Cepat](#bagian-28)
-29. [Tabel Ringkasan](#bagian-29)
-30. [Cheat Code JavaScript OOP 10 Detik](#bagian-30)
-31. [Urutan Belajar yang Disarankan](#bagian-31)
-32. [Mini Project: Sistem Manajemen Reservasi Kamar & Layanan Hotel OOP](#bagian-32)
-33. [Referensi Resmi](#bagian-33)
+28. [Peta Ingatan Cepat](#28-️-peta-ingatan-cepat)
+29. [Tabel Ringkasan](#29--tabel-ringkasan)
+30. [Cheat Code JavaScript OOP 10 Detik](#30--cheat-code-javascript-oop-10-detik)
+31. [Urutan Belajar yang Disarankan](#31--urutan-belajar-yang-disarankan)
+32. [Mini Project: Sistem Manajemen Reservasi Kamar & Layanan Hotel OOP](#32-️-mini-project-sistem-manajemen-reservasi-kamar--layanan-hotel-oop)
+33. [Referensi Resmi](#33--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan OOP & 4 Pilar Utama
 
@@ -199,8 +197,6 @@ Class    → Blueprint / cetak biru untuk menciptakan banyak objek sejenis
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Constructor Function
 
 #### Konsep
@@ -275,8 +271,6 @@ const instance = new Identifier(arguments)                 → Instansiasi objek
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Property di Constructor Function
 
 #### Konsep
@@ -338,8 +332,6 @@ this.propertyName = value → Menetapkan nilai properti unik pada instance objek
 - ❌ Hindari menaruh data yang seharusnya dipakai bersama (*shared data*) langsung di dalam `this` constructor jika data tersebut tidak pernah berubah nilainya (gunakan prototype atau static).
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Method di Constructor Function & Masalah Duplikasi Memori
 
@@ -408,8 +400,6 @@ instance1.method === instance2.method → Bernilai false (menandakan fungsi didu
 - ❌ Untuk method umum yang logikanya identik pada seluruh instance, gunakan mekanisme **Prototype** agar memori digunakan bersama (*shared memory*).
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Parameter di Constructor Function
 
@@ -487,8 +477,6 @@ function Identifier({ param1 = def1, param2 = def2 } = {}) → Pola inisialisasi
 - ❌ Jangan membuat constructor dengan belasan parameter bertipe sama berurutan tanpa nama objek pembungkus.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Constructor Inheritance (Parent.call(this))
 
@@ -571,8 +559,6 @@ ParentConstructor.call(this, ...args) → Meminjam constructor parent untuk meng
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Prototype (prototype & __proto__)
 
 #### Konsep
@@ -652,8 +638,6 @@ Object.getPrototypeOf(instance)                       → Cara standar membaca p
 - ❌ Gunakan `Object.getPrototypeOf(obj)` alih-alih properti non-standar `obj.__proto__` untuk membaca prototype objek.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Prototype Inheritance & Prototype Chain
 
@@ -755,8 +739,6 @@ Object.prototype                                         → Akar teratas dari s
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Class Declaration & Expression (ES6)
 
 #### Konsep
@@ -830,8 +812,6 @@ const ClassName = class { ... } → Mendeklarasikan class expression ke dalam va
 - ❌ Jangan mencoba memanggil class tanpa kata kunci `new`, karena engine JavaScript akan langsung melempar `TypeError: Class constructor cannot be invoked without 'new'`.
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Constructor di Class
 
@@ -909,8 +889,6 @@ constructor(...parameters) { ... } → Method inisialisasi wajib yang otomatis d
 - ❌ Jangan pernah menulis lebih dari satu method `constructor` dalam satu class yang sama karena akan menghasilkan `SyntaxError`.
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Property di Class
 
@@ -992,8 +970,6 @@ this.propertyName = value;   → Properti yang didefinisikan di dalam method/con
 - ❌ Jangan biarkan properti dibiarkan tanpa inisialisasi awal jika berpotensi menyebabkan nilai `undefined` saat diakses method.
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟢 Method di Class & Prototype Method
 
@@ -1084,8 +1060,6 @@ this.propertyName               → Mengakses data milik instance pemanggil saat
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Class Inheritance (extends)
 
 #### Konsep
@@ -1162,8 +1136,6 @@ class SubClass extends SuperClass { ... } → Mewarisi seluruh method dan proper
 - ❌ Jangan membuat pohon pewarisan yang terlalu dalam bertingkat-tingkat (misal lebih dari 3-4 tingkat) karena membuat alur kode sulit dilacak.
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Super Constructor (super())
 
@@ -1250,8 +1222,6 @@ super(...arguments) → Memanggil constructor parent class (wajib sebelum mengak
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Super Method (super.method()) & Method Overriding
 
 #### Konsep
@@ -1327,8 +1297,6 @@ super.methodName(...args) → Memanggil method milik parent class dari dalam sub
 - ❌ Hati-hati saat meng-override method; pastikan tipe nilai kembalian (*return type*) tetap konsisten dengan kontrak parent agar tidak merusak kode pemanggil (*Liskov Substitution Principle*).
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Getter dan Setter di Class
 
@@ -1433,8 +1401,6 @@ set propertyName(value) { ... }      → Mendefinisikan properti tulis dengan va
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Public Class Field
 
 #### Konsep
@@ -1503,8 +1469,6 @@ class ClassName { fieldName = defaultValue; } → Deklarasi public field modern 
 - ❌ Jangan gunakan public field jika data tersebut bersifat rahasia dan tidak boleh dimodifikasi langsung dari luar (gunakan *Private Field* `#`).
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 Private Class Field (#field) & Enkapsulasi Asli
 
@@ -1612,8 +1576,6 @@ this.#fieldName            → Mengakses private field dari dalam method interna
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 Private Method (#method())
 
 #### Konsep
@@ -1694,8 +1656,6 @@ this.#methodName(...)           → Memanggil method privat dari dalam class
 - ❌ Subclass tidak dapat mengakses private method milik parent class secara langsung.
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🟡 Operator instanceof & Type Checking
 
@@ -1785,8 +1745,6 @@ objectInstance instanceof TargetClass → Mengecek apakah objek merupakan instan
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Static Field (static property)
 
 #### Konsep
@@ -1868,8 +1826,6 @@ ClassName.fieldName       → Mengakses nilai static field
 - ❌ Jangan mencoba membaca static field menggunakan `this.staticProp` di dalam method instance biasa; gunakan `ClassName.staticProp`.
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Static Method (static method()) & Utility Class
 
@@ -1961,8 +1917,6 @@ ClassName.methodName(...args)         → Memanggil static method secara langsun
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🟡 Standard Error di JavaScript (Error, TypeError, RangeError)
 
 #### Konsep
@@ -2045,8 +1999,6 @@ error.message            → Mengambil isi pesan kesalahan
 - ❌ Pilih jenis error bawaan yang tepat (`TypeError` untuk kesalahan tipe data, `RangeError` untuk batas angka).
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🟡 Error Handling (try, catch, finally, throw)
 
@@ -2137,8 +2089,6 @@ try { ... } catch (error) { ... } finally { ... } → Struktur lengkap penangana
 - ❌ Jangan membuat blok `catch` yang kosong tanpa aksi apa pun (*silent fail*), karena hal itu akan menyembunyikan bug penting yang seharusnya diperbaiki.
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🟡 Custom Error Class (class CustomError extends Error)
 
@@ -2246,8 +2196,6 @@ if (error instanceof CustomError) { ... }→ Membedakan penanganan error secara 
 - ❌ Jangan membuat puluhan custom error class untuk kasus yang terlalu sepele; kelompokkan error berdasarkan kategori penanganannya.
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔴 Iterable dan Iterator Protocol ([Symbol.iterator])
 
@@ -2358,8 +2306,6 @@ Total Anggota (via Spread): 3
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 🔴 Object Composition vs Class Inheritance
 
 #### Konsep
@@ -2459,8 +2405,6 @@ Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke sat
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🛠️ Peta Ingatan Cepat
 
 #### Mental Model Arsitektur OOP JavaScript
@@ -2523,8 +2467,6 @@ Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke sat
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 📚 Tabel Ringkasan
 
 | Kategori | Fitur / Sintaks | Contoh Kode | Penjelasan & Kegunaan |
@@ -2547,8 +2489,6 @@ Object.assign(target, ...sources) → Menggabungkan banyak objek behavior ke sat
 | **Protokol** | Iterable | `[Symbol.iterator]() { ... }` | Mengaktifkan dukungan perulangan `for...of` |
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. ⚡ Cheat Code JavaScript OOP 10 Detik
 
@@ -2608,8 +2548,6 @@ try {
 
 ---
 
-<a id="bagian-31"></a>
-
 ## 31. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai Object-Oriented Programming di JavaScript secara mendalam dan terstruktur, ikuti 4 tahapan belajar berikut:
@@ -2649,8 +2587,6 @@ Untuk menguasai Object-Oriented Programming di JavaScript secara mendalam dan te
 ```
 
 ---
-
-<a id="bagian-32"></a>
 
 ## 32. 🏗️ Mini Project: Sistem Manajemen Reservasi Kamar & Layanan Hotel OOP
 
@@ -2902,8 +2838,6 @@ Polymorphism in Action → Method calculateDailyRate() dipanggil seragam tapi ha
 ```
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 🔗 Referensi Resmi
 

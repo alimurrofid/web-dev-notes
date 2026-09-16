@@ -72,64 +72,62 @@ Constructor  → Method khusus __construct() yang otomatis dieksekusi saat objec
 
 ### 🟢 Fundamental
 
-1. [Pengenalan OOP & Mental Model Objek](#bagian-1)
-2. [Class (Definisi & Struktur)](#bagian-2)
-3. [Object (Instansiasi dengan new)](#bagian-3)
-4. [Property (Typed Properties & Readonly)](#bagian-4)
-5. [Method & Return Types](#bagian-5)
-6. [$this Keyword & Method Chaining](#bagian-6)
-7. [Constructor & Constructor Property Promotion (PHP 8+)](#bagian-7)
-8. [Visibility (public, protected, private)](#bagian-8)
-9. [Encapsulation & Data Integrity](#bagian-9)
-10. [Getter dan Setter (Accessor & Mutator)](#bagian-10)
-11. [Inheritance (Pewarisan dengan extends)](#bagian-11)
-12. [Method Overriding & Strict Compatibility](#bagian-12)
-13. [parent Keyword & Parent Constructor](#bagian-13)
-14. [Abstract Class & Abstract Method](#bagian-14)
-15. [Interface & Multiple Interfaces](#bagian-15)
-16. [Interface Inheritance](#bagian-16)
-17. [Polymorphism (Satu Kontrak, Banyak Bentuk)](#bagian-17)
-18. [Type Declaration & instanceof Operator](#bagian-18)
+1. [Pengenalan OOP & Mental Model Objek](#1--pengenalan-oop--mental-model-objek)
+2. [Class (Definisi & Struktur)](#2--class-definisi--struktur)
+3. [Object (Instansiasi dengan new)](#3--object-instansiasi-dengan-new)
+4. [Property (Typed Properties & Readonly)](#4--property-typed-properties--readonly)
+5. [Method & Return Types](#5--method--return-types)
+6. [$this Keyword & Method Chaining](#6--this-keyword--method-chaining)
+7. [Constructor & Constructor Property Promotion (PHP 8+)](#7--constructor--constructor-property-promotion-php-8)
+8. [Visibility (public, protected, private)](#8--visibility-public-protected-private)
+9. [Encapsulation & Data Integrity](#9--encapsulation--data-integrity)
+10. [Getter dan Setter (Accessor & Mutator)](#10--getter-dan-setter-accessor--mutator)
+11. [Inheritance (Pewarisan dengan extends)](#11--inheritance-pewarisan-dengan-extends)
+12. [Method Overriding & Strict Compatibility](#12--method-overriding--strict-compatibility)
+13. [parent Keyword & Parent Constructor](#13--parent-keyword--parent-constructor)
+14. [Abstract Class & Abstract Method](#14--abstract-class--abstract-method)
+15. [Interface & Multiple Interfaces](#15--interface--multiple-interfaces)
+16. [Interface Inheritance](#16--interface-inheritance)
+17. [Polymorphism (Satu Kontrak, Banyak Bentuk)](#17--polymorphism-satu-kontrak-banyak-bentuk)
+18. [Type Declaration & instanceof Operator](#18--type-declaration--instanceof-operator)
 
 ### 🟡 Lanjutan
 
-19. [Namespace & Penataan Struktur Kode](#bagian-19)
-20. [use Keyword (Import Class, Function, Const, & Alias)](#bagian-20)
-21. [static Keyword (Static Property & Method)](#bagian-21)
-22. [self vs $this vs parent](#bagian-22)
-23. [final Keyword (Final Method & Class)](#bagian-23)
-24. [Trait (Horizontal Code Reuse)](#bagian-24)
-25. [Trait Conflict, Priority & Alias (insteadof & as)](#bagian-25)
-26. [Anonymous Class](#bagian-26)
-27. [stdClass & Object Casting](#bagian-27)
-28. [Object Cloning (clone & __clone)](#bagian-28)
-29. [Comparing Objects (== vs ===)](#bagian-29)
-30. [Magic Methods Populer (__toString, __get, __set, __call, __invoke)](#bagian-30)
-31. [Overloading Property & Method Dinamis](#bagian-31)
-32. [Object Iteration (IteratorAggregate & Traversable)](#bagian-32)
-33. [Destructor (__destruct) & Resource Cleanup](#bagian-33)
+19. [Namespace & Penataan Struktur Kode](#19--namespace--penataan-struktur-kode)
+20. [use Keyword (Import Class, Function, Const, & Alias)](#20--use-keyword-import-class-function-const--alias)
+21. [static Keyword (Static Property & Method)](#21--static-keyword-static-property--method)
+22. [self vs $this vs parent](#22--self-vs-this-vs-parent)
+23. [final Keyword (Final Method & Class)](#23--final-keyword-final-method--class)
+24. [Trait (Horizontal Code Reuse)](#24--trait-horizontal-code-reuse)
+25. [Trait Conflict, Priority & Alias (insteadof & as)](#25--trait-conflict-priority--alias-insteadof--as)
+26. [Anonymous Class](#26--anonymous-class)
+27. [stdClass & Object Casting](#27--stdclass--object-casting)
+28. [Object Cloning (clone & __clone)](#28--object-cloning-clone--__clone)
+29. [Comparing Objects (== vs ===)](#29--comparing-objects--vs-)
+30. [Magic Methods Populer (__toString, __get, __set, __call, __invoke)](#30--magic-methods-populer)
+31. [Overloading Property & Method Dinamis](#31--overloading-property--method-dinamis)
+32. [Object Iteration (IteratorAggregate & Traversable)](#32--object-iteration-iteratoraggregate--traversable)
+33. [Destructor (__destruct) & Resource Cleanup](#33--destructor-__destruct--resource-cleanup)
 
 ### 🔴 Advanced / Reference
 
-34. [Generator & yield dalam OOP](#bagian-34)
-35. [Covariance & Contravariance](#bagian-35)
-36. [Reflection API (Introspeksi Class & Object)](#bagian-36)
-37. [DateTime & DateTimeImmutable (OOP Date Handling)](#bagian-37)
-38. [Exception Handling (try, catch, finally, Custom Exception)](#bagian-38)
-39. [Regular Expression OOP (Pola PCRE2 dalam Objek)](#bagian-39)
+34. [Generator & yield dalam OOP](#34--generator--yield-dalam-oop)
+35. [Covariance & Contravariance](#35--covariance--contravariance)
+36. [Reflection API (Introspeksi Class & Object)](#36--reflection-api-introspeksi-class--object)
+37. [DateTime & DateTimeImmutable (OOP Date Handling)](#37--datetime--datetimeimmutable-oop-date-handling)
+38. [Exception Handling (try, catch, finally, Custom Exception)](#38--exception-handling-try-catch-finally-custom-exception)
+39. [Regular Expression OOP (Pola PCRE2 dalam Objek)](#39--regular-expression-oop-pola-pcre2-dalam-objek)
 
 ### 🛠️ Referensi & Praktik
 
-40. [Peta Ingatan Cepat](#bagian-40)
-41. [Tabel Ringkasan](#bagian-41)
-42. [Cheat Code PHP OOP 10 Detik](#bagian-42)
-43. [Urutan Belajar yang Disarankan](#bagian-43)
-44. [Mini Project: Sistem Manajemen E-Commerce & Pembayaran OOP](#bagian-44)
-45. [Referensi Resmi](#bagian-45)
+40. [Peta Ingatan Cepat](#40-️-peta-ingatan-cepat)
+41. [Tabel Ringkasan](#41--tabel-ringkasan)
+42. [Cheat Code PHP OOP 10 Detik](#42--cheat-code-php-oop-10-detik)
+43. [Urutan Belajar yang Disarankan](#43--urutan-belajar-yang-disarankan)
+44. [Mini Project: Sistem Manajemen E-Commerce & Pembayaran OOP](#44-️-mini-project-sistem-manajemen-e-commerce--pembayaran-oop)
+45. [Referensi Resmi](#45--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan OOP & Mental Model Objek
 
@@ -202,8 +200,6 @@ Object  → Bentuk nyata hasil cetakan class yang menyimpan data tersendiri
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Class (Definisi & Struktur)
 
 #### Konsep
@@ -255,8 +251,6 @@ class ClassName { ... }   → Mendefinisikan class baru dengan nama PascalCase
 - ❌ **Kesalahan Umum:** Menulis kode logika eksekusi (seperti `echo` atau kalkulasi langsung) di luar method di dalam blok class.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Object (Instansiasi dengan `new`)
 
@@ -330,8 +324,6 @@ $object->methodName()       → Menjalankan method dari objek
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Property (Typed Properties & Readonly)
 
 #### Konsep
@@ -398,8 +390,6 @@ public readonly type $propertyName; → Properti yang nilainya tidak dapat diuba
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Method & Return Types
 
 #### Konsep
@@ -465,8 +455,6 @@ public function methodName(type $param): returnType { ... }
 - ❌ **Kesalahan Umum:** Lupa kata kunci `public`/`private`/`protected` pada deklarasi method (meski default-nya `public`, menuliskannya secara eksplisit adalah standar PSR-12).
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 `$this` Keyword & Method Chaining
 
@@ -556,8 +544,6 @@ return $this;             → Pola method chaining (fluent interface)
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Constructor & Constructor Property Promotion (PHP 8+)
 
 #### Konsep
@@ -621,8 +607,6 @@ public function __construct(public type $param) { ... }  → Deklarasi + inisial
 - ❌ **Kesalahan Umum:** Menggandakan deklarasi properti di luar constructor saat sudah menggunakan property promotion.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Visibility (`public`, `protected`, `private`)
 
@@ -700,8 +684,6 @@ private   → Terkunci rapat hanya untuk class tempat ia ditulis
 - ❌ **Kesalahan Umum:** Menjadikan semua properti `public` sehingga state internal objek bisa dirusak secara liar dari luar.
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Encapsulation & Data Integrity
 
@@ -792,8 +774,6 @@ Enkapsulasi = Data disembunyikan (private) + Akses divalidasi via method publik
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Getter dan Setter (Accessor & Mutator)
 
 #### Konsep
@@ -869,8 +849,6 @@ public function setProperty(type $value): void { $this->property = $value; }
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟢 Inheritance (Pewarisan dengan `extends`)
 
 #### Konsep
@@ -941,8 +919,6 @@ class ChildClass extends ParentClass { ... }  → Mewarisi seluruh member parent
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟢 Method Overriding & Strict Compatibility
 
 #### Konsep
@@ -1009,8 +985,6 @@ Override = Menulis ulang method parent di child class dengan nama yang sama
 - ❌ **Kesalahan Umum:** Mengubah visibility dari `public` di parent menjadi `private` di child class (*Fatal Error: Access level must be public*).
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟢 `parent` Keyword & Parent Constructor
 
@@ -1083,8 +1057,6 @@ parent::methodName($args)   → Menjalankan method class induk yang di-override
 - ❌ **Kesalahan Umum:** Lupa memanggil constructor parent sehingga properti penting yang diinisialisasi di class induk menjadi kosong/uninitialized.
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟢 Abstract Class & Abstract Method
 
@@ -1160,8 +1132,6 @@ abstract public function methodName();   → Deklarasi kontrak method wajib tanp
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟢 Interface & Multiple Interfaces
 
 #### Konsep
@@ -1236,8 +1206,6 @@ class MyClass implements IntfA, IntfB { ... } → Memenuhi implementasi banyak i
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟢 Interface Inheritance
 
 #### Konsep
@@ -1308,8 +1276,6 @@ interface ChildInterface extends ParentInterface { ... }
 - ❌ **Kesalahan Umum:** Membuat interface raksasa yang memaksa class mengimplementasikan method yang sebenarnya tidak dibutuhkan.
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟢 Polymorphism (Satu Kontrak, Banyak Bentuk)
 
@@ -1387,8 +1353,6 @@ Polymorphism = Bergantung pada Interface/Abstraksi, bukan pada class konkret
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟢 Type Declaration & `instanceof` Operator
 
 #### Konsep
@@ -1444,8 +1408,6 @@ $object instanceof InterfaceName  → Memeriksa apakah $object mengimplementasik
 - ❌ **Kesalahan Umum:** Menggunakan perbandingan string nama class `get_class($obj) === 'EmailPesan'` yang tidak mengenali hubungan inheritance dan interface.
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 Namespace & Penataan Struktur Kode
 
@@ -1515,8 +1477,6 @@ namespace App\Services;     → Mendeklarasikan ruang nama file saat ini
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 `use` Keyword (Import Class, Function, Const, & Alias)
 
 #### Konsep
@@ -1562,8 +1522,6 @@ use const Path\To\CONST_NAME;       → Import konstanta
 - ❌ **Kesalahan Umum:** Mengimpor dua class bernama sama tanpa memberikan alias `as` (*Fatal Error: Cannot use App\A\User as User because the name is already in use*).
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🟡 `static` Keyword (Static Property & Method)
 
@@ -1626,8 +1584,6 @@ self::$staticProperty         → Mengakses properti statis dari dalam class
 - ❌ **Kesalahan Umum:** Menggunakan `$this` di dalam static method (static method tidak memiliki konteks `$this`!).
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 `self` vs `$this` vs `parent`
 
@@ -1692,8 +1648,6 @@ parent::method()  → Akses method milik class induk
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🟡 `final` Keyword (Final Method & Class)
 
 #### Konsep
@@ -1738,8 +1692,6 @@ final public function methodName()    → Mencegah method di-override
 - ❌ **Kesalahan Umum:** Menjadikan abstract class sebagai `final` (kontradiktif! Abstract mewajibkan extends, sedangkan final melarang extends).
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🟡 Trait (Horizontal Code Reuse)
 
@@ -1816,8 +1768,6 @@ use TraitA, TraitB;        → Memasang satu atau banyak trait di dalam class
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🟡 Trait Conflict, Priority & Alias (`insteadof` & `as`)
 
 #### Konsep
@@ -1879,8 +1829,6 @@ TraitB::method as aliasName;       → Ganti nama panggilan method dari TraitB
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🟡 Anonymous Class
 
 #### Konsep
@@ -1929,8 +1877,6 @@ $obj = new class($args) { ... };  → Membuat objek dari class anonim instan
 - ❌ **Kesalahan Umum:** Menggunakan anonymous class untuk struktur data domain utama yang perlu dipakai berulang di banyak file.
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🟡 `stdClass` & Object Casting
 
@@ -1982,8 +1928,6 @@ $obj = new stdClass();    → Membuat objek generic kosong bawaan PHP
 - ❌ **Kesalahan Umum:** Mengira `stdClass` memiliki method; `stdClass` murni penampung properti dinamis tanpa method.
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🟡 Object Cloning (`clone` & `__clone`)
 
@@ -2056,8 +2000,6 @@ public function __clone()  → Method yang otomatis dipanggil saat proses klonin
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 🟡 Comparing Objects (`==` vs `===`)
 
 #### Konsep
@@ -2106,8 +2048,6 @@ $objA === $objB   → True hanya jika menunjuk ke alamat instance memori yang pe
 - ❌ **Kesalahan Umum:** Membandingkan dua objek hasil kloning dengan `===` dan berharap hasilnya `true`.
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🟡 Magic Methods Populer
 
@@ -2170,8 +2110,6 @@ __get($prop) / __set($p,$v) → Menangkap akses ke properti yang tidak terdefini
 
 ---
 
-<a id="bagian-31"></a>
-
 ## 31. 🟡 Overloading Property & Method Dinamis
 
 #### Konsep
@@ -2232,8 +2170,6 @@ __call($method, $args)     → Intersep pemanggilan method dinamis
 
 ---
 
-<a id="bagian-32"></a>
-
 ## 32. 🟡 Object Iteration (`IteratorAggregate` & `Traversable`)
 
 #### Konsep
@@ -2293,8 +2229,6 @@ public function getIterator() → Mengembalikan instance ArrayIterator dari data
 
 ---
 
-<a id="bagian-33"></a>
-
 ## 33. 🟡 Destructor (`__destruct`) & Resource Cleanup
 
 #### Konsep
@@ -2349,8 +2283,6 @@ public function __destruct()  → Dipanggil otomatis saat objek dihapus / progra
 - ❌ **Kesalahan Umum:** Melempar exception dari dalam `__destruct()` (dapat memicu *Fatal Error* yang tidak tertangkap jika skrip sedang shutdown).
 
 ---
-
-<a id="bagian-34"></a>
 
 ## 34. 🔴 Generator & `yield` dalam OOP
 
@@ -2418,8 +2350,6 @@ public function fn(): Generator  → Return type fungsi generator
 
 ---
 
-<a id="bagian-35"></a>
-
 ## 35. 🔴 Covariance & Contravariance
 
 #### Konsep
@@ -2468,8 +2398,6 @@ Contravariance → Parameter type boleh lebih luas / umum (Parent Class)
 ```
 
 ---
-
-<a id="bagian-36"></a>
 
 ## 36. 🔴 Reflection API (Introspeksi Class & Object)
 
@@ -2524,8 +2452,6 @@ $reflector->getMethods();                            → Mengambil daftar seluru
 
 ---
 
-<a id="bagian-37"></a>
-
 ## 37. 🔴 DateTime & `DateTimeImmutable` (OOP Date Handling)
 
 #### Konsep
@@ -2570,8 +2496,6 @@ $date->modify('+1 day');       → Tambah waktu (menghasilkan objek baru)
 - ❌ **Kesalahan Umum:** Menggunakan fungsi prosedural lawas `date()` dan `strtotime()` yang rentan bug zona waktu pada aplikasi enterprise.
 
 ---
-
-<a id="bagian-38"></a>
 
 ## 38. 🔴 Exception Handling (try, catch, finally, Custom Exception)
 
@@ -2658,8 +2582,6 @@ finally { ... }                            → Blok yang selalu dieksekusi apapu
 
 ---
 
-<a id="bagian-39"></a>
-
 ## 39. 🔴 Regular Expression OOP (Pola PCRE2 dalam Objek)
 
 #### Konsep
@@ -2705,8 +2627,6 @@ preg_replace($pattern, $rep, $s) → Ganti teks yang cocok dengan pola regex
 
 ---
 
-<a id="bagian-40"></a>
-
 ## 40. 🛠️ Peta Ingatan Cepat
 
 Mental model komprehensif hubungan seluruh konsep utama PHP OOP:
@@ -2748,8 +2668,6 @@ Keandalan Sistem → Custom Exceptions (try-catch), DateTimeImmutable, Generator
 
 ---
 
-<a id="bagian-41"></a>
-
 ## 41. 📚 Tabel Ringkasan
 
 | Fitur / Konsep | Sintaks / Kata Kunci | Fungsi & Kegunaan Utama |
@@ -2771,8 +2689,6 @@ Keandalan Sistem → Custom Exceptions (try-catch), DateTimeImmutable, Generator
 | **Hemat Memori** | `yield $data;` | Menghasilkan streaming data on-demand (Generator) |
 
 ---
-
-<a id="bagian-42"></a>
 
 ## 42. ⚡ Cheat Code PHP OOP 10 Detik
 
@@ -2820,8 +2736,6 @@ try {
 
 ---
 
-<a id="bagian-43"></a>
-
 ## 43. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -2857,8 +2771,6 @@ try {
 ```
 
 ---
-
-<a id="bagian-44"></a>
 
 ## 44. 🏗️ Mini Project: Sistem Manajemen E-Commerce & Pembayaran OOP
 
@@ -3023,8 +2935,6 @@ Total Tagihan: Rp 12.500.000
 ```
 
 ---
-
-<a id="bagian-45"></a>
 
 ## 45. 🔗 Referensi Resmi
 

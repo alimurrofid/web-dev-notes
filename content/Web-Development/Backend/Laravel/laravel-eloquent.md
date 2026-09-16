@@ -70,66 +70,64 @@ Query Builder → penyusun query SQL berantai sebelum dieksekusi ke database
 
 ### 🟢 Fundamental
 
-1. [Model & Konvensi Tabel](#bagian-1)
-2. [Insert Data](#bagian-2)
-3. [Find & Select Data](#bagian-3)
-4. [Update Data](#bagian-4)
-5. [Delete Data](#bagian-5)
-6. [Delete Many & Truncate](#bagian-6)
-7. [Mass Assignment Protection](#bagian-7)
-8. [Timestamps Management](#bagian-8)
-9. [Default Attribute Values](#bagian-9)
-10. [Query Builder dari Model](#bagian-10)
-11. [Eloquent Collection](#bagian-11)
+1. [Model & Konvensi Tabel](#1--model--konvensi-tabel)
+2. [Insert Data](#2--insert-data)
+3. [Find & Select Data](#3--find--select-data)
+4. [Update Data](#4--update-data)
+5. [Delete Data](#5--delete-data)
+6. [Delete Many & Truncate](#6--delete-many--truncate)
+7. [Mass Assignment Protection](#7--mass-assignment-protection)
+8. [Timestamps Management](#8--timestamps-management)
+9. [Default Attribute Values](#9--default-attribute-values)
+10. [Query Builder dari Model](#10--query-builder-dari-model)
+11. [Eloquent Collection](#11--eloquent-collection)
 
 ### 🟡 Core Eloquent & Relationships
 
-12. [Soft Deletes](#bagian-12)
-13. [Query Scope: Konsep Reusable Query](#bagian-13)
-14. [Query Global Scope](#bagian-14)
-15. [Query Local Scope](#bagian-15)
-16. [Konsep Dasar Relasi (Relationships)](#bagian-16)
-17. [One to One Relationship](#bagian-17)
-18. [One to Many Relationship](#bagian-18)
-19. [Many to Many Relationship](#bagian-19)
-20. [Intermediate Table & Kolom Pivot](#bagian-20)
-21. [Pivot Model](#bagian-21)
-22. [Querying Relations](#bagian-22)
-23. [Aggregating Relations](#bagian-23)
-24. [Lazy vs Eager Loading (Solusi N+1 Problem)](#bagian-24)
-25. [UUID & ULID Primary Keys](#bagian-25)
-26. [Attribute Casting Modern](#bagian-26)
-27. [Accessors dan Mutators Modern](#bagian-27)
-28. [Model Events & Observers](#bagian-28)
-29. [Serialization Data](#bagian-29)
-30. [Model Factories & Seeding](#bagian-30)
+12. [Soft Deletes](#12--soft-deletes)
+13. [Query Scope: Konsep Reusable Query](#13--query-scope-konsep-reusable-query)
+14. [Query Global Scope](#14--query-global-scope)
+15. [Query Local Scope](#15--query-local-scope)
+16. [Konsep Dasar Relasi (Relationships)](#16--konsep-dasar-relasi-relationships)
+17. [One to One Relationship](#17--one-to-one-relationship)
+18. [One to Many Relationship](#18--one-to-many-relationship)
+19. [Many to Many Relationship](#19--many-to-many-relationship)
+20. [Intermediate Table & Kolom Pivot](#20--intermediate-table--kolom-pivot)
+21. [Pivot Model](#21--pivot-model)
+22. [Querying Relations](#22--querying-relations)
+23. [Aggregating Relations](#23--aggregating-relations)
+24. [Lazy vs Eager Loading (Solusi N+1 Problem)](#24--lazy-vs-eager-loading-solusi-n1-problem)
+25. [UUID & ULID Primary Keys](#25--uuid--ulid-primary-keys)
+26. [Attribute Casting Modern](#26--attribute-casting-modern)
+27. [Accessors dan Mutators Modern](#27--accessors-dan-mutators-modern)
+28. [Model Events & Observers](#28--model-events--observers)
+29. [Serialization Data](#29--serialization-data)
+30. [Model Factories & Seeding](#30--model-factories--seeding)
 
 ### 🔴 Advanced Relationships & Operasional
 
-31. [Has One of Many](#bagian-31)
-32. [Has One Through](#bagian-32)
-33. [Has Many Through](#bagian-33)
-34. [Polymorphic Relationships: Konsep & Schema](#bagian-34)
-35. [One to One Polymorphic](#bagian-35)
-36. [One to Many Polymorphic](#bagian-36)
-37. [One of Many Polymorphic](#bagian-37)
-38. [Many to Many Polymorphic](#bagian-38)
-39. [Polymorphic Types & Morph Map](#bagian-39)
-40. [Custom Casts](#bagian-40)
-41. [Model Pruning & Touch Parent](#bagian-41)
+31. [Has One of Many](#31--has-one-of-many)
+32. [Has One Through](#32--has-one-through)
+33. [Has Many Through](#33--has-many-through)
+34. [Polymorphic Relationships: Konsep & Schema](#34--polymorphic-relationships-konsep--schema)
+35. [One to One Polymorphic](#35--one-to-one-polymorphic)
+36. [One to Many Polymorphic](#36--one-to-many-polymorphic)
+37. [One of Many Polymorphic](#37--one-of-many-polymorphic)
+38. [Many to Many Polymorphic](#38--many-to-many-polymorphic)
+39. [Polymorphic Types & Morph Map](#39--polymorphic-types--morph-map)
+40. [Custom Casts](#40--custom-casts)
+41. [Model Pruning & Touch Parent](#41--model-pruning--touch-parent)
 
 ### 🛠️ Referensi & Praktik
 
-42. [Peta Ingatan Cepat](#bagian-42)
-43. [Tabel Ringkasan](#bagian-43)
-44. [Cheat Code Eloquent 10 Detik](#bagian-44)
-45. [Urutan Belajar yang Disarankan](#bagian-45)
-46. [Mini Project: E-Commerce Catalog, Order Management & Review System](#bagian-46)
-47. [Referensi Resmi](#bagian-47)
+42. [Peta Ingatan Cepat](#42-️-peta-ingatan-cepat)
+43. [Tabel Ringkasan](#43--tabel-ringkasan)
+44. [Cheat Code Eloquent 10 Detik](#44--cheat-code-eloquent-10-detik)
+45. [Urutan Belajar yang Disarankan](#45--urutan-belajar-yang-disarankan)
+46. [Mini Project: E-Commerce Catalog, Order Management & Review System](#46-️-mini-project-e-commerce-catalog-order-management--review-system)
+47. [Referensi Resmi](#47--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Model & Konvensi Tabel
 
@@ -228,8 +226,6 @@ $primaryKey = 'key' → menimpa nama kolom primary key default
 ✅ Beri nama class bentuk tunggal `class Product extends Model`.
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Insert Data
 
@@ -353,8 +349,6 @@ Model::updateOrCreate(condition, attributes)   → perbarui jika ada, insert jik
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Find & Select Data
 
 #### Konsep
@@ -450,8 +444,6 @@ get()                                → eksekusi query builder dan ambil Collec
 - Gunakan `findOrFail()` di dalam Route Controller show/edit agar aplikasi otomatis mengembalikan respons 404 jika pengguna memasukkan ID yang tidak ada di URL.
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Update Data
 
@@ -549,8 +541,6 @@ $model->incrementEach(['column' => amount])    → tambah banyak kolom angka sek
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Delete Data
 
 #### Konsep
@@ -609,8 +599,6 @@ Model::destroy([id1, id2])    → hapus banyak data langsung berdasarkan kumpula
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Delete Many & Truncate
 
 #### Konsep
@@ -665,8 +653,6 @@ Model::truncate()                         → kosongkan tabel dan reset auto-inc
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Mass Assignment Protection
 
@@ -752,8 +738,6 @@ Model::reguard()                 → aktifkan kembali proteksi mass assignment
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Timestamps Management
 
 #### Konsep
@@ -825,8 +809,6 @@ $model->withoutTimestamps(fn)    → jalankan mutasi tanpa mengubah updated_at
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Default Attribute Values
 
 #### Konsep
@@ -887,8 +869,6 @@ protected $attributes = ['column' => 'default_value'] → inisialisasi nilai awa
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Query Builder dari Model
 
@@ -963,8 +943,6 @@ get(['column'])                        → eksekusi query dan ambil Collection
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟢 Eloquent Collection
 
 #### Konsep
@@ -1031,8 +1009,6 @@ load(['relation'])              → eager load relasi pada koleksi yang sudah ad
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Soft Deletes
 
@@ -1129,8 +1105,6 @@ $model->forceDelete()          → hapus fisik baris permanen dari harddisk
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Query Scope: Konsep Reusable Query
 
 #### Konsep
@@ -1170,8 +1144,6 @@ Global Scope → query filter yang otomatis diterapkan pada setiap query model
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Query Global Scope
 
@@ -1260,8 +1232,6 @@ withoutGlobalScopes()                        → matikan seluruh global scope
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Query Local Scope
 
 #### Konsep
@@ -1344,8 +1314,6 @@ public function scopeCategory(Builder $query, $value)  → dipanggil sebagai Mod
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Konsep Dasar Relasi (Relationships)
 
 #### Konsep
@@ -1379,8 +1347,6 @@ belongsToMany('RelatedClass')  → model ini berelasi banyak-ke-banyak via tabel
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟡 One to One Relationship
 
@@ -1469,8 +1435,6 @@ $model->relation()->create(attributes)      → insert data anak otomatis mengis
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 One to Many Relationship
 
@@ -1565,8 +1529,6 @@ $parent->children()->createMany([array])    → insert banyak record anak sekali
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 Many to Many Relationship
 
 #### Konsep
@@ -1659,8 +1621,6 @@ $model->relation()->toggle([ids])  → bolak-balik status relasi (ada -> hapus, 
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 Intermediate Table & Kolom Pivot
 
 #### Konsep
@@ -1738,8 +1698,6 @@ updateExistingPivot(id, ['column' => 'value']) → perbarui nilai kolom pivot ya
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Pivot Model
 
 #### Konsep
@@ -1806,8 +1764,6 @@ class OrderProduct extends Pivot  → class custom pivot model
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Querying Relations
 
@@ -1877,8 +1833,6 @@ withWhereHas('relation', callback)              → filter kondisi anak SEKALIGU
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🟡 Aggregating Relations
 
@@ -1959,8 +1913,6 @@ withExists('relation')                     → atribut {relation}_exists (boolea
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🟡 Lazy vs Eager Loading (Solusi N+1 Problem)
 
@@ -2068,8 +2020,6 @@ Model::preventLazyLoading(condition)   → aktifkan alarm deteksi N+1 di file Ap
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🟡 UUID & ULID Primary Keys
 
 #### Konsep
@@ -2149,8 +2099,6 @@ $table->ulid('id')->primary()  → kolom primary key ULID di migration
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🟡 Attribute Casting Modern
 
 #### Konsep
@@ -2224,8 +2172,6 @@ EnumClass::class                  → casting langsung ke PHP 8 Backed Enum
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 🟡 Accessors dan Mutators Modern
 
 #### Konsep
@@ -2287,8 +2233,6 @@ set: fn (string $value) => ...                → transformasi nilai saat disimp
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🟡 Model Events & Observers
 
@@ -2379,8 +2323,6 @@ Model::observe(Class) → daftarkan observer di AppServiceProvider
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 🟡 Serialization Data
 
 #### Konsep
@@ -2458,8 +2400,6 @@ protected $appends = ['attr']   → sertakan virtual accessor ke output JSON
 ```
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🟡 Model Factories & Seeding
 
@@ -2543,8 +2483,6 @@ $factory->state(callback)           → modifikasi kondisi atribut tertentu pada
 
 ---
 
-<a id="bagian-31"></a>
-
 ## 31. 🔴 Has One of Many
 
 #### Konsep
@@ -2607,8 +2545,6 @@ $this->hasOne(Child::class)->ofMany('column', 'max')   → ambil 1 record anak d
 
 ---
 
-<a id="bagian-32"></a>
-
 ## 32. 🔴 Has One Through
 
 #### Konsep
@@ -2670,8 +2606,6 @@ $this->hasOneThrough(FinalModel::class, IntermediateModel::class)
 ```
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 🔴 Has Many Through
 
@@ -2739,8 +2673,6 @@ $this->hasManyThrough(FinalModel::class, IntermediateModel::class)
 
 ---
 
-<a id="bagian-34"></a>
-
 ## 34. 🔴 Polymorphic Relationships: Konsep & Schema
 
 #### Konsep
@@ -2788,8 +2720,6 @@ $table->nullableMorphs('name')  → buat kolom name_id dan name_type yang boleh 
 ```
 
 ---
-
-<a id="bagian-35"></a>
 
 ## 35. 🔴 One to One Polymorphic
 
@@ -2871,8 +2801,6 @@ $this->morphTo()                           → deklarasi kebalikan di model anak
 
 ---
 
-<a id="bagian-36"></a>
-
 ## 36. 🔴 One to Many Polymorphic
 
 #### Konsep
@@ -2952,8 +2880,6 @@ $this->morphTo()                                → deklarasi kebalikan di model
 
 ---
 
-<a id="bagian-37"></a>
-
 ## 37. 🔴 One of Many Polymorphic
 
 #### Konsep
@@ -3001,8 +2927,6 @@ $this->morphOne(Child::class, 'name')->latestOfMany() → ambil 1 anak polimorfi
 ```
 
 ---
-
-<a id="bagian-38"></a>
 
 ## 38. 🔴 Many to Many Polymorphic
 
@@ -3088,8 +3012,6 @@ $this->morphedByMany(Post::class, 'taggable')  → pasang relasi balik di sisi m
 
 ---
 
-<a id="bagian-39"></a>
-
 ## 39. 🔴 Polymorphic Types & Morph Map
 
 #### Konsep
@@ -3150,8 +3072,6 @@ Relation::enforceMorphMap(['alias' => Model::class])
 ```
 
 ---
-
-<a id="bagian-40"></a>
 
 ## 40. 🔴 Custom Casts
 
@@ -3231,8 +3151,6 @@ set($model, $key, $value, $attributes)    → transformasi data masuk (simpan)
 
 ---
 
-<a id="bagian-41"></a>
-
 ## 41. 🔴 Model Pruning & Touch Parent
 
 #### Konsep
@@ -3302,8 +3220,6 @@ protected $touches = ['relation_name'] → otomatis perbarui updated_at induk sa
 
 ---
 
-<a id="bagian-42"></a>
-
 ## 42. 🛠️ Peta Ingatan Cepat
 
 #### A. Mental Model Arsitektur Eloquent ORM
@@ -3367,8 +3283,6 @@ Video ────────────── morphMany ───────
 
 ---
 
-<a id="bagian-43"></a>
-
 ## 43. 📚 Tabel Ringkasan
 
 | Kategori | Fitur / Kebutuhan | Method / Sintaks Utama | Fungsi & Kegunaan |
@@ -3408,8 +3322,6 @@ Video ────────────── morphMany ───────
 | **Pembersihan**| Pruning Otomatis| `use Prunable;` | Pembersihan otomatis record usang terjadwal |
 
 ---
-
-<a id="bagian-44"></a>
 
 ## 44. ⚡ Cheat Code Eloquent 10 Detik
 
@@ -3499,8 +3411,6 @@ class Product extends Model
 
 ---
 
-<a id="bagian-45"></a>
-
 ## 45. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -3535,8 +3445,6 @@ class Product extends Model
 ```
 
 ---
-
-<a id="bagian-46"></a>
 
 ## 46. 🏗️ Mini Project: E-Commerce Catalog, Order Management & Review System
 
@@ -3778,8 +3686,6 @@ Navigasi Halaman:
 ```
 
 ---
-
-<a id="bagian-47"></a>
 
 ## 47. 🔗 Referensi Resmi
 

@@ -76,45 +76,43 @@ CHECK Constraint   → aturan validasi nilai kolom tingkat database untuk menjam
 
 ### 🟢 Fundamental
 
-1. [Pengenalan PostgreSQL 16 & Mental Model Object-Relational Database](#bagian-1)
-2. [Tooling `psql` CLI & Perintah Meta Navigasi](#bagian-2)
-3. [Tipe Data Inti PostgreSQL](#bagian-3)
-4. [Tipe Data Kustom ENUM](#bagian-4)
-5. [DDL: Membuat Table dengan Constraints Lengkap](#bagian-5)
-6. [DDL: Mengubah & Menghapus Struktur Table](#bagian-6)
-7. [DML: Menyimpan Data dengan `INSERT INTO` & Klausa `RETURNING *`](#bagian-7)
-8. [DML: Menangani Konflik Duplikasi / UPSERT](#bagian-8)
+1. [Pengenalan PostgreSQL 16 & Mental Model Object-Relational Database](#1--pengenalan-postgresql-16--mental-model-object-relational-database)
+2. [Tooling `psql` CLI & Perintah Meta Navigasi](#2--tooling-psql-cli--perintah-meta-navigasi)
+3. [Tipe Data Inti PostgreSQL](#3--tipe-data-inti-postgresql)
+4. [Tipe Data Kustom ENUM](#4--tipe-data-kustom-enum)
+5. [DDL: Membuat Table dengan Constraints Lengkap](#5--ddl-membuat-table-dengan-constraints-lengkap)
+6. [DDL: Mengubah & Menghapus Struktur Table](#6--ddl-mengubah--menghapus-struktur-table)
+7. [DML: Menyimpan Data dengan `INSERT INTO` & Klausa `RETURNING *`](#7--dml-menyimpan-data-dengan-insert-into--klausa-returning-)
+8. [DML: Menangani Konflik Duplikasi / UPSERT](#8--dml-menangani-konflik-duplikasi--upsert)
 
 ### 🟡 Lanjutan
 
-9. [DML: Memperbarui Data dengan `UPDATE`](#bagian-9)
-10. [DML: Menghapus Data dengan `DELETE`](#bagian-10)
-11. [Querying Dasar & Alias](#bagian-11)
-12. [Filtering Lanjutan dengan Klausa `WHERE`](#bagian-12)
-13. [Pencarian Teks Pola dengan `LIKE` vs `ILIKE`](#bagian-13)
-14. [Pengurutan & Paginasi Data](#bagian-14)
-15. [Fungsi Agregasi Dasar](#bagian-15)
-16. [Pengelompokan Data dengan `GROUP BY` & Penyaringan Agregat `HAVING`](#bagian-16)
-17. [Relasi Antar Tabel & Foreign Key Constraints](#bagian-17)
+9. [DML: Memperbarui Data dengan `UPDATE`](#9--dml-memperbarui-data-dengan-update)
+10. [DML: Menghapus Data dengan `DELETE`](#10--dml-menghapus-data-dengan-delete)
+11. [Querying Dasar & Alias](#11--querying-dasar--alias)
+12. [Filtering Lanjutan dengan Klausa `WHERE`](#12--filtering-lanjutan-dengan-klausa-where)
+13. [Pencarian Teks Pola dengan `LIKE` vs `ILIKE`](#13--pencarian-teks-pola-dengan-like-vs-ilike)
+14. [Pengurutan & Paginasi Data](#14--pengurutan--paginasi-data)
+15. [Fungsi Agregasi Dasar](#15--fungsi-agregasi-dasar)
+16. [Pengelompokan Data dengan `GROUP BY` & Penyaringan Agregat `HAVING`](#16--pengelompokan-data-dengan-group-by--penyaringan-agregat-having)
+17. [Relasi Antar Tabel & Foreign Key Constraints](#17--relasi-antar-tabel--foreign-key-constraints)
 
 ### 🔴 Advanced / Operasional
 
-18. [Teknik Menggabungkan Tabel (JOIN Inti): `INNER JOIN` & `LEFT JOIN`](#bagian-18)
-19. [Teknik Menggabungkan Tabel (JOIN Lanjutan): `RIGHT JOIN`, `FULL OUTER JOIN`, dan `CROSS JOIN`](#bagian-19)
-20. [Operasi Himpunan Baris Data: `UNION`, `UNION ALL`, `INTERSECT`, dan `EXCEPT`](#bagian-20)
+18. [Teknik Menggabungkan Tabel (JOIN Inti): `INNER JOIN` & `LEFT JOIN`](#18--teknik-menggabungkan-tabel-join-inti-inner-join--left-join)
+19. [Teknik Menggabungkan Tabel (JOIN Lanjutan): `RIGHT JOIN`, `FULL OUTER JOIN`, dan `CROSS JOIN`](#19--teknik-menggabungkan-tabel-join-lanjutan-right-join-full-outer-join-dan-cross-join)
+20. [Operasi Himpunan Baris Data: `UNION`, `UNION ALL`, `INTERSECT`, dan `EXCEPT`](#20--operasi-himpunan-baris-data-union-union-all-intersect-dan-except)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code PostgreSQL Dasar 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready E-Commerce Relational Database Schema & Reporting Query Suite](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code PostgreSQL Dasar 10 Detik](#23--cheat-code-postgresql-dasar-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready E-Commerce Relational Database Schema & Reporting Query Suite](#25-️-mini-project-production-ready-e-commerce-relational-database-schema--reporting-query-suite)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan PostgreSQL 16 & Mental Model Object-Relational Database
 
@@ -149,8 +147,6 @@ MVCC                           → arsitektur konkurensi yang memungkinkan trans
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Tooling `psql` CLI & Perintah Meta Navigasi
 
 #### Konsep
@@ -181,8 +177,6 @@ Perintah Meta `psql` Paling Penting:
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Tipe Data Inti PostgreSQL
 
@@ -228,8 +222,6 @@ TIMESTAMPTZ                    → tipe data tanggal waktu standar yang menyerta
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Tipe Data Kustom ENUM
 
 #### Konsep
@@ -262,8 +254,6 @@ CREATE TYPE type_name AS ENUM ('VAL1', 'VAL2', 'VAL3'); → membuat tipe data pi
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 DDL: Membuat Table dengan Constraints Lengkap
 
@@ -299,8 +289,6 @@ CHECK (column_condition) → memvalidasi integritas data bisnis langsung di leve
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 DDL: Mengubah & Menghapus Struktur Table
 
@@ -338,8 +326,6 @@ TRUNCATE TABLE name                   → mengosongkan seluruh data tabel secara
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 DML: Menyimpan Data dengan `INSERT INTO` & Klausa `RETURNING *`
 
@@ -383,8 +369,6 @@ INSERT INTO table (columns) VALUES (values) RETURNING * → menyimpan data baru 
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 DML: Menangani Konflik Duplikasi / UPSERT
 
 #### Konsep
@@ -417,8 +401,6 @@ ON CONFLICT (target_col) DO NOTHING                      → abaikan insert jika
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 DML: Memperbarui Data dengan `UPDATE`
 
 #### Konsep
@@ -450,8 +432,6 @@ UPDATE table SET col = newVal WHERE condition RETURNING * → memperbarui baris 
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 DML: Menghapus Data dengan `DELETE`
 
 #### Konsep
@@ -476,8 +456,6 @@ DELETE FROM table WHERE condition RETURNING id → menghapus baris data dan meng
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Querying Dasar & Alias
 
@@ -507,8 +485,6 @@ SELECT DISTINCT col FROM table  → menyaring hasil query agar hanya menampilkan
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Filtering Lanjutan dengan Klausa `WHERE`
 
 #### Konsep
@@ -537,8 +513,6 @@ WHERE col IS NOT NULL AND col IN ('A', 'B') AND col BETWEEN x AND y
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Pencarian Teks Pola dengan `LIKE` vs `ILIKE`
 
@@ -571,8 +545,6 @@ WHERE column ILIKE '%keyword%' → pencarian teks case-insensitive tanpa peduli 
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Pengurutan & Paginasi Data
 
 #### Konsep
@@ -599,8 +571,6 @@ ORDER BY col DESC LIMIT 10 OFFSET 20 → mengurutkan data dan memotong baris unt
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Fungsi Agregasi Dasar
 
@@ -634,8 +604,6 @@ COUNT(*), SUM(col), AVG(col), MIN(col), MAX(col) → lima fungsi agregasi statis
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Pengelompokan Data dengan `GROUP BY` & Penyaringan Agregat `HAVING`
 
@@ -686,8 +654,6 @@ GROUP BY col HAVING COUNT(*) > n → mengelompokkan baris dan menyaring grup ber
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Relasi Antar Tabel & Foreign Key Constraints
 
 #### Konsep
@@ -728,8 +694,6 @@ REFERENCES parent_table(id) ON DELETE CASCADE → relasi kunci asing dengan peng
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Teknik Menggabungkan Tabel (JOIN Inti): `INNER JOIN` & `LEFT JOIN`
 
 #### Konsep
@@ -766,8 +730,6 @@ LEFT JOIN table_b ON table_a.b_id = table_b.id  → mempertahankan seluruh baris
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🔴 Teknik Menggabungkan Tabel (JOIN Lanjutan): `RIGHT JOIN`, `FULL OUTER JOIN`, dan `CROSS JOIN`
 
 #### Konsep
@@ -794,8 +756,6 @@ FULL OUTER JOIN → menggabungkan seluruh baris kedua tabel baik yang cocok maup
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🔴 Operasi Himpunan Baris Data: `UNION`, `UNION ALL`, `INTERSECT`, dan `EXCEPT`
 
@@ -826,8 +786,6 @@ UNION ALL → menggabungkan baris data dari 2 query secara instan tanpa komputas
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -843,8 +801,6 @@ DDL & TIPE DATA MODERN         DML & UPSERT ENGINE             QUERY & AGREGASI
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -864,8 +820,6 @@ DDL & TIPE DATA MODERN         DML & UPSERT ENGINE             QUERY & AGREGASI
 | `LEFT JOIN` | Relasi JOIN | Mempertahankan semua baris tabel kiri dan memadankan tabel kanan |
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. ⚡ Cheat Code PostgreSQL Dasar 10 Detik
 
@@ -890,8 +844,6 @@ RETURNING *;
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
@@ -920,8 +872,6 @@ Langkah 5: Siap Melangkah ke PostgreSQL Lanjutan (Index, JSONB, CTE & Transaksi)
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready E-Commerce Relational Database Schema & Reporting Query Suite
 
@@ -1086,8 +1036,6 @@ ORDER BY price ASC;
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

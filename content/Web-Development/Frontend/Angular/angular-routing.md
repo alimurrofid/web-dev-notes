@@ -79,31 +79,29 @@ CanActivateFn                → Fungsi guard modern untuk memproteksi akses rut
 
 ### 🟢 Fundamental
 
-1. [Pengenalan SPA & Mental Model Routing di Angular](#bagian-1)
-2. [Setup Routing Modern (provideRouter & app.routes.ts)](#bagian-2)
-3. [Komponen Inti: RouterOutlet & RouterLink](#bagian-3)
-4. [Konfigurasi Routes Dasar, Path Matching & 404 Wildcard](#bagian-4)
-5. [Dynamic Route Matching & Parameter URL (:id via Signal Inputs)](#bagian-5)
-6. [Query Parameters & URL Fragments](#bagian-6)
-7. [Programmatic Navigation (inject(Router) & navigate())](#bagian-7)
+1. [Pengenalan SPA & Mental Model Routing di Angular](#1--pengenalan-spa--mental-model-routing-di-angular)
+2. [Setup Routing Modern (provideRouter & app.routes.ts)](#2--setup-routing-modern-providerouter--approutests)
+3. [Komponen Inti: RouterOutlet & RouterLink](#3--komponen-inti-routeroutlet--routerlink)
+4. [Konfigurasi Routes Dasar, Path Matching & 404 Wildcard](#4--konfigurasi-routes-dasar-path-matching--404-wildcard)
+5. [Dynamic Route Matching & Parameter URL (:id via Signal Inputs)](#5--dynamic-route-matching--parameter-url-id-via-signal-inputs)
+6. [Query Parameters & URL Fragments](#6--query-parameters--url-fragments)
+7. [Programmatic Navigation (inject(Router) & navigate())](#7--programmatic-navigation-injectrouter--navigate)
 
 ### 🟡 Lanjutan
 
-8. [Nested & Child Routes (Layout Bersarang dengan Sub-Outlet)](#bagian-8)
-9. [Lazy Loading Standalone Components (loadComponent & Code-Splitting)](#bagian-9)
-10. [Functional Route Guards (canActivateFn & Proteksi Autentikasi)](#bagian-10)
-11. [Form Leave Protection (canDeactivateFn)](#bagian-11)
-12. [Ergonomi Router (Route Title, Router Events & Scroll Restoration)](#bagian-12)
+8. [Nested & Child Routes (Layout Bersarang dengan Sub-Outlet)](#8--nested--child-routes-layout-bersarang-dengan-sub-outlet)
+9. [Lazy Loading Standalone Components (loadComponent & Code-Splitting)](#9--lazy-loading-standalone-components-loadcomponent--code-splitting)
+10. [Functional Route Guards (canActivateFn & Proteksi Autentikasi)](#10--functional-route-guards-canactivatefn--proteksi-autentikasi)
+11. [Form Leave Protection (canDeactivateFn)](#11--form-leave-protection-candeactivatefn)
+12. [Ergonomi Router (Route Title, Router Events & Scroll Restoration)](#12--ergonomi-router-route-title-router-events--scroll-restoration)
 
 ### 🛠️ Praktik & Referensi
 
-13. [Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi](#bagian-13)
-14. [Mini Project: Portal Dashboard & Katalog Multi-Page SPA](#bagian-14)
-15. [Urutan Belajar yang Disarankan & Referensi Resmi](#bagian-15)
+13. [Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi](#13-️-peta-ingatan-cheat-code-10-detik--tabel-komparasi)
+14. [Mini Project: Portal Dashboard & Katalog Multi-Page SPA](#14-️-mini-project-portal-dashboard--katalog-multi-page-spa)
+15. [Urutan Belajar yang Disarankan & Referensi Resmi](#15--urutan-belajar-yang-disarankan--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan SPA & Mental Model Routing di Angular
 
@@ -134,8 +132,6 @@ User Klik Link ──► Router Cek URL Lokal ──► Tukar Komponen di <route
 **Kunci:** Angular Router mengubah URL dan menukar komponen di dalam `<router-outlet />` tanpa reload halaman.
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Setup Routing Modern (provideRouter & app.routes.ts)
 
@@ -210,8 +206,6 @@ Alasannya: `RouterModule.forRoot` adalah pola NgModule legacy. Pada Angular mode
 **Kunci:** `provideRouter(routes)` adalah cara standar modern untuk mengaktifkan routing pada aplikasi Angular Standalone.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Komponen Inti: RouterOutlet & RouterLink
 
@@ -334,8 +328,6 @@ Alasannya: Browser akan melakukan refresh penuh dan menghapus seluruh state memo
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Konfigurasi Routes Dasar, Path Matching & 404 Wildcard
 
 ### Konsep
@@ -422,8 +414,6 @@ Alasannya: Karena router mencocokkan rute dari atas ke bawah, rute apa pun di ba
 **Kunci:** Router mengevaluasi rute dari atas ke bawah; gunakan `pathMatch: 'full'` pada redirect dan letakkan wildcard `**` di baris terakhir.
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Dynamic Route Matching & Parameter URL (:id via Signal Inputs)
 
@@ -553,8 +543,6 @@ export class OldDetailComponent {
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Query Parameters & URL Fragments
 
 ### Konsep
@@ -652,8 +640,6 @@ export class SearchResultComponent {
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Programmatic Navigation (inject(Router) & navigate())
 
 ### Konsep
@@ -730,8 +716,6 @@ export class CheckoutComponent {
 **Kunci:** Gunakan `inject(Router)` dan method `.navigate(['/path'])` untuk memicu navigasi dari logika TypeScript.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟡 Nested & Child Routes (Layout Bersarang dengan Sub-Outlet)
 
@@ -838,8 +822,6 @@ export class AdminOverviewComponent {}
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Lazy Loading Standalone Components (loadComponent & Code-Splitting)
 
 ### Konsep
@@ -898,8 +880,6 @@ Ketika pengguna pertama kali mengklik menu `/reports`, tab Network browser akan 
 **Kunci:** `loadComponent: () => import(...)` membagi bundle aplikasi menjadi pecahan kecil yang diunduh sesuai kebutuhan.
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Functional Route Guards (canActivateFn & Proteksi Autentikasi)
 
@@ -1003,8 +983,6 @@ export const routes: Routes = [
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Form Leave Protection (canDeactivateFn)
 
 ### Konsep
@@ -1094,8 +1072,6 @@ Ketika pengguna mengubah teks form lalu mengklik link menu lain tanpa menekan to
 **Kunci:** `canDeactivateFn` melindungi pengguna dari kehilangan data form yang belum tersimpan saat bernavigasi keluar.
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Ergonomi Router (Route Title, Router Events & Scroll Restoration)
 
@@ -1195,8 +1171,6 @@ export class AppComponent {
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🛠️ Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi
 
 ### Peta Ingatan Konsep Angular Router
@@ -1253,8 +1227,6 @@ path: '**'                                 → Halaman 404 (paling bawah)
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🛠️ Mini Project: Portal Dashboard & Katalog Multi-Page SPA
 
@@ -1520,8 +1492,6 @@ export class AppComponent {
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🧭 Urutan Belajar yang Disarankan & Referensi Resmi
 

@@ -78,32 +78,30 @@ toObservable()    → Mengubah Angular Signal menjadi Observable stream untuk me
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Global State & Masalah Prop Drilling](#bagian-1)
-2. [Arsitektur Service-Based Signals Store](#bagian-2)
-3. [Enkapsulasi State: Private Signal & Public Readonly (asReadonly)](#bagian-3)
-4. [Derived Global State dengan computed()](#bagian-4)
-5. [Action Methods & Pola Mutasi State Immutability](#bagian-5)
-6. [Mengonsumsi Global Store di Komponen (inject())](#bagian-6)
-7. [Side Effects Reaktif dengan effect() & LocalStorage Persistence](#bagian-7)
+1. [Pengenalan Global State & Masalah Prop Drilling](#1--pengenalan-global-state--masalah-prop-drilling)
+2. [Arsitektur Service-Based Signals Store](#2--arsitektur-service-based-signals-store)
+3. [Enkapsulasi State: Private Signal & Public Readonly (asReadonly)](#3--enkapsulasi-state-private-signal--public-readonly-asreadonly)
+4. [Derived Global State dengan computed()](#4--derived-global-state-dengan-computed)
+5. [Action Methods & Pola Mutasi State Immutability](#5--action-methods--pola-mutasi-state-immutability)
+6. [Mengonsumsi Global Store di Komponen (inject())](#6--mengonsumsi-global-store-di-komponen-inject)
+7. [Side Effects Reaktif dengan effect() & LocalStorage Persistence](#7--side-effects-reaktif-dengan-effect--localstorage-persistence)
 
 ### 🟡 Lanjutan
 
-8. [Mengontrol Reaktivitas: untracked() & Pembersihan Effect (onCleanup)](#bagian-8)
-9. [Menjembatani RxJS dan Signals (@angular/core/rxjs-interop)](#bagian-9)
-10. [Mengubah Observable HTTP ke Signal via toSignal()](#bagian-10)
-11. [Mengubah Signal ke Observable Stream via toObservable()](#bagian-11)
-12. [Functional HTTP Interceptors (withInterceptors)](#bagian-12)
-13. [Pola Arsitektur Lanjutan: Store Composition & SignalStore Overview](#bagian-13)
+8. [Mengontrol Reaktivitas: untracked() & Pembersihan Effect (onCleanup)](#8--mengontrol-reaktivitas-untracked--pembersihan-effect-oncleanup)
+9. [Menjembatani RxJS dan Signals (@angular/core/rxjs-interop)](#9--menjembatani-rxjs-dan-signals-angularcorerxjs-interop)
+10. [Mengubah Observable HTTP ke Signal via toSignal()](#10--mengubah-observable-http-ke-signal-via-tosignal)
+11. [Mengubah Signal ke Observable Stream via toObservable()](#11--mengubah-signal-ke-observable-stream-via-toobservable)
+12. [Functional HTTP Interceptors (withInterceptors)](#12--functional-http-interceptors-withinterceptors)
+13. [Pola Arsitektur Lanjutan: Store Composition & SignalStore Overview](#13--pola-arsitektur-lanjutan-store-composition--signalstore-overview)
 
 ### 🛠️ Praktik & Referensi
 
-14. [Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi](#bagian-14)
-15. [Mini Project: Shopping Cart & Auth Session Global Store SPA](#bagian-15)
-16. [Urutan Belajar yang Disarankan & Referensi Resmi](#bagian-16)
+14. [Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi](#14-️-peta-ingatan-cheat-code-10-detik--tabel-komparasi)
+15. [Mini Project: Shopping Cart & Auth Session Global Store SPA](#15-️-mini-project-shopping-cart--auth-session-global-store-spa)
+16. [Urutan Belajar yang Disarankan & Referensi Resmi](#16--urutan-belajar-yang-disarankan--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Global State & Masalah Prop Drilling
 
@@ -154,8 +152,6 @@ Dengan arsitektur Store, semua komponen dapat langsung membaca dan memperbarui d
 **Kunci:** Local State untuk UI internal 1 komponen; Global Store untuk data yang dibagi dan sinkron lintas komponen.
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Arsitektur Service-Based Signals Store
 
@@ -213,8 +209,6 @@ Ketika `increment()` dipanggil dari mana saja (misal dari Navbar atau Footer), `
 **Kunci:** Store di Angular modern dibangun dari `@Injectable({ providedIn: 'root' })` yang menggabungkan `signal`, `computed`, dan *action methods*.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Enkapsulasi State: Private Signal & Public Readonly (asReadonly)
 
@@ -299,8 +293,6 @@ export class GoodStore {
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Derived Global State dengan computed()
 
 ### Konsep
@@ -366,8 +358,6 @@ Jika ada komponen yang membaca `store.totalPrice()`, nilainya akan otomatis meng
 **Kunci:** `computed()` pada Store berperan sebagai *Getter / Selector* reaktif yang memiliki performa tinggi berkat *caching* bawaan.
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Action Methods & Pola Mutasi State Immutability
 
@@ -464,8 +454,6 @@ this.#items.update(list => [...list, newItem]);
 **Kunci:** Selalu perbarui Signal menggunakan pola immutable (`[...spread]`, `.filter()`, `.map()`) melalui method `.update()`.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Mengonsumsi Global Store di Komponen (inject())
 
@@ -571,8 +559,6 @@ export class ProductCatalogComponent {
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Side Effects Reaktif dengan effect() & LocalStorage Persistence
 
 ### Konsep
@@ -661,8 +647,6 @@ const total = computed(() => {
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟡 Mengontrol Reaktivitas: untracked() & Pembersihan Effect (onCleanup)
 
 ### Konsep
@@ -722,8 +706,6 @@ export class ActivityLoggerStore {
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Menjembatani RxJS dan Signals (@angular/core/rxjs-interop)
 
 ### Konsep
@@ -757,8 +739,6 @@ Signal (Input / State)     ──► toObservable() ──► Observable (RxJS O
 **Kunci:** Signals sangat unggul untuk UI State; RxJS sangat unggul untuk kontrol alur asynchronous yang kompleks.
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Mengubah Observable HTTP ke Signal via toSignal()
 
@@ -861,8 +841,6 @@ Tidak ada lagi kode `ngOnInit`, `subscribe()`, atau `ngOnDestroy` manual. Templa
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Mengubah Signal ke Observable Stream via toObservable()
 
 ### Konsep
@@ -939,8 +917,6 @@ Ketika pengguna mengetik cepat "Budi", request ke server tidak dikirim pada seti
 **Kunci:** `toObservable(mySignal)` memungkinkan kita menerapkan operator canggih RxJS (`debounceTime`, `switchMap`) pada data Signal.
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Functional HTTP Interceptors (withInterceptors)
 
@@ -1024,8 +1000,6 @@ Authorization: Bearer JWT_TOKEN_SECRET_XYZ
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Pola Arsitektur Lanjutan: Store Composition & SignalStore Overview
 
 ### Konsep
@@ -1071,8 +1045,6 @@ export const BooksStore = signalStore(
 **Kunci:** Store berbasis Service sudah sangat mumpuni untuk sebagian besar aplikasi; gunakan Store Composition untuk menghubungkan data antar-store.
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🛠️ Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi
 
@@ -1126,8 +1098,6 @@ withInterceptors([authInterceptor])→ Menyisipkan JWT token ke semua HTTP reque
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🛠️ Mini Project: Shopping Cart & Auth Session Global Store SPA
 
@@ -1406,8 +1376,6 @@ export class AppComponent {
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🧭 Urutan Belajar yang Disarankan & Referensi Resmi
 

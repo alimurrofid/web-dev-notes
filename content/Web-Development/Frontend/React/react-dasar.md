@@ -71,43 +71,41 @@ Hook                 → fungsi khusus berawalan 'use' yang memungkinkan kompone
 
 ### 🟢 Fundamental
 
-1. [Pengenalan React JS & Mental Model Deklaratif](#bagian-1)
-2. [Tooling Modern dengan Vite & Struktur Folder Proyek](#bagian-2)
-3. [Anatomi Component & Aturan Emas JSX](#bagian-3)
-4. [Menyematkan JavaScript di Dalam JSX](#bagian-4)
-5. [Mengirim & Menerima Data via Props](#bagian-5)
-6. [State Management Lokal dengan `useState`](#bagian-6)
-7. [Mengelola State Objek & Array yang Kompleks](#bagian-7)
-8. [Handling Events di React](#bagian-8)
+1. [Pengenalan React JS & Mental Model Deklaratif](#1--pengenalan-react-js--mental-model-deklaratif)
+2. [Tooling Modern dengan Vite & Struktur Folder Proyek](#2--tooling-modern-dengan-vite--struktur-folder-proyek)
+3. [Anatomi Component & Aturan Emas JSX](#3--anatomi-component--aturan-emas-jsx)
+4. [Menyematkan JavaScript di Dalam JSX](#4--menyematkan-javascript-di-dalam-jsx)
+5. [Mengirim & Menerima Data via Props](#5--mengirim--menerima-data-via-props)
+6. [State Management Lokal dengan `useState`](#6--state-management-lokal-dengan-usestate)
+7. [Mengelola State Objek & Array yang Kompleks](#7--mengelola-state-objek--array-yang-kompleks)
+8. [Handling Events di React](#8--handling-events-di-react)
 
 ### 🟡 Lanjutan
 
-9. [Conditional Rendering](#bagian-9)
-10. [Rendering List Data & Aturan Wajib `key` Prop](#bagian-10)
-11. [Form Handling: Controlled Components vs Uncontrolled Components](#bagian-11)
-12. [Menangani Multiple Form Inputs dengan Satu Handler Terpadu](#bagian-12)
-13. [Lifecycle & Side Effects dengan `useEffect`](#bagian-13)
-14. [Cleanup Function pada `useEffect`](#bagian-14)
-15. [Mengakses DOM Langsung & Mutable Reference dengan `useRef`](#bagian-15)
-16. [Mengangkat State ke Atas (*Lifting State Up*)](#bagian-16)
+9. [Conditional Rendering](#9--conditional-rendering)
+10. [Rendering List Data & Aturan Wajib `key` Prop](#10--rendering-list-data--aturan-wajib-key-prop)
+11. [Form Handling: Controlled Components vs Uncontrolled Components](#11--form-handling-controlled-components-vs-uncontrolled-components)
+12. [Menangani Multiple Form Inputs dengan Satu Handler Terpadu](#12--menangani-multiple-form-inputs-dengan-satu-handler-terpadu)
+13. [Lifecycle & Side Effects dengan `useEffect`](#13--lifecycle--side-effects-dengan-useeffect)
+14. [Cleanup Function pada `useEffect`](#14--cleanup-function-pada-useeffect)
+15. [Mengakses DOM Langsung & Mutable Reference dengan `useRef`](#15--mengakses-dom-langsung--mutable-reference-dengan-useref)
+16. [Mengangkat State ke Atas (*Lifting State Up*)](#16--mengangkat-state-ke-atas-lifting-state-up)
 
 ### 🔴 Advanced / Operasional
 
-17. [Membangun Custom Hooks](#bagian-17)
-18. [React Strict Mode & Cara Kerjanya](#bagian-18)
+17. [Membangun Custom Hooks](#17--membangun-custom-hooks)
+18. [React Strict Mode & Cara Kerjanya](#18--react-strict-mode--cara-kerjanya)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code React Dasar 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready Interactive Task & Expense Manager Web App](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code React Dasar 10 Detik](#21--cheat-code-react-dasar-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready Interactive Task & Expense Manager Web App](#23-️-mini-project-production-ready-interactive-task--expense-manager-web-app)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan React JS & Mental Model Deklaratif
 
@@ -140,8 +138,6 @@ Declarative UI → kita mendeskripsikan "apa tampilan yang diinginkan", React me
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Tooling Modern dengan Vite & Struktur Folder Proyek
 
@@ -180,8 +176,6 @@ App.jsx   → komponen induk utama penampung seluruh antarmuka aplikasi React
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Anatomi Component & Aturan Emas JSX
 
@@ -224,8 +218,6 @@ className             → atribut penentu CSS class pada elemen JSX
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Menyematkan JavaScript di Dalam JSX
 
@@ -273,8 +265,6 @@ style={{ backgroundColor: "blue" }} → penulisan inline styling objek berformat
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Mengirim & Menerima Data via Props
 
@@ -338,8 +328,6 @@ children                                        → prop bawaan penampung konten
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 State Management Lokal dengan `useState`
 
 #### Konsep
@@ -397,8 +385,6 @@ setState(prevState => newState)                  → memperbarui state secara am
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Mengelola State Objek & Array yang Kompleks
 
@@ -469,8 +455,6 @@ setArr(prev => prev.filter(item => item.id !== id))  → menghapus item array ta
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Handling Events di React
 
 #### Konsep
@@ -512,8 +496,6 @@ e.preventDefault()                      → menghentikan perilaku reload form at
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Conditional Rendering
 
@@ -563,8 +545,6 @@ condition && <ComponentIfTrue />                       → conditional rendering
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Rendering List Data & Aturan Wajib `key` Prop
 
 #### Konsep
@@ -612,8 +592,6 @@ array.map(item => <Element key={item.id}>{item.name}</Element>) → me-render da
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Form Handling: Controlled Components vs Uncontrolled Components
 
 #### Konsep
@@ -660,8 +638,6 @@ value={state} onChange={(e) => setState(e.target.value)} → pola Controlled Com
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Menangani Multiple Form Inputs dengan Satu Handler Terpadu
 
@@ -745,8 +721,6 @@ setFormData(prev => ({ ...prev, [e.target.name]: e.target.value })) → satu han
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Lifecycle & Side Effects dengan `useEffect`
 
 #### Konsep
@@ -800,8 +774,6 @@ useEffect(() => { /* side effect logic */ }, [dependencies]); → sinkronisasi e
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Cleanup Function pada `useEffect`
 
 #### Konsep
@@ -846,8 +818,6 @@ useEffect(() => { setup(); return () => cleanup(); }, [dep]); → struktur lifec
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Mengakses DOM Langsung & Mutable Reference dengan `useRef`
 
@@ -896,8 +866,6 @@ const myRef = useRef(initialVal); → membuat referensi mutable yang tidak memic
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Mengangkat State ke Atas (*Lifting State Up*)
 
@@ -972,8 +940,6 @@ Lifting State Up → memindahkan state ke komponen induk terdekat agar dapat dib
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Membangun Custom Hooks
 
 #### Konsep
@@ -1037,8 +1003,6 @@ useCustomHookName → fungsi kustom berawalan 'use' untuk mendaur ulang logika s
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 React Strict Mode & Cara Kerjanya
 
 #### Konsep
@@ -1059,8 +1023,6 @@ Apa Fungsi Strict Mode?
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1077,8 +1039,6 @@ KOMPONEN & JSX                STATE & IMMUTABILITY           EFFECTS & DOM
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 📚 Tabel Ringkasan
 
 | Hook / Konsep | Tipe | Fungsi & Karakteristik Utama |
@@ -1094,8 +1054,6 @@ KOMPONEN & JSX                STATE & IMMUTABILITY           EFFECTS & DOM
 | `Custom Hook` | Pola | Fungsi modular berawalan `use` untuk mengekstrak logika stateful yang reusable |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code React Dasar 10 Detik
 
@@ -1126,8 +1084,6 @@ const onChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.va
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1156,8 +1112,6 @@ Langkah 5: Siap Melangkah ke React Router (SPA) & Global State Management (Zusta
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready Interactive Task & Expense Manager Web App
 
@@ -1410,8 +1364,6 @@ export default function App() {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

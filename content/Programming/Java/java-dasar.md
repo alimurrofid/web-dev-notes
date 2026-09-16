@@ -72,62 +72,60 @@ Statically   → Tipe data setiap variabel wajib dideklarasikan dan diperiksa sa
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Java & Mental Model JVM](#bagian-1)
-2. [Program Hello World & Anatomi Class Java](#bagian-2)
-3. [Komentar & Dokumentasi Kode (Javadoc)](#bagian-3)
-4. [Tipe Data Primitif Number (Integer & Floating Point)](#bagian-4)
-5. [Tipe Data Character & Escape Sequences](#bagian-5)
-6. [Tipe Data Boolean](#bagian-6)
-7. [Tipe Data String & Immutability](#bagian-7)
-8. [Variable, Type Inference (var) & Constant (final)](#bagian-8)
-9. [Konversi Tipe Data Number (Widening vs Narrowing Casting)](#bagian-9)
-10. [Tipe Data Bukan Primitif (Wrapper Class & Autoboxing)](#bagian-10)
-11. [Operator Matematika & Penugasan](#bagian-11)
-12. [Operator Perbandingan (== vs .equals())](#bagian-12)
-13. [Operator Logika / Boolean (Short-Circuit)](#bagian-13)
-14. [Output Konsol & Formatting (System.out.printf)](#bagian-14)
-15. [Membaca Input Pengguna dengan Scanner](#bagian-15)
-16. [Tipe Data Array 1 Dimensi](#bagian-16)
-17. [Tipe Data Array Multidimensi & Jagged Array](#bagian-17)
-18. [If, Else If, dan Else Statement](#bagian-18)
+1. [Pengenalan Java & Mental Model JVM](#1--pengenalan-java--mental-model-jvm)
+2. [Program Hello World & Anatomi Class Java](#2--program-hello-world--anatomi-class-java)
+3. [Komentar & Dokumentasi Kode (Javadoc)](#3--komentar--dokumentasi-kode-javadoc)
+4. [Tipe Data Primitif Number (Integer & Floating Point)](#4--tipe-data-primitif-number-integer--floating-point)
+5. [Tipe Data Character & Escape Sequences](#5--tipe-data-character--escape-sequences)
+6. [Tipe Data Boolean](#6--tipe-data-boolean)
+7. [Tipe Data String & Immutability](#7--tipe-data-string--immutability)
+8. [Variable, Type Inference (var) & Constant (final)](#8--variable-type-inference-var--constant-final)
+9. [Konversi Tipe Data Number (Widening vs Narrowing Casting)](#9--konversi-tipe-data-number-widening-vs-narrowing-casting)
+10. [Tipe Data Bukan Primitif (Wrapper Class & Autoboxing)](#10--tipe-data-bukan-primitif-wrapper-class--autoboxing)
+11. [Operator Matematika & Penugasan](#11--operator-matematika--penugasan)
+12. [Operator Perbandingan (== vs .equals())](#12--operator-perbandingan--vs-equals)
+13. [Operator Logika / Boolean (Short-Circuit)](#13--operator-logika--boolean-short-circuit)
+14. [Output Konsol & Formatting (System.out.printf)](#14--output-konsol--formatting-systemoutprintf)
+15. [Membaca Input Pengguna dengan Scanner](#15--membaca-input-pengguna-dengan-scanner)
+16. [Tipe Data Array 1 Dimensi](#16--tipe-data-array-1-dimensi)
+17. [Tipe Data Array Multidimensi & Jagged Array](#17--tipe-data-array-multidimensi--jagged-array)
+18. [If, Else If, dan Else Statement](#18--if-else-if-dan-else-statement)
 
 ### 🟡 Lanjutan
 
-19. [Switch Statement & Switch Expression Modern](#bagian-19)
-20. [Ternary Operator (?:)](#bagian-20)
-21. [For Loop Standar](#bagian-21)
-22. [Enhanced For Loop (For-Each)](#bagian-22)
-23. [While Loop](#bagian-23)
-24. [Do-While Loop](#bagian-24)
-25. [Break dan Continue](#bagian-25)
-26. [Label pada Perulangan](#bagian-26)
-27. [Method Dasar (Void & Return Value)](#bagian-27)
-28. [Method Parameter & Argument Passing (Pass-by-Value)](#bagian-28)
-29. [Method Variable Argument (Varargs)](#bagian-29)
-30. [Method Overloading](#bagian-30)
-31. [Recursive Method](#bagian-31)
-32. [Variable Scope & Shadowing](#bagian-32)
+19. [Switch Statement & Switch Expression Modern](#19--switch-statement--switch-expression-modern)
+20. [Ternary Operator (?:)](#20--ternary-operator-)
+21. [For Loop Standar](#21--for-loop-standar)
+22. [Enhanced For Loop (For-Each)](#22--enhanced-for-loop-for-each)
+23. [While Loop](#23--while-loop)
+24. [Do-While Loop](#24--do-while-loop)
+25. [Break dan Continue](#25--break-dan-continue)
+26. [Label pada Perulangan](#26--label-pada-perulangan)
+27. [Method Dasar (Void & Return Value)](#27--method-dasar-void--return-value)
+28. [Method Parameter & Argument Passing (Pass-by-Value)](#28--method-parameter--argument-passing-pass-by-value)
+29. [Method Variable Argument (Varargs)](#29--method-variable-argument-varargs)
+30. [Method Overloading](#30--method-overloading)
+31. [Recursive Method](#31--recursive-method)
+32. [Variable Scope & Shadowing](#32--variable-scope--shadowing)
 
 ### 🔴 Advanced / Operasional
 
-33. [String Utility Methods Lengkap](#bagian-33)
-34. [Text Blocks (Multiline String Modern)](#bagian-34)
-35. [Math Utility Class (java.lang.Math)](#bagian-35)
-36. [Record Dasar (Immutable Data Carrier)](#bagian-36)
-37. [Penanganan Exception Dasar (try-catch-finally)](#bagian-37)
+33. [String Utility Methods Lengkap](#33--string-utility-methods-lengkap)
+34. [Text Blocks (Multiline String Modern)](#34--text-blocks-multiline-string-modern)
+35. [Math Utility Class (java.lang.Math)](#35--math-utility-class-javalangmath)
+36. [Record Dasar (Immutable Data Carrier)](#36--record-dasar-immutable-data-carrier)
+37. [Penanganan Exception Dasar (try-catch-finally)](#37--penanganan-exception-dasar-try-catch-finally)
 
 ### 🛠️ Referensi & Praktik
 
-38. [Peta Ingatan Cepat](#bagian-38)
-39. [Tabel Ringkasan](#bagian-39)
-40. [Cheat Code Java Dasar 10 Detik](#bagian-40)
-41. [Urutan Belajar yang Disarankan](#bagian-41)
-42. [Mini Project: Aplikasi Kasir & Inventaris Toko CLI](#bagian-42)
-43. [Referensi Resmi](#bagian-43)
+38. [Peta Ingatan Cepat](#38-️-peta-ingatan-cepat)
+39. [Tabel Ringkasan](#39--tabel-ringkasan)
+40. [Cheat Code Java Dasar 10 Detik](#40--cheat-code-java-dasar-10-detik)
+41. [Urutan Belajar yang Disarankan](#41--urutan-belajar-yang-disarankan)
+42. [Mini Project: Aplikasi Kasir & Inventaris Toko CLI](#42-️-mini-project-aplikasi-kasir--inventaris-toko-cli)
+43. [Referensi Resmi](#43--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Java & Mental Model JVM
 
@@ -190,8 +188,6 @@ java ClassName   → menjalankan class bytecode di atas Java Virtual Machine
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Program Hello World & Anatomi Class Java
 
 #### Konsep
@@ -251,8 +247,6 @@ String[] args    → array argumen baris perintah (command line arguments) yang 
 ✅ Pastikan nama file `Main.java` identik dengan `public class Main`.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Komentar & Dokumentasi Kode (Javadoc)
 
@@ -323,8 +317,6 @@ Komentar tidak akan dieksekusi compiler.
 - Manfaatkan tag `@param` dan `@return` pada method public agar dokumentasi IDE dapat terbaca otomatis saat *hover*.
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Tipe Data Primitif Number (Integer & Floating Point)
 
@@ -399,8 +391,6 @@ double  → bilangan pecahan standar presisi ganda (default untuk desimal)
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Tipe Data Character & Escape Sequences
 
 #### Konsep
@@ -460,8 +450,6 @@ char   → tipe 1 karakter tunggal diapit petik tunggal ('a', 'Z', '9')
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Tipe Data Boolean
 
 #### Konsep
@@ -513,8 +501,6 @@ boolean  → tipe data logika dengan dua nilai mutlak: true atau false
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Tipe Data String & Immutability
 
@@ -579,8 +565,6 @@ string.toLowerCase()  → menghasilkan salinan string baru dalam huruf kecil sem
 - Jika melakukan manipulasi / perulangan ribuan penggabungan string, gunakan class `StringBuilder` untuk efisiensi memori.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Variable, Type Inference (var) & Constant (final)
 
@@ -654,8 +638,6 @@ var name = value;       → type inference otomatis oleh compiler untuk variabel
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Konversi Tipe Data Number (Widening vs Narrowing Casting)
 
 #### Konsep
@@ -719,8 +701,6 @@ double ──> float ──> long ──> int ──> short ──> byte
 - Ingat bahwa konversi dari `double` ke `int` membuang desimal (bukan pembulatan matematika).
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Tipe Data Bukan Primitif (Wrapper Class & Autoboxing)
 
@@ -803,8 +783,6 @@ Boolean.parseBoolean(text) → mengonversi String "true"/"false" menjadi tipe pr
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟢 Operator Matematika & Penugasan
 
 #### Konsep
@@ -877,8 +855,6 @@ variable++     → menambah nilai variable sebanyak 1 (post-increment)
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟢 Operator Perbandingan (== vs .equals())
 
@@ -963,8 +939,6 @@ source.equalsIgnoreCase(target) → membandingkan kesamaan konten String tanpa m
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟢 Operator Logika / Boolean (Short-Circuit)
 
 #### Konsep
@@ -1038,8 +1012,6 @@ conditionA || conditionB → menghasilkan true jika SALAH SATU kondisi bernilai 
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟢 Output Konsol & Formatting (System.out.printf)
 
 #### Konsep
@@ -1107,8 +1079,6 @@ System.out.printf(format, arguments)        → mencetak teks terformat dengan f
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟢 Membaca Input Pengguna dengan Scanner
 
@@ -1195,8 +1165,6 @@ scanner.close()                          → menutup resource scanner setelah se
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟢 Tipe Data Array 1 Dimensi
 
 #### Konsep
@@ -1266,8 +1234,6 @@ arrayName.length                           → properti untuk mengetahui total j
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟢 Tipe Data Array Multidimensi & Jagged Array
 
 #### Konsep
@@ -1332,8 +1298,6 @@ arrayName[row][column]                               → mengakses elemen pada b
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟢 If, Else If, dan Else Statement
 
@@ -1406,8 +1370,6 @@ else { statement }                              → eksekusi blok default jika s
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 Switch Statement & Switch Expression Modern
 
@@ -1488,8 +1450,6 @@ yield value                                 → mengembalikan nilai dari blok mu
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 Ternary Operator (?:)
 
 #### Konsep
@@ -1542,8 +1502,6 @@ condition ? valueIfTrue : valueIfFalse → shorthand evaluasi kondisi if-else me
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🟡 For Loop Standar
 
@@ -1616,8 +1574,6 @@ for (init; condition; post) { statement } → melakukan iterasi berulang selama 
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🟡 Enhanced For Loop (For-Each)
 
 #### Konsep
@@ -1671,8 +1627,6 @@ for (dataType element : collection) { statement } → membaca setiap item dalam 
 - Gunakan *For Loop standar* jika Anda memerlukan nomor index elemen atau ingin mengubah isi elemen array tersebut.
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🟡 While Loop
 
@@ -1728,8 +1682,6 @@ while (condition) { statement } → mengulang eksekusi kode selama condition ber
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🟡 Do-While Loop
 
 #### Konsep
@@ -1779,8 +1731,6 @@ do { statement } while (condition); → mengeksekusi body minimal 1x, lalu mengu
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🟡 Break dan Continue
 
@@ -1849,8 +1799,6 @@ continue → melompati sisa instruksi iterasi saat ini dan lanjut ke iterasi ber
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🟡 Label pada Perulangan
 
 #### Konsep
@@ -1907,8 +1855,6 @@ continue labelName;      → melanjutkan iterasi loop bertanda labelName
 ```
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🟡 Method Dasar (Void & Return Value)
 
@@ -1978,8 +1924,6 @@ return value;                                             → mengembalikan valu
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🟡 Method Parameter & Argument Passing (Pass-by-Value)
 
 #### Konsep
@@ -2047,8 +1991,6 @@ Pass-by-Value (Reference) → menyalin alamat referensi; manipulasi internal obj
 ```
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🟡 Method Variable Argument (Varargs)
 
@@ -2118,8 +2060,6 @@ static returnType methodName(type... parameters) → menerima jumlah argumen din
 
 ---
 
-<a id="bagian-30"></a>
-
 ## 30. 🟡 Method Overloading
 
 #### Konsep
@@ -2182,8 +2122,6 @@ Method Overloading → method dengan nama identik tetapi memiliki parameter berb
 ```
 
 ---
-
-<a id="bagian-31"></a>
 
 ## 31. 🟡 Recursive Method
 
@@ -2253,8 +2191,6 @@ Recursive Step → pemanggilan diri sendiri dengan parameter yang semakin mendek
 
 ---
 
-<a id="bagian-32"></a>
-
 ## 32. 🟡 Variable Scope & Shadowing
 
 #### Konsep
@@ -2322,8 +2258,6 @@ Shadowing   → variabel lokal menutup visibilitas variabel luar yang bernama sa
 ```
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 🔴 String Utility Methods Lengkap
 
@@ -2399,8 +2333,6 @@ source.formatted(arguments)          → memformat template string dengan argume
 ```
 
 ---
-
-<a id="bagian-34"></a>
 
 ## 34. 🔴 Text Blocks (Multiline String Modern)
 
@@ -2485,8 +2417,6 @@ String rapi tanpa perlu \n atau \"
 
 ---
 
-<a id="bagian-35"></a>
-
 ## 35. 🔴 Math Utility Class (java.lang.Math)
 
 #### Konsep
@@ -2556,8 +2486,6 @@ Math.random()                        → menghasilkan bilangan desimal acak dari
 ```
 
 ---
-
-<a id="bagian-36"></a>
 
 ## 36. 🔴 Record Dasar (Immutable Data Carrier)
 
@@ -2635,8 +2563,6 @@ public record RecordName(parameters) {} → membuat class penampung data immutab
 ```
 
 ---
-
-<a id="bagian-37"></a>
 
 ## 37. 🔴 Penanganan Exception Dasar (try-catch-finally)
 
@@ -2723,8 +2649,6 @@ throw new ExceptionType(message);                        → melempar error baru
 
 ---
 
-<a id="bagian-38"></a>
-
 ## 38. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -2741,8 +2665,6 @@ TIPE DATA PRIMITIF       TIPE DATA REFERENCE         CONTROL & MODULARITAS
 ```
 
 ---
-
-<a id="bagian-39"></a>
 
 ## 39. 📚 Tabel Ringkasan
 
@@ -2764,8 +2686,6 @@ TIPE DATA PRIMITIF       TIPE DATA REFERENCE         CONTROL & MODULARITAS
 | Error Handling | `try { ... } catch (Exception e) { ... }` | Menangkap runtime exception mencegah crash |
 
 ---
-
-<a id="bagian-40"></a>
 
 ## 40. ⚡ Cheat Code Java Dasar 10 Detik
 
@@ -2805,8 +2725,6 @@ public record Item(String id, String name, int price) {}
 
 ---
 
-<a id="bagian-41"></a>
-
 ## 41. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -2838,8 +2756,6 @@ Langkah 5: Siap Melangkah ke Java OOP & Spring Boot Framework!
 ```
 
 ---
-
-<a id="bagian-42"></a>
 
 ## 42. 🏗️ Mini Project: Aplikasi Kasir & Inventaris Toko CLI
 
@@ -3018,8 +2934,6 @@ Terima kasih telah menggunakan sistem kasir Toko Berkah!
 ```
 
 ---
-
-<a id="bagian-43"></a>
 
 ## 43. 🔗 Referensi Resmi
 

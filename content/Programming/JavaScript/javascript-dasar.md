@@ -71,72 +71,70 @@ First-Class  → Function diperlakukan seperti nilai biasa (bisa disimpan di var
 
 ### 🟢 Fundamental
 
-1. [Pengenalan JavaScript & Mental Model Engine](#bagian-1)
-2. [Program Hello World & Tag `<script>`](#bagian-2)
-3. [Komentar & Dokumentasi Kode](#bagian-3)
-4. [Tipe Data Number & BigInt](#bagian-4)
-5. [Tipe Data Boolean](#bagian-5)
-6. [Tipe Data String & Escape Character](#bagian-6)
-7. [Variable (let, const, var)](#bagian-7)
-8. [Operator Matematika & Penugasan](#bagian-8)
-9. [Operator Perbandingan (Strict vs Loose)](#bagian-9)
-10. [Operator Logika (&&, ||, !)](#bagian-10)
-11. [Console & Debug Output](#bagian-11)
-12. [String Template (Template Literals)](#bagian-12)
-13. [Konversi String dan Number](#bagian-13)
-14. [Tipe Data Array Dasar](#bagian-14)
-15. [Tipe Data Object Dasar](#bagian-15)
-16. [Undefined dan Null](#bagian-16)
-17. [If, Else If, dan Else Statement](#bagian-17)
+1. [Pengenalan JavaScript & Mental Model Engine](#1--pengenalan-javascript--mental-model-engine)
+2. [Program Hello World & Tag `<script>`](#2--program-hello-world--tag-script)
+3. [Komentar & Dokumentasi Kode](#3--komentar--dokumentasi-kode)
+4. [Tipe Data Number & BigInt](#4--tipe-data-number--bigint)
+5. [Tipe Data Boolean](#5--tipe-data-boolean)
+6. [Tipe Data String & Escape Character](#6--tipe-data-string--escape-character)
+7. [Variable (let, const, var)](#7--variable-let-const-var)
+8. [Operator Matematika & Penugasan](#8--operator-matematika--penugasan)
+9. [Operator Perbandingan (Strict vs Loose)](#9--operator-perbandingan-strict-vs-loose)
+10. [Operator Logika (&&, ||, !)](#10--operator-logika---)
+11. [Console & Debug Output](#11--console--debug-output)
+12. [String Template (Template Literals)](#12--string-template-template-literals)
+13. [Konversi String dan Number](#13--konversi-string-dan-number)
+14. [Tipe Data Array Dasar](#14--tipe-data-array-dasar)
+15. [Tipe Data Object Dasar](#15--tipe-data-object-dasar)
+16. [Undefined dan Null](#16--undefined-dan-null)
+17. [If, Else If, dan Else Statement](#17--if-else-if-dan-else-statement)
 
 ### 🟡 Lanjutan
 
-18. [Popup Dialog (alert, prompt, confirm)](#bagian-18)
-19. [Switch Statement](#bagian-19)
-20. [Operator typeof dan in](#bagian-20)
-21. [Ternary Operator (?:)](#bagian-21)
-22. [Nullish Coalescing Operator (??)](#bagian-22)
-23. [Optional Chaining Operator (?.)](#bagian-23)
-24. [Falsy dan Truthy](#bagian-24)
-25. [Operator Logika di Non-Boolean (Short-Circuit Evaluation)](#bagian-25)
-26. [For Loop](#bagian-26)
-27. [While Loop](#bagian-27)
-28. [Do While Loop](#bagian-28)
-29. [Break dan Continue](#bagian-29)
-30. [Label pada Perulangan](#bagian-30)
-31. [For In dan For Of](#bagian-31)
-32. [With Statement (dan Mengapa Ditinggalkan)](#bagian-32)
-33. [Function Dasar & Deklarasi](#bagian-33)
-34. [Parameter dan Return Value](#bagian-34)
-35. [Optional Parameter, Default Parameter & Rest Parameter](#bagian-35)
+18. [Popup Dialog (alert, prompt, confirm)](#18--popup-dialog-alert-prompt-confirm)
+19. [Switch Statement](#19--switch-statement)
+20. [Operator typeof dan in](#20--operator-typeof-dan-in)
+21. [Ternary Operator (?:)](#21--ternary-operator-)
+22. [Nullish Coalescing Operator (??)](#22--nullish-coalescing-operator-)
+23. [Optional Chaining Operator (?.)](#23--optional-chaining-operator-)
+24. [Falsy dan Truthy](#24--falsy-dan-truthy)
+25. [Operator Logika di Non-Boolean (Short-Circuit Evaluation)](#25--operator-logika-di-non-boolean-short-circuit-evaluation)
+26. [For Loop](#26--for-loop)
+27. [While Loop](#27--while-loop)
+28. [Do While Loop](#28--do-while-loop)
+29. [Break dan Continue](#29--break-dan-continue)
+30. [Label pada Perulangan](#30--label-pada-perulangan)
+31. [For In dan For Of](#31--for-in-dan-for-of)
+32. [With Statement (dan Mengapa Ditinggalkan)](#32--with-statement-dan-mengapa-ditinggalkan)
+33. [Function Dasar & Deklarasi](#33--function-dasar--deklarasi)
+34. [Parameter dan Return Value](#34--parameter-dan-return-value)
+35. [Optional Parameter, Default Parameter & Rest Parameter](#35--optional-parameter-default-parameter--rest-parameter)
 
 ### 🔴 Advanced / Operasional
 
-36. [Function Sebagai Value & Anonymous Function](#bagian-36)
-37. [Function dalam Function & Scope](#bagian-37)
-38. [Recursive Function](#bagian-38)
-39. [Function Generator (function* & yield)](#bagian-39)
-40. [Arrow Function (() =>)](#bagian-40)
-41. [Closure & Data Privacy](#bagian-41)
-42. [Object Method dan Kata Kunci this](#bagian-42)
-43. [Arrow Function di Object & Perilaku this](#bagian-43)
-44. [Getter dan Setter di Object](#bagian-44)
-45. [Masalah Variable var (Hoisting & Scope Leak)](#bagian-45)
-46. [Destructuring (Array & Object)](#bagian-46)
-47. [Strict Mode ("use strict") & Debugger](#bagian-47)
+36. [Function Sebagai Value & Anonymous Function](#36--function-sebagai-value--anonymous-function)
+37. [Function dalam Function & Scope](#37--function-dalam-function--scope)
+38. [Recursive Function](#38--recursive-function)
+39. [Function Generator (function* & yield)](#39--function-generator-function--yield)
+40. [Arrow Function (() =>)](#40--arrow-function--)
+41. [Closure & Data Privacy](#41--closure--data-privacy)
+42. [Object Method dan Kata Kunci this](#42--object-method-dan-kata-kunci-this)
+43. [Arrow Function di Object & Perilaku this](#43--arrow-function-di-object--perilaku-this)
+44. [Getter dan Setter di Object](#44--getter-dan-setter-di-object)
+45. [Masalah Variable var (Hoisting & Scope Leak)](#45--masalah-variable-var-hoisting--scope-leak)
+46. [Destructuring (Array & Object)](#46--destructuring-array--object)
+47. [Strict Mode ("use strict") & Debugger](#47--strict-mode-use-strict--debugger)
 
 ### 🛠️ Referensi & Praktik
 
-48. [Peta Ingatan Cepat](#bagian-48)
-49. [Tabel Ringkasan](#bagian-49)
-50. [Cheat Code JavaScript Dasar 10 Detik](#bagian-50)
-51. [Urutan Belajar yang Disarankan](#bagian-51)
-52. [Mini Project: Sistem Manajemen Kasir & Belanja Interaktif](#bagian-52)
-53. [Referensi Resmi](#bagian-53)
+48. [Peta Ingatan Cepat](#48-️-peta-ingatan-cepat)
+49. [Tabel Ringkasan](#49--tabel-ringkasan)
+50. [Cheat Code JavaScript Dasar 10 Detik](#50--cheat-code-javascript-dasar-10-detik)
+51. [Urutan Belajar yang Disarankan](#51--urutan-belajar-yang-disarankan)
+52. [Mini Project: Sistem Manajemen Kasir & Belanja Interaktif](#52-️-mini-project-sistem-manajemen-kasir--belanja-interaktif)
+53. [Referensi Resmi](#53--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan JavaScript & Mental Model Engine
 
@@ -210,8 +208,6 @@ Console     → Tempat melihat log, informasi, dan debugging runtime
 - ❌ Jangan menganggap JavaScript sama dengan Java; keduanya adalah bahasa yang sangat berbeda dari segi arsitektur maupun filosofi desain.
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Program Hello World & Tag `<script>`
 
@@ -304,8 +300,6 @@ console.log(message)         → Mencetak pesan/data ke jendela konsol pengemban
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Komentar & Dokumentasi Kode
 
 #### Konsep
@@ -381,8 +375,6 @@ Total: 55500
 - ❌ Hindari membiarkan kode lama yang sudah usang menumpuk sebagai komentar di repositori; manfaatkan Git version control untuk melacak history kode.
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Tipe Data Number & BigInt
 
@@ -465,8 +457,6 @@ Number.isNaN(value)     → Mengecek apakah nilai bernilai NaN secara pasti
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Tipe Data Boolean
 
 #### Konsep
@@ -529,8 +519,6 @@ Boolean(value) → Mengonversi nilai apa pun menjadi tipe boolean
 - ❌ Hindari membungkus boolean dengan tanda petik (misal: `"false"`), karena string `"false"` bukan boolean dan akan dianggap *truthy* dalam evaluasi kondisi.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Tipe Data String & Escape Character
 
@@ -615,8 +603,6 @@ string1 + string2       → Menggabungkan dua atau lebih string (concatenation)
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Variable (let, const, var)
 
 #### Konsep
@@ -691,8 +677,6 @@ var identifier = value   → Deklarasi model lama (jangan digunakan di kode mode
 - ❌ Jangan pernah menggunakan `var` di JavaScript modern untuk menghindari bug *hoisting* dan *variable shadowing* yang tidak terduga.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Operator Matematika & Penugasan
 
@@ -789,8 +773,6 @@ variable += amount          → Menambahkan nilai amount ke variable saat ini
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Operator Perbandingan (Strict vs Loose)
 
 #### Konsep
@@ -874,8 +856,6 @@ leftOperand <= rightOperand  → Lebih kecil dari atau sama dengan
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Operator Logika (&&, ||, !)
 
 #### Konsep
@@ -942,8 +922,6 @@ firstCondition || secondCondition → OR: Cukup salah satu kondisi bernilai true
 - ❌ Jangan membuat rantai logika yang terlalu panjang dan bertingkat tanpa pengelompokan tanda kurung `(...)`, karena hal itu membingungkan urutan pembacaan kode.
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Console & Debug Output
 
@@ -1027,8 +1005,6 @@ console.table(collection) → Menampilkan array/objek dalam bentuk tabel kolom &
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟢 String Template (Template Literals)
 
 #### Konsep
@@ -1110,8 +1086,6 @@ Status : Diskon Khusus
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟢 Konversi String dan Number
 
 #### Konsep
@@ -1192,8 +1166,6 @@ String(number)       → Mengonversi angka menjadi teks biasa
 - ❌ Hati-hati terhadap `NaN`; periksa hasil konversi dengan `Number.isNaN()` sebelum memprosesnya dalam kalkulasi krusial (misal pembayaran).
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟢 Tipe Data Array Dasar
 
@@ -1277,8 +1249,6 @@ array.length          → Mendapatkan jumlah total elemen di dalam array
 - ❌ Ingat bahwa indeks array selalu berawal dari **0**, sehingga elemen terakhir berada di posisi `array.length - 1`.
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟢 Tipe Data Object Dasar
 
@@ -1371,8 +1341,6 @@ delete object.key     → Menghapus properti dari objek
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟢 Undefined dan Null
 
 #### Konsep
@@ -1454,8 +1422,6 @@ typeof null === 'object'
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟢 If, Else If, dan Else Statement
 
 #### Konsep
@@ -1535,8 +1501,6 @@ else { ... }                → Blok penampung jika semua kondisi sebelumnya fal
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 Popup Dialog (alert, prompt, confirm)
 
 #### Konsep
@@ -1610,8 +1574,6 @@ confirm(message)             → Meminta persetujuan Ya/Tidak (return true / fal
 - ❌ Jangan gunakan `alert` / `prompt` di aplikasi web modern skala produksi karena bersifat memblokir (*blocking thread*) dan tampilannya tidak bisa dikustomisasi secara leluasa dengan CSS.
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 Switch Statement
 
@@ -1693,8 +1655,6 @@ default:                    → Jalur fallback jika tidak ada case yang cocok
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 Operator typeof dan in
 
 #### Konsep
@@ -1775,8 +1735,6 @@ propertyName in object→ Mengecek apakah nama properti terdaftar di dalam objek
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Ternary Operator (?:)
 
 #### Konsep
@@ -1847,8 +1805,6 @@ condition ? valueIfTrue : valueIfFalse → Memilih nilai berdasarkan evaluasi bo
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🟡 Nullish Coalescing Operator (??)
 
 #### Konsep
@@ -1918,8 +1874,6 @@ variable ??= defaultValue     → Mengisi variabel hanya jika saat ini bernilai 
 - ❌ Jangan gunakan `||` untuk memberi nilai default pada variabel numerik atau boolean, karena angka `0` dan boolean `false` akan tertimpa oleh nilai default secara tidak sengaja.
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🟡 Optional Chaining Operator (?.)
 
@@ -1994,8 +1948,6 @@ object.method?.(...args) → Memanggil method hanya jika method tersebut berupa 
 - ❌ Jangan gunakan `?.` di sisi kiri penugasan nilai (misal: `user?.address?.city = "Bandung"`), karena optional chaining hanya untuk membaca data (*read-only*), bukan untuk menulis (*write*).
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🟡 Falsy dan Truthy
 
@@ -2083,8 +2035,6 @@ Truthy list    → Segala nilai lainnya (termasuk array kosong [] dan object kos
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🟡 Operator Logika di Non-Boolean (Short-Circuit Evaluation)
 
 #### Konsep
@@ -2166,8 +2116,6 @@ leftValue && rightValue → Mengambil nilai falsy pertama, atau nilai paling kan
 - ❌ Hati-hati saat menggunakan `||` untuk nilai default, karena jika nilai aslinya adalah `0` atau `""`, nilai tersebut akan dianggap *falsy* dan tertimpa nilai kanan secara tidak sengaja (gunakan `??` untuk skenario ini).
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🟡 For Loop
 
@@ -2261,8 +2209,6 @@ for (initialization; condition; increment) { ... } → Struktur standar perulang
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 🟡 While Loop
 
 #### Konsep
@@ -2341,8 +2287,6 @@ while (condition) { ... } → Mengulang blok kode selama kondisi bernilai true (
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🟡 Do While Loop
 
 #### Konsep
@@ -2404,8 +2348,6 @@ do { ... } while (condition); → Menjalankan blok minimal 1x sebelum mengecek k
 - ❌ Jangan lupa menambahkan tanda titik koma (`;`) di akhir penutup `while (condition);`.
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🟡 Break dan Continue
 
@@ -2482,8 +2424,6 @@ continue → Melewatkan sisa instruksi di putaran saat ini dan lompat ke iterasi
 
 ---
 
-<a id="bagian-30"></a>
-
 ## 30. 🟡 Label pada Perulangan
 
 #### Konsep
@@ -2555,8 +2495,6 @@ continue labelName     → Melompat ke iterasi berikutnya dari loop yang berlabe
 - ❌ Jangan menggunakan label secara berlebihan untuk alur kode biasa karena dapat membuat struktur logika menyerupai *spaghetti code*.
 
 ---
-
-<a id="bagian-31"></a>
 
 ## 31. 🟡 For In dan For Of
 
@@ -2637,8 +2575,6 @@ for (const value of array) { ... } → Mengulang nilai elemen langsung pada arra
 
 ---
 
-<a id="bagian-32"></a>
-
 ## 32. 🟡 With Statement (dan Mengapa Ditinggalkan)
 
 #### Konsep
@@ -2706,8 +2642,6 @@ const { prop } = obj  → Standar modern pengganti with menggunakan Object Destr
 
 ---
 
-<a id="bagian-33"></a>
-
 ## 33. 🟡 Function Dasar & Deklarasi
 
 #### Konsep
@@ -2771,8 +2705,6 @@ functionName()                  → Memanggil dan mengeksekusi blok kode fungsi
 - ❌ Hindari membuat satu fungsi yang mengerjakan terlalu banyak hal berbeda sekaligus (*Single Responsibility Principle*).
 
 ---
-
-<a id="bagian-34"></a>
 
 ## 34. 🟡 Parameter dan Return Value
 
@@ -2862,8 +2794,6 @@ return value;                                    → Mengembalikan hasil dan lan
 
 ---
 
-<a id="bagian-35"></a>
-
 ## 35. 🟡 Optional Parameter, Default Parameter & Rest Parameter
 
 #### Konsep
@@ -2946,8 +2876,6 @@ function name(...restParams)        → Menampung seluruh sisa argumen ke dalam 
 
 ---
 
-<a id="bagian-36"></a>
-
 ## 36. 🔴 Function Sebagai Value & Anonymous Function
 
 #### Konsep
@@ -3016,8 +2944,6 @@ higherOrderFunction(data, callbackFunction)     → Mengirimkan fungsi sebagai a
 - ❌ Jangan membuat callback yang terlalu rumit secara inline berulang-ulang (*Callback Hell*); pisahkan menjadi fungsi modular bernama jika logika semakin panjang.
 
 ---
-
-<a id="bagian-37"></a>
 
 ## 37. 🔴 Function dalam Function & Scope
 
@@ -3090,8 +3016,6 @@ Outer Function → TIDAK DAPAT mengakses variabel privat di dalam Inner Function
 - ❌ Hindari mencemari Global Scope (*Global Scope Pollution*) dengan membuat variabel tanpa pembungkus fungsi/modul.
 
 ---
-
-<a id="bagian-38"></a>
 
 ## 38. 🔴 Recursive Function
 
@@ -3186,8 +3110,6 @@ Recursive Step → Memanggil dirinya sendiri dengan parameter yang semakin kecil
 
 ---
 
-<a id="bagian-39"></a>
-
 ## 39. 🔴 Function Generator (function* & yield)
 
 #### Konsep
@@ -3281,8 +3203,6 @@ generatorObject.next()             → Melanjutkan eksekusi ke yield berikutnya
 
 ---
 
-<a id="bagian-40"></a>
-
 ## 40. 🔴 Arrow Function (() =>)
 
 #### Konsep
@@ -3359,8 +3279,6 @@ Evens: [ 2, 4 ]
 - ❌ Jangan gunakan arrow function sebagai method objek jika method tersebut memerlukan akses ke properti internal objek melalui `this`.
 
 ---
-
-<a id="bagian-41"></a>
 
 ## 41. 🔴 Closure & Data Privacy
 
@@ -3444,8 +3362,6 @@ Privacy → Melindungi variabel dari mutasi liar di scope global
 
 ---
 
-<a id="bagian-42"></a>
-
 ## 42. 🔴 Object Method dan Kata Kunci this
 
 #### Konsep
@@ -3513,8 +3429,6 @@ methodName(params) { ... }→ Sintaks ringkas (method shorthand) di dalam object
 
 ---
 
-<a id="bagian-43"></a>
-
 ## 43. 🔴 Arrow Function di Object & Perilaku this
 
 #### Konsep
@@ -3575,8 +3489,6 @@ Callback Nested → Sangat ideal menggunakan Arrow Function agar 'this' tidak be
 - ✅ Gunakan arrow function pada *callback di dalam method* agar ia mewarisi konteks `this` dari method pembungkusnya secara otomatis tanpa perlu trik `const self = this`.
 
 ---
-
-<a id="bagian-44"></a>
 
 ## 44. 🔴 Getter dan Setter di Object
 
@@ -3675,8 +3587,6 @@ set propertyName(value) { ... }    → Mendefinisikan properti tulis dengan vali
 
 ---
 
-<a id="bagian-45"></a>
-
 ## 45. 🔴 Masalah Variable var (Hoisting & Scope Leak)
 
 #### Konsep
@@ -3739,8 +3649,6 @@ const → Block scoped, TDZ, immutable reference (PILIHAN UTAMA)
 - ❌ Jangan pernah mengasumsikan variabel `var` di dalam blok loop terisolasi secara aman.
 
 ---
-
-<a id="bagian-46"></a>
 
 ## 46. 🔴 Destructuring (Array & Object)
 
@@ -3826,8 +3734,6 @@ const [item1, ...rest] = array     → Mengekstrak elemen pertama dan mengumpulk
 
 ---
 
-<a id="bagian-47"></a>
-
 ## 47. 🔴 Strict Mode ("use strict") & Debugger
 
 #### Konsep
@@ -3910,8 +3816,6 @@ debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbu
 
 ---
 
-<a id="bagian-48"></a>
-
 ## 48. 🛠️ Peta Ingatan Cepat
 
 #### Mental Model Hubungan Konsep JavaScript Dasar
@@ -3975,8 +3879,6 @@ debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbu
 
 ---
 
-<a id="bagian-49"></a>
-
 ## 49. 📚 Tabel Ringkasan
 
 | Kategori | Sintaks / Fitur | Contoh Penggunaan | Penjelasan & Kegunaan |
@@ -4001,8 +3903,6 @@ debugger;     → Memasang titik henti (breakpoint) otomatis saat DevTools terbu
 | **Modern ES** | Strict Mode | `"use strict";` | Mengaktifkan validasi ketat mesin JavaScript |
 
 ---
-
-<a id="bagian-50"></a>
 
 ## 50. ⚡ Cheat Code JavaScript Dasar 10 Detik
 
@@ -4041,8 +3941,6 @@ for (const num of numbers) {
 ```
 
 ---
-
-<a id="bagian-51"></a>
 
 ## 51. 🧭 Urutan Belajar yang Disarankan
 
@@ -4083,8 +3981,6 @@ Untuk menguasai JavaScript dari nol hingga siap memasuki dunia frontend (DOM, Re
 ```
 
 ---
-
-<a id="bagian-52"></a>
 
 ## 52. 🏗️ Mini Project: Sistem Manajemen Kasir & Belanja Interaktif
 
@@ -4262,8 +4158,6 @@ Shopping Cart Pattern → Pola perancangan modular menggunakan Closure untuk mel
 ```
 
 ---
-
-<a id="bagian-53"></a>
 
 ## 53. 🔗 Referensi Resmi
 

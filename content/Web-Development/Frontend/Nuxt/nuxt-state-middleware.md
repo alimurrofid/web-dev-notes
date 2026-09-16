@@ -69,43 +69,41 @@ Route Rules                   → konfigurasi hybrid rendering di nuxt.config.ts
 
 ### 🟢 Fundamental
 
-1. [Pengenalan State Management di SSR & Masalah Cross-Request State Pollution](#bagian-1)
-2. [Composable `useState()` Bawaan Nuxt 3](#bagian-2)
-3. [Mengorganisasi Global State dengan Custom Composables](#bagian-3)
-4. [Integrasi Pinia dengan Nuxt 3 (`@pinia/nuxt`)](#bagian-4)
-5. [Pengenalan Route Middleware di Nuxt 3](#bagian-5)
-6. [Tiga Jenis Route Middleware](#bagian-6)
-7. [Menulis Named Route Middleware (`defineNuxtRouteMiddleware`)](#bagian-7)
-8. [Navigasi & Redirect di Middleware (`navigateTo` & `abortNavigation`)](#bagian-8)
+1. [Pengenalan State Management di SSR & Masalah Cross-Request State Pollution](#1--pengenalan-state-management-di-ssr--masalah-cross-request-state-pollution)
+2. [Composable `useState()` Bawaan Nuxt 3](#2--composable-usestate-bawaan-nuxt-3)
+3. [Mengorganisasi Global State dengan Custom Composables](#3--mengorganisasi-global-state-dengan-custom-composables)
+4. [Integrasi Pinia dengan Nuxt 3 (`@pinia/nuxt`)](#4--integrasi-pinia-dengan-nuxt-3-pinianuxt)
+5. [Pengenalan Route Middleware di Nuxt 3](#5--pengenalan-route-middleware-di-nuxt-3)
+6. [Tiga Jenis Route Middleware](#6--tiga-jenis-route-middleware)
+7. [Menulis Named Route Middleware (`defineNuxtRouteMiddleware`)](#7--menulis-named-route-middleware-definenuxtroutemiddleware)
+8. [Navigasi & Redirect di Middleware (`navigateTo` & `abortNavigation`)](#8--navigasi--redirect-di-middleware-navigateto--abortnavigation)
 
 ### 🟡 Lanjutan
 
-9. [Proteksi Halaman dengan Middleware di `definePageMeta`](#bagian-9)
-10. [Server-Side Cookie Management dengan `useCookie()`](#bagian-10)
-11. [Runtime Config & Variabel Lingkungan (`useRuntimeConfig`)](#bagian-11)
-12. [Nuxt Plugins System (`plugins/` folder)](#bagian-12)
-13. [Client-Only vs Server-Only Plugins](#bagian-13)
-14. [Ekosistem Nuxt Modules](#bagian-14)
-15. [Hybrid Rendering & Route Rules di `nuxt.config.ts`](#bagian-15)
-16. [Internationalization (i18n) & Multi-Language Routing](#bagian-16)
+9. [Proteksi Halaman dengan Middleware di `definePageMeta`](#9--proteksi-halaman-dengan-middleware-di-definepagemeta)
+10. [Server-Side Cookie Management dengan `useCookie()`](#10--server-side-cookie-management-dengan-usecookie)
+11. [Runtime Config & Variabel Lingkungan (`useRuntimeConfig`)](#11--runtime-config--variabel-lingkungan-useruntimeconfig)
+12. [Nuxt Plugins System (`plugins/` folder)](#12--nuxt-plugins-system-plugins-folder)
+13. [Client-Only vs Server-Only Plugins](#13--client-only-vs-server-only-plugins)
+14. [Ekosistem Nuxt Modules](#14--ekosistem-nuxt-modules)
+15. [Hybrid Rendering & Route Rules di `nuxt.config.ts`](#15--hybrid-rendering--route-rules-di-nuxtconfigts)
+16. [Internationalization (i18n) & Multi-Language Routing](#16--internationalization-i18n--multi-language-routing)
 
 ### 🔴 Advanced / Operasional
 
-17. [Nuxt Lifecycle Hooks & Events](#bagian-17)
-18. [Deployment Nuxt 3 ke Production](#bagian-18)
+17. [Nuxt Lifecycle Hooks & Events](#17--nuxt-lifecycle-hooks--events)
+18. [Deployment Nuxt 3 ke Production](#18--deployment-nuxt-3-ke-production)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Nuxt State & Middleware 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready Full-Stack Role-Based Authentication, Cart State & Protected Dashboard Web App](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Nuxt State & Middleware 10 Detik](#21--cheat-code-nuxt-state--middleware-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready Full-Stack Role-Based Authentication, Cart State & Protected Dashboard Web App](#23-️-mini-project-production-ready-full-stack-role-based-authentication-cart-state--protected-dashboard-web-app)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan State Management di SSR & Masalah Cross-Request State Pollution
 
@@ -142,8 +140,6 @@ useState()                    → solusi wajib Nuxt untuk mengisolasi state per 
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Composable `useState()` Bawaan Nuxt 3
 
 #### Konsep
@@ -178,8 +174,6 @@ const myState = useState('unique-state-key', () => initialValue)
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Mengorganisasi Global State dengan Custom Composables
 
@@ -244,8 +238,6 @@ composables/useFeature.ts → pola modular mengorganisasi global state dan fungs
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Integrasi Pinia dengan Nuxt 3 (`@pinia/nuxt`)
 
 #### Konsep
@@ -284,8 +276,6 @@ npx nuxi module add @pinia/nuxt → integrasi Pinia Store dengan SSR auto-hydrat
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Pengenalan Route Middleware di Nuxt 3
 
 #### Konsep
@@ -306,8 +296,6 @@ Route Middleware → penjaga navigasi halaman yang dieksekusi di server dan brow
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Tiga Jenis Route Middleware
 
@@ -331,8 +319,6 @@ middleware/auth.ts → named middleware yang dipanggil sesuai kebutuhan halaman
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Menulis Named Route Middleware (`defineNuxtRouteMiddleware`)
 
@@ -383,8 +369,6 @@ export default defineNuxtRouteMiddleware((to, from) => { /* logic guard */ })
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Navigasi & Redirect di Middleware (`navigateTo` & `abortNavigation`)
 
 #### Konsep
@@ -420,8 +404,6 @@ return abortNavigation()   → membatalkan proses perpindahan halaman
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Proteksi Halaman dengan Middleware di `definePageMeta`
 
 #### Konsep
@@ -454,8 +436,6 @@ definePageMeta({ middleware: ['auth', 'admin'] }) → menerapkan rantai proteksi
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Server-Side Cookie Management dengan `useCookie()`
 
@@ -494,8 +474,6 @@ const token = useCookie('auth_token', { maxAge: 604800 }) → mengelola cookie s
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Runtime Config & Variabel Lingkungan (`useRuntimeConfig`)
 
@@ -547,8 +525,6 @@ runtimeConfig: { secretKey: '...', public: { apiBase: '...' } } → pemisahan va
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Nuxt Plugins System (`plugins/` folder)
 
 #### Konsep
@@ -595,8 +571,6 @@ defineNuxtPlugin(() => ({ provide: { helperName: fn } })) → menyediakan fungsi
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Client-Only vs Server-Only Plugins
 
 #### Konsep
@@ -615,8 +589,6 @@ plugin.client.ts → plugin khusus browser | plugin.server.ts → plugin khusus 
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Ekosistem Nuxt Modules
 
@@ -642,8 +614,6 @@ npx nuxi module add <module-name> → menginstal dan mendaftarkan modul Nuxt oto
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Hybrid Rendering & Route Rules di `nuxt.config.ts`
 
@@ -686,8 +656,6 @@ routeRules: { '/admin/**': { ssr: false }, '/catalog/**': { swr: 3600 } } → st
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Internationalization (i18n) & Multi-Language Routing
 
 #### Konsep
@@ -704,8 +672,6 @@ Untuk website multibahasa (misal: `/id/about` dan `/en/about`), ekosistem Nuxt m
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Nuxt Lifecycle Hooks & Events
 
@@ -737,8 +703,6 @@ nuxtApp.hook('page:start', fn) → mencegat event siklus hidup runtime aplikasi 
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Deployment Nuxt 3 ke Production
 
 #### Konsep
@@ -767,8 +731,6 @@ npx nuxi generate  → build seluruh halaman menjadi HTML statis murni (SSG)
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -785,8 +747,6 @@ STATE MANAGEMENT                ROUTE MIDDLEWARE                 CONFIG & PLUGIN
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 📚 Tabel Ringkasan
 
 | Fitur / Composable | Tipe | Fungsi & Karakteristik Utama |
@@ -801,8 +761,6 @@ STATE MANAGEMENT                ROUTE MIDDLEWARE                 CONFIG & PLUGIN
 | `routeRules` | Konfigurasi | Menentukan strategi rendering hybrid per path URL |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Nuxt State & Middleware 10 Detik
 
@@ -822,8 +780,6 @@ export default defineNuxtRouteMiddleware((to) => {
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
@@ -853,8 +809,6 @@ Langkah 5: Selamat! Anda Telah Menguasai Ekosistem Full-Stack Nuxt 3 Lengkap!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready Full-Stack Role-Based Authentication, Cart State & Protected Dashboard Web App
 
@@ -1050,8 +1004,6 @@ const config = useRuntimeConfig()
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

@@ -79,43 +79,41 @@ ResponseEntity<T>     → wrapper lengkap response HTTP yang mencakup status cod
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Spring Web MVC & Mental Model `DispatcherServlet`](#bagian-1)
-2. [`@Controller` vs `@RestController`](#bagian-2)
-3. [HTTP Request Mapping Modern (`@GetMapping`, `@PostMapping`, dll.)](#bagian-3)
-4. [Menangkap Path Parameter dengan `@PathVariable`](#bagian-4)
-5. [Menangkap Query Parameter dengan `@RequestParam`](#bagian-5)
-6. [Menerima Payload JSON dengan `@RequestBody` & Java Record DTO](#bagian-6)
-7. [Membaca Request Headers & Cookies](#bagian-7)
-8. [Response Formatting dengan `ResponseEntity<T>` & HTTP Status](#bagian-8)
+1. [Pengenalan Spring Web MVC & Mental Model `DispatcherServlet`](#1--pengenalan-spring-web-mvc--mental-model-dispatcherservlet)
+2. [`@Controller` vs `@RestController`](#2--controller-vs-restcontroller)
+3. [HTTP Request Mapping Modern (`@GetMapping`, `@PostMapping`, dll.)](#3--http-request-mapping-modern-getmapping-postmapping-dll)
+4. [Menangkap Path Parameter dengan `@PathVariable`](#4--menangkap-path-parameter-dengan-pathvariable)
+5. [Menangkap Query Parameter dengan `@RequestParam`](#5--menangkap-query-parameter-dengan-requestparam)
+6. [Menerima Payload JSON dengan `@RequestBody` & Java Record DTO](#6--menerima-payload-json-dengan-requestbody--java-record-dto)
+7. [Membaca Request Headers & Cookies](#7--membaca-request-headers--cookies)
+8. [Response Formatting dengan `ResponseEntity<T>` & HTTP Status](#8--response-formatting-dengan-responseentityt--http-status)
 
 ### 🟡 Lanjutan
 
-9. [Standar Envelope API Response Wrapper (`ApiResponse<T>`)](#bagian-9)
-10. [Validasi Request Otomatis dengan Jakarta Bean Validation](#bagian-10)
-11. [Custom Validator Anotasi (`@Constraint` & `ConstraintValidator`)](#bagian-11)
-12. [Global Exception Handling dengan `@RestControllerAdvice` & `@ExceptionHandler`](#bagian-12)
-13. [Standar Error Modern RFC 7807 (Problem Details for HTTP APIs)](#bagian-13)
-14. [Validasi Error Handler: Menangkap `MethodArgumentNotValidException`](#bagian-14)
-15. [CORS Configuration (Cross-Origin Resource Sharing)](#bagian-15)
-16. [File Upload & Download (`MultipartFile`)](#bagian-16)
+9. [Standar Envelope API Response Wrapper (`ApiResponse<T>`)](#9--standar-envelope-api-response-wrapper-apiresponset)
+10. [Validasi Request Otomatis dengan Jakarta Bean Validation](#10--validasi-request-otomatis-dengan-jakarta-bean-validation)
+11. [Custom Validator Anotasi (`@Constraint` & `ConstraintValidator`)](#11--custom-validator-anotasi-constraint--constraintvalidator)
+12. [Global Exception Handling dengan `@RestControllerAdvice` & `@ExceptionHandler`](#12--global-exception-handling-dengan-restcontrolleradvice--exceptionhandler)
+13. [Standar Error Modern RFC 7807 (Problem Details for HTTP APIs)](#13--standar-error-modern-rfc-7807-problem-details-for-http-apis)
+14. [Validasi Error Handler: Menangkap `MethodArgumentNotValidException`](#14--validasi-error-handler-menangkap-methodargumentnotvalidexception)
+15. [CORS Configuration (Cross-Origin Resource Sharing)](#15--cors-configuration-cross-origin-resource-sharing)
+16. [File Upload & Download (`MultipartFile`)](#16--file-upload--download-multipartfile)
 
 ### 🔴 Advanced / Operasional
 
-17. [Custom HTTP Interceptor (`HandlerInterceptor`)](#bagian-17)
-18. [Kustomisasi Serialisasi JSON Jackson (`@JsonProperty`, `@JsonIgnore`)](#bagian-18)
+17. [Custom HTTP Interceptor (`HandlerInterceptor`)](#17--custom-http-interceptor-handlerinterceptor)
+18. [Kustomisasi Serialisasi JSON Jackson (`@JsonProperty`, `@JsonIgnore`)](#18--kustomisasi-serialisasi-json-jackson-jsonproperty-jsonignore)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Spring Boot Web 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready E-Commerce Product & Order RESTful API](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Spring Boot Web 10 Detik](#21--cheat-code-spring-boot-web-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready E-Commerce Product & Order RESTful API](#23-️-mini-project-production-ready-e-commerce-product--order-restful-api)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Spring Web MVC & Mental Model `DispatcherServlet`
 
@@ -155,8 +153,6 @@ DispatcherServlet → gerbang utama penerima seluruh HTTP request yang mengoordi
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 `@Controller` vs `@RestController`
 
@@ -217,8 +213,6 @@ public class SystemStatusController {
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 HTTP Request Mapping Modern (`@GetMapping`, `@PostMapping`, dll.)
 
 #### Konsep
@@ -275,8 +269,6 @@ public class ProductCrudController {
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Menangkap Path Parameter dengan `@PathVariable`
 
@@ -336,8 +328,6 @@ Request: `GET /api/categories/elektronik/items/105`
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Menangkap Query Parameter dengan `@RequestParam`
 
@@ -399,8 +389,6 @@ Request: `GET /api/search?keyword=laptop&page=2`
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Menerima Payload JSON dengan `@RequestBody` & Java Record DTO
 
@@ -484,8 +472,6 @@ Response:
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Membaca Request Headers & Cookies
 
 #### Konsep
@@ -529,8 +515,6 @@ public class SecureHeaderController {
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Response Formatting dengan `ResponseEntity<T>` & HTTP Status
 
@@ -593,8 +577,6 @@ ResponseEntity.noContent().build()       → menghasilkan response HTTP 204 No C
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Standar Envelope API Response Wrapper (`ApiResponse<T>`)
 
@@ -660,8 +642,6 @@ ApiResponse<T> → pola wrapper seragam untuk struktur response JSON di seluruh 
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Validasi Request Otomatis dengan Jakarta Bean Validation
 
 #### Konsep
@@ -720,8 +700,6 @@ public ResponseEntity<ApiResponse<String>> createCustomer(@Valid @RequestBody Cr
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Custom Validator Anotasi (`@Constraint` & `ConstraintValidator`)
 
 #### Konsep
@@ -773,8 +751,6 @@ class VoucherCodeValidator implements ConstraintValidator<ValidVoucherCode, Stri
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Global Exception Handling dengan `@RestControllerAdvice` & `@ExceptionHandler`
 
@@ -835,8 +811,6 @@ public class GlobalErrorAdvice {
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Standar Error Modern RFC 7807 (Problem Details for HTTP APIs)
 
 #### Konsep
@@ -895,8 +869,6 @@ ProblemDetail.forStatusAndDetail(status, detail) → membuat format error standa
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Validasi Error Handler: Menangkap `MethodArgumentNotValidException`
 
@@ -962,8 +934,6 @@ ex.getBindingResult().getFieldErrors() → mengekstrak daftar field-field yang m
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 CORS Configuration (Cross-Origin Resource Sharing)
 
 #### Konsep
@@ -1005,8 +975,6 @@ WebMvcConfigurer.addCorsMappings(registry) → konfigurasi global izin domain fr
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 File Upload & Download (`MultipartFile`)
 
@@ -1066,8 +1034,6 @@ public class FileUploadController {
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Custom HTTP Interceptor (`HandlerInterceptor`)
 
@@ -1138,8 +1104,6 @@ WebMvcConfigurer.addInterceptors()  → mendaftarkan interceptor ke pipeline Spr
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Kustomisasi Serialisasi JSON Jackson (`@JsonProperty`, `@JsonIgnore`)
 
 #### Konsep
@@ -1199,8 +1163,6 @@ public record UserProfileResponse(
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1216,8 +1178,6 @@ REQUEST CONTROLLERS           DATA VALIDATION               ERROR & EXCEPTIONS
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 📚 Tabel Ringkasan
 
@@ -1238,8 +1198,6 @@ REQUEST CONTROLLERS           DATA VALIDATION               ERROR & EXCEPTIONS
 | `MultipartFile` | Parameter | Menampung file upload binary dari form-data |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Spring Boot Web 10 Detik
 
@@ -1273,8 +1231,6 @@ public class GlobalAdvice {
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1304,8 +1260,6 @@ Langkah 5: Siap Melangkah ke Database ORM dengan Spring Data JPA & Hibernate!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready E-Commerce Product & Order RESTful API
 
@@ -1577,8 +1531,6 @@ Payload Body Salah: `{"sku": "", "name": "A", "price": 500, "stock": -1}`
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

@@ -487,35 +487,37 @@ Contoh:
 
 ### 🟢 Fundamental
 
-1. [Pengenalan](#bagian-1)
-2. [Konsep Dasar](#bagian-2)
-3. [Syntax Dasar](#bagian-3)
+1. [Pengenalan](#1--pengenalan)
+2. [Konsep Dasar](#2--konsep-dasar)
+3. [Syntax Dasar](#3--syntax-dasar)
 
 ### 🟡 Intermediate
 
-4. [Konsep Intermediate](#bagian-4)
+4. [Konsep Intermediate](#4--konsep-intermediate)
 
 ### 🔴 Advanced
 
-5. [Konsep Advanced](#bagian-5)
+5. [Konsep Advanced](#5--konsep-advanced)
 
 ### 🛠️ Praktik
 
-6. [Mini Project](#bagian-6)
+6. [Mini Project](#6-️-mini-project)
 
 ### 📚 Referensi
 
-7. [Ringkasan](#bagian-7)
-8. [Referensi Resmi](#bagian-8)
+7. [Ringkasan](#7--ringkasan)
+8. [Referensi Resmi](#8--referensi-resmi)
 ```
 
-Gunakan explicit anchor jika renderer membutuhkan anchor yang stabil:
+### Aturan Penulisan Link Daftar Isi:
 
-```markdown
-<a id="bagian-1"></a>
-
-## 1. 🟢 Pengenalan
-```
+* **Format GFM Heading Slug**: Gunakan format slug heading standar (`#<nomor>--<judul-kebab-case>`).
+* **Bebas dari `%20`**: Spasi diubah menjadi tanda hubung (`-`), sedangkan simbol (`.`, `&`, dll.) dan emoji dihapus oleh slugger.
+* **DILARANG menggunakan tag HTML manual**: DILARANG menambahkan tag manual seperti `<a id="bagian-1"></a>` di atas heading. Dokumen harus tetap 100% Markdown murni (*clean Markdown*) dan mematuhi aturan Bab 13 (*Hindari HTML yang tidak diperlukan*).
+* **Judul Heading Tetap Utuh**: Judul heading di badan dokumen tetap ditulis natural dengan nomor sequential dan emoji (contoh: `## 1. 🟢 Pengenalan`).
+* **Kompatibilitas**:
+  * **Quartz, VS Code, GitHub/GitLab**: Berfungsi secara native tanpa konfigurasi tambahan.
+  * **Obsidian**: Disarankan memasang plugin komunitas **GFM Heading Links** agar format slug standar ini dapat langsung diklik dan melompat ke heading target di dalam Obsidian.
 
 ---
 
@@ -1432,8 +1434,8 @@ Minimal periksa:
 [ ] YAML Frontmatter lengkap (title, description, tags, order)
 [ ] File menggunakan ekstensi .md
 [ ] Tepat 1 H1 (judul dokumen) & bab utama sequential H2
-[ ] TOC sesuai dengan heading
-[ ] Anchor tidak duplicate
+[ ] TOC sesuai dengan heading & GFM slug valid
+[ ] Tidak ada tag HTML anchor manual (<a id="...">)
 [ ] Code fence berpasangan & valid
 [ ] Wikilinks menggunakan format slug [[nama-file|Label]]
 [ ] Tidak ada broken Markdown
@@ -1471,6 +1473,7 @@ AI Agent DILARANG:
 * membuat internal link ke file yang tidak tersedia
 * menyampaikan opini sebagai fakta
 * memberikan best practice tanpa alasan teknis
+* menambahkan tag HTML manual seperti `<a id="...">` untuk anchor heading
 
 ---
 

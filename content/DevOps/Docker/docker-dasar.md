@@ -64,49 +64,47 @@ Network   → Jembatan virtual komunikasi antar kontainer menggunakan DNS name
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Container & Isolasi Proses](#bagian-1)
-2. [Pengenalan Docker & Nilai Tambah Kontainerisasi](#bagian-2)
-3. [Arsitektur Docker (Client, Docker Daemon, Host, Registry)](#bagian-3)
-4. [Menginstall & Verifikasi Docker Engine](#bagian-4)
-5. [Docker Registry & Docker Hub](#bagian-5)
-6. [Docker Image (Pull, List, Tag, & Remove)](#bagian-6)
-7. [Docker Container Lifecycle (Run, Start, Stop, Restart, & Remove)](#bagian-7)
-8. [Container Log & Monitoring Output (docker logs)](#bagian-8)
-9. [Container Exec & Akses Shell Interaktif (docker exec)](#bagian-9)
-10. [Container Port Publishing (-p host:container)](#bagian-10)
-11. [Container Environment Variable (-e KEY=VAL & --env-file)](#bagian-11)
+1. [Pengenalan Container & Isolasi Proses](#1--pengenalan-container--isolasi-proses)
+2. [Pengenalan Docker & Nilai Tambah Kontainerisasi](#2--pengenalan-docker--nilai-tambah-kontainerisasi)
+3. [Arsitektur Docker (Client, Docker Daemon, Host, Registry)](#3--arsitektur-docker-client-docker-daemon-host-registry)
+4. [Menginstall & Verifikasi Docker Engine](#4--menginstall--verifikasi-docker-engine)
+5. [Docker Registry & Docker Hub](#5--docker-registry--docker-hub)
+6. [Docker Image (Pull, List, Tag, & Remove)](#6--docker-image-pull-list-tag--remove)
+7. [Docker Container Lifecycle (Run, Start, Stop, Restart, & Remove)](#7--docker-container-lifecycle-run-start-stop-restart--remove)
+8. [Container Log & Monitoring Output (docker logs)](#8--container-log--monitoring-output-docker-logs)
+9. [Container Exec & Akses Shell Interaktif (docker exec)](#9--container-exec--akses-shell-interaktif-docker-exec)
+10. [Container Port Publishing (-p host:container)](#10--container-port-publishing--p-hostcontainer)
+11. [Container Environment Variable (-e KEY=VAL & --env-file)](#11--container-environment-variable--e-keyval----env-file)
 
 ### 🟡 Lanjutan
 
-12. [Container Stats & Pemantauan Resource Real-time (docker stats)](#bagian-12)
-13. [Container Resource Limit (Memory --memory & CPU --cpus)](#bagian-13)
-14. [Bind Mounts (Menghubungkan Folder Host Langsung)](#bagian-14)
-15. [Docker Volume (Persistent Data Terisolasi)](#bagian-15)
-16. [Container Volume (Memasang Named Volume ke Container)](#bagian-16)
-17. [Backup Volume (Ekspor Data Volume ke File Tar)](#bagian-17)
-18. [Restore Volume (Impor Data Tar ke Volume Baru)](#bagian-18)
-19. [Docker Network (Bridge, Host, None)](#bagian-19)
-20. [Container Network (Komunikasi Antar Container via DNS Name)](#bagian-20)
-21. [Docker Inspect (Inspeksi Konfigurasi JSON & IP Address)](#bagian-21)
-22. [Docker Prune & Garbage Collection (Membersihkan Sampah Disk)](#bagian-22)
+12. [Container Stats & Pemantauan Resource Real-time (docker stats)](#12--container-stats--pemantauan-resource-real-time-docker-stats)
+13. [Container Resource Limit (Memory --memory & CPU --cpus)](#13--container-resource-limit-memory---memory--cpu---cpus)
+14. [Bind Mounts (Menghubungkan Folder Host Langsung)](#14--bind-mounts-menghubungkan-folder-host-langsung)
+15. [Docker Volume (Persistent Data Terisolasi)](#15--docker-volume-persistent-data-terisolasi)
+16. [Container Volume (Memasang Named Volume ke Container)](#16--container-volume-memasang-named-volume-ke-container)
+17. [Backup Volume (Ekspor Data Volume ke File Tar)](#17--backup-volume-ekspor-data-volume-ke-file-tar)
+18. [Restore Volume (Impor Data Tar ke Volume Baru)](#18--restore-volume-impor-data-tar-ke-volume-baru)
+19. [Docker Network (Bridge, Host, None)](#19--docker-network-bridge-host-none)
+20. [Container Network (Komunikasi Antar Container via DNS Name)](#20--container-network-komunikasi-antar-container-via-dns-name)
+21. [Docker Inspect (Inspeksi Konfigurasi JSON & IP Address)](#21--docker-inspect-inspeksi-konfigurasi-json--ip-address)
+22. [Docker Prune & Garbage Collection (Membersihkan Sampah Disk)](#22--docker-prune--garbage-collection-membersihkan-sampah-disk)
 
 ### 🔴 Advanced / Operasional
 
-23. [Container Restart Policy (--restart=always, unless-stopped, on-failure)](#bagian-23)
-24. [Container Health Check (--health-cmd & Status Kesehatan Kontainer)](#bagian-24)
+23. [Container Restart Policy (--restart=always, unless-stopped, on-failure)](#23--container-restart-policy---restartalways-unless-stopped-on-failure)
+24. [Container Health Check (--health-cmd & Status Kesehatan Kontainer)](#24--container-health-check---health-cmd--status-kesehatan-kontainer)
 
 ### 🛠️ Referensi & Praktik
 
-25. [Peta Ingatan Cepat](#bagian-25)
-26. [Tabel Ringkasan](#bagian-26)
-27. [Cheat Code Docker CLI 10 Detik](#bagian-27)
-28. [Urutan Belajar yang Disarankan](#bagian-28)
-29. [Mini Project: Menjalankan Stack Web Server Nginx + Node.js + Database MySQL Terisolasi](#bagian-29)
-30. [Referensi Resmi](#bagian-30)
+25. [Peta Ingatan Cepat](#25-️-peta-ingatan-cepat)
+26. [Tabel Ringkasan](#26--tabel-ringkasan)
+27. [Cheat Code Docker CLI 10 Detik](#27--cheat-code-docker-cli-10-detik)
+28. [Urutan Belajar yang Disarankan](#28--urutan-belajar-yang-disarankan)
+29. [Mini Project: Menjalankan Stack Web Server Nginx + Node.js + Database MySQL Terisolasi](#29-️-mini-project-menjalankan-stack-web-server-nginx--nodejs--database-mysql-terisolasi)
+30. [Referensi Resmi](#30--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Container & Isolasi Proses
 
@@ -175,8 +173,6 @@ VM        → Emulasi komputer penuh dengan Guest OS mandiri (berat, butuh hyper
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Pengenalan Docker & Nilai Tambah Kontainerisasi
 
 #### Konsep
@@ -237,8 +233,6 @@ docker ps    → Menampilkan daftar kontainer yang sedang aktif berjalan
 - ❌ Jangan mengedit file kode secara manual langsung di dalam container produksi tanpa sinkronisasi volume atau image build baru.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Arsitektur Docker (Client, Docker Daemon, Host, Registry)
 
@@ -312,8 +306,6 @@ Docker Hub    → Gudang cloud pusat penyimpanan image resmi di seluruh dunia
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Menginstall & Verifikasi Docker Engine
 
 #### Konsep
@@ -377,8 +369,6 @@ docker run hello-world → Menjalankan kontainer uji verifikasi koneksi engine
 - ❌ Di Linux, tambahkan user Anda ke grup docker (`sudo usermod -aG docker $USER`) agar tidak perlu mengetikkan `sudo` setiap kali menjalankan perintah docker.
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Docker Registry & Docker Hub
 
@@ -451,8 +441,6 @@ docker pull image_name:tag → Mengunduh image dari registry ke komputer lokal
 - ❌ Jangan pernah mengunggah image ke public registry jika di dalamnya berisi password, API key, atau file `.env` rahasia.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Docker Image (Pull, List, Tag, & Remove)
 
@@ -527,8 +515,6 @@ docker rmi image_name      → Menghapus image dari memori penyimpanan lokal
 - ❌ Anda tidak bisa menghapus image (`docker rmi`) jika image tersebut masih digunakan oleh container yang ada (hentikan dan hapus kontainernya terlebih dahulu).
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Docker Container Lifecycle (Run, Start, Stop, Restart, & Remove)
 
@@ -635,8 +621,6 @@ docker rm container_name        → Menghapus container dari sistem
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Container Log & Monitoring Output (docker logs)
 
 #### Konsep
@@ -697,8 +681,6 @@ docker logs -f --tail 50 name         → Memantau 50 baris log terakhir secara 
 - ❌ Jangan menjalankan `docker logs` tanpa opsi `--tail` pada container produksi yang sudah berjalan berbulan-bulan karena terminal akan dibanjiri jutaan baris log.
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Container Exec & Akses Shell Interaktif (docker exec)
 
@@ -774,8 +756,6 @@ docker exec container_name command  → Menjalankan perintah satu kali tanpa mem
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Container Port Publishing (-p host:container)
 
 #### Konsep
@@ -843,8 +823,6 @@ Rumus Hafalan               → -p LUAR:DALAM (Luar = Laptop Host, Dalam = Konta
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟢 Container Environment Variable (-e KEY=VAL & --env-file)
 
 #### Konsep
@@ -910,8 +888,6 @@ MYSQL_PASSWORD=password_budi
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Container Stats & Pemantauan Resource Real-time (docker stats)
 
 #### Konsep
@@ -971,8 +947,6 @@ docker stats --no-stream → Menampilkan snapshot metrik resource satu kali
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Container Resource Limit (Memory --memory & CPU --cpus)
 
 #### Konsep
@@ -1029,8 +1003,6 @@ CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT   MEM %     NET I/O     
 - ❌ Jangan menyetel batas memori yang terlalu sempit di bawah kebutuhan minimal startup aplikasi (misal memberi 32MB untuk aplikasi Java/Spring Boot yang butuh 256MB), karena container akan langsung crash (*Exit code 137 OOMKilled*).
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Bind Mounts (Menghubungkan Folder Host Langsung)
 
@@ -1102,8 +1074,6 @@ curl http://localhost:8080
 - ❌ Jangan gunakan Bind Mounts untuk database skala besar di server produksi; gunakan **Named Volume** yang dikelola langsung oleh Docker Engine.
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Docker Volume (Persistent Data Terisolasi)
 
@@ -1186,8 +1156,6 @@ docker volume rm name      → Menghapus volume
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Container Volume (Memasang Named Volume ke Container)
 
 #### Konsep
@@ -1261,8 +1229,6 @@ Data Persistence               → Data tetap aman meskipun container dimatikan 
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Backup Volume (Ekspor Data Volume ke File Tar)
 
 #### Konsep
@@ -1328,8 +1294,6 @@ docker run --rm -v vol:/data -v host:/backup alpine tar... → Pola standar back
 - ❌ Hentikan sementara container database utama sebelum melakukan backup volume skala besar untuk menghindari data terpotong di tengah penulisan (*data inconsistency*).
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 Restore Volume (Impor Data Tar ke Volume Baru)
 
@@ -1402,8 +1366,6 @@ tar -xzvf /backup/file.tar.gz -C /target → Mengekstrak file arsip backup ke da
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 Docker Network (Bridge, Host, None)
 
 #### Konsep
@@ -1471,8 +1433,6 @@ docker network inspect name→ Melihat detail subnet IP dan daftar container ter
 - ❌ Jangan mengandalkan *Default Bridge Network* bawaan untuk komunikasi antar kontainer, karena default bridge tidak mendukung fitur *Automatic DNS Name Resolution*.
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🟡 Container Network (Komunikasi Antar Container via DNS Name)
 
@@ -1542,8 +1502,6 @@ Automatic DNS          → Container bisa memanggil container lain via namanya (
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Docker Inspect (Inspeksi Konfigurasi JSON & IP Address)
 
 #### Konsep
@@ -1609,8 +1567,6 @@ docker inspect --format '{{.NetworkSettings.IPAddress}}' name → Mengambil IP c
 - ❌ Jangan membaca JSON manual secara visual jika hanya membutuhkan 1 informasi spesifik; manfaatkan flag `--format`.
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Docker Prune & Garbage Collection (Membersihkan Sampah Disk)
 
@@ -1683,8 +1639,6 @@ docker volume prune -f   → Membersihkan volume yatim yang sudah tidak terpakai
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🔴 Container Restart Policy (--restart=always, unless-stopped, on-failure)
 
 #### Konsep
@@ -1748,8 +1702,6 @@ docker update --restart=always name → Mengubah restart policy kontainer tanpa 
 - ❌ Hati-hati dengan `--restart=always` pada container yang memiliki bug fatal di startup, karena container akan terjebak dalam *crash-looping* tanpa henti.
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔴 Container Health Check (--health-cmd & Status Kesehatan Kontainer)
 
@@ -1817,8 +1769,6 @@ Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani tra
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🛠️ Peta Ingatan Cepat
 
 #### Mental Model Hubungan Objek Docker
@@ -1873,8 +1823,6 @@ Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani tra
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 📚 Tabel Ringkasan
 
 | Kategori | Perintah Docker CLI | Contoh Penggunaan | Penjelasan & Kegunaan |
@@ -1898,8 +1846,6 @@ Status: (healthy)          → Aplikasi dipastikan benar-benar siap melayani tra
 | **Maintenance** | `docker system prune` | `docker system prune -f` | Membersihkan kontainer mati & sampah disk |
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. ⚡ Cheat Code Docker CLI 10 Detik
 
@@ -1927,8 +1873,6 @@ docker volume prune -f
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🧭 Urutan Belajar yang Disarankan
 
@@ -1972,8 +1916,6 @@ Untuk menguasai Docker dari nol hingga siap mengelola container di level produks
 ```
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🏗️ Mini Project: Menjalankan Stack Web Server Nginx + Node.js + Database MySQL Terisolasi
 
@@ -2074,8 +2016,6 @@ Production Multi-Container Pattern → Custom Network (DNS) + Named Volume (Data
 ```
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🔗 Referensi Resmi
 

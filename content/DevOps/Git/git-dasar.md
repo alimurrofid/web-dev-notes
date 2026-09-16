@@ -73,45 +73,43 @@ git restore         → membatalkan perubahan file lokal di working tree atau me
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Version Control System (VCS) & Mental Model Terdistribusi Git](#bagian-1)
-2. [Arsitektur Internal 3 Pohon Git: Working Tree, Staging Area (Index), dan Git Repository (`.git`)](#bagian-2)
-3. [Konfigurasi Awal Identitas & Preferensi Pengguna](#bagian-3)
-4. [Inisialisasi Repositori Lokal (`git init`) vs Kloning Repositori Remote (`git clone`)](#bagian-4)
-5. [Siklus Hidup Status Berkas di Git: Untracked, Unmodified, Modified, dan Staged](#bagian-5)
-6. [Menambahkan Perubahan ke Staging Area](#bagian-6)
-7. [Menyimpan Snapshot Permanen (`git commit -m`) & Mengubah Commit Terakhir (`git commit --amend`)](#bagian-7)
-8. [Mengabaikan Berkas dengan `.gitignore` & Menjaga Direktori Kosong dengan `.gitkeep`](#bagian-8)
+1. [Pengenalan Version Control System (VCS) & Mental Model Terdistribusi Git](#1--pengenalan-version-control-system-vcs--mental-model-terdistribusi-git)
+2. [Arsitektur Internal 3 Pohon Git: Working Tree, Staging Area (Index), dan Git Repository (`.git`)](#2--arsitektur-internal-3-pohon-git-working-tree-staging-area-index-dan-git-repository-git)
+3. [Konfigurasi Awal Identitas & Preferensi Pengguna](#3--konfigurasi-awal-identitas--preferensi-pengguna)
+4. [Inisialisasi Repositori Lokal (`git init`) vs Kloning Repositori Remote (`git clone`)](#4--inisialisasi-repositori-lokal-git-init-vs-kloning-repositori-remote-git-clone)
+5. [Siklus Hidup Status Berkas di Git: Untracked, Unmodified, Modified, dan Staged](#5--siklus-hidup-status-berkas-di-git-untracked-unmodified-modified-dan-staged)
+6. [Menambahkan Perubahan ke Staging Area](#6--menambahkan-perubahan-ke-staging-area)
+7. [Menyimpan Snapshot Permanen (`git commit -m`) & Mengubah Commit Terakhir (`git commit --amend`)](#7--menyimpan-snapshot-permanen-git-commit--m--mengubah-commit-terakhir-git-commit---amend)
+8. [Mengabaikan Berkas dengan `.gitignore` & Menjaga Direktori Kosong dengan `.gitkeep`](#8--mengabaikan-berkas-dengan-gitignore--menjaga-direktori-kosong-dengan-gitkeep)
 
 ### 🟡 Lanjutan
 
-9. [Memeriksa Riwayat Perubahan: `git log` Visual & Ringkas](#bagian-9)
-10. [Inspeksi Perbedaan Kode Secara Mendalam: `git diff`](#bagian-10)
-11. [Konsep Percabangan (Branching) & Pointer HEAD di Git](#bagian-11)
-12. [Membuat, Melihat, dan Mengganti Branch Modern](#bagian-12)
-13. [Membuat dan Langsung Beralih ke Branch Baru](#bagian-13)
-14. [Penggabungan Cabang Dasar: Fast-Forward Merge](#bagian-14)
-15. [Menghapus Branch yang Sudah Selesai Digabung](#bagian-15)
-16. [Menghapus & Memindahkan File dari Tracking Git](#bagian-16)
+9. [Memeriksa Riwayat Perubahan: `git log` Visual & Ringkas](#9--memeriksa-riwayat-perubahan-git-log-visual--ringkas)
+10. [Inspeksi Perbedaan Kode Secara Mendalam: `git diff`](#10--inspeksi-perbedaan-kode-secara-mendalam-git-diff)
+11. [Konsep Percabangan (Branching) & Pointer HEAD di Git](#11--konsep-percabangan-branching--pointer-head-di-git)
+12. [Membuat, Melihat, dan Mengganti Branch Modern](#12--membuat-melihat-dan-mengganti-branch-modern)
+13. [Membuat dan Langsung Beralih ke Branch Baru](#13--membuat-dan-langsung-beralih-ke-branch-baru)
+14. [Penggabungan Cabang Dasar: Fast-Forward Merge](#14--penggabungan-cabang-dasar-fast-forward-merge)
+15. [Menghapus Branch yang Sudah Selesai Digabung](#15--menghapus-branch-yang-sudah-selesai-digabung)
+16. [Menghapus & Memindahkan File dari Tracking Git](#16--menghapus--memindahkan-file-dari-tracking-git)
 
 ### 🔴 Advanced / Operasional
 
-17. [Menghubungkan Repositori Lokal ke Remote Server GitHub / GitLab](#bagian-17)
-18. [Mengunggah Kode ke Remote Server](#bagian-18)
-19. [Sinkronisasi Remote: `git fetch` vs `git pull`](#bagian-19)
-20. [Membatalkan Perubahan Lokal Aman dengan `git restore`](#bagian-20)
+17. [Menghubungkan Repositori Lokal ke Remote Server GitHub / GitLab](#17--menghubungkan-repositori-lokal-ke-remote-server-github--gitlab)
+18. [Mengunggah Kode ke Remote Server](#18--mengunggah-kode-ke-remote-server)
+19. [Sinkronisasi Remote: `git fetch` vs `git pull`](#19--sinkronisasi-remote-git-fetch-vs-git-pull)
+20. [Membatalkan Perubahan Lokal Aman dengan `git restore`](#20--membatalkan-perubahan-lokal-aman-dengan-git-restore)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code Git Dasar 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready Full-Cycle Git Workflow Simulation](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code Git Dasar 10 Detik](#23--cheat-code-git-dasar-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready Full-Cycle Git Workflow Simulation](#25-️-mini-project-production-ready-full-cycle-git-workflow-simulation)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Version Control System (VCS) & Mental Model Terdistribusi Git
 
@@ -141,8 +139,6 @@ Git = Distributed Version Control System yang menyimpan snapshot proyek secara t
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Arsitektur Internal 3 Pohon Git: Working Tree, Staging Area (Index), dan Git Repository (`.git`)
 
 #### Konsep
@@ -163,8 +159,6 @@ Working Tree (Edit) -> Staging Area (Siapkan via add) -> Repository (Kunci via c
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Konfigurasi Awal Identitas & Preferensi Pengguna
 
@@ -198,8 +192,6 @@ git config --global user.name "Nama" && git config --global user.email "email" �
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Inisialisasi Repositori Lokal (`git init`) vs Kloning Repositori Remote (`git clone`)
 
@@ -235,8 +227,6 @@ git init (buat repo baru di folder lokal) | git clone <url> (unduh repo yang sud
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Siklus Hidup Status Berkas di Git: Untracked, Unmodified, Modified, dan Staged
 
 #### Konsep
@@ -265,8 +255,6 @@ Untracked (Belum dilacak) -> Modified (Telah diedit) -> Staged (Siap dicommit) -
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Menambahkan Perubahan ke Staging Area
 
 #### Konsep
@@ -293,8 +281,6 @@ git add filename → memindahkan perubahan file dari Working Tree ke Staging Are
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Menyimpan Snapshot Permanen (`git commit -m`) & Mengubah Commit Terakhir (`git commit --amend`)
 
@@ -334,8 +320,6 @@ git commit -m "pesan" → mengunci staging area menjadi snapshot permanen | git 
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Mengabaikan Berkas dengan `.gitignore` & Menjaga Direktori Kosong dengan `.gitkeep`
 
 #### Konsep
@@ -373,8 +357,6 @@ build/
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Memeriksa Riwayat Perubahan: `git log` Visual & Ringkas
 
 #### Konsep
@@ -411,8 +393,6 @@ git log --oneline --graph --all → visualisasi riwayat commit proyek dalam form
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Inspeksi Perbedaan Kode Secara Mendalam: `git diff`
 
 #### Konsep
@@ -443,8 +423,6 @@ git diff (bandingkan working tree vs staging) | git diff --staged (bandingkan st
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Konsep Percabangan (Branching) & Pointer HEAD di Git
 
 #### Konsep
@@ -473,8 +451,6 @@ Branch di Git hanyalah sebuah pointer penunjuk commit yang sangat ringan | HEAD 
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Membuat, Melihat, dan Mengganti Branch Modern
 
@@ -506,8 +482,6 @@ git branch (lihat cabang) | git switch branch_name (beralih ke cabang yang dituj
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Membuat dan Langsung Beralih ke Branch Baru
 
 #### Konsep
@@ -536,8 +510,6 @@ git switch -c feature/nama-fitur → membuat branch baru dan langsung beralih se
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Penggabungan Cabang Dasar: Fast-Forward Merge
 
@@ -575,8 +547,6 @@ git switch main && git merge feature-branch → menggabungkan perubahan branch f
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Menghapus Branch yang Sudah Selesai Digabung
 
 #### Konsep
@@ -598,8 +568,6 @@ git branch -d branch_name (hapus aman branch yang sudah dimerge) | git branch -D
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Menghapus & Memindahkan File dari Tracking Git
 
@@ -626,8 +594,6 @@ git rm --cached file_name → menghapus file dari pelacakan Git tanpa menghapus 
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Menghubungkan Repositori Lokal ke Remote Server GitHub / GitLab
 
@@ -665,8 +631,6 @@ git remote add origin <url> → menghubungkan repositori lokal ke server cloud G
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Mengunggah Kode ke Remote Server
 
 #### Konsep
@@ -694,8 +658,6 @@ git push -u origin main → mengunggah commit lokal ke branch main di server rem
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🔴 Sinkronisasi Remote: `git fetch` vs `git pull`
 
 #### Konsep
@@ -720,8 +682,6 @@ git fetch (unduh data remote tanpa ubah kode lokal) | git pull (unduh dan langsu
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🔴 Membatalkan Perubahan Lokal Aman dengan `git restore`
 
@@ -752,8 +712,6 @@ git restore file (batalkan edit di working tree) | git restore --staged file (ke
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -769,8 +727,6 @@ LOCAL THREE-TREE WORKFLOW     BRANCHING & MERGING         REMOTE CLOUD SYNCHRONI
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -794,8 +750,6 @@ LOCAL THREE-TREE WORKFLOW     BRANCHING & MERGING         REMOTE CLOUD SYNCHRONI
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. ⚡ Cheat Code Git Dasar 10 Detik
 
 ```bash
@@ -813,8 +767,6 @@ git branch -d feature/checkout
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
@@ -845,8 +797,6 @@ Langkah 5: Siap Melangkah ke Git Lanjutan, Rebase & Resolusi Konflik!
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready Full-Cycle Git Workflow Simulation
 
@@ -951,8 +901,6 @@ Deleted branch feature/berita-populer (was e4f5a6b).
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

@@ -68,43 +68,41 @@ AssertJ              → library assertion yang menyediakan method chaining eksp
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Testing di Spring Boot & Mental Model Piramida Testing](#bagian-1)
-2. [Bedah Dependensi `spring-boot-starter-test`](#bagian-2)
-3. [Siklus Hidup & Anotasi Inti JUnit 5](#bagian-3)
-4. [Fluent Assertion Modern dengan AssertJ (`assertThat`)](#bagian-4)
-5. [Unit Testing Murni Service Layer dengan Mockito](#bagian-5)
-6. [Mendefinisikan Mock Behavior & Stubbing (`when().thenReturn()`)](#bagian-6)
-7. [Verifikasi Eksekusi Mock (`verify()`)](#bagian-7)
-8. [Parameterized Tests di JUnit 5 (`@CsvSource`)](#bagian-8)
+1. [Pengenalan Testing di Spring Boot & Mental Model Piramida Testing](#1--pengenalan-testing-di-spring-boot--mental-model-piramida-testing)
+2. [Bedah Dependensi `spring-boot-starter-test`](#2--bedah-dependensi-spring-boot-starter-test)
+3. [Siklus Hidup & Anotasi Inti JUnit 5](#3--siklus-hidup--anotasi-inti-junit-5)
+4. [Fluent Assertion Modern dengan AssertJ (`assertThat`)](#4--fluent-assertion-modern-dengan-assertj-assertthat)
+5. [Unit Testing Murni Service Layer dengan Mockito](#5--unit-testing-murni-service-layer-dengan-mockito)
+6. [Mendefinisikan Mock Behavior & Stubbing (`when().thenReturn()`)](#6--mendefinisikan-mock-behavior--stubbing-whenthenreturn)
+7. [Verifikasi Eksekusi Mock (`verify()`)](#7--verifikasi-eksekusi-mock-verify)
+8. [Parameterized Tests di JUnit 5 (`@CsvSource`)](#8--parameterized-tests-di-junit-5-csvsource)
 
 ### 🟡 Lanjutan
 
-9. [Slice Testing Controller Layer dengan `@WebMvcTest` & `MockMvc`](#bagian-9)
-10. [Simulasi HTTP Request & Assertion dengan `MockMvc` (`jsonPath`)](#bagian-10)
-11. [Menyuntikkan Mock Bean ke Spring Context dengan `@MockBean`](#bagian-11)
-12. [Testing Request Body JSON & Multipart File Upload](#bagian-12)
-13. [Testing Validasi Jakarta (`@Valid`) & Global Exception Handler](#bagian-13)
-14. [Slice Testing Database Layer dengan `@DataJpaTest`](#bagian-14)
-15. [Testing Security & Autentikasi dengan `@WithMockUser`](#bagian-15)
-16. [Full End-to-End (E2E) Testing dengan `@SpringBootTest`](#bagian-16)
+9. [Slice Testing Controller Layer dengan `@WebMvcTest` & `MockMvc`](#9--slice-testing-controller-layer-dengan-webmvctest--mockmvc)
+10. [Simulasi HTTP Request & Assertion dengan `MockMvc` (`jsonPath`)](#10--simulasi-http-request--assertion-dengan-mockmvc-jsonpath)
+11. [Menyuntikkan Mock Bean ke Spring Context dengan `@MockBean`](#11--menyuntikkan-mock-bean-ke-spring-context-dengan-mockbean)
+12. [Testing Request Body JSON & Multipart File Upload](#12--testing-request-body-json--multipart-file-upload)
+13. [Testing Validasi Jakarta (`@Valid`) & Global Exception Handler](#13--testing-validasi-jakarta-valid--global-exception-handler)
+14. [Slice Testing Database Layer dengan `@DataJpaTest`](#14--slice-testing-database-layer-dengan-datajpatest)
+15. [Testing Security & Autentikasi dengan `@WithMockUser`](#15--testing-security--autentikasi-dengan-withmockuser)
+16. [Full End-to-End (E2E) Testing dengan `@SpringBootTest`](#16--full-end-to-end-e2e-testing-dengan-springboottest)
 
 ### 🔴 Advanced / Operasional
 
-17. [Konfigurasi Lingkungan Pengujian dengan `@ActiveProfiles("test")`](#bagian-17)
-18. [Pengenalan Integration Testing dengan Testcontainers](#bagian-18)
+17. [Konfigurasi Lingkungan Pengujian dengan `@ActiveProfiles("test")`](#17--konfigurasi-lingkungan-pengujian-dengan-activeprofilestest)
+18. [Pengenalan Integration Testing dengan Testcontainers](#18--pengenalan-integration-testing-dengan-testcontainers)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Spring Boot Testing 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready E-Commerce Test Suite](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Spring Boot Testing 10 Detik](#21--cheat-code-spring-boot-testing-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready E-Commerce Test Suite](#23-️-mini-project-production-ready-e-commerce-test-suite)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Testing di Spring Boot & Mental Model Piramida Testing
 
@@ -139,8 +137,6 @@ Piramida Testing → komposisi pengujian: perbanyak Unit Test cepat di dasar, ba
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Bedah Dependensi `spring-boot-starter-test`
 
 #### Konsep
@@ -161,8 +157,6 @@ spring-boot-starter-test → starter tunggal yang menyertakan JUnit 5, Mockito, 
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Siklus Hidup & Anotasi Inti JUnit 5
 
@@ -229,8 +223,6 @@ class LifecycleTest {
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Fluent Assertion Modern dengan AssertJ (`assertThat`)
 
 #### Konsep
@@ -290,8 +282,6 @@ assertThat(list).hasSize(count)        → memvalidasi jumlah elemen di dalam ko
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Unit Testing Murni Service Layer dengan Mockito
 
@@ -396,8 +386,6 @@ class ProductServiceTest {
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Mendefinisikan Mock Behavior & Stubbing (`when().thenReturn()`)
 
 #### Konsep
@@ -428,8 +416,6 @@ when(mock.method(any())).thenReturn(val) → mengatur nilai return tiruan dari o
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Verifikasi Eksekusi Mock (`verify()`)
 
@@ -468,8 +454,6 @@ verify(mock, never()).method()       → memvalidasi bahwa method mock tidak per
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Parameterized Tests di JUnit 5 (`@CsvSource`)
 
@@ -519,8 +503,6 @@ class ParameterizedDemoTest {
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Slice Testing Controller Layer dengan `@WebMvcTest` & `MockMvc`
 
 #### Konsep
@@ -554,8 +536,6 @@ MockMvc.perform(get("/api/products/1"))
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Simulasi HTTP Request & Assertion dengan `MockMvc` (`jsonPath`)
 
@@ -626,8 +606,6 @@ mockMvc.perform(get(url)).andExpect(status().isOk()).andExpect(jsonPath("$.path"
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Menyuntikkan Mock Bean ke Spring Context dengan `@MockBean`
 
 #### Konsep
@@ -645,8 +623,6 @@ Anotasi **`@MockBean`**:
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Testing Request Body JSON & Multipart File Upload
 
@@ -690,8 +666,6 @@ mockMvc.perform(post(url).contentType(APPLICATION_JSON).content(jsonString)) →
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Testing Validasi Jakarta (`@Valid`) & Global Exception Handler
 
 #### Konsep
@@ -726,8 +700,6 @@ void create_InvalidPayload_Returns400() throws Exception {
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Slice Testing Database Layer dengan `@DataJpaTest`
 
@@ -785,8 +757,6 @@ class ProductRepositoryTest {
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Testing Security & Autentikasi dengan `@WithMockUser`
 
 #### Konsep
@@ -823,8 +793,6 @@ void deleteProduct_AsAdmin_Success() throws Exception {
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Full End-to-End (E2E) Testing dengan `@SpringBootTest`
 
@@ -878,8 +846,6 @@ class FullApplicationE2ETest {
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Konfigurasi Lingkungan Pengujian dengan `@ActiveProfiles("test")`
 
 #### Konsep
@@ -906,8 +872,6 @@ class ServiceIntegrationTest { ... }
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Pengenalan Integration Testing dengan Testcontainers
 
 #### Konsep
@@ -926,8 +890,6 @@ Testcontainers → library pengujian integrasi yang memutar container Docker dat
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -945,8 +907,6 @@ UNIT TESTS (SERVICE)          SLICE TESTS (WEB / DB)         INTEGRATION & E2E
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 📚 Tabel Ringkasan
 
 | Anotasi Testing | Lapisan Target | Kecepatan | Karakteristik & Kegunaan Utama |
@@ -962,8 +922,6 @@ UNIT TESTS (SERVICE)          SLICE TESTS (WEB / DB)         INTEGRATION & E2E
 | `@SpringBootTest` | Full App (E2E)| **Sedang (~3-8s)** | Menyalakan seluruh konteks aplikasi dan server |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Spring Boot Testing 10 Detik
 
@@ -998,8 +956,6 @@ class ControllerTest {
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1028,8 +984,6 @@ Langkah 5: Siap Menerapkan CI/CD Automated Test Pipeline di Industri!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready E-Commerce Test Suite
 
@@ -1191,8 +1145,6 @@ class DummyProductController {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

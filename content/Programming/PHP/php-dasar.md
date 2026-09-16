@@ -70,69 +70,67 @@ Output Teks  → echo atau print untuk mengirimkan teks ke response buffer
 
 ### 🟢 Fundamental
 
-1. [Pengenalan PHP & Mental Model Server-Side](#bagian-1)
-2. [Menginstall & Menjalankan PHP CLI Server](#bagian-2)
-3. [Program Hello World & Tag PHP](#bagian-3)
-4. [Komentar & Dokumentasi Kode](#bagian-4)
-5. [Variable & Naming Rules](#bagian-5)
-6. [Constant (const & define)](#bagian-6)
-7. [Data Types (Scalar & Compound)](#bagian-7)
-8. [String Dasar, Heredoc & Nowdoc](#bagian-8)
-9. [Array Dasar (Indexed & Associative)](#bagian-9)
-10. [Debugging dengan var_dump() & print_r()](#bagian-10)
-11. [Expression, Statement, dan Block](#bagian-11)
-12. [Operator Aritmatika](#bagian-12)
-13. [Operator Penugasan (Assignment)](#bagian-13)
-14. [Operator Perbandingan (Strict vs Loose)](#bagian-14)
-15. [Operator Logika](#bagian-15)
-16. [Increment dan Decrement](#bagian-16)
-17. [If, Elseif, Else Statement](#bagian-17)
-18. [Ternary & Short Ternary Operator](#bagian-18)
-19. [Null Coalescing Operator (?? & ??=)](#bagian-19)
-20. [Switch Statement](#bagian-20)
-21. [Match Expression (PHP 8+)](#bagian-21)
-22. [For Loop](#bagian-22)
-23. [While Loop](#bagian-23)
-24. [Do While Loop](#bagian-24)
-25. [Foreach Loop & Destructuring](#bagian-25)
-26. [Break dan Continue](#bagian-26)
-27. [Manipulasi String](#bagian-27)
-28. [Array Functions Esensial](#bagian-28)
-29. [String Functions Esensial](#bagian-29)
-30. [Type Checking (is_*) & Type Casting](#bagian-30)
-31. [Function Dasar & Deklarasi](#bagian-31)
-32. [Parameter, Default Value & Named Arguments](#bagian-32)
-33. [Return Value & Early Return](#bagian-33)
-34. [Type Declaration (Scalar, Return, & Union)](#bagian-34)
-35. [Variable Scope (Local, Global, Static)](#bagian-35)
+1. [Pengenalan PHP & Mental Model Server-Side](#1--pengenalan-php--mental-model-server-side)
+2. [Menginstall & Menjalankan PHP CLI Server](#2--menginstall--menjalankan-php-cli-server)
+3. [Program Hello World & Tag PHP](#3--program-hello-world--tag-php)
+4. [Komentar & Dokumentasi Kode](#4--komentar--dokumentasi-kode)
+5. [Variable & Naming Rules](#5--variable--naming-rules)
+6. [Constant (const & define)](#6--constant-const--define)
+7. [Data Types (Scalar & Compound)](#7--data-types-scalar--compound)
+8. [String Dasar, Heredoc & Nowdoc](#8--string-dasar-heredoc--nowdoc)
+9. [Array Dasar (Indexed & Associative)](#9--array-dasar-indexed--associative)
+10. [Debugging dengan var_dump() & print_r()](#10--debugging-dengan-var_dump--print_r)
+11. [Expression, Statement, dan Block](#11--expression-statement-dan-block)
+12. [Operator Aritmatika](#12--operator-aritmatika)
+13. [Operator Penugasan (Assignment)](#13--operator-penugasan-assignment)
+14. [Operator Perbandingan (Strict vs Loose)](#14--operator-perbandingan-strict-vs-loose)
+15. [Operator Logika](#15--operator-logika)
+16. [Increment dan Decrement](#16--increment-dan-decrement)
+17. [If, Elseif, Else Statement](#17--if-elseif-else-statement)
+18. [Ternary & Short Ternary Operator](#18--ternary--short-ternary-operator)
+19. [Null Coalescing Operator (?? & ??=)](#19--null-coalescing-operator---)
+20. [Switch Statement](#20--switch-statement)
+21. [Match Expression (PHP 8+)](#21--match-expression-php-8)
+22. [For Loop](#22--for-loop)
+23. [While Loop](#23--while-loop)
+24. [Do While Loop](#24--do-while-loop)
+25. [Foreach Loop & Destructuring](#25--foreach-loop--destructuring)
+26. [Break dan Continue](#26--break-dan-continue)
+27. [Manipulasi String](#27--manipulasi-string)
+28. [Array Functions Esensial](#28--array-functions-esensial)
+29. [String Functions Esensial](#29--string-functions-esensial)
+30. [Type Checking (is_*) & Type Casting](#30--type-checking-is_--type-casting)
+31. [Function Dasar & Deklarasi](#31--function-dasar--deklarasi)
+32. [Parameter, Default Value & Named Arguments](#32--parameter-default-value--named-arguments)
+33. [Return Value & Early Return](#33--return-value--early-return)
+34. [Type Declaration (Scalar, Return, & Union)](#34--type-declaration-scalar-return--union)
+35. [Variable Scope (Local, Global, Static)](#35--variable-scope-local-global-static)
 
 ### 🟡 Lanjutan
 
-36. [Anonymous Function (Closure) & use Keyword](#bagian-36)
-37. [Arrow Function (fn() =>)](#bagian-37)
-38. [Callback Function & callable](#bagian-38)
-39. [Variable Function](#bagian-39)
-40. [Recursive Function](#bagian-40)
-41. [File Inclusion (require, include, require_once)](#bagian-41)
+36. [Anonymous Function (Closure) & use Keyword](#36--anonymous-function-closure--use-keyword)
+37. [Arrow Function (fn() =>)](#37--arrow-function-fn-)
+38. [Callback Function & callable](#38--callback-function--callable)
+39. [Variable Function](#39--variable-function)
+40. [Recursive Function](#40--recursive-function)
+41. [File Inclusion (require, include, require_once)](#41--file-inclusion-require-include-require_once)
 
 ### 🔴 Advanced / Reference
 
-42. [Operator Array & Spread Operator (...)](#bagian-42)
-43. [Reference (&) pada Variable & Parameter](#bagian-43)
-44. [goto Operator](#bagian-44)
+42. [Operator Array & Spread Operator (...)](#42--operator-array--spread-operator-)
+43. [Reference (&) pada Variable & Parameter](#43--reference--pada-variable--parameter)
+44. [goto Operator](#44--goto-operator)
 
 ### 🛠️ Referensi & Praktik
 
-45. [Peta Ingatan Cepat](#bagian-45)
-46. [Tabel Ringkasan](#bagian-46)
-47. [Cheat Code PHP 10 Detik](#bagian-47)
-48. [Urutan Belajar yang Disarankan](#bagian-48)
-49. [Mini Project: Aplikasi Kasir & Inventaris CLI Interaktif](#bagian-49)
-50. [Referensi Resmi](#bagian-50)
+45. [Peta Ingatan Cepat](#45-️-peta-ingatan-cepat)
+46. [Tabel Ringkasan](#46--tabel-ringkasan)
+47. [Cheat Code PHP 10 Detik](#47--cheat-code-php-10-detik)
+48. [Urutan Belajar yang Disarankan](#48--urutan-belajar-yang-disarankan)
+49. [Mini Project: Aplikasi Kasir & Inventaris CLI Interaktif](#49-️-mini-project-aplikasi-kasir--inventaris-cli-interaktif)
+50. [Referensi Resmi](#50--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan PHP & Mental Model Server-Side
 
@@ -200,8 +198,6 @@ Dynamic type → Variabel bisa berganti tipe data secara otomatis saat runtime
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Menginstall & Menjalankan PHP CLI Server
 
 #### Konsep
@@ -264,8 +260,6 @@ php -S host:port     → Jalankan development web server lokal
 - ❌ **Kesalahan Umum:** Menggunakan built-in development server untuk aplikasi *production* di internet publik.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Program Hello World & Tag PHP
 
@@ -342,8 +336,6 @@ echo $value        → Mencetak satu atau beberapa nilai ke output buffer
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Komentar & Dokumentasi Kode
 
 #### Konsep
@@ -417,8 +409,6 @@ echo $total;
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Variable & Naming Rules
 
 #### Konsep
@@ -483,8 +473,6 @@ $userName               → Standar penamaan camelCase yang disarankan
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Constant (`const` & `define`)
 
 #### Konsep
@@ -546,8 +534,6 @@ define('NAME', $value)       → Definisi konstanta runtime (bisa di dalam if)
 - ❌ **Kesalahan Umum:** Menambahkan tanda `$` saat memanggil konstanta (misal: `$APP_NAME` ❌, seharusnya `APP_NAME` ✅).
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Data Types (Scalar & Compound)
 
@@ -626,8 +612,6 @@ null      → Representasi nilai kosong tanpa tipe
 - ❌ **Kesalahan Umum:** Membandingkan angka float dengan `===` secara langsung tanpa toleransi pembulatan (*epsilon*) karena presisi aritmatika biner float.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 String Dasar, Heredoc & Nowdoc
 
@@ -708,8 +692,6 @@ Gunakan syntax $bahasa untuk menulis kode.
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Array Dasar (Indexed & Associative)
 
 #### Konsep
@@ -785,8 +767,6 @@ $array[] = $value            → Menambahkan elemen baru ke index paling belakan
 - ❌ **Kesalahan Umum:** Mengakses key yang tidak terdefinisi (`$pengguna["alamat"]`) tanpa pengecekan, yang menghasilkan pesan *Warning: Undefined array key*.
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Debugging dengan `var_dump()` & `print_r()`
 
@@ -866,8 +846,6 @@ print_r($value)    → Debugging cepat yang mudah dibaca manusia
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟢 Expression, Statement, dan Block
 
 #### Konsep
@@ -927,8 +905,6 @@ Block      → Kumpulan statement yang dibungkus kurung kurawal { ... }
 - ❌ **Kesalahan Umum:** Meletakkan titik koma `;` langsung setelah tanda kurung kondisi `if ($a > 10); { ... }` yang menyebabkan blok kode selalu tereksekusi.
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟢 Operator Aritmatika
 
@@ -1000,8 +976,6 @@ $a ** $b    → Pangkat ($a pangkat $b)
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟢 Operator Penugasan (Assignment)
 
 #### Konsep
@@ -1069,8 +1043,6 @@ $a .= $value     → Gabungkan teks string $value ke $a
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟢 Operator Perbandingan (Strict vs Loose)
 
 #### Konsep
@@ -1137,8 +1109,6 @@ $a <=> $b        → Spaceship: -1 ($a < $b), 0 ($a == $b), 1 ($a > $b)
 - ❌ **Kesalahan Umum:** Menggunakan `==` untuk membandingkan output fungsi pencarian (seperti `strpos()`), padahal index `0` bisa salah diartikan sebagai `false`.
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟢 Operator Logika
 
@@ -1213,8 +1183,6 @@ $conditionA || $conditionB   → OR: true jika salah satu kondisi bernilai true
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟢 Increment dan Decrement
 
 #### Konsep
@@ -1278,8 +1246,6 @@ $a--        → Post-decrement: pakai nilai lama dulu, baru kurangi 1
 - ❌ **Kesalahan Umum:** Menulis ekspresi bertumpuk rumit seperti `$x = $a++ + ++$a;` yang membingungkan alur pembacaan kode.
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟢 If, Elseif, Else Statement
 
@@ -1351,8 +1317,6 @@ else { ... }                      → Cabang penampung terakhir jika semua kondi
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟢 Ternary & Short Ternary Operator
 
 #### Konsep
@@ -1411,8 +1375,6 @@ $value ?: $fallback                        → Short ternary: pakai $value jika 
 - ❌ **Kesalahan Umum:** Menumpuk (*nesting*) beberapa ternary dalam satu baris (misal: `$a ? $b ? 1 : 2 : 3`), yang membuat kode sulit dipahami dan rawan bug.
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟢 Null Coalescing Operator (`??` & `??=`)
 
@@ -1478,8 +1440,6 @@ $variable ??= $value         → Isi $variable dengan $value HANYA JIKA saat ini
 - ❌ **Kesalahan Umum:** Mengira `??` mengecek nilai boolean `false` atau string kosong `""`. Operator `??` HANYA mengecek `null` atau *undefined*.
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🟢 Switch Statement
 
@@ -1559,8 +1519,6 @@ default:                  → Blok fallback jika tidak ada case yang cocok
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟢 Match Expression (PHP 8+)
 
 #### Konsep
@@ -1621,8 +1579,6 @@ $result = match ($value) { $target => $output, default => $fallback };
 - ❌ **Kesalahan Umum:** Lupa menyediakan cabang `default` jika tidak semua kemungkinan nilai tertangani, yang akan melempar `UnhandledMatchError`.
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟢 For Loop
 
@@ -1695,8 +1651,6 @@ for ($i = 0; $i < $count; $i++) { ... }  → Pola loop standar dengan indeks cou
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🟢 While Loop
 
 #### Konsep
@@ -1755,8 +1709,6 @@ while ($condition) { ... }  → Jalankan perulangan selama $condition bernilai t
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🟢 Do While Loop
 
 #### Konsep
@@ -1812,8 +1764,6 @@ do { ... } while ($condition);  → Eksekusi minimal 1 kali, baru cek kondisi di
 - ❌ **Kesalahan Umum:** Lupa tanda titik koma `;` setelah kurung penutup `while ($condition);`.
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🟢 Foreach Loop & Destructuring
 
@@ -1900,8 +1850,6 @@ foreach ($matrix as [$col1, $col2])     → Iterasi dengan array destructuring
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🟢 Break dan Continue
 
 #### Konsep
@@ -1974,8 +1922,6 @@ break $level → Keluar dari sejumlah $level loop bersarang
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 🟢 Manipulasi String
 
 #### Konsep
@@ -2039,8 +1985,6 @@ trim($string)    → Menghapus spasi liar di awal dan akhir teks
 - ❌ **Kesalahan Umum:** Menulis `$pesan = "Total: " + $harga;` yang akan memicu *TypeError* di PHP modern.
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🟢 Array Functions Esensial
 
@@ -2127,8 +2071,6 @@ explode($separator, $string)      → Pecah string menjadi array berdasarkan pem
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 🟢 String Functions Esensial
 
 #### Konsep
@@ -2203,8 +2145,6 @@ str_ends_with($haystack, $needle)              → Cek apakah diakhiri teks tert
 
 ---
 
-<a id="bagian-30"></a>
-
 ## 30. 🟢 Type Checking (`is_*`) & Type Casting
 
 #### Konsep
@@ -2274,8 +2214,6 @@ is_type($value)      → Periksa apakah $value memiliki tipe data tertentu
 
 ---
 
-<a id="bagian-31"></a>
-
 ## 31. 🟢 Function Dasar & Deklarasi
 
 #### Konsep
@@ -2332,8 +2270,6 @@ functionName()                   → Memanggil dan mengeksekusi fungsi
 - ❌ **Kesalahan Umum:** Mendeklarasikan dua fungsi dengan nama yang persis sama di file yang sama (*Fatal Error: Cannot redeclare function*).
 
 ---
-
-<a id="bagian-32"></a>
 
 ## 32. 🟢 Parameter, Default Value & Named Arguments
 
@@ -2400,8 +2336,6 @@ name(paramName: $value)                 → Named arguments: kirim argument sesu
 - ❌ **Kesalahan Umum:** Meletakkan parameter wajib setelah parameter yang memiliki default value (deprecated di PHP 8.0+).
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 🟢 Return Value & Early Return
 
@@ -2476,8 +2410,6 @@ return;         → Menghentikan fungsi tanpa mengembalikan nilai (void)
 
 ---
 
-<a id="bagian-34"></a>
-
 ## 34. 🟢 Type Declaration (Scalar, Return, & Union)
 
 #### Konsep
@@ -2547,8 +2479,6 @@ typeA|typeB $param                               → Union type (PHP 8+): boleh 
 - ❌ **Kesalahan Umum:** Mengaktifkan `declare(strict_types=1);` tetapi mengirimkan data string angka `"10"` ke fungsi yang mengharapkan `int`.
 
 ---
-
-<a id="bagian-35"></a>
 
 ## 35. 🟢 Variable Scope (Local, Global, Static)
 
@@ -2624,8 +2554,6 @@ static $var      → Variabel lokal yang mempertahankan nilainya antar panggilan
 
 ---
 
-<a id="bagian-36"></a>
-
 ## 36. 🟡 Anonymous Function (Closure) & `use` Keyword
 
 #### Konsep
@@ -2693,8 +2621,6 @@ $closure = function ($param) use ($outerVar) { ... };  → Anonymous function de
 
 ---
 
-<a id="bagian-37"></a>
-
 ## 37. 🟡 Arrow Function (`fn() =>`)
 
 #### Konsep
@@ -2748,8 +2674,6 @@ fn($param) => $expression   → Arrow function: ringkas, auto-capture variabel l
 - ❌ **Kesalahan Umum:** Mencoba memasukkan multi-statement atau blok kurung kurawal `{ ... }` ke dalam arrow function (arrow function hanya mendukung 1 single expression).
 
 ---
-
-<a id="bagian-38"></a>
 
 ## 38. 🟡 Callback Function & `callable`
 
@@ -2820,8 +2744,6 @@ $callback($args)     → Mengeksekusi callback yang dikirimkan
 
 ---
 
-<a id="bagian-39"></a>
-
 ## 39. 🟡 Variable Function
 
 #### Konsep
@@ -2889,8 +2811,6 @@ $functionName();             → Menjalankan fungsi sayHello() secara dinamis
 - ❌ **Kesalahan Umum:** Memanggil variable function dari input pengguna langsung tanpa sanitasi/whitelist (potensi celah keamanan eksekusi kode liar).
 
 ---
-
-<a id="bagian-40"></a>
 
 ## 40. 🟡 Recursive Function
 
@@ -2966,8 +2886,6 @@ Recursive Step  → Pemanggilan fungsi kembali dengan nilai parameter yang menge
 
 ---
 
-<a id="bagian-41"></a>
-
 ## 41. 🟡 File Inclusion (`require`, `include`, `require_once`)
 
 #### Konsep
@@ -3030,8 +2948,6 @@ __DIR__                             → Magic constant: direktori file saat ini 
 - ❌ **Kesalahan Umum:** Menggunakan `include` biasa untuk file konfigurasi database atau fungsi inti yang fatal jika hilang.
 
 ---
-
-<a id="bagian-42"></a>
 
 ## 42. 🔴 Operator Array & Spread Operator (`...`)
 
@@ -3097,8 +3013,6 @@ $arrayA + $arrayB    → Array union: pertahankan key dari $arrayA jika ada dupl
 
 ---
 
-<a id="bagian-43"></a>
-
 ## 43. 🔴 Reference (`&`) pada Variable & Parameter
 
 #### Konsep
@@ -3162,8 +3076,6 @@ function modify(type &$param) → Parameter by-reference: modifikasi langsung da
 
 ---
 
-<a id="bagian-44"></a>
-
 ## 44. 🔴 `goto` Operator
 
 #### Konsep
@@ -3216,8 +3128,6 @@ goto targetLabel → Perintahkan interpreter langsung melompat ke label tujuan
 
 ---
 
-<a id="bagian-45"></a>
-
 ## 45. 🛠️ Peta Ingatan Cepat
 
 Mental model komprehensif hubungan seluruh konsep fundamental PHP:
@@ -3259,8 +3169,6 @@ Modularitas      → Function, Type Hinting, Early Return, require_once
 
 ---
 
-<a id="bagian-46"></a>
-
 ## 46. 📚 Tabel Ringkasan
 
 | Fitur / Konsep | Sintaks / API Utama | Fungsi & Kegunaan |
@@ -3282,8 +3190,6 @@ Modularitas      → Function, Type Hinting, Early Return, require_once
 | **Muat File** | `require_once __DIR__ . '/file.php'`| Memuat file dependency wajib tepat 1 kali |
 
 ---
-
-<a id="bagian-47"></a>
 
 ## 47. ⚡ Cheat Code PHP 10 Detik
 
@@ -3326,8 +3232,6 @@ echo "Total Transaksi: Rp $total | Hak Akses: $akses";
 
 ---
 
-<a id="bagian-48"></a>
-
 ## 48. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -3362,8 +3266,6 @@ echo "Total Transaksi: Rp $total | Hak Akses: $akses";
 ```
 
 ---
-
-<a id="bagian-49"></a>
 
 ## 49. 🏗️ Mini Project: Aplikasi Kasir & Inventaris CLI Interaktif
 
@@ -3513,8 +3415,6 @@ Status: Pembayaran Berhasil Disimpan!
 ```
 
 ---
-
-<a id="bagian-50"></a>
 
 ## 50. 🔗 Referensi Resmi
 

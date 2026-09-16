@@ -69,50 +69,48 @@ Event        → Sinyal kejadian interaksi pengguna (klik, ketik, submit, scroll
 
 ### 🟢 Fundamental
 
-1. [Pengenalan DOM & Mental Model Pohon Dokumen](#bagian-1)
-2. [Menyiapkan Struktur HTML & File Script](#bagian-2)
-3. [Tipe Data DOM (Document, Element, Node, NodeList, Event)](#bagian-3)
-4. [Document Object (Pintu Masuk Utama DOM)](#bagian-4)
-5. [Node & Hubungan Keluarga Node (Parent, Child, Sibling)](#bagian-5)
-6. [Node Type & Node Constants](#bagian-6)
-7. [Element vs Node & Membuat Elemen (createElement, append)](#bagian-7)
-8. [Text Node & Text Content](#bagian-8)
-9. [Selector Modern (querySelector & querySelectorAll)](#bagian-9)
-10. [Selector Klasik (getElementById, getElementsByClassName, getElementsByTagName)](#bagian-10)
-11. [NodeList vs HTMLCollection (Live vs Static Collection)](#bagian-11)
-12. [Modifikasi Teks & Konten (textContent, innerText, innerHTML)](#bagian-12)
-13. [Manipulasi Atribut (getAttribute, setAttribute, dataset)](#bagian-13)
-14. [NamedNodeMap & Attr Object](#bagian-14)
-15. [Manipulasi Style & Class CSS (style, classList)](#bagian-15)
+1. [Pengenalan DOM & Mental Model Pohon Dokumen](#1--pengenalan-dom--mental-model-pohon-dokumen)
+2. [Menyiapkan Struktur HTML & File Script](#2--menyiapkan-struktur-html--file-script)
+3. [Tipe Data DOM (Document, Element, Node, NodeList, Event)](#3--tipe-data-dom-document-element-node-nodelist-event)
+4. [Document Object (Pintu Masuk Utama DOM)](#4--document-object-pintu-masuk-utama-dom)
+5. [Node & Hubungan Keluarga Node (Parent, Child, Sibling)](#5--node--hubungan-keluarga-node-parent-child-sibling)
+6. [Node Type & Node Constants](#6--node-type--node-constants)
+7. [Element vs Node & Membuat Elemen (createElement, append)](#7--element-vs-node--membuat-elemen-createelement-append)
+8. [Text Node & Text Content](#8--text-node--text-content)
+9. [Selector Modern (querySelector & querySelectorAll)](#9--selector-modern-queryselector--queryselectorall)
+10. [Selector Klasik (getElementById, getElementsByClassName, getElementsByTagName)](#10--selector-klasik-getelementbyid-getelementsbyclassname-getelementsbytagname)
+11. [NodeList vs HTMLCollection (Live vs Static Collection)](#11--nodelist-vs-htmlcollection-live-vs-static-collection)
+12. [Modifikasi Teks & Konten (textContent, innerText, innerHTML)](#12--modifikasi-teks--konten-textcontent-innertext-innerhtml)
+13. [Manipulasi Atribut (getAttribute, setAttribute, dataset)](#13--manipulasi-atribut-getattribute-setattribute-dataset)
+14. [NamedNodeMap & Attr Object](#14--namednodemap--attr-object)
+15. [Manipulasi Style & Class CSS (style, classList)](#15--manipulasi-style--class-css-style-classlist)
 
 ### 🟡 Lanjutan
 
-16. [Event Listener & Handler (addEventListener, removeEventListener)](#bagian-16)
-17. [Event Object & Event Flow (Capturing, Bubbling, stopPropagation, preventDefault)](#bagian-17)
-18. [Event Delegation (Pola Penanganan Event Skalabel)](#bagian-18)
-19. [Window Object (Global Browser Context, innerHeight, scrollY, Dialogs)](#bagian-19)
-20. [HTML Element & DOM Lifecycle (DOMContentLoaded vs load)](#bagian-20)
-21. [HTML Form Element (Input, Select, Checkbox, Radio, FormData, Validation)](#bagian-21)
-22. [HTML Table Element & Dinamis Table Manipulation (insertRow, insertCell)](#bagian-22)
-23. [HTML Custom Elements & Template Element (<template>, cloneNode)](#bagian-23)
+16. [Event Listener & Handler (addEventListener, removeEventListener)](#16--event-listener--handler-addeventlistener-removeeventlistener)
+17. [Event Object & Event Flow (Capturing, Bubbling, stopPropagation, preventDefault)](#17--event-object--event-flow-capturing-bubbling-stoppropagation-preventdefault)
+18. [Event Delegation (Pola Penanganan Event Skalabel)](#18--event-delegation-pola-penanganan-event-skalabel)
+19. [Window Object (Global Browser Context, innerHeight, scrollY, Dialogs)](#19--window-object-global-browser-context-innerheight-scrolly-dialogs)
+20. [HTML Element & DOM Lifecycle (DOMContentLoaded vs load)](#20--html-element--dom-lifecycle-domcontentloaded-vs-load)
+21. [HTML Form Element (Input, Select, Checkbox, Radio, FormData, Validation)](#21--html-form-element-input-select-checkbox-radio-formdata-validation)
+22. [HTML Table Element & Dinamis Table Manipulation (insertRow, insertCell)](#22--html-table-element--dinamis-table-manipulation-insertrow-insertcell)
+23. [HTML Custom Elements & Template Element (<template>, cloneNode)](#23--html-custom-elements--template-element-template-clonenode)
 
 ### 🔴 Advanced / Operasional
 
-24. [DOM Mutation & Fragment Performance (DocumentFragment Batching)](#bagian-24)
-25. [DOM Security (Pencegahan XSS / Cross-Site Scripting pada innerHTML)](#bagian-25)
+24. [DOM Mutation & Fragment Performance (DocumentFragment Batching)](#24--dom-mutation--fragment-performance-documentfragment-batching)
+25. [DOM Security (Pencegahan XSS / Cross-Site Scripting pada innerHTML)](#25--dom-security-pencegahan-xss--cross-site-scripting-pada-innerhtml)
 
 ### 🛠️ Referensi & Praktik
 
-26. [Peta Ingatan Cepat](#bagian-26)
-27. [Tabel Ringkasan](#bagian-27)
-28. [Cheat Code JavaScript DOM 10 Detik](#bagian-28)
-29. [Urutan Belajar yang Disarankan](#bagian-29)
-30. [Mini Project: Aplikasi Todo List & Data Manager Interaktif (DOM Full-Feature)](#bagian-30)
-31. [Referensi Resmi](#bagian-31)
+26. [Peta Ingatan Cepat](#26-️-peta-ingatan-cepat)
+27. [Tabel Ringkasan](#27--tabel-ringkasan)
+28. [Cheat Code JavaScript DOM 10 Detik](#28--cheat-code-javascript-dom-10-detik)
+29. [Urutan Belajar yang Disarankan](#29--urutan-belajar-yang-disarankan)
+30. [Mini Project: Aplikasi Todo List & Data Manager Interaktif (DOM Full-Feature)](#30-️-mini-project-aplikasi-todo-list--data-manager-interaktif-dom-full-feature)
+31. [Referensi Resmi](#31--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan DOM & Mental Model Pohon Dokumen
 
@@ -208,8 +206,6 @@ document → Objek akar (root entry point) untuk mengakses seluruh halaman web
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Menyiapkan Struktur HTML & File Script
 
 #### Konsep
@@ -291,8 +287,6 @@ Di jendela browser & Console:
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Tipe Data DOM (Document, Element, Node, NodeList, Event)
 
 #### Konsep
@@ -372,8 +366,6 @@ HTMLCollection → Deret koleksi beberapa Element HTML aktif
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Document Object (Pintu Masuk Utama DOM)
 
 #### Konsep
@@ -450,8 +442,6 @@ document.createElement(tagName)  → Menciptakan elemen HTML baru di memori
 - ❌ Jangan mencoba memanipulasi `document.body` sebelum tag `<body>` selesai di-parse oleh browser.
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Node & Hubungan Keluarga Node (Parent, Child, Sibling)
 
@@ -533,8 +523,6 @@ element.nextElementSibling  → Mengambil elemen saudara kandung berikutnya
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Node Type & Node Constants
 
 #### Konsep
@@ -610,8 +598,6 @@ node.nodeName                           → Mengembalikan nama tag (DIV, P, #tex
 - ❌ Jangan mencoba membaca `node.nodeValue` pada Element node karena akan menghasilkan `null` (gunakan `.textContent` untuk Element).
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Element vs Node & Membuat Elemen (createElement, append)
 
@@ -700,8 +686,6 @@ targetElement.remove()          → Menghapus elemen dari dokumen secara permane
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Text Node & Text Content
 
 #### Konsep
@@ -770,8 +754,6 @@ document.createTextNode(text) → Membuat objek Text Node baru di memori
 - ❌ Jangan gunakan `innerHTML` jika Anda hanya ingin mengubah teks biasa tanpa tag HTML.
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Selector Modern (querySelector & querySelectorAll)
 
@@ -855,8 +837,6 @@ document.querySelectorAll(cssSelector) → Mengambil seluruh elemen yang cocok s
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Selector Klasik (getElementById, getElementsByClassName, getElementsByTagName)
 
 #### Konsep
@@ -933,8 +913,6 @@ document.getElementsByTagName('tagName')      → Mengambil elemen via Tag Name 
 - ❌ Jangan menyertakan simbol `#` pada `getElementById("header")` atau simbol `.` pada `getElementsByClassName("btn")`.
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 NodeList vs HTMLCollection (Live vs Static Collection)
 
@@ -1019,8 +997,6 @@ Array.from(collection) → Mengonversi koleksi DOM menjadi Array murni JavaScrip
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟢 Modifikasi Teks & Konten (textContent, innerText, innerHTML)
 
 #### Konsep
@@ -1103,8 +1079,6 @@ element.innerHTML   → Membaca atau merender tag HTML dinamis
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟢 Manipulasi Atribut (getAttribute, setAttribute, dataset)
 
 #### Konsep
@@ -1186,8 +1160,6 @@ element.dataset.customProperty           → Mengakses atribut kustom data-* (ca
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟢 NamedNodeMap & Attr Object
 
 #### Konsep
@@ -1266,8 +1238,6 @@ element.attributes.getNamedItem(n)  → Mengambil objek Attr tertentu berdasarka
 - ❌ Untuk pembacaan atribut umum harian, tetap prioritaskan method standar `element.getAttribute("name")`.
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟢 Manipulasi Style & Class CSS (style, classList)
 
@@ -1362,8 +1332,6 @@ element.classList.contains('className')   → Mengecek apakah class sedang aktif
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Event Listener & Handler (addEventListener, removeEventListener)
 
 #### Konsep
@@ -1450,8 +1418,6 @@ element.removeEventListener(type, listener)        → Mencopot pendengar event 
 - ❌ Jangan menggunakan fungsi anonim jika berniat mencopotnya dengan `removeEventListener()` (karena referensi memori fungsi anonim tidak sama).
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟡 Event Object & Event Flow (Capturing, Bubbling, stopPropagation, preventDefault)
 
@@ -1552,8 +1518,6 @@ event.stopPropagation() → Menghentikan perambatan event ke elemen parent di at
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 Event Delegation (Pola Penanganan Event Skalabel)
 
 #### Konsep
@@ -1643,8 +1607,6 @@ Event Delegation                  → Pola 1 listener pada parent untuk menangan
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 Window Object (Global Browser Context, innerHeight, scrollY, Dialogs)
 
 #### Konsep
@@ -1724,8 +1686,6 @@ window.scrollTo({ top, behavior: 'smooth' }) → Menggulung halaman dengan anima
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 HTML Element & DOM Lifecycle (DOMContentLoaded vs load)
 
 #### Konsep
@@ -1801,8 +1761,6 @@ window.addEventListener('load', fn)               → Waktu ketika semua gambar/
 - ❌ Jangan menunda interaktivitas UI hingga event `window.load` karena user akan merasa aplikasi lambat merespons sementara gambar besar masih diunduh.
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🟡 HTML Form Element (Input, Select, Checkbox, Radio, FormData, Validation)
 
@@ -1915,8 +1873,6 @@ form.reset()            → Mengosongkan kembali seluruh kolom isian formulir
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🟡 HTML Table Element & Dinamis Table Manipulation (insertRow, insertCell)
 
 #### Konsep
@@ -2019,8 +1975,6 @@ table.deleteRow(index) → Menghapus baris pada indeks tertentu
 - ❌ Gunakan parameter indeks `-1` pada `insertRow(-1)` untuk memastikan baris selalu disisipkan di posisi paling akhir secara konsisten.
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🟡 HTML Custom Elements & Template Element (<template>, cloneNode)
 
@@ -2125,8 +2079,6 @@ template.content.cloneNode(true)       → Menduplikasi isi template secara mend
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🔴 DOM Mutation & Fragment Performance (DocumentFragment Batching)
 
 #### Konsep
@@ -2215,8 +2167,6 @@ parentElement.append(fragment)    → Memindahkan seluruh isi fragment ke halama
 - ❌ Jangan menempelkan elemen ke DOM nyata satu per satu di dalam perulangan loop.
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🔴 DOM Security (Pencegahan XSS / Cross-Site Scripting pada innerHTML)
 
@@ -2314,8 +2264,6 @@ Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika waj
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🛠️ Peta Ingatan Cepat
 
 #### Mental Model Pohon Navigasi & Alur Manipulasi DOM
@@ -2364,8 +2312,6 @@ Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika waj
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 📚 Tabel Ringkasan
 
 | Kategori | API / Method | Contoh Kode | Penjelasan & Kegunaan |
@@ -2390,8 +2336,6 @@ Sanitize Before Render  → Bersihkan string HTML menggunakan DOMPurify jika waj
 | **Performa** | `Fragment` | `document.createDocumentFragment()` | Wadah batching di memori untuk mencegah reflow |
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. ⚡ Cheat Code JavaScript DOM 10 Detik
 
@@ -2435,8 +2379,6 @@ $("#theme-toggle").addEventListener("click", () => {
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 🧭 Urutan Belajar yang Disarankan
 
 Untuk menguasai manipulasi DOM dari tingkat dasar hingga membangun aplikasi web interaktif berperforma tinggi, ikuti 4 fase berikut:
@@ -2479,8 +2421,6 @@ Untuk menguasai manipulasi DOM dari tingkat dasar hingga membangun aplikasi web 
 ```
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🏗️ Mini Project: Aplikasi Todo List & Data Manager Interaktif (DOM Full-Feature)
 
@@ -2682,8 +2622,6 @@ Todo App Architecture → Gabungan Form Submit + createElement + Event Delegatio
 ```
 
 ---
-
-<a id="bagian-31"></a>
 
 ## 31. 🔗 Referensi Resmi
 

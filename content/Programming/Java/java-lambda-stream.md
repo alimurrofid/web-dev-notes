@@ -72,49 +72,47 @@ Terminal     → operasi akhir penutup yang memicu eksekusi seluruh rangkaian in
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Paradigma Functional Programming di Java](#bagian-1)
-2. [Functional Interface & Anotasi `@FunctionalInterface`](#bagian-2)
-3. [Sintaks Dasar Lambda Expression](#bagian-3)
-4. [Built-in Interface: `Consumer<T>` & `BiConsumer<T, U>`](#bagian-4)
-5. [Built-in Interface: `Supplier<T>`](#bagian-5)
-6. [Built-in Interface: `Function<T, R>` & `BiFunction<T, U, R>`](#bagian-6)
-7. [Built-in Interface: `Predicate<T>` & `BiPredicate<T, U>`](#bagian-7)
-8. [Primitive Functional Interfaces (`IntPredicate`, `DoubleFunction`, dll.)](#bagian-8)
-9. [Method Reference (4 Pola Sintaks `::`)](#bagian-9)
-10. [Variable Capture & Aturan *Effectively Final*](#bagian-10)
+1. [Pengenalan Paradigma Functional Programming di Java](#1--pengenalan-paradigma-functional-programming-di-java)
+2. [Functional Interface & Anotasi `@FunctionalInterface`](#2--functional-interface--anotasi-functionalinterface)
+3. [Sintaks Dasar Lambda Expression](#3--sintaks-dasar-lambda-expression)
+4. [Built-in Interface: `Consumer<T>` & `BiConsumer<T, U>`](#4--built-in-interface-consumert--biconsumert-u)
+5. [Built-in Interface: `Supplier<T>`](#5--built-in-interface-suppliert)
+6. [Built-in Interface: `Function<T, R>` & `BiFunction<T, U, R>`](#6--built-in-interface-functiont-r--bifunctiont-u-r)
+7. [Built-in Interface: `Predicate<T>` & `BiPredicate<T, U>`](#7--built-in-interface-predicatet--bipredicatet-u)
+8. [Primitive Functional Interfaces (`IntPredicate`, `DoubleFunction`, dll.)](#8--primitive-functional-interfaces-intpredicate-doublefunction-dll)
+9. [Method Reference (4 Pola Sintaks `::`)](#9--method-reference-4-pola-sintaks-)
+10. [Variable Capture & Aturan *Effectively Final*](#10--variable-capture--aturan-effectively-final)
 
 ### 🟡 Lanjutan
 
-11. [`Optional<T>` Dasar (Mencegah NullPointerException)](#bagian-11)
-12. [`Optional<T>` Modern Flow (`map`, `flatMap`, `orElseThrow`)](#bagian-12)
-13. [Pengenalan Stream API & Mental Model Pipeline](#bagian-13)
-14. [Membuat Stream dari Berbagai Sumber](#bagian-14)
-15. [Intermediate Operations: `filter()`, `map()`, `sorted()`, `distinct()`, `peek()`](#bagian-15)
-16. [Intermediate Operations: `flatMap()` (Transformasi One-to-Many)](#bagian-16)
-17. [Slicing Operations: `limit()`, `skip()`, `takeWhile()` & `dropWhile()`](#bagian-17)
-18. [Terminal Operations: `forEach()`, `count()`, `min()`, `max()`, `reduce()`](#bagian-18)
-19. [Short-Circuiting Terminal Operations: `anyMatch()`, `allMatch()`, `findFirst()`](#bagian-19)
+11. [`Optional<T>` Dasar (Mencegah NullPointerException)](#11--optionalt-dasar-mencegah-nullpointerexception)
+12. [`Optional<T>` Modern Flow (`map`, `flatMap`, `orElseThrow`)](#12--optionalt-modern-flow-map-flatmap-orelsethrow)
+13. [Pengenalan Stream API & Mental Model Pipeline](#13--pengenalan-stream-api--mental-model-pipeline)
+14. [Membuat Stream dari Berbagai Sumber](#14--membuat-stream-dari-berbagai-sumber)
+15. [Intermediate Operations: `filter()`, `map()`, `sorted()`, `distinct()`, `peek()`](#15--intermediate-operations-filter-map-sorted-distinct-peek)
+16. [Intermediate Operations: `flatMap()` (Transformasi One-to-Many)](#16--intermediate-operations-flatmap-transformasi-one-to-many)
+17. [Slicing Operations: `limit()`, `skip()`, `takeWhile()` & `dropWhile()`](#17--slicing-operations-limit-skip-takewhile--dropwhile)
+18. [Terminal Operations: `forEach()`, `count()`, `min()`, `max()`, `reduce()`](#18--terminal-operations-foreach-count-min-max-reduce)
+19. [Short-Circuiting Terminal Operations: `anyMatch()`, `allMatch()`, `findFirst()`](#19--short-circuiting-terminal-operations-anymatch-allmatch-findfirst)
 
 ### 🔴 Advanced / Operasional
 
-20. [Collectors Dasar (`toList`, `toSet`, `toMap`, `joining`)](#bagian-20)
-21. [Collectors Lanjutan: `groupingBy()` & `partitioningBy()`](#bagian-21)
-22. [Downstream Collectors (`counting`, `mapping`, `summingDouble`, `averagingDouble`)](#bagian-22)
-23. [Lazy Evaluation pada Stream Pipeline](#bagian-23)
-24. [Parallel Stream (`parallelStream()` & ForkJoinPool)](#bagian-24)
+20. [Collectors Dasar (`toList`, `toSet`, `toMap`, `joining`)](#20--collectors-dasar-tolist-toset-tomap-joining)
+21. [Collectors Lanjutan: `groupingBy()` & `partitioningBy()`](#21--collectors-lanjutan-groupingby--partitioningby)
+22. [Downstream Collectors (`counting`, `mapping`, `summingDouble`, `averagingDouble`)](#22--downstream-collectors-counting-mapping-summingdouble-averagingdouble)
+23. [Lazy Evaluation pada Stream Pipeline](#23--lazy-evaluation-pada-stream-pipeline)
+24. [Parallel Stream (`parallelStream()` & ForkJoinPool)](#24--parallel-stream-parallelstream--forkjoinpool)
 
 ### 🛠️ Referensi & Praktik
 
-25. [Peta Ingatan Cepat](#bagian-25)
-26. [Tabel Ringkasan](#bagian-26)
-27. [Cheat Code Java Lambda & Stream 10 Detik](#bagian-27)
-28. [Urutan Belajar yang Disarankan](#bagian-28)
-29. [Mini Project: Engine Pemrosesan & Analitik Transaksi Penjualan E-Commerce CLI](#bagian-29)
-30. [Referensi Resmi](#bagian-30)
+25. [Peta Ingatan Cepat](#25-️-peta-ingatan-cepat)
+26. [Tabel Ringkasan](#26--tabel-ringkasan)
+27. [Cheat Code Java Lambda & Stream 10 Detik](#27--cheat-code-java-lambda--stream-10-detik)
+28. [Urutan Belajar yang Disarankan](#28--urutan-belajar-yang-disarankan)
+29. [Mini Project: Engine Pemrosesan & Analitik Transaksi Penjualan E-Commerce CLI](#29-️-mini-project-engine-pemrosesan--analitik-transaksi-penjualan-e-commerce-cli)
+30. [Referensi Resmi](#30--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Paradigma Functional Programming di Java
 
@@ -180,8 +178,6 @@ Declarative Style → gaya pemrograman yang berfokus pada "apa yang ingin dicapa
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Functional Interface & Anotasi `@FunctionalInterface`
 
 #### Konsep
@@ -246,8 +242,6 @@ Single Abstract Method (SAM) → syarat mutlak sebuah interface dapat diisi oleh
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Sintaks Dasar Lambda Expression
 
 #### Konsep
@@ -307,8 +301,6 @@ public class LambdaSyntaxDemo {
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Built-in Interface: `Consumer<T>` & `BiConsumer<T, U>`
 
 #### Konsep
@@ -367,8 +359,6 @@ consumerA.andThen(consumerB)    → merangkai dua consumer untuk dieksekusi beru
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Built-in Interface: `Supplier<T>`
 
 #### Konsep
@@ -420,8 +410,6 @@ supplier.get()                      → mengambil nilai yang dihasilkan oleh sup
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Built-in Interface: `Function<T, R>` & `BiFunction<T, U, R>`
 
@@ -488,8 +476,6 @@ functionA.andThen(functionB)    → menjalankan functionA dahulu, lalu hasilnya 
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Built-in Interface: `Predicate<T>` & `BiPredicate<T, U>`
 
 #### Konsep
@@ -550,8 +536,6 @@ predicate.negate()              → membalikkan hasil pengujian predicate (NOT)
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Primitive Functional Interfaces (`IntPredicate`, `DoubleFunction`, dll.)
 
 #### Konsep
@@ -598,8 +582,6 @@ IntPredicate / DoubleConsumer → versi fungsional primitif tanpa overhead memor
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Method Reference (4 Pola Sintaks `::`)
 
@@ -672,8 +654,6 @@ Class::new              → mereferensikan constructor untuk membuat objek baru
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Variable Capture & Aturan *Effectively Final*
 
 #### Konsep
@@ -718,8 +698,6 @@ Effectively Final → variabel lokal yang tidak pernah di-reassign nilainya sehi
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 `Optional<T>` Dasar (Mencegah NullPointerException)
 
@@ -775,8 +753,6 @@ optional.isEmpty()         → mengembalikan true jika container bernilai kosong
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 `Optional<T>` Modern Flow (`map`, `flatMap`, `orElseThrow`)
 
@@ -850,8 +826,6 @@ optional.ifPresent(consumer)             → mengeksekusi consumer jika data ada
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Pengenalan Stream API & Mental Model Pipeline
 
 #### Konsep
@@ -912,8 +886,6 @@ Terminal Operation     → operasi eksekutor yang menghasilkan output akhir dan 
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Membuat Stream dari Berbagai Sumber
 
 #### Konsep
@@ -969,8 +941,6 @@ IntStream.rangeClosed(min, max)→ membuat stream angka integer dari min sampai 
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Intermediate Operations: `filter()`, `map()`, `sorted()`, `distinct()`, `peek()`
 
@@ -1040,8 +1010,6 @@ stream.peek(consumer)      → mengintip data untuk logging/debugging tanpa memu
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Intermediate Operations: `flatMap()` (Transformasi One-to-Many)
 
 #### Konsep
@@ -1099,8 +1067,6 @@ stream.flatMap(functionToStream) → meratakan kumpulan sub-koleksi atau stream 
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟡 Slicing Operations: `limit()`, `skip()`, `takeWhile()` & `dropWhile()`
 
@@ -1160,8 +1126,6 @@ stream.takeWhile(predicate)→ mengambil elemen berurutan selama predicate berni
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 Terminal Operations: `forEach()`, `count()`, `min()`, `max()`, `reduce()`
 
@@ -1228,8 +1192,6 @@ stream.count()                       → menghitung jumlah elemen yang mengalir 
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 Short-Circuiting Terminal Operations: `anyMatch()`, `allMatch()`, `findFirst()`
 
 #### Konsep
@@ -1286,8 +1248,6 @@ stream.findFirst()          → mengambil elemen pertama yang lolos filter sebag
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🔴 Collectors Dasar (`toList`, `toSet`, `toMap`, `joining`)
 
@@ -1354,8 +1314,6 @@ stream.collect(Collectors.joining(delimiter))    → menggabungkan elemen teks m
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🔴 Collectors Lanjutan: `groupingBy()` & `partitioningBy()`
 
@@ -1430,8 +1388,6 @@ Collectors.partitioningBy(predicate)  → mempartisi elemen stream ke dalam Map<
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🔴 Downstream Collectors (`counting`, `mapping`, `summingDouble`, `averagingDouble`)
 
 #### Konsep
@@ -1503,8 +1459,6 @@ groupingBy(keyFn, summingDouble(valFn)) → mengelompokkan data sekaligus menghi
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🔴 Lazy Evaluation pada Stream Pipeline
 
 #### Konsep
@@ -1572,8 +1526,6 @@ Lazy Evaluation → operasi stream intermediate hanya dieksekusi saat dibutuhkan
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🔴 Parallel Stream (`parallelStream()` & ForkJoinPool)
 
 #### Konsep
@@ -1625,8 +1577,6 @@ collection.parallelStream() → memproses pipeline data secara paralel memanfaat
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1642,8 +1592,6 @@ FUNCTIONAL INTERFACES          OPTIONAL PIPELINE              STREAM LIFECYCLE
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 📚 Tabel Ringkasan
 
@@ -1661,8 +1609,6 @@ FUNCTIONAL INTERFACES          OPTIONAL PIPELINE              STREAM LIFECYCLE
 | `reduce` | `reduce(init, acc)` | `T` | Mengakumulasikan seluruh elemen menjadi 1 nilai |
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. ⚡ Cheat Code Java Lambda & Stream 10 Detik
 
@@ -1688,8 +1634,6 @@ boolean hasAdmin = users.stream().anyMatch(u -> "ADMIN".equals(u.getRole()));
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🧭 Urutan Belajar yang Disarankan
 
@@ -1718,8 +1662,6 @@ Langkah 5: Siap Membangun RESTful API & Service Layer di Spring Boot!
 ```
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🏗️ Mini Project: Engine Pemrosesan & Analitik Transaksi Penjualan E-Commerce CLI
 
@@ -1864,8 +1806,6 @@ public class SalesAnalyticsApp {
 ```
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🔗 Referensi Resmi
 

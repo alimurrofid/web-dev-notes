@@ -58,47 +58,45 @@ Build Context → Direktori file host yang dikirimkan ke Docker Daemon untuk pro
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Dockerfile & Alur Build Image](#bagian-1)
-2. [Format & Struktur Penulisan Dockerfile](#bagian-2)
-3. [Instruksi FROM (Base Image & Tagging)](#bagian-3)
-4. [Instruksi RUN (Eksekusi Perintah Build & Layer Caching)](#bagian-4)
-5. [Instruksi CMD (Default Runtime Command & Exec Form)](#bagian-5)
-6. [Instruksi LABEL (Metadata Penulis, Versi, & Deskripsi)](#bagian-6)
-7. [Instruksi COPY (Menyalin File dari Build Context)](#bagian-7)
-8. [Instruksi ADD (Menyalin dengan Auto-Extract Tar & Remote URL)](#bagian-8)
-9. [File .dockerignore (Mengabaikan File Sampah & Mengoptimalkan Build Context)](#bagian-9)
-10. [Instruksi EXPOSE (Dokumentasi Port Jaringan Kontainer)](#bagian-10)
-11. [Instruksi ENV (Menetapkan Default Environment Variable)](#bagian-11)
+1. [Pengenalan Dockerfile & Alur Build Image](#1--pengenalan-dockerfile--alur-build-image)
+2. [Format & Struktur Penulisan Dockerfile](#2--format--struktur-penulisan-dockerfile)
+3. [Instruksi FROM (Base Image & Tagging)](#3--instruksi-from-base-image--tagging)
+4. [Instruksi RUN (Eksekusi Perintah Build & Layer Caching)](#4--instruksi-run-eksekusi-perintah-build--layer-caching)
+5. [Instruksi CMD (Default Runtime Command & Exec Form)](#5--instruksi-cmd-default-runtime-command--exec-form)
+6. [Instruksi LABEL (Metadata Penulis, Versi, & Deskripsi)](#6--instruksi-label-metadata-penulis-versi--deskripsi)
+7. [Instruksi COPY (Menyalin File dari Build Context)](#7--instruksi-copy-menyalin-file-dari-build-context)
+8. [Instruksi ADD (Menyalin dengan Auto-Extract Tar & Remote URL)](#8--instruksi-add-menyalin-dengan-auto-extract-tar--remote-url)
+9. [File .dockerignore (Mengabaikan File Sampah & Mengoptimalkan Build Context)](#9--file-dockerignore-mengabaikan-file-sampah--mengoptimalkan-build-context)
+10. [Instruksi EXPOSE (Dokumentasi Port Jaringan Kontainer)](#10--instruksi-expose-dokumentasi-port-jaringan-kontainer)
+11. [Instruksi ENV (Menetapkan Default Environment Variable)](#11--instruksi-env-menetapkan-default-environment-variable)
 
 ### 🟡 Lanjutan
 
-12. [Instruksi WORKDIR (Menentukan Direktori Kerja Default)](#bagian-12)
-13. [Instruksi USER (Keamanan Non-Root User Execution)](#bagian-13)
-14. [Instruksi ARG (Build-Time Variables & Dynamic Arguments)](#bagian-14)
-15. [Instruksi VOLUME (Mendeklarasikan Mount Point Anonim)](#bagian-15)
-16. [Instruksi ENTRYPOINT (Executable Utama Kontainer)](#bagian-16)
-17. [Perbedaan CMD vs ENTRYPOINT & Pola Kombinasi Terbaik](#bagian-17)
-18. [Instruksi HEALTHCHECK (Monitoring Kesehatan Internal Image)](#bagian-18)
+12. [Instruksi WORKDIR (Menentukan Direktori Kerja Default)](#12--instruksi-workdir-menentukan-direktori-kerja-default)
+13. [Instruksi USER (Keamanan Non-Root User Execution)](#13--instruksi-user-keamanan-non-root-user-execution)
+14. [Instruksi ARG (Build-Time Variables & Dynamic Arguments)](#14--instruksi-arg-build-time-variables--dynamic-arguments)
+15. [Instruksi VOLUME (Mendeklarasikan Mount Point Anonim)](#15--instruksi-volume-mendeklarasikan-mount-point-anonim)
+16. [Instruksi ENTRYPOINT (Executable Utama Kontainer)](#16--instruksi-entrypoint-executable-utama-kontainer)
+17. [Perbedaan CMD vs ENTRYPOINT & Pola Kombinasi Terbaik](#17--perbedaan-cmd-vs-entrypoint--pola-kombinasi-terbaik)
+18. [Instruksi HEALTHCHECK (Monitoring Kesehatan Internal Image)](#18--instruksi-healthcheck-monitoring-kesehatan-internal-image)
 
 ### 🔴 Advanced / Operasional
 
-19. [Multi-Stage Build (Mereduksi Ukuran Image Drastis)](#bagian-19)
-20. [Docker BuildKit & Optimasi Cache Layer](#bagian-20)
-21. [Docker Hub Registry (Tagging & Pushing Image Resmi)](#bagian-21)
-22. [Private Container Registry (DigitalOcean & GitHub Packages ghcr.io)](#bagian-22)
+19. [Multi-Stage Build (Mereduksi Ukuran Image Drastis)](#19--multi-stage-build-mereduksi-ukuran-image-drastis)
+20. [Docker BuildKit & Optimasi Cache Layer](#20--docker-buildkit--optimasi-cache-layer)
+21. [Docker Hub Registry (Tagging & Pushing Image Resmi)](#21--docker-hub-registry-tagging--pushing-image-resmi)
+22. [Private Container Registry (DigitalOcean & GitHub Packages ghcr.io)](#22--private-container-registry-digitalocean--github-packages-ghcrio)
 
 ### 🛠️ Referensi & Praktik
 
-23. [Peta Ingatan Cepat](#bagian-23)
-24. [Tabel Ringkasan](#bagian-24)
-25. [Cheat Code Dockerfile 10 Detik](#bagian-25)
-26. [Urutan Belajar yang Disarankan](#bagian-26)
-27. [Mini Project: Membangun Image Production-Ready Node.js / Go REST API Multi-Stage](#bagian-27)
-28. [Referensi Resmi](#bagian-28)
+23. [Peta Ingatan Cepat](#23-️-peta-ingatan-cepat)
+24. [Tabel Ringkasan](#24--tabel-ringkasan)
+25. [Cheat Code Dockerfile 10 Detik](#25--cheat-code-dockerfile-10-detik)
+26. [Urutan Belajar yang Disarankan](#26--urutan-belajar-yang-disarankan)
+27. [Mini Project: Membangun Image Production-Ready Node.js / Go REST API Multi-Stage](#27-️-mini-project-membangun-image-production-ready-nodejs--go-rest-api-multi-stage)
+28. [Referensi Resmi](#28--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Dockerfile & Alur Build Image
 
@@ -187,8 +185,6 @@ Build Context → Folder path (titik '.') yang dikirimkan ke Docker Daemon saat 
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Format & Struktur Penulisan Dockerfile
 
 #### Konsep
@@ -265,8 +261,6 @@ INSTRUCTION arguments → Format baku baris Dockerfile (Instruksi selalu HURUF B
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Instruksi FROM (Base Image & Tagging)
 
 #### Konsep
@@ -328,8 +322,6 @@ FROM scratch                    → Base image kosong murni (ukuran 0 byte)
 - ❌ Jangan pernah menggunakan tag `latest` di lingkungan produksi karena dapat merusak kompatibilitas dependensi sewaktu-waktu.
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Instruksi RUN (Eksekusi Perintah Build & Layer Caching)
 
@@ -410,8 +402,6 @@ RUN <command> && <command> → Menjalankan perintah di masa BUILD dan menyimpan 
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Instruksi CMD (Default Runtime Command & Exec Form)
 
 #### Konsep
@@ -479,8 +469,6 @@ Overridable                            → Argumen di 'docker run' akan menggant
 - ❌ Jangan gunakan `CMD` untuk proses kompilasi atau instalasi dependensi (gunakan `RUN` untuk kebutuhan build).
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Instruksi LABEL (Metadata Penulis, Versi, & Deskripsi)
 
@@ -555,8 +543,6 @@ docker inspect        → Melihat seluruh metadata label yang terpasang pada ima
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Instruksi COPY (Menyalin File dari Build Context)
 
 #### Konsep
@@ -630,8 +616,6 @@ COPY --chown=user:group <src> <dst>→ Menyalin sekaligus menetapkan hak milik u
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Instruksi ADD (Menyalin dengan Auto-Extract Tar & Remote URL)
 
 #### Konsep
@@ -695,8 +679,6 @@ Aturan Emas               → Gunakan COPY sebagai default, gunakan ADD hanya un
 - ❌ Jangan gunakan `ADD` untuk mengunduh paket dari URL internet jika file tersebut berukuran besar, karena file arsip installer akan tersimpan permanen di layer image (lebih baik gunakan `RUN curl ... && tar ... && rm ...`).
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 File .dockerignore (Mengabaikan File Sampah & Mengoptimalkan Build Context)
 
@@ -787,8 +769,6 @@ Wajib Diabaikan → node_modules, .git, .env, *.log, *.key
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Instruksi EXPOSE (Dokumentasi Port Jaringan Kontainer)
 
 #### Konsep
@@ -857,8 +837,6 @@ docker run -p host:cont → Membuka dan memetakan port nyata dari host ke kontai
 - ❌ Jangan mengira menulis `EXPOSE 80` sudah membuat aplikasi bisa diakses di browser tanpa menyertakan opsi `-p` pada `docker run`.
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Instruksi ENV (Menetapkan Default Environment Variable)
 
@@ -940,8 +918,6 @@ docker run -e     → Menimpa nilai default ENV saat kontainer dinyalakan
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Instruksi WORKDIR (Menentukan Direktori Kerja Default)
 
 #### Konsep
@@ -1010,8 +986,6 @@ Hindari                → RUN cd /path (tidak berpengaruh ke baris berikutnya)
 - ❌ Jangan menaruh file kode program langsung di direktori root (`/`); selalu buat direktori aplikasi terpisah menggunakan `WORKDIR`.
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Instruksi USER (Keamanan Non-Root User Execution)
 
@@ -1082,8 +1056,6 @@ Principle of Least Privilege → Jangan pernah menjalankan aplikasi produksi seb
 - ❌ Jangan lupa memberikan hak akses kepemilikan folder (`chown`) sebelum beralih ke user non-root, agar aplikasi tidak error saat ingin membuat file log atau cache lokal (*Permission Denied*).
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Instruksi ARG (Build-Time Variables & Dynamic Arguments)
 
@@ -1179,8 +1151,6 @@ ARG vs ENV                  → ARG = Build-Time Saja, ENV = Build-Time + Runtim
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Instruksi VOLUME (Mendeklarasikan Mount Point Anonim)
 
 #### Konsep
@@ -1255,8 +1225,6 @@ Anonymous Volume    → Dibuat otomatis oleh Docker jika user tidak menyediakan 
 - ❌ Jangan mencoba memodifikasi isi file di dalam direktori `VOLUME` pada instruksi `RUN` setelah deklarasi `VOLUME` ditulis, karena perubahan tersebut tidak akan tersimpan ke layer image.
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Instruksi ENTRYPOINT (Executable Utama Kontainer)
 
@@ -1337,8 +1305,6 @@ Parameter Passthrough    → Seluruh argumen di 'docker run' otomatis diteruskan
 - ❌ Jangan gunakan Shell form pada `ENTRYPOINT ping` karena shell form akan memblokir argumen tambahan dari perintah `docker run`.
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟡 Perbedaan CMD vs ENTRYPOINT & Pola Kombinasi Terbaik
 
@@ -1424,8 +1390,6 @@ Rumus      = Executable (ENTRYPOINT) + Default Arguments (CMD)
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 Instruksi HEALTHCHECK (Monitoring Kesehatan Internal Image)
 
 #### Konsep
@@ -1492,8 +1456,6 @@ Status Lifecycle: starting ──► healthy / unhealthy
 - ❌ Jangan menulis perintah health check yang memakan beban CPU tinggi atau memicu penulisan data berat ke database.
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🔴 Multi-Stage Build (Mereduksi Ukuran Image Drastis)
 
@@ -1581,8 +1543,6 @@ Hasil                            → Image produksi super ramping, cepat di-depl
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Docker BuildKit & Optimasi Cache Layer
 
 #### Konsep
@@ -1669,8 +1629,6 @@ Prinsip Cache Hierarchy → Letakkan instruksi yang jarang berubah di ATAS, yang
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🔴 Docker Hub Registry (Tagging & Pushing Image Resmi)
 
 #### Konsep
@@ -1747,8 +1705,6 @@ docker push user/repo:tag           → Mengunggah image lokal ke cloud registry
 - ❌ Jangan hanya mengunggah tag `latest` tanpa versi numerik, karena Anda akan kesulitan melakukan rollback jika rilis terbaru mengalami kegagalan.
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🔴 Private Container Registry (DigitalOcean & GitHub Packages ghcr.io)
 
@@ -1831,8 +1787,6 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🛠️ Peta Ingatan Cepat
 
 #### Mental Model Tahapan Instruksi Dockerfile
@@ -1879,8 +1833,6 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 📚 Tabel Ringkasan
 
 | Instruksi | Tahapan | Contoh Sintaks | Penjelasan & Kegunaan |
@@ -1901,8 +1853,6 @@ registry.digitalocean.com/...    → Format URL image resmi di DigitalOcean Cont
 | **`LABEL`** | Metadata | `LABEL version="1.0"` | Menyematkan metadata dokumentasi OCI |
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. ⚡ Cheat Code Dockerfile 10 Detik
 
@@ -1941,8 +1891,6 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🧭 Urutan Belajar yang Disarankan
 
@@ -1985,8 +1933,6 @@ Untuk menguasai penulisan Dockerfile dari tingkat dasar hingga standar arsitektu
 ```
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🏗️ Mini Project: Membangun Image Production-Ready Node.js / Go REST API Multi-Stage
 
@@ -2135,8 +2081,6 @@ Enterprise Dockerfile Pattern = Multi-Stage + Layer Caching + USER Non-Root + HE
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🔗 Referensi Resmi
 

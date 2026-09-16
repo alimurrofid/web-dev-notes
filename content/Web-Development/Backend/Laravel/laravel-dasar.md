@@ -77,64 +77,62 @@ Response   → hasil akhir yang dikirim ke browser
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Laravel](#bagian-1)
-2. [Membuat Project & Instalasi](#bagian-2)
-3. [Menjalankan Server & Vite](#bagian-3)
-4. [Struktur Direktori Project](#bagian-4)
-5. [Mengenal Artisan CLI](#bagian-5)
-6. [Route Pertama & Closure](#bagian-6)
-7. [HTTP Routing Methods](#bagian-7)
-8. [View & Blade Templating Dasar](#bagian-8)
-9. [Layout Blade & Asset Vite](#bagian-9)
-10. [Route Parameters](#bagian-10)
-11. [Named Routes & URL Generator](#bagian-11)
-12. [Controller](#bagian-12)
-13. [HTTP Request Object](#bagian-13)
-14. [Mengambil Data Input Request](#bagian-14)
-15. [Form Validation Dasar](#bagian-15)
-16. [Form Request Validation](#bagian-16)
-17. [HTTP Responses](#bagian-17)
-18. [HTTP Redirects](#bagian-18)
-19. [Session & Flash Data](#bagian-19)
-20. [Cookies](#bagian-20)
-21. [Middleware Dasar](#bagian-21)
-22. [Mendaftarkan Middleware](#bagian-22)
-23. [CSRF Protection](#bagian-23)
-24. [Route Groups & Prefixes](#bagian-24)
-25. [File Storage Disk](#bagian-25)
-26. [File Upload Handling](#bagian-26)
-27. [Error Handling & Custom Error Pages](#bagian-27)
-28. [HTTP Exceptions](#bagian-28)
-29. [Testing Dasar](#bagian-29)
-30. [Environment Configuration (.env)](#bagian-30)
-31. [Application Environment & Debug Mode](#bagian-31)
-32. [File Konfigurasi Laravel](#bagian-32)
-33. [Configuration Caching](#bagian-33)
+1. [Pengenalan Laravel](#1--pengenalan-laravel)
+2. [Membuat Project & Instalasi](#2--membuat-project--instalasi)
+3. [Menjalankan Server & Vite](#3--menjalankan-server--vite)
+4. [Struktur Direktori Project](#4--struktur-direktori-project)
+5. [Mengenal Artisan CLI](#5--mengenal-artisan-cli)
+6. [Route Pertama & Closure](#6--route-pertama--closure)
+7. [HTTP Routing Methods](#7--http-routing-methods)
+8. [View & Blade Templating Dasar](#8--view--blade-templating-dasar)
+9. [Layout Blade & Asset Vite](#9--layout-blade--asset-vite)
+10. [Route Parameters](#10--route-parameters)
+11. [Named Routes & URL Generator](#11--named-routes--url-generator)
+12. [Controller](#12--controller)
+13. [HTTP Request Object](#13--http-request-object)
+14. [Mengambil Data Input Request](#14--mengambil-data-input-request)
+15. [Form Validation Dasar](#15--form-validation-dasar)
+16. [Form Request Validation](#16--form-request-validation)
+17. [HTTP Responses](#17--http-responses)
+18. [HTTP Redirects](#18--http-redirects)
+19. [Session & Flash Data](#19--session--flash-data)
+20. [Cookies](#20--cookies)
+21. [Middleware Dasar](#21--middleware-dasar)
+22. [Mendaftarkan Middleware](#22--mendaftarkan-middleware)
+23. [CSRF Protection](#23--csrf-protection)
+24. [Route Groups & Prefixes](#24--route-groups--prefixes)
+25. [File Storage Disk](#25--file-storage-disk)
+26. [File Upload Handling](#26--file-upload-handling)
+27. [Error Handling & Custom Error Pages](#27--error-handling--custom-error-pages)
+28. [HTTP Exceptions](#28--http-exceptions)
+29. [Testing Dasar](#29--testing-dasar)
+30. [Environment Configuration (.env)](#30--environment-configuration-env)
+31. [Application Environment & Debug Mode](#31--application-environment--debug-mode)
+32. [File Konfigurasi Laravel](#32--file-konfigurasi-laravel)
+33. [Configuration Caching](#33--configuration-caching)
 
 ### 🟡 Lanjutan
 
-34. [Dependency Injection](#bagian-34)
-35. [Service Container](#bagian-35)
-36. [Service Providers](#bagian-36)
-37. [Facades](#bagian-37)
-38. [Encryption vs Hashing](#bagian-38)
+34. [Dependency Injection](#34--dependency-injection)
+35. [Service Container](#35--service-container)
+36. [Service Providers](#36--service-providers)
+37. [Facades](#37--facades)
+38. [Encryption vs Hashing](#38--encryption-vs-hashing)
 
 ### 🔴 Operasional
 
-39. [Maintenance Mode](#bagian-39)
+39. [Maintenance Mode](#39--maintenance-mode)
 
 ### 🛠️ Referensi & Praktik
 
-40. [Peta Ingatan Cepat](#bagian-40)
-41. [Tabel Ringkasan](#bagian-41)
-42. [Cheat Code Laravel Dasar 10 Detik](#bagian-42)
-43. [Urutan Belajar yang Disarankan](#bagian-43)
-44. [Mini Project: CRUD Sederhana User Portal](#bagian-44)
-45. [Referensi Resmi](#bagian-45)
+40. [Peta Ingatan Cepat](#40--peta-ingatan-cepat)
+41. [Tabel Ringkasan](#41--tabel-ringkasan)
+42. [Cheat Code Laravel Dasar 10 Detik](#42--cheat-code-laravel-dasar-10-detik)
+43. [Urutan Belajar yang Disarankan](#43--urutan-belajar-yang-disarankan)
+44. [Mini Project: CRUD Sederhana User Portal](#44-️-mini-project-crud-sederhana-user-portal)
+45. [Referensi Resmi](#45--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Laravel
 
@@ -182,8 +180,6 @@ Laravel → framework PHP modern untuk membangun aplikasi web & REST API
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Membuat Project & Instalasi
 
 #### Konsep
@@ -223,8 +219,6 @@ npm install               → install dependensi frontend / Vite
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Menjalankan Server & Vite
 
@@ -271,8 +265,6 @@ npm run dev       → jalankan asset server frontend
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Struktur Direktori Project
 
@@ -325,8 +317,6 @@ config/    → setting aplikasi
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Mengenal Artisan CLI
 
 #### Konsep
@@ -374,8 +364,6 @@ php artisan test            → jalankan testing
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Route Pertama & Closure
 
 #### Konsep
@@ -416,8 +404,6 @@ Route::get('url', handler) → tangani request GET pada URL tertentu
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 HTTP Routing Methods
 
 #### Konsep
@@ -454,8 +440,6 @@ DELETE → menghapus data
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 View & Blade Templating Dasar
 
@@ -517,8 +501,6 @@ Route::get('/greeting', function () {
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Layout Blade & Asset Vite
 
@@ -587,8 +569,6 @@ Agar tidak menulis struktur HTML (`<html>`, `<head>`, `<nav>`) berulang kali di 
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Route Parameters
 
 #### Konsep
@@ -644,8 +624,6 @@ Route::get('/category/{slug}', function (string $slug) { ... })->whereAlphaNumer
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟢 Named Routes & URL Generator
 
 #### Konsep
@@ -683,8 +661,6 @@ return redirect()->route('profile.show', ['id' => 42]);
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟢 Controller
 
@@ -752,8 +728,6 @@ Route::get('/path', [NamaController::class, 'namaMethod'])
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟢 HTTP Request Object
 
 #### Konsep
@@ -796,8 +770,6 @@ Request $request → otomatis diinjeksi ke controller method oleh service contai
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟢 Mengambil Data Input Request
 
@@ -849,8 +821,6 @@ $request->filled('field')                → cek jika ada dan tidak kosong
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟢 Form Validation Dasar
 
@@ -932,8 +902,6 @@ $request->validate([...]) ──> validasi input
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟢 Form Request Validation
 
 #### Konsep
@@ -993,8 +961,6 @@ $request->validated()    → ambil data hasil validasi Form Request
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟢 HTTP Responses
 
 #### Konsep
@@ -1036,8 +1002,6 @@ response('Text', 201)  → kirim status code HTTP kustom
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟢 HTTP Redirects
 
 #### Konsep
@@ -1075,8 +1039,6 @@ redirect()->back()        → kembali ke halaman sebelumnya
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟢 Session & Flash Data
 
@@ -1127,8 +1089,6 @@ session()->flash('key', 'message') → simpan sementara untuk 1 request berikutn
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟢 Cookies
 
 #### Konsep
@@ -1173,8 +1133,6 @@ response()->cookie('name', 'value', $minutes) → kirim cookie ke browser
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🟢 Middleware Dasar
 
@@ -1242,8 +1200,6 @@ return $next($request); ──> izinkan request lanjut ke controller
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🟢 Mendaftarkan Middleware
 
 #### Konsep
@@ -1290,8 +1246,6 @@ bootstrap/app.php ->withMiddleware() ──> daftarkan alias middleware
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🟢 CSRF Protection
 
@@ -1340,8 +1294,6 @@ Akibat: Laravel akan melempar error **`419 Page Expired`**.
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🟢 Route Groups & Prefixes
 
 #### Konsep
@@ -1385,8 +1337,6 @@ Route::name('admin.')->group(...)   ──> grup nama rute admin....
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🟢 File Storage Disk
 
@@ -1439,8 +1389,6 @@ Storage::disk('public')->put() ──> simpan file
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🟢 File Upload Handling
 
 #### Konsep
@@ -1491,8 +1439,6 @@ $request->file('avatar')->store('folder', 'public') ──> simpan file aman
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 🟢 Error Handling & Custom Error Pages
 
 #### Konsep
@@ -1534,8 +1480,6 @@ resources/views/errors/404.blade.php ──> kustomisasi tampilan error 404
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🟢 HTTP Exceptions
 
 #### Konsep
@@ -1573,8 +1517,6 @@ abort_if(condition) → abort jika condition bernilai true
 ```
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🟢 Testing Dasar
 
@@ -1634,8 +1576,6 @@ php artisan test ──> jalankan seluruh test otomatis aplikasi
 
 ---
 
-<a id="bagian-30"></a>
-
 ## 30. 🟢 Environment Configuration (.env)
 
 #### Konsep
@@ -1671,8 +1611,6 @@ $appName = env('APP_NAME', 'DefaultApp');
 ```
 
 ---
-
-<a id="bagian-31"></a>
 
 ## 31. 🟢 Application Environment & Debug Mode
 
@@ -1716,8 +1654,6 @@ APP_DEBUG=false ──> WAJIB di server production demi keamanan!
 
 ---
 
-<a id="bagian-32"></a>
-
 ## 32. 🟢 File Konfigurasi Laravel
 
 #### Konsep
@@ -1755,8 +1691,6 @@ config('file.key') ──> cara standar & aman membaca konfigurasi aplikasi
 
 ---
 
-<a id="bagian-33"></a>
-
 ## 33. 🟢 Configuration Caching
 
 #### Konsep
@@ -1784,8 +1718,6 @@ php artisan config:clear → bersihkan cache konfigurasi
 ```
 
 ---
-
-<a id="bagian-34"></a>
 
 ## 34. 🟡 Dependency Injection
 
@@ -1838,8 +1770,6 @@ Type-hint class pada constructor/method ──> Laravel sediakan objeknya otomat
 
 ---
 
-<a id="bagian-35"></a>
-
 ## 35. 🟡 Service Container
 
 #### Konsep
@@ -1876,8 +1806,6 @@ app(NamaClass::class) → ambil instance dari container
 ```
 
 ---
-
-<a id="bagian-36"></a>
 
 ## 36. 🟡 Service Providers
 
@@ -1919,8 +1847,6 @@ boot()     → tempat menjalankan aksi setelah semua provider terdaftar
 ```
 
 ---
-
-<a id="bagian-37"></a>
 
 ## 37. 🟡 Facades
 
@@ -1968,8 +1894,6 @@ Facade = sintaks statis ringkas untuk mengakses service di Service Container
 
 ---
 
-<a id="bagian-38"></a>
-
 ## 38. 🟡 Encryption vs Hashing
 
 #### Konsep
@@ -2012,8 +1936,6 @@ Hash::make()          → khusus password (satu arah, tidak bisa didekripsi)
 
 ---
 
-<a id="bagian-39"></a>
-
 ## 39. 🔴 Maintenance Mode
 
 #### Konsep
@@ -2046,8 +1968,6 @@ php artisan up   → aplikasi normal online kembali
 ```
 
 ---
-
-<a id="bagian-40"></a>
 
 ## 40. 🧠 Peta Ingatan Cepat
 
@@ -2106,8 +2026,6 @@ Route::get('/users/{id}', [UserController::class, 'show'])
 
 ---
 
-<a id="bagian-41"></a>
-
 ## 41. 📚 Tabel Ringkasan
 
 | Materi | Konsep / API Utama | Fungsi & Kegunaan |
@@ -2136,8 +2054,6 @@ Route::get('/users/{id}', [UserController::class, 'show'])
 | Maintenance | `artisan down`, `up` | Mengaktifkan/mematikan maintenance mode |
 
 ---
-
-<a id="bagian-42"></a>
 
 ## 42. ⚡ Cheat Code Laravel Dasar 10 Detik
 
@@ -2173,8 +2089,6 @@ public function store(Request $request) {
 
 ---
 
-<a id="bagian-43"></a>
-
 ## 43. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -2203,8 +2117,6 @@ public function store(Request $request) {
 ```
 
 ---
-
-<a id="bagian-44"></a>
 
 ## 44. 🏗️ Mini Project: CRUD Sederhana User Portal
 
@@ -2337,8 +2249,6 @@ Alamat Email:
 **Kunci:** Alur Request → Route → Controller → Validation → Response/Redirect adalah inti 80% pekerjaan pengembangan aplikasi web dengan Laravel.
 
 ---
-
-<a id="bagian-45"></a>
 
 ## 45. 🔗 Referensi Resmi
 

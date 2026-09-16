@@ -72,43 +72,41 @@ BrowserRouter       → komponen konteks pembungkus utama yang menghubungkan Rea
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Client-Side Routing & Mental Model SPA](#bagian-1)
-2. [Instalasi & Setup Dasar `react-router-dom`](#bagian-2)
-3. [Navigasi Antar Halaman: Komponen `<Link>` vs Tag `<a>` Standar](#bagian-3)
-4. [Navigasi Aktif dengan `<NavLink>`](#bagian-4)
-5. [Halaman Not Found (404 Page) dengan Catch-All Route](#bagian-5)
-6. [Dynamic Routing & URL Params dengan `useParams()`](#bagian-6)
-7. [Query String & Search Params dengan `useSearchParams()`](#bagian-7)
-8. [Navigasi Terprogram (*Programmatic Navigation*) dengan `useNavigate()`](#bagian-8)
+1. [Pengenalan Client-Side Routing & Mental Model SPA](#1--pengenalan-client-side-routing--mental-model-spa)
+2. [Instalasi & Setup Dasar `react-router-dom`](#2--instalasi--setup-dasar-react-router-dom)
+3. [Navigasi Antar Halaman: Komponen `<Link>` vs Tag `<a>` Standar](#3--navigasi-antar-halaman-komponen-link-vs-tag-a-standar)
+4. [Navigasi Aktif dengan `<NavLink>`](#4--navigasi-aktif-dengan-navlink)
+5. [Halaman Not Found (404 Page) dengan Catch-All Route](#5--halaman-not-found-404-page-dengan-catch-all-route)
+6. [Dynamic Routing & URL Params dengan `useParams()`](#6--dynamic-routing--url-params-dengan-useparams)
+7. [Query String & Search Params dengan `useSearchParams()`](#7--query-string--search-params-dengan-usesearchparams)
+8. [Navigasi Terprogram (*Programmatic Navigation*) dengan `useNavigate()`](#8--navigasi-terprogram-programmatic-navigation-dengan-usenavigate)
 
 ### 🟡 Lanjutan
 
-9. [Mengoper State Antar Halaman dengan `useLocation()`](#bagian-9)
-10. [Nested Routes & Komponen `<Outlet>`](#bagian-10)
-11. [Index Route (`<Route index />`)](#bagian-11)
-12. [Protected Routes / Route Guards](#bagian-12)
-13. [Multiple Layouts (Layout Publik vs Layout Admin Berbeda)](#bagian-13)
-14. [Data Fetching Modern dengan Router Loaders (v6.4+)](#bagian-14)
-15. [Form Actions & Mutasi Data (v6.4+)](#bagian-15)
-16. [Error Handling Terisolasi pada Route (`errorElement` & `useRouteError`)](#bagian-16)
+9. [Mengoper State Antar Halaman dengan `useLocation()`](#9--mengoper-state-antar-halaman-dengan-uselocation)
+10. [Nested Routes & Komponen `<Outlet>`](#10--nested-routes--komponen-outlet)
+11. [Index Route (`<Route index />`)](#11--index-route-route-index-)
+12. [Protected Routes / Route Guards](#12--protected-routes--route-guards)
+13. [Multiple Layouts (Layout Publik vs Layout Admin Berbeda)](#13--multiple-layouts-layout-publik-vs-layout-admin-berbeda)
+14. [Data Fetching Modern dengan Router Loaders (v6.4+)](#14--data-fetching-modern-dengan-router-loaders-v64)
+15. [Form Actions & Mutasi Data (v6.4+)](#15--form-actions--mutasi-data-v64)
+16. [Error Handling Terisolasi pada Route (`errorElement` & `useRouteError`)](#16--error-handling-terisolasi-pada-route-errorelement--userouteerror)
 
 ### 🔴 Advanced / Operasional
 
-17. [Code Splitting & Lazy Loading Halaman](#bagian-17)
-18. [Scroll Restoration Otomatis](#bagian-18)
+17. [Code Splitting & Lazy Loading Halaman](#17--code-splitting--lazy-loading-halaman)
+18. [Scroll Restoration Otomatis](#18--scroll-restoration-otomatis)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code React Router 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready E-Commerce & Admin Dashboard SPA Web App](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code React Router 10 Detik](#21--cheat-code-react-router-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready E-Commerce & Admin Dashboard SPA Web App](#23-️-mini-project-production-ready-e-commerce--admin-dashboard-spa-web-app)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Client-Side Routing & Mental Model SPA
 
@@ -137,8 +135,6 @@ SPA (Single Page Application) → arsitektur web modern yang memuat satu halaman
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Instalasi & Setup Dasar `react-router-dom`
 
@@ -192,8 +188,6 @@ export default function App() {
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Navigasi Antar Halaman: Komponen `<Link>` vs Tag `<a>` Standar
 
 #### Konsep
@@ -234,8 +228,6 @@ export function NavigationBar() {
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Navigasi Aktif dengan `<NavLink>`
 
@@ -285,8 +277,6 @@ export function ActiveNavbar() {
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Halaman Not Found (404 Page) dengan Catch-All Route
 
 #### Konsep
@@ -328,8 +318,6 @@ function NotFoundPage() {
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Dynamic Routing & URL Params dengan `useParams()`
 
@@ -383,8 +371,6 @@ const { paramName } = useParams() → mengekstrak nilai parameter dinamis dari U
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Query String & Search Params dengan `useSearchParams()`
 
@@ -443,8 +429,6 @@ searchParams.get("keyName")                                → membaca nilai que
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Navigasi Terprogram (*Programmatic Navigation*) dengan `useNavigate()`
 
 #### Konsep
@@ -491,8 +475,6 @@ navigate(-1)                              → kembali ke halaman sebelumnya (Bac
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Mengoper State Antar Halaman dengan `useLocation()`
 
@@ -547,8 +529,6 @@ const { state } = useLocation()             → membaca payload state di halaman
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Nested Routes & Komponen `<Outlet>`
 
@@ -630,8 +610,6 @@ export function RootLayout() {
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Index Route (`<Route index />`)
 
 #### Konsep
@@ -649,8 +627,6 @@ Gunakan **Index Route: `<Route index element={<DefaultComponent />} />`**:
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Protected Routes / Route Guards
 
@@ -707,8 +683,6 @@ Penerapan di Deklarasi Routes:
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Multiple Layouts (Layout Publik vs Layout Admin Berbeda)
 
 #### Konsep
@@ -751,8 +725,6 @@ Multiple Layouts → mengelompokkan rute-rute ke dalam parent layout wrapper yan
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Data Fetching Modern dengan Router Loaders (v6.4+)
 
@@ -813,8 +785,6 @@ const data = useLoaderData() → membaca data hasil loader di dalam komponen
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Form Actions & Mutasi Data (v6.4+)
 
 #### Konsep
@@ -863,8 +833,6 @@ export function NewProductForm() {
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Error Handling Terisolasi pada Route (`errorElement` & `useRouteError`)
 
 #### Konsep
@@ -909,8 +877,6 @@ errorElement={<ErrorComponent />} → menangkap runtime error terisolasi pada le
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Code Splitting & Lazy Loading Halaman
 
@@ -957,8 +923,6 @@ const Page = lazy(() => import('./Page')); <Suspense fallback={<Loader />}> ... 
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Scroll Restoration Otomatis
 
 #### Konsep
@@ -974,8 +938,6 @@ Komponen **`<ScrollRestoration />`** di Data Routers (`createBrowserRouter`) oto
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🛠️ Peta Ingatan Cepat
 
@@ -993,8 +955,6 @@ SETUP & NAVIGASI              DYNAMIC & QUERY PARAMS         LAYOUTS & GUARDS
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 📚 Tabel Ringkasan
 
@@ -1014,8 +974,6 @@ SETUP & NAVIGASI              DYNAMIC & QUERY PARAMS         LAYOUTS & GUARDS
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. ⚡ Cheat Code React Router 10 Detik
 
 ```jsx
@@ -1034,8 +992,6 @@ function ProtectedGuard({ isAuth }) {
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
@@ -1064,8 +1020,6 @@ Langkah 5: Siap Mengintegrasikan Global State Management dengan Zustand!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready E-Commerce & Admin Dashboard SPA Web App
 
@@ -1331,8 +1285,6 @@ export default function App() {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

@@ -71,45 +71,43 @@ $upstream_cache_status  → variabel pemantau status cache (HIT, MISS, BYPASS, E
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Reverse Proxy di NGINX & Perbedaannya dengan Forward Proxy](#bagian-1)
-2. [Direktif Dasar `proxy_pass`](#bagian-2)
-3. [Perilaku Krusial Trailing Slash pada `proxy_pass`](#bagian-3)
-4. [Proxy Headers Wajib: Menjaga Identitas Asli Client](#bagian-4)
-5. [Reverse Proxy untuk WebSocket & Real-Time Connection](#bagian-5)
-6. [FastCGI Proxying untuk Aplikasi PHP (Laravel & WordPress)](#bagian-6)
+1. [Pengenalan Reverse Proxy di NGINX & Perbedaannya dengan Forward Proxy](#1--pengenalan-reverse-proxy-di-nginx--perbedaannya-dengan-forward-proxy)
+2. [Direktif Dasar `proxy_pass`](#2--direktif-dasar-proxy_pass)
+3. [Perilaku Krusial Trailing Slash pada `proxy_pass`](#3--perilaku-krusial-trailing-slash-pada-proxy_pass)
+4. [Proxy Headers Wajib: Menjaga Identitas Asli Client](#4--proxy-headers-wajib-menjaga-identitas-asli-client)
+5. [Reverse Proxy untuk WebSocket & Real-Time Connection](#5--reverse-proxy-untuk-websocket--real-time-connection)
+6. [FastCGI Proxying untuk Aplikasi PHP (Laravel & WordPress)](#6--fastcgi-proxying-untuk-aplikasi-php-laravel--wordpress)
 
 ### 🟡 Lanjutan
 
-7. [Upstream Context Dasar & Algoritma Default Round-Robin](#bagian-7)
-8. [Load Balancing Algoritma 2: Least Connections (`least_conn;`)](#bagian-8)
-9. [Load Balancing Algoritma 3: IP Hash (`ip_hash;`) untuk Sticky Sessions](#bagian-9)
-10. [Parameter Server Upstream: `weight`](#bagian-10)
-11. [Parameter Server Upstream: `max_fails`, `fail_timeout`, `backup`, dan `down`](#bagian-11)
-12. [Mekanisme Health Checks Pasif & Automatic Failover](#bagian-12)
-13. [Proxy Buffering: Menjaga Kestabilan Komunikasi Backend](#bagian-13)
-14. [Proxy Timeouts: Menghindari Error 504 Gateway Timeout](#bagian-14)
+7. [Upstream Context Dasar & Algoritma Default Round-Robin](#7--upstream-context-dasar--algoritma-default-round-robin)
+8. [Load Balancing Algoritma 2: Least Connections (`least_conn;`)](#8--load-balancing-algoritma-2-least-connections-least_conn)
+9. [Load Balancing Algoritma 3: IP Hash (`ip_hash;`) untuk Sticky Sessions](#9--load-balancing-algoritma-3-ip-hash-ip_hash-untuk-sticky-sessions)
+10. [Parameter Server Upstream: `weight`](#10--parameter-server-upstream-weight)
+11. [Parameter Server Upstream: `max_fails`, `fail_timeout`, `backup`, dan `down`](#11--parameter-server-upstream-max_fails-fail_timeout-backup-dan-down)
+12. [Mekanisme Health Checks Pasif & Automatic Failover](#12--mekanisme-health-checks-pasif--automatic-failover)
+13. [Proxy Buffering: Menjaga Kestabilan Komunikasi Backend](#13--proxy-buffering-menjaga-kestabilan-komunikasi-backend)
+14. [Proxy Timeouts: Menghindari Error 504 Gateway Timeout](#14--proxy-timeouts-menghindari-error-504-gateway-timeout)
 
 ### 🔴 Advanced / Operasional
 
-15. [Pengenalan NGINX Proxy Caching & Konfigurasi `proxy_cache_path`](#bagian-15)
-16. [Mengaktifkan dan Mengatur Cache Respons API](#bagian-16)
-17. [Cache Bypass & No-Cache Conditions](#bagian-17)
-18. [Status Header Cache: Memeriksa Cache HIT / MISS / EXPIRED](#bagian-18)
-19. [Optimasi Upstream HTTP/1.1 Keepalive & Gzip](#bagian-19)
-20. [Best Practice & Pola Arsitektur API Gateway Microservices](#bagian-20)
+15. [Pengenalan NGINX Proxy Caching & Konfigurasi `proxy_cache_path`](#15--pengenalan-nginx-proxy-caching--konfigurasi-proxy_cache_path)
+16. [Mengaktifkan dan Mengatur Cache Respons API](#16--mengaktifkan-dan-mengatur-cache-respons-api)
+17. [Cache Bypass & No-Cache Conditions](#17--cache-bypass--no-cache-conditions)
+18. [Status Header Cache: Memeriksa Cache HIT / MISS / EXPIRED](#18--status-header-cache-memeriksa-cache-hit--miss--expired)
+19. [Optimasi Upstream HTTP/1.1 Keepalive & Gzip](#19--optimasi-upstream-http11-keepalive--gzip)
+20. [Best Practice & Pola Arsitektur API Gateway Microservices](#20--best-practice--pola-arsitektur-api-gateway-microservices)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code NGINX Reverse Proxy 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready High-Availability Microservices API Gateway with Upstream Load Balancer, WebSocket Support, and Dynamic Proxy Caching](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code NGINX Reverse Proxy 10 Detik](#23--cheat-code-nginx-reverse-proxy-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready High-Availability Microservices API Gateway with Upstream Load Balancer, WebSocket Support, and Dynamic Proxy Caching](#25-️-mini-project-production-ready-high-availability-microservices-api-gateway-with-upstream-load-balancer-websocket-support-and-dynamic-proxy-caching)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Reverse Proxy di NGINX & Perbedaannya dengan Forward Proxy
 
@@ -135,8 +133,6 @@ Forward Proxy melindungi Client | Reverse Proxy melindungi dan membagi beban Ser
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Direktif Dasar `proxy_pass`
 
@@ -174,8 +170,6 @@ location / { proxy_pass http://127.0.0.1:3000; } → meneruskan request ke backe
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Perilaku Krusial Trailing Slash pada `proxy_pass`
 
 #### Konsep
@@ -210,8 +204,6 @@ proxy_pass tanpa slash di akhir -> URI utuh | proxy_pass dengan slash di akhir -
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Proxy Headers Wajib: Menjaga Identitas Asli Client
 
@@ -252,8 +244,6 @@ proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; → menjag
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Reverse Proxy untuk WebSocket & Real-Time Connection
 
@@ -300,8 +290,6 @@ proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 FastCGI Proxying untuk Aplikasi PHP (Laravel & WordPress)
 
 #### Konsep
@@ -341,8 +329,6 @@ fastcgi_pass unix:/run/php/php-fpm.sock; fastcgi_param SCRIPT_FILENAME $realpath
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟡 Upstream Context Dasar & Algoritma Default Round-Robin
 
@@ -385,8 +371,6 @@ upstream my_cluster { server srv1:3000; server srv2:3000; } → grup server load
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟡 Load Balancing Algoritma 2: Least Connections (`least_conn;`)
 
 #### Konsep
@@ -417,8 +401,6 @@ least_conn; → mendistribusikan request ke backend yang beban koneksi aktifnya 
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Load Balancing Algoritma 3: IP Hash (`ip_hash;`) untuk Sticky Sessions
 
 #### Konsep
@@ -447,8 +429,6 @@ ip_hash; → mengunci client IP ke server yang sama untuk menjaga sticky session
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Parameter Server Upstream: `weight`
 
@@ -479,8 +459,6 @@ server 10.0.0.1:3000 weight=3; → mengatur porsi pembagian beban trafik sesuai 
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Parameter Server Upstream: `max_fails`, `fail_timeout`, `backup`, dan `down`
 
@@ -515,8 +493,6 @@ backup -> aktif saat semua server mati | down -> tandai offline maintenance
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Mekanisme Health Checks Pasif & Automatic Failover
 
 #### Konsep
@@ -545,8 +521,6 @@ proxy_next_upstream error timeout http_502; → otomatis mengoper request ke ser
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Proxy Buffering: Menjaga Kestabilan Komunikasi Backend
 
 #### Konsep
@@ -568,8 +542,6 @@ proxy_buffering on; proxy_buffers 4 256k; → mengisolasi backend dari koneksi i
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Proxy Timeouts: Menghindari Error 504 Gateway Timeout
 
@@ -602,8 +574,6 @@ proxy_read_timeout 300s; → durasi maksimal menunggu respon pemrosesan data dar
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🔴 Pengenalan NGINX Proxy Caching & Konfigurasi `proxy_cache_path`
 
 #### Konsep
@@ -626,8 +596,6 @@ proxy_cache_path /var/cache/nginx keys_zone=api_cache:10m max_size=1g; → membu
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🔴 Mengaktifkan dan Mengatur Cache Respons API
 
@@ -658,8 +626,6 @@ proxy_cache api_cache; proxy_cache_valid 200 10m; → mengaktifkan cache respons
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Cache Bypass & No-Cache Conditions
 
@@ -693,8 +659,6 @@ proxy_cache_bypass $cookie_auth; → melewati cache jika request memiliki cookie
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 Status Header Cache: Memeriksa Cache HIT / MISS / EXPIRED
 
@@ -737,8 +701,6 @@ add_header X-Cache-Status $upstream_cache_status always; → memantau efektivita
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🔴 Optimasi Upstream HTTP/1.1 Keepalive & Gzip
 
 #### Konsep
@@ -779,8 +741,6 @@ keepalive 32; proxy_http_version 1.1; proxy_set_header Connection ""; → mengak
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Best Practice & Pola Arsitektur API Gateway Microservices
 
 #### Konsep
@@ -802,8 +762,6 @@ Pola API Gateway Microservices → rute URL publik tunggal yang memetakan path k
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -819,8 +777,6 @@ REVERSE PROXY & HEADERS       UPSTREAM LOAD BALANCING         PROXY CACHING & PE
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -840,8 +796,6 @@ REVERSE PROXY & HEADERS       UPSTREAM LOAD BALANCING         PROXY CACHING & PE
 | `proxy_read_timeout`     | `http/server/location` | Batas waktu menunggu respon backend (Mencegah 504)        |
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. ⚡ Cheat Code NGINX Reverse Proxy 10 Detik
 
@@ -868,8 +822,6 @@ upstream app_cluster {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
@@ -898,8 +850,6 @@ Langkah 5: Siap Melangkah ke NGINX Security, SSL/TLS & Performance Tuning!
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready High-Availability Microservices API Gateway with Upstream Load Balancer, WebSocket Support, and Dynamic Proxy Caching
 
@@ -1038,8 +988,6 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

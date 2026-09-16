@@ -76,45 +76,43 @@ Omit<T, K>            → utility type untuk membuang daftar properti K dari tip
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Object-Oriented Programming (OOP) di TypeScript & Keunggulan Dibanding JS Classes Biasa](#bagian-1)
-2. [Definisi Class, Constructor & Access Modifiers](#bagian-2)
-3. [Parameter Properties: Shorthand Constructor Deklarasi Otomatis](#bagian-3)
-4. [Getters & Setters untuk Enkapsulasi Mutasi Data](#bagian-4)
-5. [Static Members & Static Initialization Blocks](#bagian-5)
-6. [Class Inheritance & Method Overriding](#bagian-6)
+1. [Pengenalan Object-Oriented Programming (OOP) di TypeScript & Keunggulan Dibanding JS Classes Biasa](#1--pengenalan-object-oriented-programming-oop-di-typescript--keunggulan-dibanding-js-classes-biasa)
+2. [Definisi Class, Constructor & Access Modifiers](#2--definisi-class-constructor--access-modifiers)
+3. [Parameter Properties: Shorthand Constructor Deklarasi Otomatis](#3--parameter-properties-shorthand-constructor-deklarasi-otomatis)
+4. [Getters & Setters untuk Enkapsulasi Mutasi Data](#4--getters--setters-untuk-enkapsulasi-mutasi-data)
+5. [Static Members & Static Initialization Blocks](#5--static-members--static-initialization-blocks)
+6. [Class Inheritance & Method Overriding](#6--class-inheritance--method-overriding)
 
 ### 🟡 Lanjutan
 
-7. [Abstract Classes & Abstract Methods](#bagian-7)
-8. [Mengimplementasikan Multiple Interfaces pada Class](#bagian-8)
-9. [Pengenalan Generics (`<T>`) & Mental Model Reusability](#bagian-9)
-10. [Generic Functions & Multi-Type Parameters](#bagian-10)
-11. [Generic Interfaces & Generic Type Aliases](#bagian-11)
-12. [Generic Classes](#bagian-12)
-13. [Generic Constraints dengan Keyword `extends`](#bagian-13)
-14. [Operator `keyof` & Generic Property Constraints](#bagian-14)
-15. [Default Generic Type Parameters](#bagian-15)
+7. [Abstract Classes & Abstract Methods](#7--abstract-classes--abstract-methods)
+8. [Mengimplementasikan Multiple Interfaces pada Class](#8--mengimplementasikan-multiple-interfaces-pada-class)
+9. [Pengenalan Generics (`<T>`) & Mental Model Reusability](#9--pengenalan-generics-t--mental-model-reusability)
+10. [Generic Functions & Multi-Type Parameters](#10--generic-functions--multi-type-parameters)
+11. [Generic Interfaces & Generic Type Aliases](#11--generic-interfaces--generic-type-aliases)
+12. [Generic Classes](#12--generic-classes)
+13. [Generic Constraints dengan Keyword `extends`](#13--generic-constraints-dengan-keyword-extends)
+14. [Operator `keyof` & Generic Property Constraints](#14--operator-keyof--generic-property-constraints)
+15. [Default Generic Type Parameters](#15--default-generic-type-parameters)
 
 ### 🔴 Advanced / Operasional
 
-16. [Utility Types Inti 1: `Partial<T>` & `Required<T>`](#bagian-16)
-17. [Utility Types Inti 2: `Readonly<T>` & `Record<K, T>`](#bagian-17)
-18. [Utility Types Inti 3: `Pick<T, K>` & `Omit<T, K>`](#bagian-18)
-19. [Generic Factory & Constructor Signatures](#bagian-19)
-20. [Best Practice & Anti-Pattern Penggunaan Generics](#bagian-20)
+16. [Utility Types Inti 1: `Partial<T>` & `Required<T>`](#16--utility-types-inti-1-partialt--requiredt)
+17. [Utility Types Inti 2: `Readonly<T>` & `Record<K, T>`](#17--utility-types-inti-2-readonlyt--recordk-t)
+18. [Utility Types Inti 3: `Pick<T, K>` & `Omit<T, K>`](#18--utility-types-inti-3-pickt-k--omitt-k)
+19. [Generic Factory & Constructor Signatures](#19--generic-factory--constructor-signatures)
+20. [Best Practice & Anti-Pattern Penggunaan Generics](#20--best-practice--anti-pattern-penggunaan-generics)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code TypeScript OOP & Generics 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready Enterprise Generic In-Memory Repository, Polymorphic Event Bus & Type-Safe Database Entity Service](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code TypeScript OOP & Generics 10 Detik](#23--cheat-code-typescript-oop--generics-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready Enterprise Generic In-Memory Repository, Polymorphic Event Bus & Type-Safe Database Entity Service](#25-️-mini-project-production-ready-enterprise-generic-in-memory-repository-polymorphic-event-bus--type-safe-database-entity-service)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Object-Oriented Programming (OOP) di TypeScript & Keunggulan Dibanding JS Classes Biasa
 
@@ -146,8 +144,6 @@ TypeScript Class = JavaScript Class + Access Modifiers + Interface Contracts + C
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Definisi Class, Constructor & Access Modifiers
 
@@ -202,8 +198,6 @@ readonly  → tidak dapat dimutasi setelah inisialisasi constructor
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Parameter Properties: Shorthand Constructor Deklarasi Otomatis
 
 #### Konsep
@@ -246,8 +240,6 @@ constructor(public name: string, private age: number) {} → deklarasi dan assig
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Getters & Setters untuk Enkapsulasi Mutasi Data
 
 #### Konsep
@@ -289,8 +281,6 @@ get prop(): type { return this._prop; } set prop(val: type) { this._prop = val; 
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Static Members & Static Initialization Blocks
 
 #### Konsep
@@ -328,8 +318,6 @@ static member → properti/method milik Class global tanpa perlu instansiasi new
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Class Inheritance & Method Overriding
 
@@ -370,8 +358,6 @@ class Child extends Parent { constructor() { super(); } override method() {} }
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟡 Abstract Classes & Abstract Methods
 
@@ -417,8 +403,6 @@ abstract class Base { abstract process(): void; } → template class yang mewaji
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟡 Mengimplementasikan Multiple Interfaces pada Class
 
 #### Konsep
@@ -462,8 +446,6 @@ class MyClass implements InterfaceA, InterfaceB { ... } → mematuhi banyak kont
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Pengenalan Generics (`<T>`) & Mental Model Reusability
 
 #### Konsep
@@ -504,8 +486,6 @@ function fn<T>(arg: T): T → fungsi generik yang mengunci tipe return persis se
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Generic Functions & Multi-Type Parameters
 
 #### Konsep
@@ -535,8 +515,6 @@ function pair<T, U>(a: T, b: U): [T, U] → fungsi generik dengan multi-paramete
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Generic Interfaces & Generic Type Aliases
 
@@ -579,8 +557,6 @@ interface ApiResponse<T> { status: number; data: T; } → interface generik untu
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Generic Classes
 
 #### Konsep
@@ -620,8 +596,6 @@ class DataStore<T> { private data: T[] = []; push(item: T) {} } → generic clas
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Generic Constraints dengan Keyword `extends`
 
 #### Konsep
@@ -654,8 +628,6 @@ logEntityId({ id: "prod-1", name: "Laptop" }) // ✅ Lolos
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Operator `keyof` & Generic Property Constraints
 
 #### Konsep
@@ -687,8 +659,6 @@ const userAge = getProperty(user, "age")   // Tipe otomatis: number
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Default Generic Type Parameters
 
@@ -727,8 +697,6 @@ const userRes: HttpResponse<{ name: string }> = {
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🔴 Utility Types Inti 1: `Partial<T>` & `Required<T>`
 
 #### Konsep
@@ -762,8 +730,6 @@ Required<T> → membuat seluruh properti menjadi wajib (menghapus tanda ?)
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Utility Types Inti 2: `Readonly<T>` & `Record<K, T>`
 
@@ -805,8 +771,6 @@ Record<K, T>  → membuat dictionary objek bertipe key K dan value T
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Utility Types Inti 3: `Pick<T, K>` & `Omit<T, K>`
 
 #### Konsep
@@ -840,8 +804,6 @@ Omit<T, 'k1' | 'k2'> → membuang properti tertentu dari tipe T
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🔴 Generic Factory & Constructor Signatures
 
@@ -878,8 +840,6 @@ new (...args: any[]) => T → tipe constructor generic untuk Factory Pattern dan
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Best Practice & Anti-Pattern Penggunaan Generics
 
 #### Konsep
@@ -906,8 +866,6 @@ Aturan Emas Generics → gunakan generics hanya jika terdapat hubungan korelasi 
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -923,8 +881,6 @@ OBJECT-ORIENTED PROGRAMMING    GENERICS SYSTEM (<T>)          UTILITY TYPES TRAN
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -945,8 +901,6 @@ OBJECT-ORIENTED PROGRAMMING    GENERICS SYSTEM (<T>)          UTILITY TYPES TRAN
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. ⚡ Cheat Code TypeScript OOP & Generics 10 Detik
 
 ```typescript
@@ -964,8 +918,6 @@ type UpdateUserDTO = Partial<CreateUserDTO>
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
@@ -994,8 +946,6 @@ Langkah 5: Siap Melangkah ke TypeScript Advanced (Mapped & Conditional Types)!
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready Enterprise Generic In-Memory Repository, Polymorphic Event Bus & Type-Safe Database Entity Service
 
@@ -1211,8 +1161,6 @@ Ringkasan User: { id: 'id-k8j3x9z1a', name: 'Alimur', role: 'ADMIN' }
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

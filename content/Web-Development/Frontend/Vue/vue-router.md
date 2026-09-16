@@ -67,43 +67,41 @@ Vue Router → mengatur URL, navigasi, dan perpindahan halaman
 
 ### 🟢 Fundamental
 
-1. [Pengenalan SPA & Routing](#bagian-1)
-2. [Setup & Instalasi Vue Router](#bagian-2)
-3. [Komponen Router: RouterLink & RouterView](#bagian-3)
-4. [Konfigurasi Routes Dasar](#bagian-4)
-5. [Dynamic Route Matching (Route Params)](#bagian-5)
-6. [Matching Syntax Lanjutan](#bagian-6)
-7. [Query Params & Hash](#bagian-7)
-8. [Programmatic Navigation (useRouter)](#bagian-8)
+1. [Pengenalan SPA & Routing](#1--pengenalan-spa--routing)
+2. [Setup & Instalasi Vue Router](#2--setup--instalasi-vue-router)
+3. [Komponen Router: RouterLink & RouterView](#3--komponen-router-routerlink--routerview)
+4. [Konfigurasi Routes Dasar](#4--konfigurasi-routes-dasar)
+5. [Dynamic Route Matching (Route Params)](#5--dynamic-route-matching-route-params)
+6. [Matching Syntax Lanjutan](#6--matching-syntax-lanjutan)
+7. [Query Params & Hash](#7--query-params--hash)
+8. [Programmatic Navigation (useRouter)](#8--programmatic-navigation-userouter)
 
 ### 🟡 Lanjutan
 
-9. [Nested Routes (Rute Bersarang)](#bagian-9)
-10. [Named Routes](#bagian-10)
-11. [Named Views](#bagian-11)
-12. [Redirect & Alias](#bagian-12)
-13. [Passing Props ke Route Component](#bagian-13)
-14. [History Modes](#bagian-14)
-15. [Lazy Loading Routes](#bagian-15)
-16. [Route Meta Fields](#bagian-16)
-17. [Navigation Guards (Proteksi Rute)](#bagian-17)
-18. [RouterView Slot, Transition & KeepAlive](#bagian-18)
-19. [Scroll Behavior](#bagian-19)
-20. [Dynamic Routing](#bagian-20)
+9. [Nested Routes (Rute Bersarang)](#9--nested-routes-rute-bersarang)
+10. [Named Routes](#10--named-routes)
+11. [Named Views](#11--named-views)
+12. [Redirect & Alias](#12--redirect--alias)
+13. [Passing Props ke Route Component](#13--passing-props-ke-route-component)
+14. [History Modes](#14--history-modes)
+15. [Lazy Loading Routes](#15--lazy-loading-routes)
+16. [Route Meta Fields](#16--route-meta-fields)
+17. [Navigation Guards (Proteksi Rute)](#17--navigation-guards-proteksi-rute)
+18. [RouterView Slot, Transition & KeepAlive](#18--routerview-slot-transition--keepalive)
+19. [Scroll Behavior](#19--scroll-behavior)
+20. [Dynamic Routing](#20--dynamic-routing)
 
 ### 🔴 Advanced / Reference
 
-21. [Navigation Failure Handling](#bagian-21)
-22. [Peta Ingatan Cepat](#bagian-22)
-23. [Tabel Ringkasan](#bagian-23)
-24. [Cheat Code Vue Router 10 Detik](#bagian-24)
-25. [Urutan Belajar yang Disarankan](#bagian-25)
-26. [Mini Project: Portal Dashboard Pengguna](#bagian-26)
-27. [Referensi Resmi](#bagian-27)
+21. [Navigation Failure Handling](#21--navigation-failure-handling)
+22. [Peta Ingatan Cepat](#22--peta-ingatan-cepat)
+23. [Tabel Ringkasan](#23--tabel-ringkasan)
+24. [Cheat Code Vue Router 10 Detik](#24--cheat-code-vue-router-10-detik)
+25. [Urutan Belajar yang Disarankan](#25--urutan-belajar-yang-disarankan)
+26. [Mini Project: Portal Dashboard Pengguna](#26-️-mini-project-portal-dashboard-pengguna)
+27. [Referensi Resmi](#27--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan SPA & Routing
 
@@ -167,8 +165,6 @@ Router menghubungkan: URL di browser ──> Komponen Vue yang dirender
 **Best Practice:** Gunakan `<RouterLink>` untuk navigasi internal aplikasi. Jangan gunakan `<a href>` biasa karena akan memicu *full page reload* yang merusak pengalaman SPA.
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Setup & Instalasi Vue Router
 
@@ -248,8 +244,6 @@ createRouter() → app.use(router) → pasang <RouterView /> di App.vue
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Komponen Router: RouterLink & RouterView
 
 #### Konsep
@@ -316,8 +310,6 @@ RouterView → slot penampil halaman rute aktif
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Konfigurasi Routes Dasar
 
 #### Konsep
@@ -377,8 +369,6 @@ component: NamaView ──> Komponen yang dirender
 **Best Practice:** Selalu letakkan route 404 `/:pathMatch(.*)*` di baris paling akhir array `routes`.
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Dynamic Route Matching (Route Params)
 
@@ -445,8 +435,6 @@ path: '/users/:id' ──> dibaca melalui route.params.id
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Matching Syntax Lanjutan
 
 #### Konsep
@@ -509,8 +497,6 @@ route.params.chapters // ['dokumen', '2026', 'laporan.pdf']
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Query Params & Hash
 
 #### Konsep
@@ -565,8 +551,6 @@ console.log('Hash ID:', route.hash)             // '#spesifikasi'
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Programmatic Navigation (useRouter)
 
@@ -629,8 +613,6 @@ router.back()           → kembali ke halaman sebelumnya
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Nested Routes (Rute Bersarang)
 
@@ -707,8 +689,6 @@ Parent wajib menyertakan <RouterView /> untuk merender child.
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Named Routes
 
 #### Konsep
@@ -759,8 +739,6 @@ name: 'namaUnik' → :to="{ name: 'namaUnik', params: { id: 1 } }"
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Named Views
 
@@ -822,8 +800,6 @@ components: { default: A, sidebar: B } ──> <RouterView name="sidebar" />
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Redirect & Alias
 
 #### Konsep
@@ -872,8 +848,6 @@ alias: '/nama-lain' ──> URL tetap nama lain, tapi komponen yang dimuat sama
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Passing Props ke Route Component
 
@@ -928,8 +902,6 @@ props: true ──> route.params otomatis diterima via defineProps()
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 History Modes
 
 #### Konsep
@@ -967,8 +939,6 @@ createMemoryHistory()  → URL di memori (testing & SSR)
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Lazy Loading Routes
 
@@ -1021,8 +991,6 @@ component: () => import('@/views/NamaView.vue') ──> kode diunduh saat dibutu
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Route Meta Fields
 
 #### Konsep
@@ -1065,8 +1033,6 @@ meta: { key: value } ──> data kustom rute untuk auth, title, atau role
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟡 Navigation Guards (Proteksi Rute)
 
@@ -1162,8 +1128,6 @@ return '/login' ──> redirect rute
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 RouterView Slot, Transition & KeepAlive
 
 #### Konsep
@@ -1230,8 +1194,6 @@ Di Vue 3, untuk menerapkan **animasi transisi antar-halaman** (`<transition>`) a
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 Scroll Behavior
 
 #### Konsep
@@ -1268,8 +1230,6 @@ scrollBehavior: (to, from, savedPosition) => savedPosition || { top: 0 }
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🟡 Dynamic Routing
 
@@ -1312,8 +1272,6 @@ router.removeRoute('name') ──> hapus rute dari router
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🔴 Navigation Failure Handling
 
 #### Konsep
@@ -1352,8 +1310,6 @@ isNavigationFailure(failure, NavigationFailureType.aborted)
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🧠 Peta Ingatan Cepat
 
@@ -1418,8 +1374,6 @@ URL: https://app.com/products/42?category=elektronik#fitur
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 📚 Tabel Ringkasan
 
 | Konsep / API | Fungsi Utama | Contoh Sintaks |
@@ -1441,8 +1395,6 @@ URL: https://app.com/products/42?category=elektronik#fitur
 | `scrollBehavior` | Mengontrol posisi scroll halaman saat berpindah rute | `scrollBehavior(to, from, saved) { return { top: 0 } }` |
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. ⚡ Cheat Code Vue Router 10 Detik
 
@@ -1483,8 +1435,6 @@ function handleGoToDetail(id) {
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1509,8 +1459,6 @@ function handleGoToDetail(id) {
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🏗️ Mini Project: Portal Dashboard Pengguna
 
@@ -1670,8 +1618,6 @@ Daftar Artikel Pengguna #10
 **Kunci:** Pahami bagaimana parameter `:id` mengalir dari rute induk ke rute anak, dan bagaimana `meta: { requiresAuth: true }` melindungi seluruh rute cabang di dalamnya.
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🔗 Referensi Resmi
 

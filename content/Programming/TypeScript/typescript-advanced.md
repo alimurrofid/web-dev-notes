@@ -76,45 +76,43 @@ Global Augmentation        → teknik memperluas tipe interface global bawaan (s
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Type-Level Metaprogramming di TypeScript](#bagian-1)
-2. [Indexed Access Types (`T[K]` & `T[keyof T]`)](#bagian-2)
-3. [Operator `typeof` pada Level Tipe Data](#bagian-3)
-4. [Index Signatures & Dynamic Key Objects](#bagian-4)
-5. [Mapped Types Dasar (`[K in keyof T]: T[K]`)](#bagian-5)
-6. [Mapping Modifiers: Menambah atau Menghapus `readonly` dan `?`](#bagian-6)
+1. [Pengenalan Type-Level Metaprogramming di TypeScript](#1--pengenalan-type-level-metaprogramming-di-typescript)
+2. [Indexed Access Types (`T[K]` & `T[keyof T]`)](#2--indexed-access-types-tk--tkeyof-t)
+3. [Operator `typeof` pada Level Tipe Data](#3--operator-typeof-pada-level-tipe-data)
+4. [Index Signatures & Dynamic Key Objects](#4--index-signatures--dynamic-key-objects)
+5. [Mapped Types Dasar (`[K in keyof T]: T[K]`)](#5--mapped-types-dasar-k-in-keyof-t-tk)
+6. [Mapping Modifiers: Menambah atau Menghapus `readonly` dan `?`](#6--mapping-modifiers-menambah-atau-menghapus-readonly-dan-)
 
 ### 🟡 Lanjutan
 
-7. [Key Remapping via Klausa `as` pada Mapped Types](#bagian-7)
-8. [Conditional Types (`T extends U ? X : Y`)](#bagian-8)
-9. [Distributive Conditional Types pada Union](#bagian-9)
-10. [Keyword `infer`: Ekstraksi Tipe Dinamis di dalam Conditional Types](#bagian-10)
-11. [Template Literal Types & String Manipulation Types](#bagian-11)
-12. [Advanced Utility Types 1: `Awaited<T>`](#bagian-12)
-13. [Advanced Utility Types 2: `ReturnType<T>` & `Parameters<T>`](#bagian-13)
-14. [Advanced Utility Types 3: `Exclude<T, U>`, `Extract<T, U>`, dan `NonNullable<T>`](#bagian-14)
-15. [Advanced Utility Types 4: `ConstructorParameters<T>` & `InstanceType<T>`](#bagian-15)
-16. [Recursive Type Aliases](#bagian-16)
+7. [Key Remapping via Klausa `as` pada Mapped Types](#7--key-remapping-via-klausa-as-pada-mapped-types)
+8. [Conditional Types (`T extends U ? X : Y`)](#8--conditional-types-t-extends-u--x--y)
+9. [Distributive Conditional Types pada Union](#9--distributive-conditional-types-pada-union)
+10. [Keyword `infer`: Ekstraksi Tipe Dinamis di dalam Conditional Types](#10--keyword-infer-ekstraksi-tipe-dinamis-di-dalam-conditional-types)
+11. [Template Literal Types & String Manipulation Types](#11--template-literal-types--string-manipulation-types)
+12. [Advanced Utility Types 1: `Awaited<T>`](#12--advanced-utility-types-1-awaitedt)
+13. [Advanced Utility Types 2: `ReturnType<T>` & `Parameters<T>`](#13--advanced-utility-types-2-returntypet--parameterst)
+14. [Advanced Utility Types 3: `Exclude<T, U>`, `Extract<T, U>`, dan `NonNullable<T>`](#14--advanced-utility-types-3-excludet-u-extractt-u-dan-nonnullablet)
+15. [Advanced Utility Types 4: `ConstructorParameters<T>` & `InstanceType<T>`](#15--advanced-utility-types-4-constructorparameterst--instancetypet)
+16. [Recursive Type Aliases](#16--recursive-type-aliases)
 
 ### 🔴 Advanced / Operasional
 
-17. [Declaration Files (`.d.ts`) & Ambient Declarations](#bagian-17)
-18. [Global Augmentation & Declaration Merging](#bagian-18)
-19. [Stage 3 Decorators Modern di TypeScript 5.0+](#bagian-19)
-20. [Best Practice & Kinerja Kompilasi Type-Level](#bagian-20)
+17. [Declaration Files (`.d.ts`) & Ambient Declarations](#17--declaration-files-dts--ambient-declarations)
+18. [Global Augmentation & Declaration Merging](#18--global-augmentation--declaration-merging)
+19. [Stage 3 Decorators Modern di TypeScript 5.0+](#19--stage-3-decorators-modern-di-typescript-50)
+20. [Best Practice & Kinerja Kompilasi Type-Level](#20--best-practice--kinerja-kompilasi-type-level)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code TypeScript Advanced 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready Type-Safe Query Builder, Event-Driven Schema Validator & Deep Immutable Store with Mapped and Conditional Types](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code TypeScript Advanced 10 Detik](#23--cheat-code-typescript-advanced-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready Type-Safe Query Builder, Event-Driven Schema Validator & Deep Immutable Store with Mapped and Conditional Types](#25-️-mini-project-production-ready-type-safe-query-builder-event-driven-schema-validator--deep-immutable-store-with-mapped-and-conditional-types)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Type-Level Metaprogramming di TypeScript
 
@@ -140,8 +138,6 @@ Type-Level Programming → komputasi logika transformasi tipe data yang diekseku
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Indexed Access Types (`T[K]` & `T[keyof T]`)
 
@@ -183,8 +179,6 @@ T[number]   → mengekstrak tipe elemen tunggal dari tipe array T
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Operator `typeof` pada Level Tipe Data
 
@@ -228,8 +222,6 @@ type MyType = typeof jsVariable; → mengekstrak struktur tipe data langsung dar
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Index Signatures & Dynamic Key Objects
 
 #### Konsep
@@ -261,8 +253,6 @@ const reqHeaders: DynamicHeaders = {
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Mapped Types Dasar (`[K in keyof T]: T[K]`)
 
@@ -305,8 +295,6 @@ Hasil:
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Mapping Modifiers: Menambah atau Menghapus `readonly` dan `?`
 
@@ -352,8 +340,6 @@ Hasil UnlockedProfile:
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟡 Key Remapping via Klausa `as` pada Mapped Types
 
 #### Konsep
@@ -393,8 +379,6 @@ Hasil:
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟡 Conditional Types (`T extends U ? X : Y`)
 
 #### Konsep
@@ -427,8 +411,6 @@ T extends U ? TrueType : FalseType → percabangan kondisional if/else pada sist
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Distributive Conditional Types pada Union
 
 #### Konsep
@@ -456,8 +438,6 @@ Distributive Conditional Types → evaluasi kondisional yang otomatis diterapkan
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Keyword `infer`: Ekstraksi Tipe Dinamis di dalam Conditional Types
 
@@ -491,8 +471,6 @@ T extends Promise<infer U> ? U : T → keyword infer untuk mengekstrak dan menan
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Template Literal Types & String Manipulation Types
 
@@ -530,8 +508,6 @@ const validColor: HexColor = "#00dc82" // ✅ Valid
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Advanced Utility Types 1: `Awaited<T>`
 
 #### Konsep
@@ -561,8 +537,6 @@ Awaited<Promise<T>> → membongkar tipe data di dalam Promise hingga mendapatkan
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Advanced Utility Types 2: `ReturnType<T>` & `Parameters<T>`
 
@@ -598,8 +572,6 @@ Parameters<typeof fn>  → mengekstrak tuple tipe argumen parameter fungsi
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Advanced Utility Types 3: `Exclude<T, U>`, `Extract<T, U>`, dan `NonNullable<T>`
 
@@ -638,8 +610,6 @@ NonNullable<T>                 → menghapus null dan undefined dari tipe data T
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Advanced Utility Types 4: `ConstructorParameters<T>` & `InstanceType<T>`
 
 #### Konsep
@@ -665,8 +635,6 @@ InstanceType<typeof ClassName> → mengekstrak tipe instance dari class construc
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Recursive Type Aliases
 
@@ -704,8 +672,6 @@ DeepReadonly<T> → mapped type rekursif yang mengunci seluruh level kedalaman o
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Declaration Files (`.d.ts`) & Ambient Declarations
 
 #### Konsep
@@ -739,8 +705,6 @@ declare module "lib-name" { export ... } → menyediakan anotasi tipe untuk libr
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 Global Augmentation & Declaration Merging
 
@@ -780,8 +744,6 @@ declare global { interface Window { customProp: type } } → memperluas tipe obj
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🔴 Stage 3 Decorators Modern di TypeScript 5.0+
 
@@ -827,8 +789,6 @@ Stage 3 Decorators (TS 5.0+) → standar decorator resmi ECMAScript menggunakan 
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Best Practice & Kinerja Kompilasi Type-Level
 
 #### Konsep
@@ -848,8 +808,6 @@ Kinerja Kompilasi → selalu sertakan batas rekursi pada tipe kompleks untuk men
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -865,8 +823,6 @@ MAPPED & CONDITIONAL TYPES INFER & STRING TEMPLATES  DECLARATION & DECORATORS
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -886,8 +842,6 @@ MAPPED & CONDITIONAL TYPES INFER & STRING TEMPLATES  DECLARATION & DECORATORS
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. ⚡ Cheat Code TypeScript Advanced 10 Detik
 
 ```typescript
@@ -902,8 +856,6 @@ type Unwrap<T> = T extends Promise<infer U> ? U : T
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
@@ -932,8 +884,6 @@ Langkah 5: Selamat! Anda Telah Menjadi TypeScript Full-Stack Master 100%!
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready Type-Safe Query Builder, Event-Driven Schema Validator & Deep Immutable Store with Mapped and Conditional Types
 
@@ -1108,8 +1058,6 @@ Status Store Setelah Update: {
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

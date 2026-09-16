@@ -66,47 +66,45 @@ docker compose down  → Mematikan dan membersihkan seluruh kontainer dan networ
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Docker Compose & Orkestrasi Multi-Container](#bagian-1)
-2. [Menginstall & Memverifikasi Docker Compose (Compose V2)](#bagian-2)
-3. [Format File Konfigurasi (compose.yaml vs docker-compose.yml)](#bagian-3)
-4. [Sintaks Dasar YAML untuk Docker Compose](#bagian-4)
-5. [Siklus Hidup Compose (docker compose up, start, stop, restart, & down)](#bagian-5)
-6. [Pemantauan Service & Log (docker compose ps, logs, & top)](#bagian-6)
-7. [Menjalankan Perintah di Service (docker compose exec & run)](#bagian-7)
-8. [Project Name & Isolasi Lingkungan (-p / COMPOSE_PROJECT_NAME)](#bagian-8)
-9. [Deklarasi Service & Image (services: & image:)](#bagian-9)
-10. [Port Mapping (ports:)](#bagian-10)
-11. [Environment Variables (environment: & env_file:)](#bagian-11)
+1. [Pengenalan Docker Compose & Orkestrasi Multi-Container](#1--pengenalan-docker-compose--orkestrasi-multi-container)
+2. [Menginstall & Memverifikasi Docker Compose (Compose V2)](#2--menginstall--memverifikasi-docker-compose-compose-v2)
+3. [Format File Konfigurasi (compose.yaml vs docker-compose.yml)](#3--format-file-konfigurasi-composeyaml-vs-docker-composeyml)
+4. [Sintaks Dasar YAML untuk Docker Compose](#4--sintaks-dasar-yaml-untuk-docker-compose)
+5. [Siklus Hidup Compose (docker compose up, start, stop, restart, & down)](#5--siklus-hidup-compose-docker-compose-up-start-stop-restart--down)
+6. [Pemantauan Service & Log (docker compose ps, logs, & top)](#6--pemantauan-service--log-docker-compose-ps-logs--top)
+7. [Menjalankan Perintah di Service (docker compose exec & run)](#7--menjalankan-perintah-di-service-docker-compose-exec--run)
+8. [Project Name & Isolasi Lingkungan (-p / COMPOSE_PROJECT_NAME)](#8--project-name--isolasi-lingkungan--p--compose_project_name)
+9. [Deklarasi Service & Image (services: & image:)](#9--deklarasi-service--image-services--image)
+10. [Port Mapping (ports:)](#10--port-mapping-ports)
+11. [Environment Variables (environment: & env_file:)](#11--environment-variables-environment--env_file)
 
 ### 🟡 Lanjutan
 
-12. [Penyimpanan Persistent: Volumes (volumes:)](#bagian-12)
-13. [Bind Mounts untuk Development (volumes: host:container)](#bagian-13)
-14. [Jaringan Antar Service: Networks (networks:)](#bagian-14)
-15. [Dependensi Urutan Booting: Depends On (depends_on & service_healthy)](#bagian-15)
-16. [Restart Policy (restart: always, unless-stopped)](#bagian-16)
-17. [Resource Limits (deploy.resources.limits)](#bagian-17)
-18. [Custom Dockerfile Build (build: & dockerfile:)](#bagian-18)
-19. [Health Check (healthcheck:)](#bagian-19)
+12. [Penyimpanan Persistent: Volumes (volumes:)](#12--penyimpanan-persistent-volumes-volumes)
+13. [Bind Mounts untuk Development (volumes: host:container)](#13--bind-mounts-untuk-development-volumes-hostcontainer)
+14. [Jaringan Antar Service: Networks (networks:)](#14--jaringan-antar-service-networks-networks)
+15. [Dependensi Urutan Booting: Depends On (depends_on & service_healthy)](#15--dependensi-urutan-booting-depends-on-depends_on--service_healthy)
+16. [Restart Policy (restart: always, unless-stopped)](#16--restart-policy-restart-always-unless-stopped)
+17. [Resource Limits (deploy.resources.limits)](#17--resource-limits-deployresourceslimits)
+18. [Custom Dockerfile Build (build: & dockerfile:)](#18--custom-dockerfile-build-build--dockerfile)
+19. [Health Check (healthcheck:)](#19--health-check-healthcheck)
 
 ### 🔴 Advanced / Operasional
 
-20. [Extend Service & Overrides (extends: & docker-compose.override.yml)](#bagian-20)
-21. [Compose File Interpolation & .env Variables (${VAR:-default})](#bagian-21)
-22. [Scaling Services (docker compose up --scale)](#bagian-22)
+20. [Extend Service & Overrides (extends: & docker-compose.override.yml)](#20--extend-service--overrides-extends--docker-composeoverrideyml)
+21. [Compose File Interpolation & .env Variables (${VAR:-default})](#21--compose-file-interpolation--env-variables-var-default)
+22. [Scaling Services (docker compose up --scale)](#22--scaling-services-docker-compose-up---scale)
 
 ### 🛠️ Referensi & Praktik
 
-23. [Peta Ingatan Cepat](#bagian-23)
-24. [Tabel Ringkasan](#bagian-24)
-25. [Cheat Code Docker Compose 10 Detik](#bagian-25)
-26. [Urutan Belajar yang Disarankan](#bagian-26)
-27. [Mini Project: Stack Microservices Lengkap (Nginx Proxy + Node.js API + Redis Cache + MySQL Database)](#bagian-27)
-28. [Referensi Resmi](#bagian-28)
+23. [Peta Ingatan Cepat](#23-️-peta-ingatan-cepat)
+24. [Tabel Ringkasan](#24--tabel-ringkasan)
+25. [Cheat Code Docker Compose 10 Detik](#25--cheat-code-docker-compose-10-detik)
+26. [Urutan Belajar yang Disarankan](#26--urutan-belajar-yang-disarankan)
+27. [Mini Project: Stack Microservices Lengkap (Nginx Proxy + Node.js API + Redis Cache + MySQL Database)](#27-️-mini-project-stack-microservices-lengkap-nginx-proxy--nodejs-api--redis-cache--mysql-database)
+28. [Referensi Resmi](#28--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Docker Compose & Orkestrasi Multi-Container
 
@@ -193,8 +191,6 @@ docker compose down → Mematikan dan membersihkan seluruh kontainer & network p
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Menginstall & Memverifikasi Docker Compose (Compose V2)
 
 #### Konsep
@@ -253,8 +249,6 @@ docker-compose         → Sintaks usang Compose V1 (TIDAK LAGI DIGUNAKAN)
 - ❌ Hindari menggunakan sintaks jadul `docker-compose` (dengan tanda minus) karena sudah tidak menerima pembaruan fitur keamanan.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Format File Konfigurasi (compose.yaml vs docker-compose.yml)
 
@@ -346,8 +340,6 @@ Tag 'version:'        → Sudah usang (obsolete) dan tidak wajib ditulis lagi di
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Sintaks Dasar YAML untuk Docker Compose
 
 #### Konsep
@@ -419,8 +411,6 @@ Quotes Port    → Selalu beri tanda kutip pada port "- "8080:80""
 - ❌ Jangan pernah menggunakan tombol Tab di dalam file `compose.yaml`.
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Siklus Hidup Compose (docker compose up, start, stop, restart, & down)
 
@@ -508,8 +498,6 @@ docker compose restart    → Memuat ulang seluruh service
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Pemantauan Service & Log (docker compose ps, logs, & top)
 
 #### Konsep
@@ -574,8 +562,6 @@ docker compose top             → Menampilkan daftar proses aktif di dalam kont
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Menjalankan Perintah di Service (docker compose exec & run)
 
 #### Konsep
@@ -635,8 +621,6 @@ docker compose run --rm <service> <cmd> → Menjalankan perintah di dalam kontai
 - ❌ Jangan gunakan `docker compose exec` pada service yang statusnya sedang mati/stopped (service wajib berstatus *Up*).
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Project Name & Isolasi Lingkungan (-p / COMPOSE_PROJECT_NAME)
 
@@ -707,8 +691,6 @@ docker compose -p name up -d → Menjalankan stack dengan namespace project terp
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Deklarasi Service & Image (services: & image:)
 
 #### Konsep
@@ -775,8 +757,6 @@ command: ["cmd", "arg"]    → Menimpa perintah default startup kontainer
 - ❌ Hindari menggunakan `container_name:` statis jika Anda berencana melakukan *scaling* kontainer menjadi banyak instance (`--scale`), karena nama kontainer akan bentrok.
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Port Mapping (ports:)
 
@@ -851,8 +831,6 @@ ports:
 - ❌ Jangan lupa membungkus pasangan port dengan tanda kutip (tulis `"8080:80"`, bukan `8080:80`).
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Environment Variables (environment: & env_file:)
 
@@ -936,8 +914,6 @@ env_file:             → Membaca variabel rahasia dari file eksternal (.env)
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Penyimpanan Persistent: Volumes (volumes:)
 
 #### Konsep
@@ -1006,8 +982,6 @@ volumes:
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Bind Mounts untuk Development (volumes: host:container)
 
 #### Konsep
@@ -1075,8 +1049,6 @@ Edit file `src/App.js` di VS Code laptop Anda -> Browser di `http://localhost:30
 - ❌ Jangan gunakan Bind Mounts untuk database di server produksi; selalu gunakan Named Volume resmi.
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Jaringan Antar Service: Networks (networks:)
 
@@ -1157,8 +1129,6 @@ networks:      → Membuat jaringan terisolasi untuk memisahkan service publik &
 - ❌ Jangan pernah menghubungkan kontainer menggunakan IP address yang di-hardcode.
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Dependensi Urutan Booting: Depends On (depends_on & service_healthy)
 
@@ -1242,8 +1212,6 @@ depends_on:
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Restart Policy (restart: always, unless-stopped)
 
 #### Konsep
@@ -1313,8 +1281,6 @@ restart: on-failure     → Restart otomatis hanya jika aplikasi mengalami crash
 - ❌ Hindari menggunakan `restart: always` pada script migrasi atau seeder yang tugasnya hanya berjalan satu kali (*one-off tasks*).
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟡 Resource Limits (deploy.resources.limits)
 
@@ -1388,8 +1354,6 @@ deploy:
 - ❌ Jangan menyetel nilai batas memori terlalu kecil di bawah kapasitas minimal startup runtime aplikasi Anda.
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 Custom Dockerfile Build (build: & dockerfile:)
 
@@ -1484,8 +1448,6 @@ docker compose up --build → Memaksa kompilasi ulang image lokal saat menyalaka
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🟡 Health Check (healthcheck:)
 
 #### Konsep
@@ -1565,8 +1527,6 @@ healthcheck:
 - ❌ Pastikan tool utilitas uji (seperti `wget`, `curl`, atau `pg_isready`) tersedia di dalam image yang digunakan.
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🔴 Extend Service & Overrides (extends: & docker-compose.override.yml)
 
@@ -1666,8 +1626,6 @@ docker compose -f f1 -f f2   → Menggabungkan beberapa file compose secara eksp
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🔴 Compose File Interpolation & .env Variables (${VAR:-default})
 
 #### Konsep
@@ -1751,8 +1709,6 @@ ${VAR:?error_msg}  → Menolak berjalan & menampilkan pesan error jika variabel 
 - ❌ Jangan mengabaikan pesan error `${VAR:?error}` pada variabel kredensial penting.
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🔴 Scaling Services (docker compose up --scale)
 
@@ -1845,8 +1801,6 @@ Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-sc
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🛠️ Peta Ingatan Cepat
 
 #### Mental Model Hubungan Entitas di Docker Compose
@@ -1901,8 +1855,6 @@ Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-sc
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 📚 Tabel Ringkasan
 
 | Perintah / Atribut | Kategori | Contoh Penggunaan | Penjelasan & Kegunaan |
@@ -1925,8 +1877,6 @@ Hindari Static Port & container_name   → Syarat mutlak agar service bisa di-sc
 | **`healthcheck:`** | YAML | `test: ["CMD", "curl", "-f"]`| Mendefinisikan tes kesehatan internal service |
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. ⚡ Cheat Code Docker Compose 10 Detik
 
@@ -1966,8 +1916,6 @@ docker compose down -v           # Hapus bersih total
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🧭 Urutan Belajar yang Disarankan
 
@@ -2011,8 +1959,6 @@ Untuk menguasai orkestrasi Docker Compose dari tingkat pemula hingga tingkat lan
 ```
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🏗️ Mini Project: Stack Microservices Lengkap (Nginx Proxy + Node.js API + Redis Cache + MySQL Database)
 
@@ -2177,8 +2123,6 @@ Enterprise Microservices Pattern = Dual Networks (Public/Internal) + Healthcheck
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🔗 Referensi Resmi
 

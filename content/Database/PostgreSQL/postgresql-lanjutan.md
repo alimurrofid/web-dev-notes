@@ -77,47 +77,45 @@ SELECT ... FOR UPDATE→ mekanisme penguncian baris (Row Locking) untuk mencegah
 
 ### 🟢 Fundamental
 
-1. [Pengenalan PostgreSQL Lanjutan & Mental Model Query Cost Optimizer](#bagian-1)
-2. [Analisis Kinerja Query dengan `EXPLAIN` & `EXPLAIN (ANALYZE, BUFFERS)`](#bagian-2)
-3. [Arsitektur Indexing: B-Tree Index & Composite Multi-Column Index](#bagian-3)
-4. [Specialized Indexing: GIN Index (Generalized Inverted Index)](#bagian-4)
-5. [Partial Indexing & Expression Index](#bagian-5)
-6. [Fuzzy Search & Typo Tolerance dengan Ekstensi `pg_trgm`](#bagian-6)
+1. [Pengenalan PostgreSQL Lanjutan & Mental Model Query Cost Optimizer](#1--pengenalan-postgresql-lanjutan--mental-model-query-cost-optimizer)
+2. [Analisis Kinerja Query dengan `EXPLAIN` & `EXPLAIN (ANALYZE, BUFFERS)`](#2--analisis-kinerja-query-dengan-explain--explain-analyze-buffers)
+3. [Arsitektur Indexing: B-Tree Index & Composite Multi-Column Index](#3--arsitektur-indexing-b-tree-index--composite-multi-column-index)
+4. [Specialized Indexing: GIN Index (Generalized Inverted Index)](#4--specialized-indexing-gin-index-generalized-inverted-index)
+5. [Partial Indexing & Expression Index](#5--partial-indexing--expression-index)
+6. [Fuzzy Search & Typo Tolerance dengan Ekstensi `pg_trgm`](#6--fuzzy-search--typo-tolerance-dengan-ekstensi-pg_trgm)
 
 ### 🟡 Lanjutan
 
-7. [Tipe Data JSON vs JSONB (Binary JSON)](#bagian-7)
-8. [Operator & Fungsi JSONB Inti](#bagian-8)
-9. [Manipulasi & Modifikasi Data JSONB](#bagian-9)
-10. [Advanced Upsert: `ON CONFLICT` & Statement `MERGE`](#bagian-10)
-11. [Common Table Expressions (CTE / Klausul `WITH`)](#bagian-11)
-12. [Recursive CTE (`WITH RECURSIVE`) untuk Data Berjenjang](#bagian-12)
+7. [Tipe Data JSON vs JSONB (Binary JSON)](#7--tipe-data-json-vs-jsonb-binary-json)
+8. [Operator & Fungsi JSONB Inti](#8--operator--fungsi-jsonb-inti)
+9. [Manipulasi & Modifikasi Data JSONB](#9--manipulasi--modifikasi-data-jsonb)
+10. [Advanced Upsert: `ON CONFLICT` & Statement `MERGE`](#10--advanced-upsert-on-conflict--statement-merge)
+11. [Common Table Expressions (CTE / Klausul `WITH`)](#11--common-table-expressions-cte--klausul-with)
+12. [Recursive CTE (`WITH RECURSIVE`) untuk Data Berjenjang](#12--recursive-cte-with-recursive-untuk-data-berjenjang)
 
 ### 🔴 Advanced / Operasional
 
-13. [Pengenalan Window Functions & Perbedaannya dengan `GROUP BY`](#bagian-13)
-14. [Anatomi Klausul `OVER (PARTITION BY ... ORDER BY ...)`](#bagian-14)
-15. [Ranking Window Functions: `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()`, `NTILE()`](#bagian-15)
-16. [Value Window Functions: `LEAD()`, `LAG()`, `FIRST_VALUE()`, `LAST_VALUE()`](#bagian-16)
-17. [Running Totals & Moving Averages dengan Window Functions](#bagian-17)
-18. [Transaksi Database & Prinsip ACID](#bagian-18)
-19. [Titik Pemulihan Parsial dengan `SAVEPOINT`](#bagian-19)
-20. [Transaction Isolation Levels](#bagian-20)
-21. [Pencegahan Race Condition dengan Row-Level Locking (`SELECT ... FOR UPDATE`)](#bagian-21)
-22. [Deadlock Detection & Strategi Mitigasi](#bagian-22)
+13. [Pengenalan Window Functions & Perbedaannya dengan `GROUP BY`](#13--pengenalan-window-functions--perbedaannya-dengan-group-by)
+14. [Anatomi Klausul `OVER (PARTITION BY ... ORDER BY ...)`](#14--anatomi-klausul-over-partition-by--order-by-)
+15. [Ranking Window Functions: `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()`, `NTILE()`](#15--ranking-window-functions-row_number-rank-dense_rank-ntile)
+16. [Value Window Functions: `LEAD()`, `LAG()`, `FIRST_VALUE()`, `LAST_VALUE()`](#16--value-window-functions-lead-lag-first_value-last_value)
+17. [Running Totals & Moving Averages dengan Window Functions](#17--running-totals--moving-averages-dengan-window-functions)
+18. [Transaksi Database & Prinsip ACID](#18--transaksi-database--prinsip-acid)
+19. [Titik Pemulihan Parsial dengan `SAVEPOINT`](#19--titik-pemulihan-parsial-dengan-savepoint)
+20. [Transaction Isolation Levels](#20--transaction-isolation-levels)
+21. [Pencegahan Race Condition dengan Row-Level Locking (`SELECT ... FOR UPDATE`)](#21--pencegahan-race-condition-dengan-row-level-locking-select--for-update)
+22. [Deadlock Detection & Strategi Mitigasi](#22--deadlock-detection--strategi-mitigasi)
 
 ### 🛠️ Referensi & Praktik
 
-23. [Peta Ingatan Cepat](#bagian-23)
-24. [Tabel Ringkasan](#bagian-24)
-25. [Cheat Code PostgreSQL Lanjutan 10 Detik](#bagian-25)
-26. [Urutan Belajar yang Disarankan](#bagian-26)
-27. [Mini Project: Production-Ready Financial Analytics & High-Concurrency Inventory System](#bagian-27)
-28. [Referensi Resmi](#bagian-28)
+23. [Peta Ingatan Cepat](#23-️-peta-ingatan-cepat)
+24. [Tabel Ringkasan](#24--tabel-ringkasan)
+25. [Cheat Code PostgreSQL Lanjutan 10 Detik](#25--cheat-code-postgresql-lanjutan-10-detik)
+26. [Urutan Belajar yang Disarankan](#26--urutan-belajar-yang-disarankan)
+27. [Mini Project: Production-Ready Financial Analytics & High-Concurrency Inventory System](#27-️-mini-project-production-ready-financial-analytics--high-concurrency-inventory-system)
+28. [Referensi Resmi](#28--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan PostgreSQL Lanjutan & Mental Model Query Cost Optimizer
 
@@ -149,8 +147,6 @@ Cost-Based Optimizer → komponen internal PostgreSQL yang memilih rute eksekusi
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Analisis Kinerja Query dengan `EXPLAIN` & `EXPLAIN (ANALYZE, BUFFERS)`
 
@@ -189,8 +185,6 @@ EXPLAIN (ANALYZE, BUFFERS) query; → menjalankan query nyata dan menampilkan wa
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Arsitektur Indexing: B-Tree Index & Composite Multi-Column Index
 
 #### Konsep
@@ -223,8 +217,6 @@ CREATE INDEX index_name ON table_name (col1, col2); → membuat B-Tree composite
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Specialized Indexing: GIN Index (Generalized Inverted Index)
 
 #### Konsep
@@ -254,8 +246,6 @@ CREATE INDEX index_name ON table_name USING GIN (jsonb_or_array_column); → ind
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Partial Indexing & Expression Index
 
@@ -288,8 +278,6 @@ CREATE INDEX idx ON tbl (col) WHERE condition; → partial index hemat disk | CR
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Fuzzy Search & Typo Tolerance dengan Ekstensi `pg_trgm`
 
@@ -345,8 +333,6 @@ CREATE EXTENSION pg_trgm; CREATE INDEX idx ON tbl USING GIN (col gin_trgm_ops); 
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟡 Tipe Data JSON vs JSONB (Binary JSON)
 
 #### Konsep
@@ -371,8 +357,6 @@ Gunakan JSONB untuk dokumen fleksibel karena mendukung indexing GIN dan pemroses
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟡 Operator & Fungsi JSONB Inti
 
@@ -408,8 +392,6 @@ WHERE attributes @> '{"is_wireless": true}';
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Manipulasi & Modifikasi Data JSONB
 
 #### Konsep
@@ -444,8 +426,6 @@ jsonb_set(col, '{path}', 'val'::jsonb) → mutasi properti bersarang | col || '{
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Advanced Upsert: `ON CONFLICT` & Statement `MERGE`
 
@@ -490,8 +470,6 @@ INSERT ... ON CONFLICT (unique_col) DO UPDATE SET col = EXCLUDED.col; → upsert
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Common Table Expressions (CTE / Klausul `WITH`)
 
 #### Konsep
@@ -523,8 +501,6 @@ WITH cte_name AS (SELECT ...) SELECT ... FROM cte_name; → membuat subquery sem
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Recursive CTE (`WITH RECURSIVE`) untuk Data Berjenjang
 
@@ -575,8 +551,6 @@ WITH RECURSIVE cte AS (anchor_query UNION ALL recursive_query) → query hierark
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🔴 Pengenalan Window Functions & Perbedaannya dengan `GROUP BY`
 
 #### Konsep
@@ -605,8 +579,6 @@ Window Function menghitung nilai agregat lintas grup tanpa menciutkan baris data
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🔴 Anatomi Klausul `OVER (PARTITION BY ... ORDER BY ...)`
 
 #### Konsep
@@ -624,8 +596,6 @@ OVER (PARTITION BY group_col ORDER BY sort_col) → membagi jendela partisi data
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🔴 Ranking Window Functions: `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()`, `NTILE()`
 
@@ -658,8 +628,6 @@ ROW_NUMBER() selalu unik (1,2,3) | RANK() melompat (1,2,2,4) | DENSE_RANK() tida
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🔴 Value Window Functions: `LEAD()`, `LAG()`, `FIRST_VALUE()`, `LAST_VALUE()`
 
 #### Konsep
@@ -686,8 +654,6 @@ LAG(col, 1) OVER (...) → membaca nilai baris sebelumnya | LEAD(col, 1) OVER (.
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Running Totals & Moving Averages dengan Window Functions
 
@@ -719,8 +685,6 @@ SUM(col) OVER (ORDER BY date_col) → menghitung akumulasi total berjalan (runni
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Transaksi Database & Prinsip ACID
 
 #### Konsep
@@ -743,8 +707,6 @@ BEGIN; ... COMMIT; (simpan permanen) | BEGIN; ... ROLLBACK; (batalkan seluruh op
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🔴 Titik Pemulihan Parsial dengan `SAVEPOINT`
 
@@ -782,8 +744,6 @@ SAVEPOINT sp_name; ... ROLLBACK TO SAVEPOINT sp_name; → membatalkan sebagian o
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Transaction Isolation Levels
 
 #### Konsep
@@ -806,8 +766,6 @@ READ COMMITTED (Default aman cepat) | SERIALIZABLE (Isolasi terketat dengan jami
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🔴 Pencegahan Race Condition dengan Row-Level Locking (`SELECT ... FOR UPDATE`)
 
@@ -847,8 +805,6 @@ SELECT * FROM tbl WHERE id = 1 FOR UPDATE; → mengunci baris data untuk mencega
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🔴 Deadlock Detection & Strategi Mitigasi
 
 #### Konsep
@@ -869,8 +825,6 @@ Pencegahan Deadlock → selalu lakukan locking atau update baris dengan urutan I
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -886,8 +840,6 @@ PERFORMANCE & INDEXING        JSONB & UPSERT QUERIES     ANALYTICS & CONCURRENCY
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 📚 Tabel Ringkasan
 
@@ -907,8 +859,6 @@ PERFORMANCE & INDEXING        JSONB & UPSERT QUERIES     ANALYTICS & CONCURRENCY
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. ⚡ Cheat Code PostgreSQL Lanjutan 10 Detik
 
 ```sql
@@ -926,8 +876,6 @@ SELECT stock FROM items WHERE id = 'item-1' FOR UPDATE;
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🧭 Urutan Belajar yang Disarankan
 
@@ -958,8 +906,6 @@ Langkah 5: Siap Melangkah ke PostgreSQL Fungsi, Triggers & Administrasi!
 ```
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🏗️ Mini Project: Production-Ready Financial Analytics & High-Concurrency Inventory System
 
@@ -1094,8 +1040,6 @@ ORDER BY o.customer_id, o.created_at;
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🔗 Referensi Resmi
 

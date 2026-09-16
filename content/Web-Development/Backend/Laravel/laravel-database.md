@@ -68,55 +68,53 @@ Seeder        → pengisi data awal / data contoh ke database
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Laravel Database](#bagian-1)
-2. [Konfigurasi Database & Environment](#bagian-2)
-3. [DB Facade Dasar](#bagian-3)
-4. [Query Builder Dasar](#bagian-4)
-5. [Query Builder Insert](#bagian-5)
-6. [Query Builder Select & Aggregates](#bagian-6)
-7. [Query Builder Where (Filtering)](#bagian-7)
-8. [Query Builder Conditional (when)](#bagian-8)
-9. [Query Builder Update](#bagian-9)
-10. [Query Builder Delete](#bagian-10)
-11. [Query Builder Ordering & Grouping](#bagian-11)
-12. [Query Builder Paging & Limiting](#bagian-12)
-13. [Pagination Otomatis](#bagian-13)
-14. [Query Builder Joins](#bagian-14)
+1. [Pengenalan Laravel Database](#1--pengenalan-laravel-database)
+2. [Konfigurasi Database & Environment](#2--konfigurasi-database--environment)
+3. [DB Facade Dasar](#3--db-facade-dasar)
+4. [Query Builder Dasar](#4--query-builder-dasar)
+5. [Query Builder Insert](#5--query-builder-insert)
+6. [Query Builder Select & Aggregates](#6--query-builder-select--aggregates)
+7. [Query Builder Where (Filtering)](#7--query-builder-where-filtering)
+8. [Query Builder Conditional (when)](#8--query-builder-conditional-when)
+9. [Query Builder Update](#9--query-builder-update)
+10. [Query Builder Delete](#10--query-builder-delete)
+11. [Query Builder Ordering & Grouping](#11--query-builder-ordering--grouping)
+12. [Query Builder Paging & Limiting](#12--query-builder-paging--limiting)
+13. [Pagination Otomatis](#13--pagination-otomatis)
+14. [Query Builder Joins](#14--query-builder-joins)
 
 ### 🟡 Struktur, Reliability & Performa
 
-15. [Database Transactions](#bagian-15)
-16. [Debugging Query](#bagian-16)
-17. [Raw Expressions (DB::raw)](#bagian-17)
-18. [Database Locking](#bagian-18)
-19. [Mengelola Dataset Besar: Chunking](#bagian-19)
-20. [Mengelola Dataset Besar: Lazy & Cursor](#bagian-20)
+15. [Database Transactions](#15--database-transactions)
+16. [Debugging Query](#16--debugging-query)
+17. [Raw Expressions (DB::raw)](#17--raw-expressions-dbraw)
+18. [Database Locking](#18--database-locking)
+19. [Mengelola Dataset Besar: Chunking](#19--mengelola-dataset-besar-chunking)
+20. [Mengelola Dataset Besar: Lazy & Cursor](#20--mengelola-dataset-besar-lazy--cursor)
 
 ### 🟡 Database Schema & Migrations
 
-21. [Database Migration Dasar](#bagian-21)
-22. [Membuat & Menjalankan Migration](#bagian-22)
-23. [Modifikasi Tabel & Foreign Keys](#bagian-23)
-24. [Rollback, Refresh, & Fresh Migration](#bagian-24)
-25. [Database Seeding](#bagian-25)
-26. [Database Factories (Data Dummy)](#bagian-26)
+21. [Database Migration Dasar](#21--database-migration-dasar)
+22. [Membuat & Menjalankan Migration](#22--membuat--menjalankan-migration)
+23. [Modifikasi Tabel & Foreign Keys](#23--modifikasi-tabel--foreign-keys)
+24. [Rollback, Refresh, & Fresh Migration](#24--rollback-refresh--fresh-migration)
+25. [Database Seeding](#25--database-seeding)
+26. [Database Factories (Data Dummy)](#26--database-factories-data-dummy)
 
 ### 🔴 Operasional & Commands
 
-27. [Database Artisan Commands](#bagian-27)
+27. [Database Artisan Commands](#27--database-artisan-commands)
 
 ### 🛠️ Referensi & Praktik
 
-28. [Peta Ingatan Cepat](#bagian-28)
-29. [Tabel Ringkasan](#bagian-29)
-30. [Cheat Code Database 10 Detik](#bagian-30)
-31. [Urutan Belajar yang Disarankan](#bagian-31)
-32. [Mini Project: Manajemen Inventaris & Checkout Produk](#bagian-32)
-33. [Referensi Resmi](#bagian-33)
+28. [Peta Ingatan Cepat](#28-️-peta-ingatan-cepat)
+29. [Tabel Ringkasan](#29--tabel-ringkasan)
+30. [Cheat Code Database 10 Detik](#30--cheat-code-database-10-detik)
+31. [Urutan Belajar yang Disarankan](#31--urutan-belajar-yang-disarankan)
+32. [Mini Project: Manajemen Inventaris & Checkout Produk](#32-️-mini-project-manajemen-inventaris--checkout-produk)
+33. [Referensi Resmi](#33--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Laravel Database
 
@@ -156,8 +154,6 @@ Query Builder bukan database, melainkan API Laravel untuk membuat query SQL seca
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Konfigurasi Database & Environment
 
@@ -214,8 +210,6 @@ php artisan config:clear  → bersihkan cache jika ganti database
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 DB Facade Dasar
 
@@ -324,8 +318,6 @@ Selalu gunakan parameter binding (?) pada Raw SQL untuk mencegah SQL Injection!
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Query Builder Dasar
 
 #### Konsep
@@ -387,8 +379,6 @@ value() → ambil nilai 1 kolom tunggal
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Query Builder Insert
 
@@ -453,8 +443,6 @@ upsert()       → insert jika belum ada, update jika sudah ada
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Query Builder Select & Aggregates
 
 #### Konsep
@@ -512,8 +500,6 @@ exists()                     → cek ada atau tidaknya data secara efisien (true
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Query Builder Where (Filtering)
 
@@ -577,8 +563,6 @@ whereNull('column')                    → filter nilai NULL
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Query Builder Conditional (when)
 
 #### Konsep
@@ -634,8 +618,6 @@ public function search(Request $request)
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Query Builder Update
 
 #### Konsep
@@ -687,8 +669,6 @@ decrement('column', amount)          → kurangi nilai angka
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Query Builder Delete
 
 #### Konsep
@@ -724,8 +704,6 @@ truncate()           → kosongkan seluruh tabel & reset ID
 **Penting:** Selalu sertakan klausa `where()` sebelum memanggil `delete()`. Memanggil `DB::table('users')->delete()` tanpa `where()` akan menghapus semua baris data di tabel!
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Query Builder Ordering & Grouping
 
@@ -769,8 +747,6 @@ having('column', 'operator', 'value')      → filter hasil agregat group
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟢 Query Builder Paging & Limiting
 
 #### Konsep
@@ -802,8 +778,6 @@ offset(amount) / skip(amount) → lewati sebanyak amount baris
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟢 Pagination Otomatis
 
@@ -862,8 +836,6 @@ simplePaginate(15) → paginasi ringan (hanya tombol Next/Prev)
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟢 Query Builder Joins
 
 #### Konsep
@@ -912,8 +884,6 @@ join('other_table', 'first_table.id', '=', 'other_table.foreign_id')
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Database Transactions
 
@@ -989,8 +959,6 @@ DB::transaction(function() { ... })
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Debugging Query
 
 #### Konsep
@@ -1036,8 +1004,6 @@ DB::getQueryLog() → lihat riwayat seluruh query yang berjalan
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Raw Expressions (DB::raw)
 
 #### Konsep
@@ -1078,8 +1044,6 @@ whereRaw('column > ?', [$value]) ──> filter raw SQL dengan parameter binding
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 Database Locking
 
 #### Konsep
@@ -1116,8 +1080,6 @@ lockForUpdate() → kunci baris untuk update eksklusif (anti race condition)
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 Mengelola Dataset Besar: Chunking
 
@@ -1169,8 +1131,6 @@ chunkById(1000, callback) → WAJIB jika ada update data di dalam loop
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 Mengelola Dataset Besar: Lazy & Cursor
 
 #### Konsep
@@ -1210,8 +1170,6 @@ cursor() → streaming PDO langsung 1 per 1 (RAM paling hemat)
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🟡 Database Migration Dasar
 
@@ -1258,8 +1216,6 @@ down() → batalkan / hapus perubahan skema tabel
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Membuat & Menjalankan Migration
 
@@ -1309,8 +1265,6 @@ php artisan migrate → eksekusi skema ke database
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🟡 Modifikasi Tabel & Foreign Keys
 
@@ -1364,8 +1318,6 @@ $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🟡 Rollback, Refresh, & Fresh Migration
 
 #### Konsep
@@ -1411,8 +1363,6 @@ migrate:fresh --seed → reset total database & isi ulang data dummy
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🟡 Database Seeding
 
@@ -1487,8 +1437,6 @@ php artisan db:seed → jalankan seluruh seeder
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🟡 Database Factories (Data Dummy)
 
 #### Konsep
@@ -1538,8 +1486,6 @@ Factory + Faker ──> membuat ratusan data dummy realistis secara otomatis
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. 🔴 Database Artisan Commands
 
 #### Konsep
@@ -1574,8 +1520,6 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🛠️ Peta Ingatan Cepat
 
@@ -1635,8 +1579,6 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 📚 Tabel Ringkasan
 
 | Materi | Konsep / API Utama | Fungsi & Kegunaan |
@@ -1661,8 +1603,6 @@ php artisan db:table nama  → periksa struktur kolom suatu tabel
 | Seeder | `make:seeder`, `db:seed` | Mengisi data master / awal ke database |
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. ⚡ Cheat Code Database 10 Detik
 
@@ -1691,8 +1631,6 @@ $products = DB::table('products')
 
 ---
 
-<a id="bagian-31"></a>
-
 ## 31. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1717,8 +1655,6 @@ $products = DB::table('products')
 ```
 
 ---
-
-<a id="bagian-32"></a>
 
 ## 32. 🏗️ Mini Project: Manajemen Inventaris & Checkout Produk
 
@@ -1873,8 +1809,6 @@ Halaman 1 dari 1 [ < Sebelumnya ] [ Berikutnya > ]
 **Kunci:** Alur Query Builder + Paginasi + Transaksi Atomic adalah fondasi utama pengembangan sistem backend yang handal.
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 🔗 Referensi Resmi
 

@@ -69,43 +69,41 @@ Type Erasure   → mekanisme compiler menghapus informasi generic di bytecode de
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Java Generic & Masalah Kode Non-Generic](#bagian-1)
-2. [Generic Class dengan Parameter Tunggal (`<T>`)](#bagian-2)
-3. [Generic Class dengan Multi-Parameter (`<K, V>`)](#bagian-3)
-4. [Generic Method (`<T> returnType method(T param)`)](#bagian-4)
-5. [Generic Constructor](#bagian-5)
-6. [Generic Interface (`Repository<T, ID>`)](#bagian-6)
+1. [Pengenalan Java Generic & Masalah Kode Non-Generic](#1--pengenalan-java-generic--masalah-kode-non-generic)
+2. [Generic Class dengan Parameter Tunggal (`<T>`)](#2--generic-class-dengan-parameter-tunggal-t)
+3. [Generic Class dengan Multi-Parameter (`<K, V>`)](#3--generic-class-dengan-multi-parameter-k-v)
+4. [Generic Method (`<T> returnType method(T param)`)](#4--generic-method-t-returntype-methodt-param)
+5. [Generic Constructor](#5--generic-constructor)
+6. [Generic Interface (`Repository<T, ID>`)](#6--generic-interface-repositoryt-id)
 
 ### 🟡 Lanjutan
 
-7. [Bounded Type Parameter (Upper Bounded: `<T extends Number>`)](#bagian-7)
-8. [Multiple Bounds Type Parameter (`<T extends A & B>`)](#bagian-8)
-9. [Konsep Invariant pada Generic (Invariant vs Covariant)](#bagian-9)
-10. [Wildcard Unbounded (`<?>`)](#bagian-10)
-11. [Wildcard Upper Bounded (`<? extends T>`)](#bagian-11)
-12. [Wildcard Lower Bounded (`<? super T>`)](#bagian-12)
-13. [Prinsip PECS (Producer Extends, Consumer Super)](#bagian-13)
-14. [Generic Record (Java 16+)](#bagian-14)
+7. [Bounded Type Parameter (Upper Bounded: `<T extends Number>`)](#7--bounded-type-parameter-upper-bounded-t-extends-number)
+8. [Multiple Bounds Type Parameter (`<T extends A & B>`)](#8--multiple-bounds-type-parameter-t-extends-a--b)
+9. [Konsep Invariant pada Generic (Invariant vs Covariant)](#9--konsep-invariant-pada-generic-invariant-vs-covariant)
+10. [Wildcard Unbounded (`<?>`)](#10--wildcard-unbounded-)
+11. [Wildcard Upper Bounded (`<? extends T>`)](#11--wildcard-upper-bounded--extends-t)
+12. [Wildcard Lower Bounded (`<? super T>`)](#12--wildcard-lower-bounded--super-t)
+13. [Prinsip PECS (Producer Extends, Consumer Super)](#13--prinsip-pecs-producer-extends-consumer-super)
+14. [Generic Record (Java 16+)](#14--generic-record-java-16)
 
 ### 🔴 Advanced / Operasional
 
-15. [Type Erasure di JVM & Bridge Method](#bagian-15)
-16. [Batasan & Larangan pada Java Generic](#bagian-16)
-17. [Raw Types & Anotasi `@SuppressWarnings("unchecked")`](#bagian-17)
-18. [Comparable & Comparator Generic (`Comparable<T>`, `Comparator<T>`)](#bagian-18)
+15. [Type Erasure di JVM & Bridge Method](#15--type-erasure-di-jvm--bridge-method)
+16. [Batasan & Larangan pada Java Generic](#16--batasan--larangan-pada-java-generic)
+17. [Raw Types & Anotasi `@SuppressWarnings("unchecked")`](#17--raw-types--anotasi-suppresswarningsunchecked)
+18. [Comparable & Comparator Generic (`Comparable<T>`, `Comparator<T>`)](#18--comparable--comparator-generic-comparablet-comparatort)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Java Generic 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Generic In-Memory Repository & Paginated Data Store Engine CLI](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Java Generic 10 Detik](#21--cheat-code-java-generic-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Generic In-Memory Repository & Paginated Data Store Engine CLI](#23-️-mini-project-generic-in-memory-repository--paginated-data-store-engine-cli)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Java Generic & Masalah Kode Non-Generic
 
@@ -180,8 +178,6 @@ Generic     → parameterisasi tipe data yang memungkinkan class/method bekerja 
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Generic Class dengan Parameter Tunggal (`<T>`)
 
@@ -261,8 +257,6 @@ ClassName<TargetType> obj = new ClassName<>(); → instansiasi objek generic den
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Generic Class dengan Multi-Parameter (`<K, V>`)
 
 #### Konsep
@@ -339,8 +333,6 @@ class ClassName<K, V> { ... } → mendefinisikan generic class dengan dua parame
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Generic Method (`<T> returnType method(T param)`)
 
 #### Konsep
@@ -406,8 +398,6 @@ public static <T> returnType methodName(T parameter) → mendeklarasikan generic
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Generic Constructor
 
 #### Konsep
@@ -464,8 +454,6 @@ public <T> ClassName(T parameter) { ... } → mendefinisikan constructor dengan 
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Generic Interface (`Repository<T, ID>`)
 
@@ -560,8 +548,6 @@ class ClassName implements InterfaceName<TypeA, TypeB>  → mengimplementasikan 
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟡 Bounded Type Parameter (Upper Bounded: `<T extends Number>`)
 
 #### Konsep
@@ -637,8 +623,6 @@ Rata-rata Harga    : Rp 16,667.08
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟡 Multiple Bounds Type Parameter (`<T extends A & B>`)
 
 #### Konsep
@@ -712,8 +696,6 @@ Parameter T wajib lolos 2 syarat:
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Konsep Invariant pada Generic (Invariant vs Covariant)
 
 #### Konsep
@@ -770,8 +752,6 @@ Invariant → Box<Child> bukan merupakan turunan dari Box<Parent> meskipun Child
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Wildcard Unbounded (`<?>`)
 
@@ -835,8 +815,6 @@ ClassName<?> variable → wildcard unbounded menerima tipe generic apapun untuk 
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Wildcard Upper Bounded (`<? extends T>`)
 
 #### Konsep
@@ -898,8 +876,6 @@ List<? extends Number>
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Wildcard Lower Bounded (`<? super T>`)
 
@@ -967,8 +943,6 @@ List<? super Integer>
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Prinsip PECS (Producer Extends, Consumer Super)
 
 #### Konsep
@@ -1028,8 +1002,6 @@ Consumer Super   → gunakan <? super T> jika hanya menulis data ke dalam parame
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Generic Record (Java 16+)
 
@@ -1099,8 +1071,6 @@ public record RecordName<T>(T data, String message) {} → membuat DTO immutable
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🔴 Type Erasure di JVM & Bridge Method
 
 #### Konsep
@@ -1153,8 +1123,6 @@ Type Erasure → proses compiler menghapus seluruh kurung <T> di bytecode dan me
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🔴 Batasan & Larangan pada Java Generic
 
 #### Konsep
@@ -1201,8 +1169,6 @@ Instance string baru via Supplier berhasil dibuat.
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Raw Types & Anotasi `@SuppressWarnings("unchecked")`
 
 #### Konsep
@@ -1247,8 +1213,6 @@ Array generic kapasitas: 5
 - Batasi lingkup `@SuppressWarnings("unchecked")` sesempit mungkin (hanya pada satu baris variabel atau satu method kecil).
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 Comparable & Comparator Generic (`Comparable<T>`, `Comparator<T>`)
 
@@ -1343,8 +1307,6 @@ Comparator.comparing(Class::getField)  → membuat comparator instan berbasis ge
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1360,8 +1322,6 @@ Comparator.comparing(Class::getField)  → membuat comparator instan berbasis ge
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 📚 Tabel Ringkasan
 
@@ -1383,8 +1343,6 @@ Comparator.comparing(Class::getField)  → membuat comparator instan berbasis ge
 | Suppress Warning | `@SuppressWarnings("unchecked")` | Membungkam peringatan unchecked cast compiler |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Java Generic 10 Detik
 
@@ -1412,8 +1370,6 @@ public record Result<T>(boolean ok, T value, String error) {}
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1439,8 +1395,6 @@ Langkah 4: Siap Melangkah ke Java Collection Framework & Spring Data JPA!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Generic In-Memory Repository & Paginated Data Store Engine CLI
 
@@ -1630,8 +1584,6 @@ Customer ID: 1002 | User: budi_santoso (budi@dev.com)
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

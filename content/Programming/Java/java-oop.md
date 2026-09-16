@@ -72,56 +72,54 @@ Abstraction  → menyembunyikan detail implementasi dan hanya menampilkan fungsi
 
 ### 🟢 Fundamental
 
-1. [Pengenalan OOP & 4 Pilar Utama](#bagian-1)
-2. [Class & Object (Mental Model Cetak Biru vs Instance Memori)](#bagian-2)
-3. [Field / Attribute dalam Class](#bagian-3)
-4. [Method dalam Class (Behavior & State Manipulation)](#bagian-4)
-5. [Constructor (Inisialisasi Objek & Default Constructor)](#bagian-5)
-6. [Constructor Overloading](#bagian-6)
-7. [Kata Kunci this & Constructor Chaining](#bagian-7)
-8. [Modifier Akses (Access Modifiers)](#bagian-8)
-9. [Enkapsulasi, Getter & Setter](#bagian-9)
-10. [Package & Import](#bagian-10)
+1. [Pengenalan OOP & 4 Pilar Utama](#1--pengenalan-oop--4-pilar-utama)
+2. [Class & Object (Mental Model Cetak Biru vs Instance Memori)](#2--class--object-mental-model-cetak-biru-vs-instance-memori)
+3. [Field / Attribute dalam Class](#3--field--attribute-dalam-class)
+4. [Method dalam Class (Behavior & State Manipulation)](#4--method-dalam-class-behavior--state-manipulation)
+5. [Constructor (Inisialisasi Objek & Default Constructor)](#5--constructor-inisialisasi-objek--default-constructor)
+6. [Constructor Overloading](#6--constructor-overloading)
+7. [Kata Kunci this & Constructor Chaining](#7--kata-kunci-this--constructor-chaining)
+8. [Modifier Akses (Access Modifiers)](#8--modifier-akses-access-modifiers)
+9. [Enkapsulasi, Getter & Setter](#9--enkapsulasi-getter--setter)
+10. [Package & Import](#10--package--import)
 
 ### 🟡 Lanjutan
 
-11. [Inheritance / Pewarisan (extends)](#bagian-11)
-12. [Kata Kunci super (Constructor & Method Delegation)](#bagian-12)
-13. [Method Overriding (@Override)](#bagian-13)
-14. [Polymorphism (Polimorfisme & Dynamic Dispatch)](#bagian-14)
-15. [Type Casting Objek & Pattern Matching instanceof](#bagian-15)
-16. [Abstract Class & Abstract Method](#bagian-16)
-17. [Interface Dasar & Multiple Implementation](#bagian-17)
-18. [Interface Inheritance (extends)](#bagian-18)
-19. [Default Method & Static Method pada Interface](#bagian-19)
-20. [Private Method pada Interface](#bagian-20)
-21. [Anonymous Class](#bagian-21)
-22. [Inner Class & Static Nested Class](#bagian-22)
+11. [Inheritance / Pewarisan (extends)](#11--inheritance--pewarisan-extends)
+12. [Kata Kunci super (Constructor & Method Delegation)](#12--kata-kunci-super-constructor--method-delegation)
+13. [Method Overriding (@Override)](#13--method-overriding-override)
+14. [Polymorphism (Polimorfisme & Dynamic Dispatch)](#14--polymorphism-polimorfisme--dynamic-dispatch)
+15. [Type Casting Objek & Pattern Matching instanceof](#15--type-casting-objek--pattern-matching-instanceof)
+16. [Abstract Class & Abstract Method](#16--abstract-class--abstract-method)
+17. [Interface Dasar & Multiple Implementation](#17--interface-dasar--multiple-implementation)
+18. [Interface Inheritance (extends)](#18--interface-inheritance-extends)
+19. [Default Method & Static Method pada Interface](#19--default-method--static-method-pada-interface)
+20. [Private Method pada Interface](#20--private-method-pada-interface)
+21. [Anonymous Class](#21--anonymous-class)
+22. [Inner Class & Static Nested Class](#22--inner-class--static-nested-class)
 
 ### 🔴 Advanced / Operasional
 
-23. [Static Keyword Lengkap (Field, Method, Block)](#bagian-23)
-24. [Final Keyword Lengkap (Variable, Method, Class)](#bagian-24)
-25. [Sealed Classes & Interfaces (Java 17+)](#bagian-25)
-26. [Record Lanjutan & Implementasi Interface](#bagian-26)
-27. [Enum Class Lengkap (Fields, Constructor, Method)](#bagian-27)
-28. [Object Root Class (toString, equals, hashCode)](#bagian-28)
-29. [Hierarchy Exception di Java (Checked vs Unchecked)](#bagian-29)
-30. [Custom Exception Class](#bagian-30)
-31. [Garbage Collection & Manajemen Memori OOP](#bagian-31)
+23. [Static Keyword Lengkap (Field, Method, Block)](#23--static-keyword-lengkap-field-method-block)
+24. [Final Keyword Lengkap (Variable, Method, Class)](#24--final-keyword-lengkap-variable-method-class)
+25. [Sealed Classes & Interfaces (Java 17+)](#25--sealed-classes--interfaces-java-17)
+26. [Record Lanjutan & Implementasi Interface](#26--record-lanjutan--implementasi-interface)
+27. [Enum Class Lengkap (Fields, Constructor, Method)](#27--enum-class-lengkap-fields-constructor-method)
+28. [Object Root Class (toString, equals, hashCode)](#28--object-root-class-tostring-equals-hashcode)
+29. [Hierarchy Exception di Java (Checked vs Unchecked)](#29--hierarchy-exception-di-java-checked-vs-unchecked)
+30. [Custom Exception Class](#30--custom-exception-class)
+31. [Garbage Collection & Manajemen Memori OOP](#31--garbage-collection--manajemen-memori-oop)
 
 ### 🛠️ Referensi & Praktik
 
-32. [Peta Ingatan Cepat](#bagian-32)
-33. [Tabel Ringkasan](#bagian-33)
-34. [Cheat Code Java OOP 10 Detik](#bagian-34)
-35. [Urutan Belajar yang Disarankan](#bagian-35)
-36. [Mini Project: Sistem Payment Gateway & Transaksi E-Commerce CLI](#bagian-36)
-37. [Referensi Resmi](#bagian-37)
+32. [Peta Ingatan Cepat](#32-️-peta-ingatan-cepat)
+33. [Tabel Ringkasan](#33--tabel-ringkasan)
+34. [Cheat Code Java OOP 10 Detik](#34--cheat-code-java-oop-10-detik)
+35. [Urutan Belajar yang Disarankan](#35--urutan-belajar-yang-disarankan)
+36. [Mini Project: Sistem Payment Gateway & Transaksi E-Commerce CLI](#36-️-mini-project-sistem-payment-gateway--transaksi-e-commerce-cli)
+37. [Referensi Resmi](#37--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan OOP & 4 Pilar Utama
 
@@ -200,8 +198,6 @@ Abstraction   → penyederhanaan sistem dengan mendefinisikan antarmuka/kontrak 
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Class & Object (Mental Model Cetak Biru vs Instance Memori)
 
 #### Konsep
@@ -267,8 +263,6 @@ ClassName objectName = new ClassName(); → membuat instance objek baru di memor
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Field / Attribute dalam Class
 
@@ -344,8 +338,6 @@ object.field = value; → menugaskan nilai value ke dalam field dari objek targe
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Method dalam Class (Behavior & State Manipulation)
 
@@ -429,8 +421,6 @@ object.methodName(arguments) → mengeksekusi perilaku method pada konteks data 
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Constructor (Inisialisasi Objek & Default Constructor)
 
 #### Konsep
@@ -504,8 +494,6 @@ ClassName(parameters) { ... } → constructor khusus untuk menginisialisasi nila
 ✅ Tulis nama class langsung tanpa return type: `Pengguna() { ... }`.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Constructor Overloading
 
@@ -584,8 +572,6 @@ Constructor Overloading → menyediakan variasi constructor dengan parameter ber
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Kata Kunci this & Constructor Chaining
 
@@ -671,8 +657,6 @@ this(arguments)        → memanggil constructor lain di class yang sama (harus 
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Modifier Akses (Access Modifiers)
 
 #### Konsep
@@ -734,8 +718,6 @@ private   → akses terisolasi ketat hanya untuk internal class tempatnya dibuat
 - Buka akses secara terkontrol menggunakan method `public` getter dan setter.
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Enkapsulasi, Getter & Setter
 
@@ -815,8 +797,6 @@ public void setFieldName(fieldType value) { this.fieldName = value; } → mutato
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Package & Import
 
@@ -902,8 +882,6 @@ import static package.Method;→ mengimpor method static sehingga bisa dipanggil
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Inheritance / Pewarisan (extends)
 
 #### Konsep
@@ -981,8 +959,6 @@ class ChildClass extends ParentClass { ... } → mewarisi semua field dan method
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Kata Kunci super (Constructor & Method Delegation)
 
@@ -1070,8 +1046,6 @@ super.methodName() → memanggil implementasi method asli milik superclass
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Method Overriding (@Override)
 
 #### Konsep
@@ -1156,8 +1130,6 @@ Eksekusi method Persegi.hitungLuas() (Bukan Bentuk.hitungLuas())
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Polymorphism (Polimorfisme & Dynamic Dispatch)
 
 #### Konsep
@@ -1231,8 +1203,6 @@ Dynamic Method Dispatch                → JVM mengeksekusi versi method objek k
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Type Casting Objek & Pattern Matching instanceof
 
@@ -1310,8 +1280,6 @@ object instanceof TargetType variable → memeriksa apakah object merupakan tipe
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Abstract Class & Abstract Method
 
@@ -1400,8 +1368,6 @@ abstract returnType methodName();  → mendefinisikan kontrak method wajib tanpa
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Interface Dasar & Multiple Implementation
 
 #### Konsep
@@ -1480,8 +1446,6 @@ class ClassName implements InterfaceA, InterfaceB → mengimplementasikan banyak
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 Interface Inheritance (extends)
 
@@ -1563,8 +1527,6 @@ interface ChildInterface extends ParentA, ParentB { ... } → interface mewarisi
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 Default Method & Static Method pada Interface
 
@@ -1648,8 +1610,6 @@ static returnType methodName() { ... }  → method helper static yang dipanggil 
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 Private Method pada Interface
 
 #### Konsep
@@ -1710,8 +1670,6 @@ private returnType methodName() { ... } → method helper internal interface unt
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Anonymous Class
 
 #### Konsep
@@ -1766,8 +1724,6 @@ InterfaceName obj = new InterfaceName() { @Override ... }; → membuat instance 
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Inner Class & Static Nested Class
 
@@ -1838,8 +1794,6 @@ Outer.Nested nested = new Outer.Nested();      → instansiasi static nested cla
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🔴 Static Keyword Lengkap (Field, Method, Block)
 
 #### Konsep
@@ -1907,8 +1861,6 @@ static { ... }          → blok inisialisasi satu kali saat class pertama dimua
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🔴 Final Keyword Lengkap (Variable, Method, Class)
 
 #### Konsep
@@ -1967,8 +1919,6 @@ final class ClassName     → mengunci class agar tidak dapat diwariskan/diturun
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🔴 Sealed Classes & Interfaces (Java 17+)
 
 #### Konsep
@@ -2024,8 +1974,6 @@ non-sealed class Child extends Parent      → membuka kembali izin pewarisan be
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔴 Record Lanjutan & Implementasi Interface
 
@@ -2108,8 +2056,6 @@ public record RecordName(parameters) implements InterfaceName { ... } → membua
 ```
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🔴 Enum Class Lengkap (Fields, Constructor, Method)
 
@@ -2199,8 +2145,6 @@ EnumName.values()                             → mengembalikan seluruh daftar e
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🔴 Object Root Class (toString, equals, hashCode)
 
 #### Konsep
@@ -2284,8 +2228,6 @@ Jika a.equals(b) == true ──> Maka a.hashCode() WAJIB SAMA DENGAN b.hashCode(
 
 ---
 
-<a id="bagian-29"></a>
-
 ## 29. 🔴 Hierarchy Exception di Java (Checked vs Unchecked)
 
 #### Konsep
@@ -2348,8 +2290,6 @@ throws ExceptionType → mendeklarasikan bahwa method berpotensi melempar checke
 ```
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🔴 Custom Exception Class
 
@@ -2430,8 +2370,6 @@ public class MyException extends RuntimeException { public MyException(String ms
 
 ---
 
-<a id="bagian-31"></a>
-
 ## 31. 🔴 Garbage Collection & Manajemen Memori OOP
 
 #### Konsep
@@ -2498,8 +2436,6 @@ System.gc()   → mengirimkan sinyal saran kepada JVM untuk menjalankan Garbage 
 
 ---
 
-<a id="bagian-32"></a>
-
 ## 32. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -2516,8 +2452,6 @@ System.gc()   → mengirimkan sinyal saran kepada JVM untuk menjalankan Garbage 
 ```
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 📚 Tabel Ringkasan
 
@@ -2540,8 +2474,6 @@ System.gc()   → mengirimkan sinyal saran kepada JVM untuk menjalankan Garbage 
 | Custom Error | `class AppEx extends RuntimeException` | Membuat error domain logika bisnis aplikasi sendiri |
 
 ---
-
-<a id="bagian-34"></a>
 
 ## 34. ⚡ Cheat Code Java OOP 10 Detik
 
@@ -2585,8 +2517,6 @@ public final class Square extends Shape {}
 
 ---
 
-<a id="bagian-35"></a>
-
 ## 35. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -2617,8 +2547,6 @@ Langkah 5: Bangun Arsitektur Sistem OOP Nyata (Mini Project Payment Gateway)!
 ```
 
 ---
-
-<a id="bagian-36"></a>
 
 ## 36. 🏗️ Mini Project: Sistem Payment Gateway & Transaksi E-Commerce CLI
 
@@ -2824,8 +2752,6 @@ Sesi transaksi gateway selesai.
 ```
 
 ---
-
-<a id="bagian-37"></a>
 
 ## 37. 🔗 Referensi Resmi
 

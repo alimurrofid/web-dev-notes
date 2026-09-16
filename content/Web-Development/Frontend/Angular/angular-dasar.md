@@ -75,37 +75,35 @@ inject()             → Fungsi modern untuk mengambil dependensi (Service) tanp
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Angular & Mental Model Standalone](#bagian-1)
-2. [Instalasi Tooling CLI & Struktur Folder Proyek](#bagian-2)
-3. [Anatomi Standalone Component (@Component)](#bagian-3)
-4. [Data Binding (Interpolasi & Property Binding)](#bagian-4)
-5. [Event Binding & Penanganan Interaksi User](#bagian-5)
-6. [State Lokal Komponen Menggunakan Angular Signals](#bagian-6)
-7. [Built-in Control Flow: Percabangan (@if, @else if, @else)](#bagian-7)
-8. [Built-in Control Flow: Perulangan (@for, track, @empty)](#bagian-8)
-9. [Built-in Control Flow: Seleksi Multi-Kondisi (@switch, @case)](#bagian-9)
-10. [Komunikasi Komponen: Menerima Data via input()](#bagian-10)
-11. [Komunikasi Komponen: Mengirim Event via output()](#bagian-11)
-12. [Two-Way Binding Komponen Modern dengan model()](#bagian-12)
+1. [Pengenalan Angular & Mental Model Standalone](#1--pengenalan-angular--mental-model-standalone)
+2. [Instalasi Tooling CLI & Struktur Folder Proyek](#2--instalasi-tooling-cli--struktur-folder-proyek)
+3. [Anatomi Standalone Component (@Component)](#3--anatomi-standalone-component-component)
+4. [Data Binding (Interpolasi & Property Binding)](#4--data-binding-interpolasi--property-binding)
+5. [Event Binding & Penanganan Interaksi User](#5--event-binding--penanganan-interaksi-user)
+6. [State Lokal Komponen Menggunakan Angular Signals](#6--state-lokal-komponen-menggunakan-angular-signals)
+7. [Built-in Control Flow: Percabangan (@if, @else if, @else)](#7--built-in-control-flow-percabangan-if-else-if-else)
+8. [Built-in Control Flow: Perulangan (@for, track, @empty)](#8--built-in-control-flow-perulangan-for-track-empty)
+9. [Built-in Control Flow: Seleksi Multi-Kondisi (@switch, @case)](#9--built-in-control-flow-seleksi-multi-kondisi-switch-case)
+10. [Komunikasi Komponen: Menerima Data via input()](#10--komunikasi-komponen-menerima-data-via-input)
+11. [Komunikasi Komponen: Mengirim Event via output()](#11--komunikasi-komponen-mengirim-event-via-output)
+12. [Two-Way Binding Komponen Modern dengan model()](#12--two-way-binding-komponen-modern-dengan-model)
 
 ### 🟡 Lanjutan
 
-13. [Form Input & Two-Way Binding [(ngModel)]](#bagian-13)
-14. [Dasar Reactive Forms (FormControl & FormGroup Sederhana)](#bagian-14)
-15. [Dependency Injection & Service Modern dengan inject()](#bagian-15)
-16. [Mengambil Data Backend dengan HTTP Client Dasar](#bagian-16)
-17. [Lifecycle Hooks Esensial (ngOnInit & ngOnDestroy)](#bagian-17)
-18. [Content Projection Sederhana (<ng-content>)](#bagian-18)
+13. [Form Input & Two-Way Binding [(ngModel)]](#13--form-input--two-way-binding-ngmodel)
+14. [Dasar Reactive Forms (FormControl & FormGroup Sederhana)](#14--dasar-reactive-forms-formcontrol--formgroup-sederhana)
+15. [Dependency Injection & Service Modern dengan inject()](#15--dependency-injection--service-modern-dengan-inject)
+16. [Mengambil Data Backend dengan HTTP Client Dasar](#16--mengambil-data-backend-dengan-http-client-dasar)
+17. [Lifecycle Hooks Esensial (ngOnInit & ngOnDestroy)](#17--lifecycle-hooks-esensial-ngoninit--ngondestroy)
+18. [Content Projection Sederhana (<ng-content>)](#18--content-projection-sederhana-ng-content)
 
 ### 🛠️ Praktik & Referensi
 
-19. [Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi](#bagian-19)
-20. [Mini Project: Task & Habit Tracker CLI-Like Web App](#bagian-20)
-21. [Urutan Belajar yang Disarankan & Referensi Resmi](#bagian-21)
+19. [Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi](#19-️-peta-ingatan-cheat-code-10-detik--tabel-komparasi)
+20. [Mini Project: Task & Habit Tracker CLI-Like Web App](#20-️-mini-project-task--habit-tracker-cli-like-web-app)
+21. [Urutan Belajar yang Disarankan & Referensi Resmi](#21--urutan-belajar-yang-disarankan--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Angular & Mental Model Standalone
 
@@ -189,8 +187,6 @@ Selamat Datang di Angular Modern!
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Instalasi Tooling CLI & Struktur Folder Proyek
 
 ### Konsep
@@ -266,8 +262,6 @@ Alasannya: Pendekatan tersebut adalah sintaks lama berbasis NgModule yang tidak 
 **Kunci:** Proyek Angular modern dimulai dari `main.ts` yang langsung mem-bootstrap Standalone Root Component via `bootstrapApplication`.
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Anatomi Standalone Component (@Component)
 
@@ -353,8 +347,6 @@ export class UserCardComponent {
 **Kunci:** `@Component` menyatukan class TypeScript, template HTML, dan scoped CSS menjadi tag HTML kustom yang dapat digunakan berulang kali.
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Data Binding (Interpolasi & Property Binding)
 
@@ -464,8 +456,6 @@ export class BindingDemoComponent {
 **Kunci:** Gunakan `{{ }}` untuk konten teks dan `[properti]` untuk mengikat nilai ekspresi ke properti DOM elemen.
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Event Binding & Penanganan Interaksi User
 
@@ -592,8 +582,6 @@ onInput(e: Event) {
 **Kunci:** `(event)="handler()"` mengalirkan interaksi dari antarmuka pengguna (DOM) ke logika TypeScript.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 State Lokal Komponen Menggunakan Angular Signals
 
@@ -724,8 +712,6 @@ this.totalPrice.set(500000);
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Built-in Control Flow: Percabangan (@if, @else if, @else)
 
 ### Konsep
@@ -821,8 +807,6 @@ Status: Member Aktif ✅
 **Kunci:** `@if`, `@else if`, dan `@else` menyediakan percabangan template yang bersih, type-safe, dan berkinerja tinggi tanpa modul tambahan.
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Built-in Control Flow: Perulangan (@for, track, @empty)
 
@@ -947,8 +931,6 @@ Inventaris Gudang (Total: 0)
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 Built-in Control Flow: Seleksi Multi-Kondisi (@switch, @case)
 
 ### Konsep
@@ -1036,8 +1018,6 @@ Status Pelacakan Pengiriman
 **Kunci:** `@switch` mengevaluasi nilai terhadap `@case` dan mengeksekusi `@default` jika tidak ada kondisi yang terpenuhi.
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Komunikasi Komponen: Menerima Data via input()
 
@@ -1144,8 +1124,6 @@ this.points.set(200);
 **Kunci:** `input.required<T>()` dan `input<T>(defaultValue)` menerima data dari parent sebagai Read-Only Signal.
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟢 Komunikasi Komponen: Mengirim Event via output()
 
@@ -1254,8 +1232,6 @@ Daftar Rencana Harian
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟢 Two-Way Binding Komponen Modern dengan model()
 
 ### Konsep
@@ -1346,8 +1322,6 @@ Nilai Terbaca di Parent: true
 **Kunci:** `model()` di Child berpasangan dengan `[(modelName)]` di Parent untuk menyinkronkan data dua arah secara otomatis.
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Form Input & Two-Way Binding [(ngModel)]
 
@@ -1453,8 +1427,6 @@ Status Langganan: Ya ✅
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Dasar Reactive Forms (FormControl & FormGroup Sederhana)
 
 ### Konsep
@@ -1555,8 +1527,6 @@ Password:       [                      ]
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Dependency Injection & Service Modern dengan inject()
 
 ### Konsep
@@ -1636,8 +1606,6 @@ export class OrderButtonComponent {
 **Kunci:** `inject()` mengambil instance Service yang dikelola secara terpusat oleh Angular Dependency Injection.
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Mengambil Data Backend dengan HTTP Client Dasar
 
@@ -1774,8 +1742,6 @@ Daftar Pengguna dari Server
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Lifecycle Hooks Esensial (ngOnInit & ngOnDestroy)
 
 ### Konsep
@@ -1864,8 +1830,6 @@ export class TimerDemoComponent implements OnInit, OnDestroy {
 **Kunci:** Gunakan `ngOnInit` untuk inisialisasi data dan `ngOnDestroy` untuk membersihkan proses latar belakang agar tidak terjadi *memory leak*.
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 Content Projection Sederhana (<ng-content>)
 
@@ -1957,8 +1921,6 @@ export class HomePageComponent {}
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan, Cheat Code 10 Detik & Tabel Komparasi
 
 ### Peta Ingatan Konsep Angular Modern
@@ -2019,8 +1981,6 @@ inject(Service)             → mengambil service singleton tanpa constructor
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🛠️ Mini Project: Task & Habit Tracker CLI-Like Web App
 
@@ -2309,8 +2269,6 @@ export class AppComponent {
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🧭 Urutan Belajar yang Disarankan & Referensi Resmi
 

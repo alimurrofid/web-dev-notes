@@ -75,45 +75,43 @@ Custom Type Guard (val is T)  → fungsi predikat boolean yang mengajarkan compi
 
 ### 🟢 Fundamental
 
-1. [Pengenalan TypeScript 5 & Mental Model Static Typing](#bagian-1)
-2. [Tooling Kompilator `tsc` & Konfigurasi `tsconfig.json`](#bagian-2)
-3. [Tipe Primitif Inti](#bagian-3)
-4. [Tipe Khusus: `any`, `unknown`, `never`, dan `void`](#bagian-4)
-5. [Type Inference vs Explicit Type Annotation](#bagian-5)
-6. [Arrays & Tuples](#bagian-6)
-7. [Object Types & Properti Modifiers](#bagian-7)
-8. [Type Aliases (`type`)](#bagian-8)
+1. [Pengenalan TypeScript 5 & Mental Model Static Typing](#1--pengenalan-typescript-5--mental-model-static-typing)
+2. [Tooling Kompilator `tsc` & Konfigurasi `tsconfig.json`](#2--tooling-kompilator-tsc--konfigurasi-tsconfigjson)
+3. [Tipe Primitif Inti](#3--tipe-primitif-inti)
+4. [Tipe Khusus: `any`, `unknown`, `never`, dan `void`](#4--tipe-khusus-any-unknown-never-dan-void)
+5. [Type Inference vs Explicit Type Annotation](#5--type-inference-vs-explicit-type-annotation)
+6. [Arrays & Tuples](#6--arrays--tuples)
+7. [Object Types & Properti Modifiers](#7--object-types--properti-modifiers)
+8. [Type Aliases (`type`)](#8--type-aliases-type)
 
 ### 🟡 Lanjutan
 
-9. [Interfaces (`interface`) & Pewarisan (`extends`)](#bagian-9)
-10. [Perbandingan Mendalam: Kapan Memilih `type` vs `interface`](#bagian-10)
-11. [Union Types (`|`) & Intersection Types (`&`)](#bagian-11)
-12. [Literal Types & Const Assertions (`as const`)](#bagian-12)
-13. [Discriminated Unions (Tagged Unions)](#bagian-13)
-14. [Anotasi Fungsi: Parameters, Return Types & Optional Params](#bagian-14)
-15. [Rest Parameters & Function Type Signatures](#bagian-15)
-16. [Function Overloading](#bagian-16)
-17. [Type Assertions (`as Type`) & Non-null Assertion Operator (`!`)](#bagian-17)
+9. [Interfaces (`interface`) & Pewarisan (`extends`)](#9--interfaces-interface--pewarisan-extends)
+10. [Perbandingan Mendalam: Kapan Memilih `type` vs `interface`](#10--perbandingan-mendalam-kapan-memilih-type-vs-interface)
+11. [Union Types (`|`) & Intersection Types (`&`)](#11--union-types---intersection-types-)
+12. [Literal Types & Const Assertions (`as const`)](#12--literal-types--const-assertions-as-const)
+13. [Discriminated Unions (Tagged Unions)](#13--discriminated-unions-tagged-unions)
+14. [Anotasi Fungsi: Parameters, Return Types & Optional Params](#14--anotasi-fungsi-parameters-return-types--optional-params)
+15. [Rest Parameters & Function Type Signatures](#15--rest-parameters--function-type-signatures)
+16. [Function Overloading](#16--function-overloading)
+17. [Type Assertions (`as Type`) & Non-null Assertion Operator (`!`)](#17--type-assertions-as-type--non-null-assertion-operator-)
 
 ### 🔴 Advanced / Operasional
 
-18. [Type Narrowing Dasar dengan `typeof`, `instanceof`, dan Operator `in`](#bagian-18)
-19. [Custom User-Defined Type Guards (`value is Type`)](#bagian-19)
-20. [Assertion Functions (`asserts value is Type`)](#bagian-20)
+18. [Type Narrowing Dasar dengan `typeof`, `instanceof`, dan Operator `in`](#18--type-narrowing-dasar-dengan-typeof-instanceof-dan-operator-in)
+19. [Custom User-Defined Type Guards (`value is Type`)](#19--custom-user-defined-type-guards-value-is-type)
+20. [Assertion Functions (`asserts value is Type`)](#20--assertion-functions-asserts-value-is-type)
 
 ### 🛠️ Referensi & Praktik
 
-21. [Peta Ingatan Cepat](#bagian-21)
-22. [Tabel Ringkasan](#bagian-22)
-23. [Cheat Code TypeScript Dasar 10 Detik](#bagian-23)
-24. [Urutan Belajar yang Disarankan](#bagian-24)
-25. [Mini Project: Production-Ready Type-Safe User Management, Role-Based Access & E-Commerce Order Processing Engine](#bagian-25)
-26. [Referensi Resmi](#bagian-26)
+21. [Peta Ingatan Cepat](#21-️-peta-ingatan-cepat)
+22. [Tabel Ringkasan](#22--tabel-ringkasan)
+23. [Cheat Code TypeScript Dasar 10 Detik](#23--cheat-code-typescript-dasar-10-detik)
+24. [Urutan Belajar yang Disarankan](#24--urutan-belajar-yang-disarankan)
+25. [Mini Project: Production-Ready Type-Safe User Management, Role-Based Access & E-Commerce Order Processing Engine](#25-️-mini-project-production-ready-type-safe-user-management-role-based-access--e-commerce-order-processing-engine)
+26. [Referensi Resmi](#26--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan TypeScript 5 & Mental Model Static Typing
 
@@ -146,8 +144,6 @@ TypeScript = JavaScript + Static Type System (Di-compile menjadi JavaScript murn
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Tooling Kompilator `tsc` & Konfigurasi `tsconfig.json`
 
@@ -188,8 +184,6 @@ strict: true     → opsi wajib tsconfig.json untuk mengaktifkan keamanan tipe m
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Tipe Primitif Inti
 
 #### Konsep
@@ -222,8 +216,6 @@ string, number, boolean, null, undefined, bigint, symbol → 7 tipe data primiti
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Tipe Khusus: `any`, `unknown`, `never`, dan `void`
 
@@ -269,8 +261,6 @@ never   → tipe data untuk fungsi yang melempar error atau percabangan yang tid
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Type Inference vs Explicit Type Annotation
 
 #### Konsep
@@ -301,8 +291,6 @@ let x: number = 10 → Explicit Type Annotation (dinyatakan manual)
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Arrays & Tuples
 
@@ -336,8 +324,6 @@ readonly T[]         → array yang terkunci dari mutasi method push/pop
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Object Types & Properti Modifiers
 
@@ -374,8 +360,6 @@ const laptop: Product = {
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Type Aliases (`type`)
 
 #### Konsep
@@ -404,8 +388,6 @@ type TypeName = Definition; → membuat alias nama untuk sembarang tipe data di 
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Interfaces (`interface`) & Pewarisan (`extends`)
 
@@ -448,8 +430,6 @@ interface ChildInterface extends ParentInterface { newProp: type } → mewarisi 
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Perbandingan Mendalam: Kapan Memilih `type` vs `interface`
 
@@ -498,8 +478,6 @@ type      → gunakan untuk union literals, tuples, primitif, dan transformasi t
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Union Types (`|`) & Intersection Types (`&`)
 
 #### Konsep
@@ -542,8 +520,6 @@ typeA & typeB → Intersection (menggabungkan seluruh properti kedua tipe menjad
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Literal Types & Const Assertions (`as const`)
 
 #### Konsep
@@ -580,8 +556,6 @@ const obj = { k: "v" } as const     → mengunci seluruh nilai properti objek me
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Discriminated Unions (Tagged Unions)
 
@@ -632,8 +606,6 @@ Discriminated Union → union objek yang memiliki satu properti tag pembeda lite
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Anotasi Fungsi: Parameters, Return Types & Optional Params
 
 #### Konsep
@@ -660,8 +632,6 @@ function fn(param1: type, param2?: optType): returnType { return val; }
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Rest Parameters & Function Type Signatures
 
@@ -694,8 +664,6 @@ type CallbackType = (arg: string) => void       → signature tipe fungsi callba
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Function Overloading
 
@@ -738,8 +706,6 @@ function fn(a: string): string; function fn(a: number): number; function fn(a: a
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Type Assertions (`as Type`) & Non-null Assertion Operator (`!`)
 
 #### Konsep
@@ -773,8 +739,6 @@ val!                → Non-null Assertion (menghilangkan kemungkinan null / und
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 Type Narrowing Dasar dengan `typeof`, `instanceof`, dan Operator `in`
 
@@ -820,8 +784,6 @@ val instanceof MyClass   → narrowing untuk instance Class objek
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🔴 Custom User-Defined Type Guards (`value is Type`)
 
@@ -872,8 +834,6 @@ function isUser(val: unknown): val is User { return ...; } → Custom Type Guard
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Assertion Functions (`asserts value is Type`)
 
 #### Konsep
@@ -912,8 +872,6 @@ function assert(val: unknown): asserts val is Type { if (!valid) throw Error(); 
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -929,8 +887,6 @@ TYPE SYSTEM CORE             OBJECTS & CONTRACTS         TYPE NARROWING & GUARDS
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 📚 Tabel Ringkasan
 
@@ -948,8 +904,6 @@ TYPE SYSTEM CORE             OBJECTS & CONTRACTS         TYPE NARROWING & GUARDS
 | `asserts val is T`| Assertion | Memvalidasi dan menyempitkan tipe pada baris-baris eksekusi berikutnya |
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. ⚡ Cheat Code TypeScript Dasar 10 Detik
 
@@ -970,8 +924,6 @@ type AppRole = typeof APP_ROLES[number] // 'ADMIN' | 'CUSTOMER' | 'STAFF'
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🧭 Urutan Belajar yang Disarankan
 
@@ -1000,8 +952,6 @@ Langkah 5: Siap Melangkah ke TypeScript OOP, Generics & Utility Types!
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🏗️ Mini Project: Production-Ready Type-Safe User Management, Role-Based Access & E-Commerce Order Processing Engine
 
@@ -1198,8 +1148,6 @@ console.log(OrderProcessor.shipOrder(myOrder, adminUser))
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🔗 Referensi Resmi
 

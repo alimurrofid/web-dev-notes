@@ -69,52 +69,50 @@ LazyCollection  → pemrosesan data stream per baris menggunakan PHP Generator u
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Laravel Collection](#bagian-1)
-2. [Membuat Collection](#bagian-2)
-3. [Iterasi & Perulangan (For Each)](#bagian-3)
-4. [Transformasi Dasar (Mapping)](#bagian-4)
-5. [Penyaringan Data (Filtering)](#bagian-5)
-6. [Mengambil Data (Retrieval)](#bagian-6)
-7. [Pemeriksaan & Pengujian (Checking & Testing)](#bagian-7)
-8. [Pengurutan (Ordering & Sorting)](#bagian-8)
-9. [Pengelompokan (Grouping & Keying)](#bagian-9)
-10. [Kalkulasi & Agregasi (Aggregates)](#bagian-10)
+1. [Pengenalan Laravel Collection](#1--pengenalan-laravel-collection)
+2. [Membuat Collection](#2--membuat-collection)
+3. [Iterasi & Perulangan (For Each)](#3--iterasi--perulangan-for-each)
+4. [Transformasi Dasar (Mapping)](#4--transformasi-dasar-mapping)
+5. [Penyaringan Data (Filtering)](#5--penyaringan-data-filtering)
+6. [Mengambil Data (Retrieval)](#6--mengambil-data-retrieval)
+7. [Pemeriksaan & Pengujian (Checking & Testing)](#7--pemeriksaan--pengujian-checking--testing)
+8. [Pengurutan (Ordering & Sorting)](#8--pengurutan-ordering--sorting)
+9. [Pengelompokan (Grouping & Keying)](#9--pengelompokan-grouping--keying)
+10. [Kalkulasi & Agregasi (Aggregates)](#10--kalkulasi--agregasi-aggregates)
 
 ### 🟡 Lanjutan & Manipulasi Kompleks
 
-11. [Manipulasi Elemen Array](#bagian-11)
-12. [Partisi & Pembagian Data (Partitioning)](#bagian-12)
-13. [Struktur Bersarang (Flattening & Collapsing)](#bagian-13)
-14. [Penggabungan Paralel (Zipping)](#bagian-14)
-15. [Pemotongan Koleksi (Slicing & Memory Pagination)](#bagian-15)
-16. [Mengambil & Melompati (Take & Skip)](#bagian-16)
-17. [Pecahan Data (Chunking & Sliding)](#bagian-17)
-18. [Representasi String & Serialisasi](#bagian-18)
-19. [Akumulasi & Reduksi Data (Reduce)](#bagian-19)
-20. [Operasi Himpunan (Set Operations: Diff & Intersect)](#bagian-20)
-21. [Penggabungan Koleksi (Merging & Combining)](#bagian-21)
-22. [Eksekusi Kondisional & Utility Pipeline](#bagian-22)
-23. [Randomisasi Data](#bagian-23)
-24. [Collection Macros (Extending Collection)](#bagian-24)
+11. [Manipulasi Elemen Array](#11--manipulasi-elemen-array)
+12. [Partisi & Pembagian Data (Partitioning)](#12--partisi--pembagian-data-partitioning)
+13. [Struktur Bersarang (Flattening & Collapsing)](#13--struktur-bersarang-flattening--collapsing)
+14. [Penggabungan Paralel (Zipping)](#14--penggabungan-paralel-zipping)
+15. [Pemotongan Koleksi (Slicing & Memory Pagination)](#15--pemotongan-koleksi-slicing--memory-pagination)
+16. [Mengambil & Melompati (Take & Skip)](#16--mengambil--melompati-take--skip)
+17. [Pecahan Data (Chunking & Sliding)](#17--pecahan-data-chunking--sliding)
+18. [Representasi String & Serialisasi](#18--representasi-string--serialisasi)
+19. [Akumulasi & Reduksi Data (Reduce)](#19--akumulasi--reduksi-data-reduce)
+20. [Operasi Himpunan (Set Operations: Diff & Intersect)](#20--operasi-himpunan-set-operations-diff--intersect)
+21. [Penggabungan Koleksi (Merging & Combining)](#21--penggabungan-koleksi-merging--combining)
+22. [Eksekusi Kondisional & Utility Pipeline](#22--eksekusi-kondisional--utility-pipeline)
+23. [Randomisasi Data](#23--randomisasi-data)
+24. [Collection Macros (Extending Collection)](#24--collection-macros-extending-collection)
 
 ### 🔴 Performance & Operasional
 
-25. [Lazy Collection: Pengolahan Dataset Raksasa](#bagian-25)
-26. [Perbandingan Performa: Collection vs Array Native vs SQL Query](#bagian-26)
-27. [Perbedaan Support Collection vs Eloquent Collection](#bagian-27)
+25. [Lazy Collection: Pengolahan Dataset Raksasa](#25--lazy-collection-pengolahan-dataset-raksasa)
+26. [Perbandingan Performa: Collection vs Array Native vs SQL Query](#26--perbandingan-performa-collection-vs-array-native-vs-sql-query)
+27. [Perbedaan Support Collection vs Eloquent Collection](#27--perbedaan-support-collection-vs-eloquent-collection)
 
 ### 🛠️ Referensi & Praktik
 
-28. [Peta Ingatan Cepat](#bagian-28)
-29. [Tabel Ringkasan](#bagian-29)
-30. [Cheat Code Collection 10 Detik](#bagian-30)
-31. [Urutan Belajar yang Disarankan](#bagian-31)
-32. [Mini Project: Pengolahan Laporan Penjualan & Analitik E-Commerce](#bagian-32)
-33. [Referensi Resmi](#bagian-33)
+28. [Peta Ingatan Cepat](#28-️-peta-ingatan-cepat)
+29. [Tabel Ringkasan](#29--tabel-ringkasan)
+30. [Cheat Code Collection 10 Detik](#30--cheat-code-collection-10-detik)
+31. [Urutan Belajar yang Disarankan](#31--urutan-belajar-yang-disarankan)
+32. [Mini Project: Pengolahan Laporan Penjualan & Analitik E-Commerce](#32-️-mini-project-pengolahan-laporan-penjualan--analitik-e-commerce)
+33. [Referensi Resmi](#33--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Laravel Collection
 
@@ -196,8 +194,6 @@ $collection->values()   → mereset index numerik array menjadi berurutan 0, 1, 
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Membuat Collection
 
 #### Konsep
@@ -278,8 +274,6 @@ Collection::range(start, end)        → membuat koleksi deret angka dari start 
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Iterasi & Perulangan (For Each)
 
 #### Konsep
@@ -354,8 +348,6 @@ $collection->eachSpread(fn(arg1, arg2) => ...)  → iterasi array bersarang lang
 ✅ Gunakan `map()` jika ingin mengubah dan menghasilkan koleksi baru. Gunakan `each()` murni untuk *side effect*.
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Transformasi Dasar (Mapping)
 
@@ -466,8 +458,6 @@ $collection->mapSpread(fn(arg1, arg2) => ...)   → mapping array bersarang ke p
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Penyaringan Data (Filtering)
 
 #### Konsep
@@ -565,8 +555,6 @@ $collection->duplicates('column')                 → ambil kumpulan nilai yang 
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Mengambil Data (Retrieval)
 
 #### Konsep
@@ -657,8 +645,6 @@ $collection->sole('column', 'value')                  → ambil tepat 1 item (er
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Pemeriksaan & Pengujian (Checking & Testing)
 
 #### Konsep
@@ -737,8 +723,6 @@ $collection->search('value')            → cari posisi index elemen (return ind
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Pengurutan (Ordering & Sorting)
 
@@ -824,8 +808,6 @@ $collection->reverse()                  → balikkan urutan isi koleksi
 - Selalu sambungkan dengan `->values()` setelah pemanggilan `sort()` atau `sortBy()` pada array terindeks numerik untuk mereset kunci index agar kembali rapi mulai dari `0`.
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟢 Pengelompokan (Grouping & Keying)
 
@@ -924,8 +906,6 @@ $collection->countBy(callback)          → hitung jumlah frekuensi kemunculan p
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟢 Kalkulasi & Agregasi (Aggregates)
 
 #### Konsep
@@ -995,8 +975,6 @@ $collection->percentage(callback)      → persentase elemen yang memenuhi kondi
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Manipulasi Elemen Array
 
@@ -1069,8 +1047,6 @@ $collection->transform(callback)       → mutasi setiap elemen langsung di temp
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Partisi & Pembagian Data (Partitioning)
 
 #### Konsep
@@ -1129,8 +1105,6 @@ Siswa Remedial:
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Struktur Bersarang (Flattening & Collapsing)
 
@@ -1199,8 +1173,6 @@ $collection->crossJoin([array1, array2])     → buat kombinasi silang perkalian
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Penggabungan Paralel (Zipping)
 
 #### Konsep
@@ -1240,8 +1212,6 @@ $collection->zip([array1, array2]) → pasangkan elemen antar koleksi berdasarka
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Pemotongan Koleksi (Slicing & Memory Pagination)
 
@@ -1295,8 +1265,6 @@ $collection->splitIn(number_of_groups)  → bagi koleksi persis menjadi N grup
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Mengambil & Melompati (Take & Skip)
 
@@ -1358,8 +1326,6 @@ $collection->skipUntil(callback)    → lompati item hingga kondisi callback men
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🟡 Pecahan Data (Chunking & Sliding)
 
@@ -1423,8 +1389,6 @@ $collection->sliding(size, step)    → buat jendela geser berurutan untuk anali
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🟡 Representasi String & Serialisasi
 
 #### Konsep
@@ -1474,8 +1438,6 @@ $collection->toArray()                      → ubah koleksi menjadi array PHP n
 ```
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🟡 Akumulasi & Reduksi Data (Reduce)
 
@@ -1533,8 +1495,6 @@ $collection->scan(fn(carry, item) => ..., initial)   → akumulasi koleksi denga
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🟡 Operasi Himpunan (Set Operations: Diff & Intersect)
 
 #### Konsep
@@ -1591,8 +1551,6 @@ $collection->intersectByKeys([array]) → cari irisan berdasarkan kecocokan key 
 
 ---
 
-<a id="bagian-21"></a>
-
 ## 21. 🟡 Penggabungan Koleksi (Merging & Combining)
 
 #### Konsep
@@ -1641,8 +1599,6 @@ $collection->union([array])          → gabungkan array tanpa menimpa key yang 
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🟡 Eksekusi Kondisional & Utility Pipeline
 
@@ -1711,8 +1667,6 @@ $collection->pipe(callback)                             → lemparkan seluruh ko
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🟡 Randomisasi Data
 
 #### Konsep
@@ -1742,8 +1696,6 @@ $collection->shuffle()      → acak seluruh urutan elemen di dalam koleksi
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🟡 Collection Macros (Extending Collection)
 
@@ -1798,8 +1750,6 @@ Collection::macro('methodName', fn) → daftarkan custom method baru ke Laravel 
 ```
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. 🔴 Lazy Collection: Pengolahan Dataset Raksasa
 
@@ -1877,8 +1827,6 @@ Model::cursor()            → ambil data query database sebagai LazyCollection 
 
 ---
 
-<a id="bagian-26"></a>
-
 ## 26. 🔴 Perbandingan Performa: Collection vs Array Native vs SQL Query
 
 #### Konsep
@@ -1912,8 +1860,6 @@ Dataset file raksasa → gunakan LazyCollection (Stream Generator)
 ```
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🔴 Perbedaan Support Collection vs Eloquent Collection
 
@@ -1949,8 +1895,6 @@ Eloquent Collection  → pembungkus kumpulan Model Eloquent (memiliki method loa
 
 ---
 
-<a id="bagian-28"></a>
-
 ## 28. 🛠️ Peta Ingatan Cepat
 
 #### A. Peta Mental Fungsi Utama Collection
@@ -1981,8 +1925,6 @@ Eloquent Collection  → pembungkus kumpulan Model Eloquent (memiliki method loa
 ```
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 📚 Tabel Ringkasan
 
@@ -2032,8 +1974,6 @@ Eloquent Collection  → pembungkus kumpulan Model Eloquent (memiliki method loa
 
 ---
 
-<a id="bagian-30"></a>
-
 ## 30. ⚡ Cheat Code Collection 10 Detik
 
 ```php
@@ -2058,8 +1998,6 @@ $grandTotal = collect($cart)->sum(fn($item) => $item['qty'] * $item['price']);
 ```
 
 ---
-
-<a id="bagian-31"></a>
 
 ## 31. 🧭 Urutan Belajar yang Disarankan
 
@@ -2093,8 +2031,6 @@ $grandTotal = collect($cart)->sum(fn($item) => $item['qty'] * $item['price']);
 ```
 
 ---
-
-<a id="bagian-32"></a>
 
 ## 32. 🏗️ Mini Project: Pengolahan Laporan Penjualan & Analitik E-Commerce
 
@@ -2276,8 +2212,6 @@ PAGINASI TRANSAKSI TERBARU (Halaman 1):
 ```
 
 ---
-
-<a id="bagian-33"></a>
 
 ## 33. 🔗 Referensi Resmi
 

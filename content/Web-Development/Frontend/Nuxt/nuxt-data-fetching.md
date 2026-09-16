@@ -74,43 +74,41 @@ createError(options)    → fungsi utilitas untuk melempar respon error HTTP ter
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Universal Data Fetching di Nuxt 3 & Masalah Double Fetching](#bagian-1)
-2. [Perbedaan Fundamental `useFetch` vs `useAsyncData` vs `$fetch`](#bagian-2)
-3. [Composable `useFetch` Dasar](#bagian-3)
-4. [Opsi Kunci `useFetch` untuk Kinerja Optimal](#bagian-4)
-5. [Composable `useAsyncData` untuk Kasus Lanjutan](#bagian-5)
-6. [Mekanisme Caching & Deduplication Berbasis `key`](#bagian-6)
-7. [Re-fetching Otomatis Berbasis Reaktivitas dengan Opsi `watch`](#bagian-7)
-8. [Eksekusi Manual On-Demand dengan `immediate: false` & `execute()`](#bagian-8)
+1. [Pengenalan Universal Data Fetching di Nuxt 3 & Masalah Double Fetching](#1--pengenalan-universal-data-fetching-di-nuxt-3--masalah-double-fetching)
+2. [Perbedaan Fundamental `useFetch` vs `useAsyncData` vs `$fetch`](#2--perbedaan-fundamental-usefetch-vs-useasyncdata-vs-fetch)
+3. [Composable `useFetch` Dasar](#3--composable-usefetch-dasar)
+4. [Opsi Kunci `useFetch` untuk Kinerja Optimal](#4--opsi-kunci-usefetch-untuk-kinerja-optimal)
+5. [Composable `useAsyncData` untuk Kasus Lanjutan](#5--composable-useasyncdata-untuk-kasus-lanjutan)
+6. [Mekanisme Caching & Deduplication Berbasis `key`](#6--mekanisme-caching--deduplication-berbasis-key)
+7. [Re-fetching Otomatis Berbasis Reaktivitas dengan Opsi `watch`](#7--re-fetching-otomatis-berbasis-reaktivitas-dengan-opsi-watch)
+8. [Eksekusi Manual On-Demand dengan `immediate: false` & `execute()`](#8--eksekusi-manual-on-demand-dengan-immediate-false--execute)
 
 ### 🟡 Lanjutan
 
-9. [Pengenalan Nitro Server Engine & Direktori `server/api/`](#bagian-9)
-10. [Menulis Endpoint API Pertama dengan `defineEventHandler`](#bagian-10)
-11. [Method Matching pada Server Routes](#bagian-11)
-12. [Membaca Query Parameters dengan `getQuery(event)`](#bagian-12)
-13. [Membaca Request Body JSON dengan `readBody(event)`](#bagian-13)
-14. [Dynamic Server Routes & URL Params dengan `getRouterParam(event, 'id')`](#bagian-14)
-15. [Penanganan Error Server Terstruktur dengan `createError`](#bagian-15)
-16. [Server Middleware di Folder `server/middleware/`](#bagian-16)
+9. [Pengenalan Nitro Server Engine & Direktori `server/api/`](#9--pengenalan-nitro-server-engine--direktori-serverapi)
+10. [Menulis Endpoint API Pertama dengan `defineEventHandler`](#10--menulis-endpoint-api-pertama-dengan-defineeventhandler)
+11. [Method Matching pada Server Routes](#11--method-matching-pada-server-routes)
+12. [Membaca Query Parameters dengan `getQuery(event)`](#12--membaca-query-parameters-dengan-getqueryevent)
+13. [Membaca Request Body JSON dengan `readBody(event)`](#13--membaca-request-body-json-dengan-readbodyevent)
+14. [Dynamic Server Routes & URL Params dengan `getRouterParam(event, 'id')`](#14--dynamic-server-routes--url-params-dengan-getrouterparamevent-id)
+15. [Penanganan Error Server Terstruktur dengan `createError`](#15--penanganan-error-server-terstruktur-dengan-createerror)
+16. [Server Middleware di Folder `server/middleware/`](#16--server-middleware-di-folder-servermiddleware)
 
 ### 🔴 Advanced / Operasional
 
-17. [Nitro Server Storage & Cached Event Handlers](#bagian-17)
-18. [Mengonsumsi Server API Internal dari Frontend Nuxt](#bagian-18)
+17. [Nitro Server Storage & Cached Event Handlers](#17--nitro-server-storage--cached-event-handlers)
+18. [Mengonsumsi Server API Internal dari Frontend Nuxt](#18--mengonsumsi-server-api-internal-dari-frontend-nuxt)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Nuxt Data Fetching 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready Full-Stack Product Management & Search API Web App](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Nuxt Data Fetching 10 Detik](#21--cheat-code-nuxt-data-fetching-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready Full-Stack Product Management & Search API Web App](#23-️-mini-project-production-ready-full-stack-product-management--search-api-web-app)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Universal Data Fetching di Nuxt 3 & Masalah Double Fetching
 
@@ -144,8 +142,6 @@ SSR Data Payload Transfer → mekanisme Nuxt mengoper hasil fetch server ke brow
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Perbedaan Fundamental `useFetch` vs `useAsyncData` vs `$fetch`
 
 #### Konsep
@@ -170,8 +166,6 @@ $fetch()       → kirim form POST/PUT/DELETE di dalam fungsi event handler (onC
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Composable `useFetch` Dasar
 
@@ -228,8 +222,6 @@ const { data, pending, error, refresh } = await useFetch('/api/url')
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Opsi Kunci `useFetch` untuk Kinerja Optimal
 
 #### Konsep
@@ -270,8 +262,6 @@ query: { key: val }      → menyematkan parameter query string ke URL request
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Composable `useAsyncData` untuk Kasus Lanjutan
 
@@ -316,8 +306,6 @@ useAsyncData('unique-cache-key', async () => { return await customFetcher(); })
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Mekanisme Caching & Deduplication Berbasis `key`
 
 #### Konsep
@@ -338,8 +326,6 @@ Deduplication Caching → Nuxt menggabungkan pemanggilan endpoint yang sama menj
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Re-fetching Otomatis Berbasis Reaktivitas dengan Opsi `watch`
 
@@ -388,8 +374,6 @@ watch: [reactiveVariable] → otomatis memicu re-fetch data saat variabel reakti
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Eksekusi Manual On-Demand dengan `immediate: false` & `execute()`
 
 #### Konsep
@@ -437,8 +421,6 @@ immediate: false + execute() → menonaktifkan auto-fetch awal dan memicu pemang
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Pengenalan Nitro Server Engine & Direktori `server/api/`
 
 #### Konsep
@@ -457,8 +439,6 @@ server/api/ → folder khusus penampung endpoint backend RESTful API berbasis Ni
 ```
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟡 Menulis Endpoint API Pertama dengan `defineEventHandler`
 
@@ -500,8 +480,6 @@ export default defineEventHandler((event) => { return { status: 'success' }; })
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Method Matching pada Server Routes
 
 #### Konsep
@@ -542,8 +520,6 @@ filename.get.ts / filename.post.ts → membatasi HTTP method yang diterima endpo
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Membaca Query Parameters dengan `getQuery(event)`
 
 #### Konsep
@@ -575,8 +551,6 @@ const query = getQuery(event); const keyword = query.keyword; → membaca URL qu
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Membaca Request Body JSON dengan `readBody(event)`
 
@@ -615,8 +589,6 @@ const body = await readBody(event); → mem-parsing JSON payload body pada reque
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Dynamic Server Routes & URL Params dengan `getRouterParam(event, 'id')`
 
 #### Konsep
@@ -649,8 +621,6 @@ const id = getRouterParam(event, 'id') → mengekstrak parameter dinamis [id] da
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Penanganan Error Server Terstruktur dengan `createError`
 
@@ -689,8 +659,6 @@ throw createError({ statusCode: 404, statusMessage: 'Not Found' }) → melempar 
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Server Middleware di Folder `server/middleware/`
 
 #### Konsep
@@ -722,8 +690,6 @@ server/middleware/ → middleware server global yang mencegat setiap request mas
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Nitro Server Storage & Cached Event Handlers
 
 #### Konsep
@@ -754,8 +720,6 @@ defineCachedEventHandler(fn, { maxAge: 600 }) → meng-cache respon endpoint di 
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Mengonsumsi Server API Internal dari Frontend Nuxt
 
 #### Konsep
@@ -774,8 +738,6 @@ Direct Function Call SSR → pemanggilan /api internal saat SSR dieksekusi di me
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -792,8 +754,6 @@ UNIVERSAL FETCH (CLIENT/SSR)  NITRO SERVER API (server/api)   H3 SERVER UTILITIE
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 📚 Tabel Ringkasan
 
 | Fungsi / Composable | Lingkungan | Kegunaan & Karakteristik Utama |
@@ -809,8 +769,6 @@ UNIVERSAL FETCH (CLIENT/SSR)  NITRO SERVER API (server/api)   H3 SERVER UTILITIE
 | `defineCachedEventHandler` | Server Nitro | Meng-cache output respon server di memori |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Nuxt Data Fetching 10 Detik
 
@@ -841,8 +799,6 @@ export default defineEventHandler(async (event) => {
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -871,8 +827,6 @@ Langkah 5: Siap Melangkah ke Nuxt State Management & Auth Route Middleware!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready Full-Stack Product Management & Search API Web App
 
@@ -1098,8 +1052,6 @@ const handleAddProduct = async () => {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

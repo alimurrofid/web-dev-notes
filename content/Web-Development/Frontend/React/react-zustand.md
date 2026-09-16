@@ -72,43 +72,41 @@ getState()           → metode imperatif untuk membaca data store langsung dari
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Global State Management & Masalah Props Drilling di React](#bagian-1)
-2. [Evaluasi React Context API (`useContext`) vs Zustand](#bagian-2)
-3. [Pengenalan Zustand & Mental Model](#bagian-3)
-4. [Instalasi & Setup Dasar Zustand](#bagian-4)
-5. [Membuat Store Pertama dengan `create()`](#bagian-5)
-6. [Mengonsumsi Store di Komponen & Konsep State Selectors](#bagian-6)
-7. [Pembaruan State Objek & Array Immutability di Zustand](#bagian-7)
-8. [Mengakses State Terkini di Dalam Action dengan Parameter `get`](#bagian-8)
+1. [Pengenalan Global State Management & Masalah Props Drilling di React](#1--pengenalan-global-state-management--masalah-props-drilling-di-react)
+2. [Evaluasi React Context API (`useContext`) vs Zustand](#2--evaluasi-react-context-api-usecontext-vs-zustand)
+3. [Pengenalan Zustand & Mental Model](#3--pengenalan-zustand--mental-model)
+4. [Instalasi & Setup Dasar Zustand](#4--instalasi--setup-dasar-zustand)
+5. [Membuat Store Pertama dengan `create()`](#5--membuat-store-pertama-dengan-create)
+6. [Mengonsumsi Store di Komponen & Konsep State Selectors](#6--mengonsumsi-store-di-komponen--konsep-state-selectors)
+7. [Pembaruan State Objek & Array Immutability di Zustand](#7--pembaruan-state-objek--array-immutability-di-zustand)
+8. [Mengakses State Terkini di Dalam Action dengan Parameter `get`](#8--mengakses-state-terkini-di-dalam-action-dengan-parameter-get)
 
 ### 🟡 Lanjutan
 
-9. [Async Actions di Zustand](#bagian-9)
-10. [Auto-Sync LocalStorage dengan `persist` Middleware](#bagian-10)
-11. [Debugging State dengan Redux DevTools Middleware (`devtools`)](#bagian-11)
-12. [Menggabungkan Multiple Middleware](#bagian-12)
-13. [Immer Middleware untuk Mutasi State yang Lebih Mudah](#bagian-13)
-14. [Memisahkan Store Besar dengan Slices Pattern](#bagian-14)
-15. [Membaca & Mengubah State di Luar Komponen React](#bagian-15)
-16. [Menghindari Re-render Berlebihan dengan `useShallow`](#bagian-16)
+9. [Async Actions di Zustand](#9--async-actions-di-zustand)
+10. [Auto-Sync LocalStorage dengan `persist` Middleware](#10--auto-sync-localstorage-dengan-persist-middleware)
+11. [Debugging State dengan Redux DevTools Middleware (`devtools`)](#11--debugging-state-dengan-redux-devtools-middleware-devtools)
+12. [Menggabungkan Multiple Middleware](#12--menggabungkan-multiple-middleware)
+13. [Immer Middleware untuk Mutasi State yang Lebih Mudah](#13--immer-middleware-untuk-mutasi-state-yang-lebih-mudah)
+14. [Memisahkan Store Besar dengan Slices Pattern](#14--memisahkan-store-besar-dengan-slices-pattern)
+15. [Membaca & Mengubah State di Luar Komponen React](#15--membaca--mengubah-state-di-luar-komponen-react)
+16. [Menghindari Re-render Berlebihan dengan `useShallow`](#16--menghindari-re-render-berlebihan-dengan-useshallow)
 
 ### 🔴 Advanced / Operasional
 
-17. [Perbandingan Arsitektur: Client State (Zustand) vs Server State (TanStack React Query)](#bagian-17)
-18. [TypeScript Support Dasar di Zustand](#bagian-18)
+17. [Perbandingan Arsitektur: Client State (Zustand) vs Server State (TanStack React Query)](#17--perbandingan-arsitektur-client-state-zustand-vs-server-state-tanstack-react-query)
+18. [TypeScript Support Dasar di Zustand](#18--typescript-support-dasar-di-zustand)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Zustand 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready E-Commerce Shopping Cart & Auth State Manager Web App](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Zustand 10 Detik](#21--cheat-code-zustand-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready E-Commerce Shopping Cart & Auth State Manager Web App](#23-️-mini-project-production-ready-e-commerce-shopping-cart--auth-state-manager-web-app)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Global State Management & Masalah Props Drilling di React
 
@@ -145,8 +143,6 @@ Global State Store → wadah data terpusat independen yang dapat diakses langsun
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Evaluasi React Context API (`useContext`) vs Zustand
 
 #### Konsep
@@ -172,8 +168,6 @@ Zustand vs Context → Zustand unggul mutlak dalam performa re-render (selector-
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 Pengenalan Zustand & Mental Model
 
 #### Konsep
@@ -190,8 +184,6 @@ Zustand Store → custom hook mandiri yang menggabungkan deklarasi state dan fun
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Instalasi & Setup Dasar Zustand
 
@@ -211,8 +203,6 @@ npm install zustand → dependensi tunggal ringan tanpa dependensi peer yang mem
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Membuat Store Pertama dengan `create()`
 
@@ -251,8 +241,6 @@ export const useStore = create((set) => ({ key: value, action: () => set(fn) }))
 ```
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 Mengonsumsi Store di Komponen & Konsep State Selectors
 
@@ -293,8 +281,6 @@ const value = useStore((state) => state.specificProperty) → selector berlangga
 ```
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Pembaruan State Objek & Array Immutability di Zustand
 
@@ -344,8 +330,6 @@ set(state => ({ items: state.items.filter(i => i.id !== id) })) → menghapus it
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Mengakses State Terkini di Dalam Action dengan Parameter `get`
 
 #### Konsep
@@ -393,8 +377,6 @@ const currentState = get(); → membaca snapshot data state di dalam action func
 ```
 
 ---
-
-<a id="bagian-9"></a>
 
 ## 9. 🟡 Async Actions di Zustand
 
@@ -461,8 +443,6 @@ actionName: async () => { set({ loading: true }); const res = await fetch(); set
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Auto-Sync LocalStorage dengan `persist` Middleware
 
 #### Konsep
@@ -504,8 +484,6 @@ create(persist((set, get) => ({ ... }), { name: "storage-key" })) → auto-sync 
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Debugging State dengan Redux DevTools Middleware (`devtools`)
 
 #### Konsep
@@ -540,8 +518,6 @@ create(devtools((set) => ({ ... }), { name: "StoreName" })) → mengaktifkan deb
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Menggabungkan Multiple Middleware
 
@@ -580,8 +556,6 @@ create(devtools(persist((set) => ({ ... }), { name: "storage-key" }))) → mengg
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Immer Middleware untuk Mutasi State yang Lebih Mudah
 
@@ -622,8 +596,6 @@ create(immer((set) => ({ update: () => set(state => { state.nested.val = newVal 
 ```
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 Memisahkan Store Besar dengan Slices Pattern
 
@@ -675,8 +647,6 @@ Slices Pattern → memecah store raksasa menjadi potongan modul slice terpisah y
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Membaca & Mengubah State di Luar Komponen React
 
 #### Konsep
@@ -718,8 +688,6 @@ useStore.setState({ key: val }) → mengubah state secara imperatif dari luar ko
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Menghindari Re-render Berlebihan dengan `useShallow`
 
 #### Konsep
@@ -760,8 +728,6 @@ useStore(useShallow(state => ({ a: state.a, b: state.b }))) → mengekstrak bany
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Perbandingan Arsitektur: Client State (Zustand) vs Server State (TanStack React Query)
 
 #### Konsep
@@ -783,8 +749,6 @@ Client State (Zustand) = data UI milik browser | Server State (TanStack Query) =
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 TypeScript Support Dasar di Zustand
 
@@ -822,8 +786,6 @@ create<StoreInterface>()((set) => ({ ... })) → pola deklarasi typed store di T
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -840,8 +802,6 @@ CORE & SELECTORS             ASYNC & MIDDLEWARE            INTEGRASI & ADVANCED
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 📚 Tabel Ringkasan
 
 | Komponen / Fitur | Lokasi | Fungsi & Karakteristik Utama |
@@ -857,8 +817,6 @@ CORE & SELECTORS             ASYNC & MIDDLEWARE            INTEGRASI & ADVANCED
 | `getState()` | Instance Store | Membaca state di file JavaScript biasa di luar React |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Zustand 10 Detik
 
@@ -885,8 +843,6 @@ const add = useStore(state => state.add);
 ```
 
 ---
-
-<a id="bagian-22"></a>
 
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
@@ -916,8 +872,6 @@ Langkah 5: Siap Membangun Aplikasi Enterprise Skala Penuh!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready E-Commerce Shopping Cart & Auth State Manager Web App
 
@@ -1177,8 +1131,6 @@ export default function App() {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 

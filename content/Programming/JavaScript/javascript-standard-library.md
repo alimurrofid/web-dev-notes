@@ -67,47 +67,45 @@ Deep Clone       → Duplikasi struktur data kompleks hingga ke cabang terdalam 
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Standard Library & Global Objects](#bagian-1)
-2. [Number (Static Properties, Methods, & Formatting)](#bagian-2)
-3. [BigInt (Bilangan Bulat Arbitrer)](#bagian-3)
-4. [Math (Konstanta, Pembulatan, Trigonometri, & Random)](#bagian-4)
-5. [Boolean (Wrapper & Konversi Logika)](#bagian-5)
-6. [String (Manipulasi, Pencarian, Slicing, & Regex Method)](#bagian-6)
-7. [Array (Mutasi, Non-Mutasi, Iterasi, & Transformation)](#bagian-7)
-8. [Object (Static Methods: keys, values, entries, assign, freeze, seal)](#bagian-8)
-9. [JSON (Serialization, Deserialization, Replacer, & Reviver)](#bagian-9)
-10. [Date (Waktu, Timestamp, Formatting, & Operasi Tanggal)](#bagian-10)
+1. [Pengenalan Standard Library & Global Objects](#1--pengenalan-standard-library--global-objects)
+2. [Number (Static Properties, Methods, & Formatting)](#2--number-static-properties-methods--formatting)
+3. [BigInt (Bilangan Bulat Arbitrer)](#3--bigint-bilangan-bulat-arbitrer)
+4. [Math (Konstanta, Pembulatan, Trigonometri, & Random)](#4--math-konstanta-pembulatan-trigonometri--random)
+5. [Boolean (Wrapper & Konversi Logika)](#5--boolean-wrapper--konversi-logika)
+6. [String (Manipulasi, Pencarian, Slicing, & Regex Method)](#6--string-manipulasi-pencarian-slicing--regex-method)
+7. [Array (Mutasi, Non-Mutasi, Iterasi, & Transformation)](#7--array-mutasi-non-mutasi-iterasi--transformation)
+8. [Object (Static Methods: keys, values, entries, assign, freeze, seal)](#8--object-static-methods-keys-values-entries-assign-freeze-seal)
+9. [JSON (Serialization, Deserialization, Replacer, & Reviver)](#9--json-serialization-deserialization-replacer--reviver)
+10. [Date (Waktu, Timestamp, Formatting, & Operasi Tanggal)](#10--date-waktu-timestamp-formatting--operasi-tanggal)
 
 ### 🟡 Lanjutan
 
-11. [Map & WeakMap (Key-Value Collection Lanjutan)](#bagian-11)
-12. [Set & WeakSet (Koleksi Nilai Unik)](#bagian-12)
-13. [Symbol (Identifier Unik & Well-Known Symbols)](#bagian-13)
-14. [RegExp (Regular Expression Patterns & Modifiers)](#bagian-14)
-15. [URL & URLSearchParams (Parsing & Manipulasi Query URL)](#bagian-15)
-16. [URI Encoding (encodeURI, encodeURIComponent, decodeURI)](#bagian-16)
-17. [Base64 Encoding (btoa, atob, Buffer)](#bagian-17)
-18. [Internationalization API (Intl.NumberFormat, Intl.DateTimeFormat, Intl.RelativeTimeFormat)](#bagian-18)
+11. [Map & WeakMap (Key-Value Collection Lanjutan)](#11--map--weakmap-key-value-collection-lanjutan)
+12. [Set & WeakSet (Koleksi Nilai Unik)](#12--set--weakset-koleksi-nilai-unik)
+13. [Symbol (Identifier Unik & Well-Known Symbols)](#13--symbol-identifier-unik--well-known-symbols)
+14. [RegExp (Regular Expression Patterns & Modifiers)](#14--regexp-regular-expression-patterns--modifiers)
+15. [URL & URLSearchParams (Parsing & Manipulasi Query URL)](#15--url--urlsearchparams-parsing--manipulasi-query-url)
+16. [URI Encoding (encodeURI, encodeURIComponent, decodeURI)](#16--uri-encoding-encodeuri-encodeuricomponent-decodeuri)
+17. [Base64 Encoding (btoa, atob, Buffer)](#17--base64-encoding-btoa-atob-buffer)
+18. [Internationalization API (Intl.NumberFormat, Intl.DateTimeFormat, Intl.RelativeTimeFormat)](#18--internationalization-api-intlnumberformat-intldatetimeformat-intlrelativetimeformat)
 
 ### 🔴 Advanced / Operasional
 
-19. [Proxy (Interception & Traps: get, set, deleteProperty)](#bagian-19)
-20. [Reflect (Metaprogramming & Standard Object Operations)](#bagian-20)
-21. [Structured Clone (structuredClone Deep Copy)](#bagian-21)
-22. [Eval & Function Constructor (dan Risiko Keamanannya)](#bagian-22)
+19. [Proxy (Interception & Traps: get, set, deleteProperty)](#19--proxy-interception--traps-get-set-deleteproperty)
+20. [Reflect (Metaprogramming & Standard Object Operations)](#20--reflect-metaprogramming--standard-object-operations)
+21. [Structured Clone (structuredClone Deep Copy)](#21--structured-clone-structuredclone-deep-copy)
+22. [Eval & Function Constructor (dan Risiko Keamanannya)](#22--eval--function-constructor-dan-risiko-keamanannya)
 
 ### 🛠️ Referensi & Praktik
 
-23. [Peta Ingatan Cepat](#bagian-23)
-24. [Tabel Ringkasan](#bagian-24)
-25. [Cheat Code JavaScript Standard Library 10 Detik](#bagian-25)
-26. [Urutan Belajar yang Disarankan](#bagian-26)
-27. [Mini Project: Dashboard Pemrosesan Data & Utilitas Transaksi E-Commerce](#bagian-27)
-28. [Referensi Resmi](#bagian-28)
+23. [Peta Ingatan Cepat](#23-️-peta-ingatan-cepat)
+24. [Tabel Ringkasan](#24--tabel-ringkasan)
+25. [Cheat Code JavaScript Standard Library 10 Detik](#25--cheat-code-javascript-standard-library-10-detik)
+26. [Urutan Belajar yang Disarankan](#26--urutan-belajar-yang-disarankan)
+27. [Mini Project: Dashboard Pemrosesan Data & Utilitas Transaksi E-Commerce](#27-️-mini-project-dashboard-pemrosesan-data--utilitas-transaksi-e-commerce)
+28. [Referensi Resmi](#28--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Standard Library & Global Objects
 
@@ -189,8 +187,6 @@ globalThis       → Objek global universal di semua runtime JS (window di brows
 
 ---
 
-<a id="bagian-2"></a>
-
 ## 2. 🟢 Number (Static Properties, Methods, & Formatting)
 
 #### Konsep
@@ -271,8 +267,6 @@ number.toLocaleString()  → Memformat angka dengan pemisah ribuan lokal
 
 ---
 
-<a id="bagian-3"></a>
-
 ## 3. 🟢 BigInt (Bilangan Bulat Arbitrer)
 
 #### Konsep
@@ -341,8 +335,6 @@ BigInt(stringOrNumber) → Mengonversi string/angka menjadi tipe BigInt
 - ❌ Jangan pernah mengonversi BigInt kembali ke Number jika nilainya melebihi `Number.MAX_SAFE_INTEGER`, karena presisinya akan hilang.
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Math (Konstanta, Pembulatan, Trigonometri, & Random)
 
@@ -433,8 +425,6 @@ Math.floor(Math.random() * N) + 1 → Rumus umum angka acak 1 sampai N
 
 ---
 
-<a id="bagian-5"></a>
-
 ## 5. 🟢 Boolean (Wrapper & Konversi Logika)
 
 #### Konsep
@@ -515,8 +505,6 @@ array.filter(Boolean) → Trik ampuh membuang semua elemen falsy dari array
 - ❌ Jangan membuat objek boolean dengan kata kunci `new Boolean(false)`, karena objek pembungkus selalu bernilai *truthy* dan dapat menimbulkan bug logika yang fatal.
 
 ---
-
-<a id="bagian-6"></a>
 
 ## 6. 🟢 String (Manipulasi, Pencarian, Slicing, & Regex Method)
 
@@ -615,8 +603,6 @@ string.padStart(length, padChar)  → Mengisi karakter di depan hingga panjang t
 - ❌ Ingat bahwa semua tipe String di JavaScript bersifat **Immutable** (tidak dapat diubah di tempat); method string selalu mengembalikan string baru.
 
 ---
-
-<a id="bagian-7"></a>
 
 ## 7. 🟢 Array (Mutasi, Non-Mutasi, Iterasi, & Transformation)
 
@@ -719,8 +705,6 @@ array.find(callback)              → Mengembalikan elemen pertama yang cocok (a
 
 ---
 
-<a id="bagian-8"></a>
-
 ## 8. 🟢 Object (Static Methods: keys, values, entries, assign, freeze, seal)
 
 #### Konsep
@@ -819,8 +803,6 @@ Object.freeze(object)              → Mengunci objek agar tidak bisa dimutasi s
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟢 JSON (Serialization, Deserialization, Replacer, & Reviver)
 
 #### Konsep
@@ -906,8 +888,6 @@ JSON.parse(text, reviver)             → Mengubah string JSON menjadi objek JS 
 - ❌ Ketahuilah bahwa `JSON.stringify()` otomatis membuang properti bernilai `undefined`, `Function`, dan `Symbol`.
 
 ---
-
-<a id="bagian-10"></a>
 
 ## 10. 🟢 Date (Waktu, Timestamp, Formatting, & Operasi Tanggal)
 
@@ -997,8 +977,6 @@ date.toISOString()     → Mengubah tanggal ke format standar ISO 8601 (UTC)
 - ❌ Hati-hati terhadap jebakan `date.getMonth()`; ingat selalu bahwa bulan Januari bernilai `0`, bukan `1`.
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Map & WeakMap (Key-Value Collection Lanjutan)
 
@@ -1099,8 +1077,6 @@ map.size              → Mendapatkan total jumlah entri di dalam Map
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Set & WeakSet (Koleksi Nilai Unik)
 
 #### Konsep
@@ -1193,8 +1169,6 @@ set.size            → Jumlah elemen unik di dalam Set
 
 ---
 
-<a id="bagian-13"></a>
-
 ## 13. 🟡 Symbol (Identifier Unik & Well-Known Symbols)
 
 #### Konsep
@@ -1270,8 +1244,6 @@ Object.getOwnPropertySymbols() → Mengambil seluruh key properti bertipe Symbol
 - ❌ Jangan memanggil Symbol dengan kata kunci `new Symbol()`, karena Symbol adalah fungsi pembuat tipe primitif, bukan constructor.
 
 ---
-
-<a id="bagian-14"></a>
 
 ## 14. 🟡 RegExp (Regular Expression Patterns & Modifiers)
 
@@ -1365,8 +1337,6 @@ string.replace(regex, replacement) → Mengganti teks yang cocok dengan pola reg
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 URL & URLSearchParams (Parsing & Manipulasi Query URL)
 
 #### Konsep
@@ -1459,8 +1429,6 @@ url.searchParams.set(paramName, value) → Menetapkan atau memperbarui nilai par
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 URI Encoding (encodeURI, encodeURIComponent, decodeURI)
 
 #### Konsep
@@ -1536,8 +1504,6 @@ decodeURIComponent(encoded) → Mengembalikan nilai percent-encoded kembali ke t
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🟡 Base64 Encoding (btoa, atob, Buffer)
 
 #### Konsep
@@ -1607,8 +1573,6 @@ atob(base64) → Mengubah string Base64 kembali ke teks asli (ASCII to Binary)
 - ❌ Ingat bahwa Base64 adalah teknik **Encoding**, BUKAN **Enkripsi**; data Base64 dapat dibaca kembali oleh siapa saja dengan mudah tanpa kunci rahasia.
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🟡 Internationalization API (Intl.NumberFormat, Intl.DateTimeFormat, Intl.RelativeTimeFormat)
 
@@ -1695,8 +1659,6 @@ new Intl.RelativeTimeFormat(locale, options).format(n, u) → Format teks waktu 
 - ❌ Jangan membuat format mata uang manual menggunakan pemotongan string dan regex jika bisa diserahkan ke `Intl.NumberFormat` bawaan browser.
 
 ---
-
-<a id="bagian-19"></a>
 
 ## 19. 🔴 Proxy (Interception & Traps: get, set, deleteProperty)
 
@@ -1805,8 +1767,6 @@ trap.set(target, prop, value)                        → Wajib me-return boolean
 
 ---
 
-<a id="bagian-20"></a>
-
 ## 20. 🔴 Reflect (Metaprogramming & Standard Object Operations)
 
 #### Konsep
@@ -1896,8 +1856,6 @@ Reflect.deleteProperty(target, prop)        → Pengganti fungsi untuk operator 
 - ❌ Jangan memanggil `new Reflect()`, karena `Reflect` adalah objek statis murni.
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🔴 Structured Clone (structuredClone Deep Copy)
 
@@ -1989,8 +1947,6 @@ structuredClone(object) → Melakukan deep copy native untuk seluruh struktur da
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🔴 Eval & Function Constructor (dan Risiko Keamanannya)
 
 #### Konsep
@@ -2068,8 +2024,6 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
 
 ---
 
-<a id="bagian-23"></a>
-
 ## 23. 🛠️ Peta Ingatan Cepat
 
 #### Mental Model Pemilihan Built-in Object Berdasarkan Bentuk Data
@@ -2117,8 +2071,6 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 📚 Tabel Ringkasan
 
 | Kategori | API / Built-in | Contoh Kode | Penjelasan & Kegunaan |
@@ -2143,8 +2095,6 @@ eval(stringCode) → Mengeksekusi string teks sebagai kode JavaScript aktif (SAN
 | **Safety** | `Deep Clone` | `structuredClone(obj)` | Duplikasi objek mendalam (deep copy) native resmi |
 
 ---
-
-<a id="bagian-25"></a>
 
 ## 25. ⚡ Cheat Code JavaScript Standard Library 10 Detik
 
@@ -2177,8 +2127,6 @@ for (const [key, value] of Object.entries({ a: 1, b: 2 })) {
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 🧭 Urutan Belajar yang Disarankan
 
@@ -2220,8 +2168,6 @@ Untuk menguasai Standard Library JavaScript secara efisien dari operasi data har
 ```
 
 ---
-
-<a id="bagian-27"></a>
 
 ## 27. 🏗️ Mini Project: Dashboard Pemrosesan Data & Utilitas Transaksi E-Commerce
 
@@ -2426,8 +2372,6 @@ Standard Library Pipeline → Menggabungkan Map, Set, Intl, RegExp, Proxy, URL u
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🔗 Referensi Resmi
 

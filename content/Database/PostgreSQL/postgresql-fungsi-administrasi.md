@@ -75,49 +75,47 @@ VACUUM                    → proses pembersihan dead tuples (sampah baris usang
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Database Programmability & Administrasi PostgreSQL 16](#bagian-1)
-2. [Database Views: Virtual Tables untuk Keamanan & Abstraksi Query](#bagian-2)
-3. [Materialized Views: Caching Query Berat di Disk](#bagian-3)
-4. [Pengenalan Bahasa Prosedural PL/pgSQL & Blok Anonim](#bagian-4)
-5. [Menulis Stored Functions dengan PL/pgSQL](#bagian-5)
-6. [Parameter Fungsi & Nilai Kembalian Tabel](#bagian-6)
+1. [Pengenalan Database Programmability & Administrasi PostgreSQL 16](#1--pengenalan-database-programmability--administrasi-postgresql-16)
+2. [Database Views: Virtual Tables untuk Keamanan & Abstraksi Query](#2--database-views-virtual-tables-untuk-keamanan--abstraksi-query)
+3. [Materialized Views: Caching Query Berat di Disk](#3--materialized-views-caching-query-berat-di-disk)
+4. [Pengenalan Bahasa Prosedural PL/pgSQL & Blok Anonim](#4--pengenalan-bahasa-prosedural-plpgsql--blok-anonim)
+5. [Menulis Stored Functions dengan PL/pgSQL](#5--menulis-stored-functions-dengan-plpgsql)
+6. [Parameter Fungsi & Nilai Kembalian Tabel](#6--parameter-fungsi--nilai-kembalian-tabel)
 
 ### 🟡 Lanjutan
 
-7. [Kontrol Alur Logika di PL/pgSQL](#bagian-7)
-8. [Penanganan Error & Eksepsi di PL/pgSQL](#bagian-8)
-9. [Stored Procedures: Menjalankan Transaksi di Database](#bagian-9)
-10. [Pengenalan Database Triggers & Mental Model Event-Driven](#bagian-10)
-11. [Menulis Trigger Function](#bagian-11)
-12. [Mendefinisikan Database Trigger](#bagian-12)
-13. [Studi Kasus Trigger: Audit Logging Otomatis](#bagian-13)
-14. [Real-Time Pub/Sub Native: `LISTEN` & `NOTIFY`](#bagian-14)
-15. [Full-Text Search Modern di PostgreSQL](#bagian-15)
-16. [Optimasi Full-Text Search dengan GIN Index & Ranking](#bagian-16)
+7. [Kontrol Alur Logika di PL/pgSQL](#7--kontrol-alur-logika-di-plpgsql)
+8. [Penanganan Error & Eksepsi di PL/pgSQL](#8--penanganan-error--eksepsi-di-plpgsql)
+9. [Stored Procedures: Menjalankan Transaksi di Database](#9--stored-procedures-menjalankan-transaksi-di-database)
+10. [Pengenalan Database Triggers & Mental Model Event-Driven](#10--pengenalan-database-triggers--mental-model-event-driven)
+11. [Menulis Trigger Function](#11--menulis-trigger-function)
+12. [Mendefinisikan Database Trigger](#12--mendefinisikan-database-trigger)
+13. [Studi Kasus Trigger: Audit Logging Otomatis](#13--studi-kasus-trigger-audit-logging-otomatis)
+14. [Real-Time Pub/Sub Native: `LISTEN` & `NOTIFY`](#14--real-time-pubsub-native-listen--notify)
+15. [Full-Text Search Modern di PostgreSQL](#15--full-text-search-modern-di-postgresql)
+16. [Optimasi Full-Text Search dengan GIN Index & Ranking](#16--optimasi-full-text-search-dengan-gin-index--ranking)
 
 ### 🔴 Advanced / Operasional
 
-17. [Foreign Data Wrapper (FDW) & Federated Queries via `postgres_fdw`](#bagian-17)
-18. [Query Performance Profiling dengan Ekstensi `pg_stat_statements`](#bagian-18)
-19. [Connection Pooling di Lingkungan Produksi dengan `PgBouncer`](#bagian-19)
-20. [Manajemen User, Roles & Hak Akses](#bagian-20)
-21. [Row Level Security (RLS) untuk Multi-Tenancy & Data Isolation](#bagian-21)
-22. [Database Maintenance & Garbage Collection](#bagian-22)
-23. [Strategi Backup & Disaster Recovery](#bagian-23)
-24. [Replikasi & High Availability Dasar](#bagian-24)
+17. [Foreign Data Wrapper (FDW) & Federated Queries via `postgres_fdw`](#17--foreign-data-wrapper-fdw--federated-queries-via-postgres_fdw)
+18. [Query Performance Profiling dengan Ekstensi `pg_stat_statements`](#18--query-performance-profiling-dengan-ekstensi-pg_stat_statements)
+19. [Connection Pooling di Lingkungan Produksi dengan `PgBouncer`](#19--connection-pooling-di-lingkungan-produksi-dengan-pgbouncer)
+20. [Manajemen User, Roles & Hak Akses](#20--manajemen-user-roles--hak-akses)
+21. [Row Level Security (RLS) untuk Multi-Tenancy & Data Isolation](#21--row-level-security-rls-untuk-multi-tenancy--data-isolation)
+22. [Database Maintenance & Garbage Collection](#22--database-maintenance--garbage-collection)
+23. [Strategi Backup & Disaster Recovery](#23--strategi-backup--disaster-recovery)
+24. [Replikasi & High Availability Dasar](#24--replikasi--high-availability-dasar)
 
 ### 🛠️ Referensi & Praktik
 
-25. [Peta Ingatan Cepat](#bagian-25)
-26. [Tabel Ringkasan](#bagian-26)
-27. [Cheat Code PostgreSQL Fungsi & Administrasi 10 Detik](#bagian-27)
-28. [Urutan Belajar yang Disarankan](#bagian-28)
-29. [Mini Project: Production-Ready Enterprise Multi-Tenant E-Commerce System with Audit Triggers, Real-Time NOTIFY, Materialized Analytics, PL/pgSQL Stored Procedure, and Row Level Security (RLS)](#bagian-29)
-30. [Referensi Resmi](#bagian-30)
+25. [Peta Ingatan Cepat](#25-️-peta-ingatan-cepat)
+26. [Tabel Ringkasan](#26--tabel-ringkasan)
+27. [Cheat Code PostgreSQL Fungsi & Administrasi 10 Detik](#27--cheat-code-postgresql-fungsi--administrasi-10-detik)
+28. [Urutan Belajar yang Disarankan](#28--urutan-belajar-yang-disarankan)
+29. [Mini Project: Production-Ready Enterprise Multi-Tenant E-Commerce System with Audit Triggers, Real-Time NOTIFY, Materialized Analytics, PL/pgSQL Stored Procedure, and Row Level Security (RLS)](#29-️-mini-project-production-ready-enterprise-multi-tenant-e-commerce-system-with-audit-triggers-real-time-notify-materialized-analytics-plpgsql-stored-procedure-and-row-level-security-rls)
+30. [Referensi Resmi](#30--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Database Programmability & Administrasi PostgreSQL 16
 
@@ -134,8 +132,6 @@ Database Programmability → memindahkan eksekusi logika bisnis berat langsung k
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Database Views: Virtual Tables untuk Keamanan & Abstraksi Query
 
@@ -169,8 +165,6 @@ CREATE VIEW view_name AS SELECT ...; → tabel virtual penyederhana query dan pe
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Materialized Views: Caching Query Berat di Disk
 
@@ -209,8 +203,6 @@ CREATE MATERIALIZED VIEW mv AS ...; REFRESH MATERIALIZED VIEW CONCURRENTLY mv; �
 
 ---
 
-<a id="bagian-4"></a>
-
 ## 4. 🟢 Pengenalan Bahasa Prosedural PL/pgSQL & Blok Anonim
 
 #### Konsep
@@ -240,8 +232,6 @@ DO $$ DECLARE ... BEGIN ... END $$; → mengeksekusi blok kode PL/pgSQL sekali p
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Menulis Stored Functions dengan PL/pgSQL
 
@@ -286,8 +276,6 @@ CREATE FUNCTION fn_name(params) RETURNS type LANGUAGE plpgsql AS $$ ... $$; → 
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Parameter Fungsi & Nilai Kembalian Tabel
 
 #### Konsep
@@ -331,8 +319,6 @@ RETURNS TABLE (col type) ... RETURN QUERY SELECT ...; → fungsi database yang m
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟡 Kontrol Alur Logika di PL/pgSQL
 
 #### Konsep
@@ -372,8 +358,6 @@ FOR record_var IN (SELECT ...) LOOP ... END LOOP; → iterasi baris hasil query 
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟡 Penanganan Error & Eksepsi di PL/pgSQL
 
@@ -426,8 +410,6 @@ RAISE EXCEPTION 'pesan' → melempar error dan rollback | EXCEPTION WHEN OTHERS 
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Stored Procedures: Menjalankan Transaksi di Database
 
 #### Konsep
@@ -467,8 +449,6 @@ CREATE PROCEDURE pr_name() ... CALL pr_name(); → prosedur database mandiri yan
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Pengenalan Database Triggers & Mental Model Event-Driven
 
 #### Konsep
@@ -491,8 +471,6 @@ BEFORE Trigger untuk validasi data | AFTER Trigger untuk audit logging dan sinkr
 ```
 
 ---
-
-<a id="bagian-11"></a>
 
 ## 11. 🟡 Menulis Trigger Function
 
@@ -528,8 +506,6 @@ RETURNS TRIGGER ... RETURN NEW; → fungsi trigger yang menyematkan nilai modifi
 
 ---
 
-<a id="bagian-12"></a>
-
 ## 12. 🟡 Mendefinisikan Database Trigger
 
 #### Konsep
@@ -552,8 +528,6 @@ CREATE TRIGGER trg_name BEFORE UPDATE ON tbl FOR EACH ROW EXECUTE FUNCTION fn_na
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Studi Kasus Trigger: Audit Logging Otomatis
 
@@ -611,8 +585,6 @@ Audit Trigger AFTER UPDATE OR DELETE → mencatat riwayat perubahan data sensiti
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Real-Time Pub/Sub Native: `LISTEN` & `NOTIFY`
 
 #### Konsep
@@ -664,8 +636,6 @@ PERFORM pg_notify('channel', payload::text); | LISTEN channel; → real-time pub
 
 ---
 
-<a id="bagian-15"></a>
-
 ## 15. 🟡 Full-Text Search Modern di PostgreSQL
 
 #### Konsep
@@ -691,8 +661,6 @@ to_tsvector(text) @@ to_tsquery(query) → operator pencarian full-text search l
 ```
 
 ---
-
-<a id="bagian-16"></a>
 
 ## 16. 🟡 Optimasi Full-Text Search dengan GIN Index & Ranking
 
@@ -734,8 +702,6 @@ ts_rank(vector, query) → menghitung skor relevansi pencarian teks lengkap
 ```
 
 ---
-
-<a id="bagian-17"></a>
 
 ## 17. 🔴 Foreign Data Wrapper (FDW) & Federated Queries via `postgres_fdw`
 
@@ -790,8 +756,6 @@ CREATE EXTENSION postgres_fdw; IMPORT FOREIGN SCHEMA ... INTO schema_lokal; → 
 
 ---
 
-<a id="bagian-18"></a>
-
 ## 18. 🔴 Query Performance Profiling dengan Ekstensi `pg_stat_statements`
 
 #### Konsep
@@ -830,8 +794,6 @@ SELECT query, calls, mean_exec_time FROM pg_stat_statements ORDER BY total_exec_
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🔴 Connection Pooling di Lingkungan Produksi dengan `PgBouncer`
 
 #### Konsep
@@ -856,8 +818,6 @@ PgBouncer Transaction Pooling → connection pooler ringan yang memungkinkan rib
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 🔴 Manajemen User, Roles & Hak Akses
 
@@ -893,8 +853,6 @@ CREATE ROLE app_user WITH LOGIN; GRANT SELECT, INSERT, UPDATE ON ALL TABLES TO a
 ```
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. 🔴 Row Level Security (RLS) untuk Multi-Tenancy & Data Isolation
 
@@ -932,8 +890,6 @@ ALTER TABLE tbl ENABLE ROW LEVEL SECURITY; CREATE POLICY p ON tbl USING (tenant_
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🔴 Database Maintenance & Garbage Collection
 
 #### Konsep
@@ -954,8 +910,6 @@ VACUUM ANALYZE table_name; → membersihkan dead tuples sampah MVCC dan memperba
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🔴 Strategi Backup & Disaster Recovery
 
@@ -984,8 +938,6 @@ pg_dump -F c -f db.dump dbname (backup arsip biner terkompresi) | pg_restore -d 
 
 ---
 
-<a id="bagian-24"></a>
-
 ## 24. 🔴 Replikasi & High Availability Dasar
 
 #### Konsep
@@ -1004,8 +956,6 @@ Streaming Replication → mereplikasi seluruh cluster database ke server Read Re
 
 ---
 
-<a id="bagian-25"></a>
-
 ## 25. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1021,8 +971,6 @@ DATABASE PROGRAMMABILITY     ADVANCED EXTENSIONS & FDW     ADMINISTRATION & SECU
 ```
 
 ---
-
-<a id="bagian-26"></a>
 
 ## 26. 📚 Tabel Ringkasan
 
@@ -1043,8 +991,6 @@ DATABASE PROGRAMMABILITY     ADVANCED EXTENSIONS & FDW     ADMINISTRATION & SECU
 
 ---
 
-<a id="bagian-27"></a>
-
 ## 27. ⚡ Cheat Code PostgreSQL Fungsi & Administrasi 10 Detik
 
 ```sql
@@ -1062,8 +1008,6 @@ IMPORT FOREIGN SCHEMA public FROM SERVER remote_srv INTO remote_schema;
 ```
 
 ---
-
-<a id="bagian-28"></a>
 
 ## 28. 🧭 Urutan Belajar yang Disarankan
 
@@ -1095,8 +1039,6 @@ Langkah 5: Selamat! Anda Telah Menjadi Database Architect PostgreSQL Handal!
 ```
 
 ---
-
-<a id="bagian-29"></a>
 
 ## 29. 🏗️ Mini Project: Production-Ready Enterprise Multi-Tenant E-Commerce System with Audit Triggers, Real-Time NOTIFY, Materialized Analytics, PL/pgSQL Stored Procedure, and Row Level Security (RLS)
 
@@ -1257,8 +1199,6 @@ SELECT id, tenant_id, action, new_data->>'customer_name' AS customer FROM audit_
 ```
 
 ---
-
-<a id="bagian-30"></a>
 
 ## 30. 🔗 Referensi Resmi
 

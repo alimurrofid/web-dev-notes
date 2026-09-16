@@ -77,43 +77,41 @@ OncePerRequestFilter  → base class filter yang menjamin eksekusi tepat satu ka
 
 ### 🟢 Fundamental
 
-1. [Pengenalan Spring Security 6 & Mental Model Security Filter Chain](#bagian-1)
-2. [Perubahan Fundamental di Spring Security 6](#bagian-2)
-3. [Anatomi `SecurityFilterChain` Bean Dasar](#bagian-3)
-4. [Password Hashing Aman dengan `BCryptPasswordEncoder`](#bagian-4)
-5. [Implementasi `UserDetails` & `UserDetailsService`](#bagian-5)
-6. [Mekanisme Otentikasi: `AuthenticationManager` & `DaoAuthenticationProvider`](#bagian-6)
-7. [Pengenalan JSON Web Token (JWT) & Mental Model Stateless Auth](#bagian-7)
-8. [Membangun `JwtService` Utility (JJWT 0.12+)](#bagian-8)
+1. [Pengenalan Spring Security 6 & Mental Model Security Filter Chain](#1--pengenalan-spring-security-6--mental-model-security-filter-chain)
+2. [Perubahan Fundamental di Spring Security 6](#2--perubahan-fundamental-di-spring-security-6)
+3. [Anatomi `SecurityFilterChain` Bean Dasar](#3--anatomi-securityfilterchain-bean-dasar)
+4. [Password Hashing Aman dengan `BCryptPasswordEncoder`](#4--password-hashing-aman-dengan-bcryptpasswordencoder)
+5. [Implementasi `UserDetails` & `UserDetailsService`](#5--implementasi-userdetails--userdetailsservice)
+6. [Mekanisme Otentikasi: `AuthenticationManager` & `DaoAuthenticationProvider`](#6--mekanisme-otentikasi-authenticationmanager--daoauthenticationprovider)
+7. [Pengenalan JSON Web Token (JWT) & Mental Model Stateless Auth](#7--pengenalan-json-web-token-jwt--mental-model-stateless-auth)
+8. [Membangun `JwtService` Utility (JJWT 0.12+)](#8--membangun-jwtservice-utility-jjwt-012)
 
 ### 🟡 Lanjutan
 
-9. [Membangun `JwtAuthenticationFilter` (`OncePerRequestFilter`)](#bagian-9)
-10. [Menghubungkan JWT Filter ke Security Filter Chain](#bagian-10)
-11. [Konfigurasi Stateless Session Management](#bagian-11)
-12. [Role-Based Access Control (RBAC) pada URL Mappings](#bagian-12)
-13. [Method-Level Security dengan `@PreAuthorize`](#bagian-13)
-14. [Mendapatkan User yang Sedang Login](#bagian-14)
-15. [Custom Error Handlers (401 Unauthorized & 403 Forbidden)](#bagian-15)
-16. [Refresh Token Mechanism](#bagian-16)
+9. [Membangun `JwtAuthenticationFilter` (`OncePerRequestFilter`)](#9--membangun-jwtauthenticationfilter-onceperrequestfilter)
+10. [Menghubungkan JWT Filter ke Security Filter Chain](#10--menghubungkan-jwt-filter-ke-security-filter-chain)
+11. [Konfigurasi Stateless Session Management](#11--konfigurasi-stateless-session-management)
+12. [Role-Based Access Control (RBAC) pada URL Mappings](#12--role-based-access-control-rbac-pada-url-mappings)
+13. [Method-Level Security dengan `@PreAuthorize`](#13--method-level-security-dengan-preauthorize)
+14. [Mendapatkan User yang Sedang Login](#14--mendapatkan-user-yang-sedang-login)
+15. [Custom Error Handlers (401 Unauthorized & 403 Forbidden)](#15--custom-error-handlers-401-unauthorized--403-forbidden)
+16. [Refresh Token Mechanism](#16--refresh-token-mechanism)
 
 ### 🔴 Advanced / Operasional
 
-17. [Mengapa CSRF Dinonaktifkan pada REST API Stateless](#bagian-17)
-18. [Integrasi CORS dengan Spring Security](#bagian-18)
+17. [Mengapa CSRF Dinonaktifkan pada REST API Stateless](#17--mengapa-csrf-dinonaktifkan-pada-rest-api-stateless)
+18. [Integrasi CORS dengan Spring Security](#18--integrasi-cors-dengan-spring-security)
 
 ### 🛠️ Referensi & Praktik
 
-19. [Peta Ingatan Cepat](#bagian-19)
-20. [Tabel Ringkasan](#bagian-20)
-21. [Cheat Code Spring Security & JWT 10 Detik](#bagian-21)
-22. [Urutan Belajar yang Disarankan](#bagian-22)
-23. [Mini Project: Production-Ready Auth & Role-Based Access Control (RBAC) RESTful API](#bagian-23)
-24. [Referensi Resmi](#bagian-24)
+19. [Peta Ingatan Cepat](#19-️-peta-ingatan-cepat)
+20. [Tabel Ringkasan](#20--tabel-ringkasan)
+21. [Cheat Code Spring Security & JWT 10 Detik](#21--cheat-code-spring-security--jwt-10-detik)
+22. [Urutan Belajar yang Disarankan](#22--urutan-belajar-yang-disarankan)
+23. [Mini Project: Production-Ready Auth & Role-Based Access Control (RBAC) RESTful API](#23-️-mini-project-production-ready-auth--role-based-access-control-rbac-restful-api)
+24. [Referensi Resmi](#24--referensi-resmi)
 
 ---
-
-<a id="bagian-1"></a>
 
 ## 1. 🟢 Pengenalan Spring Security 6 & Mental Model Security Filter Chain
 
@@ -155,8 +153,6 @@ Authorization  → proses pengecekan izin akses pengguna ke resource tertentu (H
 ```
 
 ---
-
-<a id="bagian-2"></a>
 
 ## 2. 🟢 Perubahan Fundamental di Spring Security 6
 
@@ -205,8 +201,6 @@ SecurityFilterChain Bean → pola modern mendefinisikan konfigurasi keamanan men
 ```
 
 ---
-
-<a id="bagian-3"></a>
 
 ## 3. 🟢 Anatomi `SecurityFilterChain` Bean Dasar
 
@@ -260,8 +254,6 @@ http.authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll(
 ```
 
 ---
-
-<a id="bagian-4"></a>
 
 ## 4. 🟢 Password Hashing Aman dengan `BCryptPasswordEncoder`
 
@@ -329,8 +321,6 @@ passwordEncoder.matches(rawPassword, hash)→ memverifikasi apakah password ment
 ```
 
 ---
-
-<a id="bagian-5"></a>
 
 ## 5. 🟢 Implementasi `UserDetails` & `UserDetailsService`
 
@@ -420,8 +410,6 @@ UserDetailsService.loadUserByUsername(username) → method jembatan mengambil ak
 
 ---
 
-<a id="bagian-6"></a>
-
 ## 6. 🟢 Mekanisme Otentikasi: `AuthenticationManager` & `DaoAuthenticationProvider`
 
 #### Konsep
@@ -474,8 +462,6 @@ authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user,
 
 ---
 
-<a id="bagian-7"></a>
-
 ## 7. 🟢 Pengenalan JSON Web Token (JWT) & Mental Model Stateless Auth
 
 #### Konsep
@@ -504,8 +490,6 @@ Header.Payload.Signature → 3 bagian penyusun string token JWT yang dipisahkan 
 ```
 
 ---
-
-<a id="bagian-8"></a>
 
 ## 8. 🟢 Membangun `JwtService` Utility (JJWT 0.12+)
 
@@ -602,8 +586,6 @@ jwtService.isTokenValid(token, userDetails)    → memvalidasi integritas tanda 
 
 ---
 
-<a id="bagian-9"></a>
-
 ## 9. 🟡 Membangun `JwtAuthenticationFilter` (`OncePerRequestFilter`)
 
 #### Konsep
@@ -697,8 +679,6 @@ SecurityContextHolder.getContext().setAuthentication(authToken) → mendaftarkan
 
 ---
 
-<a id="bagian-10"></a>
-
 ## 10. 🟡 Menghubungkan JWT Filter ke Security Filter Chain
 
 #### Konsep
@@ -745,8 +725,6 @@ http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) 
 
 ---
 
-<a id="bagian-11"></a>
-
 ## 11. 🟡 Konfigurasi Stateless Session Management
 
 #### Konsep
@@ -770,8 +748,6 @@ SessionCreationPolicy.STATELESS → memastikan server tidak menyimpan state sesi
 ```
 
 ---
-
-<a id="bagian-12"></a>
 
 ## 12. 🟡 Role-Based Access Control (RBAC) pada URL Mappings
 
@@ -810,8 +786,6 @@ http.authorizeHttpRequests(auth -> auth
 ```
 
 ---
-
-<a id="bagian-13"></a>
 
 ## 13. 🟡 Method-Level Security dengan `@PreAuthorize`
 
@@ -875,8 +849,6 @@ public class ProductSecurityController {
 
 ---
 
-<a id="bagian-14"></a>
-
 ## 14. 🟡 Mendapatkan User yang Sedang Login
 
 #### Konsep
@@ -929,8 +901,6 @@ public class UserProfileController {
 ```
 
 ---
-
-<a id="bagian-15"></a>
 
 ## 15. 🟡 Custom Error Handlers (401 Unauthorized & 403 Forbidden)
 
@@ -1017,8 +987,6 @@ AccessDeniedHandler      → menangani respons error 403 Forbidden dalam format 
 
 ---
 
-<a id="bagian-16"></a>
-
 ## 16. 🟡 Refresh Token Mechanism
 
 #### Konsep
@@ -1050,8 +1018,6 @@ Refresh Token → token berumur panjang untuk memperbarui Access Token tanpa mem
 
 ---
 
-<a id="bagian-17"></a>
-
 ## 17. 🔴 Mengapa CSRF Dinonaktifkan pada REST API Stateless
 
 #### Konsep
@@ -1069,8 +1035,6 @@ http.csrf(AbstractHttpConfigurer::disable) → menonaktifkan proteksi CSRF karen
 ```
 
 ---
-
-<a id="bagian-18"></a>
 
 ## 18. 🔴 Integrasi CORS dengan Spring Security
 
@@ -1104,8 +1068,6 @@ http.cors(Customizer.withDefaults()) → mengintegrasikan izin CORS ke dalam Sec
 
 ---
 
-<a id="bagian-19"></a>
-
 ## 19. 🛠️ Peta Ingatan Cepat
 
 ```text
@@ -1121,8 +1083,6 @@ AUTENTIKASI & PASSWORD         JWT FILTER PIPELINE             OTORISASI & RBAC
 ```
 
 ---
-
-<a id="bagian-20"></a>
 
 ## 20. 📚 Tabel Ringkasan
 
@@ -1142,8 +1102,6 @@ AUTENTIKASI & PASSWORD         JWT FILTER PIPELINE             OTORISASI & RBAC
 | `AccessDeniedHandler` | Interface | Menangani respons error 403 Forbidden |
 
 ---
-
-<a id="bagian-21"></a>
 
 ## 21. ⚡ Cheat Code Spring Security & JWT 10 Detik
 
@@ -1172,8 +1130,6 @@ public ResponseEntity<Void> deleteUser(@PathVariable Long id) { ... }
 
 ---
 
-<a id="bagian-22"></a>
-
 ## 22. 🧭 Urutan Belajar yang Disarankan
 
 ```text
@@ -1201,8 +1157,6 @@ Langkah 5: Siap Melangkah ke Automated Testing (MockMvc & Mockito)!
 ```
 
 ---
-
-<a id="bagian-23"></a>
 
 ## 23. 🏗️ Mini Project: Production-Ready Auth & Role-Based Access Control (RBAC) RESTful API
 
@@ -1517,8 +1471,6 @@ public class SecurityApplication {
 ```
 
 ---
-
-<a id="bagian-24"></a>
 
 ## 24. 🔗 Referensi Resmi
 
