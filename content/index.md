@@ -47,6 +47,7 @@ Dasar bahasa pemrograman, object-oriented programming, standard library, generic
 
 ### 4. DevOps
 
+- **Linux**: [[linux-dasar|Linux Dasar]] · [[linux-administrasi-sistem|Linux Administrasi Sistem]] · [[linux-networking-security|Linux Networking & Security]] · [[linux-bash-scripting|Linux Bash Scripting]]
 - **Git**: [[git-dasar|Git Dasar]] · [[git-lanjutan|Git Lanjutan]] · [[git-workflow-kolaborasi|Git Workflow & Kolaborasi]]
 - **Docker**: [[docker-dasar|Docker Dasar]] · [[dockerfile-dasar|Dockerfile Dasar]] · [[docker-compose-dasar|Docker Compose Dasar]]
 - **NGINX**: [[nginx-dasar|NGINX Dasar]] · [[nginx-reverse-proxy|NGINX Reverse Proxy]] · [[nginx-security-ssl|NGINX Security & SSL]]
