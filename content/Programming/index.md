@@ -1,6 +1,6 @@
 ---
 title: "Programming"
-description: "Kurikulum komprehensif bahasa pemrograman modern: Java, JavaScript, TypeScript, dan PHP dari level fundamental hingga enterprise."
+description: "Kurikulum komprehensif bahasa pemrograman modern: Java, JavaScript, TypeScript, PHP, dan SAP ABAP dari level fundamental hingga enterprise."
 order: 1
 tags:
   - programming
@@ -8,6 +8,8 @@ tags:
   - javascript
   - typescript
   - php
+  - abap
+  - sap
   - knowledge-base
 ---
 
@@ -23,3 +25,4 @@ tags:
 - **[[Programming/JavaScript/index|JavaScript]]:** Bahasa standar web modern untuk interaktivitas dinamis frontend dan runtime Node.js.
 - **[[Programming/TypeScript/index|TypeScript]]:** Superset JavaScript dengan sistem static typing tangguh untuk codebase skala besar.
 - **[[Programming/PHP/index|PHP]]:** Bahasa server-side web paling populer yang menggerakkan mayoritas ekosistem web dinamis.
+- **[[Programming/ABAP/index|SAP ABAP]]:** Bahasa pemrograman enterprise tingkat tinggi milik SAP untuk sistem ERP global (ECC & S/4HANA).

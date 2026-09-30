@@ -26,6 +26,7 @@ Dasar bahasa pemrograman, object-oriented programming, standard library, generic
 - **JavaScript**: [[javascript-dasar|JavaScript Dasar]] · [[javascript-dom|JavaScript DOM]] · [[javascript-oop|JavaScript OOP]] · [[javascript-standard-library|JavaScript Standard Library]]
 - **TypeScript**: [[typescript-dasar|TypeScript Dasar]] · [[typescript-oop-generics|TypeScript OOP & Generics]] · [[typescript-advanced|TypeScript Advanced]]
 - **Java**: [[java-dasar|Java Dasar]] · [[java-oop|Java OOP]] · [[java-generic|Java Generic]] · [[java-collection|Java Collection]] · [[java-lambda-stream|Java Lambda & Stream]] · [[java-database|Java Database (JDBC)]]
+- **SAP ABAP**: [[abap-dasar|ABAP Dasar]] · [[abap-dictionary|ABAP Data Dictionary (DDIC)]] · [[abap-internal-tables|ABAP Internal Tables]] · [[abap-database|ABAP Database & Open SQL]] · [[abap-modularization|ABAP Modularization & Integration]] · [[abap-reports-alv|ABAP Reports & ALV Grid]] · [[abap-oop|ABAP Objects (OOP)]] · [[abap-enhancement|ABAP Enhancement Framework]] · [[abap-debugging-performance|ABAP Debugging & Performance]] · [[abap-cds-s4hana|ABAP CDS Views & AMDP]] · [[abap-rap-odata|ABAP RAP & OData]]
 
 ### 2. Web Development
 
