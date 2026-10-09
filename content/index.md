@@ -26,6 +26,7 @@ Dasar bahasa pemrograman, object-oriented programming, standard library, generic
 - **JavaScript**: [[javascript-dasar|JavaScript Dasar]] · [[javascript-dom|JavaScript DOM]] · [[javascript-oop|JavaScript OOP]] · [[javascript-standard-library|JavaScript Standard Library]]
 - **TypeScript**: [[typescript-dasar|TypeScript Dasar]] · [[typescript-oop-generics|TypeScript OOP & Generics]] · [[typescript-advanced|TypeScript Advanced]]
 - **Java**: [[java-dasar|Java Dasar]] · [[java-oop|Java OOP]] · [[java-generic|Java Generic]] · [[java-collection|Java Collection]] · [[java-lambda-stream|Java Lambda & Stream]] · [[java-database|Java Database (JDBC)]]
+- **C#**: [[csharp-dasar|C# Dasar]] · [[csharp-oop|C# OOP]] · [[csharp-generic|C# Generic]] · [[csharp-collection|C# Collection Framework]] · [[csharp-linq|C# LINQ]] · [[csharp-async-threading|C# Asynchronous & Concurrency]]
 - **SAP ABAP**: [[abap-dasar|ABAP Dasar]] · [[abap-dictionary|ABAP Data Dictionary (DDIC)]] · [[abap-internal-tables|ABAP Internal Tables]] · [[abap-database|ABAP Database & Open SQL]] · [[abap-modularization|ABAP Modularization & Integration]] · [[abap-reports-alv|ABAP Reports & ALV Grid]] · [[abap-oop|ABAP Objects (OOP)]] · [[abap-enhancement|ABAP Enhancement Framework]] · [[abap-debugging-performance|ABAP Debugging & Performance]] · [[abap-cds-s4hana|ABAP CDS Views & AMDP]] · [[abap-rap-odata|ABAP RAP & OData]]
 
 ### 2. Web Development
@@ -34,6 +35,7 @@ Dasar bahasa pemrograman, object-oriented programming, standard library, generic
 
 - **Laravel**: [[laravel-dasar|Laravel Dasar]] · [[laravel-database|Laravel Database]] · [[laravel-eloquent|Laravel Eloquent]] · [[laravel-collection|Laravel Collection]]
 - **Spring Boot**: [[springboot-dasar|Spring Boot Dasar]] · [[springboot-web|Spring Boot Web (REST API)]] · [[springboot-jpa|Spring Boot Data JPA]] · [[springboot-security|Spring Boot Security]] · [[springboot-testing|Spring Boot Testing]]
+- **ASP.NET Core (.NET 10 LTS)**: [[dotnet-dasar|ASP.NET Core Dasar]] · [[dotnet-web-api|Minimal APIs & Web API]] · [[dotnet-efcore|Entity Framework Core 10]] · [[dotnet-security|Keamanan & Autentikasi]] · [[dotnet-testing|Testing ASP.NET Core]]
 
 #### Frontend
 

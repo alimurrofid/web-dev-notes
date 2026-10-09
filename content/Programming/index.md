@@ -1,9 +1,11 @@
 ---
 title: "Programming"
-description: "Kurikulum komprehensif bahasa pemrograman modern: Java, JavaScript, TypeScript, PHP, dan SAP ABAP dari level fundamental hingga enterprise."
+description: "Kurikulum komprehensif bahasa pemrograman modern: C#, Java, JavaScript, TypeScript, PHP, dan SAP ABAP dari level fundamental hingga enterprise."
 order: 1
 tags:
   - programming
+  - csharp
+  - dotnet
   - java
   - javascript
   - typescript
@@ -22,6 +24,7 @@ tags:
 ## Bahasa Pemrograman yang Dipelajari
 
 - **[[Programming/Java/index|Java]]:** Bahasa strongly-typed enterprise dengan JVM handal dan ekosistem backend raksasa.
+- **[[Programming/CSharp/index|C#]]:** Bahasa modern, type-safe, dan berkinerja tinggi dari Microsoft dengan runtime .NET 10 LTS untuk enterprise backend, cloud, dan microservices.
 - **[[Programming/JavaScript/index|JavaScript]]:** Bahasa standar web modern untuk interaktivitas dinamis frontend dan runtime Node.js.
 - **[[Programming/TypeScript/index|TypeScript]]:** Superset JavaScript dengan sistem static typing tangguh untuk codebase skala besar.
 - **[[Programming/PHP/index|PHP]]:** Bahasa server-side web paling populer yang menggerakkan mayoritas ekosistem web dinamis.
