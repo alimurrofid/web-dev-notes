@@ -200,8 +200,31 @@ public class Product {
     public void setPrice(Double price) { this.price = price; }
     public Integer getStock() { return stock; }
     public void setStock(Integer stock) { this.stock = stock; }
+
+    // Implementasi equals & hashCode proxy-safe untuk JPA Entity
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        // Wajib gunakan Hibernate.getClass() untuk mengatasi Hibernate Dynamic ByteBuddy Proxy
+        if (org.hibernate.Hibernate.getClass(this) != org.hibernate.Hibernate.getClass(o)) return false;
+        Product product = (Product) o;
+        return id != null && java.util.Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        // Mengembalikan nilai konstan agar lokasi bucket pada HashSet/HashMap tidak rusak saat ID digenerate
+        return getClass().hashCode();
+    }
 }
 ```
+
+> [!WARNING]
+> **Kontrak `equals()` & `hashCode()` pada JPA Entity:**
+> 1. **Hibernate Dynamic Proxy:** Jangan pernah menggunakan `getClass() != o.getClass()` standar. Saat relasi di-load secara `LAZY`, Hibernate membungkus entity dalam proxy subclass (`Product$HibernateProxy$abcd`). Gunakan `org.hibernate.Hibernate.getClass(this)` agar perbandingan tipe tetap valid.
+> 2. **Bahaya Lombok `@Data`:** DILARANG menggunakan Lombok `@Data` atau `@EqualsAndHashCode` pada class `@Entity`. Anotasi tersebut menyertakan seluruh field relasi ke dalam `hashCode()` dan `toString()`, yang memicu loop tak berujung (**`StackOverflowError`**) pada relasi dua arah dan eksekusi kueri SQL lazy-loading massal yang merusak performa.
+> 3. **Nilai HashCode Konstan:** Sebelum entity di-persist ke database, `id` bernilai `null`, lalu berubah menjadi angka setelah `save()`. Menghitung hash code dari `id` akan merusak integritas struktur data `HashSet` atau `HashMap`. Oleh karena itu, gunakan `getClass().hashCode()`.
 
 **Hafalan:**
 
@@ -833,12 +856,46 @@ public class OrderTransactionService {
 }
 ```
 
+> [!WARNING]
+> **Spring AOP Proxy Mechanism & Self-Invocation Trap:**
+> Anotasi `@Transactional` bekerja melalui **Spring AOP Proxy (CGLIB / JDK Dynamic Proxy)**. Ketika sebuah method memanggil method `@Transactional` lain **di dalam class yang sama** (*self-invocation*, misal `this.processOrder()`), panggilan tersebut langsung mengeksekusi objek asli dan **melewati proxy Spring**.
+> Akibatnya, transaksi **TIDAK AKAN DIBUKA** dan mekanisme rollback otomatis tidak berfungsi!
+> 
+> ```java
+> @Service
+> public class OrderService {
+>     public void checkout(Order order) {
+>         // ❌ SELF-INVOCATION TRAP: @Transactional di processOrder() DIABAIKAN!
+>         this.processOrder(order);
+>     }
+> 
+>     @Transactional
+>     public void processOrder(Order order) {
+>         // Transaksi tidak aktif jika dipanggil via this.processOrder()
+>     }
+> }
+> ```
+> **Solusi:** Selalu panggil method `@Transactional` antar-bean yang berbeda (dari Controller atau Service lain), atau pisahkan logika transaksional ke class service/komponen mandiri.
+
+#### Propagasi Transaksi (`Propagation`)
+
+Ketika method `@Transactional` memanggil method `@Transactional` lainnya di bean yang berbeda, atribut `propagation` menentukan batas transaksinya:
+
+| Propagasi | Perilaku Transaksi | Skenario Penggunaan |
+|---|---|---|
+| `REQUIRED` *(Default)* | Bergabung dengan transaksi yang sedang aktif. Jika belum ada, buat transaksi baru. | Operasi bisnis standar (misal: Create Order + Deduct Stock). |
+| `REQUIRES_NEW` | Selalu membuat transaksi baru yang independen dan menunda (*suspend*) transaksi luar. | Audit log atau notifikasi kegagalan yang wajib disimpan permanen meski proses utama rollback. |
+| `SUPPORTS` | Berjalan dalam transaksi jika ada; jika tidak ada, berjalan non-transaksional. | Operasi read-only umum. |
+| `MANDATORY` | Wajib dipanggil dalam transaksi yang sudah aktif. Melempar exception jika tidak ada transaksi. | Method internal yang berbahaya jika dieksekusi di luar transaksi. |
+
 **Hafalan:**
 
 ```text
 @Transactional                          → mengelola batas transaksi database secara otomatis (Commit/Rollback)
 @Transactional(readOnly = true)         → optimasi transaksi khusus baca tanpa overhead dirty checking
 @Transactional(rollbackFor = Exception) → memastikan rollback terjadi untuk semua jenis exception
+Propagation.REQUIRED                    → gabung ke transaksi yang ada atau buat baru (default)
+Propagation.REQUIRES_NEW                → buat transaksi baru independen, tunda transaksi saat ini
 ```
 
 ---

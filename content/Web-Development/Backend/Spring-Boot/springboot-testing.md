@@ -81,7 +81,7 @@ AssertJ              → library assertion yang menyediakan method chaining eksp
 
 9. [Slice Testing Controller Layer dengan `@WebMvcTest` & `MockMvc`](#9--slice-testing-controller-layer-dengan-webmvctest--mockmvc)
 10. [Simulasi HTTP Request & Assertion dengan `MockMvc` (`jsonPath`)](#10--simulasi-http-request--assertion-dengan-mockmvc-jsonpath)
-11. [Menyuntikkan Mock Bean ke Spring Context dengan `@MockBean`](#11--menyuntikkan-mock-bean-ke-spring-context-dengan-mockbean)
+11. [Menyuntikkan Mock Bean ke Spring Context dengan `@MockitoBean` & `@MockBean`](#11--menyuntikkan-mock-bean-ke-spring-context-dengan-mockitobean--mockbean)
 12. [Testing Request Body JSON & Multipart File Upload](#12--testing-request-body-json--multipart-file-upload)
 13. [Testing Validasi Jakarta (`@Valid`) & Global Exception Handler](#13--testing-validasi-jakarta-valid--global-exception-handler)
 14. [Slice Testing Database Layer dengan `@DataJpaTest`](#14--slice-testing-database-layer-dengan-datajpatest)
@@ -511,7 +511,7 @@ Untuk menguji Controller Layer, kita tidak perlu menyalakan database atau servic
 
 Gunakan **`@WebMvcTest(TargetController.class)`**:
 - Hanya memuat komponen web (`@Controller`, `@RestControllerAdvice`, `Converter`, `Filter`, Spring Security).
-- **Service Layer diganti menjadi `@MockBean`**.
+- **Service Layer diganti menjadi mock bean (`@MockitoBean` / `@MockBean`)**.
 - Menggunakan **`MockMvc`** untuk mengirim request HTTP palsu secara lokal tanpa membuka port jaringan TCP.
 
 #### Cara Kerja
@@ -563,7 +563,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+// Spring Boot 3.4+ (Standar Baru):
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+// Spring Boot 3.0 - 3.3: import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -577,8 +579,9 @@ class ProductControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private ProductService productService; // Disuntikkan ke Spring Context WebMvc
+    // Disuntikkan ke Spring Context WebMvc (@MockitoBean di 3.4+, @MockBean di 3.0-3.3)
+    @MockitoBean
+    private ProductService productService;
 
     @Test
     @DisplayName("GET /api/v1/products/{id} harus mengembalikan 200 OK dan JSON Product")
@@ -606,20 +609,28 @@ mockMvc.perform(get(url)).andExpect(status().isOk()).andExpect(jsonPath("$.path"
 
 ---
 
-## 11. 🟡 Menyuntikkan Mock Bean ke Spring Context dengan `@MockBean`
+## 11. 🟡 Menyuntikkan Mock Bean ke Spring Context dengan `@MockitoBean` & `@MockBean`
 
 #### Konsep
 
 Ketika menggunakan `@WebMvcTest`, Spring mencari bean dependency yang dibutuhkan oleh Controller (misal: `ProductService`). Jika tidak disediakan, konteks test akan gagal menyala (*NoSuchBeanDefinitionException*).
 
-Anotasi **`@MockBean`**:
-- Membuat mock Mockito dan **mendaftarkannya ke dalam ApplicationContext Spring**.
-- Otomatis menggantikan bean asli di seluruh komponen yang membutuhkan.
+Mekanisme Mocking Bean di Spring Boot:
+- **`@MockitoBean` (Spring Boot 3.4+ / Spring Framework 6.2+):** Standar modern resmi pengganti `@MockBean`. Membuat mock Mockito dan mendaftarkannya langsung ke dalam ApplicationContext Spring via Test Bean Overriding.
+- **`@MockBean` (Spring Boot 3.0 – 3.3):** Pendekatan legacy yang masih didukung untuk backward compatibility.
+
+> [!NOTE]
+> **Pembaruan Spring Boot 3.4+ / Spring Framework 6.2:**
+> Anotasi `@MockBean` dan `@SpyBean` (`org.springframework.boot.test.mock.mockito.MockBean`) resmi **didepresiasi (deprecated)** pada Spring Boot 3.4 dan digantikan oleh:
+> - **`@MockitoBean`** (`org.springframework.test.context.bean.override.mockito.MockitoBean`)
+> - **`@MockitoSpyBean`** (`org.springframework.test.context.bean.override.mockito.MockitoSpyBean`)
+> Keduanya menyediakan integrasi yang seragam dan lebih efisien dengan mekanisme *Bean Overriding* Spring Test Framework.
 
 **Hafalan:**
 
 ```text
-@MockBean TargetService mockService → mendaftarkan mock Mockito ke dalam ApplicationContext Spring
+@MockitoBean TargetService mockService → standar modern mendaftarkan mock Mockito ke ApplicationContext (Spring Boot 3.4+)
+@MockBean TargetService mockService    → versi legacy mendaftarkan mock Mockito ke ApplicationContext (Spring Boot 3.0-3.3)
 ```
 
 ---

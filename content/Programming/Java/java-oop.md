@@ -2218,6 +2218,11 @@ Kontrak Java:
 Jika a.equals(b) == true ──> Maka a.hashCode() WAJIB SAMA DENGAN b.hashCode()
 ```
 
+> [!TIP]
+> **Pemeriksaan Tipe: `getClass()` vs `instanceof`:**
+> 1. **`getClass() != o.getClass()` (Ketat / Strict Same-Class):** Mengharuskan kedua objek berasal dari class yang persis sama. Menjaga prinsip simetri secara ketat, cocok untuk class domain biasa.
+> 2. **`!(o instanceof TargetClass)` (Polimorfik & Subclass Friendly):** Mengizinkan pembandingan jika subclass hanya menambahkan behavior tanpa state baru. Pendekatan ini juga krusial pada framework ORM seperti Hibernate JPA, di mana objek dibungkus dalam Dynamic Proxy subclass (lihat materi [[springboot-jpa|Spring Data JPA]] mengenai identitas entity proxy-safe via `Hibernate.getClass()`).
+
 **Hafalan:**
 
 ```text

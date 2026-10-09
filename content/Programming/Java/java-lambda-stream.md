@@ -876,6 +876,25 @@ Hasil Stream Pipeline    : [ALPUKAT, ANGGUR, APEL]
 fruits (Source) ──> filter("A") ──> map(Upper) ──> sorted() ──> toList() (Hasil)
 ```
 
+> [!WARNING]
+> **Anti-Pattern Mutasi State Eksternal (Side-Effects) pada Stream:**
+> Jangan pernah memodifikasi koleksi di luar stream menggunakan `.forEach(item -> list.add(item))`!
+> ```java
+> // ❌ SALAH (Stateful Side-Effect):
+> List<Double> bonus = new ArrayList<>();
+> gajis.stream()
+>     .filter(g -> g > 10_000_000)
+>     .forEach(g -> bonus.add(g * 0.1)); // Rawan bug & merusak paradigma fungsional!
+> 
+> // ✅ BENAR (Deklaratif & Pure Function):
+> List<Double> bonus = gajis.stream()
+>     .filter(g -> g > 10_000_000)
+>     .map(g -> g * 0.1)
+>     .toList();
+> ```
+> **Mengapa Berbahaya?**
+> Jika stream diubah menjadi `.parallelStream()`, method `ArrayList.add()` yang diakses secara simultan tanpa sinkronisasi akan mengalami *race condition*, menyebabkan *data loss*, atau melempar `ArrayIndexOutOfBoundsException`. Pipeline stream harus bersifat murni (*pure function*) tanpa efek samping ke state di luar stream.
+
 **Hafalan:**
 
 ```text

@@ -341,24 +341,28 @@ package com.belajar.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class ThirdPartyConfig {
 
-    // Mendaftarkan SimpleDateFormat dari library Java standar sebagai Spring Bean
+    // Mendaftarkan DateTimeFormatter (Java Time API: 100% Thread-Safe & Immutable)
     @Bean
-    public SimpleDateFormat standardDateFormat() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public DateTimeFormatter standardDateFormatter() {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     }
 
     // Memberi nama kustom pada bean
-    @Bean(name = "indonesianDateFormat")
-    public SimpleDateFormat indonesianDateFormat() {
-        return new SimpleDateFormat("dd MMMM yyyy");
+    @Bean(name = "indonesianDateFormatter")
+    public DateTimeFormatter indonesianDateFormatter() {
+        return DateTimeFormatter.ofPattern("dd MMMM yyyy");
     }
 }
 ```
+
+> [!WARNING]
+> **Thread-Safety Hazard pada Singleton Bean:**
+> Hindari mendaftarkan class yang **mutable** dan **tidak thread-safe** (seperti `java.text.SimpleDateFormat`) sebagai singleton bean di Spring. Karena bean singleton diakses bersamaan oleh berbagai thread HTTP request secara paralel, penggunaan class yang tidak thread-safe akan memicu *race condition*, merusak konsistensi data (*date corruption*), atau melempar `NumberFormatException`. Selalu gunakan class *immutable* dan *thread-safe* seperti **`java.time.format.DateTimeFormatter`**.
 
 #### Cara Kerja
 
