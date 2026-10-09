@@ -1,5 +1,5 @@
 ---
-title: "ASP.NET Core Web API & Minimal APIs (.NET 10 LTS)"
+title: "ASP.NET Core Web API & Minimal APIs"
 description: "Panduan komprehensif pembuatan RESTful Web API di .NET 10 LTS: Minimal APIs modern vs Controllers, Parameter Binding, TypedResults, Endpoint Filters, FluentValidation, Problem Details (RFC 7807), Global IExceptionHandler, dan OpenAPI bawaan."
 order: 2
 tags:
@@ -12,7 +12,7 @@ tags:
   - openapi
 ---
 
-# ASP.NET Core Web API & Minimal APIs (.NET 10 LTS)
+# ASP.NET Core Web API & Minimal APIs
 
 > Target: Pemula hingga Menengah  
 > Versi: .NET 10 LTS (C# 14)  

@@ -20,5 +20,5 @@ tags:
    → Framework serbaguna dengan ekosistem Eloquent ORM terbaik, routing deklaratif, dan migrasi skema database terintegrasi.
 2. **[[Web-Development/Backend/Spring-Boot/index|Spring Boot (Java)]]**
    → Standar industri perbankan dan enterprise dengan Dependency Injection terpadu, Spring Data JPA, dan Spring Security JWT.
-3. **[[Web-Development/Backend/DotNet/index|ASP.NET Core (.NET 10 LTS)]]**
+3. **[[Web-Development/Backend/DotNet/index|ASP.NET Core]]**
    → Web framework cloud-native berkinerja ekstrem dengan Kestrel, Minimal APIs, Entity Framework Core 10, dan JWT/Policy-based security.

@@ -1,5 +1,5 @@
 ---
-title: "Keamanan & Autentikasi ASP.NET Core (.NET 10 LTS)"
+title: "Keamanan & Autentikasi ASP.NET Core"
 description: "Panduan komprehensif keamanan dan otorisasi di .NET 10 LTS: JWT Bearer authentication, ClaimsPrincipal, Role-based vs Policy-based Authorization, Password Hashing, CORS, Rate Limiting Middleware bawaan, dan Secret Management."
 order: 4
 tags:
@@ -12,7 +12,7 @@ tags:
   - authorization
 ---
 
-# Keamanan & Autentikasi ASP.NET Core (.NET 10 LTS)
+# Keamanan & Autentikasi ASP.NET Core
 
 > Target: Pemula hingga Menengah  
 > Versi: .NET 10 LTS (C# 14)  

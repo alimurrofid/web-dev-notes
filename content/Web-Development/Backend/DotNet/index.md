@@ -1,5 +1,5 @@
 ---
-title: "ASP.NET Core (.NET 10 LTS)"
+title: "ASP.NET Core"
 description: "Kurikulum backend modern enterprise menggunakan ASP.NET Core dan .NET 10 LTS: Kestrel web server, Dependency Injection, Middleware, Minimal APIs, Entity Framework Core 10, Keamanan JWT & Policy, hingga Automated Testing."
 order: 3
 tags:
@@ -11,7 +11,7 @@ tags:
   - rest-api
 ---
 
-# ASP.NET Core (.NET 10 LTS)
+# ASP.NET Core
 
 > ASP.NET Core adalah framework web open-source, cross-platform, dan berkinerja ekstrem dari Microsoft yang dirancang untuk membangun aplikasi cloud-native, microservices, dan RESTful API modern di atas runtime .NET 10 LTS (didukung penuh hingga akhir tahun 2028).
 

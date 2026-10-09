@@ -1,5 +1,5 @@
 ---
-title: "Testing ASP.NET Core (.NET 10 LTS)"
+title: "Testing ASP.NET Core"
 description: "Panduan komprehensif automated testing di .NET 10 LTS: Piramida Testing, Unit Testing via xUnit & FluentAssertions, Mocking via NSubstitute, Integration Testing via WebApplicationFactory, dan Database Testing menggunakan Testcontainers .NET."
 order: 5
 tags:
@@ -12,7 +12,7 @@ tags:
   - testcontainers
 ---
 
-# Testing ASP.NET Core (.NET 10 LTS)
+# Testing ASP.NET Core
 
 > Target: Pemula hingga Menengah  
 > Versi: .NET 10 LTS (C# 14)  

@@ -35,7 +35,7 @@ Dasar bahasa pemrograman, object-oriented programming, standard library, generic
 
 - **Laravel**: [[laravel-dasar|Laravel Dasar]] · [[laravel-database|Laravel Database]] · [[laravel-eloquent|Laravel Eloquent]] · [[laravel-collection|Laravel Collection]]
 - **Spring Boot**: [[springboot-dasar|Spring Boot Dasar]] · [[springboot-web|Spring Boot Web (REST API)]] · [[springboot-jpa|Spring Boot Data JPA]] · [[springboot-security|Spring Boot Security]] · [[springboot-testing|Spring Boot Testing]]
-- **ASP.NET Core (.NET 10 LTS)**: [[dotnet-dasar|ASP.NET Core Dasar]] · [[dotnet-web-api|Minimal APIs & Web API]] · [[dotnet-efcore|Entity Framework Core 10]] · [[dotnet-security|Keamanan & Autentikasi]] · [[dotnet-testing|Testing ASP.NET Core]]
+- **ASP.NET Core**: [[dotnet-dasar|ASP.NET Core Dasar]] · [[dotnet-web-api|Minimal APIs & Web API]] · [[dotnet-efcore|Entity Framework Core 10]] · [[dotnet-security|Keamanan & Autentikasi]] · [[dotnet-testing|Testing ASP.NET Core]]
 
 #### Frontend
 

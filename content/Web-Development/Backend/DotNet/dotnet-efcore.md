@@ -1,5 +1,5 @@
 ---
-title: "Entity Framework Core 10 (.NET 10 LTS)"
+title: "Entity Framework Core 10"
 description: "Panduan komprehensif ORM database di .NET 10 LTS: DbContext, Code-First Migrations, Fluent API mapping, Change Tracker, No-Tracking queries, pencegahan N+1 problem, Split Queries, Value Converters, dan Interceptors."
 order: 3
 tags:
@@ -12,7 +12,7 @@ tags:
   - postgresql
 ---
 
-# Entity Framework Core 10 (.NET 10 LTS)
+# Entity Framework Core 10
 
 > Target: Pemula hingga Menengah  
 > Versi: EF Core 10 / .NET 10 LTS  

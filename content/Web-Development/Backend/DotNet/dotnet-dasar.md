@@ -1,5 +1,5 @@
 ---
-title: "ASP.NET Core Dasar (.NET 10 LTS)"
+title: "ASP.NET Core Dasar"
 description: "Panduan komprehensif arsitektur dasar ASP.NET Core di .NET 10 LTS: Kestrel web server, WebApplicationBuilder, Dependency Injection (Transient, Scoped, Singleton, Captive Dependency), Middleware Pipeline, Options Pattern, dan Structured Logging."
 order: 1
 tags:
@@ -11,7 +11,7 @@ tags:
   - dependency-injection
 ---
 
-# ASP.NET Core Dasar (.NET 10 LTS)
+# ASP.NET Core Dasar
 
 > Target: Pemula hingga Menengah  
 > Versi: .NET 10 LTS (C# 14)  
