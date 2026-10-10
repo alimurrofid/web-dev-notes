@@ -1,7 +1,7 @@
 ---
 title: "Docker"
 description: "Jalur belajar containerization Docker: arsitektur container & image, Dockerfile best practice, hingga orkestrasi multi-service Docker Compose."
-order: 2
+order: 3
 tags:
   - devops
   - docker

@@ -18,7 +18,7 @@ tags:
 
 1. 🟢 [[git-dasar|Git Dasar]] (Modul 1)
    → Tiga area Git (Working Directory, Staging Area, Repository), commit atomik, log inspeksi, dan remote origin synchronisation.
-2. 🟡 [[git-branching|Git Branching]] (Modul 2)
+2. 🟡 [[git-lanjutan|Git Lanjutan]] (Modul 2)
    → Isolasi fitur via branch, alur penggabungan (Fast-forward vs 3-Way Merge), strategi Rebase, dan teknik resolusi Merge Conflict.
-3. 🔴 [[git-workflow-collaboration|Git Workflow & Kolaborasi]] (Modul 3)
+3. 🔴 [[git-workflow-kolaborasi|Git Workflow & Kolaborasi]] (Modul 3)
    → Pola kerja tim (GitHub Flow vs Gitflow), Pull Requests & Code Review, Git Stash penyelamat kerja, dan pemulihan komit darurat (cherry-pick, revert, reset).

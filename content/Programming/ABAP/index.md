@@ -1,7 +1,7 @@
 ---
 title: "ABAP"
 description: "Kurikulum bahasa pemrograman SAP ABAP komprehensif: sintaksis dasar, ABAP Data Dictionary (DDIC), Internal Tables, Open SQL, ALV Reports, ABAP Objects (OOP), hingga paradigma modern S/4HANA (CDS Views & RAP)."
-order: 5
+order: 6
 tags:
   - programming
   - abap

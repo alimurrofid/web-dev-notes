@@ -20,7 +20,18 @@ tags:
 
 ## Pilar Teknologi DevOps
 
-- **Operating System & Server Administration (Linux / Ubuntu Server):** Fondasi sistem operasi server produksi, manajemen proses, service systemd, keamanan SSH & firewall, dan otomasi shell.
-- **Version Control System (Git):** Kolaborasi kode tim, percabangan aman, dan histori revisi.
-- **Containerization (Docker):** Standardisasi lingkungan deployment tanpa konflik dependensi.
-- **Web Server & Traffic Routing (NGINX):** Penanganan HTTP request, SSL termination, reverse proxy, dan load balancing.
+1. **[[DevOps/Linux/index|Linux (Ubuntu Server LTS)]]**
+   → Fondasi sistem operasi server produksi, navigasi CLI, manajemen berkas & hak akses, service systemd, keamanan SSH & firewall UFW, dan otomasi Bash scripting.
+   - Modul: [[linux-dasar|Linux Dasar]] · [[linux-administrasi-sistem|Linux Administrasi Sistem]] · [[linux-networking-security|Linux Networking & Security]] · [[linux-bash-scripting|Linux Bash Scripting]]
+
+2. **[[DevOps/Git/index|Git (Version Control)]]**
+   → Standar kolaborasi kode tim, isolasi percabangan branch, strategi merge & rebase, resolusi konflik, dan enterprise workflow.
+   - Modul: [[git-dasar|Git Dasar]] · [[git-lanjutan|Git Lanjutan]] · [[git-workflow-kolaborasi|Git Workflow & Kolaborasi]]
+
+3. **[[DevOps/Docker/index|Docker (Containerization)]]**
+   → Standardisasi lingkungan deployment tanpa konflik dependensi, pembuatan image efisien via Dockerfile, dan orkestrasi multi-service Docker Compose.
+   - Modul: [[docker-dasar|Docker Dasar]] · [[dockerfile-dasar|Dockerfile Dasar]] · [[docker-compose-dasar|Docker Compose Dasar]]
+
+4. **[[DevOps/NGINX/index|NGINX (Web Server & Reverse Proxy)]]**
+   → Penanganan HTTP request berkecepatan tinggi, reverse proxy, SSL/TLS termination, dan load balancing cerdas.
+   - Modul: [[nginx-dasar|NGINX Dasar]] · [[nginx-reverse-proxy|NGINX Reverse Proxy]] · [[nginx-security-ssl|NGINX Security & SSL]]

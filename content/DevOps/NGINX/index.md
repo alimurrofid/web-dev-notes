@@ -1,7 +1,7 @@
 ---
 title: "NGINX"
 description: "Jalur belajar web server NGINX: konfigurasi server block, reverse proxy performan, load balancing cerdas, dan keamanan enkripsi SSL/TLS."
-order: 3
+order: 4
 tags:
   - devops
   - nginx

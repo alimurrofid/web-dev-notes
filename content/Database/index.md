@@ -17,7 +17,7 @@ tags:
 
 ## Teknologi Database Tersedia
 
-Saat ini materi berfokus pada **PostgreSQL**, database relasional *open-source* paling canggih di dunia:
+Saat ini materi berfokus pada **[[Database/PostgreSQL/index|PostgreSQL]]**, database relasional *open-source* paling canggih di dunia:
 - [[postgresql-dasar|PostgreSQL Dasar]]: Pengenalan RDBMS, DDL/DML, constraints, dan query dasar.
 - [[postgresql-lanjutan|PostgreSQL Lanjutan]]: Multi-table JOIN, subquery, CTE (Common Table Expressions), Window Functions, dan Indexing.
 - [[postgresql-fungsi-administrasi|PostgreSQL Fungsi & Administrasi]]: Stored procedures, triggers, views, manajemen user/role, backup-restore, dan transaction isolation.
