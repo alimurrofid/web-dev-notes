@@ -431,8 +431,7 @@ public static class DemoKoordinasi
         string[] hasil = await Task.WhenAll(taskProfil, taskStok, taskDiskon);
 
         stopwatch.Stop();
-        Console.WriteLine($"
-Hasil Diterima dalam {stopwatch.ElapsedMilliseconds} ms:");
+        Console.WriteLine($"\nHasil Diterima dalam {stopwatch.ElapsedMilliseconds} ms:");
         foreach (var data in hasil)
         {
             Console.WriteLine($"- {data}");
@@ -661,7 +660,11 @@ public async Task<Order> CariOrderAsync(int id, CancellationToken cancellationTo
 ```
 
 ### 3. Gunakan `ConfigureAwait(false)` pada Library Non-UI
-Pada penulisan library infrastruktur backend (NuGet package), tambahkan `.ConfigureAwait(false)` untuk menghindari pemaksaan kembali ke *SynchronizationContext* pemanggil.
+Pada penulisan library infrastruktur umum atau paket NuGet, selalu tambahkan `.ConfigureAwait(false)` pada setiap titik `await` untuk mencegah *deadlock* dan menghindari pemaksaan kembali ke *SynchronizationContext* pemanggil.
+
+> [!NOTE]
+> **Mengapa di ASP.NET Core tidak diperlukan?**  
+> ASP.NET Core (sejak versi 1.0 hingga .NET 10 LTS) sengaja **tidak memiliki SynchronizationContext** bawaan. Seluruh kelanjutan (*continuation*) task langsung dijalankan oleh thread manapun yang tersedia di Thread Pool. Namun, jika Anda menulis *class library* yang berpotensi dikonsumsi oleh aplikasi berbasis UI (WPF, WinForms, .NET MAUI), `.ConfigureAwait(false)` tetap merupakan best practice wajib.
 
 ---
 

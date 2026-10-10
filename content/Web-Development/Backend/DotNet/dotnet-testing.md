@@ -91,14 +91,17 @@ Ekosistem **.NET 10 LTS** memiliki dukungan kelas satu untuk berbagai tingkatan 
 Dalam strategi pengujian perangkat lunak profesional, tes dibagi menjadi tiga lapisan piramida berdasarkan cakupan, kecepatan eksekusi, dan biaya pemeliharaan:
 
 ```text
-               ▲
-              /              /   \      E2E Tests (Sedikit, Lambat, Biaya Tinggi)
-            / E2E \     Menguji UI/Browser ke backend nyata end-to-end
-           /───────          /         \   Integration Tests (Sedang, Kecepatan Menengah)
-         /Integrasi  \  Menguji HTTP Pipeline, Middleware, DB nyata via Docker
-        /─────────────       /               \ Unit Tests (Sangat Banyak, Secepat Kilat O(ms))
-      /   Unit Tests    \Menguji algoritma & logika domain terisolasi murni
-     /───────────────────```
+               ┌───────────────────────────┐
+               │         E2E Tests         │  Sedikit, Lambat, Biaya Tinggi
+               │  (Browser & UI Otomatis)  │  Menguji sistem end-to-end
+               ├───────────────────────────┤
+               │     Integration Tests     │  Sedang, Kecepatan Menengah
+               │(API Pipeline, Real DB/Docker) Menguji interaksi komponen
+               ├───────────────────────────┤
+               │        Unit Tests         │  Sangat Banyak, Sangat Cepat (ms)
+               │ (xUnit + Mocks Terisolasi)│  Menguji domain logic murni
+               └───────────────────────────┘
+```
 
 1. **Unit Tests (Lapisan Terbawah & Terbesar):**
    * Menguji fungsi atau kelas tunggal secara terisolasi murni.
@@ -506,13 +509,13 @@ public sealed record TransferResponDto(string Status, decimal SisaSaldo);
 
 public class SaldoTidakCukupException(string message) : Exception(message);
 
-public interface IBatabaseRekening
+public interface IDatabaseRekening
 {
     Task<RekeningNasabah?> CariRekeningAsync(string noRek);
     Task PerbaruiSaldoAsync(string noRek, decimal saldoBaru);
 }
 
-public sealed class LayananTransferPerbankan(IBatabaseRekening db)
+public sealed class LayananTransferPerbankan(IDatabaseRekening db)
 {
     public async Task<decimal> EksekusiTransferAsync(string dariRek, string keRek, decimal nominal)
     {
@@ -542,7 +545,7 @@ public class LayananTransferPerbankanUnitTests
     public async Task EksekusiTransfer_KetikaSaldoMencukupi_HarusBerhasilDanPerbaruiDatabase()
     {
         // ARRANGE
-        var dbMock = Substitute.For<IBatabaseRekening>();
+        var dbMock = Substitute.For<IDatabaseRekening>();
         dbMock.CariRekeningAsync("REK-101")
               .Returns(new RekeningNasabah("REK-101", 1000000m)); // Saldo 1 Juta
 
@@ -562,7 +565,7 @@ public class LayananTransferPerbankanUnitTests
     public async Task EksekusiTransfer_KetikaSaldoKurang_HarusMelemparExceptionDanBatalSimpan()
     {
         // ARRANGE
-        var dbMock = Substitute.For<IBatabaseRekening>();
+        var dbMock = Substitute.For<IDatabaseRekening>();
         dbMock.CariRekeningAsync("REK-101")
               .Returns(new RekeningNasabah("REK-101", 100000m)); // Saldo hanya 100 Ribu
 
@@ -585,7 +588,7 @@ public class LayananTransferPerbankanUnitTests
     public async Task EksekusiTransfer_KetikaNominalTidakValid_HarusMelemparArgumentException(decimal nominalTidakValid)
     {
         // ARRANGE
-        var dbMock = Substitute.For<IBatabaseRekening>();
+        var dbMock = Substitute.For<IDatabaseRekening>();
         var sut = new LayananTransferPerbankan(dbMock);
 
         // ACT & ASSERT
@@ -597,40 +600,33 @@ public class LayananTransferPerbankanUnitTests
 // ==========================================
 // 3. INTEGRATION TESTING DENGAN WebApplicationFactory
 // ==========================================
-public class TransferEndpointIntegrationTests
+public class TransferEndpointIntegrationTests(WebApplicationFactory<Program> factory) 
+    : IClassFixture<WebApplicationFactory<Program>>
 {
     [Fact]
     public async Task PostTransfer_KetikaRequestValid_HarusMengembalikanStatus200Ok()
     {
-        // Setup host web in-memory
-        var builder = WebApplication.CreateBuilder();
-        
-        // Daftarkan dependensi tiruan di memori
-        var dbMock = Substitute.For<IBatabaseRekening>();
+        // 1. Arrange: Siapkan Mock Service
+        var dbMock = Substitute.For<IDatabaseRekening>();
         dbMock.CariRekeningAsync("REK-A").Returns(new RekeningNasabah("REK-A", 5000000m));
-        
-        builder.Services.AddSingleton(dbMock);
-        builder.Services.AddScoped<LayananTransferPerbankan>();
 
-        var app = builder.Build();
-
-        app.MapPost("/api/bank/transfer", async (TransferPermintaanDto dto, LayananTransferPerbankan service) =>
+        // 2. Kustomisasi container WebApplicationFactory via ConfigureTestServices
+        var client = factory.WithWebHostBuilder(builder =>
         {
-            decimal sisa = await service.EksekusiTransferAsync(dto.DariRekening, dto.KeRekening, dto.Nominal);
-            return Results.Ok(new TransferResponDto("BERHASIL", sisa));
-        });
-
-        // Simulasi request in-memory
-        await using var factory = new WebApplicationFactory<Program>();
-        var client = factory.CreateClient();
+            builder.ConfigureTestServices(services =>
+            {
+                // Ganti registrasi database di container dengan mock pengujian
+                services.AddSingleton(dbMock);
+            });
+        }).CreateClient();
 
         // Buat payload request
         var payload = new TransferPermintaanDto("REK-A", "REK-B", 1500000m);
 
-        // Kirim HTTP POST
+        // 3. Act: Kirim HTTP POST ke TestServer in-memory
         var response = await client.PostAsJsonAsync("/api/bank/transfer", payload);
 
-        // Assert HTTP Level
+        // 4. Assert HTTP Level & Respon JSON
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var hasil = await response.Content.ReadFromJsonAsync<TransferResponDto>();

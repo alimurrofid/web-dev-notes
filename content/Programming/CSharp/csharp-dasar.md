@@ -547,8 +547,8 @@ C# menyediakan sistem pertahanan null-safety komprehensif:
 2. **Nullable Reference Types (`string?`):** Menandakan bahwa variabel string secara sengaja diizinkan bernilai `null`.
 3. **Null-Coalescing (`??`):** Memberikan nilai cadangan (fallback) jika ekspresi bernilai null.
 4. **Null-Coalescing Assignment (`??=`):** Menugaskan nilai hanya jika variabel saat ini bernilai null.
-5. **Null-Conditional Operator (`?.`):** Mengakses property secara aman tanpa melempar exception jika objek bernilai null.
-6. **C# 14 Null-Conditional Assignment (`?.=`):** Menugaskan nilai ke property hanya jika objek target tidak bernilai null.
+5. **Null-Conditional Operator (`?.`):** Mengakses property atau method secara aman tanpa melempar exception jika objek bernilai null.
+6. **C# 14 Null-Conditional Assignment (`target?.Property = value`):** Menugaskan nilai ke property atau indexer (`target?[i] = value`) hanya jika objek target tidak bernilai null. Jika target bernilai null, penugasan diabaikan (*short-circuiting* tanpa mengevaluasi ekspresi sisi kanan).
 
 #### Contoh
 
@@ -566,6 +566,11 @@ Console.WriteLine($"Koneksi DB: {koneksiDb}");
 string? namaPelanggan = null;
 int? panjangNama = namaPelanggan?.Length; // Aman: tidak melempar NullReferenceException!
 Console.WriteLine($"Panjang Nama: {panjangNama ?? 0}");
+
+// Null-Conditional Assignment (C# 14)
+class ProfilUser { public string Catatan { get; set; } = ""; }
+ProfilUser? profil = null;
+profil?.Catatan = "Akun VIP Aktif"; // Aman di C# 14: tidak crash meski profil bernilai null!
 ```
 
 #### Output
@@ -579,10 +584,11 @@ Panjang Nama: 0
 **Hafalan:**
 
 ```text
-T?   → tipe data yang boleh bernilai null (nullable)
-??   → operator pemberi nilai default jika sisi kiri bernilai null
-??=  → isi nilai baru hanya jika variabel saat ini bernilai null
-?.   → akses member objek secara aman tanpa crash jika objek null
+T?                 → tipe data yang boleh bernilai null (nullable)
+??                 → operator pemberi nilai default jika sisi kiri bernilai null
+??=                → isi nilai baru hanya jika variabel saat ini bernilai null
+?.                 → akses member objek secara aman tanpa crash jika objek null
+target?.Prop = val → null-conditional assignment C# 14 (hanya isi jika target tidak null)
 ```
 
 ---
@@ -1629,10 +1635,27 @@ for (int i = 0; i < namaProduk.Length; i++)
     Console.WriteLine($"{i + 1}. {namaProduk[i],-20} : Rp {hargaProduk[i],9:N0} (Stok: {stokProduk[i]})");
 }
 
-// 3. Simulasi Transaksi Pembelian Kasir
-int pilihanId = 1;      // Beras Premium
-int jumlahBeli = 2;     // Beli 2 karung
-string tipeMember = "GOLD"; // Tipe membership pelanggan
+// 3. Simulasi Input Transaksi Kasir dengan Validasi TryParse
+string rawInputId = "1";         // Simulasi input ID produk
+string rawInputJumlah = "2";     // Simulasi input jumlah beli
+string rawInputMember = "GOLD";  // Tipe membership pelanggan
+string rawUangBayar = "200000";  // Nominal uang pembayaran tunai
+
+// Validasi ID Produk via int.TryParse
+if (!int.TryParse(rawInputId, out int pilihanId) || pilihanId < 1 || pilihanId > namaProduk.Length)
+{
+    Console.WriteLine("Error: Pilihan ID produk tidak valid!");
+    return;
+}
+
+// Validasi Jumlah Beli & Ketersediaan Stok
+if (!int.TryParse(rawInputJumlah, out int jumlahBeli) || jumlahBeli <= 0 || jumlahBeli > stokProduk[pilihanId - 1])
+{
+    Console.WriteLine("Error: Jumlah beli tidak valid atau melebihi stok yang tersedia!");
+    return;
+}
+
+string tipeMember = rawInputMember.Trim().ToUpper();
 
 Console.WriteLine("\n--- MEMPROSES TRANSAKSI ---");
 Console.WriteLine($"Item Dipilih  : {namaProduk[pilihanId - 1]}");
@@ -1666,19 +1689,17 @@ Console.WriteLine("---------------------------------------------");
 Console.WriteLine($"TOTAL TAGIHAN       : Rp {totalAkhir,12:N0}");
 Console.WriteLine("=============================================");
 
-// 6. Pembayaran & Kembalian
-decimal uangDibayar = 200_000m;
-if (uangDibayar >= totalAkhir)
+// 6. Pembayaran & Kembalian dengan Validasi decimal.TryParse
+if (!decimal.TryParse(rawUangBayar, out decimal uangDibayar) || uangDibayar < totalAkhir)
 {
-    decimal kembalian = uangDibayar - totalAkhir;
-    Console.WriteLine($"Uang Tunai Diterima : Rp {uangDibayar,12:N0}");
-    Console.WriteLine($"Uang Kembalian      : Rp {kembalian,12:N0}");
-    Console.WriteLine("\nStatus: TRANSAKSI BERHASIL LUNAS. Terima Kasih!");
+    Console.WriteLine("\nStatus: GAGAL! Pembayaran tidak valid atau uang tunai kurang.");
+    return;
 }
-else
-{
-    Console.WriteLine("\nStatus: GAGAL! Uang pembayaran kurang.");
-}
+
+decimal kembalian = uangDibayar - totalAkhir;
+Console.WriteLine($"Uang Tunai Diterima : Rp {uangDibayar,12:N0}");
+Console.WriteLine($"Uang Kembalian      : Rp {kembalian,12:N0}");
+Console.WriteLine("\nStatus: TRANSAKSI BERHASIL LUNAS. Terima Kasih!");
 ```
 
 ### Hasil Akhir

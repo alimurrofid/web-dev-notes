@@ -647,9 +647,32 @@ public static class EnumerableExtensions
 }
 ```
 
-Di C# 14, .NET memperkenalkan sintaksis modern yang jauh lebih ekspresif dan bersih: **Extension Members block (`extension Name for Type`)**. Sintaksis ini memungkinkan Anda memperluas tipe target tidak hanya dengan methods, tetapi juga properties dan operator secara deklaratif dalam satu kesatuan blok namespace.
+Di C# 14, .NET mengeksplorasi sintaksis deklaratif modern: **Extension Members block (`extension Name for Type`)**. Sintaksis ini dirancang untuk memungkinkan perluasan tipe target tidak hanya dengan methods, tetapi juga properties dan operator secara deklaratif dalam satu kesatuan blok namespace.
 
-### Contoh Extension Members di C# 14
+> [!NOTE]
+> **Status Fitur & Standar Produksi Saat Ini:**  
+> Sintaksis *Extension Members* adalah proposal evolusi desain bahasa C# 14.  
+> Untuk aplikasi enterprise produksi berbasis .NET 8 LTS (C# 12) atau .NET 9 saat ini, **Extension Methods tradisional berbasis `public static class` dengan parameter `this`** tetap merupakan standar industri mutlak yang wajib Anda kuasai karena didukung 100% di semua versi C#.
+
+### 1. Standar Universal: Extension Methods Tradisional (C# 3.0 s/d C# 13)
+
+```csharp
+public static class LinqFinanceExtensions
+{
+    public static decimal TrimmedAverage(this IEnumerable<decimal> source, decimal persentasePangkas = 0.1m)
+    {
+        var list = source.Order().ToList();
+        if (list.Count == 0) return 0m;
+
+        int jumlahPangkas = (int)(list.Count * persentasePangkas);
+        var dataValid = list.Skip(jumlahPangkas).Take(list.Count - (jumlahPangkas * 2));
+
+        return dataValid.Any() ? dataValid.Average() : 0m;
+    }
+}
+```
+
+### 2. Sintaksis Eksploratif C# 14: Extension Members Block
 
 ```csharp
 // Sintaksis Extension Members C# 14 (.NET 10 LTS)

@@ -406,7 +406,7 @@ var data = await dbContext.DaftarPelanggan
 Meskipun Eager Loading (`Include`) memecahkan masalah N+1, ada bahaya laten ketika Anda me-`Include` banyak koleksi anak sekaligus: **Cartesian Explosion**.
 
 Misalkan sebuah Pelanggan memiliki 20 Pesanan dan 10 Alamat:
-* Jika database menggabungkannya dalam 1 kueri SQL `LEFT JOIN`, database akan mengembalikan perkalian baris: $1 	imes 20 	imes 10 = 200$ baris data!
+* Jika database menggabungkannya dalam 1 kueri SQL `LEFT JOIN`, database akan mengembalikan perkalian baris: $1 \times 20 \times 10 = 200$ baris data!
 * Seluruh kolom induk `Pelanggan` (nama, email, no telepon) akan **diduplikasi berulang-ulang sebanyak 200 kali** melalui jaringan kawat database, memboroskan bandwidth jaringan dan memori aplikasi.
 
 ### Solusi: `AsSplitQuery()`
@@ -525,6 +525,9 @@ InMemory provider bawaan Microsoft **tidak mendukung constraint SQL, transaksi A
 
 ### 3. Batasi Ukuran Hasil Kueri dengan Paginasi
 Jangan pernah memanggil `.ToListAsync()` tanpa klausa `.Take(pageSize)`. Mengambil 100.000 data sekaligus ke memori akan memicu *Garbage Collection pause* dan potensi *Out of Memory*.
+
+### 4. Lindungi Integritas Data dari Tabrakan Simultan (Optimistic Concurrency)
+Pada transaksi penting seperti saldo atau inventaris, pasang token konkurensi (misal properti `byte[]` dengan anotasi `[Timestamp]` atau Fluent API `.IsRowVersion()`). Jika dua request memperbarui data yang sama secara bersamaan, EF Core melempar `DbUpdateConcurrencyException` alih-alih menimpa data pengguna lain secara buta (*lost updates*).
 
 ---
 

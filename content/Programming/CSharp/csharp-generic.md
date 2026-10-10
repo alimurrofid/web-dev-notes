@@ -1,4 +1,4 @@
----
+﻿---
 title: "C# Generic"
 description: "C# Generics modern (C# 14 & .NET 10 LTS): type-safety kompilasi, generic classes/methods, generic constraints, C# 14 nameof unbound generics, dan covariance/contravariance."
 order: 3
@@ -564,7 +564,7 @@ public class EntityProcessor<T> where T : BaseEntity, IComparable<T>
     public void CetakMetadata(T entity)
     {
         // Aman mengakses property Id dan CreatedAt karena dijamin oleh BaseEntity
-        Console.WriteLine( â "ID: {entity.Id} | Waktu Dibuat: {entity.CreatedAt:yyyy-MM-dd}");
+        Console.WriteLine($"ID: {entity.Id} | Waktu Dibuat: {entity.CreatedAt:yyyy-MM-dd}");
     }
 }
 ```
@@ -618,9 +618,9 @@ string namaList = nameof(List<>);
 string namaDictionary = nameof(Dictionary<,>);
 string namaAction = nameof(Action<,,>);
 
-Console.WriteLine( â "Unbound List       : {namaList}");
-Console.WriteLine( â "Unbound Dictionary : {namaDictionary}");
-Console.WriteLine( â "Unbound Action     : {namaAction}");
+Console.WriteLine($"Unbound List       : {namaList}");
+Console.WriteLine($"Unbound Dictionary : {namaDictionary}");
+Console.WriteLine($"Unbound Action     : {namaAction}");
 ```
 
 #### Output

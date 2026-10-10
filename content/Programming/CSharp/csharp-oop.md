@@ -249,6 +249,10 @@ public string Nama
 - Anda dapat menyisipkan logika validasi pada accessor `set` atau `get` menggunakan keyword kontekstual baru: **`field`**.
 - Kompiler Roslyn otomatis menghasilkan dan mengelola backing field secara transparan tanpa Anda perlu mendeklarasikan `_nama` secara manual!
 
+> [!NOTE]
+> **Kompatibilitas Versi:**  
+> Fitur contextual keyword `field` adalah inovasi C# 14 (.NET 10 LTS). Jika Anda bekerja di proyek enterprise berbasis .NET 8 LTS (C# 12) atau .NET 9, gunakan sintaksis standar backing field privat manual (`private string _nama;`) seperti pada contoh sebelum C# 14 di atas.
+
 #### Contoh
 
 ```csharp
@@ -433,6 +437,12 @@ NIM: 2026001 | Mahasiswa: Ali Murrofid | IPK: 3.92
 ```text
 public class Name(params) → primary constructor menyederhanakan deklarasi inisialisasi class
 ```
+
+> [!WARNING]
+> **Jebakan Primary Constructor pada Class Biasa (Gotcha):**  
+> Pada `record`, parameter primary constructor otomatis digenerate menjadi *public init-only property*.  
+> Namun pada **`class` biasa**, parameter tersebut **HANYA bertindak sebagai parameter constructor** yang dicapture oleh compiler.  
+> Jika Anda mendefinisikan property `public string Nama { get; set; } = nama;`, mengubah property `mhs.Nama = "Budi"` dari luar **TIDAK AKAN** mengubah nilai parameter `nama` yang dicapture jika method internal class masih membaca parameter constructor `nama` alih-alih property `Nama`! Selalu rujuk ke Property di dalam method class Anda.
 
 ---
 
@@ -1170,14 +1180,19 @@ public class CreditCardPaymentGateway : IPaymentGateway
 {
     public string NamaChannel => "Kartu Kredit Visa/Mastercard";
 
-    // Property C# 14: Validasi nomor kartu menggunakan keyword 'field'
-    public string MaskedCardNumber
+    // Menyimpan nomor kartu mentah dengan validasi 16 digit angka
+    private string _rawCardNumber = "0000000000000000";
+
+    public string CardNumber
     {
-        get => field;
-        set => field = value.Length == 16 
-            ? $"XXXX-XXXX-XXXX-{value[^4..]}" 
+        get => _rawCardNumber;
+        set => _rawCardNumber = (value.Length == 16 && value.All(char.IsDigit))
+            ? value 
             : throw new ArgumentException("Nomor kartu kredit wajib 16 digit angka!");
-    } = "XXXX-XXXX-XXXX-0000";
+    }
+
+    // Property terhitung untuk masking tampilan aman
+    public string MaskedCardNumber => $"XXXX-XXXX-XXXX-{_rawCardNumber[^4..]}";
 
     public bool ProsesBayar(Invoice invoice, decimal uangDiserahkan)
     {
@@ -1216,8 +1231,7 @@ public class CheckoutService(IPaymentGateway gateway)
             Console.WriteLine($"STATUS AKHIR      : DITOLAK!");
             Console.WriteLine($"Penyebab Error    : {ex.Message}");
         }
-        Console.WriteLine("==================================================
-");
+        Console.WriteLine("==================================================\n");
     }
 }
 
@@ -1233,7 +1247,7 @@ serviceQris.EksekusiCheckout(inv1, 300_000m);
 
 // Simulasi 2: Pembayaran Kartu Kredit Gagal (Limit Kurang)
 CreditCardPaymentGateway cc = new CreditCardPaymentGateway();
-cc.MaskedCardNumber = "4111222233334444"; // C# 14 field-backed validation
+cc.CardNumber = "4111222233334444"; // Set nomor kartu tervalidasi 16 digit
 CheckoutService serviceCc = new CheckoutService(cc);
 serviceCc.EksekusiCheckout(inv2, 1_000_000m); // Uang bayar lebih kecil dari tagihan
 ```

@@ -335,13 +335,23 @@ public static class KeamananPassword
         return _hasher.HashPassword(_userContext, plainPassword);
     }
 
-    // 2. Verifikasi Password Saat Login
-    public static bool VerifikasiPassword(string hashedPassword, string inputPassword)
+    // 2. Verifikasi Password Saat Login (Mendukung Success & SuccessRehashNeeded)
+    public static (bool IsValid, bool NeedsRehash) VerifikasiPassword(string hashedPassword, string inputPassword)
     {
         var result = _hasher.VerifyHashedPassword(_userContext, hashedPassword, inputPassword);
-        return result == PasswordVerificationResult.Success;
+        return result switch
+        {
+            PasswordVerificationResult.Success => (true, false),
+            PasswordVerificationResult.SuccessRehashNeeded => (true, true),
+            _ => (false, false)
+        };
     }
 }
+
+> [!IMPORTANT]
+> **Mengapa wajib menangani `SuccessRehashNeeded`?**  
+> Enum `PasswordVerificationResult` memiliki tiga nilai: `Failed` (0), `Success` (1), dan `SuccessRehashNeeded` (2).  
+> `SuccessRehashNeeded` menandakan kata sandi **cocok**, namun hash yang tersimpan di database menggunakan parameter versi sebelumnya (misal jumlah iterasi PBKDF2 lebih rendah dibanding konfigurasi sistem baru). Menolak login saat hasilnya `SuccessRehashNeeded` adalah bug fatal yang mengunci pengguna valid. Sistem wajib meloloskan autentikasi, lalu menyimpan hash baru ke database secara transparan.
 ```
 
 ---
@@ -616,14 +626,21 @@ app.MapPost("/api/auth/login", (LoginRequestDto dto) =>
         return Results.Unauthorized();
     }
 
-    // Verifikasi hash password
+    // Verifikasi hash password (Mendukung Success & SuccessRehashNeeded)
     var hasilVerifikasi = hasher.VerifyHashedPassword(new object(), passwordHashTersimpan, dto.Password);
-    if (hasilVerifikasi != PasswordVerificationResult.Success)
+    if (hasilVerifikasi == PasswordVerificationResult.Failed)
     {
         return Results.Unauthorized();
     }
 
+    if (hasilVerifikasi == PasswordVerificationResult.SuccessRehashNeeded)
+    {
+        // Rehash transparan: perbarui string hash di database ke standar keamanan terkini
+        passwordHashTersimpan = hasher.HashPassword(new object(), dto.Password);
+    }
+
     // Terbitkan Token JWT jika verifikasi sukses
+    // Tip: Di .NET 8+, JsonWebTokenHandler adalah alternatif resmi berperforma ~30% lebih cepat
     var tokenHandler = new JwtSecurityTokenHandler();
     var key = Encoding.UTF8.GetBytes(JwtSecretKey);
     var tokenDescriptor = new SecurityTokenDescriptor
